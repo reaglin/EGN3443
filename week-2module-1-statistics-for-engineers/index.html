@@ -5,193 +5,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Week 2/Module 1 – Statistics for Engineers | EGN3443</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --brand-dark:   #1a3a5c;
+      --brand-mid:    #2563a8;
+      --brand-light:  #dbeafe;
+      --accent:       #0ea5e9;
+      --success:      #0f766e;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted:   #64748b;
+      --bg-page:      #f1f5f9;
+      --bg-card:      #ffffff;
+      --border:       #e2e8f0;
+      --radius:       8px;
+      --shadow:       0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-hover: 0 4px 8px rgba(0,0,0,.10), 0 8px 24px rgba(0,0,0,.09);
+    }
+
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header ── */
+    /* ── Header / Hero ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
       color: #fff;
       padding: 2.5rem 1.5rem 2rem;
-      text-align: center;
     }
-
-    header .course-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.82;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      margin-bottom: 1rem;
-    }
-
-    header p.intro {
-      max-width: 680px;
+    .header-inner {
+      max-width: 1100px;
       margin: 0 auto;
-      font-size: 0.97rem;
-      opacity: 0.9;
+    }
+    .course-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 20px;
+      padding: .25rem .8rem;
+      margin-bottom: 1rem;
+      color: #e0f0ff;
+    }
+    header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: .75rem;
+    }
+    header p.intro {
+      font-size: 1rem;
+      color: #cce3f8;
+      max-width: 720px;
       line-height: 1.7;
     }
 
-    /* ── Main container ── */
+    /* ── Main Content ── */
     main {
       max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
+      margin: 2rem auto 3rem;
+      padding: 0 1.25rem;
     }
 
-    /* ── Section label ── */
+    /* ── Section Labels ── */
     .section-label {
-      font-size: 0.78rem;
+      font-size: .7rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      color: #5a7fa8;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #d0dbe8;
+      color: var(--text-muted);
+      margin-bottom: .75rem;
+      padding-left: .25rem;
+      border-left: 3px solid var(--brand-mid);
+      padding-left: .6rem;
     }
 
-    /* ── Card grid ── */
+    /* ── Card Grid ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
+      gap: 1.1rem;
+      margin-bottom: 2rem;
     }
 
     /* ── Card ── */
     .card {
-      background: #ffffff;
-      border: 1px solid #dce4ee;
-      border-radius: 10px;
-      padding: 1.3rem 1.4rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.3rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: .5rem;
+      transition: box-shadow .2s ease, transform .2s ease;
     }
-
     .card:hover {
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-hover);
       transform: translateY(-2px);
     }
 
-    /* ── Card header row ── */
-    .card-header {
+    /* Type badge + filetype */
+    .card-meta {
       display: flex;
+      align-items: center;
+      gap: .5rem;
       flex-wrap: wrap;
+    }
+    .badge {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: .2rem .55rem;
+      white-space: nowrap;
+    }
+    .badge-type {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+    }
+    .badge-type-quiz {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .badge-type-assignment {
+      background: #f0fdf4;
+      color: #14532d;
+    }
+    .badge-type-module {
+      background: #ede9fe;
+      color: #4c1d95;
+    }
+    .badge-filetype {
+      background: var(--bg-page);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      font-size: .65rem;
+    }
+
+    /* Card title row */
+    .card-title-row {
+      display: flex;
       align-items: baseline;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      gap: .45rem;
     }
-
     .card-name {
-      font-size: 0.97rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-      min-width: 0;
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
     }
-
     .card-name a {
-      color: #1a5cb8;
+      color: var(--brand-mid);
       text-decoration: none;
     }
-
     .card-name a:hover {
       text-decoration: underline;
-      color: #0f3f88;
+      color: var(--brand-dark);
     }
-
     .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7fa8;
+      font-size: .72rem;
+      color: var(--accent);
       text-decoration: none;
       white-space: nowrap;
-      background: #eaf1fa;
-      border: 1px solid #c0d3ea;
+      border: 1px solid var(--accent);
       border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      transition: background 0.15s, color 0.15s;
+      padding: .1rem .4rem;
+      font-weight: 500;
+      transition: background .15s, color .15s;
       flex-shrink: 0;
     }
-
     .source-link:hover {
-      background: #2563a8;
+      background: var(--accent);
       color: #fff;
-      border-color: #2563a8;
     }
 
-    /* ── Badges row ── */
-    .card-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 20px;
-    }
-
-    /* type badge colours */
-    .badge-type-module   { background: #dbeafe; color: #1e40af; }
-    .badge-type-text     { background: #d1fae5; color: #065f46; }
-    .badge-type-quiz     { background: #fef3c7; color: #92400e; }
-    .badge-type-assign   { background: #ede9fe; color: #4c1d95; }
-    .badge-type-default  { background: #f1f5f9; color: #475569; }
-
-    /* file-type badge */
-    .badge-file {
-      background: #f1f5f9;
-      color: #475569;
-      border: 1px solid #cbd5e1;
-      font-family: "Courier New", monospace;
-      letter-spacing: 0;
-    }
-
-    /* ── Description ── */
+    /* Description */
     .card-desc {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex: 1;
+      font-size: .845rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      flex-grow: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      font-size: 0.78rem;
-      color: #8fa8c2;
-      padding: 1.5rem 1rem;
-      border-top: 1px solid #dce4ee;
+      padding: 1.5rem 1rem 2rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
     }
 
     /* ── Responsive tweaks ── */
     @media (max-width: 480px) {
-      header { padding: 2rem 1rem 1.6rem; }
-      .card  { padding: 1.1rem 1.1rem 1rem; }
+      header { padding: 2rem 1rem 1.5rem; }
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -199,158 +220,237 @@
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
+  <!-- ═══════════════ HEADER ═══════════════ -->
   <header>
-    <div class="course-label">EGN3443 – Probability &amp; Statistics for Engineers</div>
-    <h1>Week 2 / Module 1 &mdash; Statistics for Engineers</h1>
-    <p class="intro">
-      This module introduces foundational statistical concepts relevant to engineering practice,
-      including descriptive statistics, measures of central tendency and spread, data variability,
-      and the role of statistics in evidence-based decision-making. Browse the artifacts below
-      to access readings, lecture slides, quizzes, and assignments for this module.
-    </p>
+    <div class="header-inner">
+      <span class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</span>
+      <h1>Week 2 / Module 1 &mdash; Statistics for Engineers</h1>
+      <p class="intro">
+        This module introduces the foundational role of statistics in engineering practice.
+        You will explore descriptive statistics, data variability, probability distributions,
+        and statistical inference, and learn how these tools support evidence-based engineering
+        decisions and quality control. Use the resources below to navigate lectures, readings,
+        topic explorations, quizzes, and assignments.
+      </p>
+    </div>
   </header>
 
+  <!-- ═══════════════ MAIN ═══════════════ -->
   <main>
-    <p class="section-label">Module Artifacts &mdash; 7 items</p>
 
+    <!-- Module Overview -->
+    <p class="section-label">Module Overview</p>
     <div class="card-grid">
 
-      <!-- 1. Module Topics -->
+      <!-- Module Topics -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type-module badge">Module Topics</span>
+          <span class="badge badge-filetype badge">.json</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="content/module_topics.html">Module Topics</a>
           </span>
           <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-module">Module Topics</span>
-          <span class="badge badge-file">.json</span>
-        </div>
-        <p class="card-desc">
-          An outline of the module's learning topics spanning introductory statistics concepts,
-          descriptive statistics (central tendency, spread, shape), and data variability measures;
-          used by instructors to see scope and by learners to preview what will be covered.
-        </p>
+        <p class="card-desc">An outline of the module's learning topics spanning introductory statistics concepts, descriptive statistics (central tendency, spread, shape), and data variability measures; used by instructors to see scope and by learners to preview what will be covered.</p>
       </div>
 
-      <!-- 2. Module 0 -->
+    </div><!-- /grid -->
+
+    <!-- Lecture Slides & Readings -->
+    <p class="section-label">Lecture Slides &amp; Readings</p>
+    <div class="card-grid">
+
+      <!-- Module 0 slides -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Text Content</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="content/EGN3443_Module_0_Introduction_To_Probability_and.html">EGN3443 Module 0 – Introduction To Probability and Statistics for Engineers</a>
           </span>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">
-          A landing page linking to the Module 0 introductory PowerPoint slides on probability
-          and statistics fundamentals; learners use it to access the lecture slides for background
-          context before the main module content.
-        </p>
+        <p class="card-desc">A landing page linking to the Module 0 introductory PowerPoint slides on probability and statistics fundamentals; learners use it to access the lecture slides for background context before the main module content.</p>
       </div>
 
-      <!-- 3. Module 1 -->
+      <!-- Module 1 slides -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Text Content</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="content/EGN3443_Module_1_The_Role_of_Statistics_in_Engin.html">EGN3443 Module 1 – The Role of Statistics in Engineering</a>
           </span>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">
-          A landing page linking to the Module 1 PowerPoint slides on the role of statistics
-          in engineering; learners use it to access the core lecture presentation for this module.
-        </p>
+        <p class="card-desc">A landing page linking to the Module 1 PowerPoint slides on the role of statistics in engineering; learners use it to access the core lecture presentation for this module.</p>
       </div>
 
-      <!-- 4. Role of Statistics reading -->
+      <!-- Decision Making reading -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Text Content</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="content/The_Role_of_Statistics_in_Decision_Making.html">The Role of Statistics in Decision Making</a>
           </span>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">
-          A reading that explains how statistics supports evidence-based engineering
-          decision-making under uncertainty, referencing both Module 0 and Module 1 lectures
-          as supporting material; learners read it to understand the practical relevance of
-          statistics in engineering design and testing.
-        </p>
+        <p class="card-desc">A reading that explains how statistics supports evidence-based engineering decision-making under uncertainty, referencing both Module 0 and Module 1 lectures as supporting material; learners read it to understand the practical relevance of statistics in engineering design and testing.</p>
       </div>
 
-      <!-- 5. Quiz -->
+    </div><!-- /grid -->
+
+    <!-- Topic Detail Readings -->
+    <p class="section-label">Topic Detail Readings</p>
+    <div class="card-grid">
+
+      <!-- Topic 1 -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Topic Detail</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t1.html">Introduction to Statistics in Engineering</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading introduces the role of statistics in engineering practice, explaining why statistical thinking is essential across engineering disciplines such as civil and mechanical engineering, and serves as a conceptual foundation for learners beginning the module.</p>
+      </div>
+
+      <!-- Topic 2 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Topic Detail</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t2.html">Descriptive Statistics</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading covers descriptive statistics concepts including measures of center, spread, and distribution shape, giving learners the mathematical tools needed to summarize and interpret engineering datasets before conducting deeper analysis.</p>
+      </div>
+
+      <!-- Topic 3 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Topic Detail</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t3.html">Data Variability and Distribution Shape</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading explains data variability and distribution shape—including how spread, center, and visual form of data are analyzed—and is used by learners to understand how datasets behave in engineering and quality management contexts.</p>
+      </div>
+
+      <!-- Topic 4 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Topic Detail</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t4.html">Probability Distributions</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading covers probability distributions and their mathematical frameworks for modeling uncertainty in engineering scenarios such as manufacturing defects, dimensional variation, and network traffic, helping learners connect probability theory to real engineering decisions.</p>
+      </div>
+
+      <!-- Topic 5 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Topic Detail</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t5.html">Statistical Inference and Interpretation</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading covers statistical inference concepts—drawing conclusions about populations from samples—including methods engineers use when it is impractical to measure entire populations, serving as a guide for learners interpreting sample-based engineering data.</p>
+      </div>
+
+      <!-- Topic 6 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type badge">Topic Detail</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t6.html">Applications in Engineering Analysis and Quality Control</a>
+          </span>
+        </div>
+        <p class="card-desc">This reading covers applied statistical methods in engineering analysis and quality control, showing learners how to interpret real-world manufacturing and process data using statistical tools to support engineering decision-making and quality assurance.</p>
+      </div>
+
+    </div><!-- /grid -->
+
+    <!-- Assessment -->
+    <p class="section-label">Assessment</p>
+    <div class="card-grid">
+
+      <!-- Quiz -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-quiz badge">Quiz</span>
+          <span class="badge badge-filetype badge">.json</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="quiz/index.html">Quiz Question Bank (26 questions)</a>
           </span>
           <a class="source-link" href="source/quiz_questions.json">source file</a>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-quiz">Quiz</span>
-          <span class="badge badge-file">.json</span>
-        </div>
-        <p class="card-desc">
-          A 26-question quiz bank covering identification of populations vs. samples, use of
-          Venn diagrams to distinguish population from sample, and classification of statements
-          as descriptive or inferential statistics; instructors use it to generate assessments
-          and learners use it to test their grasp of foundational statistical concepts.
-        </p>
+        <p class="card-desc">A 26-question quiz bank covering identification of populations vs. samples, use of Venn diagrams to distinguish population from sample, and classification of statements as descriptive or inferential statistics; instructors use it to generate assessments and learners use it to test their grasp of foundational statistical concepts.</p>
       </div>
 
-      <!-- 6. Assignment 1 -->
+      <!-- Assignment 1 -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type-assignment badge">Assignment</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="assignments/index.html">Assignment 1 – Getting Started</a>
           </span>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-assign">Assignment</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">
-          A getting-started assignment requiring learners to demonstrate readiness by submitting
-          a report with two screen captures showing they can run Python (or R) in Google Colab
-          and write reports; used to verify students have the necessary software skills before
-          tackling later assignments.
-        </p>
+        <p class="card-desc">A getting-started assignment requiring learners to demonstrate readiness by submitting a report with two screen captures showing they can run Python (or R) in Google Colab and write reports; used to verify students have the necessary software skills before tackling later assignments.</p>
       </div>
 
-      <!-- 7. Module 1 Graded Discussion -->
+      <!-- Graded Discussion -->
       <div class="card">
-        <div class="card-header">
+        <div class="card-meta">
+          <span class="badge badge-type-assignment badge">Assignment</span>
+          <span class="badge badge-filetype badge">.html</span>
+        </div>
+        <div class="card-title-row">
           <span class="card-name">
             <a href="assignments/index.html">Module 1 Graded Discussion</a>
           </span>
         </div>
-        <div class="card-badges">
-          <span class="badge badge-type-assign">Assignment</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">
-          A graded discussion assignment in which learners query an AI tool about why data
-          collection matters in engineering and how data is used, then post and cite the AI's
-          response; used to introduce AI-assisted statistical inquiry and prompt reflection on
-          data's role in engineering processes.
-        </p>
+        <p class="card-desc">A graded discussion assignment in which learners query an AI tool about why data collection matters in engineering and how data is used, then post and cite the AI's response; used to introduce AI-assisted statistical inquiry and prompt reflection on data's role in engineering processes.</p>
       </div>
 
-    </div><!-- /.card-grid -->
+    </div><!-- /grid -->
+
   </main>
 
+  <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer>
-    EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 2 / Module 1
+    <p>EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 2 / Module 1</p>
   </footer>
 
 

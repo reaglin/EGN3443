@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applications in Engineering Analysis and Quality Control</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+  <header>
+    <h1>Applications in Engineering Analysis and Quality Control</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applications in Engineering Analysis and Quality Control</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Engineering practice is inseparable from data. Every time a machined part comes off a lathe, every time a batch of composite resin is cured, every time a sensor reading is logged in a control system, data is generated. The challenge for engineers is not merely collecting that data but interpreting it rigorously and acting on it intelligently. Statistics provides the formal language for doing exactly that. This topic explores how statistical methods are applied across the full span of engineering quality assurance — from monitoring live production processes and characterizing material properties, to making probabilistic reliability predictions, designing sampling plans, and driving structured problem-solving. Together these applications form an integrated toolkit that separates disciplined engineering from guesswork.</p>
+
+<p><strong>Statistical Process Control (SPC) in Manufacturing</strong></p>
+
+<p>Every manufacturing process, no matter how well designed, produces output that varies. A stamping press will not produce parts of exactly identical dimensions; an injection molding machine will not fill every cavity with precisely the same volume of material. The critical engineering question is not whether variation exists — it always does — but rather what <em>kind</em> of variation is present and what, if anything, should be done about it.</p>
+
+<p>SPC distinguishes between two fundamentally different sources of variation. <strong>Common cause variation</strong> (also called natural or inherent variation) is the background noise of a stable process — the cumulative effect of many small, unavoidable influences such as minor temperature fluctuations, slight raw-material differences, and tool vibration. A process exhibiting only common cause variation is said to be <em>in statistical control</em>; its behavior is predictable within a known range. <strong>Special cause variation</strong> (also called assignable cause variation) arises from a specific, identifiable source: a worn tool, an operator error, a batch of out-of-spec material, a sudden equipment shift. Special causes produce patterns that stand out statistically from the background noise and signal that something requires investigation.</p>
+
+<p><strong>Control charts</strong> are the primary tool for making this distinction visible in real time. A control chart plots a process measurement (or a statistic derived from it) in time order, with three reference lines superimposed: the center line (typically the process mean) and the upper and lower control limits (UCL and LCL). Control limits are computed from actual process data — not from engineering specifications — and are conventionally set at ±3 standard deviations of the plotted statistic from the center line. This placement means that, for a stable normal process, roughly 99.73% of plotted points will fall within the limits by chance alone. A point outside the control limits, or a non-random pattern within them (such as eight consecutive points on the same side of the center line, or a steadily trending sequence), is statistical evidence of a special cause.</p>
+
+<p>The most widely used chart pair for continuous measurements is the <strong>X̄-R chart</strong> (average and range chart). Subgroups of typically 4–5 consecutive parts are sampled at regular intervals. The subgroup mean (X̄) is plotted on the upper chart to monitor the process level, while the subgroup range (R) is plotted on the lower chart to monitor process spread. Control limits for both charts are derived using tabulated constants (d₂, A₂, D₃, D₄) that account for subgroup size. For individual measurements where subgrouping is impractical — common in chemical or continuous processes — the <strong>Individuals and Moving Range (I-MR) chart</strong> is used instead.</p>
+
+<p>Consider a practical example: an automotive manufacturer monitors the diameter of engine valve stems. Subgroups of five parts are measured every 30 minutes. After collecting 25 subgroups to establish control limits, the X̄ chart shows all points within limits with no discernible pattern — the turning process is in control. Three shifts later, the chart shows four consecutive points trending upward, approaching the UCL. This pattern triggers investigation before any part exceeds specification; the team discovers that the cutting tool is approaching the end of its useful life and replaces it proactively. Without SPC, the first evidence of the problem might have been a batch of scrapped parts found during final inspection.</p>
+
+<p>This proactive posture — intervening on signals rather than reacting to defects — is the central economic argument for SPC. <strong>SPC reduces waste and rework</strong> because problems are caught early, when fewer nonconforming units have been produced and when the root cause is still fresh and identifiable. It also reduces the temptation toward over-adjustment: an operator who sees a slightly off-center measurement and immediately tweaks the process without statistical justification is adding variation rather than removing it — a phenomenon W. Edwards Deming called tampering.</p>
+
+<p><strong>Process capability indices</strong> extend the SPC framework from process stability to process performance relative to engineering requirements. Once a process is demonstrated to be in statistical control (so that its variation is predictable), engineers ask a second question: is the natural spread of the process narrow enough to reliably produce parts within the engineering specification limits?</p>
+
+<p>The index <strong>Cp</strong> (process capability) answers this question by comparing the width of the specification to the width of the process:</p>
+
+<pre><code>Cp = (USL - LSL) / (6σ)</code></pre>
+
+<p>where USL and LSL are the upper and lower specification limits and σ is the process standard deviation (estimated from control chart data, typically as R̄/d₂ or s̄/c₄). A Cp of 1.0 means the process spread exactly equals the specification width — marginal capability where any centering error will produce defects. A Cp of 1.33 is a common minimum target, meaning the process spread occupies only 75% of the specification window. A Cp of 2.0 corresponds to the Six Sigma ideal.</p>
+
+<p>Cp, however, says nothing about where the process is centered. A highly precise process that is consistently off-center can still produce many nonconforming parts. The index <strong>Cpk</strong> corrects for this by measuring the distance from the process mean to the nearest specification limit, expressed in units of 3σ:</p>
+
+<pre><code>Cpk = min[(USL - μ) / (3σ),  (μ - LSL) / (3σ)]</code></pre>
+
+<p>When the process is perfectly centered, Cpk equals Cp. When the process is off-center, Cpk is less than Cp, and the difference reveals how much performance is being lost to centering error. An engineer seeing Cp = 1.5 but Cpk = 0.9 knows immediately that the process has sufficient natural precision but is running too close to one specification limit — a centering problem solvable without reducing variability.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cpk Value</th>
+      <th>Process Capability Assessment</th>
+      <th>Approximate Defect Rate (centered process)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Less than 1.00</td>
+      <td>Incapable — defects being produced</td>
+      <td>Greater than 2,700 ppm</td>
+    </tr>
+    <tr>
+      <td>1.00</td>
+      <td>Marginally capable</td>
+      <td>~2,700 ppm</td>
+    </tr>
+    <tr>
+      <td>1.33</td>
+      <td>Adequate for most applications</td>
+      <td>~64 ppm</td>
+    </tr>
+    <tr>
+      <td>1.67</td>
+      <td>Good capability</td>
+      <td>~0.6 ppm</td>
+    </tr>
+    <tr>
+      <td>2.00</td>
+      <td>Six Sigma level</td>
+      <td>~0.002 ppm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Descriptive Statistics for Engineering Data Interpretation</strong></p>
+
+<p>Before any sophisticated analysis can be performed, engineers must summarize and characterize their data. Descriptive statistics provide the quantitative vocabulary for this task, translating a raw collection of numbers into a coherent picture of a process or phenomenon.</p>
+
+<p><strong>Measures of central tendency</strong> identify the typical or representative value in a dataset:</p>
+
+<ul>
+  <li>The <strong>mean</strong> (arithmetic average) is the most commonly used measure and is sensitive to all values in the dataset, including extreme ones. For a dataset of n values: μ = Σxᵢ / n. In engineering, the mean of a dimension or material property represents the process target.</li>
+  <li>The <strong>median</strong> is the middle value when data are sorted in order. It is robust to outliers and is preferred when the data distribution is skewed or when extreme values may be measurement errors. For example, in a dataset of fracture strengths where one anomalously low value may reflect a test artifact, the median gives a better sense of typical material behavior.</li>
+  <li>The <strong>mode</strong> is the most frequently occurring value. It is most useful for discrete or categorical data — for instance, identifying the most common failure code in a warranty database.</li>
+</ul>
+
+<p><strong>Measures of dispersion</strong> quantify the spread or variability around the central value:</p>
+
+<ul>
+  <li>The <strong>range</strong> (maximum minus minimum) is simple to compute and intuitive, making it useful for real-time SPC (as in the R chart). Its weakness is that it depends only on the two most extreme values and disregards all others.</li>
+  <li>The <strong>variance</strong> (σ² for a population, s² for a sample) is the average squared deviation from the mean. Squaring the deviations ensures that positive and negative deviations do not cancel: s² = Σ(xᵢ − x̄)² / (n − 1). The (n − 1) denominator in the sample formula is Bessel's correction, which accounts for the fact that the sample mean is used as an estimate of the unknown population mean.</li>
+  <li>The <strong>standard deviation</strong> (σ or s) is the square root of the variance, restoring the original units of measurement. It is the most widely used measure of process spread in engineering and directly enters the formulas for control limits and capability indices.</li>
+</ul>
+
+<p>For engineering data analysis, <strong>visualization</strong> is at least as important as numerical summaries. Two tools are particularly valuable:</p>
+
+<p>A <strong>histogram</strong> divides the range of data into bins and displays the frequency of observations in each bin as a bar. It reveals the shape of the distribution (symmetric, skewed left or right, bimodal), the location of the center, and the overall spread. A bimodal histogram, for example, often signals that data from two different process settings or two different machines have been pooled — a condition that would distort all further analysis if not identified.</p>
+
+<p>A <strong>box plot</strong> (box-and-whisker plot) displays five summary statistics simultaneously: the minimum, the first quartile (Q1, the 25th percentile), the median (Q2), the third quartile (Q3, the 75th percentile), and the maximum. The interquartile range (IQR = Q3 − Q1) is represented by the box width and is itself a robust measure of spread. Points beyond 1.5 × IQR from the box edges are plotted individually as potential outliers. Box plots are especially powerful for comparing multiple groups side by side — for example, comparing the tensile strength distributions of parts produced on three different shifts or by five different suppliers.</p>
+
+<p>Accurate descriptive statistics underpin every downstream engineering decision. A mean that misrepresents the typical value because outliers were not examined, or a standard deviation inflated by a mixed dataset, will propagate errors into tolerance calculations, control limit settings, and capability indices. The habit of <em>looking</em> at data before analyzing it — through histograms and box plots — is one of the most practically valuable habits an engineer can develop.</p>
+
+<p><strong>Probability Distributions in Reliability and Failure Analysis</strong></p>
+
+<p>Many engineering quantities do not take fixed values — they are inherently variable and are best described by probability distributions. Selecting the right distribution for a given phenomenon is not merely a mathematical formality; it determines whether the resulting predictions will be accurate enough to trust for safety-critical decisions.</p>
+
+<p>The <strong>normal distribution</strong> (Gaussian distribution) is the most familiar and frequently applicable. Its bell-shaped, symmetric probability density function is characterized by just two parameters: the mean μ (location) and the standard deviation σ (spread). The normal distribution arises naturally wherever a quantity is the sum of many small, independent random effects — which describes a remarkable range of engineering phenomena including dimensional variation from machining processes, measurement errors from instruments, and variability in material properties such as yield strength and modulus of elasticity. The 68-95-99.7 rule (approximately 68%, 95%, and 99.7% of values fall within 1, 2, and 3 standard deviations of the mean, respectively) gives engineers immediate intuition about the probability of extreme values.</p>
+
+<p>For reliability and failure analysis, the <strong>exponential distribution</strong> plays a central role. It describes the time between events in a Poisson process — a process where events occur independently at a constant average rate. In reliability engineering, this corresponds to a system with a constant hazard rate (failure rate): the probability of failing in the next instant is the same regardless of how long the system has already been operating. This is called the <em>memoryless property</em> and is most appropriate for failures caused by random external shocks rather than by cumulative wear or fatigue. Electronic components (particularly when operating in their useful-life phase, after infant mortality has been eliminated) often exhibit approximately exponential failure times.</p>
+
+<p>The exponential distribution has a single parameter λ (the failure rate), and the mean time between failures (MTBF) is simply its reciprocal:</p>
+
+<pre><code>MTBF = 1 / λ</code></pre>
+
+<p>The probability that a component survives (does not fail) until time t — its reliability function R(t) — is:</p>
+
+<pre><code>R(t) = e^(-λt)</code></pre>
+
+<p>For example, if a pump controller has a failure rate of λ = 0.0002 failures per hour (MTBF = 5,000 hours), the probability that it operates without failure for a 1,000-hour mission is R(1000) = e^(−0.0002 × 1000) = e^(−0.2) ≈ 0.819, or about 82%.</p>
+
+<p>The <strong>Weibull distribution</strong> is a more flexible model that can represent increasing, constant, or decreasing failure rates depending on its shape parameter β:</p>
+
+<ul>
+  <li>β &lt; 1: Decreasing failure rate (infant mortality — early failures from manufacturing defects)</li>
+  <li>β = 1: Constant failure rate (reduces to the exponential distribution — random failures)</li>
+  <li>β &gt; 1: Increasing failure rate (wear-out failures — aging or fatigue)</li>
+</ul>
+
+<p>The Weibull distribution's versatility makes it the workhorse of mechanical reliability analysis, especially for bearings, structural components, and systems subject to fatigue or degradation over time. By fitting Weibull parameters to failure data from accelerated life testing, engineers can extrapolate to predict field reliability under normal operating conditions.</p>
+
+<p>These probabilistic models directly inform engineering decisions: an MTBF estimate determines preventive maintenance intervals; a reliability function evaluated at the warranty period tells a manufacturer how many warranty claims to expect; a safety factor is sized to ensure that the probability of structural failure remains below an acceptable threshold (e.g., 1 in 10⁶).</p>
+
+<p><strong>Quality Control and Acceptance Sampling</strong></p>
+
+<p>Even with SPC monitoring production in real time, there are situations where a final checkpoint on finished goods or incoming materials is necessary — particularly at supplier interfaces where the receiving organization has no visibility into the supplier's production process. Inspecting every single item in a large lot (100% inspection) is often economically impractical and, paradatorily, is statistically shown to be less than perfectly effective because inspector fatigue causes missed defects. <strong>Acceptance sampling</strong> offers a statistically principled alternative: inspect a random sample from the lot, and use the sample's defect count to make an accept-or-reject decision about the entire lot.</p>
+
+<p>A sampling plan is defined by two parameters: <strong>n</strong> (the sample size drawn from the lot) and <strong>c</strong> (the acceptance number — the maximum number of defectives in the sample that will still result in lot acceptance). The plan (n, c) creates a probability of acceptance for any given lot defect rate p. This relationship is captured by the <strong>Operating Characteristic (OC) curve</strong>, which plots the probability of acceptance Pa on the vertical axis against the actual lot fraction defective p on the horizontal axis.</p>
+
+<p>An ideal OC curve would be a step function: accept all lots with p below the acceptable quality level and reject all lots above it. In reality, because sampling introduces uncertainty, the OC curve is an S-shaped curve. Two specific points on the OC curve are of particular interest to engineers and their suppliers:</p>
+
+<ul>
+  <li>The <strong>Acceptable Quality Level (AQL)</strong> is the worst level of quality (highest defect rate) that is still considered acceptable. At the AQL, the sampling plan is designed to have a high probability of acceptance (typically 95%), so the probability of rejecting an acceptable lot — the <strong>producer's risk</strong> (α) — is typically 5%.</li>
+  <li>The <strong>Lot Tolerance Percent Defective (LTPD)</strong> or Rejectable Quality Level (RQL) is the defect rate at which the lot is considered clearly unacceptable. At the LTPD, the probability of accepting the lot — the <strong>consumer's risk</strong> (β) — is typically set at 10%.</li>
+</ul>
+
+<p>Increasing sample size n steepens the OC curve (making it a better discriminator between good and bad lots) but raises inspection cost. Increasing the acceptance number c shifts the curve to the right (making the plan more lenient) without proportional improvement in discrimination. Engineers use published standards to navigate these trade-offs systematically. <strong>ISO 2859-1</strong> (equivalent to MIL-STD-105E, now superseded in US defense use by MIL-STD-1916) provides complete sampling tables organized by AQL and lot size, along with switching rules — procedures for automatically tightening inspection when quality history deteriorates and relaxing it when consistent quality is demonstrated. This switching mechanism makes acceptance sampling plans self-adapting and defensible in supplier quality agreements.</p>
+
+<p>Acceptance sampling and SPC are complementary, not competing, tools. SPC monitors a process over time to maintain control; acceptance sampling provides a binary accept/reject decision at defined transfer points. An effective quality system deploys both: SPC within production and acceptance sampling at receiving inspection or final audit.</p>
+
+<p><strong>Data-Driven Decision Making in Engineering Problem-Solving</strong></p>
+
+<p>Statistical tools become most powerful when they are embedded in a structured problem-solving process. Ad hoc data collection and informal pattern recognition can suggest hypotheses, but statistical methods provide the formal apparatus for testing those hypotheses rigorously and quantifying the relationships between variables.</p>
+
+<p><strong>Hypothesis testing</strong> is the formal procedure for deciding whether an observed difference — between two process means, two defect rates, two material properties — reflects a real underlying difference or merely the random fluctuation inherent in any finite sample. The procedure begins with a null hypothesis H₀ (typically stating that no real difference exists) and an alternative hypothesis H₁ (stating that a real difference does exist). A test statistic is computed from the sample data, and the resulting p-value gives the probability of observing a result as extreme as the data if H₀ were true. If p is below the chosen significance level α (typically 0.05), H₀ is rejected in favor of H₁.</p>
+
+<p>A practical engineering example: a process engineer suspects that switching from coolant formulation A to formulation B increases surface finish quality (reduces roughness Ra). She runs 20 parts with each coolant under otherwise identical conditions and measures Ra. A two-sample t-test yields a p-value of 0.031. Since 0.031 &lt; 0.05, she rejects the null hypothesis and concludes there is statistically significant evidence that the coolants produce different surface roughness — justifying the switch to formulation B. Without the hypothesis test, the observed difference in sample means might have been dismissed as noise or, conversely, acted upon even if it were pure chance.</p>
+
+<p><strong>Regression analysis</strong> moves beyond comparing groups to quantifying the relationship between a continuous input variable (or multiple inputs) and an output response. Simple linear regression fits the model ŷ = β₀ + β₁x, where β₀ is the intercept and β₁ is the slope. The coefficients are estimated by least squares — minimizing the sum of squared residuals (differences between observed and fitted values). The coefficient of determination R² measures the proportion of variability in y explained by x; an R² of 0.85 means that 85% of the observed variation in the response is accounted for by the linear relationship with the input.</p>
+
+<p>In engineering, regression is used to model how process inputs affect outputs: how curing temperature affects bond strength in an adhesive, how cutting speed affects tool wear rate, how column slenderness affects buckling load. <strong>Multiple regression</strong> extends this to several inputs simultaneously, allowing engineers to isolate the effect of each variable while holding others constant — essential when process variables are correlated and individual effects cannot be separated by intuition alone.</p>
+
+<p>These statistical tools are formalized within structured improvement frameworks. <strong>Six Sigma's DMAIC methodology</strong> — Define, Measure, Analyze, Improve, Control — provides a roadmap that integrates statistical tools at each phase:</p>
+
+<ul>
+  <li><strong>Define:</strong> Clearly articulate the problem, the customer requirements (Voice of the Customer), and the project scope. Statistical tools: Pareto charts to prioritize problems by frequency or cost.</li>
+  <li><strong>Measure:</strong> Quantify the current state of the process. Statistical tools: measurement system analysis (Gage R&amp;R studies), baseline capability assessment (Cp, Cpk), and descriptive statistics.</li>
+  <li><strong>Analyze:</strong> Identify root causes of defects or variation. Statistical tools: hypothesis tests, regression analysis, failure mode and effects analysis (FMEA), cause-and-effect (Ishikawa) diagrams supported by data.</li>
+  <li><strong>Improve:</strong> Develop and implement solutions. Statistical tools: design of experiments (DOE) to systematically optimize process settings.</li>
+  <li><strong>Control:</strong> Sustain the gains. Statistical tools: updated control charts, revised control plans, documented standard operating procedures.</li>
+</ul>
+
+<p>Documentation of statistical findings throughout DMAIC — recording data collection methods, sample sizes, test statistics, p-values, and confidence intervals — is not bureaucratic overhead; it is the foundation of reproducibility. An engineering change request supported by a documented hypothesis test and regression model is defensible to management, regulators, and customers in a way that an undocumented intuition is not.</p>
+
+<p><strong>Variability Management and Tolerance Analysis</strong></p>
+
+<p>Every dimension on an engineering drawing carries a tolerance — a permitted range of deviation from the nominal value. Tolerances exist because no manufacturing process produces parts of perfectly identical size. The engineering challenge is specifying tolerances that are tight enough to ensure the assembly functions as intended, yet wide enough to be achievable without excessive cost.</p>
+
+<p>Statistical methods make this trade-off quantitative. In a <strong>tolerance stack-up analysis</strong>, the engineer asks: when multiple components with individual dimensional variations are assembled, what is the distribution of the critical assembly dimension (gap, interference, or alignment)? The simplest approach is <strong>worst-case analysis</strong>, which sums the individual tolerances arithmetically: if three components each have a tolerance of ±0.1 mm, the worst-case stack-up is ±0.3 mm. This guarantees that every assembly will meet the functional requirement, but it is highly conservative — the simultaneous occurrence of all worst-case individual dimensions is extremely unlikely in practice.</p>
+
+<p><strong>Statistical tolerance analysis</strong> replaces worst-case arithmetic with probability theory. If the individual component dimensions are independent and normally distributed (each centered on its nominal value with a standard deviation of σᵢ), the assembly dimension is also normally distributed with a standard deviation equal to the root-sum-square (RSS) of the individual standard deviations:</p>
+
+<pre><code>σ_assembly = √(σ₁² + σ₂² + σ₃² + ... + σₙ²)</code></pre>
+
+<p>For the same three-component example with individual tolerances of ±0.1 mm (each representing ±3σ, so σᵢ = 0.033 mm), the RSS assembly standard deviation is √(3 × 0.033²) = 0.057 mm, giving a ±3σ assembly tolerance of ±0.172 mm — substantially tighter than the ±0.1 mm individual tolerances but looser than the ±0.3 mm worst-case value. The trade-off: RSS analysis accepts a small probability (typically 0.27% for ±3σ limits) that an assembly will fall outside the functional requirement. Engineers explicitly set that risk level and size tolerances accordingly.</p>
+
+<p>This statistical perspective fundamentally changes how engineers think about tolerance assignment. Allocating tolerances statistically allows <strong>wider individual tolerances</strong> (reducing manufacturing cost) while still meeting assembly requirements at a specified confidence level. Conversely, for safety-critical assemblies — where even a very small probability of functional failure is unacceptable — engineers may use tighter individual tolerances or switch back to worst-case analysis with the explicit understanding that they are paying a cost premium for certainty.</p>
+
+<p>Beyond dimensional stack-ups, variability management extends to all process outputs: electrical characteristics of components, chemical concentrations in manufacturing fluids, thermal properties of insulation materials. The universal principle is that <strong>reducing process standard deviation</strong> (through better equipment, more consistent materials, optimized process parameters, and reduced environmental disturbances) expands the engineer's design freedom by widening the margin between the natural process spread and the specification limits. Every percentage point reduction in standard deviation translates directly into higher Cpk, fewer defects, and more robust designs — making variability reduction one of the highest-leverage activities in engineering quality improvement.</p>
+        <div class="notes"><strong>Notes</strong>Content covers all six subtopic areas as specified. The Weibull distribution has been included under probability distributions as a well-established complement to the exponential distribution — it is standard in reliability engineering curricula and directly extends the exponential case (β=1). The DMAIC breakdown is formatted as a list for clarity and scan-ability. All numerical examples use realistic engineering values. No heading tags used; section transitions are managed through bold lead-in sentences within paragraph flow.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

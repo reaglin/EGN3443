@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measures of Variability</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
+  <header>
+    <h1>Measures of Variability</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Measures of Variability</h2>
+      <p>When we summarize a dataset, we often start with a measure of central tendency — the mean, median, or mode — to describe a "typical" value. But that single number tells only part of the story. Two datasets can share an identical mean yet look completely different in their spread. Consider a classroom where every student scores exactly 75 on an exam versus a classroom where scores range from 40 to 100 but still average 75. The average is the same; the experience of each dataset is radically different. <strong>Measures of variability</strong> are the statistical tools that capture this difference. They quantify how much the individual data points in a distribution differ from one another and from the center of that distribution. Without variability measures, a mean or median floats in a vacuum — informative on its own but incomplete as a description of reality.</p>
+
+<p><strong>Variability</strong> refers to the degree of spread or dispersion present in a set of data. When variability is <em>high</em>, individual scores are widely scattered across a broad range of values; when variability is <em>low</em>, scores cluster tightly around the center. High variability can signal inconsistency, unpredictability, or genuine diversity among observations, while low variability can signal uniformity, reliability, or precision — though which interpretation applies always depends on the context of the data. Reporting variability alongside central tendency is not optional good practice; it is essential for an honest and complete description of any dataset.</p>
+
+<p>There are three measures of variability that form the core toolkit in descriptive statistics: the <strong>range</strong>, the <strong>variance</strong>, and the <strong>standard deviation</strong>. Each captures spread in a different way, each has strengths and limitations, and each is appropriate in different circumstances. The sections that follow develop each measure in depth — from how it is calculated, to what it tells us, to when and why we should use it.</p>
+
+<p><strong>Range: The Simplest Measure of Spread</strong></p>
+
+<p>The range is the most elementary measure of variability and the most intuitive. Its formula is disarmingly simple:</p>
+
+<pre><code>Range = Maximum value − Minimum value</code></pre>
+
+<p>To compute the range, identify the largest and smallest values in the dataset and subtract. No other data points are involved. Consider the following set of weekly hours worked by seven employees:</p>
+
+<pre><code>32, 35, 38, 40, 42, 45, 60</code></pre>
+
+<p>The maximum value is 60 and the minimum is 32, so the range is 60 − 32 = <strong>28 hours</strong>. That single number immediately tells us there is a 28-hour gap between the lightest and heaviest workload in the group.</p>
+
+<p>The range's greatest virtue is its simplicity — it requires almost no computation and is easy for any audience to understand. It is an excellent first pass during exploratory data analysis, quickly flagging whether a dataset is narrow or broad before any deeper analysis begins.</p>
+
+<p>Its central weakness, however, is significant: <em>the range is determined entirely by just two data points — the maximum and the minimum — and completely ignores every other value in the dataset</em>. Consider an alternative dataset of seven employees:</p>
+
+<pre><code>32, 39, 40, 40, 41, 42, 60</code></pre>
+
+<p>This dataset has the same range (28 hours) as the first, but the six employees who are not at the extremes are now packed very tightly between 39 and 42. The range gives no hint of this difference. A single extreme outlier — like that employee working 60 hours — can inflate the range dramatically and create a misleading impression of widespread variability when the bulk of the data is actually concentrated closely together. For these reasons, the range is best treated as a preliminary, rough estimate of spread rather than a definitive measure of variability.</p>
+
+<p><strong>Variance: Measuring Average Squared Deviation</strong></p>
+
+<p>Variance addresses the range's key weakness by incorporating every data point in the dataset. Rather than looking only at the two extremes, variance measures how far <em>each individual value</em> deviates from the mean, then summarizes all of those deviations into a single number.</p>
+
+<p>The logic proceeds in four steps:</p>
+
+<ul>
+  <li><strong>Step 1 — Find the mean:</strong> Calculate the arithmetic average of all values.</li>
+  <li><strong>Step 2 — Find each deviation:</strong> Subtract the mean from each individual data point. Values above the mean produce positive deviations; values below produce negative deviations.</li>
+  <li><strong>Step 3 — Square each deviation:</strong> Squaring eliminates negative signs (so that positive and negative deviations do not cancel each other out) and amplifies larger deviations, making variance sensitive to extreme values.</li>
+  <li><strong>Step 4 — Average the squared deviations:</strong> Sum all squared deviations and divide by the number of observations. For a <em>population</em>, divide by <em>N</em>; for a <em>sample</em> estimating a population parameter, divide by <em>N − 1</em> (known as Bessel's correction, which corrects for the tendency of sample variance to underestimate population variance).</li>
+</ul>
+
+<p>Expressed as formulas:</p>
+
+<pre><code>Population variance (σ²) = Σ(xᵢ − μ)² / N
+
+Sample variance (s²)     = Σ(xᵢ − x̄)² / (N − 1)</code></pre>
+
+<p>Let's work through a concrete example. Suppose five students receive the following scores on a quiz:</p>
+
+<pre><code>Scores: 70, 75, 80, 85, 90</code></pre>
+
+<p>The mean is (70 + 75 + 80 + 85 + 90) / 5 = 400 / 5 = <strong>80</strong>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Score (xᵢ)</th>
+      <th>Deviation (xᵢ − x̄)</th>
+      <th>Squared Deviation (xᵢ − x̄)²</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>70</td>
+      <td>−10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td>−5</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td>+5</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td>+10</td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sum of squared deviations = 100 + 25 + 0 + 25 + 100 = <strong>250</strong>.</p>
+
+<p>If these five students represent the entire population of interest: σ² = 250 / 5 = <strong>50</strong>.</p>
+<p>If they are a sample: s² = 250 / (5 − 1) = 250 / 4 = <strong>62.5</strong>.</p>
+
+<p>A variance of zero occurs only when every data point is identical to the mean — that is, when there is absolutely no variability. The larger the variance, the more spread out the data points are around the mean. A dataset where scores ranged from 0 to 160 (but still averaged 80) would produce a dramatically larger variance than the tidy example above.</p>
+
+<p>Variance's main interpretive drawback is that its units are <em>squared</em> units of the original data. In our example, scores are measured in "points," so the variance is expressed in "points squared" — a unit that has no intuitive real-world meaning. You cannot look at a variance of 62.5 points² and form a natural mental image of what that spread looks like on the original scale. This is not a fatal flaw — variance is indispensable in mathematical and inferential statistics, where squared deviations are analytically convenient — but it does make variance a poor choice for communicating results to a general audience.</p>
+
+<p><strong>Standard Deviation: The Most Commonly Used Measure of Spread</strong></p>
+
+<p>Standard deviation resolves variance's unit problem elegantly: take the square root of the variance, and the result is expressed in the same units as the original data.</p>
+
+<pre><code>Population standard deviation (σ) = √σ² = √[ Σ(xᵢ − μ)² / N ]
+
+Sample standard deviation (s)     = √s² = √[ Σ(xᵢ − x̄)² / (N − 1) ]</code></pre>
+
+<p>Using the quiz score example from above:</p>
+<ul>
+  <li>Population standard deviation: σ = √50 ≈ <strong>7.07 points</strong></li>
+  <li>Sample standard deviation: s = √62.5 ≈ <strong>7.91 points</strong></li>
+</ul>
+
+<p>Now the measure of spread is back in "points" — the same scale as the original scores — and we can interpret it directly. A standard deviation of roughly 7 to 8 points means that, on average, students' scores deviated from the mean of 80 by about 7 to 8 points. That is immediately meaningful to anyone familiar with the scoring scale.</p>
+
+<p>A <em>small</em> standard deviation tells us that data points are tightly clustered around the mean; scores (or measurements, or values) are consistent and predictable. A <em>large</em> standard deviation tells us that data points are widely dispersed; there is substantial variability from one observation to the next. To make this concrete, consider two manufacturing lines both producing bolts with a target diameter of 10 mm:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Production Line</th>
+      <th>Mean Diameter (mm)</th>
+      <th>Standard Deviation (mm)</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Line A</td>
+      <td>10.0</td>
+      <td>0.05</td>
+      <td>Highly consistent; bolts are nearly identical</td>
+    </tr>
+    <tr>
+      <td>Line B</td>
+      <td>10.0</td>
+      <td>0.80</td>
+      <td>Highly variable; many bolts deviate substantially from target</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both lines produce bolts with the same average diameter, but Line B's high standard deviation signals a quality control problem that the mean alone would never reveal. This is exactly why standard deviation is so widely used and so valued: it translates abstract spread into a practically meaningful, directly comparable number.</p>
+
+<p>Standard deviation does share one important limitation with variance: <em>it is sensitive to outliers</em>. Because the calculation squares each deviation, extreme values — those far from the mean — contribute disproportionately large squared deviations and can inflate the standard deviation substantially. In a dataset where a handful of outliers exist, the standard deviation may suggest that the data is far more dispersed than is typical for the majority of observations. Researchers should always inspect their data for extreme values before relying on standard deviation as a summary of typical spread.</p>
+
+<p><strong>Comparing and Choosing the Right Measure of Variability</strong></p>
+
+<p>Selecting the appropriate measure of variability is not arbitrary — it depends on the purpose of the analysis, the nature of the data, and the audience receiving the results. The following framework helps guide that choice:</p>
+
+<ul>
+  <li><strong>Use the range</strong> when you need a fast, intuitive snapshot of how wide a dataset is — particularly during initial exploration or when communicating with a lay audience that needs only a ballpark sense of spread. Remember that a single outlier can make the range misleading, so treat it as a starting point, not a conclusion.</li>
+  <li><strong>Use variance</strong> when mathematical or statistical operations require squared deviations. Variance is the foundation of many inferential statistical techniques — including analysis of variance (ANOVA), regression, and significance testing — where working with squared deviations is analytically necessary. In these contexts, variance is used internally in calculations even if standard deviation is ultimately reported.</li>
+  <li><strong>Use standard deviation</strong> when reporting and interpreting results. Because it is expressed in the same units as the original data, it is the most interpretable and most commonly reported measure of spread in research publications, professional reports, and public communication.</li>
+  <li><strong>Consider outliers carefully</strong> regardless of which measure you use. The range is especially vulnerable, since it is defined entirely by the two most extreme values. Standard deviation is also affected, since large deviations are amplified by squaring. When outliers are present, supplementing or replacing these measures with robust alternatives — such as the interquartile range (IQR), which measures the spread of the middle 50% of data — may provide a more accurate picture of typical variability.</li>
+</ul>
+
+<p>The table below summarizes the key properties of each measure side by side:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Measure</th>
+      <th>Formula</th>
+      <th>Units</th>
+      <th>Uses All Data Points?</th>
+      <th>Sensitive to Outliers?</th>
+      <th>Best Used For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Range</td>
+      <td>Max − Min</td>
+      <td>Same as data</td>
+      <td>No (only 2 points)</td>
+      <td>Very much so</td>
+      <td>Quick overview, exploratory analysis</td>
+    </tr>
+    <tr>
+      <td>Variance</td>
+      <td>Σ(xᵢ − x̄)² / (N or N−1)</td>
+      <td>Squared units</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Mathematical/statistical computations</td>
+    </tr>
+    <tr>
+      <td>Standard Deviation</td>
+      <td>√Variance</td>
+      <td>Same as data</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Reporting and interpretation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Interpreting Variability in Context</strong></p>
+
+<p>A variability statistic presented in isolation is only marginally useful. Its full meaning emerges when it is interpreted in context — alongside a measure of central tendency, in comparison with other groups, and in relation to real-world implications.</p>
+
+<p><strong>Pair variability with central tendency.</strong> A mean without a standard deviation is an incomplete description. Always report them together. For example, "The average response time was 4.2 seconds (SD = 0.3 seconds)" communicates not just the typical experience but also how consistent that experience is across users. A standard deviation of 0.3 seconds suggests most users experienced something close to 4.2 seconds; a standard deviation of 3.0 seconds would tell a very different story.</p>
+
+<p><strong>Compare variability across groups.</strong> Some of the most insightful uses of variability measures involve comparison. If Group A has a mean test score of 78 with a standard deviation of 4, and Group B has a mean of 78 with a standard deviation of 18, the groups look identical by central tendency but are profoundly different in consistency. Group B contains both very high and very low performers hidden beneath that average. Spotting this difference is only possible by examining variability.</p>
+
+<p><strong>Translate variability into real-world meaning.</strong> Raw statistical values become actionable when framed in domain-relevant terms. In finance, standard deviation of investment returns is used to quantify <em>risk</em> — a high standard deviation means returns are unpredictable, which some investors find unacceptable. In manufacturing, low variability in product dimensions signals <em>quality and precision</em>. In education, high variability in student performance might indicate the need for differentiated instruction. In clinical settings, low variability in a biomarker might confirm <em>stability</em> in a patient's condition. The statistical measure is the same in every case; the interpretation is shaped by the question being asked and the stakes involved.</p>
+
+<p>Mastering measures of variability means more than memorizing formulas. It means understanding that every dataset has both a center and a shape, that the shape is just as important as the center, and that communicating spread honestly and precisely is a fundamental responsibility of anyone working with data.</p>
+      <div class="notes"><strong>Notes</strong>Covers all listed subtopics: definition and importance of variability, range (formula, weakness, use case), variance (step-by-step calculation, population vs. sample, squared-unit limitation), standard deviation (formula, interpretation, outlier sensitivity), comparison/selection guidance, and contextual interpretation. A worked numeric example with a full HTML table is included for variance, plus summary and comparison tables. Interquartile range (IQR) is briefly mentioned as a robust alternative when outliers are present, consistent with well-established statistical practice.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

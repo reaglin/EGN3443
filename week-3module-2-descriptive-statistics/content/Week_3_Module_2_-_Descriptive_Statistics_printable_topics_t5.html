@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selecting and Applying Appropriate Statistical Measures</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
+  <header>
+    <h1>Selecting and Applying Appropriate Statistical Measures</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Selecting and Applying Appropriate Statistical Measures</h2>
+      <p>Descriptive statistics exist to summarise and communicate the essential characteristics of a dataset, but choosing the wrong measure — or applying a valid measure to the wrong type of data — can produce misleading results that undermine any conclusions drawn from the analysis. Selecting appropriate statistical measures is therefore not a mechanical step; it requires understanding what kind of data you are working with, what question you are trying to answer, and who will ultimately use the output. This topic builds a systematic framework for making those decisions well, from initial data exploration through to clear, honest communication of results.</p>
+
+<p><strong>Understanding Data Types Before Selecting Measures</strong></p>
+
+<p>Every statistical measure makes assumptions about the nature of the data it summarises. Applying a measure that violates those assumptions produces numbers that are technically computable but analytically meaningless — or worse, actively misleading. The first discipline of any statistical analysis is therefore correctly identifying the data type before reaching for a formula.</p>
+
+<p><strong>Nominal data</strong> consists of categories that have no inherent order or ranking. Eye colour (brown, blue, green), blood type (A, B, AB, O), or the make of a car (Ford, Toyota, BMW) are all nominal. Because the categories cannot be ranked and there is no numeric distance between them, arithmetic operations are nonsensical — you cannot meaningfully average "Ford" and "Toyota." The only measure of central tendency applicable to nominal data is the <em>mode</em> — the category that appears most frequently. No measure of spread based on numeric distance (standard deviation, range, IQR) applies; instead, analysts typically report frequencies and proportions.</p>
+
+<p><strong>Ordinal data</strong> introduces ranking — categories can be ordered, but the intervals between successive ranks are not guaranteed to be equal. A classic example is a customer satisfaction survey coded as: 1 = Very Dissatisfied, 2 = Dissatisfied, 3 = Neutral, 4 = Satisfied, 5 = Very Satisfied. We know that 4 is better than 3, but we cannot claim the psychological difference between 4 and 5 is identical to the difference between 1 and 2. Because intervals are unequal and potentially uninterpretable, calculating a mean treats the numbers as if they carry arithmetic meaning they do not possess. The <em>median</em> and <em>mode</em> are appropriate; the mean is not. For spread, the <em>interquartile range (IQR)</em> — which counts positions rather than numeric distances — is preferred.</p>
+
+<p><strong>Interval and ratio data</strong> are numeric scales where the intervals between values are equal and meaningful. Temperature in Celsius is interval data: the difference between 10 °C and 20 °C is genuinely the same as between 20 °C and 30 °C. Ratio data adds a meaningful absolute zero, enabling ratio comparisons — height, weight, income, and reaction time are ratio variables (someone earning £60,000 earns exactly twice as much as someone earning £30,000). Both interval and ratio data support the full toolkit: mean, median, mode, standard deviation, variance, and range. Because arithmetic on these values is valid, richer analyses — including regression, correlation, and inferential tests — become possible.</p>
+
+<p>Misidentifying data type is among the most common and consequential errors in descriptive statistics. A frequent mistake is treating ordinal Likert-scale responses (e.g., 1–5 agreement ratings) as if they were interval data and computing means. While this practice is widespread, it should be approached with caution and clearly acknowledged as an assumption, not a fact about the data. The table below summarises which measures are valid for each data type.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data Type</th>
+      <th>Example</th>
+      <th>Valid Central Tendency Measures</th>
+      <th>Valid Spread Measures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Nominal</td>
+      <td>Blood type, country of origin</td>
+      <td>Mode only</td>
+      <td>Frequencies, proportions</td>
+    </tr>
+    <tr>
+      <td>Ordinal</td>
+      <td>Satisfaction rating (1–5), education level</td>
+      <td>Median, Mode</td>
+      <td>IQR</td>
+    </tr>
+    <tr>
+      <td>Interval</td>
+      <td>Temperature (°C), IQ score</td>
+      <td>Mean, Median, Mode</td>
+      <td>Standard deviation, Variance, Range, IQR</td>
+    </tr>
+    <tr>
+      <td>Ratio</td>
+      <td>Height, income, reaction time</td>
+      <td>Mean, Median, Mode</td>
+      <td>Standard deviation, Variance, Range, IQR</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Choosing the Right Measure of Central Tendency</strong></p>
+
+<p>Central tendency describes where the "centre" of a distribution lies. There are three principal measures — mean, median, and mode — and the decision between them hinges on data type, distribution shape, and the presence of outliers.</p>
+
+<p>The <strong>mean</strong> (arithmetic average) is calculated by summing all values and dividing by the count. It is the most mathematically rich measure because it incorporates every data point, making it the foundation for many further statistical techniques. However, this sensitivity to every value is also its vulnerability: a single extreme outlier can pull the mean far away from the bulk of the data. Consider a small team of five employees with annual salaries of £28,000, £30,000, £31,000, £29,000, and £250,000. The mean salary is £73,600 — a figure that does not represent any employee's experience and is inflated by the single high earner. Use the mean when the data is approximately symmetrically distributed (so that high and low extremes roughly cancel out) and free of significant outliers.</p>
+
+<p>The <strong>median</strong> is the middle value when data is ordered from smallest to largest (or the average of the two middle values when the count is even). It is resistant to extreme values because it depends only on position, not magnitude. In the salary example above, the median is £30,000 — a figure that genuinely reflects what a typical employee earns. Whenever data is skewed (asymmetric) or contains outliers, the median is generally the more honest and informative summary. House prices, income distributions, and waiting times are real-world examples where analysts routinely prefer medians over means for exactly this reason.</p>
+
+<p>The <strong>mode</strong> is the value (or values) that appear most frequently. It is the only measure applicable to nominal data and is especially useful for discrete or categorical variables where "most common" is the question of practical interest. A retailer analysing shoe sales is not served by knowing the mean shoe size; they need to know the most frequently purchased size so they can manage stock. For continuous numeric data, the mode is less useful in its strict sense (values may rarely repeat exactly), though the concept of a modal class — the most populated interval in a frequency distribution — remains valuable.</p>
+
+<p>Distribution shape is a decisive factor. A <em>symmetric, bell-shaped</em> distribution has mean, median, and mode clustered together, so any of the three gives a similar answer. In a <em>right-skewed</em> (positively skewed) distribution — one with a long tail stretching toward high values — the mean is pulled upward above the median, which sits above the mode. In a <em>left-skewed</em> distribution the reverse holds. As a practical rule: if you observe a meaningful gap between mean and median, skewness is almost certainly present and the median should be preferred as the summary statistic.</p>
+
+<p><strong>Selecting Appropriate Measures of Variability</strong></p>
+
+<p>Knowing the centre of a distribution is only half the picture. Two datasets can share an identical mean yet have radically different spreads — and that difference in variability is often as important as the central value. Selecting the right measure of spread requires the same care applied to measures of central tendency.</p>
+
+<p>The <strong>standard deviation</strong> measures how far, on average, individual values deviate from the mean. Its squared equivalent, the <strong>variance</strong>, underpins much of inferential statistics. Because both are calculated using the mean and each individual data point, they inherit the same sensitivity to outliers. Standard deviation is the natural companion to the mean: use them together for approximately normally distributed interval or ratio data. For example, if the mean daily temperature in a city over a month is 18 °C with a standard deviation of 3 °C, a reader immediately grasps that most days fall between roughly 15 °C and 21 °C.</p>
+
+<p>The <strong>interquartile range (IQR)</strong> is the difference between the 75th percentile (Q3) and the 25th percentile (Q1) — it captures the spread of the middle 50% of the data. Because it ignores the extreme 25% at each end, it is highly resistant to outliers and skewness. The IQR is the natural companion to the median: when data is skewed or contains outliers, report median alongside IQR. It is also the appropriate spread measure for ordinal data. Box plots are built on exactly this pair — the box spans Q1 to Q3, with the median line inside it.</p>
+
+<p>The <strong>range</strong> — the difference between the maximum and minimum values — is the simplest spread measure. It requires no calculation beyond identifying two numbers and is immediately intuitive. Its critical weakness is that it depends entirely on the two most extreme values, meaning a single outlier can inflate the range dramatically and give a misleading impression of typical spread. Use range as a preliminary, rough indicator or when communicating to audiences who need simplicity, but always note its limitations and supplement it with a more robust measure where possible.</p>
+
+<p>The table below summarises recommended pairings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Recommended Central Tendency</th>
+      <th>Recommended Spread Measure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Symmetric distribution, no significant outliers, interval/ratio data</td>
+      <td>Mean</td>
+      <td>Standard deviation (and variance)</td>
+    </tr>
+    <tr>
+      <td>Skewed distribution or outliers present, interval/ratio data</td>
+      <td>Median</td>
+      <td>Interquartile range (IQR)</td>
+    </tr>
+    <tr>
+      <td>Ordinal data</td>
+      <td>Median</td>
+      <td>IQR</td>
+    </tr>
+    <tr>
+      <td>Nominal data</td>
+      <td>Mode</td>
+      <td>Frequencies / proportions</td>
+    </tr>
+    <tr>
+      <td>Quick, rough overview (any numeric data)</td>
+      <td>Mean or Median</td>
+      <td>Range (with caveats noted)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Considering Analytical Context and Audience</strong></p>
+
+<p>Statistical measures do not exist in a vacuum — they are selected to serve a purpose and communicate to a specific audience. Failing to account for context and audience is a subtle but important form of analytical error.</p>
+
+<p>Start by defining the analytical question precisely. "What does a typical customer spend per visit?" calls for a measure of central tendency. "How consistent is product quality across our production line?" calls for a measure of variability. "Which product category sells most often?" calls for a mode. Anchoring the analysis to a clear question prevents the temptation to compute everything available and report numbers without meaningful interpretation.</p>
+
+<p>Consider who will read the output. A board of directors with limited statistical training is well served by the median and a plain-language description of the range — simple, robust measures with clear real-world meaning. A team of data scientists preparing input for a predictive model needs precise figures: means, standard deviations, and detailed distributional information. Using standard deviation with a non-technical audience without explanation risks the numbers being misunderstood or ignored; using only the mode with a technical audience throws away information they need. The right measure for the audience is the one that communicates the insight accurately without generating confusion.</p>
+
+<p>Plain-language contextualisation is not optional — it is part of the statistical work. A number reported without interpretation places the interpretive burden entirely on the reader, who may lack the domain knowledge to make sense of it. Instead of reporting "median response time = 4.7 minutes," write: "Half of all customer queries were resolved within 4.7 minutes — meaning the typical customer waited less than five minutes for a response." The statistic and its meaning are delivered together, making the insight immediately actionable.</p>
+
+<p><strong>Applying Statistical Measures to Real Datasets</strong></p>
+
+<p>Working with real data requires more than knowing which formula to apply. Real datasets are messy: they contain missing values, data-entry errors, unexpected distributions, and outliers that must be investigated before statistics are computed.</p>
+
+<p>The recommended workflow begins with <em>exploration</em>. Before computing a single summary statistic, examine the dataset: What are the data types of each variable? Are there missing values, and if so, how many and in which columns? Are there obvious anomalies — for instance, an age of 999, a negative income value, or a date that falls outside the expected range? These issues must be understood — and, where appropriate, addressed — before any summary statistics are calculated, because statistics computed on faulty data are themselves faulty.</p>
+
+<p>Next, compute <em>multiple</em> measures rather than a single one, then compare them. If you calculate both the mean and the median for a numeric variable and they are very close, you can be reasonably confident the distribution is approximately symmetric. If they differ substantially — say, a mean of £73,600 against a median of £30,000 in the salary example above — this divergence is a meaningful signal. It tells you skewness is present, that outliers are likely influencing the mean, and that the median is the more representative summary for that variable. The act of comparing measures is itself an analytical step, not just a redundancy check.</p>
+
+<p>Consider this worked example with a small dataset of daily website visits over ten days:</p>
+
+<pre><code>Day:    1    2    3    4    5    6    7    8    9    10
+Visits: 120  134  128  141  130  127  135  129  800  131
+</code></pre>
+
+<p>At first glance, Day 9 with 800 visits stands out dramatically. Before computing statistics, an analyst should investigate: Was there a viral post that day? A bot crawling the site? A promotional campaign? Once the cause is understood, the analyst can decide whether to include or exclude the value. If included:</p>
+
+<ul>
+  <li><strong>Mean:</strong> (120+134+128+141+130+127+135+129+800+131) ÷ 10 = 207.5 visits</li>
+  <li><strong>Median:</strong> Sorted values: 120, 127, 128, 129, 130, 131, 134, 135, 141, 800 → median = (130+131) ÷ 2 = 130.5 visits</li>
+</ul>
+
+<p>The mean of 207.5 dramatically overstates typical traffic; the median of 130.5 is far more representative of a normal day. Reporting the mean without acknowledging the outlier would create a false impression of average site performance. In a report, both figures could be stated — along with the explanation of Day 9 — so the reader understands both the typical pattern and the exceptional event.</p>
+
+<p><em>Documenting analytical decisions</em> is as important as the calculations themselves. If you choose to exclude an outlier, explain why. If you choose the median over the mean, state the reason. This transparency makes the analysis reproducible — another analyst should be able to follow your logic and arrive at the same choices — and defensible when questioned by stakeholders.</p>
+
+<p><strong>Communicating Statistical Insights Clearly and Accurately</strong></p>
+
+<p>Even technically correct statistics can mislead if they are reported carelessly. The final discipline of applied statistics is communicating results in a way that is honest, accessible, and useful.</p>
+
+<p>Always report the measure alongside its value and unit. "The average is 42" is incomplete. "The mean response time was 42 seconds" is precise enough to be understood and acted upon. Including the unit prevents misinterpretation (42 seconds versus 42 minutes is a significant difference) and including the measure name (mean, median, mode) signals to technically literate readers exactly how the figure was calculated.</p>
+
+<p>Accompany every statistic with a brief narrative interpretation. Numbers without words force the reader to construct meaning independently, which may result in incorrect conclusions. A sentence like "On average, customers waited 42 seconds — well within the 60-second target — though a quarter of customers waited longer than 75 seconds (Q3 = 75 seconds)" delivers both the summary statistic and the spread in plain, actionable language.</p>
+
+<p>Visual aids powerfully reinforce statistical summaries. A <em>histogram</em> reveals the shape of a distribution — whether it is symmetric, skewed, or bimodal — in a way that no single number can. A <em>box plot</em> displays the median, IQR, and outliers simultaneously, giving a rich picture of both centre and spread at a glance. A <em>bar chart</em> of frequencies is ideal for nominal and ordinal data. Choosing the right chart for the data type mirrors the discipline of choosing the right statistic: a pie chart for continuous data, or a histogram for nominal categories, introduces the same kind of mismatch as computing a mean from ordinal values.</p>
+
+<p>Finally, avoid overstating precision. Reporting a mean salary as £34,827.43 implies a level of exactness that is rarely meaningful in context and can actually undermine credibility by suggesting spurious precision. Rounding to £34,800 or even £35,000 is often more appropriate, more readable, and no less informative. The right number of decimal places depends on the scale of the data, the precision of the original measurements, and the practical needs of the audience. A reaction time measured in milliseconds warrants more decimal places than a salary measured in pounds.</p>
+
+<p>Taken together, these principles — matching measures to data types, choosing central tendency and spread measures that reflect the data's distribution, tailoring choices to analytical context and audience, rigorously exploring real data before computing statistics, and communicating results with transparency and plain-language interpretation — form a coherent and robust framework for applied descriptive statistics. Practising these steps consistently builds the analytical judgment to move beyond mechanical calculation toward genuine, trustworthy insight.</p>
+      <div class="notes"><strong>Notes</strong>Worked salary and website-traffic examples illustrate the practical consequences of outliers on mean vs. median. The decision tables help learners internalise valid measure–data-type pairings. Emphasis on documentation and plain-language interpretation reinforces professional and reproducible analytical practice.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

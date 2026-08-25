@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probability Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+  <header>
+    <h1>Probability Distributions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Probability Distributions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>In virtually every engineering discipline, decisions must be made in the face of uncertainty. A machine part may vary slightly in dimension from one unit to the next. A communication network may receive packets at an unpredictable rate. A batch of manufactured components may contain an unknown number of defects. <strong>Probability distributions</strong> provide the mathematical framework engineers use to quantify and reason about this uncertainty in a rigorous, systematic way.</p>
+
+<p>A <strong>probability distribution</strong> is a function that assigns a probability to each possible outcome — or range of outcomes — of a <em>random variable</em>. A random variable is simply a quantity whose value is determined by the outcome of some random process. For example, the diameter of a machined shaft measured after production is a random variable; it will not be exactly the same every time, but it will tend to cluster around a target value in a predictable pattern. The probability distribution describes that pattern precisely.</p>
+
+<p>Probability distributions fall into two fundamental categories:</p>
+<ul>
+  <li><strong>Discrete distributions</strong> apply to random variables that take on a countable set of distinct values — for instance, the number of defective items in a batch (0, 1, 2, 3, …). Each specific value has a well-defined probability assigned to it, and all probabilities sum to exactly 1.</li>
+  <li><strong>Continuous distributions</strong> apply to random variables that can take any value within a range — such as the tensile strength of a steel bar or the time until a component fails. Because infinitely many values are possible, probabilities are expressed as areas under a <em>probability density function</em> (PDF) rather than as point values. The total area under the curve is always 1.</li>
+</ul>
+
+<p>Choosing the right distribution is not merely an academic exercise. Using an inappropriate model can lead to serious errors in safety analysis, quality control, and resource planning. The choice depends on understanding the nature of the data, the physical mechanism generating it, and the mathematical properties of each candidate distribution. The sections that follow introduce the three distributions most widely encountered in engineering practice — the Normal, Binomial, and Poisson — and then discuss how to select and apply them effectively.</p>
+
+<p><strong>The Normal Distribution</strong></p>
+
+<p>The <strong>normal distribution</strong>, sometimes called the Gaussian distribution, is the most important and widely used distribution in engineering and statistics. Its iconic bell-shaped curve is symmetric: the left half is a mirror image of the right half, with the peak occurring at the center. This symmetry reflects the fact that deviations above and below the mean are equally likely and equally probable in magnitude.</p>
+
+<p>The normal distribution is completely described by exactly two parameters:</p>
+<ul>
+  <li><strong>Mean (μ)</strong> — the arithmetic center of the distribution. It tells you where the distribution is located on the number line. Shifting μ moves the entire bell curve left or right without changing its shape.</li>
+  <li><strong>Standard deviation (σ)</strong> — a measure of spread. A small σ produces a tall, narrow curve where values cluster tightly around the mean; a large σ produces a wide, flat curve where values are spread over a broader range. The variance, σ², is simply the square of the standard deviation.</li>
+</ul>
+
+<p>The probability density function of the normal distribution is:</p>
+<pre><code>f(x) = (1 / (σ √(2π))) × e^(−(x − μ)² / (2σ²))</code></pre>
+
+<p>Although the formula looks complex, what matters most for engineering practice is understanding the <strong>empirical rule</strong> (also called the 68-95-99.7 rule), which describes how data are distributed relative to the mean:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Range from Mean</th>
+      <th>Approximate Probability</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>μ ± 1σ</td>
+      <td>~68.27%</td>
+      <td>About 2 in 3 observations fall within one standard deviation</td>
+    </tr>
+    <tr>
+      <td>μ ± 2σ</td>
+      <td>~95.45%</td>
+      <td>About 19 in 20 observations fall within two standard deviations</td>
+    </tr>
+    <tr>
+      <td>μ ± 3σ</td>
+      <td>~99.73%</td>
+      <td>Nearly all observations fall within three standard deviations</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Consider a concrete engineering example. Suppose a CNC machine produces steel pins with a target diameter of 25.00 mm, and process measurements show the diameters are normally distributed with μ = 25.00 mm and σ = 0.05 mm. The empirical rule tells you immediately that:</p>
+<ul>
+  <li>About 68% of pins will have diameters between 24.95 mm and 25.05 mm.</li>
+  <li>About 95% will fall between 24.90 mm and 25.10 mm.</li>
+  <li>Only about 0.27% — roughly 27 pins in every 10,000 — will fall outside 24.85 mm to 25.15 mm.</li>
+</ul>
+
+<p>This kind of reasoning underpins <strong>tolerance analysis</strong> (determining whether a manufacturing process can consistently meet design specifications), <strong>process capability studies</strong> (quantifying how well a process stays within specification limits using indices like Cp and Cpk), and <strong>defect rate prediction</strong>. The celebrated Six Sigma methodology, for instance, is built on the principle of keeping process variation so tightly controlled that the specification limits sit six standard deviations from the mean — yielding fewer than 3.4 defects per million opportunities.</p>
+
+<p>The <strong>standard normal distribution</strong> is a special case with μ = 0 and σ = 1, often denoted Z. Any normally distributed variable X can be converted to a Z-score using:</p>
+<pre><code>Z = (X − μ) / σ</code></pre>
+<p>This standardization allows engineers to use a single Z-table (or software function) to find probabilities for any normal distribution, regardless of its specific μ and σ values.</p>
+
+<p><strong>The Binomial Distribution</strong></p>
+
+<p>Many engineering scenarios involve a sequence of independent tests or observations, each of which results in one of exactly two outcomes — a part either passes or fails inspection, a system either operates or breaks down, a signal either arrives correctly or is corrupted. The <strong>binomial distribution</strong> is the appropriate model for counting how many "successes" occur in such a series of trials.</p>
+
+<p>The binomial distribution is defined by two parameters:</p>
+<ul>
+  <li><strong>n</strong> — the fixed number of independent trials.</li>
+  <li><strong>p</strong> — the probability of a "success" on any single trial (constant across all trials).</li>
+</ul>
+
+<p>The probability of observing exactly <em>k</em> successes in <em>n</em> trials is given by the <strong>binomial probability mass function</strong>:</p>
+<pre><code>P(X = k) = C(n, k) × p^k × (1 − p)^(n − k)
+
+where C(n, k) = n! / (k! × (n − k)!)  [the binomial coefficient, read "n choose k"]</code></pre>
+
+<p>The mean and standard deviation of a binomial distribution are:</p>
+<pre><code>Mean:               μ = n × p
+Standard deviation: σ = √(n × p × (1 − p))</code></pre>
+
+<p>A practical engineering example: A circuit board manufacturer knows from historical data that 2% of boards produced have at least one defect (p = 0.02). If a quality inspector randomly selects n = 50 boards, what is the probability that exactly 3 are defective?</p>
+<pre><code>P(X = 3) = C(50, 3) × (0.02)³ × (0.98)^47
+         = 19600 × 0.000008 × 0.3855
+         ≈ 0.0607  (about 6.1%)</code></pre>
+
+<p>Engineers use the binomial distribution extensively in:</p>
+<ul>
+  <li><strong>Acceptance sampling</strong> — deciding whether to accept or reject a lot of items based on the number of defectives found in a sample.</li>
+  <li><strong>Reliability testing</strong> — estimating the probability that a given number of components in a batch will survive a stress test.</li>
+  <li><strong>Pass/fail inspections</strong> — setting sample sizes large enough to detect a given defect rate with a specified level of confidence.</li>
+</ul>
+
+<p>An important practical note: as <em>n</em> becomes large and <em>p</em> is not too close to 0 or 1 (a common rule of thumb is np ≥ 5 and n(1−p) ≥ 5), the binomial distribution can be approximated by a normal distribution with the same mean and standard deviation. This approximation simplifies calculations considerably, because normal probability tables and Z-scores can then be used in place of the more cumbersome binomial formula.</p>
+
+<p><strong>The Poisson Distribution</strong></p>
+
+<p>Where the binomial distribution counts successes across a fixed number of discrete trials, the <strong>Poisson distribution</strong> counts how many times a rare event occurs within a fixed interval of time, space, area, volume, or any other continuum. It is the natural model when events happen randomly and independently, at a known average rate, but the exact timing or location of each event cannot be predicted.</p>
+
+<p>The Poisson distribution has a single parameter:</p>
+<ul>
+  <li><strong>λ (lambda)</strong> — the average number of events per interval. This is both the mean and the variance of the distribution (a distinctive property: for a Poisson random variable, μ = σ² = λ).</li>
+</ul>
+
+<p>The probability of observing exactly <em>k</em> events in an interval is:</p>
+<pre><code>P(X = k) = (e^(−λ) × λ^k) / k!
+
+where e ≈ 2.71828 (Euler's number)</code></pre>
+
+<p>Consider a concrete example. A structural engineer studying bridge corrosion finds that, on average, a particular type of surface defect occurs λ = 3 times per square meter of steel plate. What is the probability of finding exactly 5 defects in a randomly selected 1 m² section?</p>
+<pre><code>P(X = 5) = (e^(−3) × 3^5) / 5!
+          = (0.0498 × 243) / 120
+          = 12.09 / 120
+          ≈ 0.1008  (about 10.1%)</code></pre>
+
+<p>Typical engineering applications of the Poisson distribution include:</p>
+<ul>
+  <li><strong>Network engineering</strong> — modeling the arrival rate of data packets at a router or server, which is foundational to queueing theory and network capacity planning.</li>
+  <li><strong>Reliability and maintenance</strong> — estimating the number of machine breakdowns or warranty claims expected in a given operating period.</li>
+  <li><strong>Manufacturing quality</strong> — counting surface defects per unit area on materials such as semiconductors, painted panels, or textiles.</li>
+  <li><strong>Safety engineering</strong> — modeling rare but consequential events such as industrial accidents or equipment failures in a facility over a year.</li>
+</ul>
+
+<p>Just as with the binomial distribution, the Poisson distribution converges toward a normal distribution as λ grows large (generally, for λ > 30 the normal approximation is quite good). This reflects a deeper mathematical truth known as the Central Limit Theorem, which explains why the normal distribution appears so pervasively across many different phenomena.</p>
+
+<p><strong>Selecting the Right Distribution for Engineering Problems</strong></p>
+
+<p>Choosing an appropriate probability distribution is a critical step in any probabilistic engineering analysis. Selecting the wrong model can lead to significant errors in estimated probabilities — for example, grossly underestimating the chance of a catastrophic load or incorrectly predicting a defect rate. A structured approach helps avoid these pitfalls.</p>
+
+<p>The selection process typically involves the following considerations:</p>
+<ul>
+  <li><strong>Discrete or continuous?</strong> This is always the first question. If you are counting events or items (defects, failures, arrivals), you need a discrete distribution such as Binomial or Poisson. If you are measuring a quantity on a continuous scale (strength, temperature, length, time to failure), you need a continuous distribution such as the normal, lognormal, exponential, or Weibull.</li>
+  <li><strong>Shape of the data</strong> — Examine a histogram of your data. Is it roughly symmetric and bell-shaped (suggesting normal)? Strongly skewed to the right with a lower bound at zero (suggesting lognormal, exponential, or Weibull)? Flat and uniform? The visual shape provides strong initial guidance. Also check for the presence of natural bounds: physical quantities like stress or material strength cannot be negative, which argues against an unbounded symmetric distribution in some contexts.</li>
+  <li><strong>Physical mechanism</strong> — Domain expertise is invaluable. If you know that your process is the sum of many small independent random effects (e.g., measurement error accumulating from multiple sources), the Central Limit Theorem suggests a normal distribution will fit well. If events arise from a memoryless random process at a constant average rate, Poisson is appropriate. If you have independent pass/fail trials, Binomial applies.</li>
+  <li><strong>Parameter estimation</strong> — Once a candidate distribution is chosen, its parameters must be estimated from data. For the normal distribution, sample mean and sample standard deviation are used. For the Poisson distribution, the sample mean estimates λ. For the binomial, the sample proportion estimates p. Statistical software makes these calculations straightforward.</li>
+  <li><strong>Goodness-of-fit testing</strong> — After fitting a distribution, formally test whether it is a plausible model for the data using statistical tests. The <em>chi-square goodness-of-fit test</em> compares observed frequencies in data bins to expected frequencies under the assumed distribution. The <em>Kolmogorov-Smirnov test</em> compares the empirical cumulative distribution function to the theoretical one. A high p-value (typically > 0.05) suggests the chosen distribution fits adequately.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distribution</th>
+      <th>Data Type</th>
+      <th>Key Parameters</th>
+      <th>Typical Engineering Use Cases</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Normal</td>
+      <td>Continuous</td>
+      <td>μ (mean), σ (std. deviation)</td>
+      <td>Dimensional tolerances, measurement error, process capability</td>
+    </tr>
+    <tr>
+      <td>Binomial</td>
+      <td>Discrete</td>
+      <td>n (trials), p (success probability)</td>
+      <td>Acceptance sampling, defect counting, reliability pass/fail</td>
+    </tr>
+    <tr>
+      <td>Poisson</td>
+      <td>Discrete</td>
+      <td>λ (average event rate)</td>
+      <td>Defects per unit, machine failures, network packet arrivals</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Using Distributions for Predictive Analysis in Engineering</strong></p>
+
+<p>Once a probability distribution has been fitted to data, it becomes a powerful predictive tool — allowing engineers to answer quantitative questions about future events, system behavior, and risk levels that would be impossible to address with averages alone.</p>
+
+<p>A central tool for predictive analysis is the <strong>cumulative distribution function (CDF)</strong>. Where the PDF describes the relative likelihood of individual values, the CDF, F(x), gives the probability that the random variable X takes a value <em>less than or equal to</em> x:</p>
+<pre><code>F(x) = P(X ≤ x)</code></pre>
+
+<p>The CDF is extremely practical. Suppose a structural beam is designed to carry loads that are normally distributed with μ = 500 kN and σ = 40 kN, and the beam will fail if the load exceeds 600 kN. The probability of failure is:</p>
+<pre><code>P(X > 600) = 1 − P(X ≤ 600)
+           = 1 − F(600)
+           = 1 − Φ((600 − 500) / 40)
+           = 1 − Φ(2.5)
+           = 1 − 0.9938
+           ≈ 0.62%</code></pre>
+<p>Here Φ denotes the standard normal CDF. This result tells the engineer that roughly 6 in every 1,000 load events could cause failure — information that directly feeds into safety factor decisions and risk assessment.</p>
+
+<p>Engineers apply distribution-based predictive analysis across several important domains:</p>
+<ul>
+  <li><strong>Quality control limits</strong> — Control charts in Statistical Process Control (SPC) use the normal distribution to set upper and lower control limits (typically at μ ± 3σ), providing an automatic signal when a process shifts away from its expected behavior.</li>
+  <li><strong>Safety factors</strong> — Structural and mechanical engineers use load and resistance distributions to calculate the probability of failure and select safety factors that keep this probability below an acceptable threshold.</li>
+  <li><strong>Maintenance scheduling</strong> — By fitting a distribution to component lifetime data, maintenance engineers can predict when failure is most likely and schedule preventive maintenance before the failure probability becomes unacceptably high.</li>
+  <li><strong>Monte Carlo simulation</strong> — For complex engineering systems with many interacting uncertain variables, Monte Carlo simulation is an indispensable technique. The method works by randomly sampling values for each uncertain input from its fitted probability distribution, computing the system output for that set of inputs, and repeating this process thousands or millions of times. The collection of outputs then forms an empirical distribution of possible outcomes, from which probabilities, confidence intervals, and worst-case estimates can be extracted. For example, a civil engineer assessing the strength of a bridge might define probability distributions for concrete strength, steel yield stress, traffic load intensity, and wind load, then use Monte Carlo simulation to estimate the probability that the combined stress exceeds the bridge's capacity under various conditions.</li>
+</ul>
+
+<p>The ability to move from raw data to a fitted probability distribution to quantitative predictions of future risk is one of the most powerful capabilities in the modern engineer's analytical toolkit. Whether estimating the fraction of parts outside tolerance, the probability a network will be overloaded, or the chance a critical structure will experience an extreme load within its design life, probability distributions translate uncertainty into manageable, decision-relevant numbers.</p>
+        <div class="notes"><strong>Notes</strong>The content covers all listed subtopics in depth: definition of probability distributions (discrete vs. continuous), the normal distribution with empirical rule and engineering applications, the binomial distribution with PMF formula and engineering uses, the Poisson distribution with PMF formula and engineering applications, a structured guide to distribution selection including goodness-of-fit testing, and predictive analysis using CDFs and Monte Carlo simulation. Tabular summaries are included to aid comparison and reference. Mathematical formulas are presented in &lt;pre&gt;&lt;code&gt; blocks for clarity.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

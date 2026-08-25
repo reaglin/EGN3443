@@ -8,242 +8,196 @@
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --brand-dark:   #1a3a5c;
-      --brand-mid:    #2563a8;
-      --brand-light:  #dbeafe;
-      --accent:       #e07b2a;
-      --bg:           #f4f6f9;
-      --surface:      #ffffff;
-      --border:       #d1d9e6;
-      --text-primary: #1e2a38;
-      --text-secondary: #4a5568;
-      --text-muted:   #718096;
-      --radius:       8px;
-      --shadow:       0 2px 8px rgba(0,0,0,0.08);
-      --shadow-hover: 0 6px 18px rgba(0,0,0,0.13);
-    }
-
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c2f35;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
+      background: linear-gradient(135deg, #1a3a5c 0%, #25567a 60%, #1e7fa6 100%);
       color: #fff;
       padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
     }
 
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+    header .course-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.28);
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.9rem;
-      color: #c9dff8;
+      opacity: 0.82;
+      margin-bottom: 0.45rem;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
       margin-bottom: 0.75rem;
       line-height: 1.25;
     }
 
-    header p {
-      font-size: 1rem;
-      color: #b8d4f0;
-      max-width: 720px;
+    header p.intro {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 0.97rem;
+      opacity: 0.92;
       line-height: 1.7;
     }
 
-    /* ── Main ── */
+    /* ── Main Content ── */
     main {
       max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.25rem 3rem;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
     }
 
+    /* ── Section Headings ── */
     .section-heading {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--border);
+      color: #1a3a5c;
+      border-bottom: 2px solid #c9d8e8;
+      padding-bottom: 0.35rem;
+      margin: 2.2rem 0 1.1rem;
     }
 
     /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
     }
 
+    /* ── Card ── */
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.35rem 1.4rem 1.25rem;
+      background: #fff;
+      border: 1px solid #dce4ed;
+      border-radius: 8px;
+      padding: 1.25rem 1.3rem 1.15rem;
       display: flex;
       flex-direction: column;
       gap: 0.55rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.11);
+      border-color: #aabfd4;
     }
 
-    /* ── Card Header Row ── */
-    .card-meta-row {
+    /* ── Card Top Row ── */
+    .card-top {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      justify-content: space-between;
       gap: 0.5rem;
       flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: #1a3a5c;
+      flex: 1 1 auto;
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 1.5px solid #4a90b8;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover {
+      color: #1e7fa6;
+      border-color: #1e7fa6;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      color: #5b7fa0;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #b8cfde;
+      border-radius: 3px;
+      padding: 0.15rem 0.42rem;
+      line-height: 1.5;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 0.05rem;
+    }
+
+    .source-link:hover {
+      background: #e8f2f8;
+      color: #1a3a5c;
+      border-color: #7aaec8;
+    }
+
+    /* ── Badges Row ── */
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
     }
 
     .badge {
       display: inline-block;
       font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.18rem 0.55rem;
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-
-    /* Badge colour map by type */
-    .badge-module-topics   { background: #e0f0ff; color: #1a5fa8; }
-    .badge-text-content    { background: #e6f4ea; color: #1e6b38; }
-    .badge-quiz            { background: #fff3e0; color: #8b4c00; }
-    .badge-assignment      { background: #f3e8ff; color: #5b21b6; }
-
-    .filetype-tag {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      background: #f0f2f5;
-      border-radius: 4px;
-      padding: 0.18rem 0.48rem;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0.03em;
-    }
-
-    /* ── Card Title Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .card-name {
-      font-size: 1.02rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      line-height: 1.35;
-    }
-
-    .card-name a {
-      color: var(--brand-mid);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      border-bottom-color: var(--brand-mid);
-      outline: none;
-    }
-
-    .card-name a:focus-visible {
-      outline: 2px solid var(--brand-mid);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.74rem;
       font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #f0c090;
-      background: #fff8f2;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      transition: background 0.15s, border-color 0.15s;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      padding: 0.15rem 0.5rem;
     }
 
-    .source-link::before {
-      content: "↗";
-      font-size: 0.7rem;
+    .badge-type {
+      background: #e4edf6;
+      color: #1a4a72;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: #fef0e0;
-      border-color: var(--accent);
-      outline: none;
+    .badge-filetype {
+      background: #eaf4f0;
+      color: #1a6040;
+      font-family: 'Courier New', monospace;
     }
 
-    .source-link:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
+    /* Type-specific accent colours on the card left border */
+    .card[data-type="Module Topics"]    { border-left: 4px solid #5b8db8; }
+    .card[data-type="Text Content"]     { border-left: 4px solid #4aaa82; }
+    .card[data-type="Topic Detail"]     { border-left: 4px solid #8f72c8; }
+    .card[data-type="Quiz"]             { border-left: 4px solid #d4860a; }
+    .card[data-type="Assignment"]       { border-left: 4px solid #c94a4a; }
 
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5160;
+      line-height: 1.6;
       flex: 1;
-    }
-
-    /* ── Divider between type sections (optional visual separator) ── */
-    .card-divider {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.4rem;
-      margin-top: 0.1rem;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
+      padding: 1.5rem 1rem;
       font-size: 0.78rem;
-      color: var(--text-muted);
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid var(--border);
+      color: #8a95a3;
+      border-top: 1px solid #dce4ed;
+      background: #fff;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      header { padding: 2rem 1.1rem 1.6rem; }
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1rem 1.6rem; }
       .card-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -253,134 +207,198 @@
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
-    <div class="header-inner">
-      <span class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</span>
-      <h1>Week 3 / Module 2 &mdash; Descriptive Statistics</h1>
-      <p>
-        This module introduces the foundations of descriptive statistics, covering measures of
-        central tendency (mean, median, and mode) and measures of variability (range and variance)
-        within engineering contexts. Use the resources below to read, review, practice, and
-        demonstrate your understanding of the module concepts.
-      </p>
-    </div>
+    <div class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</div>
+    <h1>Week 3 / Module 2 — Descriptive Statistics</h1>
+    <p class="intro">
+      This module introduces the fundamental tools used to summarise and interpret data.
+      You will explore measures of central tendency (mean, median, mode), measures of
+      variability (range, variance, standard deviation), and data distributions — building
+      the statistical vocabulary every engineer needs for rigorous data analysis.
+    </p>
   </header>
 
   <main>
-    <p class="section-heading">Module Artifacts &mdash; 6 items</p>
 
+    <!-- ── Module Overview ── -->
+    <div class="section-heading">Module Overview</div>
     <div class="card-grid">
 
-      <!-- 1. Module Topics -->
-      <article class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-module-topics">Module Topics</span>
-          <span class="filetype-tag">.json</span>
-        </div>
-        <div class="card-title-row">
+      <!-- Module Topics -->
+      <div class="card" data-type="Module Topics">
+        <div class="card-top">
           <span class="card-name">
             <a href="content/module_topics.html">Module Topics</a>
           </span>
           <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <p class="card-description">
-          An outline of the module's topics, spanning descriptive statistics fundamentals,
-          measures of central tendency (mean, median, mode), and measures of variability
-          (range, variance), used by learners to preview what the module covers.
-        </p>
-      </article>
-
-      <!-- 2. Descriptive Statistics for Engineers -->
-      <article class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-badges">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-title-row">
+        <p class="card-desc">An outline of the module's topics, spanning descriptive statistics fundamentals, measures of central tendency (mean, median, mode), and measures of variability (range, variance), used by learners to preview what the module covers.</p>
+      </div>
+
+    </div><!-- /card-grid -->
+
+    <!-- ── Reading &amp; Content ── -->
+    <div class="section-heading">Reading &amp; Content</div>
+    <div class="card-grid">
+
+      <!-- Descriptive Statistics for Engineers -->
+      <div class="card" data-type="Text Content">
+        <div class="card-top">
           <span class="card-name">
             <a href="content/Descriptive_Statistics_for_Engineers.html">Descriptive Statistics for Engineers</a>
           </span>
         </div>
-        <p class="card-description">
-          A reading that defines and explains key descriptive statistics concepts&mdash;mean, median,
-          mode, and measures of variability&mdash;with formulas and engineering-context examples,
-          used by learners as the primary reference text for the module.
-        </p>
-      </article>
-
-      <!-- 3. EGN3443 Module 2 Landing Page -->
-      <article class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-badges">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
+        <p class="card-desc">A reading that defines and explains key descriptive statistics concepts — mean, median, mode, and measures of variability — with formulas and engineering-context examples, used by learners as the primary reference text for the module.</p>
+      </div>
+
+      <!-- EGN3443 Module 2 - Descriptive Statistics -->
+      <div class="card" data-type="Text Content">
+        <div class="card-top">
           <span class="card-name">
-            <a href="content/EGN3443_Module_2_Descriptive_Statistics.html">EGN3443 Module 2 &mdash; Descriptive Statistics</a>
+            <a href="content/EGN3443_Module_2_Descriptive_Statistics.html">EGN3443 Module 2 - Descriptive Statistics</a>
           </span>
         </div>
-        <p class="card-description">
-          A landing page that provides learners with links to the Module 2 PowerPoint presentation
-          and YouTube lecture on descriptive statistics, serving as a navigation hub for the
-          module's multimedia resources.
-        </p>
-      </article>
-
-      <!-- 4. Quiz Question Bank -->
-      <article class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-quiz">Quiz</span>
-          <span class="filetype-tag">.json</span>
+        <div class="card-badges">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
+        <p class="card-desc">A landing page that provides learners with links to the Module 2 PowerPoint presentation and YouTube lecture on descriptive statistics, serving as a navigation hub for the module's multimedia resources.</p>
+      </div>
+
+    </div><!-- /card-grid -->
+
+    <!-- ── Topic Details ── -->
+    <div class="section-heading">Topic Details</div>
+    <div class="card-grid">
+
+      <!-- Introduction to Descriptive Statistics -->
+      <div class="card" data-type="Topic Detail">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t1.html">Introduction to Descriptive Statistics</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">This reading introduces descriptive statistics as the practice of summarising, organising, and presenting data, giving real-world examples of its use and establishing the conceptual foundation for the measures covered later in the module.</p>
+      </div>
+
+      <!-- Measures of Central Tendency -->
+      <div class="card" data-type="Topic Detail">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t2.html">Measures of Central Tendency</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">This reading explains the three main measures of central tendency — mean, median, and mode — describing what each represents, how each is calculated, and when each is the most appropriate summary of a typical value in a dataset.</p>
+      </div>
+
+      <!-- Measures of Variability -->
+      <div class="card" data-type="Topic Detail">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t3.html">Measures of Variability</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">This reading covers measures of variability — including range, variance, and standard deviation — explaining how each quantifies the spread of data around a central value and why spread matters even when two datasets share the same mean.</p>
+      </div>
+
+      <!-- Data Distribution -->
+      <div class="card" data-type="Topic Detail">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t4.html">Data Distribution</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">This reading describes how data values form distributional patterns, covering concepts such as frequency distributions, histogram shapes, skewness, and symmetry so learners can recognise and interpret the overall structure of a dataset.</p>
+      </div>
+
+      <!-- Selecting and Applying Appropriate Statistical Measures -->
+      <div class="card" data-type="Topic Detail">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t5.html">Selecting and Applying Appropriate Statistical Measures</a>
+          </span>
+        </div>
+        <div class="card-badges">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">This reading guides learners and instructors on how to choose the correct descriptive statistics for a given dataset by matching measures of central tendency and variability to the appropriate level of measurement and data type to avoid misleading conclusions.</p>
+      </div>
+
+    </div><!-- /card-grid -->
+
+    <!-- ── Assessment ── -->
+    <div class="section-heading">Assessment</div>
+    <div class="card-grid">
+
+      <!-- Quiz Question Bank -->
+      <div class="card" data-type="Quiz">
+        <div class="card-top">
           <span class="card-name">
             <a href="quiz/index.html">Quiz Question Bank (40 questions)</a>
           </span>
           <a class="source-link" href="source/quiz_questions.json">source file</a>
         </div>
-        <p class="card-description">
-          A 40-question quiz bank featuring engineering-scenario problems (e.g., concrete strength,
-          voltage measurements) that test learners' ability to select and apply the correct
-          descriptive statistic, used by instructors to assess comprehension of module concepts.
-        </p>
-      </article>
-
-      <!-- 5. Assignment 2 - Basic Statistics -->
-      <article class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-assignment">Assignment</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-badges">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-title-row">
+        <p class="card-desc">A 40-question quiz bank featuring engineering-scenario problems (e.g., concrete strength, voltage measurements) that test learners' ability to select and apply the correct descriptive statistic, used by instructors to assess comprehension of module concepts.</p>
+      </div>
+
+      <!-- Assignment 2 - Basic Statistics -->
+      <div class="card" data-type="Assignment">
+        <div class="card-top">
           <span class="card-name">
-            <a href="assignments/index.html">Assignment 2 &mdash; Basic Statistics</a>
+            <a href="assignments/index.html">Assignment 2 - Basic Statistics</a>
           </span>
         </div>
-        <p class="card-description">
-          A programming-based assignment requiring learners to choose a real-world dataset,
-          perform descriptive statistical analysis using R or Python, and write a report
-          summarizing the results, assessing their practical ability to apply module concepts.
-        </p>
-      </article>
-
-      <!-- 6. Module 2 Graded Discussion -->
-      <article class="card">
-        <div class="card-meta-row">
-          <span class="badge badge-assignment">Assignment</span>
-          <span class="filetype-tag">.html</span>
+        <div class="card-badges">
+          <span class="badge badge-type">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
+        <p class="card-desc">A programming-based assignment requiring learners to choose a real-world dataset, perform descriptive statistical analysis using R or Python, and write a report summarizing the results, assessing their practical ability to apply module concepts.</p>
+      </div>
+
+      <!-- Module 2 Graded Discussion -->
+      <div class="card" data-type="Assignment">
+        <div class="card-top">
           <span class="card-name">
             <a href="assignments/index.html">Module 2 Graded Discussion</a>
           </span>
         </div>
-        <p class="card-description">
-          A graded discussion in which learners query an AI about which descriptive statistics
-          every engineer should know, reflect on their current understanding of those statistics,
-          and respond to at least one peer's post.
-        </p>
-      </article>
+        <div class="card-badges">
+          <span class="badge badge-type">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">A graded discussion in which learners query an AI about which descriptive statistics every engineer should know, reflect on their current understanding of those statistics, and respond to at least one peer's post.</p>
+      </div>
 
-    </div>
+    </div><!-- /card-grid -->
+
   </main>
 
   <footer>

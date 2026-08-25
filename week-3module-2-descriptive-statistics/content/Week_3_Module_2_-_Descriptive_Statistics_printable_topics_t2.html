@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measures of Central Tendency</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
+  <header>
+    <h1>Measures of Central Tendency</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Measures of Central Tendency</h2>
+      <p>When we collect data — whether it is the ages of survey respondents, the prices of homes sold in a city, or the number of hours students spend studying each week — one of the first questions we ask is: <em>what is a typical value?</em> Measures of central tendency are statistical tools designed to answer exactly this question. They identify a single value that best represents the centre, or middle ground, of an entire dataset. Three measures dominate statistical practice: the <strong>mean</strong>, the <strong>median</strong>, and the <strong>mode</strong>. Each has its own method of calculation, its own strengths, and its own limitations. Choosing the right one depends on the nature of the data and the purpose of the analysis. Used together, they paint a much richer picture of any dataset than any one of them could alone.</p>
+
+<p>The <strong>arithmetic mean</strong> is what most people think of when they hear the word "average." To calculate it, you sum every value in the dataset and then divide by the number of values. If five students scored 55, 62, 70, 74, and 89 on a test, the mean is (55 + 62 + 70 + 74 + 89) ÷ 5 = 350 ÷ 5 = <strong>70</strong>. The formula is written as:</p>
+
+<pre><code>x̄ = (Σxᵢ) / n
+
+where x̄ is the sample mean, Σxᵢ is the sum of all values, and n is the number of values.</code></pre>
+
+<p>The defining characteristic of the mean is that it incorporates <em>every</em> value in the dataset. This makes it a comprehensive and mathematically powerful summary — it forms the foundation for many further calculations in inferential statistics, including standard deviations, t-tests, and regression analysis. Because of these algebraic properties, the mean is generally the preferred measure when the goal is to use the data in further statistical modelling.</p>
+
+<p>However, this same quality — sensitivity to every value — is also the mean's greatest vulnerability. <strong>Outliers</strong>, which are values that sit far from the rest of the data, can pull the mean dramatically away from where most of the data actually sits. Imagine a small company with six employees earning annual salaries of £22,000, £24,000, £25,000, £26,000, £27,000, and £150,000 (the owner). The mean salary is (22,000 + 24,000 + 25,000 + 26,000 + 27,000 + 150,000) ÷ 6 = 274,000 ÷ 6 ≈ <strong>£45,667</strong>. This figure is higher than five of the six salaries and would give a completely misleading impression of what a typical employee earns. When reporting the mean, it is good practice to explicitly note whether outliers are present that might distort the interpretation. The mean is most appropriate for <strong>interval or ratio level data</strong> that are roughly symmetrically distributed — for example, heights of adults, examination marks in a large cohort, or repeated measurements of a physical quantity under controlled conditions.</p>
+
+<p>The <strong>median</strong> is the middle value of a dataset once all values have been arranged in ascending (or descending) order. It divides the distribution exactly in half: 50% of values fall at or below the median and 50% fall at or above it. For an <em>odd</em> number of values, the median is simply the middle item. For an <em>even</em> number of values, it is the arithmetic average of the two middle items.</p>
+
+<pre><code>Odd example  — values: 12, 15, 18, 21, 29   → median = 18  (3rd of 5 values)
+
+Even example — values: 12, 15, 18, 21       → median = (15 + 18) / 2 = 16.5</code></pre>
+
+<p>The median's critical advantage is its <strong>resistance to outliers</strong>. Returning to the salary example, the ordered values are £22,000, £24,000, £25,000, £26,000, £27,000, £150,000. The median is the average of the 3rd and 4th values: (25,000 + 26,000) ÷ 2 = <strong>£25,500</strong>. This figure is far more representative of what a typical employee earns. No matter how extreme the owner's salary became — £500,000 or £1,000,000 — the median would not change, because it depends only on the order of the values, not their magnitude.</p>
+
+<p>This robustness makes the median particularly valuable for <strong>skewed distributions</strong> and for <strong>ordinal data</strong> (data that can be ranked but where the intervals between ranks are not necessarily equal, such as satisfaction ratings of "poor, fair, good, excellent"). It is also the standard measure reported for house prices and household incomes in most countries precisely because these distributions tend to have long upper tails driven by very high values. When a dataset contains extreme high or low values, the median provides a more honest picture of the experience of the typical observation than the mean does.</p>
+
+<p>The <strong>mode</strong> is the value (or values) that appear most frequently in a dataset. It requires no calculation beyond counting. In the set {3, 5, 5, 7, 8, 8, 8, 10}, the mode is <strong>8</strong> because it appears three times — more than any other value. A dataset can be:</p>
+
+<ul>
+  <li><strong>Unimodal</strong> — one mode (most common situation)</li>
+  <li><strong>Bimodal</strong> — two values tied for highest frequency, which may suggest two distinct subgroups within the data</li>
+  <li><strong>Multimodal</strong> — more than two modes</li>
+  <li><strong>No mode</strong> — when all values appear with equal frequency, or when no value repeats at all</li>
+</ul>
+
+<p>The mode is the <em>only</em> measure of central tendency that can be applied to <strong>nominal (categorical) data</strong> — data that fall into named categories with no inherent order, such as favourite colours, modes of transport, or blood types. If 200 people are asked their preferred social media platform and 85 say Instagram, 60 say TikTok, 40 say Facebook, and 15 say Twitter, the mode is <strong>Instagram</strong>. You cannot meaningfully compute a mean or median for such data, but you can absolutely identify the most common response.</p>
+
+<p>For continuous numerical data, the mode is less useful because individual values rarely repeat exactly (a dataset of precise weights measured to three decimal places would almost certainly have no repeating values). However, it becomes informative again when continuous data are grouped into <strong>class intervals</strong> — the class with the highest frequency is called the <em>modal class</em>. In business contexts, the mode is invaluable: a clothing retailer needs to know the most commonly sold shoe size (the mode) so they can manage stock levels appropriately, not the mathematically average shoe size.</p>
+
+<p>Comparing the three measures together reveals important structural information about a dataset. Their relationship signals the shape of the distribution:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Relationship</th>
+      <th>Distribution Shape</th>
+      <th>Typical Cause</th>
+      <th>Which Measure to Prefer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mean ≈ Median ≈ Mode</td>
+      <td>Symmetrical (normal)</td>
+      <td>Data evenly spread around the centre</td>
+      <td>Mean (all are equivalent)</td>
+    </tr>
+    <tr>
+      <td>Mean &gt; Median &gt; Mode</td>
+      <td>Positively skewed (right-skewed)</td>
+      <td>A few very high outliers pulling the mean up</td>
+      <td>Median</td>
+    </tr>
+    <tr>
+      <td>Mean &lt; Median &lt; Mode</td>
+      <td>Negatively skewed (left-skewed)</td>
+      <td>A few very low outliers pulling the mean down</td>
+      <td>Median</td>
+    </tr>
+    <tr>
+      <td>Two or more modes</td>
+      <td>Bimodal / multimodal</td>
+      <td>Two or more distinct subgroups in the data</td>
+      <td>Mode (and investigate subgroups)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Consider the following illustrative dataset of annual bonuses paid to twelve employees (in £): 500, 600, 650, 700, 700, 750, 750, 750, 800, 850, 900, 5,000. The mode is <strong>£750</strong> (appears three times). The median is the average of the 6th and 7th values in the ordered list: (750 + 750) ÷ 2 = <strong>£750</strong>. The mean is the total divided by 12: 13,950 ÷ 12 = <strong>£1,162.50</strong>. Here the mean is nearly 55% higher than the median and mode — entirely because of the single £5,000 outlier. An employee told the "average bonus" is £1,162.50 would feel misled. The median and mode tell a far more representative story.</p>
+
+<p>Selecting the most appropriate measure of central tendency is not arbitrary — it follows from two primary considerations: the <strong>level of measurement</strong> of the data and the <strong>shape of the distribution</strong>.</p>
+
+<ul>
+  <li><strong>Nominal data</strong> (categories with no order — e.g., eye colour, car brand): only the <em>mode</em> is valid.</li>
+  <li><strong>Ordinal data</strong> (ranked categories — e.g., satisfaction scales, class rankings): the <em>median</em> is most appropriate, as the mode wastes information and the mean treats unequal intervals as if they were equal.</li>
+  <li><strong>Interval or ratio data, symmetrically distributed, no significant outliers</strong>: the <em>mean</em> is ideal and supports further statistical analysis.</li>
+  <li><strong>Interval or ratio data, skewed or with outliers</strong>: the <em>median</em> is preferred to avoid a misleading summary.</li>
+</ul>
+
+<p>In practice, the best approach is often to <strong>report more than one measure</strong>. A public health report on waiting times in an emergency department, for instance, might state: "The mean waiting time was 47 minutes, though the median was 31 minutes, reflecting the influence of a small number of very long waits on the average." This kind of transparent reporting gives audiences the information they need to interpret the data accurately, without hiding the distribution's true character behind a single number. Similarly, knowing that the most common waiting time (the mode) was only 15–20 minutes (in a grouped distribution) might be equally important for operational planning.</p>
+
+<p>Ultimately, measures of central tendency are starting points, not endpoints. They answer the question "where is the middle of this data?" but they tell us nothing about spread, shape, or reliability on their own. A thorough statistical analysis always pairs them with measures of variability — such as the range, interquartile range, or standard deviation — to build a complete picture of the dataset. But as a foundation, understanding when and why to use the mean, median, and mode is one of the most practically important skills in any quantitative discipline.</p>
+      <div class="notes"><strong>Notes</strong>The salary and bonus worked examples are constructed illustrations. Instructors may wish to pair this content with hands-on exercises where learners calculate all three measures for the same dataset and then interpret what the differences between them reveal about the distribution shape.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

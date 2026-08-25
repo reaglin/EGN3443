@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistical Inference and Interpretation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+  <header>
+    <h1>Statistical Inference and Interpretation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Statistical Inference and Interpretation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistical inference is the discipline of drawing reasoned, quantifiable conclusions about a large population based on data collected from a smaller sample. In engineering practice, it is rarely feasible — and often impossible — to measure every component, every weld, every batch, or every customer transaction. Instead, engineers select a representative subset, compute descriptive statistics, and then use the mathematics of probability to say something rigorous about the broader reality those numbers reflect. This process of reasoning from the particular to the general sits at the heart of quality control, reliability engineering, process optimization, and design validation. Understanding how inference works, where its assumptions can fail, and how to translate its outputs into actionable decisions separates engineers who merely collect data from those who genuinely learn from it.</p>
+
+<p><strong>Fundamentals of Statistical Inference</strong></p>
+
+<p>Every inference problem involves two distinct worlds: the <em>population</em> and the <em>sample</em>. The population is the complete set of all items, measurements, or events of interest — for example, all welds produced by a robotic arm over a year, or the tensile strength of every bolt from a supplier's production run. A population is characterized by fixed but usually unknown <em>parameters</em>, such as the true mean tensile strength (μ) or the true proportion of defective units (p). Because measuring the entire population is typically cost-prohibitive or destructive, engineers draw a <em>sample</em> — a manageable subset — and compute <em>statistics</em>, such as the sample mean (x̄) or sample standard deviation (s), which serve as proxies for the unknown parameters.</p>
+
+<p>The bridge between sample and population is built on probability theory. When data are collected properly, the sample statistic is not a perfect copy of the population parameter, but it is a well-behaved, mathematically predictable estimate of it. The <em>Central Limit Theorem</em> is crucial here: it guarantees that, regardless of the shape of the original population distribution, the sampling distribution of the sample mean approaches a normal distribution as sample size increases. This means engineers can apply normal-distribution-based inference tools even when individual measurements are skewed or bounded — provided the sample is large enough.</p>
+
+<p>Three factors govern how reliable an inference will be:</p>
+<ul>
+  <li><strong>Sample size (n):</strong> Larger samples reduce random error. The standard error of the mean, σ/√n, shrinks as n grows, meaning the sample mean clusters more tightly around the true population mean.</li>
+  <li><strong>Sampling method:</strong> How the sample is drawn determines whether it is representative. A biased sampling scheme — such as only testing components from the day shift — can make even a large sample misleading.</li>
+  <li><strong>Data variability:</strong> Populations with high inherent spread (large σ) require larger samples to achieve the same inferential precision as low-variability populations.</li>
+</ul>
+
+<p>Statistical inference divides into two major branches. <em>Estimation</em> asks: "What is the value of the unknown parameter?" and answers with a point estimate or an interval estimate. <em>Hypothesis testing</em> asks: "Is the parameter equal to some claimed value, or does the evidence suggest otherwise?" Both branches rely on the same underlying probability framework and often complement each other in practice.</p>
+
+<p><strong>Point Estimates and Confidence Intervals</strong></p>
+
+<p>A <em>point estimate</em> is a single number computed from the sample that is offered as the best single guess at the population parameter. The sample mean x̄ is the point estimate for the population mean μ; the sample proportion p̂ estimates the population proportion p; the sample standard deviation s estimates σ. Point estimates are compact and easy to communicate — an engineer might report that the average yield strength of a batch of steel rods is 415 MPa — but they carry a critical limitation: they give no information whatsoever about how accurate that estimate is. A mean of 415 MPa computed from five measurements could be wildly imprecise; the same value computed from 500 measurements is almost certainly close to the truth. The number alone does not tell you which situation you are in.</p>
+
+<p>A <em>confidence interval</em> (CI) resolves this limitation by wrapping the point estimate in a range that reflects estimation uncertainty. A 95% confidence interval for the population mean, for example, takes the form:</p>
+
+<pre><code>x̄  ±  t(α/2, n-1)  ×  (s / √n)</code></pre>
+
+<p>where t(α/2, n-1) is the critical value from the t-distribution for the chosen confidence level and the available degrees of freedom, s is the sample standard deviation, and n is the sample size. This interval has a lower bound (L) and an upper bound (U). The correct interpretation is not that there is a 95% probability the true mean lies in this specific interval — once the sample is drawn, the true mean either is or is not inside the computed interval. Rather, the 95% refers to the <em>procedure</em>: if the same sampling and estimation process were repeated many times across many experiments, approximately 95% of the resulting intervals would contain the true population mean.</p>
+
+<p>Consider a concrete engineering example. A quality engineer tests 25 machined shafts for diameter and finds x̄ = 50.03 mm and s = 0.08 mm. The 95% confidence interval is approximately:</p>
+
+<pre><code>50.03  ±  2.064  ×  (0.08 / √25)
+50.03  ±  2.064  ×  0.016
+50.03  ±  0.033
+
+Lower bound: 49.997 mm
+Upper bound: 50.063 mm</code></pre>
+
+<p>The engineer can report that the true mean shaft diameter is estimated to lie between approximately 50.00 mm and 50.06 mm with 95% confidence. If the engineering specification calls for a diameter of 50.00 ± 0.10 mm (i.e., 49.90 to 50.10 mm), this interval lies well within tolerance, supporting the conclusion that the process is centered acceptably.</p>
+
+<p>Several factors affect interval width — and therefore the precision of the estimate:</p>
+<ul>
+  <li><strong>Sample size:</strong> Doubling n reduces the margin of error by a factor of √2 ≈ 1.41, narrowing the interval.</li>
+  <li><strong>Data variability:</strong> A larger s produces a wider interval. High process variability demands either larger samples or tighter process controls before reliable inference is possible.</li>
+  <li><strong>Confidence level:</strong> Raising the confidence level from 95% to 99% requires a larger critical value (e.g., 2.576 versus 1.96 for large n), which widens the interval. There is a fundamental trade-off: more confidence costs precision.</li>
+</ul>
+
+<p>In engineering reporting, common applications of confidence intervals include material strength characterization, process capability studies, tolerance stack-up analysis, and supplier qualification. Reporting only a point estimate without an accompanying interval is an incomplete and potentially misleading practice.</p>
+
+<p><strong>Hypothesis Testing in Engineering Contexts</strong></p>
+
+<p>Hypothesis testing provides a formal framework for making binary decisions from data: is the evidence strong enough to conclude that something has changed, or that two things differ, or that a specification has been met or violated? The process begins with two competing statements about the population.</p>
+
+<p>The <em>null hypothesis</em> (H₀) is the default assumption — typically a statement of no effect, no difference, or no change. For example: "The mean tensile strength of the new alloy equals 500 MPa," or "The proportion of defective units from Supplier A equals the proportion from Supplier B." The <em>alternative hypothesis</em> (H₁ or Hₐ) is the claim the analyst is trying to find evidence for: "The mean tensile strength exceeds 500 MPa," or "The defect rates differ." H₁ can be one-sided (directional) or two-sided (non-directional), and the choice should be made based on engineering context before data collection begins.</p>
+
+<p>The testing procedure computes a <em>test statistic</em> — a standardized measure of how far the sample result is from what H₀ predicts — and then computes the <em>p-value</em>: the probability of observing a test statistic at least as extreme as the one actually observed, <em>assuming H₀ is true</em>. A small p-value means the observed data are unlikely under H₀, which constitutes evidence against it. A common threshold is α = 0.05: if p < 0.05, engineers reject H₀ in favor of H₁; if p ≥ 0.05, they fail to reject H₀ (they do <em>not</em> "accept" it — absence of evidence is not evidence of absence).</p>
+
+<p>Two types of decision errors are inherent in hypothesis testing:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Decision</th>
+      <th>H₀ Is Actually True</th>
+      <th>H₀ Is Actually False</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Reject H₀</strong></td>
+      <td>Type I Error (False Positive) — probability = α</td>
+      <td>Correct Decision (True Positive) — probability = 1 − β (Power)</td>
+    </tr>
+    <tr>
+      <td><strong>Fail to Reject H₀</strong></td>
+      <td>Correct Decision (True Negative) — probability = 1 − α</td>
+      <td>Type II Error (False Negative) — probability = β</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A <em>Type I error</em> (false positive) occurs when the test incorrectly rejects a true null hypothesis — for instance, concluding that a manufacturing process has drifted out of spec when it actually has not, triggering unnecessary and costly process shutdowns. The significance level α directly controls this risk: setting α = 0.01 rather than α = 0.05 makes it harder to reject H₀, reducing Type I error but increasing Type II error.</p>
+
+<p>A <em>Type II error</em> (false negative) occurs when the test fails to detect a real effect — for example, failing to identify that a supplier's component strength has degraded, allowing substandard parts into production. The probability of a Type II error is denoted β, and the complement (1 − β) is the <em>power</em> of the test: the probability of correctly detecting a real difference when one exists.</p>
+
+<p>The engineering consequences of each error type should drive the choice of α. In safety-critical contexts — structural failure analysis, pharmaceutical dosing, aircraft component qualification — Type II errors can be catastrophic, so engineers may accept a higher α (0.10) to gain power and avoid missing real problems. In high-cost process interventions, Type I errors are expensive, so α might be set lower (0.01) to avoid false alarms. This is not a purely statistical choice; it is an engineering risk management decision.</p>
+
+<p><strong>Interpreting Statistical Results Practically</strong></p>
+
+<p>One of the most important and commonly misunderstood distinctions in applied statistics is the difference between <em>statistical significance</em> and <em>practical significance</em>. A result can be statistically significant — meaning the p-value is below the chosen threshold — while being completely irrelevant from an engineering standpoint. This happens because with large enough samples, even trivially small differences produce very small p-values.</p>
+
+<p>For example, suppose an engineer collects 10,000 measurements and determines that a new coating process reduces surface roughness from 1.500 μm to 1.497 μm, with p = 0.001. The result is highly statistically significant. But if the product specification allows roughness up to 3.0 μm, a reduction of 0.003 μm is completely irrelevant — it affects no functional performance criterion, justifies no process change, and certainly does not justify the cost of adopting the new coating. Statistical significance alone did not answer the engineering question.</p>
+
+<p><em>Effect size</em> metrics provide a standardized way to quantify the magnitude of an observed difference, independent of sample size. Common measures include:</p>
+<ul>
+  <li><strong>Cohen's d:</strong> The difference between two means divided by a pooled standard deviation. A d of 0.2 is conventionally considered small, 0.5 medium, and 0.8 large. In engineering, these thresholds should be calibrated to the specific context rather than used mechanically.</li>
+  <li><strong>Percent change:</strong> The proportional change relative to a baseline value. Simple and intuitive, but can be misleading when the baseline is very small.</li>
+  <li><strong>Process capability indices (Cp, Cpk):</strong> Used directly in manufacturing to express how well a process fits within specification limits, capturing both centering and spread.</li>
+</ul>
+
+<p>Best practice is to report results with both statistical and engineering framing. A complete report might state: "The new heat treatment increased mean hardness by 4.2 HRC (95% CI: 3.8 to 4.6 HRC), a statistically significant improvement (t(48) = 21.3, p < 0.001) representing an 8.4% increase over baseline. This exceeds the minimum required hardness improvement of 2.0 HRC specified for this application." This format tells readers what was found, how confident we are, how big the effect is, and whether it matters for the application.</p>
+
+<p>Visual tools are indispensable complements to numerical summaries. A <em>control chart</em> plots process measurements over time, with control limits derived from process variability, allowing engineers to distinguish random (common-cause) variation from genuine process shifts (special-cause variation). A <em>box plot</em> displays the median, interquartile range, and outliers for one or more groups simultaneously, making distributional differences immediately apparent. Pair these visuals with confidence interval plots or error bar charts and stakeholders who are not fluent in statistical notation can still grasp the key findings intuitively.</p>
+
+<p><strong>Sampling Strategies and Their Impact on Inference</strong></p>
+
+<p>The validity of any inference depends fundamentally on how the sample was collected. A mathematically sophisticated analysis built on a biased sample produces confident but wrong conclusions — sometimes called "garbage in, garbage out." Choosing the right sampling strategy is therefore as important as choosing the right statistical test.</p>
+
+<p><em>Simple random sampling</em> is the gold standard for unbiased inference. Every unit in the population is assigned an equal probability of selection, and the sample is drawn using a random mechanism (random number tables, random number generators, or randomized draw procedures). This ensures the sample is not systematically skewed toward any subgroup. In a manufacturing context, simple random sampling might mean using a random number generator to select 50 part serial numbers from a day's production lot.</p>
+
+<p><em>Stratified random sampling</em> improves efficiency and representativeness when the population naturally divides into meaningful subgroups (<em>strata</em>). The engineer first identifies the strata — for example, three production shifts, four machine lines, or multiple raw material lots — and then independently draws a random sample from each stratum. This guarantees representation from every subgroup, which is especially important when subgroups are suspected to behave differently. It also typically reduces sampling variance compared to simple random sampling of the same total size, yielding narrower confidence intervals for the same cost.</p>
+
+<p><em>Systematic sampling</em> selects units at regular intervals (e.g., every 20th item off a conveyor). It is practical and easy to implement, but can introduce bias if there is a periodic pattern in the production process that aligns with the sampling interval — for example, if every 20th part coincides with a tool-change cycle.</p>
+
+<p><em>Convenience sampling</em> — testing whatever is easiest to access — is the most common non-random approach and the most dangerous. Testing only the components nearest the warehouse door, or only those produced on the morning shift, or only the units that were available the day an engineer happened to visit, all produce samples that may not represent the broader population. Inferences drawn from convenience samples can have the mathematical form of rigorous statistical analysis while being fundamentally misleading.</p>
+
+<p>Sample size planning is a critical pre-study activity. For estimating a population mean with a desired margin of error E at a given confidence level, the required sample size is approximately:</p>
+
+<pre><code>n  =  (z(α/2)  ×  σ / E)²</code></pre>
+
+<p>where z(α/2) is the standard normal critical value (1.96 for 95% confidence) and σ is the anticipated population standard deviation (estimated from prior studies or a pilot sample). For hypothesis tests, the required sample size depends on the desired power (1 − β), the significance level (α), and the minimum effect size worth detecting. Statistical software and power-analysis tables make these calculations routine. Skipping this step and collecting "some data" without a principled sample size often results in underpowered tests that cannot detect real effects even when they exist.</p>
+
+<p><strong>Connecting Inference to Engineering Decision-Making</strong></p>
+
+<p>Statistical inference is not an academic exercise — it is a tool for making better engineering decisions under uncertainty. The connection between inference output and actionable engineering judgment should be explicit and traceable.</p>
+
+<p>In quality control, inference results directly inform accept/reject decisions for incoming material lots, process qualification runs, and final product inspection. A confidence interval on defect rate, compared to a contractual acceptance quality limit (AQL), tells the purchasing engineer whether to accept or reject a supplier shipment with quantified risk. In process optimization, hypothesis tests on designed experiments (DOE) determine which process parameters — temperature, pressure, feed rate, curing time — have significant effects on yield or quality characteristics, focusing engineering effort where it matters most.</p>
+
+<p>In failure analysis, inference helps distinguish between a genuine increase in field failure rate and statistical noise inherent in small sample sizes of returned parts. An engineer who understands power analysis knows not to conclude "no problem" from a test with low power; they recognize that the test may simply have been insufficient to detect a real but modest degradation.</p>
+
+<p>Communicating inference results to non-statistical stakeholders — project managers, customers, regulators — requires translating probabilistic language into plain engineering terms. Instead of saying "we reject H₀ at α = 0.05," say "we have strong evidence that the modified process reduces mean defect rate, and we estimate the reduction to be between 12% and 28%." Confidence intervals, in particular, are powerful communication tools because they simultaneously convey the best estimate and the range of plausible values, giving decision-makers a sense of what they know and how firmly they know it.</p>
+
+<p>The iterative nature of engineering inference deserves emphasis. Rarely is a single test conclusive. The scientific and engineering ideal is a cycle: formulate a question, design a sampling plan, collect data, perform inference, interpret results in engineering context, adjust the process or design, and repeat. Each iteration reduces uncertainty, narrows confidence intervals, and builds a more complete picture of the system being studied. This cycle is the engine of continuous improvement methodologies such as Six Sigma (DMAIC), Plan-Do-Check-Act (PDCA), and Design of Experiments (DOE) frameworks. Statistical inference is not a one-time calculation; it is an ongoing conversation between data and engineering judgment.</p>
+        <div class="notes"><strong>Notes</strong>Topic covers the full arc from foundational inference concepts through estimation, hypothesis testing, practical interpretation, sampling design, and engineering decision integration. Instructors may wish to assign worked numerical examples for the confidence interval and hypothesis test sections. The error type table is a useful quick-reference that can be revisited when covering specific test types (t-test, ANOVA, chi-square) in subsequent modules.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

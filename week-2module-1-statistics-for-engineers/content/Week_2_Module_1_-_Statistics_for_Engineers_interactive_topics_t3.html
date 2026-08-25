@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Variability and Distribution Shape</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+  <header>
+    <h1>Data Variability and Distribution Shape</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Data Variability and Distribution Shape</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>In engineering and quality management, collecting data is only the first step. The real insight comes from understanding how that data behaves — specifically, how spread out it is, where it centers, and what shape it takes when visualized. These questions fall under the study of <strong>data variability and distribution shape</strong>, a foundational area for anyone working with measurements, manufacturing processes, or product quality. A single average value rarely tells the whole story; two processes can share the same mean yet behave very differently if one is tightly clustered and another is wildly scattered. Variability measures and distribution shapes together give engineers the diagnostic tools to assess whether a process is stable, predictable, and capable of meeting specifications.</p>
+
+<p><strong>Understanding Range as a Variability Measure</strong></p>
+
+<p>The simplest way to quantify how spread out a dataset is involves looking at its two extremes. The <strong>range</strong> is defined as:</p>
+
+<pre><code>Range = Maximum value − Minimum value</code></pre>
+
+<p>If a batch of machined shafts has diameters ranging from 49.85 mm to 50.12 mm, the range is 0.27 mm. This single number immediately communicates the total span of the data and requires no complex calculation. That simplicity is the range's greatest strength — it is instantly interpretable and easy to compute even in a shop-floor environment without statistical software.</p>
+
+<p>However, the range has a critical weakness: it relies entirely on the two most extreme values and tells you nothing about what happens between them. Consider two datasets, each with ten measurements:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dataset</th>
+      <th>Values</th>
+      <th>Range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>10, 10, 10, 10, 10, 10, 10, 10, 10, 20</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>10, 11, 12, 13, 14, 15, 16, 17, 18, 20</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both datasets have the same range, yet Dataset A is nearly perfectly consistent with one anomalous outlier, while Dataset B shows a smooth, uniform spread across the entire interval. The range cannot distinguish between these two very different behaviors. A single unusual observation — a measurement error, a machine spike, a material defect — can dramatically inflate the range and misrepresent typical process spread.</p>
+
+<p>In quality control, a large range is often a warning flag. If shaft diameters in one production run span 0.05 mm but the next run spans 0.35 mm, that change in range signals a potential shift in process consistency that warrants investigation — perhaps a worn tool, a loose fixture, or a change in raw material. Despite its limitations, range remains widely used in <em>Statistical Process Control (SPC)</em> charts, particularly R-charts, because of its computational simplicity and its ability to track short-run variability quickly. The key rule is to always use range alongside other variability measures rather than in isolation.</p>
+
+<p><strong>Variance: Quantifying Spread Around the Mean</strong></p>
+
+<p>To overcome the range's dependence on only two extreme values, engineers turn to <strong>variance</strong>, which accounts for every observation in the dataset. Variance measures the average squared deviation of each data point from the mean, capturing how dispersed the data is across its entire range of values.</p>
+
+<p>For a <em>population</em> of N values, the population variance σ² is:</p>
+
+<pre><code>σ² = Σ(xᵢ − μ)² / N</code></pre>
+
+<p>For a <em>sample</em> of n values drawn from a larger population, the sample variance s² uses n−1 in the denominator (known as Bessel's correction), which compensates for the fact that a sample tends to underestimate the true population spread:</p>
+
+<pre><code>s² = Σ(xᵢ − x̄)² / (n − 1)</code></pre>
+
+<p>The reason deviations are <strong>squared</strong> before summing is both mathematical and practical. Without squaring, positive deviations (values above the mean) and negative deviations (values below the mean) would cancel each other out, and the sum would always equal zero — no matter how spread out the data is. Squaring eliminates the sign, ensuring every deviation contributes positively to the total. It also gives extra weight to large deviations, making variance particularly sensitive to outliers.</p>
+
+<p>Consider a simple example: five measurements of tensile strength (in MPa) — 98, 100, 102, 97, 103.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Observation (xᵢ)</th>
+      <th>Mean (x̄)</th>
+      <th>Deviation (xᵢ − x̄)</th>
+      <th>Squared Deviation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>98</td>
+      <td>100</td>
+      <td>−2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>100</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>100</td>
+      <td>+2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>97</td>
+      <td>100</td>
+      <td>−3</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td>100</td>
+      <td>+3</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>s² = (4 + 0 + 4 + 9 + 9) / (5 − 1) = 26 / 4 = 6.5 MPa²</code></pre>
+
+<p>A higher variance means data points are more dispersed from the mean. In a manufacturing context, high variance signals less consistency — parts are deviating significantly from the target specification. Engineers frequently use variance to <em>compare the stability of different processes or production runs</em>. If Process A has a variance of 0.02 mm² and Process B has a variance of 0.15 mm², Process A is considerably more consistent, even if both share the same mean diameter. This kind of comparison is the basis for statistical tests like the F-test for equality of variances.</p>
+
+<p>One practical limitation of variance is its units: because deviations are squared, variance is expressed in squared units (mm², MPa², etc.), which can be difficult to interpret directly. A variance of 6.5 MPa² is not intuitively meaningful on its own. This is where the standard deviation becomes essential.</p>
+
+<p><strong>Standard Deviation: A Practical Spread Metric</strong></p>
+
+<p>The <strong>standard deviation</strong> is simply the square root of the variance, and this one operation restores the units to their original form, making the measure directly interpretable alongside the mean:</p>
+
+<pre><code>Population:  σ = √σ²
+Sample:      s = √s²</code></pre>
+
+<p>Using the tensile strength example above, the sample standard deviation is:</p>
+
+<pre><code>s = √6.5 ≈ 2.55 MPa</code></pre>
+
+<p>This means that, on average, individual measurements deviate from the mean of 100 MPa by approximately 2.55 MPa. That is immediately useful — an engineer can compare this deviation directly against a tolerance specification. If the acceptable strength range is 100 ± 5 MPa, a standard deviation of 2.55 MPa suggests the process is reasonably well contained within specification.</p>
+
+<p>The standard deviation is the most widely used measure of variability in engineering analysis for several reasons:</p>
+
+<ul>
+  <li><strong>Direct interpretability:</strong> It shares units with the original data, allowing straightforward comparison against design tolerances.</li>
+  <li><strong>Connection to the normal distribution:</strong> For normally distributed data, approximately 68% of observations fall within ±1σ of the mean, 95% within ±2σ, and 99.7% within ±3σ. This empirical rule provides an immediate practical framework.</li>
+  <li><strong>Control chart limits:</strong> In Statistical Process Control, the upper and lower control limits on an X-bar chart are set at x̄ ± 3s, defining the expected range of natural process variation.</li>
+  <li><strong>Process capability:</strong> Indices like Cp and Cpk are computed directly from the standard deviation relative to specification limits, providing a single number that summarizes how well a process fits within its required tolerances.</li>
+</ul>
+
+<p>A <em>smaller</em> standard deviation is almost universally desirable in precision manufacturing. If a CNC machine produces holes with a standard deviation of 0.003 mm, the process is far tighter and more predictable than one with a standard deviation of 0.025 mm, even if both are nominally centered on the correct diameter. Reducing standard deviation is therefore a primary target of process improvement efforts.</p>
+
+<p><strong>Symmetric and Skewed Distribution Shapes</strong></p>
+
+<p>Numerical measures like variance and standard deviation describe how spread out data is but do not reveal the <em>shape</em> of its distribution — that is, whether values cluster symmetrically around the center or tend to trail off more in one direction than the other. The shape of a distribution profoundly affects which statistical methods are appropriate and how results should be interpreted.</p>
+
+<p>A <strong>symmetric distribution</strong> is one where the left and right sides are mirror images of each other around the center. The mean, median, and mode all coincide at the same central value. The most important symmetric distribution in engineering is the <em>normal (Gaussian) distribution</em>, whose characteristic bell-shaped curve arises naturally when many small, independent sources of variation combine. Measurement errors, dimensional variation in precision machining, and many material properties follow an approximately normal distribution. This symmetry means that deviations above and below the mean are equally likely, and the standard deviation fully characterizes the spread in both directions.</p>
+
+<p><strong>Right (positive) skew</strong> occurs when the distribution has a longer tail extending toward higher values. The mean is pulled upward by those few unusually high observations and ends up greater than the median, which in turn is greater than the mode:</p>
+
+<pre><code>Right-skewed:  Mode &lt; Median &lt; Mean</code></pre>
+
+<p>Real-world examples of right-skewed distributions in engineering include product lifetimes (most components fail around a typical time, but a few last much longer), repair times (most repairs are quick, but a few are very lengthy), and contamination levels in environmental measurements (most readings are low, but occasional spikes occur). If an engineer mistakenly assumes a right-skewed dataset is symmetric and applies normal-distribution methods, the predictions for high-end behavior will be significantly underestimated.</p>
+
+<p><strong>Left (negative) skew</strong> occurs when the distribution tails off toward lower values. The mean is pulled downward by the few unusually low values:</p>
+
+<pre><code>Left-skewed:  Mean &lt; Median &lt; Mode</code></pre>
+
+<p>Left skew is less commonly encountered in manufacturing but can appear when there is a physical upper limit on a measurement — for example, purity percentages for a chemical product may cluster near 100% with a few lower-performing batches pulling the tail to the left. Similarly, test scores with a ceiling effect exhibit left skew.</p>
+
+<p>Identifying skewness matters because many statistical techniques — including common hypothesis tests and control chart methods — assume normally distributed (symmetric) data. Applying these methods to heavily skewed data without transformation or correction leads to unreliable results. Engineers can quantify skewness numerically (for example, using Pearson's skewness coefficient) or assess it visually through histograms and box plots.</p>
+
+<p><strong>Visual Tools for Interpreting Distribution Shape</strong></p>
+
+<p>While numerical statistics compress data into single values, visual tools allow engineers to see the full picture of a distribution's shape, center, and spread simultaneously. Two tools are especially fundamental.</p>
+
+<p>A <strong>histogram</strong> divides the range of a dataset into equal-width intervals called <em>bins</em> and displays a bar for each bin whose height represents the count (or frequency) of observations falling within that interval. Reading a histogram reveals:</p>
+
+<ul>
+  <li><strong>Center:</strong> Where the tallest bars are located approximates the central tendency of the data.</li>
+  <li><strong>Spread:</strong> How wide the bars span across the horizontal axis reflects the overall variability.</li>
+  <li><strong>Shape:</strong> A bell-shaped histogram with a single peak in the middle and symmetrically decreasing bars on both sides suggests a normal distribution. A histogram with a long right tail suggests positive skew. Two separate peaks (bimodal distribution) may indicate that two different subpopulations or process states are mixed in the data — for example, parts produced on two different shifts with different machine settings.</li>
+  <li><strong>Outliers:</strong> Isolated bars far from the main cluster signal unusual observations requiring investigation.</li>
+</ul>
+
+<p>Choosing bin width requires judgment. Too few bins collapse all variation into a few wide bars, hiding the true shape. Too many bins fragment the data into a spiky, uninterpretable pattern. A common rule of thumb is to use approximately the square root of the number of observations as the number of bins, though software tools often apply more sophisticated algorithms (such as Sturges' rule or the Freedman–Diaconis estimator).</p>
+
+<p>A <strong>box plot</strong> (also called a box-and-whisker plot) summarizes a dataset using five key statistics: the minimum, the first quartile (Q1, the 25th percentile), the median (Q2, the 50th percentile), the third quartile (Q3, the 75th percentile), and the maximum. The box spans from Q1 to Q3, enclosing the middle 50% of the data — this span is called the <em>interquartile range (IQR)</em>. A line inside the box marks the median, and whiskers extend from the box to the minimum and maximum values (or to a defined limit beyond which values are plotted individually as outlier points).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Box Plot Element</th>
+      <th>What It Represents</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Left/bottom edge of box</td>
+      <td>First quartile (Q1) — 25% of data falls below this value</td>
+    </tr>
+    <tr>
+      <td>Line inside box</td>
+      <td>Median (Q2) — 50% of data falls below this value</td>
+    </tr>
+    <tr>
+      <td>Right/top edge of box</td>
+      <td>Third quartile (Q3) — 75% of data falls below this value</td>
+    </tr>
+    <tr>
+      <td>Box width (IQR)</td>
+      <td>Spread of the middle 50% of observations</td>
+    </tr>
+    <tr>
+      <td>Whiskers</td>
+      <td>Extent of typical data range beyond the box</td>
+    </tr>
+    <tr>
+      <td>Individual points beyond whiskers</td>
+      <td>Potential outliers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Box plots are particularly powerful for <em>comparing variability across multiple datasets or processes</em> side by side. Placing box plots for five different production lines on the same axis immediately shows which lines have the tightest spread (narrow IQR), which are centered correctly, and which have outliers. This simultaneous comparison would be far harder to extract from five separate tables of numbers.</p>
+
+<p>Skewness is also visible in a box plot: if the median line is much closer to Q1 than to Q3, the data is right-skewed; if it is much closer to Q3, the data is left-skewed. A median centered evenly within the box suggests symmetry.</p>
+
+<p>Using histograms and box plots <em>together</em> with numerical measures like mean and standard deviation provides a more complete, reliable picture of process behavior than any single representation alone. A process might have a reassuring standard deviation of 0.01 mm yet show a bimodal histogram — a pattern that the standard deviation entirely fails to reveal.</p>
+
+<p><strong>Variability and Its Role in Process Consistency and Quality</strong></p>
+
+<p>All of the variability measures and visual tools discussed above converge on a central engineering objective: understanding and controlling the consistency of a process so that its outputs reliably meet specifications. Variability is not merely an academic concept — its consequences are measured in defect rates, scrap costs, warranty claims, and customer satisfaction.</p>
+
+<p>In any manufacturing process, there exists a <em>specification range</em> defined by an upper specification limit (USL) and a lower specification limit (LSL). A part is acceptable only if its measured characteristic falls within [LSL, USL]. When process variability is low, the distribution of produced parts is narrow and easily contained within the specification window. When variability is high, the tails of the distribution extend beyond one or both limits, producing defective parts even when the process is centered correctly.</p>
+
+<p>This relationship is formally captured by <strong>process capability indices</strong>:</p>
+
+<pre><code>Cp  = (USL − LSL) / (6s)
+
+Cpk = min[(USL − x̄) / (3s),  (x̄ − LSL) / (3s)]</code></pre>
+
+<p>The <strong>Cp index</strong> compares the width of the specification range to six standard deviations of the process (the natural process spread for a normal distribution). A Cp of 1.0 means the process spread exactly fills the specification window — any shift in the mean will immediately produce defects. A Cp of 1.33 or higher is commonly required in industry, indicating that the natural process variation is comfortably narrower than the specification window, leaving margin for small mean shifts without producing defects.</p>
+
+<p>The <strong>Cpk index</strong> adjusts for the actual position of the process mean relative to both specification limits. A process can have an excellent Cp (narrow spread) but a poor Cpk if the mean is shifted toward one limit. Both centering and spread must be optimized together.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cp / Cpk Value</th>
+      <th>Process Assessment</th>
+      <th>Approximate Defect Rate (if centered)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Less than 1.00</td>
+      <td>Incapable — process exceeds specification limits</td>
+      <td>Greater than 0.27%</td>
+    </tr>
+    <tr>
+      <td>1.00</td>
+      <td>Marginally capable — no margin for error</td>
+      <td>0.27% (2,700 ppm)</td>
+    </tr>
+    <tr>
+      <td>1.33</td>
+      <td>Capable — acceptable for most industries</td>
+      <td>~64 ppm</td>
+    </tr>
+    <tr>
+      <td>1.67</td>
+      <td>Well capable — used in precision industries</td>
+      <td>~0.6 ppm</td>
+    </tr>
+    <tr>
+      <td>2.00</td>
+      <td>Six Sigma level — extremely capable</td>
+      <td>~0.002 ppm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Reducing variability is therefore a direct lever on quality. Engineers pursue lower standard deviations through multiple pathways:</p>
+
+<ul>
+  <li><strong>Tighter process controls:</strong> Maintaining more precise machine settings, temperatures, pressures, or feed rates so that the process operates more consistently from cycle to cycle.</li>
+  <li><strong>Better materials:</strong> Using raw materials with more uniform properties reduces the input variation that propagates into the finished product.</li>
+  <li><strong>Improved equipment:</strong> Replacing worn tooling, calibrating instruments, and upgrading machinery with finer precision all reduce the sources of mechanical variation.</li>
+  <li><strong>Design of Experiments (DOE):</strong> Systematically testing combinations of process factors to identify which variables most strongly affect variability and then optimizing them.</li>
+  <li><strong>Control charts:</strong> Continuously monitoring process output using X-bar and R (or S) charts detects when a process shifts or becomes unstable — enabling corrective action before a large number of defective parts are produced.</li>
+</ul>
+
+<p>Understanding variability also means distinguishing between its two fundamental sources. <em>Common cause variation</em> (also called random or inherent variation) is the natural, unavoidable scatter present in every process even when it is performing correctly — it arises from countless small, uncontrollable influences. <em>Special cause variation</em> (assignable variation) is additional, non-random fluctuation caused by identifiable events such as a tool break, an operator error, or a batch of out-of-spec material. Control charts are specifically designed to separate these two types: a process showing only common cause variation is said to be <em>in statistical control</em>, while the appearance of special cause signals triggers investigation and corrective action.</p>
+
+<p>Ultimately, the statistical measures of variability — range, variance, and standard deviation — are not ends in themselves. They are instruments through which engineers listen to what a process is telling them. When combined with visual tools like histograms and box plots, and interpreted within the context of distribution shape, they form a comprehensive language for describing, comparing, and improving the consistency and quality of any engineered process or product.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: range (definition, limitations, quality control use), variance (formula with both population and sample versions, squaring rationale, process comparison), standard deviation (interpretability, empirical rule, control chart and Cp/Cpk connections), distribution shapes (symmetric/normal, right skew, left skew with real examples), visual tools (histograms including bin selection, box plots with full five-number summary), and variability&#39;s role in process capability (Cp, Cpk formulas and table, common vs. special cause variation, reduction strategies). All tabular data rendered as proper HTML tables.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

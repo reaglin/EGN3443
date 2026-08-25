@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descriptive Statistics</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+  <header>
+    <h1>Descriptive Statistics</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Descriptive Statistics</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Descriptive statistics form the cornerstone of any quantitative analysis in engineering. Before models are built, hypotheses tested, or decisions made, engineers must first <em>understand</em> their data — its center, its spread, its shape, and its overall distribution. Descriptive statistics provide a structured vocabulary and a rigorous set of mathematical tools for doing exactly that. Whether you are summarizing tensile strength measurements from a batch of steel alloys, characterizing the output voltage fluctuations of a power supply, or reviewing cycle times on a production line, descriptive statistics allow you to compress a potentially large and unwieldy dataset into a small number of meaningful, interpretable quantities. This topic explores each family of descriptive measures in depth, explains when and why each is used, and demonstrates their application through concrete engineering examples.</p>
+
+<p><strong>Measures of Central Tendency</strong></p>
+
+<p>A measure of central tendency answers a deceptively simple question: where does the "center" of the data lie? The answer, however, depends on what you mean by center — and different definitions lead to different measures, each with distinct mathematical properties and practical implications.</p>
+
+<p>The <strong>mean</strong> — more precisely, the arithmetic mean — is calculated by summing every observed value and dividing by the total number of observations. If a dataset contains <em>n</em> values x₁, x₂, …, xₙ, then the mean x̄ is:</p>
+
+<pre><code>x̄ = (x₁ + x₂ + ... + xₙ) / n
+   = (Σxᵢ) / n
+</code></pre>
+
+<p>For example, suppose a quality engineer records the following seven diameter measurements (in millimeters) of machined shafts: 50.1, 50.3, 50.0, 49.9, 50.2, 50.1, 50.4. The mean is (50.1 + 50.3 + 50.0 + 49.9 + 50.2 + 50.1 + 50.4) / 7 = 351.0 / 7 ≈ 50.14 mm. The mean uses every observation in its calculation, which is both its strength and its weakness. It is the most statistically efficient estimator of the population center when data are approximately normally distributed, but it is highly sensitive to extreme values. A single outlier — say, a mis-measured shaft recording 55.0 mm — would pull the mean substantially away from the true center of the remaining data.</p>
+
+<p>The <strong>median</strong> is the value that falls exactly in the middle of an ordered dataset. To find it, sort all observations from smallest to largest. If <em>n</em> is odd, the median is the value at position (n + 1)/2. If <em>n</em> is even, the median is the average of the values at positions n/2 and (n/2) + 1. Using the shaft data above (sorted: 49.9, 50.0, 50.1, 50.1, 50.2, 50.3, 50.4), the median is the 4th value = 50.1 mm. The median's defining characteristic is its <em>robustness</em>: it is entirely unaffected by the magnitude of values in the tails of the distribution. If one shaft were erroneously recorded as 75.0 mm, the median would remain 50.1 mm, while the mean would skew dramatically. In engineering contexts where outliers may arise from sensor faults, human error, or rare process excursions, the median often gives a more representative picture of typical behavior.</p>
+
+<p>The <strong>mode</strong> is the value (or values) that appear most frequently in a dataset. For continuous measurements like shaft diameters, an exact mode is rarely meaningful because no two measurements are likely to be identical. The mode becomes far more useful when data are <em>categorical</em> or <em>discrete</em> — for instance, identifying the most common failure mode in a reliability study (e.g., "bearing seizure" occurring in 42 out of 100 failures), or finding the most frequently produced part number on an assembly line. A dataset can be unimodal (one mode), bimodal (two modes), or multimodal. A bimodal distribution of, say, product weights might reveal that two different raw material batches were inadvertently mixed, an operationally important insight that neither the mean nor the median would surface on their own.</p>
+
+<p>Choosing among these three measures requires judgment. In symmetric, bell-shaped distributions the mean, median, and mode coincide, so any of them adequately represents the center. In right-skewed distributions (e.g., time-to-failure data, where most components fail relatively quickly but a few last a very long time), the mean is inflated by the long right tail, and the median gives a better sense of the typical lifetime. In such cases, engineers might report both the mean and median together to communicate both the typical value and the influence of extreme observations.</p>
+
+<p><strong>Measures of Spread (Variability)</strong></p>
+
+<p>Knowing the center of a dataset tells only half the story. Two datasets can have identical means yet be completely different in character — one tightly clustered around the center and the other wildly scattered. Measures of spread quantify how much the data vary around their central value, which is essential for understanding process capability, measurement precision, and risk.</p>
+
+<p>The <strong>range</strong> is the simplest measure of spread: the difference between the largest and smallest observed values.</p>
+
+<pre><code>Range = x_max − x_min
+</code></pre>
+
+<p>For the shaft data (49.9 to 50.4 mm), the range is 50.4 − 49.9 = 0.5 mm. The range is easy to compute and easy to communicate, which is why it appears frequently in control charts and quick shop-floor summaries. However, it is determined entirely by two data points — the two extremes — and therefore provides no information about how the remaining values are distributed. It is also highly sensitive to outliers. For these reasons, the range is most useful as a fast, rough indicator of spread rather than a definitive measure.</p>
+
+<p>The <strong>variance</strong> addresses the range's limitations by involving every observation. It measures the average squared deviation of each value from the mean. For a sample of <em>n</em> observations, the sample variance s² is:</p>
+
+<pre><code>s² = Σ(xᵢ − x̄)² / (n − 1)
+</code></pre>
+
+<p>The divisor is (n − 1) rather than n because dividing by n would systematically underestimate the true population variance; using (n − 1) yields an unbiased estimator. The squaring of deviations serves two purposes: it eliminates the cancellation of positive and negative deviations, and it penalizes large deviations more heavily than small ones. For the shaft data with x̄ ≈ 50.14:</p>
+
+<pre><code>Deviations: −0.24, 0.16, −0.14, −0.24, 0.06, −0.04, 0.26
+Squared:     0.0576, 0.0256, 0.0196, 0.0576, 0.0036, 0.0016, 0.0676
+Sum:         0.2332
+s² = 0.2332 / 6 ≈ 0.0389 mm²
+</code></pre>
+
+<p>Notice the units of variance are mm² — the square of the original measurement unit. This makes variance somewhat abstract to interpret directly, which motivates the next measure.</p>
+
+<p>The <strong>standard deviation</strong> is simply the square root of variance, returning the spread measure to the original units of measurement:</p>
+
+<pre><code>s = √s² = √0.0389 ≈ 0.197 mm
+</code></pre>
+
+<p>Standard deviation is the most widely used measure of variability in engineering. It has a direct, intuitive interpretation: values typically deviate from the mean by approximately one standard deviation. In a normally distributed dataset, about 68% of observations fall within one standard deviation of the mean, about 95% within two, and about 99.7% within three — a rule of thumb called the empirical rule or 68-95-99.7 rule. For a machined shaft with mean diameter 50.14 mm and s = 0.197 mm, a design engineer can quickly estimate that roughly 99.7% of shafts will fall between 50.14 − 3(0.197) = 49.55 mm and 50.14 + 3(0.197) = 50.73 mm, and can compare this against the design specification limits to assess process capability.</p>
+
+<p>The <strong>interquartile range (IQR)</strong> takes a different approach to measuring spread: rather than involving all data points, it focuses on the middle 50%. It is defined as the difference between the 75th percentile (Q3) and the 25th percentile (Q1):</p>
+
+<pre><code>IQR = Q3 − Q1
+</code></pre>
+
+<p>Because it ignores the lowest 25% and highest 25% of the data, the IQR is completely unaffected by outliers or extreme skew. It is the spread measure of choice when data are heavily skewed or when outliers are expected and should not distort the summary. In the context of a box plot (discussed further below), the IQR defines the length of the central box, giving an immediate visual sense of where the bulk of the data lies.</p>
+
+<p><strong>Measures of Shape</strong></p>
+
+<p>Even after pinning down the center and spread of a dataset, two distributions can still differ fundamentally in their <em>shape</em> — how symmetric they are, and how heavily their tails are weighted. Shape measures capture these higher-order characteristics and are crucial for determining whether standard statistical methods (which often assume a particular distributional form) are appropriate.</p>
+
+<p><strong>Skewness</strong> quantifies the asymmetry of a distribution. A perfectly symmetric distribution has skewness equal to zero. Positive skewness (right skew) means the right tail is longer or heavier than the left: the bulk of the data clusters on the left, but a relatively small number of very large values pull the mean to the right. Negative skewness (left skew) is the mirror image. The sample skewness is often computed as:</p>
+
+<pre><code>Skewness = [n / ((n−1)(n−2))] × Σ[(xᵢ − x̄) / s]³
+</code></pre>
+
+<p>In engineering, right-skewed distributions are common wherever measurements are physically bounded below by zero but can take large values without a strict upper limit. Component lifetimes, repair times, and the magnitudes of load exceedances all tend to be right-skewed. When skewness is pronounced, the mean exceeds the median (for right skew) or falls below it (for left skew). Recognizing this matters because many standard statistical tests — t-tests, ANOVA — assume approximately symmetric data; applying them blindly to heavily skewed data can lead to incorrect conclusions. Transformations such as taking the logarithm of the data are frequently used to reduce skewness before applying such tests.</p>
+
+<p><strong>Kurtosis</strong> measures the "tailedness" of a distribution — how much probability mass resides in the tails relative to a normal distribution. A normal distribution has a kurtosis of exactly 3, and it is common to report <em>excess kurtosis</em> = kurtosis − 3, so that a normal distribution has excess kurtosis of 0. Distributions with excess kurtosis greater than 0 (called <em>leptokurtic</em>) have heavier tails and a sharper peak than the normal distribution: extreme values occur more frequently than a normal model would predict. Distributions with excess kurtosis less than 0 (<em>platykurtic</em>) have lighter tails and a flatter peak. In structural reliability analysis, for example, leptokurtic load distributions mean that catastrophically large loads — though rare — are more probable than a normal distribution would suggest, which has direct implications for safety factors and design margins.</p>
+
+<p>Together, skewness and kurtosis define the third and fourth moments of a distribution (after mean and variance, which are the first and second moments). For the normal distribution: skewness = 0 and kurtosis = 3 (excess kurtosis = 0). Engineers routinely use these benchmarks to assess whether data are "close enough" to normal for standard methods to be valid, or whether more specialized non-parametric or distributional methods are required.</p>
+
+<p><strong>Data Summarization with Frequency Distributions</strong></p>
+
+<p>When a dataset contains many observations, listing every individual value is impractical and uninformative. A <strong>frequency distribution</strong> organizes raw data into a set of non-overlapping classes (also called bins or intervals) and tallies how many observations fall into each class. This immediately reveals the overall shape of the data — where values tend to concentrate and where they are sparse.</p>
+
+<p>To construct a frequency distribution, you must choose the number and width of bins. A common starting heuristic is Sturges' rule: use approximately 1 + log₂(n) bins for a dataset of n observations. For n = 100, this suggests about 8 bins. Other rules (such as the Freedman-Diaconis rule, which bases bin width on the IQR) are more robust when data are skewed. The key principle is that bins should be exhaustive (every observation falls in exactly one bin) and of equal width wherever possible to allow fair visual comparison across bins.</p>
+
+<p>Consider 50 measured tensile strengths (in MPa) of a polymer composite, grouped into the following frequency distribution:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bin (MPa)</th>
+      <th>Frequency (count)</th>
+      <th>Relative Frequency</th>
+      <th>Cumulative Frequency</th>
+      <th>Cumulative Relative Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>180 – 190</td>
+      <td>3</td>
+      <td>0.06</td>
+      <td>3</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <td>190 – 200</td>
+      <td>8</td>
+      <td>0.16</td>
+      <td>11</td>
+      <td>0.22</td>
+    </tr>
+    <tr>
+      <td>200 – 210</td>
+      <td>15</td>
+      <td>0.30</td>
+      <td>26</td>
+      <td>0.52</td>
+    </tr>
+    <tr>
+      <td>210 – 220</td>
+      <td>14</td>
+      <td>0.28</td>
+      <td>40</td>
+      <td>0.80</td>
+    </tr>
+    <tr>
+      <td>220 – 230</td>
+      <td>7</td>
+      <td>0.14</td>
+      <td>47</td>
+      <td>0.94</td>
+    </tr>
+    <tr>
+      <td>230 – 240</td>
+      <td>3</td>
+      <td>0.06</td>
+      <td>50</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Relative frequency</strong> expresses each bin's count as a fraction (or percentage) of the total. This normalization is critical when comparing datasets of different sizes — a frequency of 15 means very different things in a dataset of 50 versus one of 5,000. By working with relative frequencies, comparisons become fair and meaningful.</p>
+
+<p><strong>Cumulative frequency</strong> accumulates counts from the lowest bin upward. The cumulative relative frequency at 220 MPa is 0.94, meaning 94% of specimens had tensile strengths below 220 MPa. This is immediately useful for threshold-based engineering decisions: if the design minimum tensile strength is 195 MPa, reading the cumulative distribution shows that approximately 100% − 22% = 78% of the batch exceeds that threshold — or, equivalently, about 22% of specimens may be below specification.</p>
+
+<p>Bin width selection requires care. If bins are too wide (e.g., one bin covering 180–240 MPa), all variation is hidden and the distribution appears flat. If bins are too narrow (e.g., 1 MPa wide), nearly every bin has 0 or 1 observations, producing a jagged, noisy picture from which it is hard to discern any pattern. The goal is a bin width that reveals the true underlying shape of the distribution without introducing excessive noise.</p>
+
+<p><strong>Percentiles and Quartiles</strong></p>
+
+<p>Percentiles generalize the concept of the median to arbitrary positions within a dataset. The <strong>p</strong>th percentile is the value below which p% of the observations fall. The median is the 50th percentile. Percentiles allow engineers to make precise positional statements about data — for instance, "90% of our sensors respond within 12 milliseconds" is a statement about the 90th percentile of response time.</p>
+
+<p><strong>Quartiles</strong> are the three percentiles that divide an ordered dataset into four equal parts:</p>
+
+<ul>
+  <li><strong>Q1 (first quartile, 25th percentile):</strong> 25% of values lie below this point.</li>
+  <li><strong>Q2 (second quartile, 50th percentile):</strong> This is the median; 50% of values lie below.</li>
+  <li><strong>Q3 (third quartile, 75th percentile):</strong> 75% of values lie below this point.</li>
+</ul>
+
+<p>To find quartiles, sort the data. Q2 is the median as defined earlier. Q1 is the median of the lower half of the data (values below Q2), and Q3 is the median of the upper half (values above Q2). Using the tensile strength dataset summary above: if Q1 ≈ 198 MPa, Q2 ≈ 207 MPa, and Q3 ≈ 218 MPa, then the IQR = 218 − 198 = 20 MPa. This tells an engineer that the central 50% of the batch has tensile strengths spanning a 20 MPa range — a compact summary of variability that is unaffected by the handful of very low or very high specimens at the extremes.</p>
+
+<p>A <strong>box plot</strong> (also called a box-and-whisker plot) is the standard graphical device for displaying quartile information. The central box extends from Q1 to Q3 (its length equals the IQR). A line inside the box marks Q2 (the median). "Whiskers" extend from the box to the most extreme observations that are not considered outliers — typically those within 1.5 × IQR of Q1 or Q3. Any point beyond the whiskers is plotted individually as a suspected outlier. Box plots are particularly powerful for <em>comparing</em> multiple groups side by side: placing box plots for five different material batches next to each other immediately reveals which batches are most variable, which have the highest median strength, and which have the most extreme outliers. This kind of rapid visual comparison would take far longer using tables of raw numbers.</p>
+
+<p><strong>Applying Descriptive Statistics to Engineering Data</strong></p>
+
+<p>Descriptive statistics are not merely academic exercises; they are the first and most critical step in any data-driven engineering workflow. Every dataset arising from experiments, inspections, process sensors, or field measurements deserves a thorough descriptive analysis before any modeling or inference is attempted.</p>
+
+<p>In practice, a complete descriptive summary of an engineering dataset should report multiple measures together, because each captures something different:</p>
+
+<ul>
+  <li>The <strong>mean</strong> gives the balance point of the data and is needed for computing expected values in engineering calculations.</li>
+  <li>The <strong>median</strong> gives the typical value and is robust against unusual observations.</li>
+  <li>The <strong>standard deviation</strong> quantifies typical variability and feeds directly into capability indices (e.g., Cp, Cpk) and tolerance analysis.</li>
+  <li><strong>Skewness and kurtosis</strong> signal whether normality assumptions hold and guide the choice of subsequent statistical methods.</li>
+  <li>A <strong>frequency distribution or histogram</strong> reveals the overall shape, multimodality, gaps, and outliers that summary statistics alone might miss.</li>
+</ul>
+
+<p>Consider a practical example: an engineer is evaluating the energy consumption (in kWh) of 200 identical HVAC units deployed across different buildings. The mean energy consumption is 340 kWh/month and the median is 295 kWh/month — a notable gap suggesting right skew. The standard deviation is 120 kWh/month. The skewness is +1.8, confirming a long right tail. Looking at the histogram, the engineer discovers a bimodal pattern: most units cluster around 280–310 kWh, but a secondary cluster appears around 450–500 kWh. This bimodality, invisible in the mean or standard deviation alone, turns out to correspond to units in buildings without adequate insulation. The descriptive analysis has immediately identified an actionable engineering problem.</p>
+
+<p>The table below summarizes the key descriptive measures, their formulas, and their primary engineering uses:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Measure</th>
+      <th>Formula / Definition</th>
+      <th>Key Property</th>
+      <th>Primary Engineering Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mean</td>
+      <td>x̄ = Σxᵢ / n</td>
+      <td>Uses all data; sensitive to outliers</td>
+      <td>Expected value, capability analysis</td>
+    </tr>
+    <tr>
+      <td>Median</td>
+      <td>Middle value of ordered data</td>
+      <td>Robust to outliers</td>
+      <td>Typical performance, skewed data</td>
+    </tr>
+    <tr>
+      <td>Mode</td>
+      <td>Most frequent value</td>
+      <td>Applicable to categorical data</td>
+      <td>Dominant failure mode, common defect type</td>
+    </tr>
+    <tr>
+      <td>Range</td>
+      <td>x_max − x_min</td>
+      <td>Simple; sensitive to extremes</td>
+      <td>Quick spread check, control charts</td>
+    </tr>
+    <tr>
+      <td>Variance</td>
+      <td>s² = Σ(xᵢ − x̄)² / (n−1)</td>
+      <td>Uses all data; units are squared</td>
+      <td>Statistical modeling, ANOVA</td>
+    </tr>
+    <tr>
+      <td>Standard Deviation</td>
+      <td>s = √s²</td>
+      <td>Same units as data; widely interpretable</td>
+      <td>Process capability, tolerance analysis</td>
+    </tr>
+    <tr>
+      <td>IQR</td>
+      <td>Q3 − Q1</td>
+      <td>Robust to outliers</td>
+      <td>Box plots, outlier detection</td>
+    </tr>
+    <tr>
+      <td>Skewness</td>
+      <td>Third standardized moment</td>
+      <td>Measures asymmetry</td>
+      <td>Normality assessment, transformation decisions</td>
+    </tr>
+    <tr>
+      <td>Kurtosis</td>
+      <td>Fourth standardized moment</td>
+      <td>Measures tail heaviness</td>
+      <td>Extreme event risk, distributional modeling</td>
+    </tr>
+    <tr>
+      <td>Percentiles / Quartiles</td>
+      <td>Value below which p% of data fall</td>
+      <td>Positional; robust to shape</td>
+      <td>Specification compliance, reliability thresholds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ultimately, descriptive statistics serve both analytical and communicative functions. They allow an engineer to develop a deep, quantitative understanding of data before committing to any modeling approach. They also provide a concise, standardized language for reporting results to colleagues, managers, regulators, and customers — technical and non-technical alike. A well-constructed summary table of means, standard deviations, and quartiles, accompanied by a histogram and box plot, communicates more clearly and more honestly than pages of raw numbers. Mastery of descriptive statistics is therefore not merely a mathematical prerequisite for advanced topics; it is a core professional skill for evidence-based engineering practice.</p>
+        <div class="notes"><strong>Notes</strong>Exploration of measures of central tendency, spread, and shape used to summarize and describe datasets. Learners will apply these tools to characterize engineering data clearly and efficiently.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

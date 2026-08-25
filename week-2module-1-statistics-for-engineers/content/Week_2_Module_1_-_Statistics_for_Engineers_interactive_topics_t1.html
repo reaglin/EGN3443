@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Statistics in Engineering</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+  <header>
+    <h1>Introduction to Statistics in Engineering</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Statistics in Engineering</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistics is not merely a branch of mathematics reserved for theorists and researchers — it is one of the most practical and indispensable tools in the modern engineer's toolkit. Every time a civil engineer tests the compressive strength of concrete samples, every time a mechanical engineer measures the fatigue life of a metal component, or every time a process engineer monitors the output of a chemical reactor, they are confronted with a fundamental reality: the world does not behave in a perfectly predictable, deterministic way. Values fluctuate. Measurements carry error. Materials are not uniform. Processes drift over time. Statistics provides the rigorous mathematical framework that allows engineers to work <em>with</em> this variability rather than being defeated by it, transforming raw, noisy data into confident, defensible conclusions.</p>
+
+<p>This topic establishes the conceptual and vocabulary foundation that supports every statistical method covered in this module. Understanding <em>why</em> statistical thinking is essential, what the core terminology means, and how probability and variability connect to everyday engineering practice is the critical first step before any formulas or procedures are introduced.</p>
+
+<p><strong>Why Statistics Matters in Engineering</strong></p>
+
+<p>Engineers routinely encounter variability in measurements, materials, and processes that cannot be ignored or assumed away. Consider a batch of steel rods manufactured to a nominal diameter of 10 mm. Even with precise machining, each rod will differ slightly from the others — one might measure 10.02 mm, another 9.97 mm, another 10.01 mm. This is not a failure of the process; it is an unavoidable reality of physical manufacturing. The question is not whether variability exists, but how large it is, what causes it, and whether it is acceptable for the intended application.</p>
+
+<p>Statistical methods provide a rigorous framework for making reliable decisions even when data is incomplete or noisy. An engineer who tests 20 samples from a production run and finds that two fall outside the specification limit faces a genuine decision problem: is this a random fluctuation, or does it signal a systematic problem? Without statistical tools, that judgment is little more than a guess. With them, the engineer can calculate the probability of observing two defectives under normal conditions, determine whether the rate is statistically unusual, and decide whether corrective action is warranted — all with quantifiable confidence.</p>
+
+<p>Without statistical reasoning, engineers risk drawing incorrect conclusions that lead to design flaws or safety issues. History offers sobering examples. The failure of the Space Shuttle Challenger in 1986 was partly attributed to decisions made without properly analyzing the statistical relationship between O-ring failure rates and ambient temperature. Engineers had data suggesting increased failure risk at low temperatures, but that data was not presented or analyzed in a way that made the trend unmistakably clear to decision-makers. Statistical rigor could have changed the outcome. Conversely, over-engineering out of unfounded fear — without data to justify it — wastes resources and increases costs without improving safety.</p>
+
+<p>Applying statistics allows engineers to quantify risk and communicate uncertainty with precision to stakeholders. Rather than saying "this bridge should be fine," a structural engineer backed by statistical analysis can say "under the projected load distribution, the probability of exceeding the design stress limit within a 50-year service life is less than 0.1%." That kind of precision builds trust, supports regulatory compliance, and enables informed decision-making at every level of an organization.</p>
+
+<p><strong>Data-Driven Decision-Making</strong></p>
+
+<p>The phrase "data-driven decision-making" is widely used, but its implications are profound and specific in an engineering context. Collecting relevant, high-quality data is the first step toward making sound engineering decisions. This means not just gathering any available numbers, but deliberately designing data collection so that the resulting data actually answers the question at hand. An engineer trying to understand why a batch of electronic components is failing at higher-than-expected rates needs data on failure times, operating conditions, manufacturing lot numbers, and environmental factors — not just a count of failures. Poorly collected data leads to poorly supported conclusions regardless of how sophisticated the subsequent analysis is.</p>
+
+<p>Analyzing data systematically allows engineers to identify trends, anomalies, and root causes of problems. Systematic analysis means applying consistent, reproducible methods rather than cherry-picking results that confirm a preexisting belief. It means plotting data to look for patterns before computing summary statistics. It means checking assumptions. It means considering alternative explanations for an observed result. This discipline is what separates engineering analysis from guesswork.</p>
+
+<p>Data-driven methods improve reproducibility and transparency in engineering analysis and reporting. When a conclusion is reached through documented statistical analysis — with clearly stated assumptions, identified data sources, and quantified uncertainty — another engineer can review, replicate, or challenge that conclusion. This is the foundation of sound engineering practice and scientific integrity. Compare this to a conclusion reached by intuition or informal observation, which cannot be reviewed, replicated, or improved upon systematically.</p>
+
+<p>Technical outcomes such as product reliability, process efficiency, and safety margins all improve when decisions are grounded in data. A manufacturing process optimized using statistical process control consistently produces parts closer to the target specification, reducing scrap and rework. A product designed using data from reliability testing achieves warranty return rates far lower than one designed by gut feel. The economic and safety benefits of data-driven engineering are not abstract — they appear directly in lower costs, fewer field failures, and safer products.</p>
+
+<p><strong>Foundational Statistical Vocabulary</strong></p>
+
+<p>Precision in statistical work depends on precision in language. Several terms are used so consistently throughout statistics that understanding them clearly from the outset prevents a great deal of confusion later.</p>
+
+<p>A <strong>population</strong> refers to the entire set of items, individuals, or outcomes of interest in a given study. A <strong>sample</strong> is a subset drawn from that population for the purpose of study. The population is often too large, too expensive, or too impractical to measure in its entirety, so engineers work with samples and use the results to draw inferences about the population. For example, if a quality engineer wants to understand the tensile strength of all bolts produced in a given week (say, 500,000 bolts), the population is all 500,000 bolts. Testing every bolt would be destructive and impractical, so the engineer tests a sample of, say, 50 bolts and uses those results to characterize the full population.</p>
+
+<p>A <strong>variable</strong> is any characteristic or measurement that can take on different values across observations. Variables fall into two broad types: <em>quantitative</em> variables (numerical measurements such as temperature, pressure, or diameter) and <em>qualitative</em> (or categorical) variables (non-numerical attributes such as material type, pass/fail classification, or machine identifier). Understanding what type of variable you are working with determines which statistical methods are appropriate.</p>
+
+<p><strong>Parameters</strong> are numerical characteristics that describe a population — they are fixed (though typically unknown) values. <strong>Statistics</strong> are numerical characteristics computed from a sample — they are known but vary from sample to sample. The population mean (often denoted with the Greek letter μ, "mu") is a parameter. The sample mean (denoted <em>x̄</em>, "x-bar") is a statistic that estimates the parameter. This distinction is not just semantic: it has direct implications for how conclusions are stated and how confident we can be in them.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Population</th>
+      <th>Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Definition</td>
+      <td>All items or outcomes of interest</td>
+      <td>A subset selected from the population</td>
+    </tr>
+    <tr>
+      <td>Numerical descriptor</td>
+      <td>Parameter (e.g., μ, σ)</td>
+      <td>Statistic (e.g., x̄, s)</td>
+    </tr>
+    <tr>
+      <td>Typically known?</td>
+      <td>No — must be estimated</td>
+      <td>Yes — computed from data</td>
+    </tr>
+    <tr>
+      <td>Engineering example</td>
+      <td>True mean yield strength of all produced parts</td>
+      <td>Mean yield strength of 30 tested parts</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Understanding these distinctions prevents common errors such as overgeneralizing findings from a limited sample. A sample of 10 test specimens drawn from a production run may not represent the full population if the run spans multiple shifts, multiple machines, or multiple raw material batches. Recognizing the limits of a sample — and designing sampling strategies to minimize those limits — is a core statistical competency for engineers.</p>
+
+<p><strong>Overview of Descriptive Statistics</strong></p>
+
+<p>Before any inference or modeling can take place, engineers need to <em>describe</em> their data. Descriptive statistics are numerical and graphical tools that summarize the key features of a dataset in a clear, interpretable way. They answer basic but essential questions: Where do the values tend to fall? How spread out are they? Are there unusual observations?</p>
+
+<p><strong>Measures of central tendency</strong> describe where most data values cluster — in other words, what a "typical" value looks like. The three primary measures are:</p>
+
+<ul>
+  <li><strong>Mean (arithmetic average):</strong> The sum of all values divided by the number of values. Sensitive to extreme values (outliers), but mathematically convenient and widely used. For example, if five tensile strength measurements in MPa are 415, 422, 418, 410, and 430, the mean is (415+422+418+410+430)/5 = 419 MPa.</li>
+  <li><strong>Median:</strong> The middle value when data is sorted in order. If the dataset has an even number of values, the median is the average of the two middle values. The median is resistant to outliers. In the example above, sorted values are 410, 415, 418, 422, 430, and the median is 418 MPa.</li>
+  <li><strong>Mode:</strong> The most frequently occurring value. More common with discrete data or categorical data than with continuous measurements. A dataset can have no mode, one mode, or multiple modes.</li>
+</ul>
+
+<p><strong>Measures of variability</strong> describe how spread out the data values are around the center. Two datasets can have identical means but vastly different variability, and that difference is critical in engineering. A process producing parts with mean diameter 10.00 mm and standard deviation 0.005 mm is far more controlled than one with the same mean but standard deviation 0.05 mm. The primary measures are:</p>
+
+<ul>
+  <li><strong>Range:</strong> The difference between the maximum and minimum values. Simple to compute but sensitive to outliers and does not use all the data.</li>
+  <li><strong>Variance:</strong> The average of the squared deviations from the mean. For a sample, it is computed as the sum of squared deviations divided by <em>n − 1</em> (where <em>n</em> is the sample size). Squaring makes all deviations positive and gives more weight to larger deviations. The units are squared units of the original measurement.</li>
+  <li><strong>Standard deviation:</strong> The square root of the variance. Returns the measure of spread to the same units as the original data, making it directly interpretable. This is the most commonly used measure of variability in engineering practice.</li>
+</ul>
+
+<p>As a concrete example, consider these five pressure readings in psi: 98, 101, 100, 99, 102. The mean is 100 psi. The deviations from the mean are −2, +1, 0, −1, +2. The squared deviations are 4, 1, 0, 1, 4. The sample variance is (4+1+0+1+4)/(5−1) = 10/4 = 2.5 psi². The sample standard deviation is √2.5 ≈ 1.58 psi.</p>
+
+<p>Descriptive statistics serve as the starting point for any deeper statistical analysis. Before applying any inferential method, an engineer should always compute and review basic descriptive statistics to understand the data's character. Visual tools complement these numbers powerfully:</p>
+
+<ul>
+  <li><strong>Histograms</strong> display the frequency distribution of values across intervals (bins), revealing the shape of the data — whether it is symmetric, skewed, bimodal, or approximately normal.</li>
+  <li><strong>Box plots</strong> (box-and-whisker plots) display the median, the interquartile range (the middle 50% of the data), and any outliers in a compact graphical format, making comparisons across groups visually intuitive.</li>
+</ul>
+
+<p><strong>The Role of Probability in Engineering Analysis</strong></p>
+
+<p>Probability is the mathematical language of uncertainty, and engineering is full of uncertainty. <strong>Probability</strong> expresses the likelihood of an event occurring on a scale from 0 (the event is impossible) to 1 (the event is certain). A probability of 0.05, for instance, means that in a large number of repeated trials or observations, the event would occur roughly 5% of the time.</p>
+
+<p>Understanding probability allows engineers to assess risk and set appropriate safety factors in design. When a structural engineer specifies that a beam must withstand a certain load, that specification is ultimately grounded in probabilistic reasoning: the load applied in the field is not a single fixed value but a random variable with some distribution. The safety factor is chosen so that the probability of the actual load exceeding the design capacity is acceptably small — perhaps less than one in a million for a critical structure.</p>
+
+<p><strong>Probability distributions</strong> describe how values are expected to vary across a population or process. Rather than just knowing the mean, a probability distribution tells us the full shape of the variability: how likely each range of values is, how thick the tails are, and what extreme values might realistically occur. The normal (Gaussian) distribution is the most famous, characterized by its symmetric bell shape, but many engineering phenomena follow other distributions — the exponential distribution describes time between failures in reliability analysis; the Weibull distribution models component fatigue life; the binomial distribution describes the number of defective items in a fixed sample size.</p>
+
+<p>Engineers use probability as the foundation for inferential statistics, quality control, and reliability analysis. When a quality control engineer sets up a control chart with control limits at ±3 standard deviations from the mean, those limits are chosen because the probability of a point falling outside them by random chance alone (when the process is in control) is approximately 0.27% — a low enough probability that a point outside the limits is taken as evidence of a real problem. This reasoning is entirely probabilistic.</p>
+
+<p><strong>Understanding Data Variability</strong></p>
+
+<p>No manufacturing process or measurement system is perfectly consistent — some degree of variability always exists. Acknowledging this is not a counsel of despair; it is the beginning of wisdom in engineering practice. The critical skill is understanding what kind of variability you are dealing with.</p>
+
+<p>A foundational concept in statistical process control, developed by Walter Shewhart and later championed by W. Edwards Deming, distinguishes two fundamentally different types of variability:</p>
+
+<ul>
+  <li><strong>Common cause variability</strong> (also called natural or random variability) is the inherent, background variability of a stable process. It results from the accumulated effect of many small, inevitable sources of variation — slight differences in raw materials, minor temperature fluctuations, normal tool wear, small operator-to-operator differences. A process operating with only common cause variability is said to be <em>in statistical control</em>. The output is predictable within a range, and the appropriate response is either to accept that range or to fundamentally redesign the process to reduce it.</li>
+  <li><strong>Special cause variability</strong> (also called assignable cause variability) is variability that results from a specific, identifiable, non-routine source — a defective batch of raw material, a miscalibrated instrument, a new operator who has not completed training, or a machine that has developed a fault. A process with special cause variability is <em>out of statistical control</em>; its output is unpredictable. The appropriate response is to find and eliminate the special cause.</li>
+</ul>
+
+<p>Confusing these two types leads to classic errors. Reacting to common cause variability as if it were a special cause — "tampering" with the process every time a reading fluctuates — actually increases variability rather than reducing it. Conversely, dismissing a genuine special cause as "just normal variation" allows a fixable problem to persist and worsen.</p>
+
+<p>Quantifying variability helps engineers set realistic tolerances and quality benchmarks. If a machining process has a natural process standard deviation of 0.008 mm, specifying a tolerance of ±0.005 mm is setting the process up for failure — a significant proportion of parts will inevitably fall outside that tolerance regardless of how carefully the process is run. Statistical analysis of process capability (comparing process variability to specification limits) informs realistic tolerancing decisions.</p>
+
+<p>Reducing unwanted variability directly improves product quality, process efficiency, and engineering reliability. The entire discipline of Six Sigma is built on this premise — systematically identifying and reducing sources of variability in processes until defect rates approach negligible levels.</p>
+
+<p><strong>Statistical Thinking as an Engineering Mindset</strong></p>
+
+<p>Technical competence with statistical formulas is valuable, but it is not sufficient on its own. What truly distinguishes a statistically sophisticated engineer is a particular way of thinking about systems, processes, and outcomes. <strong>Statistical thinking</strong> involves viewing processes and outcomes as systems subject to variation rather than as fixed, deterministic results.</p>
+
+<p>A deterministic mindset says: "If I apply exactly 50 N·m of torque to this fastener, it will be correctly tightened." A statistical mindset says: "The torque applied will vary due to wrench calibration, operator technique, and thread friction. Let me understand that distribution and ensure that even at the low end, the fastener meets the minimum requirement, and that even at the high end, the component is not damaged." This is not pessimism — it is realism, and it leads to more robust designs.</p>
+
+<p>Engineers who think statistically are better equipped to design experiments, interpret test results, and validate models. When running a test to determine whether a new material performs better than the current one, a statistically minded engineer asks: How many samples do I need to detect a meaningful difference with adequate confidence? What sources of variability might confound my results? Have I randomized the test order to prevent systematic bias? These questions, asked before data collection begins, are what make the resulting analysis trustworthy.</p>
+
+<p>This mindset supports continuous improvement by framing problems in terms of measurable, analyzable data. Rather than "the process seems to be producing more defects lately," the statistical thinker asks "what does the data show about defect rates over time, and is the observed change statistically significant or within normal random fluctuation?" That reframing makes the problem tractable — it points toward a specific analysis to perform and a specific decision to make.</p>
+
+<p>Throughout this module, statistical thinking will serve as the unifying framework connecting all covered concepts and techniques. Whether the topic is computing a confidence interval, running a hypothesis test, fitting a regression model, or monitoring a process with a control chart, the underlying logic is always the same: the world is variable, data is our window into that variability, and statistical methods are the tools we use to see clearly through that window and make decisions we can stand behind.</p>
+        <div class="notes"><strong>Notes</strong>This topic is purely conceptual and introductory — no derivations or formulas are required. Emphasis should be placed on building intuition and vocabulary rather than computation. The distinction between common and special cause variability is particularly important to establish early, as it recurs throughout quality control and process monitoring topics. The Challenger disaster example is historically well-documented and pedagogically powerful for motivating rigorous statistical practice.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

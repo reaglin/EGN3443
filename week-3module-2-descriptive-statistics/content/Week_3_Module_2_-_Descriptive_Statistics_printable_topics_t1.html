@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Descriptive Statistics</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
+  <header>
+    <h1>Introduction to Descriptive Statistics</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Introduction to Descriptive Statistics</h2>
+      <p>Every time a researcher publishes an average salary, a sports commentator quotes a batting average, or a public health official reports that the median age of infection is 45, they are using descriptive statistics. At its core, <strong>descriptive statistics</strong> is the branch of statistics concerned with summarising, organising, and presenting data in a way that is both accurate and digestible. Rather than drawing conclusions about populations from samples — which is the domain of inferential statistics — descriptive statistics simply describes what is <em>actually in the data</em>. This makes it the natural and essential first step in virtually any data-driven analysis.</p>
+
+<p>To appreciate why this matters, consider a dataset containing the annual incomes of 50,000 households in a country. Listing all 50,000 individual values communicates almost nothing useful to a reader. But reporting that the <strong>median household income is £34,500</strong>, that the <strong>middle 50% of households earn between £22,000 and £51,000</strong>, and that the distribution is <strong>positively skewed</strong> (meaning a small number of very high earners pull the average upward) immediately tells a compelling and accurate story. Descriptive statistics transforms raw numbers into insight.</p>
+
+<p><strong>What Are Descriptive Statistics?</strong></p>
+
+<p>Descriptive statistics are numerical or visual summaries that capture the key characteristics of a dataset. They condense large volumes of raw data — which might span thousands or millions of individual observations — into a compact set of values or charts that convey the essential story of the data. There are two broad forms these summaries can take:</p>
+
+<ul>
+  <li><strong>Numerical summaries</strong> express characteristics as computed values. The arithmetic mean (average), the median (middle value), the standard deviation (a measure of spread), and the interquartile range are all examples of numerical descriptive statistics.</li>
+  <li><strong>Visual summaries</strong> present data graphically to make patterns immediately apparent. A histogram shows how values are distributed across intervals; a box plot reveals the median, quartiles, and outliers at a glance; a bar chart compares frequencies across categories.</li>
+</ul>
+
+<p>Both forms are complementary. A single mean value can be misleading without knowing how spread out the data is, and a histogram becomes more interpretable when accompanied by exact numerical measures. Together, they provide a complete, honest portrait of the data.</p>
+
+<p><strong>Why Descriptive Statistics Matter</strong></p>
+
+<p>The practical importance of descriptive statistics is difficult to overstate. Consider just a few contexts in which they are indispensable:</p>
+
+<ul>
+  <li><strong>Identifying trends and patterns:</strong> A business tracking weekly sales figures can use a moving average to detect whether revenue is trending upward or downward, even if individual weeks fluctuate considerably. Without summarisation, this trend would be buried in noise.</li>
+  <li><strong>Spotting outliers:</strong> An unusually high value — a single transaction 100 times larger than any other — might indicate fraud, a data entry error, or a genuinely exceptional event. Descriptive statistics such as the range or standard deviation quickly flag these anomalies.</li>
+  <li><strong>Communicating to diverse audiences:</strong> A data analyst working with a marketing team or a policy committee must translate complex data into terms non-specialists can act on. A well-chosen average or a clear chart accomplishes this in a way that raw data never could.</li>
+  <li><strong>Supporting decision-making:</strong> Hospital administrators deciding how many beds to allocate need to know not just the average number of daily admissions but also how much that number varies day to day. Both are descriptive statistics, and both are essential to a sound decision.</li>
+</ul>
+
+<p>Sound decisions in business, science, medicine, and public policy are routinely built on the foundation of well-summarised descriptive data. A government setting a minimum wage, a pharmaceutical company evaluating a clinical trial, and an e-commerce platform optimising its pricing strategy all rely on descriptive summaries as the starting point for understanding what the data shows.</p>
+
+<p><strong>Key Categories of Descriptive Statistics</strong></p>
+
+<p>Descriptive statistics are conventionally grouped into three major categories, each answering a different fundamental question about the data:</p>
+
+<ul>
+  <li><strong>Measures of central tendency</strong> answer the question: <em>What is a typical or representative value in this dataset?</em> The three primary measures are the <strong>mean</strong> (the arithmetic average, calculated by summing all values and dividing by the count), the <strong>median</strong> (the middle value when data is ordered from smallest to largest), and the <strong>mode</strong> (the most frequently occurring value). Each has strengths in particular situations. The mean is mathematically efficient but sensitive to extreme values; the median is robust to outliers and preferred for skewed data such as incomes or house prices; the mode is most useful for categorical data.</li>
+  <li><strong>Measures of variability</strong> answer the question: <em>How spread out are the values?</em> The <strong>range</strong> (the difference between the maximum and minimum values) gives a simple but crude sense of spread. The <strong>variance</strong> and <strong>standard deviation</strong> measure how far, on average, each data point deviates from the mean — the standard deviation being the square root of the variance and expressed in the same units as the original data. The <strong>interquartile range (IQR)</strong> measures the spread of the middle 50% of values, making it resistant to the influence of outliers.</li>
+  <li><strong>Measures of distribution shape</strong> answer the question: <em>How are the values arranged across the range?</em> <strong>Skewness</strong> describes the degree and direction of asymmetry in the distribution — a positively skewed distribution has a long tail to the right (large values are spread out), while a negatively skewed distribution has a long tail to the left. <strong>Kurtosis</strong> describes whether the distribution is relatively flat or sharply peaked compared with a normal distribution. These measures matter because many statistical methods assume data has a particular shape, and deviations from that shape can affect which techniques are appropriate.</li>
+</ul>
+
+<p>The table below summarises the three categories and their primary measures:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Question Answered</th>
+      <th>Common Measures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Central Tendency</td>
+      <td>What is a typical value?</td>
+      <td>Mean, Median, Mode</td>
+    </tr>
+    <tr>
+      <td>Variability</td>
+      <td>How spread out are the values?</td>
+      <td>Range, Variance, Standard Deviation, IQR</td>
+    </tr>
+    <tr>
+      <td>Distribution Shape</td>
+      <td>How are values arranged across the range?</td>
+      <td>Skewness, Kurtosis</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Summarising Data Meaningfully</strong></p>
+
+<p>A critical insight — one that separates skilled data practitioners from novices — is that <em>not every statistical measure is appropriate for every dataset</em>. The choice of summary measure must be guided by context and, crucially, by the <strong>type of data</strong> being analysed.</p>
+
+<ul>
+  <li><strong>Categorical data</strong> (e.g., eye colour, product category, country of origin) cannot be meaningfully averaged. For such data, the mode and frequency tables are appropriate; a mean would be nonsensical.</li>
+  <li><strong>Ordinal data</strong> (e.g., customer satisfaction ratings on a 1–5 scale) can be ranked but the intervals between values may not be equal. The median is often more appropriate than the mean here.</li>
+  <li><strong>Continuous numerical data</strong> (e.g., temperature, height, time) supports the full range of descriptive measures, though the presence of outliers or strong skewness may make the median and IQR more informative than the mean and standard deviation.</li>
+</ul>
+
+<p>A meaningful summary also avoids the trap of <em>oversimplification</em>. Reporting only the mean salary at a company might create the impression of prosperity, when in fact a handful of executives earn vastly more than the majority of employees. Reporting the mean <em>and</em> the median <em>and</em> the standard deviation together would reveal this disparity. A classic cautionary example is <strong>Anscombe's Quartet</strong> — four different datasets that share nearly identical means, medians, variances, and correlations, yet look completely different when graphed. This illustrates powerfully why combining numerical summaries with visual representations is always good practice.</p>
+
+<p>Consider the following small example. Suppose seven employees have annual salaries (in thousands of pounds) of:</p>
+
+<pre><code>22, 25, 27, 28, 30, 33, 120</code></pre>
+
+<p>The <strong>mean</strong> is (22 + 25 + 27 + 28 + 30 + 33 + 120) ÷ 7 = 285 ÷ 7 ≈ <strong>£40,700</strong>. The <strong>median</strong> (middle value of the ordered list) is <strong>£28,000</strong>. These two numbers tell strikingly different stories. The mean is distorted by the single outlier of £120,000, making the typical worker appear much better-paid than they are. The median gives a far more representative picture. This is exactly why, when summarising income, house prices, or any data with influential outliers, experienced analysts routinely report the median rather than — or alongside — the mean.</p>
+
+<p><strong>Descriptive Statistics as a Starting Point</strong></p>
+
+<p>In professional data analysis, exploratory work with descriptive statistics is never skipped, even when the ultimate goal is complex modelling or machine learning. This exploratory phase — often called <strong>Exploratory Data Analysis (EDA)</strong> — serves several vital functions:</p>
+
+<ul>
+  <li><strong>Uncovering data quality issues:</strong> Computing basic descriptive statistics immediately reveals problems. If the minimum age in a dataset is −3 or the maximum temperature is 9,999, something has gone wrong with data collection or entry. Missing values become visible when the count of valid observations is lower than expected.</li>
+  <li><strong>Identifying outliers:</strong> Values that lie far from the bulk of the distribution may need special treatment — they might be errors to be corrected, or genuinely unusual observations that warrant separate analysis.</li>
+  <li><strong>Guiding subsequent analysis:</strong> Understanding the shape of the data distribution determines which statistical tests are appropriate. A normally distributed variable can be analysed with parametric tests; a heavily skewed one may require non-parametric alternatives or transformation.</li>
+  <li><strong>Building analytical intuition:</strong> Familiarity with what typical values, spreads, and shapes look like in a particular domain makes analysts more effective at everything that follows — from feature engineering in machine learning to regression modelling to interpreting experimental results.</li>
+</ul>
+
+<p>Perhaps most importantly, mastery of descriptive statistics builds the conceptual vocabulary and quantitative intuition required to engage confidently with more advanced methods. Concepts like the normal distribution, hypothesis testing, confidence intervals, and regression all depend on a solid understanding of means, variances, and distributional shape. An analyst who can fluently describe data with descriptive statistics has the intellectual scaffolding in place to learn and apply virtually any statistical or machine learning technique that follows.</p>
+
+<p>In summary, descriptive statistics are not merely a preliminary formality — they are a powerful set of tools in their own right, essential to understanding data honestly, communicating findings clearly, and making well-informed decisions. Every subsequent statistical concept builds on this foundation.</p>
+      <div class="notes"><strong>Notes</strong>This topic serves as the conceptual anchor for the entire module. Emphasis on the three categories (central tendency, variability, shape) and the importance of combining multiple measures sets up the detailed topics that follow. The Anscombe&#39;s Quartet reference and the salary outlier example are useful for reinforcing why no single statistic tells the whole story.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
