@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 4 Sample Problem 4</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4 Sample Problem 4</h1><h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">4. Poisson Distribution and Applications</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example: Network Traffic Analysis</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Problem</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: In a telecommunications system, data packet arrivals follow a Poisson distribution with an average rate of 5 packets per millisecond.</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">a) What's the probability of receiving exactly 3 packets in a millisecond? b) What's the probability of receiving more than 10 packets in a millisecond? c) What's the probability of waiting more than 0.4 milliseconds between consecutive packets?</span></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in Python (<a href="https://colab.research.google.com/drive/1ldDp3qfXuRPKivXevzOQ7BPV9mTv8h_s?usp=sharing" target="_blank" rel="noopener">Link</a>)</span></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from scipy import stats</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">lambda_rate = 5&nbsp; # packets per millisecond</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># a) Probability of receiving exactly 3 packets in a millisecond</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prob_3_packets = stats.poisson.pmf(k=3, mu=lambda_rate)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"a) Probability of exactly 3 packets in a millisecond: {prob_3_packets:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># b) Probability of receiving more than 10 packets in a millisecond</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prob_more_than_10 = stats.poisson.sf(k=10, mu=lambda_rate)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"b) Probability of more than 10 packets in a millisecond: {prob_more_than_10:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># c) Probability of waiting more than 0.4 milliseconds between consecutive packets</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Time between arrivals follows an exponential distribution with rate = lambda</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">time_threshold = 0.4&nbsp; # milliseconds</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prob_wait_more_than_0_4 = np.exp(-lambda_rate * time_threshold)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"c) Probability of waiting more than 0.4 ms between packets: {prob_wait_more_than_0_4:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(15, 10))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x = np.arange(0, 20)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf = stats.poisson.pmf(x, lambda_rate)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 1)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x, pmf, alpha=0.7)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=3, color='red', linestyle='--', alpha=0.7, label='k=3')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Packets')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title(f'Poisson PMF (λ = {lambda_rate})')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the CDF and highlight P(X &gt; 10)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x = np.arange(0, 25)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cdf = stats.poisson.cdf(x, lambda_rate)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.step(x, cdf, where='post', alpha=0.7)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axhline(y=stats.poisson.cdf(10, lambda_rate), color='red', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(X ≤ 10) = {stats.poisson.cdf(10, lambda_rate):.4f}')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between(x[x &gt; 10], cdf[x &gt; 10], 1, alpha=0.3, step='post', color='green',</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(X &gt; 10) = {prob_more_than_10:.4f}')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Packets')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Cumulative Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Poisson CDF')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot exponential waiting time distribution</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">t = np.linspace(0, 1, 1000)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">exp_pdf = lambda_rate * np.exp(-lambda_rate * t)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot(t, exp_pdf)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=time_threshold, color='red', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'Time = {time_threshold} ms')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between(t[t &gt;= time_threshold], exp_pdf[t &gt;= time_threshold], alpha=0.3, color='green',</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(T &gt; {time_threshold}) = {prob_wait_more_than_0_4:.4f}')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Time Between Packets (ms)')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability Density')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Exponential PDF for Packet Inter-arrival Times')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Simulate packet arrivals over time</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">np.random.seed(42)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulation_time = 10&nbsp; # milliseconds</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">timestamps = []</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">current_time = 0</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">while current_time &lt; simulation_time:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Generate next arrival time (exponentially distributed)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;inter_arrival = np.random.exponential(1/lambda_rate)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;current_time += inter_arrival</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;if current_time &lt; simulation_time:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamps.append(current_time)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 4)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.eventplot(timestamps, lineoffsets=0, linelengths=0.5, linewidths=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Time (ms)')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.yticks([])</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Simulated Packet Arrivals Over Time')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlim(0, simulation_time)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.tight_layout()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate empirical statistics from simulation</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">inter_arrivals = np.diff(timestamps)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"\nSimulation Results:")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"- Number of packets in {simulation_time} ms: {len(timestamps)}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"- Average packets per ms: {len(timestamps)/simulation_time:.2f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"- Average time between packets: {np.mean(inter_arrivals):.4f} ms")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"- Proportion of inter-arrivals &gt; 0.4 ms: {np.mean(inter_arrivals &gt; time_threshold):.4f}")</span></p>
+<p><br><br></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in R</span></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">lambda_rate &lt;- 5&nbsp; # packets per millisecond</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># a) Probability of receiving exactly 3 packets in a millisecond</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prob_3_packets &lt;- dpois(x=3, lambda=lambda_rate)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("a) Probability of exactly 3 packets in a millisecond:", round(prob_3_packets, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># b) Probability of receiving more than 10 packets in a millisecond</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prob_more_than_10 &lt;- ppois(q=10, lambda=lambda_rate, lower.tail=FALSE)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("b) Probability of more than 10 packets in a millisecond:", round(prob_more_than_10, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># c) Probability of waiting more than 0.4 milliseconds between consecutive packets</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Time between arrivals follows an exponential distribution with rate = lambda</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">time_threshold &lt;- 0.4&nbsp; # milliseconds</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prob_wait_more_than_0_4 &lt;- exp(-lambda_rate * time_threshold)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("c) Probability of waiting more than 0.4 ms between packets:", round(prob_wait_more_than_0_4, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">par(mfrow=c(2,2))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x &lt;- 0:19</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf &lt;- dpois(x, lambda=lambda_rate)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf, names.arg=x, main=paste("Poisson PMF (λ =", lambda_rate, ")"),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Packets", ylab="Probability", col="skyblue")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=3*1.2, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot spacing</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(3*1.2, max(pmf)*0.8, "k=3", pos=4, col="red")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the CDF and highlight P(X &gt; 10)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x &lt;- 0:24</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cdf &lt;- ppois(x, lambda=lambda_rate)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(x, cdf, type="s", main="Poisson CDF",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Packets", ylab="Cumulative Probability",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col="blue", lwd=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=ppois(10, lambda=lambda_rate), col="red", lwd=2, lty=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_fill &lt;- 11:24</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">y_bottom &lt;- rep(ppois(10, lambda=lambda_rate), length(x_fill))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">y_top &lt;- ppois(x_fill, lambda=lambda_rate)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Adding colored area for P(X &gt; 10)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in 1:length(x_fill)) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;rect(x_fill[i]-0.5, y_bottom[i], x_fill[i]+0.5, y_top[i],&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(12, ppois(10, lambda=lambda_rate)+0.05,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("P(X &gt; 10) =", round(prob_more_than_10, 4)), pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot exponential waiting time distribution</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">t &lt;- seq(0, 1, length.out=1000)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">exp_pdf &lt;- lambda_rate * exp(-lambda_rate * t)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(t, exp_pdf, type="l", main="Exponential PDF for Packet Inter-arrival Times",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Time Between Packets (ms)", ylab="Probability Density",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col="blue", lwd=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=time_threshold, col="red", lwd=2, lty=2)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Adding colored area for P(T &gt; 0.4)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">t_fill &lt;- seq(time_threshold, 1, length.out=500)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">exp_pdf_fill &lt;- lambda_rate * exp(-lambda_rate * t_fill)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">polygon(c(t_fill, rev(t_fill)), c(exp_pdf_fill, rep(0, length(t_fill))),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(time_threshold+0.1, lambda_rate*0.5,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("P(T &gt;", time_threshold, ") =", round(prob_wait_more_than_0_4, 4)),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Simulate packet arrivals over time</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">set.seed(42)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulation_time &lt;- 10&nbsp; # milliseconds</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">timestamps &lt;- numeric(0)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">current_time &lt;- 0</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">while (current_time &lt; simulation_time) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Generate next arrival time (exponentially distributed)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;inter_arrival &lt;- rexp(1, rate=lambda_rate)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;current_time &lt;- current_time + inter_arrival</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;if (current_time &lt; simulation_time) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;timestamps &lt;- c(timestamps, current_time)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot simulated arrivals</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(timestamps, rep(0, length(timestamps)), pch="|", cex=2, yaxt="n",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Simulated Packet Arrivals Over Time", xlab="Time (ms)", ylab="",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlim=c(0, simulation_time))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=0, col="gray")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate empirical statistics from simulation</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">inter_arrivals &lt;- diff(timestamps)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("\nSimulation Results:\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("- Number of packets in", simulation_time, "ms:", length(timestamps), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("- Average packets per ms:", round(length(timestamps)/simulation_time, 2), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("- Average time between packets:", round(mean(inter_arrivals), 4), "ms\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("- Proportion of inter-arrivals &gt; 0.4 ms:", round(mean(inter_arrivals &gt; time_threshold), 4), "\n")</span></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

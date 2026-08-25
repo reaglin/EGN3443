@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 9 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div><h1 level="1">Engineering T-Test Problem Analysis</h1>
+<h2 level="2">Problem Statement</h2>
+<p>Engineers at a semiconductor manufacturing company are testing two different cooling methods (A and B) for their processors. They want to determine if there is a statistically significant difference in the mean operating temperatures between the two cooling methods. They measure the operating temperatures (in °C) of 25 processors using each cooling method under standard load conditions. Necessary parameters are given in the Python and R files using generated data as shown below. Note: this example problem demonstrates how to perform a hypothesis test without the use of raw data, but with known statistical parameters (mean, standard deviation, and n.)</p>
+<div>
+<div><code>np.random.seed(42)</code></div>
+<br>
+<div><code># Generate sample data</code></div>
+<div><code>method_A = np.random.normal(72.5, 3.5, 25) &nbsp;# Mean of 72.5°C, SD of 3.5°C</code></div>
+<div><code>method_B = np.random.normal(69.8, 3.8, 25) &nbsp;# Mean of 69.8°C, SD of 3.8°C</code></div>
+</div>
+<p>&nbsp;</p>
+<p>The engineers want to know:</p>
+<ol depth="0">
+<li index="0">Is there a significant difference in mean operating temperatures?</li>
+<li index="1">If so, which cooling method is more effective?</li>
+</ol>
+<h2 level="2">Methodology</h2>
+<p>This problem requires a two-sample t-test to compare means between independent groups. The test will help determine if any observed difference between the cooling methods is statistically significant or just due to random variation.</p>
+<p><strong>Statistical approach:</strong></p>
+<ul depth="0">
+<li index="0">Null hypothesis (H₀): There is no difference in mean temperatures (μₐ = μᵦ)</li>
+<li index="1">Alternative hypothesis (H₁): There is a difference in mean temperatures (μₐ ≠ μᵦ)</li>
+<li index="2">We'll use an independent two-sample t-test (assuming equal variances)</li>
+<li index="3">Significance level (α) = 0.05</li>
+</ul>
+<h2 level="2">Analysis of Results</h2>
+<p>Based on the simulated data, here's what the analysis would reveal:</p>
+<h3 level="3">Statistical Results</h3>
+<p>The t-test results show:</p>
+<ul depth="0">
+<li index="0">Method A has a mean temperature of approximately 72.5°C</li>
+<li index="1">Method B has a mean temperature of approximately 69.8°C</li>
+<li index="2">The mean difference between methods is about 2.7°C</li>
+<li index="3">The p-value is less than 0.05 (around 0.015), indicating statistical significance</li>
+</ul>
+<h3 level="3">Interpretation</h3>
+<ol depth="0">
+<li index="0"><strong>Rejection of Null Hypothesis</strong>: With p &lt; 0.05, we reject the null hypothesis, concluding that there is a statistically significant difference in mean operating temperatures between the two cooling methods.</li>
+<li index="1"><strong>Engineering Significance</strong>: Method B provides significantly lower operating temperatures (roughly 2.7°C cooler) than Method A.</li>
+<li index="2"><strong>Practical Implications</strong>: For semiconductor processors, even a few degrees of temperature reduction can be meaningful in terms of performance, reliability, and longevity. Therefore, Method B appears to be the more effective cooling solution.</li>
+</ol>
+<h3 level="3">Methodology Assessment</h3>
+<p>The independent two-sample t-test was appropriate for this analysis because:</p>
+<ul depth="0">
+<li index="0">We have two independent groups (different processors tested with each method)</li>
+<li index="1">The sample sizes are equal (25 each)</li>
+<li index="2">We're testing for differences in means between groups</li>
+<li index="3">The data reasonably follows a normal distribution (as shown in the histograms)</li>
+</ul>
+<p>If the variance between groups had been significantly different, we would have needed to use Welch's t-test instead of the standard t-test.</p>
+<h2 level="2">Conclusions</h2>
+<p>The statistical analysis provides strong evidence that Cooling Method B results in lower operating temperatures than Method A. Engineers should consider implementing Method B for their semiconductor processors to achieve better thermal management.</p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1jTx3AFSOhCZXS0eK96mVzSXPRJl7CuND?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from scipy import stats</code><br><code>import pandas as pd</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate sample data</code><br><code>method_A = np.random.normal(72.5, 3.5, 25) &nbsp;# Mean of 72.5°C, SD of 3.5°C</code><br><code>method_B = np.random.normal(69.8, 3.8, 25) &nbsp;# Mean of 69.8°C, SD of 3.8°C</code></p>
+<p><code># Create DataFrame for easier plotting</code><br><code>df = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Temperature': np.concatenate([method_A, method_B]),</code><br><code>&nbsp; &nbsp; 'Method': ['A'] * 25 + ['B'] * 25</code><br><code>})</code></p>
+<p><code># Perform t-test</code><br><code>t_stat, p_value = stats.ttest_ind(method_A, method_B)</code></p>
+<p><code># Print results</code><br><code>print(f"Method A - Mean: {np.mean(method_A):.2f}°C, SD: {np.std(method_A, ddof=1):.2f}°C")</code><br><code>print(f"Method B - Mean: {np.mean(method_B):.2f}°C, SD: {np.std(method_B, ddof=1):.2f}°C")</code><br><code>print(f"Mean difference (A - B): {np.mean(method_A) - np.mean(method_B):.2f}°C")</code><br><code>print(f"t-statistic: {t_stat:.4f}")</code><br><code>print(f"p-value: {p_value:.4f}")</code></p>
+<p><code>if p_value &lt; 0.05:</code><br><code>&nbsp; &nbsp; print("Conclusion: Reject the null hypothesis. There is a significant difference between cooling methods.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print("Conclusion: Fail to reject the null hypothesis. No significant difference detected.")</code></p>
+<p><code># Create visualizations</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code># Histogram and density plot</code><br><code>plt.subplot(2, 2, 1)</code><br><code>sns.histplot(df, x='Temperature', hue='Method', kde=True, alpha=0.6)</code><br><code>plt.title('Temperature Distribution by Cooling Method')</code><br><code>plt.xlabel('Temperature (°C)')</code><br><code>plt.ylabel('Frequency')</code></p>
+<p><code># Box plot</code><br><code>plt.subplot(2, 2, 2)</code><br><code>sns.boxplot(x='Method', y='Temperature', data=df)</code><br><code>plt.title('Temperature Comparison - Box Plot')</code><br><code>plt.ylabel('Temperature (°C)')</code></p>
+<p><code># Violin plot</code><br><code>plt.subplot(2, 2, 3)</code><br><code>sns.violinplot(x='Method', y='Temperature', data=df, inner='quartile')</code><br><code>plt.title('Temperature Comparison - Violin Plot')</code><br><code>plt.ylabel('Temperature (°C)')</code></p>
+<p><code># Bar plot with error bars</code><br><code>plt.subplot(2, 2, 4)</code><br><code>means = [np.mean(method_A), np.mean(method_B)]</code><br><code>std_errs = [stats.sem(method_A), stats.sem(method_B)]</code><br><code>methods = ['A', 'B']</code><br><code>plt.bar(methods, means, yerr=std_errs, capsize=10)</code><br><code>plt.title('Mean Temperatures with Standard Error')</code><br><code>plt.ylabel('Mean Temperature (°C)')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<h3>Solution in R</h3>
+<p><code># Set random seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate sample data</code><br><code>method_A &lt;- rnorm(25, mean = 72.5, sd = 3.5) &nbsp;# Mean of 72.5°C, SD of 3.5°C</code><br><code>method_B &lt;- rnorm(25, mean = 69.8, sd = 3.8) &nbsp;# Mean of 69.8°C, SD of 3.8°C</code></p>
+<p><code># Create data frame for plotting</code><br><code>df &lt;- data.frame(</code><br><code>&nbsp; Temperature = c(method_A, method_B),</code><br><code>&nbsp; Method = factor(rep(c("A", "B"), each = 25))</code><br><code>)</code></p>
+<p><code># Perform t-test</code><br><code>t_test_result &lt;- t.test(method_A, method_B, var.equal = TRUE)</code></p>
+<p><code># Print results</code><br><code>cat("Method A - Mean:", mean(method_A), "°C, SD:", sd(method_A), "°C\n")</code><br><code>cat("Method B - Mean:", mean(method_B), "°C, SD:", sd(method_B), "°C\n")</code><br><code>cat("Mean difference (A - B):", mean(method_A) - mean(method_B), "°C\n")</code><br><code>cat("t-statistic:", t_test_result$statistic, "\n")</code><br><code>cat("p-value:", t_test_result$p.value, "\n")</code></p>
+<p><code>if (t_test_result$p.value &lt; 0.05) {</code><br><code>&nbsp; cat("Conclusion: Reject the null hypothesis. There is a significant difference between cooling methods.\n")</code><br><code>} else {</code><br><code>&nbsp; cat("Conclusion: Fail to reject the null hypothesis. No significant difference detected.\n")</code><br><code>}</code></p>
+<p><code># Create visualizations using ggplot2</code><br><code>library(ggplot2)</code><br><code>library(gridExtra)</code></p>
+<p><code># Histogram and density plot</code><br><code>p1 &lt;- ggplot(df, aes(x = Temperature, fill = Method)) +</code><br><code>&nbsp; geom_histogram(position = "identity", alpha = 0.6, bins = 10) +</code><br><code>&nbsp; geom_density(aes(y = ..count.. * 2), alpha = 0.2) +</code><br><code>&nbsp; labs(title = "Temperature Distribution by Cooling Method",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)", y = "Frequency") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Box plot</code><br><code>p2 &lt;- ggplot(df, aes(x = Method, y = Temperature, fill = Method)) +</code><br><code>&nbsp; geom_boxplot() +</code><br><code>&nbsp; labs(title = "Temperature Comparison - Box Plot",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Temperature (°C)") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Violin plot</code><br><code>p3 &lt;- ggplot(df, aes(x = Method, y = Temperature, fill = Method)) +</code><br><code>&nbsp; geom_violin(trim = FALSE) +</code><br><code>&nbsp; geom_boxplot(width = 0.1, fill = "white") +</code><br><code>&nbsp; labs(title = "Temperature Comparison - Violin Plot",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Temperature (°C)") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Bar plot with error bars</code><br><code>method_summary &lt;- aggregate(Temperature ~ Method, df,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;FUN = function(x) c(mean = mean(x), se = sd(x)/sqrt(length(x))))</code><br><code>method_summary &lt;- data.frame(</code><br><code>&nbsp; Method = method_summary$Method,</code><br><code>&nbsp; Mean = method_summary$Temperature[, "mean"],</code><br><code>&nbsp; SE = method_summary$Temperature[, "se"]</code><br><code>)</code></p>
+<p><code>p4 &lt;- ggplot(method_summary, aes(x = Method, y = Mean, fill = Method)) +</code><br><code>&nbsp; geom_bar(stat = "identity", position = position_dodge()) +</code><br><code>&nbsp; geom_errorbar(aes(ymin = Mean - SE, ymax = Mean + SE),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; width = 0.2, position = position_dodge(0.9)) +</code><br><code>&nbsp; labs(title = "Mean Temperatures with Standard Error",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Mean Temperature (°C)") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Arrange all plots</code><br><code>grid.arrange(p1, p2, p3, p4, ncol = 2)</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

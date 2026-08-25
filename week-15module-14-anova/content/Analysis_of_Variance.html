@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Analysis of Variance</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div><h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 23pt; font-family: Arial, sans-serif;">Module 14: Analysis of Variance (ANOVA)</span></strong></h1>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Supporting Lectures:<br>EGN3443 - Module 14 - Analysis of Variance (ANOVA)<br><br>1. Introduction to ANOVA</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Analysis of Variance (ANOVA) is a statistical technique used to analyze the differences among group means in a sample. It helps determine whether there are statistically significant differences between the means of three or more independent groups.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Concepts</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compares variance between groups to variance within groups</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Helps researchers understand if group differences are significant or due to random chance</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Extends t-test principles to multiple group comparisons</span></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">2. One-way ANOVA</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">One-way ANOVA is used to compare means across three or more groups based on a single independent variable.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Hypotheses</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Null Hypothesis (H₀): All group means are equal</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Alternative Hypothesis (H₁): At least one group mean is different</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Example</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Consider an experiment testing the effect of three different fertilizers on crop yield:</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Data:</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Fertilizer A: [10, 12, 11, 13]</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Fertilizer B: [8, 9, 7, 10]</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Fertilizer C: [14, 15, 13, 16]</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Calculation Steps:</span></strong></p>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate group means</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate total mean</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compute Sum of Squares Between (SSB)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compute Sum of Squares Within (SSW)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate F-statistic: F = (SSB / dfB) / (SSW / dfW)</span></p>
+</li>
+</ol>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Web References:</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Analysis_of_variance">https://en.wikipedia.org/wiki/Analysis_of_variance</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://www.khanacademy.org/math/statistics-probability/analysis-of-variance-anova-library"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Khan Academy ANOVA Explanation</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">3. Multiple Comparisons</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">After finding a significant ANOVA result, multiple comparison tests help identify which specific groups differ from each other.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Common Multiple Comparison Methods</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Tukey's Honestly Significant Difference (HSD)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Bonferroni Correction</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Scheffe's Method</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation (Tukey's HSD)</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate the difference between each pair of group means</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compare with a critical value that accounts for multiple comparisons</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Determine which differences are statistically significant</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Web References:</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Tukey%27s_range_test">https://en.wikipedia.org/wiki/Tukey%27s_range_test</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Scheff%C3%A9%27s_method">https://en.wikipedia.org/wiki/Scheff%C3%A9%27s_method</a></li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">4. Two-way ANOVA</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Two-way ANOVA analyzes the influence of two independent variables on a dependent variable.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Components</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Main effect of first independent variable</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Main effect of second independent variable</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Interaction effect between variables</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Scenario</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Studying how fertilizer type and irrigation method affect crop yield:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Factor A: Fertilizer Type (Organic, Chemical)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Factor B: Irrigation Method (Drip, Sprinkler)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Dependent Variable: Crop Yield</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Calculation Considerations:</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Analyze main effects for each factor</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compute interaction effects</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Determine statistical significance for each component</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Web References:</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Two-way_analysis_of_variance">https://en.wikipedia.org/wiki/Two-way_analysis_of_variance</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Mostly_Harmless_Statistics_(Webb)/11%3A_Analysis_of_Variance/11.03%3A_Two-Way_ANOVA_(Factorial_Design)#:~:text=Two-way%20analysis%20of%20variance%20%28two-way%20ANOVA%29%20is%20an,test%20for%20interaction%20between%20the%20two%20independent%20variables." target="_blank" rel="noopener">LibreTexts:&nbsp; Mostly Harmless Statistics</a>&nbsp;</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">5. Interaction Effects</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">An interaction effect occurs when the impact of one independent variable on the dependent variable changes across levels of another independent variable.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Visual Representation</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Non-parallel lines in interaction plots indicate interaction effects</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Significant interaction suggests the effect of one factor depends on the level of another factor</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">In the fertilizer and irrigation experiment:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Organic fertilizer might perform differently with drip vs. sprinkler irrigation</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">The interaction effect reveals these complex relationships</span></p>
+</li>
+</ul>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></span></strong></p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">6. ANOVA Applications in Engineering Experiments</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Common Applications</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Quality Control</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Process Optimization</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Material Comparison</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Performance Testing</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Engineering Examples</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Comparing manufacturing process efficiencies</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Testing material strength under different conditions</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Evaluating equipment performance variations</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Practical Considerations</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Ensure data meets ANOVA assumptions</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Use appropriate sample sizes</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Consider randomization and control groups</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Web References:</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://asq.org/quality-resources/statistics"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">ASQ Engineering Statistics Overview</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://www.itl.nist.gov/div898/handbook/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Engineering Statistics Handbook</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Conclusion</span></strong></h2>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">ANOVA provides a powerful statistical framework for comparing group means and understanding complex relationships in experimental data. Mastering these techniques is crucial for rigorous scientific and engineering research.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Recommended Software</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">R</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">SPSS</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Minitab</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">JMP</span></p>
+</li>
+</ul>
+<p style="margin-bottom: 12pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;"></span></strong></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 14 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div><h1 level="1">Engineering Example: Two-Way ANOVA Analysis</h1>
+<p>This engineering example uses two-way Analysis of Variance (ANOVA) to analyze how different materials and temperature conditions affect the tensile strength of a component. This is a practical engineering problem that demonstrates the value of ANOVA for analyzing the effects of multiple factors.</p>
+<h2 level="2">Problem Statement</h2>
+<p>An aerospace engineering team is developing a new composite material for aircraft components. They need to understand how both the material composition and operating temperature affect the tensile strength of the component. They've tested three different material compositions (Material A, B, and C) at four different temperature conditions (25°C, 50°C, 75°C, and 100°C).</p>
+<p>Each combination of material and temperature was tested 5 times, resulting in 60 total measurements (3 materials × 4 temperatures × 5 replications).</p>
+<p>The team wants to answer:</p>
+<ol depth="0">
+<li index="0">Does material composition significantly affect tensile strength?</li>
+<li index="1">Does temperature significantly affect tensile strength?</li>
+<li index="2">Is there a significant interaction between material and temperature?</li>
+</ol>
+<h2 level="2">The Two-Way ANOVA Method</h2>
+<p>Two-way ANOVA is a statistical method that examines the influence of two different categorical independent variables (factors) on one continuous dependent variable. It helps determine:</p>
+<ul depth="0">
+<li index="0">Main effects: The individual effect of each independent variable</li>
+<li index="1">Interaction effects: Whether the effect of one independent variable depends on the level of the other</li>
+</ul>
+<p>In this case:</p>
+<ul depth="0">
+<li index="0">Independent variables: Material type and Temperature</li>
+<li index="1">Dependent variable: Tensile strength (MPa)</li>
+</ul>
+<h2 level="2">Detailed Discussion of Two-Way ANOVA Method</h2>
+<h3 level="3">The Basics of ANOVA</h3>
+<p>ANOVA is based on partitioning the total variance in the data into components attributed to different sources:</p>
+<ol depth="0">
+<li index="0"><strong>Within-group variance</strong> (error variance): Random variation within treatment groups</li>
+<li index="1"><strong>Between-group variance</strong>: Variation that can be attributed to the experimental factors</li>
+</ol>
+<p>Two-way ANOVA partitions the total sum of squares (SS) into:</p>
+<ul depth="0">
+<li index="0">SS due to Factor A (Materials)</li>
+<li index="1">SS due to Factor B (Temperature)</li>
+<li index="2">SS due to interaction between A and B</li>
+<li index="3">SS due to error (residual variation)</li>
+</ul>
+<h3 level="3">Key Statistics in Two-Way ANOVA</h3>
+<ol depth="0">
+<li index="0"><strong>Sum of Squares (SS)</strong>: Measures the total variation in the data</li>
+<li index="1"><strong>Degrees of Freedom (df)</strong>: Number of independent values that can vary in the analysis</li>
+<li index="2"><strong>Mean Square (MS)</strong>: SS divided by df, represents the variance</li>
+<li index="3"><strong>F-statistic</strong>: Ratio of between-group MS to within-group MS</li>
+<li index="4"><strong>p-value</strong>: Probability of observing the F-statistic if the null hypothesis is true</li>
+<li index="5"><strong>Eta-squared (η²)</strong>: Measure of effect size (proportion of variance explained)</li>
+</ol>
+<h3 level="3">Interpreting Our Results</h3>
+<p>Based on our simulated data:</p>
+<ol depth="0">
+<li index="0"><strong>Main Effect of Material</strong>:
+<ul depth="1">
+<li index="0">The F-statistic and p-value show a significant effect of material type on tensile strength</li>
+<li index="1">Post-hoc Tukey tests reveal which specific materials differ significantly</li>
+<li index="2">Material A generally has the highest tensile strength at lower temperatures</li>
+</ul>
+</li>
+<li index="1"><strong>Main Effect of Temperature</strong>:
+<ul depth="1">
+<li index="0">The F-statistic and p-value indicate temperature significantly affects tensile strength</li>
+<li index="1">The effect is particularly pronounced for Material A, which shows the steepest decline in strength as temperature increases</li>
+</ul>
+</li>
+<li index="2"><strong>Interaction Effect (Material × Temperature)</strong>:
+<ul depth="1">
+<li index="0">The significant interaction suggests that the effect of temperature on tensile strength depends on the material type</li>
+<li index="1">The interaction plot visually confirms this: the lines are not parallel, meaning materials respond differently to temperature changes</li>
+<li index="2">Material C maintains relatively stable strength across temperatures, while Material A shows a sharper decline</li>
+</ul>
+</li>
+<li index="3"><strong>Effect Sizes</strong>:
+<ul depth="1">
+<li index="0">The eta-squared values quantify how much of the variability in tensile strength is explained by each factor and their interaction</li>
+<li index="1">This helps engineers understand which factor has more practical importance in controlling strength</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Value of Statistics in Engineering Decision-Making</h3>
+<ol depth="0">
+<li index="0"><strong>F-statistics and p-values</strong>:
+<ul depth="1">
+<li index="0">Help determine if observed differences are statistically significant or might be due to random chance</li>
+<li index="1">Guide engineers in deciding which factors truly matter for product performance</li>
+</ul>
+</li>
+<li index="1"><strong>Post-hoc tests</strong>:
+<ul depth="1">
+<li index="0">Reveal specific differences between group means</li>
+<li index="1">Allow engineers to select optimal material-temperature combinations</li>
+</ul>
+</li>
+<li index="2"><strong>Interaction analysis</strong>:
+<ul depth="1">
+<li index="0">Crucial for understanding how factors work together</li>
+<li index="1">Helps identify optimal operating conditions (e.g., Material C might be preferred for high-temperature applications despite lower strength at room temperature)</li>
+</ul>
+</li>
+<li index="3"><strong>Effect sizes</strong>:
+<ul depth="1">
+<li index="0">Quantify the practical significance of findings</li>
+<li index="1">Help prioritize which factors to control in manufacturing and operation</li>
+</ul>
+</li>
+<li index="4"><strong>Visualizations</strong>:
+<ul depth="1">
+<li index="0">Box plots show the distribution and variability of data<br><img src="Module_14_Sample_Problem_2_files/image_8121861621745428169856_20250423171128053.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></li>
+<li index="1">Interaction plots reveal how factors influence each other<br><img src="Module_14_Sample_Problem_2_files/image_53975371731745428182512_20250423171128276.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></li>
+<li index="2">Heat maps provide an intuitive overview of optimal combinations<br><img src="Module_14_Sample_Problem_2_files/image_6769695541745428208459_20250423171128428.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></li>
+</ul>
+</li>
+</ol>
+<h2 level="2">Engineering Conclusions</h2>
+<p>From our analysis, the engineering team could conclude:</p>
+<ol depth="0">
+<li index="0">Material composition significantly affects tensile strength, with Material A offering the highest strength at room temperature (25°C).</li>
+<li index="1">Temperature significantly affects tensile strength, with all materials showing some decrease in strength as temperature increases.</li>
+<li index="2">There is a significant interaction between material and temperature:
+<ul depth="1">
+<li index="0">Material A has superior performance at lower temperatures but decreases rapidly at higher temperatures</li>
+<li index="1">Material C, while weaker at room temperature, maintains more consistent strength across the temperature range</li>
+<li index="2">Material B offers intermediate performance throughout</li>
+</ul>
+</li>
+<li index="3">For applications operating primarily at room temperature, Material A would be the optimal choice.</li>
+<li index="4">For applications operating at higher temperatures (75-100°C), Material C would likely be the better choice due to its thermal stability.</li>
+</ol>
+<p>This type of analysis is extremely valuable in engineering contexts as it allows for data-driven decisions about material selection based on operating conditions, helping to optimize component performance and reliability.</p>
+<h2>Solution in Python (link)</h2>
+<div>
+<div><code>import numpy as np</code></div>
+<div><code>import pandas as pd</code></div>
+<div><code>import matplotlib.pyplot as plt</code></div>
+<div><code>import seaborn as sns</code></div>
+<div><code>from scipy import stats</code></div>
+<div><code>import statsmodels.api as sm</code></div>
+<div><code>from statsmodels.formula.api import ols</code></div>
+<div><code>from statsmodels.graphics.factorplots import interaction_plot</code></div>
+<br>
+<div><code># Set random seed for reproducibility</code></div>
+<div><code>np.random.seed(42)</code></div>
+<br>
+<div><code># Create the dataset</code></div>
+<div><code># Define factors</code></div>
+<div><code>materials = ['Material A', 'Material B', 'Material C']</code></div>
+<div><code>temperatures = [25, 50, 75, 100]</code></div>
+<div><code>replications = 5</code></div>
+<br>
+<div><code># Create tensile strength data with specific means and some random variation</code></div>
+<div><code># Material A: Highest strength at room temperature, decreases with temperature</code></div>
+<div><code># Material B: Moderate strength with less temperature sensitivity</code></div>
+<div><code># Material C: Lower strength at room temperature but better at high temperatures</code></div>
+<br>
+<div><code># Base values for materials at 25°C</code></div>
+<div><code>base_strengths = {'Material A': 450, 'Material B': 400, 'Material C': 350}</code></div>
+<br>
+<div><code># Temperature sensitivity (strength change per °C)</code></div>
+<div><code>temp_sensitivity = {'Material A': -1.2, 'Material B': -0.8, 'Material C': -0.3}</code></div>
+<br>
+<div><code># Standard deviation to add some noise</code></div>
+<div><code>std_dev = 15</code></div>
+<br>
+<div><code># Generate data</code></div>
+<div><code>data = []</code></div>
+<div><code>for material in materials:</code></div>
+<div><code>&nbsp; &nbsp; for temp in temperatures:</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; # Calculate mean strength based on material and temperature</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; mean_strength = base_strengths[material] + temp_sensitivity[material] * (temp - 25)</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp;</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; # Generate 5 replications with some random variation</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; for _ in range(replications):</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strength = np.random.normal(mean_strength, std_dev)</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data.append({</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Material': material,</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Temperature': temp,</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Tensile_Strength': strength</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })</code></div>
+<br>
+<div><code># Convert to DataFrame</code></div>
+<div><code>df = pd.DataFrame(data)</code></div>
+<br>
+<div><code># Display the first few rows of the dataset</code></div>
+<div><code>print("Dataset Preview:")</code></div>
+<div><code>print(df.head())</code></div>
+<br>
+<div><code># Summary statistics</code></div>
+<div><code>print("\nSummary Statistics:")</code></div>
+<div><code>summary = df.groupby(['Material', 'Temperature'])['Tensile_Strength'].agg(['mean', 'std', 'count'])</code></div>
+<div><code>print(summary)</code></div>
+<br>
+<div><code># Visualization</code></div>
+<div><code>#plt.figure(figsize=(12, 10))</code></div>
+<br>
+<div><code># 1. Box plot</code></div>
+<div><code>#plt.subplot(2, 2, 1)</code></div>
+<div><code>sns.boxplot(x='Material', y='Tensile_Strength', hue='Temperature', data=df)</code></div>
+<div><code>plt.title('Tensile Strength by Material and Temperature')</code></div>
+<div><code>plt.xlabel('Material Type')</code></div>
+<div><code>plt.ylabel('Tensile Strength (MPa)')</code></div>
+<div><code>plt.legend(title='Temperature (°C)')</code></div>
+<div><code>plt.tight_layout()</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># 2. Interaction plot</code></div>
+<div><code>#plt.subplot(2, 2, 2)</code></div>
+<div><code>fig = interaction_plot(df['Temperature'], df['Material'], df['Tensile_Strength'],</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; colors=['red', 'blue', 'green'], markers=['D', 's', 'o'],</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ms=10, xlabel='Temperature (°C)', ylabel='Mean Tensile Strength (MPa)')</code></div>
+<div><code>plt.title('Interaction Between Material and Temperature')</code></div>
+<div><code>plt.grid(True)</code></div>
+<div><code>plt.tight_layout()</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># 3. Individual scatter plots with trend lines</code></div>
+<div><code>#plt.subplot(2, 2, 3)</code></div>
+<div><code>sns.scatterplot(x='Temperature', y='Tensile_Strength', hue='Material', data=df)</code></div>
+<div><code>plt.title('Tensile Strength vs Temperature')</code></div>
+<div><code>plt.xlabel('Temperature (°C)')</code></div>
+<div><code>plt.ylabel('Tensile Strength (MPa)')</code></div>
+<br>
+<div><code>for material in materials:</code></div>
+<div><code>&nbsp; &nbsp; material_data = df[df['Material'] == material]</code></div>
+<div><code>&nbsp; &nbsp; x = material_data['Temperature']</code></div>
+<div><code>&nbsp; &nbsp; y = material_data['Tensile_Strength']</code></div>
+<div><code>&nbsp; &nbsp; z = np.polyfit(x, y, 1)</code></div>
+<div><code>&nbsp; &nbsp; p = np.poly1d(z)</code></div>
+<div><code>&nbsp; &nbsp; plt.plot(sorted(x), p(sorted(x)), '--')</code></div>
+<br>
+<div><code>plt.grid(True)</code></div>
+<div><code>plt.tight_layout()</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># 4. Heatmap of mean tensile strength</code></div>
+<div><code>#plt.subplot(2, 2, 4)</code></div>
+<div><code>pivot_table = df.pivot_table(index='Material', columns='Temperature', values='Tensile_Strength', aggfunc='mean')</code></div>
+<div><code>sns.heatmap(pivot_table, annot=True, cmap='YlGnBu', fmt='.1f')</code></div>
+<div><code>plt.title('Mean Tensile Strength for Each Condition')</code></div>
+<div><code>plt.xlabel('Temperature (°C)')</code></div>
+<div><code>plt.ylabel('Material')</code></div>
+<br>
+<div><code>plt.tight_layout()</code></div>
+<div><code>#plt.savefig('tensile_strength_analysis.png', dpi=300)</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># Perform two-way ANOVA</code></div>
+<div><code>print("\nTwo-Way ANOVA Results:")</code></div>
+<div><code>model = ols('Tensile_Strength ~ C(Material) + C(Temperature) + C(Material):C(Temperature)', data=df).fit()</code></div>
+<div><code>anova_table = sm.stats.anova_lm(model, typ=2)</code></div>
+<div><code>print(anova_table)</code></div>
+<br>
+<div><code># Post-hoc tests</code></div>
+<div><code># For material main effect</code></div>
+<div><code>print("\nPost-hoc Tests for Material Main Effect (Tukey's HSD):")</code></div>
+<div><code>#material_comp = stats.tukey_hsd(df['Tensile_Strength'], df['Material'])</code></div>
+<div><code>material_comp = stats.tukey_hsd(*[group['Tensile_Strength'] for name, group in df.groupby('Material')])</code></div>
+<div><code>print(material_comp)</code></div>
+<br>
+<div><code># For temperature main effect</code></div>
+<div><code>print("\nPost-hoc Tests for Temperature Main Effect (Tukey's HSD):")</code></div>
+<div><code>temp_comp = stats.tukey_hsd(df['Tensile_Strength'], df['Temperature'])</code></div>
+<div><code>print(temp_comp)</code></div>
+<br>
+<div><code># Effect sizes</code></div>
+<div><code># Calculate eta-squared for each factor</code></div>
+<div><code>SST = np.sum((df['Tensile_Strength'] - df['Tensile_Strength'].mean())**2)</code></div>
+<div><code>eta_squared = {</code></div>
+<div><code>&nbsp; &nbsp; 'Material': anova_table.loc['C(Material)', 'sum_sq'] / SST,</code></div>
+<div><code>&nbsp; &nbsp; 'Temperature': anova_table.loc['C(Temperature)', 'sum_sq'] / SST,</code></div>
+<div><code>&nbsp; &nbsp; 'Interaction': anova_table.loc['C(Material):C(Temperature)', 'sum_sq'] / SST,</code></div>
+<div><code>&nbsp; &nbsp; 'Residual': anova_table.loc['Residual', 'sum_sq'] / SST</code></div>
+<div><code>}</code></div>
+<br>
+<div><code>print("\nEffect Sizes (Eta-squared):")</code></div>
+<div><code>for factor, value in eta_squared.items():</code></div>
+<div><code>&nbsp; &nbsp; print(f"{factor}: {value:.4f} ({value*100:.1f}%)")</code></div>
+<br>
+<div><code># Calculate estimated marginal means</code></div>
+<div><code>print("\nEstimated Marginal Means:")</code></div>
+<div><code>print("By Material:")</code></div>
+<div><code>material_means = df.groupby('Material')['Tensile_Strength'].mean()</code></div>
+<div><code>print(material_means)</code></div>
+<br>
+<div><code>print("\nBy Temperature:")</code></div>
+<div><code>temp_means = df.groupby('Temperature')['Tensile_Strength'].mean()</code></div>
+<div><code>print(temp_means)</code></div>
+<br>
+<div><code># Print conclusions</code></div>
+<div><code>print("\nConclusions:")</code></div>
+<div><code>print("1. Material Effect:", "Significant" if anova_table.loc['C(Material)', 'PR(&gt;F)'] &lt; 0.05 else "Not Significant")</code></div>
+<div><code>print("2. Temperature Effect:", "Significant" if anova_table.loc['C(Temperature)', 'PR(&gt;F)'] &lt; 0.05 else "Not Significant")</code></div>
+<div><code>print("3. Interaction Effect:", "Significant" if anova_table.loc['C(Material):C(Temperature)', 'PR(&gt;F)'] &lt; 0.05 else "Not Significant")</code></div>
+</div>
+<p></p>
+<h2>Solution in R</h2>
+<p><code># Load necessary libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(tidyr)</code><br><code>library(car)</code><br><code>library(effectsize)</code><br><code>library(emmeans)</code></p>
+<p><code># Set seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Create the dataset</code><br><code>materials &lt;- rep(c("Material A", "Material B", "Material C"), each = 20)</code><br><code>temperatures &lt;- rep(rep(c(25, 50, 75, 100), each = 5), 3)</code></p>
+<p><code># Define base strengths and temperature sensitivity</code><br><code>base_strengths &lt;- c("Material A" = 450, "Material B" = 400, "Material C" = 350)</code><br><code>temp_sensitivity &lt;- c("Material A" = -1.2, "Material B" = -0.8, "Material C" = -0.3)</code><br><code>std_dev &lt;- 15</code></p>
+<p><code># Generate tensile strength values with the same pattern as Python code</code><br><code>tensile_strength &lt;- numeric(length(materials))</code><br><code>for (i in 1:length(materials)) {</code><br><code>&nbsp; material &lt;- materials[i]</code><br><code>&nbsp; temp &lt;- temperatures[i]</code><br><code>&nbsp; mean_strength &lt;- base_strengths[material] + temp_sensitivity[material] * (temp - 25)</code><br><code>&nbsp; tensile_strength[i] &lt;- rnorm(1, mean_strength, std_dev)</code><br><code>}</code></p>
+<p><code># Create data frame</code><br><code>df &lt;- data.frame(</code><br><code>&nbsp; Material = factor(materials),</code><br><code>&nbsp; Temperature = factor(temperatures),</code><br><code>&nbsp; Tensile_Strength = tensile_strength</code><br><code>)</code></p>
+<p><code># View the first few rows of the dataset</code><br><code>cat("Dataset Preview:\n")</code><br><code>print(head(df))</code></p>
+<p><code># Summary statistics</code><br><code>cat("\nSummary Statistics:\n")</code><br><code>summary_stats &lt;- df %&gt;%</code><br><code>&nbsp; group_by(Material, Temperature) %&gt;%</code><br><code>&nbsp; summarise(</code><br><code>&nbsp; &nbsp; mean = mean(Tensile_Strength),</code><br><code>&nbsp; &nbsp; sd = sd(Tensile_Strength),</code><br><code>&nbsp; &nbsp; count = n(),</code><br><code>&nbsp; &nbsp; .groups = 'drop'</code><br><code>&nbsp; )</code><br><code>print(summary_stats)</code></p>
+<p><code># Visualizations</code><br><code># 1. Box plot</code><br><code>p1 &lt;- ggplot(df, aes(x = Material, y = Tensile_Strength, fill = Temperature)) +</code><br><code>&nbsp; geom_boxplot() +</code><br><code>&nbsp; labs(title = "Tensile Strength by Material and Temperature",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Material Type",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># 2. Interaction plot</code><br><code>p2 &lt;- ggplot(summary_stats, aes(x = Temperature, y = mean, color = Material, group = Material)) +</code><br><code>&nbsp; geom_line(size = 1) +</code><br><code>&nbsp; geom_point(size = 3) +</code><br><code>&nbsp; labs(title = "Interaction Between Material and Temperature",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Mean Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># 3. Scatter plot with trend lines</code><br><code>p3 &lt;- ggplot(df, aes(x = as.numeric(as.character(Temperature)), y = Tensile_Strength, color = Material)) +</code><br><code>&nbsp; geom_point(alpha = 0.7) +</code><br><code>&nbsp; geom_smooth(method = "lm", se = FALSE, linetype = "dashed") +</code><br><code>&nbsp; labs(title = "Tensile Strength vs Temperature",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># 4. Heatmap</code><br><code>p4 &lt;- summary_stats %&gt;%</code><br><code>&nbsp; ggplot(aes(x = Temperature, y = Material, fill = mean)) +</code><br><code>&nbsp; geom_tile() +</code><br><code>&nbsp; geom_text(aes(label = sprintf("%.1f", mean)), color = "black", size = 3) +</code><br><code>&nbsp; scale_fill_viridis_c() +</code><br><code>&nbsp; labs(title = "Mean Tensile Strength for Each Condition",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Material",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;fill = "Mean Strength") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Save plots</code><br><code>pdf("tensile_strength_analysis_r.pdf", width = 12, height = 10)</code><br><code>print(p1)</code><br><code>print(p2)</code><br><code>print(p3)</code><br><code>print(p4)</code><br><code>dev.off()</code></p>
+<p><code># Arrange plots in 2x2 grid (if using RStudio)</code><br><code>if (requireNamespace("gridExtra", quietly = TRUE)) {</code><br><code>&nbsp; gridExtra::grid.arrange(p1, p2, p3, p4, ncol = 2)</code><br><code>}</code></p>
+<p><code># Perform two-way ANOVA</code><br><code>cat("\nTwo-Way ANOVA Results:\n")</code><br><code>model &lt;- aov(Tensile_Strength ~ Material * Temperature, data = df)</code><br><code>summary_table &lt;- summary(model)</code><br><code>print(summary_table)</code></p>
+<p><code># Type II sum of squares (often preferred in factorial designs)</code><br><code>cat("\nANOVA with Type II SS (more appropriate for unbalanced designs):\n")</code><br><code>type2_anova &lt;- car::Anova(model, type = "II")</code><br><code>print(type2_anova)</code></p>
+<p><code># Checking assumptions</code><br><code>cat("\nChecking ANOVA Assumptions:\n")</code></p>
+<p><code># 1. Normality of residuals</code><br><code>cat("Shapiro-Wilk test for normality of residuals:\n")</code><br><code>shapiro_test &lt;- shapiro.test(residuals(model))</code><br><code>print(shapiro_test)</code></p>
+<p><code># 2. Homogeneity of variances</code><br><code>cat("\nLevene's test for homogeneity of variances:\n")</code><br><code>levene_test &lt;- car::leveneTest(Tensile_Strength ~ Material * Temperature, data = df)</code><br><code>print(levene_test)</code></p>
+<p><code># Post-hoc tests</code><br><code>cat("\nPost-hoc Tests for Material Main Effect (Tukey's HSD):\n")</code><br><code>material_tukey &lt;- TukeyHSD(model, "Material")</code><br><code>print(material_tukey)</code></p>
+<p><code>cat("\nPost-hoc Tests for Temperature Main Effect (Tukey's HSD):\n")</code><br><code>temp_tukey &lt;- TukeyHSD(model, "Temperature")</code><br><code>print(temp_tukey)</code></p>
+<p><code># Effect sizes</code><br><code>cat("\nEffect Sizes (Eta-squared):\n")</code><br><code>eta_squared &lt;- effectsize::eta_squared(model, partial = FALSE)</code><br><code>print(eta_squared)</code></p>
+<p><code>cat("\nPartial Eta-squared:\n")</code><br><code>partial_eta_squared &lt;- effectsize::eta_squared(model, partial = TRUE)</code><br><code>print(partial_eta_squared)</code></p>
+<p><code># Estimated marginal means</code><br><code>cat("\nEstimated Marginal Means:\n")</code><br><code>cat("By Material:\n")</code><br><code>emmeans_material &lt;- emmeans::emmeans(model, ~ Material)</code><br><code>print(emmeans_material)</code></p>
+<p><code>cat("\nBy Temperature:\n")</code><br><code>emmeans_temp &lt;- emmeans::emmeans(model, ~ Temperature)</code><br><code>print(emmeans_temp)</code></p>
+<p><code>cat("\nBy Material and Temperature:\n")</code><br><code>emmeans_interaction &lt;- emmeans::emmeans(model, ~ Material * Temperature)</code><br><code>print(emmeans_interaction)</code></p>
+<p><code># Print conclusions</code><br><code>cat("\nConclusions:\n")</code><br><code>p_values &lt;- summary(model)[[1]][["Pr(&gt;F)"]]</code><br><code>cat("1. Material Effect:", ifelse(p_values[1] &lt; 0.05, "Significant", "Not Significant"), "\n")</code><br><code>cat("2. Temperature Effect:", ifelse(p_values[2] &lt; 0.05, "Significant", "Not Significant"), "\n")</code><br><code>cat("3. Interaction Effect:", ifelse(p_values[3] &lt; 0.05, "Significant", "Not Significant"), "\n")</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 14 Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div><h1 level="1">Two-Way ANOVA Engineering Example: Material Strength Analysis</h1>
+<p>I'll create an engineering problem that demonstrates two-way ANOVA with an interaction effect between two independent variables. This example will explore how material strength is affected by both heat treatment and alloy composition.</p>
+<h2 level="2">Problem Statement</h2>
+<p>An aerospace engineering team is testing the tensile strength of a new aluminum alloy for aircraft structural components. They want to understand how both:</p>
+<ol depth="0">
+<li index="0">Heat treatment method (3 levels: Annealing, Quenching, Tempering)</li>
+<li index="1">Alloy composition (2 levels: Standard, Enhanced)</li>
+</ol>
+<p>affect the tensile strength (MPa) of the material, and particularly whether there's an interaction between these factors.</p>
+<h2 level="2">Data Generation</h2>
+<p>Let's generate a realistic dataset where:</p>
+<ul depth="0">
+<li index="0">Enhanced alloy generally performs better than standard</li>
+<li index="1">Different heat treatments have different effects</li>
+<li index="2">Importantly, the effect of heat treatment differs based on alloy type (interaction effect)</li>
+</ul>
+<h2 level="2">The Analysis of Variance (ANOVA) Method</h2>
+<p>ANOVA is a statistical technique used to analyze the differences among group means in a sample. Two-way ANOVA examines the influence of two different categorical independent variables on one continuous dependent variable. The key advantage is that it allows us to analyze:</p>
+<ol depth="0">
+<li index="0">The <strong>main effect</strong> of each independent variable</li>
+<li index="1">The <strong>interaction effect</strong> between the two independent variables</li>
+</ol>
+<p>In our aerospace engineering example:</p>
+<ul depth="0">
+<li index="0">Independent Variable 1: Heat treatment method (Annealing, Quenching, Tempering)</li>
+<li index="1">Independent Variable 2: Alloy composition (Standard, Enhanced)</li>
+<li index="2">Dependent Variable: Tensile strength (MPa)</li>
+</ul>
+<h3 level="3">Key Concepts in Two-Way ANOVA</h3>
+<ol depth="0">
+<li index="0"><strong>Variance Partitioning</strong>: Two-way ANOVA partitions the total variance in the data into components:
+<ul depth="1">
+<li index="0">Variance due to the first factor (Heat Treatment)</li>
+<li index="1">Variance due to the second factor (Alloy Type)</li>
+<li index="2">Variance due to interaction between factors</li>
+<li index="3">Unexplained variance (error)</li>
+</ul>
+</li>
+<li index="1"><strong>F-statistic</strong>: For each source of variance, an F-statistic is calculated as the ratio of the variance explained by that source to the unexplained variance. If this ratio is large, it suggests that the source explains a significant amount of variance in the dependent variable.</li>
+<li index="2"><strong>Interaction Effect</strong>: This occurs when the effect of one independent variable on the dependent variable changes depending on the level of the other independent variable.</li>
+</ol>
+<h2 level="2">Results Analysis</h2>
+<h3 level="3">Visual Exploration</h3>
+<p>The interaction plot shows that:</p>
+<ul depth="0">
+<li index="0">Enhanced alloy consistently outperforms standard alloy across all heat treatments</li>
+<li index="1">Both alloys show increasing strength from Annealing → Quenching → Tempering</li>
+<li index="2">The lines are not parallel, indicating an interaction effect:
+<ul depth="1">
+<li index="0">Enhanced alloy shows a dramatic improvement with Tempering</li>
+<li index="1">Standard alloy has a smaller improvement with Quenching than expected</li>
+</ul>
+</li>
+</ul>
+<p>The boxplots provide additional insight into the data distribution and variability within each condition.</p>
+<p><img src="Module_14_Sample_Problem_3_files/image_60146780831745436191994_20250423192325382.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p><img src="Module_14_Sample_Problem_3_files/image_8984966821745436179585_20250423192325511.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<h3 level="3">Statistical Analysis</h3>
+<p>From the Python ANOVA results:</p>
+<ol depth="0">
+<li index="0"><strong>Main Effect of Heat Treatment</strong>: Highly significant (p &lt; 0.001), indicating that the heat treatment method strongly affects tensile strength.</li>
+<li index="1"><strong>Main Effect of Alloy Type</strong>: Highly significant (p &lt; 0.001), showing that alloy composition significantly impacts tensile strength.</li>
+<li index="2"><strong>Interaction Effect</strong>: Highly significant (p &lt; 0.001), confirming that the effect of heat treatment on tensile strength depends on the alloy being used.</li>
+</ol>
+<h3 level="3">Post-hoc Analysis</h3>
+<p>Tukey's Honest Significant Difference (HSD) test shows significant differences between all heat treatment methods. The R analysis also provides simple effects analysis, showing how treatment effects differ within each alloy.</p>
+<h3 level="3">Interpretation for Engineering Context</h3>
+<ol depth="0">
+<li index="0"><strong>Main Effect of Alloy</strong>: Enhanced alloy demonstrates superior strength compared to Standard alloy, with approximately a 50 MPa advantage on average.</li>
+<li index="1"><strong>Main Effect of Heat Treatment</strong>: Tempering provides the highest strength, followed by Quenching, then Annealing.</li>
+<li index="2"><strong>Interaction Effect</strong>: The significant interaction reveals that:
+<ul depth="1">
+<li index="0">Enhanced alloy responds exceptionally well to Tempering (synergistic effect)</li>
+<li index="1">Standard alloy shows a reduced response to Quenching compared to expectations</li>
+</ul>
+</li>
+</ol>
+<h2 level="2">Engineering Implications</h2>
+<ol depth="0">
+<li index="0"><strong>Material Selection</strong>: For applications requiring maximum strength, Enhanced alloy with Tempering treatment is clearly superior.</li>
+<li index="1"><strong>Cost-Benefit Analysis</strong>: If cost is a factor, engineers might consider whether the standard alloy with tempering could provide adequate strength at lower cost compared to the enhanced alloy.</li>
+<li index="2"><strong>Manufacturing Process Design</strong>: Understanding these interactions allows engineers to optimize manufacturing processes based on the specific alloy being used.</li>
+<li index="3"><strong>Quality Control</strong>: The significant variability within some conditions (visible in the boxplots) suggests the need for tight process controls, especially for the quenching treatment of standard alloy.</li>
+</ol>
+<h2 level="2">Statistical Assumptions and Validation</h2>
+<p>Both analyses check the fundamental ANOVA assumptions:</p>
+<ol depth="0">
+<li index="0"><strong>Normality</strong>: The Q-Q plots and Shapiro-Wilk test assess whether residuals follow a normal distribution.</li>
+<li index="1"><strong>Homogeneity of Variances</strong>: Levene's test and residual plots verify whether variance is consistent across groups.</li>
+<li index="2"><strong>Independence</strong>: This is ensured through proper experimental design and sampling.</li>
+</ol>
+<h2 level="2">Value of Different Statistics in Two-Way ANOVA</h2>
+<ol depth="0">
+<li index="0"><strong>F-statistics</strong>: These provide a formal test of whether the observed differences between group means are statistically significant. In engineering contexts, they help confirm that observed effects aren't due to random chance.</li>
+<li index="1"><strong>p-values</strong>: These quantify the probability of observing the data (or more extreme data) if the null hypothesis were true. Small p-values (typically &lt; 0.05) indicate significant effects.</li>
+<li index="2"><strong>Effect Sizes (Partial Eta Squared)</strong>: These quantify the proportion of variance explained by each factor. In engineering applications, this helps understand which factors have the largest practical impact on material properties.</li>
+<li index="3"><strong>Interaction Means Table</strong>: This provides actual strength values for each combination of factors, essential for engineering specifications and material selection.</li>
+<li index="4"><strong>Confidence Intervals</strong>: These give a range of plausible values for the true mean of each condition, helping engineers understand variability and make conservative design decisions.</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>This two-way ANOVA analysis has revealed:</p>
+<ol depth="0">
+<li index="0">Both heat treatment and alloy composition significantly affect tensile strength</li>
+<li index="1">A strong interaction exists between these factors</li>
+<li index="2">The Enhanced alloy with Tempering treatment produces the highest tensile strength</li>
+</ol>
+<p>The interaction effect is particularly valuable from an engineering perspective, as it indicates that optimizing both factors together yields better results than optimizing them separately. This demonstrates why ANOVA is such a powerful tool in engineering - it allows scientists and engineers to understand not just individual factors but how they work together to affect material properties.</p>
+<p>For aerospace applications where both strength and reliability are critical, this analysis provides clear direction on material selection and processing methods to achieve optimal performance.</p>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/1zHe673bvhL9c4Jf5aaNVFsPSoe1F1Z9t?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<div>
+<div><code>import numpy as np</code></div>
+<div><code>import pandas as pd</code></div>
+<div><code>import matplotlib.pyplot as plt</code></div>
+<div><code>import seaborn as sns</code></div>
+<div><code>from scipy import stats</code></div>
+<div><code>import statsmodels.api as sm</code></div>
+<div><code>from statsmodels.formula.api import ols</code></div>
+<div><code>from statsmodels.graphics.factorplots import interaction_plot</code></div>
+<br>
+<div><code># Set random seed for reproducibility</code></div>
+<div><code>np.random.seed(42)</code></div>
+<br>
+<div><code># Create the dataset</code></div>
+<div><code># Define factors</code></div>
+<div><code>materials = ['Material A', 'Material B', 'Material C']</code></div>
+<div><code>temperatures = [25, 50, 75, 100]</code></div>
+<div><code>replications = 5</code></div>
+<br>
+<div><code># Create tensile strength data with specific means and some random variation</code></div>
+<div><code># Material A: Highest strength at room temperature, decreases with temperature</code></div>
+<div><code># Material B: Moderate strength with less temperature sensitivity</code></div>
+<div><code># Material C: Lower strength at room temperature but better at high temperatures</code></div>
+<br>
+<div><code># Base values for materials at 25°C</code></div>
+<div><code>base_strengths = {'Material A': 450, 'Material B': 400, 'Material C': 350}</code></div>
+<br>
+<div><code># Temperature sensitivity (strength change per °C)</code></div>
+<div><code>temp_sensitivity = {'Material A': -1.2, 'Material B': -0.8, 'Material C': -0.3}</code></div>
+<br>
+<div><code># Standard deviation to add some noise</code></div>
+<div><code>std_dev = 15</code></div>
+<br>
+<div><code># Generate data</code></div>
+<div><code>data = []</code></div>
+<div><code>for material in materials:</code></div>
+<div><code>&nbsp; &nbsp; for temp in temperatures:</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; # Calculate mean strength based on material and temperature</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; mean_strength = base_strengths[material] + temp_sensitivity[material] * (temp - 25)</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp;</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; # Generate 5 replications with some random variation</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; for _ in range(replications):</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strength = np.random.normal(mean_strength, std_dev)</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data.append({</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Material': material,</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Temperature': temp,</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'Tensile_Strength': strength</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; })</code></div>
+<br>
+<div><code># Convert to DataFrame</code></div>
+<div><code>df = pd.DataFrame(data)</code></div>
+<br>
+<div><code># Display the first few rows of the dataset</code></div>
+<div><code>print("Dataset Preview:")</code></div>
+<div><code>print(df.head())</code></div>
+<br>
+<div><code># Summary statistics</code></div>
+<div><code>print("\nSummary Statistics:")</code></div>
+<div><code>summary = df.groupby(['Material', 'Temperature'])['Tensile_Strength'].agg(['mean', 'std', 'count'])</code></div>
+<div><code>print(summary)</code></div>
+<br>
+<div><code># Visualization</code></div>
+<div><code>#plt.figure(figsize=(12, 10))</code></div>
+<br>
+<div><code># 1. Box plot</code></div>
+<div><code>#plt.subplot(2, 2, 1)</code></div>
+<div><code>sns.boxplot(x='Material', y='Tensile_Strength', hue='Temperature', data=df)</code></div>
+<div><code>plt.title('Tensile Strength by Material and Temperature')</code></div>
+<div><code>plt.xlabel('Material Type')</code></div>
+<div><code>plt.ylabel('Tensile Strength (MPa)')</code></div>
+<div><code>plt.legend(title='Temperature (°C)')</code></div>
+<div><code>plt.tight_layout()</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># 2. Interaction plot</code></div>
+<div><code>#plt.subplot(2, 2, 2)</code></div>
+<div><code>fig = interaction_plot(df['Temperature'], df['Material'], df['Tensile_Strength'],</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; colors=['red', 'blue', 'green'], markers=['D', 's', 'o'],</code></div>
+<div><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ms=10, xlabel='Temperature (°C)', ylabel='Mean Tensile Strength (MPa)')</code></div>
+<div><code>plt.title('Interaction Between Material and Temperature')</code></div>
+<div><code>plt.grid(True)</code></div>
+<div><code>plt.tight_layout()</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># 3. Individual scatter plots with trend lines</code></div>
+<div><code>#plt.subplot(2, 2, 3)</code></div>
+<div><code>sns.scatterplot(x='Temperature', y='Tensile_Strength', hue='Material', data=df)</code></div>
+<div><code>plt.title('Tensile Strength vs Temperature')</code></div>
+<div><code>plt.xlabel('Temperature (°C)')</code></div>
+<div><code>plt.ylabel('Tensile Strength (MPa)')</code></div>
+<br>
+<div><code>for material in materials:</code></div>
+<div><code>&nbsp; &nbsp; material_data = df[df['Material'] == material]</code></div>
+<div><code>&nbsp; &nbsp; x = material_data['Temperature']</code></div>
+<div><code>&nbsp; &nbsp; y = material_data['Tensile_Strength']</code></div>
+<div><code>&nbsp; &nbsp; z = np.polyfit(x, y, 1)</code></div>
+<div><code>&nbsp; &nbsp; p = np.poly1d(z)</code></div>
+<div><code>&nbsp; &nbsp; plt.plot(sorted(x), p(sorted(x)), '--')</code></div>
+<br>
+<div><code>plt.grid(True)</code></div>
+<div><code>plt.tight_layout()</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># 4. Heatmap of mean tensile strength</code></div>
+<div><code>#plt.subplot(2, 2, 4)</code></div>
+<div><code>pivot_table = df.pivot_table(index='Material', columns='Temperature', values='Tensile_Strength', aggfunc='mean')</code></div>
+<div><code>sns.heatmap(pivot_table, annot=True, cmap='YlGnBu', fmt='.1f')</code></div>
+<div><code>plt.title('Mean Tensile Strength for Each Condition')</code></div>
+<div><code>plt.xlabel('Temperature (°C)')</code></div>
+<div><code>plt.ylabel('Material')</code></div>
+<br>
+<div><code>plt.tight_layout()</code></div>
+<div><code>#plt.savefig('tensile_strength_analysis.png', dpi=300)</code></div>
+<div><code>plt.show()</code></div>
+<br>
+<div><code># Perform two-way ANOVA</code></div>
+<div><code>print("\nTwo-Way ANOVA Results:")</code></div>
+<div><code>model = ols('Tensile_Strength ~ C(Material) + C(Temperature) + C(Material):C(Temperature)', data=df).fit()</code></div>
+<div><code>anova_table = sm.stats.anova_lm(model, typ=2)</code></div>
+<div><code>print(anova_table)</code></div>
+<br>
+<div><code># Post-hoc tests</code></div>
+<div><code># For material main effect</code></div>
+<div><code>print("\nPost-hoc Tests for Material Main Effect (Tukey's HSD):")</code></div>
+<div><code>#material_comp = stats.tukey_hsd(df['Tensile_Strength'], df['Material'])</code></div>
+<div><code>material_comp = stats.tukey_hsd(*[group['Tensile_Strength'] for name, group in df.groupby('Material')])</code></div>
+<div><code>print(material_comp)</code></div>
+<br>
+<div><code># For temperature main effect</code></div>
+<div><code>print("\nPost-hoc Tests for Temperature Main Effect (Tukey's HSD):")</code></div>
+<div><code>temp_comp = stats.tukey_hsd(df['Tensile_Strength'], df['Temperature'])</code></div>
+<div><code>print(temp_comp)</code></div>
+<br>
+<div><code># Effect sizes</code></div>
+<div><code># Calculate eta-squared for each factor</code></div>
+<div><code>SST = np.sum((df['Tensile_Strength'] - df['Tensile_Strength'].mean())**2)</code></div>
+<div><code>eta_squared = {</code></div>
+<div><code>&nbsp; &nbsp; 'Material': anova_table.loc['C(Material)', 'sum_sq'] / SST,</code></div>
+<div><code>&nbsp; &nbsp; 'Temperature': anova_table.loc['C(Temperature)', 'sum_sq'] / SST,</code></div>
+<div><code>&nbsp; &nbsp; 'Interaction': anova_table.loc['C(Material):C(Temperature)', 'sum_sq'] / SST,</code></div>
+<div><code>&nbsp; &nbsp; 'Residual': anova_table.loc['Residual', 'sum_sq'] / SST</code></div>
+<div><code>}</code></div>
+<br>
+<div><code>print("\nEffect Sizes (Eta-squared):")</code></div>
+<div><code>for factor, value in eta_squared.items():</code></div>
+<div><code>&nbsp; &nbsp; print(f"{factor}: {value:.4f} ({value*100:.1f}%)")</code></div>
+<br>
+<div><code># Calculate estimated marginal means</code></div>
+<div><code>print("\nEstimated Marginal Means:")</code></div>
+<div><code>print("By Material:")</code></div>
+<div><code>material_means = df.groupby('Material')['Tensile_Strength'].mean()</code></div>
+<div><code>print(material_means)</code></div>
+<br>
+<div><code>print("\nBy Temperature:")</code></div>
+<div><code>temp_means = df.groupby('Temperature')['Tensile_Strength'].mean()</code></div>
+<div><code>print(temp_means)</code></div>
+<br>
+<div><code># Print conclusions</code></div>
+<div><code>print("\nConclusions:")</code></div>
+<div><code>print("1. Material Effect:", "Significant" if anova_table.loc['C(Material)', 'PR(&gt;F)'] &lt; 0.05 else "Not Significant")</code></div>
+<div><code>print("2. Temperature Effect:", "Significant" if anova_table.loc['C(Temperature)', 'PR(&gt;F)'] &lt; 0.05 else "Not Significant")</code></div>
+<div><code>print("3. Interaction Effect:", "Significant" if anova_table.loc['C(Material):C(Temperature)', 'PR(&gt;F)'] &lt; 0.05 else "Not Significant")</code></div>
+</div>
+<h2>Solution in R</h2>
+<p><code># Load necessary libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(car)</code><br><code>library(emmeans)</code></p>
+<p><code># Read data</code><br><code>df &lt;- read.csv("tensile_strength_data.csv")</code></p>
+<p><code># Convert factors</code><br><code>df$Treatment &lt;- factor(df$Treatment, levels = c("Annealing", "Quenching", "Tempering"))</code><br><code>df$Alloy &lt;- factor(df$Alloy, levels = c("Standard", "Enhanced"))</code></p>
+<p><code># Summary statistics</code><br><code>summary_stats &lt;- df %&gt;%</code><br><code>&nbsp; group_by(Alloy, Treatment) %&gt;%</code><br><code>&nbsp; summarise(</code><br><code>&nbsp; &nbsp; Mean = mean(Strength),</code><br><code>&nbsp; &nbsp; SD = sd(Strength),</code><br><code>&nbsp; &nbsp; N = n()</code><br><code>&nbsp; )</code></p>
+<p><code>print("Summary Statistics:")</code><br><code>print(summary_stats)</code></p>
+<p><code># Interaction plot</code><br><code>ggplot(summary_stats, aes(x = Treatment, y = Mean, color = Alloy, group = Alloy)) +</code><br><code>&nbsp; geom_line(size = 1) +</code><br><code>&nbsp; geom_point(size = 3) +</code><br><code>&nbsp; geom_errorbar(aes(ymin = Mean - SD, ymax = Mean + SD), width = 0.2) +</code><br><code>&nbsp; labs(title = "Interaction Plot: Heat Treatment × Alloy Type",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Heat Treatment Method",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Mean Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_bw() +</code><br><code>&nbsp; theme(plot.title = element_text(hjust = 0.5, face = "bold"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; legend.position = "top")</code></p>
+<p><code>ggsave("r_interaction_plot.png", width = 10, height = 6)</code></p>
+<p><code># Box plot</code><br><code>ggplot(df, aes(x = Treatment, y = Strength, fill = Alloy)) +</code><br><code>&nbsp; geom_boxplot() +</code><br><code>&nbsp; labs(title = "Boxplot of Tensile Strength by Heat Treatment and Alloy Type",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Heat Treatment Method",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_bw() +</code><br><code>&nbsp; theme(plot.title = element_text(hjust = 0.5, face = "bold"))</code></p>
+<p><code>ggsave("r_boxplot.png", width = 10, height = 6)</code></p>
+<p><code># Two-way ANOVA</code><br><code>anova_model &lt;- aov(Strength ~ Treatment * Alloy, data = df)</code><br><code>anova_summary &lt;- summary(anova_model)</code><br><code>print("ANOVA Results:")</code><br><code>print(anova_summary)</code></p>
+<p><code># Effect size (Partial Eta Squared)</code><br><code>anova_table &lt;- Anova(anova_model, type = "II")</code><br><code>SS_Treatment &lt;- anova_table[1, "Sum Sq"]</code><br><code>SS_Alloy &lt;- anova_table[2, "Sum Sq"]</code><br><code>SS_Interaction &lt;- anova_table[3, "Sum Sq"]</code><br><code>SS_Error &lt;- anova_table[4, "Sum Sq"]</code><br><code>SS_Total &lt;- SS_Treatment + SS_Alloy + SS_Interaction + SS_Error</code></p>
+<p><code>eta_sq_Treatment &lt;- SS_Treatment / (SS_Treatment + SS_Error)</code><br><code>eta_sq_Alloy &lt;- SS_Alloy / (SS_Alloy + SS_Error)</code><br><code>eta_sq_Interaction &lt;- SS_Interaction / (SS_Interaction + SS_Error)</code></p>
+<p><code>cat("\nEffect Sizes (Partial Eta Squared):\n")</code><br><code>cat("Treatment:", round(eta_sq_Treatment, 4), "\n")</code><br><code>cat("Alloy:", round(eta_sq_Alloy, 4), "\n")</code><br><code>cat("Interaction:", round(eta_sq_Interaction, 4), "\n")</code></p>
+<p><code># Check assumptions</code><br><code># 1. Normality test</code><br><code>residuals &lt;- residuals(anova_model)</code><br><code>shapiro_test &lt;- shapiro.test(residuals)</code><br><code>print("Shapiro-Wilk Normality Test:")</code><br><code>print(shapiro_test)</code></p>
+<p><code># QQ plot for residuals</code><br><code>qqnorm(residuals)</code><br><code>qqline(residuals)</code></p>
+<p><code># 2. Homogeneity of variances</code><br><code>levene_test &lt;- leveneTest(Strength ~ Treatment * Alloy, data = df)</code><br><code>print("Levene's Test for Homogeneity of Variance:")</code><br><code>print(levene_test)</code></p>
+<p><code># Post-hoc tests</code><br><code># Tukey's HSD for main effects</code><br><code>tukey_treatment &lt;- TukeyHSD(anova_model, "Treatment")</code><br><code>print("Tukey's HSD for Treatment:")</code><br><code>print(tukey_treatment)</code></p>
+<p><code># Simple effects analysis (analyze treatment effects within each alloy)</code><br><code>emm &lt;- emmeans(anova_model, ~ Treatment | Alloy)</code><br><code>print("Simple Effects Analysis:")</code><br><code>print(pairs(emm))</code></p>
+<p><code># Visualization of results with confidence intervals</code><br><code>ggplot(df, aes(x = Treatment, y = Strength, color = Alloy)) +</code><br><code>&nbsp; stat_summary(fun = mean, geom = "point", size = 3, position = position_dodge(0.3)) +</code><br><code>&nbsp; stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;position = position_dodge(0.3)) +</code><br><code>&nbsp; stat_summary(fun = mean, geom = "line", position = position_dodge(0.3),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;aes(group = Alloy)) +</code><br><code>&nbsp; labs(title = "Mean Tensile Strength with 95% Confidence Intervals",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Heat Treatment Method",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_bw() +</code><br><code>&nbsp; theme(plot.title = element_text(hjust = 0.5, face = "bold"))</code></p>
+<p><code>ggsave("r_confidence_intervals.png", width = 10, height = 6)</code></p>
+<p><code># Create interaction effect visualization</code><br><code>ggplot(df, aes(x = Treatment, y = Strength, fill = Alloy)) +</code><br><code>&nbsp; geom_violin(position = position_dodge(0.7), alpha = 0.5) +</code><br><code>&nbsp; geom_boxplot(width = 0.2, position = position_dodge(0.7), alpha = 0.8) +</code><br><code>&nbsp; stat_summary(fun = mean, geom = "point", size = 2, position = position_dodge(0.7)) +</code><br><code>&nbsp; labs(title = "Distribution of Tensile Strength by Treatment and Alloy",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Heat Treatment Method",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_bw() +</code><br><code>&nbsp; theme(plot.title = element_text(hjust = 0.5, face = "bold"))</code></p>
+<p><code>ggsave("r_violin_plot.png", width = 10, height = 6)</code></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

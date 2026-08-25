@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Sampling Distributions</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div><h1>Module 6: Sampling Distributions&nbsp;</h1>
+<h2>Supporting Lectures:<br>EGN3443 Module 6 - Sampling Distributions and Inference<br><br>1. Central Limit Theorem (CLT) and Its Implications</h2>
+<h3>Definition</h3>
+<p>The Central Limit Theorem states that when independent random samples of size n are drawn from any population with a finite mean (μ) and variance (σ²), the distribution of sample means will approach a normal distribution as the sample size increases, regardless of the shape of the original population distribution.</p>
+<h3>Key Implications</h3>
+<ul>
+<li>The sample mean (x̄) is approximately normally distributed</li>
+<li>The mean of the sampling distribution equals the population mean (μ)</li>
+<li>The standard deviation of the sampling distribution (standard error) depends on the population standard deviation and sample size</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>If a population has:</p>
+<ul>
+<li>Mean (μ) = 50</li>
+<li>Standard Deviation (σ) = 10</li>
+<li>Sample Size (n) = 36</li>
+</ul>
+<p>Sample Mean Distribution:</p>
+<ul>
+<li>Mean of sample means = 50</li>
+<li>Standard Error = σ / √n = 10 / √36 = 10 / 6 = 1.67</li>
+</ul>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">https://en.wikipedia.org/wiki/Central_limit_theorem</a>&nbsp;<a href="https://www.khanacademy.org/statistics-probability/sampling-distributions-library/central-limit-theorem"></a></h3>
+<h2>2. Distribution of Sample Means</h2>
+<h3>Definition</h3>
+<p>The sampling distribution of the mean is a theoretical distribution that describes the possible values of the sample mean for all possible samples of a given size drawn from a population.</p>
+<h3>Characteristics</h3>
+<ul>
+<li>Centered at the population mean</li>
+<li>Spreads out less as sample size increases</li>
+<li>Becomes more normally distributed with larger sample sizes</li>
+</ul>
+<h3>Example</h3>
+<p>Consider a population of test scores:</p>
+<ul>
+<li>Original Population: Skewed distribution</li>
+<li>Sample Sizes: 10, 30, 50</li>
+<li>Observe how the distribution of sample means becomes more normal as sample size increases</li>
+</ul>
+<h3>Calculation</h3>
+<p>Variance of Sample Mean = σ² / n Standard Error = σ / √n</p>
+<h3>Web References: <a href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Introductory_Statistics_(Shafer_and_Zhang)/06%3A_Sampling_Distributions/6.02%3A_The_Sampling_Distribution_of_the_Sample_Mean">https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Introductory_Statistics_(Shafer_and_Zhang)/06%3A_Sampling_Distributions/6.02%3A_The_Sampling_Distribution_of_the_Sample_Mean</a>&nbsp;<a href="https://www.statneat.com/sampling-distribution"></a></h3>
+<h2>3. Standard Error</h2>
+<h3>Definition</h3>
+<p>Standard Error is the standard deviation of the sampling distribution of a statistic, most commonly the sample mean.</p>
+<h3>Formula</h3>
+<p>Standard Error (SE) = σ / √n</p>
+<ul>
+<li>σ = Population Standard Deviation</li>
+<li>n = Sample Size</li>
+</ul>
+<h3>Practical Significance</h3>
+<ul>
+<li>Measures the precision of the sample mean</li>
+<li>Smaller standard error indicates more precise estimate</li>
+<li>Decreases as sample size increases</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>Population σ = 15 Sample Sizes:</p>
+<ul>
+<li>n = 25: SE = 15 / √25 = 15 / 5 = 3</li>
+<li>n = 100: SE = 15 / √100 = 15 / 10 = 1.5</li>
+</ul>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Standard_error">https://en.wikipedia.org/wiki/Standard_error</a>&nbsp;<a href="https://www.stattrek.com/statistics/dictionary.aspx?definition=standard_error"></a></h3>
+<h2>4. Confidence Intervals</h2>
+<h3>Definition</h3>
+<p>A confidence interval is a range of values that likely contains the true population parameter with a specified level of confidence.</p>
+<h3>Key Components</h3>
+<ul>
+<li>Point Estimate (sample statistic)</li>
+<li>Margin of Error</li>
+<li>Confidence Level (typically 90%, 95%, or 99%)</li>
+</ul>
+<h3>Calculation Formula</h3>
+<p>Confidence Interval = x̄ ± (z-score) * (Standard Error)</p>
+<h3>Example</h3>
+<p>Sample Mean (x̄) = 75 Standard Error = 3 Confidence Level = 95% z-score = 1.96</p>
+<p>95% Confidence Interval:</p>
+<ul>
+<li>Lower Bound: 75 - (1.96 * 3) = 69.12</li>
+<li>Upper Bound: 75 + (1.96 * 3) = 80.88</li>
+</ul>
+<h3>Interpretation</h3>
+<p>We are 95% confident that the true population mean falls between 69.12 and 80.88.</p>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Confidence_interval">https://en.wikipedia.org/wiki/Confidence_interval</a>&nbsp;</h3>
+<p>A simpler explanation is at <a href="https://www.statisticshowto.com/probability-and-statistics/confidence-interval/">https://www.statisticshowto.com/probability-and-statistics/confidence-interval/</a>&nbsp;</p>
+<h2>5. Sample Size Determination</h2>
+<h3>Definition</h3>
+<p>Sample size determination involves calculating the number of observations needed to achieve a desired level of precision in statistical estimates.</p>
+<h3>Factors Influencing Sample Size</h3>
+<ul>
+<li>Desired Confidence Level</li>
+<li>Expected Variability</li>
+<li>Desired Margin of Error</li>
+<li>Population Size (for finite populations)</li>
+</ul>
+<h3>Basic Formula</h3>
+<p>n = (z²* σ² ) / E²</p>
+<ul>
+<li>z = z-score for desired confidence level</li>
+<li>σ = Population Standard Deviation</li>
+<li>E = Desired Margin of Error</li>
+</ul>
+<h3>Example Calculation</h3>
+<ul>
+<li>Desired Confidence Level: 95% (z = 1.96)</li>
+<li>Population Standard Deviation: 10</li>
+<li>Desired Margin of Error: 2</li>
+</ul>
+<p>Sample Size: n = (1.96² * 10²) / 2² = (3.84 * 100) / 4 = 384 / 4 = 96 samples needed</p>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Sample_size_determination">https://en.wikipedia.org/wiki/Sample_size_determination</a>&nbsp;<a href="https://www.researchadvisors.com/tools/SampleSize.htm"></a></h3>
+<h2>Additional Study Resources</h2>
+<ul>
+<li>OpenIntro Statistics Textbook - <a href="https://open.umn.edu/opentextbooks/textbooks/60">https://open.umn.edu/opentextbooks/textbooks/60</a>&nbsp;</li>
+<li>Khan Academy Statistics Course - <a href="https://www.khanacademy.org/math/statistics-probability">https://www.khanacademy.org/math/statistics-probability</a>&nbsp;</li>
+<li>MIT OpenCourseWare: Probability and Statistics - <a href="https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/">https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/</a>&nbsp;</li>
+</ul>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

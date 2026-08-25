@@ -1,0 +1,1183 @@
+{
+  "ModuleFolderName": "Week_12_Module_11_-_Regression_Analysis",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:33:14.8433755-04:00",
+  "ModifiedDate": "2026-08-24T20:35:28.2482064-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+      "Title": "Foundations of Regression Analysis",
+      "Summary": "Introduces the core concepts and purpose of regression analysis, including how it models relationships between variables to support data-driven decision-making.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "ModifiedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "Elements": [
+        {
+          "Id": "10e971ec-8ca5-46e1-96d2-c2fcb4fbad17",
+          "TopicId": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+          "Title": "What Is Regression Analysis?",
+          "BodyText": "Regression analysis is a statistical method used to model and quantify the relationship between one or more independent variables and a dependent variable.",
+          "Notes": "For example, a business might use regression to understand how advertising spend (independent variable) affects sales revenue (dependent variable).",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "ModifiedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "Items": [
+            {
+              "Id": "57ee13a3-cb2b-414c-a38d-ad6d123fc12d",
+              "Text": "Regression identifies and measures the direction and strength of relationships between variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e5be71e0-ed2d-4cbf-90f4-350d9fbae211",
+              "Text": "It produces a mathematical equation that can be used to describe or predict outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cb82d89c-3730-44b0-92c8-46d6ba156aeb",
+              "Text": "The method is widely used across fields such as economics, healthcare, marketing, and social sciences.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9d9c4f88-e9be-42ca-ac8c-584822f38227",
+          "TopicId": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+          "Title": "Dependent and Independent Variables",
+          "BodyText": "Every regression model distinguishes between the variable being predicted (dependent) and the variable(s) used to make that prediction (independent).",
+          "Notes": "The dependent variable is also called the response or outcome variable, while independent variables are called predictors or explanatory variables.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "ModifiedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "Items": [
+            {
+              "Id": "d80646af-8a27-4be7-84dd-ea507901a854",
+              "Text": "The dependent variable (Y) is the outcome the analyst is trying to explain or forecast.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3a764a45-bc07-4ddd-8b1f-9fed682225df",
+              "Text": "Independent variables (X) are the inputs or factors believed to influence the dependent variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c25958aa-3dd0-49f8-90a4-781d5e4d64fc",
+              "Text": "Correctly identifying which variable is dependent and which is independent is essential to building a valid model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bfc16567-affe-44a9-b970-a2347e5ed592",
+          "TopicId": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+          "Title": "Purpose of Regression in Decision-Making",
+          "BodyText": "Regression analysis supports data-driven decision-making by enabling analysts to understand causal relationships and generate forecasts from historical data.",
+          "Notes": "Organizations use regression outputs to allocate resources, set pricing strategies, assess risk, and evaluate the effectiveness of interventions.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "ModifiedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "Items": [
+            {
+              "Id": "4f61b43f-e829-4b65-90ff-d0eec2e39377",
+              "Text": "Regression allows decision-makers to move beyond intuition and ground choices in quantifiable evidence.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c9c547ba-85e7-47fb-a4ca-952e57d4c431",
+              "Text": "Predictive regression models can forecast future values of the dependent variable given new input data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "867accbb-f537-40ba-a5a2-9727f5c1910b",
+              "Text": "Understanding the modeled relationship helps organizations identify which factors most strongly drive outcomes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6adc6913-fe27-4079-a9f1-6ff2f4f1b7aa",
+          "TopicId": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+          "Title": "Simple vs. Multiple Regression",
+          "BodyText": "Regression models vary in complexity depending on the number of independent variables included: simple regression uses one predictor, while multiple regression uses two or more.",
+          "Notes": "Simple regression is useful for isolating the effect of a single factor, whereas multiple regression provides a more realistic model when outcomes are driven by several variables simultaneously.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "ModifiedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "Items": [
+            {
+              "Id": "be7766aa-8cbc-4670-94c5-146e1b8ae072",
+              "Text": "Simple linear regression models the relationship between one independent variable and one dependent variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e6480ea1-89ad-4a3b-8d09-8e30e661eef1",
+              "Text": "Multiple regression extends this by incorporating several independent variables to capture a more complete picture of what drives the outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "754fbb76-8dac-47c0-af72-6b0409d49ebc",
+              "Text": "Choosing between simple and multiple regression depends on the research question and the complexity of the real-world phenomenon being studied.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3b5747a3-3662-4830-a1a4-eeb47074ab01",
+          "TopicId": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+          "Title": "The Concept of Model Fit",
+          "BodyText": "A key goal in regression analysis is to find the model that best fits the observed data, minimizing the difference between predicted and actual values.",
+          "Notes": "The most common fitting technique is Ordinary Least Squares (OLS), which minimizes the sum of squared differences (residuals) between observed and predicted values.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "ModifiedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "Items": [
+            {
+              "Id": "db32fea1-e126-4af3-97a4-5fd35efb793c",
+              "Text": "Model fit describes how well the regression equation captures the variation in the dependent variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4f7828a7-dd65-44a9-a406-b21cf29bb0a9",
+              "Text": "Residuals \u2014 the differences between observed and predicted values \u2014 are central to assessing how well the model performs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e6d55e08-078f-4f59-af1c-1bcf266176b5",
+              "Text": "A better-fitting model produces smaller residuals and explains a larger proportion of variability in the outcome.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ba982702-b17a-449c-a4ce-d1f982f2043c",
+          "TopicId": "8109c689-d0f1-4b08-b324-6c1db4dd155f",
+          "Title": "Assumptions Underlying Regression Analysis",
+          "BodyText": "Regression analysis relies on a set of core assumptions about the data and the relationship between variables that must be considered for results to be valid.",
+          "Notes": "Violations of these assumptions \u2014 such as non-linearity or correlated errors \u2014 can lead to biased or unreliable estimates, making assumption-checking a critical step in the analytical process.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "ModifiedDate": "2026-08-24T20:33:32.2262567-04:00",
+          "Items": [
+            {
+              "Id": "d33938b9-3c92-435a-9cf7-e6c8c579098c",
+              "Text": "A linear relationship is assumed to exist between the independent and dependent variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f34b0209-a50a-4964-acbc-df6b5a07b62c",
+              "Text": "Residuals are assumed to be normally distributed and to have constant variance (homoscedasticity).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c3847508-a4ed-4e71-827f-333ea9578799",
+              "Text": "Observations are assumed to be independent of one another, meaning one data point does not influence another.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "130f8bf8-c413-4426-8060-cfe3706b097d",
+      "Title": "Simple Linear Regression",
+      "Summary": "Covers the construction and interpretation of simple linear regression models involving one predictor variable and one outcome variable.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "ModifiedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "Elements": [
+        {
+          "Id": "c3154ef1-b443-4efe-8b1b-37394f208353",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "What Is Simple Linear Regression?",
+          "BodyText": "Simple linear regression is a statistical method used to model the relationship between one predictor variable (X) and one outcome variable (Y) using a straight line.",
+          "Notes": "For example, predicting a student\u0027s exam score (Y) based on the number of hours studied (X) is a classic simple linear regression problem.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "950af5d8-015f-4335-ad60-f0454d2f4735",
+              "Text": "The predictor variable (X) is also called the independent variable, and the outcome variable (Y) is called the dependent variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c9001d9e-84ad-4084-9dbe-df9cd031f8d6",
+              "Text": "The goal is to find the best-fitting line that describes how changes in X are associated with changes in Y.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c5714de5-2e64-475d-bc50-059d39b049b1",
+              "Text": "Simple linear regression assumes a linear (straight-line) relationship exists between the two variables.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "39883499-0e09-49c1-8fd6-0cd702169900",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "The Regression Equation",
+          "BodyText": "The simple linear regression model is expressed as \u0176 = b\u2080 \u002B b\u2081X, where b\u2080 is the y-intercept and b\u2081 is the slope of the regression line.",
+          "Notes": "For instance, if b\u2080 = 10 and b\u2081 = 3, then for every one-unit increase in X, Y is predicted to increase by 3 units, starting from a baseline of 10.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "c6cd477b-bfce-4bdc-8640-23c9899ff2e6",
+              "Text": "b\u2080 (the intercept) represents the predicted value of Y when X equals zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1818dfc4-5055-401b-9a2c-16fc6109622b",
+              "Text": "b\u2081 (the slope) represents the average change in Y for each one-unit increase in X.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb641301-d971-46b9-90b4-a56714a13e4f",
+              "Text": "The hat notation (\u0176) indicates that the equation produces predicted, not exact, values of Y.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7bd5a1c4-9ac0-47ee-be5b-00ce4bcaf40f",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "Estimating the Regression Line: The Least Squares Method",
+          "BodyText": "The regression coefficients b\u2080 and b\u2081 are estimated using the least squares method, which minimizes the sum of squared differences between observed and predicted Y values.",
+          "Notes": "These squared differences are called residuals or errors. Minimizing them ensures the line is as close as possible to all data points simultaneously.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "51aef6d3-e6a5-41da-92fd-27ba99894113",
+              "Text": "Each residual is the vertical distance between an observed data point and the regression line.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2472c3cb-e0c8-498b-8f26-80673cde01c8",
+              "Text": "The least squares approach finds the unique line that produces the smallest total squared error across all observations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c4b338bf-0c8d-43b8-962b-c0d91b6e36cf",
+              "Text": "This method is mathematically straightforward and produces unbiased estimates under standard regression assumptions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3d9fed4f-2e30-4220-a7fa-221f16276be5",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "Interpreting the Slope and Intercept",
+          "BodyText": "Correctly interpreting the slope and intercept is essential for drawing meaningful conclusions from a regression model.",
+          "Notes": "Care should be taken when interpreting the intercept if X = 0 is not a meaningful or realistic value within the context of the data.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "919e4263-909c-4441-9e8c-2ce903e414f0",
+              "Text": "The slope (b\u2081) tells us the direction and magnitude of the relationship: a positive slope indicates a positive association, while a negative slope indicates an inverse association.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b3c163c1-e772-4420-95a8-dc32a34bf2ba",
+              "Text": "The intercept (b\u2080) anchors the regression line on the Y-axis but may not always have a practical real-world interpretation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9b54486a-7718-4ac4-a633-d264dfd92404",
+              "Text": "Both coefficients should always be interpreted in the context of the units of X and Y.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9ff53a87-0307-48e3-80a9-a39910b99888",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "Assessing Model Fit with R-Squared",
+          "BodyText": "R-squared (R\u00B2) is a key measure of how well the simple linear regression model fits the observed data, ranging from 0 to 1.",
+          "Notes": "An R\u00B2 of 0.85, for example, means that 85% of the variability in Y is explained by its linear relationship with X, indicating a strong model fit.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "e7809bd3-e0f8-4f4d-9053-b56732ab199a",
+              "Text": "R\u00B2 represents the proportion of the total variation in Y that is explained by the predictor variable X.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "27635a6a-0ce8-47d8-9881-b7d2e9867dad",
+              "Text": "A higher R\u00B2 value indicates a better-fitting model, though it does not by itself confirm that the model is appropriate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "63455d9f-d97f-4dbe-8e05-05ea4547c3a7",
+              "Text": "In simple linear regression, R\u00B2 is equal to the square of the Pearson correlation coefficient (r\u00B2) between X and Y.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "94008748-c1b9-4937-a97c-61f5e13d067b",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "Testing the Significance of the Regression Relationship",
+          "BodyText": "Statistical hypothesis testing is used to determine whether the observed relationship between X and Y is statistically significant or likely due to chance.",
+          "Notes": "Most statistical software (e.g., Excel, R, SPSS) automatically produces p-values and confidence intervals for the regression coefficients as part of the regression output.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "67a3673d-9e1e-42f5-8df4-5debb548444a",
+              "Text": "The null hypothesis states that the slope (b\u2081) equals zero, meaning X has no linear relationship with Y.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4573aaed-7f15-4d77-86a0-3588d5ec9e56",
+              "Text": "A t-test or F-test is used to evaluate significance, and a p-value below the chosen threshold (typically 0.05) leads to rejecting the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "38ae1428-6fc5-4568-8ea2-3cfa56af4ecb",
+              "Text": "A statistically significant slope suggests that changes in X are reliably associated with changes in Y in the population.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "70d04428-bb57-4dc4-8398-073685883537",
+          "TopicId": "130f8bf8-c413-4426-8060-cfe3706b097d",
+          "Title": "Using the Model for Prediction",
+          "BodyText": "Once the regression equation is established, it can be used to predict the value of Y for a given value of X.",
+          "Notes": "Predictions made within the range of observed X values (interpolation) are generally more reliable than predictions made outside that range (extrapolation), which can lead to inaccurate results.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "ModifiedDate": "2026-08-24T20:33:54.7363611-04:00",
+          "Items": [
+            {
+              "Id": "8668ae28-8b93-4f0f-b3d2-051ac694262c",
+              "Text": "To generate a prediction, substitute a specific value of X into the regression equation and solve for \u0176.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e51df290-aaf0-4223-898e-985bcae91705",
+              "Text": "Predicted values carry uncertainty, which is captured by prediction intervals that account for variability around the regression line.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5690ef4b-93ce-412b-9b5d-e009bd8f6d78",
+              "Text": "The regression model should only be used for prediction when a significant linear relationship has been confirmed and model assumptions have been checked.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+      "Title": "Multiple Regression Models",
+      "Summary": "Extends regression analysis to include multiple predictor variables, exploring how to build and interpret models with greater complexity.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "ModifiedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "Elements": [
+        {
+          "Id": "0962cfd2-f437-4352-b6cf-5941c9638c2f",
+          "TopicId": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+          "Title": "Introduction to Multiple Regression",
+          "BodyText": "Multiple regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single outcome variable.",
+          "Notes": "For example, predicting a home\u0027s sale price using square footage, number of bedrooms, and neighborhood rating simultaneously is a classic multiple regression scenario.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "ModifiedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "Items": [
+            {
+              "Id": "64d094b2-1ae8-44c3-9008-4d6d74117de4",
+              "Text": "The general form of a multiple regression model is: Y = \u03B2\u2080 \u002B \u03B2\u2081X\u2081 \u002B \u03B2\u2082X\u2082 \u002B ... \u002B \u03B2\u2099X\u2099 \u002B \u03B5, where each X represents a different predictor.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "27e6e717-042d-4869-812b-115c58416dd1",
+              "Text": "Adding predictors allows the model to capture more of the variability in the outcome, potentially improving accuracy.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "534d7173-ecc5-41f3-b701-131ea07f389c",
+              "Text": "Each predictor variable contributes independently to the prediction of Y, holding all other predictors constant.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "97ef6d0f-183e-41a2-833f-58f9173c8260",
+          "TopicId": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+          "Title": "Interpreting Multiple Regression Coefficients",
+          "BodyText": "In a multiple regression model, each coefficient (\u03B2) represents the expected change in the outcome variable for a one-unit increase in its corresponding predictor, while all other predictors are held constant.",
+          "Notes": "This \u0027holding constant\u0027 interpretation is a key distinction from simple regression and is sometimes referred to as the \u0027ceteris paribus\u0027 condition.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "ModifiedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "Items": [
+            {
+              "Id": "c2bbb81c-680b-4b74-af08-eda3657bf7fd",
+              "Text": "The intercept (\u03B2\u2080) represents the predicted value of Y when all predictor variables equal zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1733fe4c-dd80-46c7-9eff-54dc5a38796a",
+              "Text": "A positive coefficient indicates a direct relationship between that predictor and the outcome; a negative coefficient indicates an inverse relationship.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "54077087-7c72-41bc-8c35-5de5966f18f3",
+              "Text": "Coefficients in multiple regression can differ substantially from those in simple regression due to the shared relationships among predictors.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ca27589a-8c08-4502-8cd2-d527e5fdbb77",
+          "TopicId": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+          "Title": "Model Building and Variable Selection",
+          "BodyText": "Selecting the right predictor variables is a critical step in building an effective multiple regression model, balancing explanatory power with model simplicity.",
+          "Notes": "Common strategies include forward selection (adding variables one at a time), backward elimination (removing non-significant variables), and stepwise regression (a combination of both).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "ModifiedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "Items": [
+            {
+              "Id": "ff70022f-8448-43b1-8c33-ea41a820cc36",
+              "Text": "Including irrelevant predictors can introduce noise and reduce model interpretability without improving predictive accuracy.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f9250869-95ab-49f5-9ab3-1d60c56cfecb",
+              "Text": "Domain knowledge should guide initial variable selection before applying statistical criteria.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8404cda4-fb16-4048-95f6-31caba9aacc9",
+              "Text": "Statistical significance of individual predictors (p-values) and overall model fit metrics help determine which variables to retain.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4f36a8b4-54a2-4cbb-a80f-faee985a3afb",
+          "TopicId": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+          "Title": "Assessing Model Fit with R\u00B2 and Adjusted R\u00B2",
+          "BodyText": "R\u00B2 measures the proportion of variance in the outcome variable explained by all predictors combined, while Adjusted R\u00B2 accounts for the number of predictors in the model.",
+          "Notes": "Unlike R\u00B2, Adjusted R\u00B2 penalizes the addition of predictors that do not meaningfully improve the model, making it more suitable for comparing models with different numbers of variables.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "ModifiedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "Items": [
+            {
+              "Id": "bcc99ffa-4322-4f94-afc5-3cca42a95220",
+              "Text": "R\u00B2 always increases or stays the same when more predictors are added, even if those predictors are not truly useful.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d6877571-607e-4b52-81aa-5397be8a9be0",
+              "Text": "Adjusted R\u00B2 can decrease if a newly added predictor does not sufficiently improve model fit relative to the complexity it adds.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f59f71ae-80ca-4a1f-b313-c9373ca8a697",
+              "Text": "A high R\u00B2 does not guarantee that the model is appropriate \u2014 the assumptions and practical significance of the model must also be evaluated.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "864777df-d0a7-47c1-8ac1-99c1c827b5c8",
+          "TopicId": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+          "Title": "Multicollinearity Among Predictors",
+          "BodyText": "Multicollinearity occurs when two or more predictor variables in a multiple regression model are highly correlated with each other, which can distort coefficient estimates and interpretations.",
+          "Notes": "The Variance Inflation Factor (VIF) is a common diagnostic tool \u2014 a VIF greater than 5 or 10 is often considered indicative of problematic multicollinearity.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "ModifiedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "Items": [
+            {
+              "Id": "d8f14c7b-31f3-42ad-b62f-9f94ffbb0ce1",
+              "Text": "High multicollinearity makes it difficult to isolate the individual effect of each predictor on the outcome variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f02acf13-84d3-413f-83c9-3c5b9915c411",
+              "Text": "Standard errors of the affected coefficients become inflated, reducing statistical power and reliability of significance tests.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "53d2a261-26eb-4e58-b56c-5b190f3a2760",
+              "Text": "Remedies include removing one of the correlated predictors, combining them into a composite variable, or using regularization techniques.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2581173f-020c-42b6-8a31-1cd9783eef9f",
+          "TopicId": "4cb0fd75-79e2-4c8e-ba2b-8d96424965c9",
+          "Title": "Evaluating and Validating a Multiple Regression Model",
+          "BodyText": "After building a multiple regression model, it is essential to evaluate its assumptions and validate its predictive performance to ensure it is appropriate for the data.",
+          "Notes": "Residual plots, Q-Q plots, and tests for homoscedasticity are standard diagnostic tools used to check whether regression assumptions are met.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "ModifiedDate": "2026-08-24T20:34:15.1183193-04:00",
+          "Items": [
+            {
+              "Id": "95c34230-72e2-4165-9bfd-982b435979bb",
+              "Text": "Key regression assumptions include linearity, independence of errors, constant variance of residuals (homoscedasticity), and normality of residuals.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1f92c9f3-c09a-4db7-a093-5bcfe260c8e9",
+              "Text": "Outliers and influential observations can have a disproportionate impact on the regression coefficients and should be examined carefully.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aac8eae3-ce37-4905-8e23-d4dd85abae40",
+              "Text": "Splitting data into training and test sets, or using cross-validation, helps assess how well the model generalizes to new, unseen data.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+      "Title": "Evaluating Regression Model Performance",
+      "Summary": "Examines the key metrics and diagnostic tools used to assess the accuracy, fit, and validity of regression models.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "ModifiedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "Elements": [
+        {
+          "Id": "ea765aec-70cc-4855-964b-501fdb2fe7f9",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "R-Squared (Coefficient of Determination)",
+          "BodyText": "R-squared measures the proportion of variance in the dependent variable that is explained by the independent variable(s) in the regression model.",
+          "Notes": "An R-squared of 0.85, for example, means 85% of the variation in the outcome is accounted for by the model. However, a high R-squared alone does not guarantee a good model.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "a0457e88-f18e-44c4-b5b6-52f45c0c0120",
+              "Text": "R-squared values range from 0 to 1, where values closer to 1 indicate a better fit.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6b2c3f77-8a7c-4d67-a8e2-f2c0881ef40c",
+              "Text": "It is useful for comparing models built on the same dataset but should not be used in isolation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1faba38f-246d-458e-a55b-060f06852b23",
+              "Text": "Adding more predictors always increases R-squared, even if those predictors are not meaningful.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b2c19853-5688-47d3-b29b-71e5268bc3ce",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "Adjusted R-Squared",
+          "BodyText": "Adjusted R-squared refines the R-squared metric by penalizing the addition of predictors that do not meaningfully improve the model.",
+          "Notes": "This metric is especially important in multiple regression, where the temptation to add many variables can inflate standard R-squared artificially.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "a1046b42-bdb4-4651-bca4-8f434c8d3e7a",
+              "Text": "Unlike R-squared, adjusted R-squared can decrease if an added variable does not improve model fit.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bcdbc094-a843-41aa-977a-038fe96953e8",
+              "Text": "It provides a more honest assessment of model performance when comparing models with different numbers of predictors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a0b3e397-317b-4bd8-88b6-13ccf506a354",
+              "Text": "A higher adjusted R-squared indicates a better balance between model complexity and explanatory power.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6cf6c7fc-1709-4548-8b21-9b3fe2118280",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "Residual Analysis",
+          "BodyText": "Residuals are the differences between the observed values and the values predicted by the regression model, and analyzing them reveals how well the model fits the data.",
+          "Notes": "Residual plots are a primary diagnostic tool. Ideally, residuals should appear randomly scattered around zero with no discernible pattern.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "cb3ca9eb-64d5-4fce-ba95-67b00bb9a724",
+              "Text": "A pattern in residuals (e.g., a curve or funnel shape) suggests model misspecification or violated assumptions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d271c065-3051-4ba1-8d14-7e10bde46af0",
+              "Text": "Randomly distributed residuals support the assumption that the relationship between variables is linear.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "00051c00-6b5d-45c8-a2fa-ee87d27496c1",
+              "Text": "Large residuals for specific observations may indicate outliers or influential data points that warrant further investigation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "22e3b0f6-f45d-455e-b70a-1819cdb242ef",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "Mean Squared Error (MSE) and Root Mean Squared Error (RMSE)",
+          "BodyText": "MSE and RMSE quantify the average magnitude of prediction errors, providing a direct measure of how far model predictions deviate from actual values.",
+          "Notes": "RMSE is particularly intuitive because it is expressed in the same units as the dependent variable, making it easier to interpret in a real-world context.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "d3b2e6b8-83dd-4faf-af8a-ba84e3add83c",
+              "Text": "MSE squares the residuals before averaging, which penalizes larger errors more heavily than smaller ones.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d7e5dd59-f490-4305-b140-8a670812fefa",
+              "Text": "RMSE is the square root of MSE and restores the error metric to the original unit of measurement.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e4de61d5-a120-4dde-98a4-0e07db87c62c",
+              "Text": "Lower MSE and RMSE values indicate a more accurate model, and they are useful for comparing competing models.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b64b4ab9-fdfa-40b7-8fa1-6e52f9680c4e",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "Statistical Significance of Coefficients (p-values)",
+          "BodyText": "The p-value for each regression coefficient tests whether the relationship between a predictor and the outcome variable is statistically significant or likely due to chance.",
+          "Notes": "A common threshold is p \u003C 0.05, meaning there is less than a 5% probability the observed relationship occurred by chance. Coefficients with high p-values may indicate irrelevant predictors.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "c832f5ea-76b1-4cde-9f2e-cd252c35924f",
+              "Text": "A small p-value (typically below 0.05) suggests the predictor has a meaningful relationship with the dependent variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03ceaeb2-0b27-4347-9bbe-064bb045868c",
+              "Text": "A large p-value indicates insufficient evidence to conclude the predictor contributes to the model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "254ea2fe-5b6e-4f28-81e7-448e8321fa80",
+              "Text": "Evaluating p-values for all coefficients helps identify which variables should be retained or removed from the model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "962482e2-bc2a-4e81-aaee-f83a4b635503",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "Overall Model Significance (F-Statistic)",
+          "BodyText": "The F-statistic tests whether the regression model as a whole explains a statistically significant portion of the variance in the dependent variable.",
+          "Notes": "This is especially relevant in multiple regression, where individual predictors may be significant but the overall model fit should also be validated.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "4f124928-21df-4274-af4a-843ceb3b077d",
+              "Text": "A significant F-statistic (low p-value for the F-test) indicates that at least one predictor in the model is meaningfully related to the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "632c2272-3bec-4ced-ac74-c284b76cca83",
+              "Text": "The F-test compares the explained variance from the model against the unexplained variance (residuals).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "668ab89d-3b46-457b-b4c1-999a4c2f2f97",
+              "Text": "Even if individual coefficients appear significant, reviewing the F-statistic confirms the overall validity of the model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b92fddd4-51f5-45bd-afb0-efb2f137940c",
+          "TopicId": "60a599df-34b2-4e2c-8c1f-b48ab6999659",
+          "Title": "Assumptions Checking and Model Validity",
+          "BodyText": "A regression model\u0027s performance evaluation is incomplete without verifying that key statistical assumptions \u2014 such as linearity, independence, homoscedasticity, and normality of residuals \u2014 are satisfied.",
+          "Notes": "Violations of these assumptions can lead to biased estimates, inflated significance levels, or unreliable predictions, undermining the model\u0027s usefulness for decision-making.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "ModifiedDate": "2026-08-24T20:34:38.3035202-04:00",
+          "Items": [
+            {
+              "Id": "838220e2-2935-427c-87b4-f3f82d80e9e4",
+              "Text": "Linearity assumes the relationship between predictors and the outcome is linear; scatter plots and residual plots help verify this.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eaad0e5d-db09-4360-88c0-78bde3d8c34e",
+              "Text": "Homoscedasticity requires that residuals have constant variance across all levels of the predictor; a funnel-shaped residual plot signals a violation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bf2ce97f-4ade-42f4-a4a5-b137171bc9fa",
+              "Text": "Normality of residuals can be assessed using histograms or Q-Q plots and is important for the validity of hypothesis tests on coefficients.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7cef1d8f-bfe8-47ed-97ed-ce65c5cabdee",
+              "Text": "Independence of observations means residuals should not be correlated with each other, which is critical for time-series or clustered data.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+      "Title": "Interpreting Regression Results",
+      "Summary": "Focuses on drawing meaningful conclusions from regression output, including coefficients, significance levels, and practical implications for decision-making.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "ModifiedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "Elements": [
+        {
+          "Id": "e91b31ed-02a0-47c6-99cd-aae622e10dc0",
+          "TopicId": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+          "Title": "Understanding Regression Coefficients",
+          "BodyText": "Regression coefficients quantify the relationship between each predictor variable and the outcome, indicating the magnitude and direction of that relationship.",
+          "Notes": "For example, a coefficient of 3.5 for advertising spend means that for every one-unit increase in advertising spend, the outcome variable increases by 3.5 units, holding all other variables constant.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "ModifiedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "Items": [
+            {
+              "Id": "a2588621-9012-49ab-9b6b-7de916892aa8",
+              "Text": "The intercept (\u03B2\u2080) represents the predicted value of the outcome when all predictor variables equal zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1d7c8543-635d-424b-ace9-5d1f442630ab",
+              "Text": "Each slope coefficient (\u03B2\u2081, \u03B2\u2082, etc.) represents the expected change in the outcome variable for a one-unit increase in that specific predictor.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "969344ea-e422-4bdc-a8e8-2be30ec0b23c",
+              "Text": "The sign of a coefficient (positive or negative) reveals the direction of the relationship between the predictor and the outcome.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "21f5a199-5bc2-42bf-954a-76b6a35eddd8",
+              "Text": "Comparing standardized coefficients allows you to assess the relative importance of different predictors within the same model.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e36fbc12-3619-41cd-acb8-8f8db8a68d9e",
+          "TopicId": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+          "Title": "Assessing Statistical Significance",
+          "BodyText": "Statistical significance testing helps determine whether the observed relationship between a predictor and the outcome is likely to be real or simply due to chance.",
+          "Notes": "A common threshold is p \u003C 0.05, meaning there is less than a 5% probability that the observed relationship occurred by random chance if the null hypothesis were true.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "ModifiedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "Items": [
+            {
+              "Id": "0e6ebfe6-375d-4d41-9419-aa473cd39a2b",
+              "Text": "The p-value for each coefficient tests the null hypothesis that the true coefficient is zero (i.e., no relationship exists).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "896f4e74-b579-4b54-b4bb-9d8cf6cb5dca",
+              "Text": "A p-value below the chosen significance level (e.g., 0.05) indicates the predictor is statistically significant and its relationship with the outcome is unlikely due to chance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "de7edd79-7921-4080-ad09-d31db68c90f4",
+              "Text": "The t-statistic, calculated as the coefficient divided by its standard error, is used to derive the p-value for each predictor.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8dc7d0c6-fa65-4c46-a5c6-213592e97a67",
+              "Text": "Confidence intervals around each coefficient provide a range of plausible values and reinforce the significance interpretation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fcc87fb5-3788-49a9-aae2-dacdeeb1eaab",
+          "TopicId": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+          "Title": "Evaluating Model Fit with R-Squared",
+          "BodyText": "R-squared (R\u00B2) measures the proportion of variance in the outcome variable that is explained by the predictor variables in the model.",
+          "Notes": "An R\u00B2 of 0.75 means that 75% of the variability in the outcome is accounted for by the model. However, a high R\u00B2 does not guarantee the model is appropriate or that the predictors are causally related to the outcome.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "ModifiedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "Items": [
+            {
+              "Id": "e8fcde2e-374c-406a-a5df-a35e28c33c83",
+              "Text": "R\u00B2 ranges from 0 to 1, where values closer to 1 indicate a stronger fit and values closer to 0 indicate a weak fit.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "40c5ebad-1b3a-4898-af72-5e3da8ea55ab",
+              "Text": "Adjusted R\u00B2 penalizes for the addition of irrelevant predictors, making it a more reliable measure of fit in multiple regression models.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f263f082-834a-4025-acbb-93a8f6dd05e1",
+              "Text": "A high R\u00B2 alone does not confirm that the model is valid; residual analysis and significance testing must also support the model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4082c226-10b9-474b-b2c3-bb0ab42aad9b",
+          "TopicId": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+          "Title": "Interpreting the Overall Model (F-Test)",
+          "BodyText": "The F-test evaluates whether the regression model as a whole explains a statistically significant portion of the variance in the outcome variable.",
+          "Notes": "Unlike individual t-tests for each coefficient, the F-test assesses the joint significance of all predictors simultaneously, making it particularly important in multiple regression.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "ModifiedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "Items": [
+            {
+              "Id": "31c2aca3-f5c2-4ed9-88ac-2d068eca678d",
+              "Text": "A significant F-statistic (p \u003C 0.05) indicates that at least one predictor in the model has a meaningful relationship with the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "683f48ee-cbee-4764-be3a-7fa7bdea613e",
+              "Text": "A non-significant F-statistic suggests the model does not explain the outcome better than simply using the mean of the outcome variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a3dacbd4-047b-4291-badd-e29d24d5ab46",
+              "Text": "The F-test result should be reviewed before interpreting individual coefficients to confirm the overall model is viable.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "89aec533-3963-4a36-a88d-3fcafc484712",
+          "TopicId": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+          "Title": "Translating Results into Practical Implications",
+          "BodyText": "Effective interpretation of regression output goes beyond statistical metrics to inform actionable, data-driven decisions in real-world contexts.",
+          "Notes": "For instance, a significant positive coefficient for employee training hours in a productivity regression could justify increased investment in staff development programs.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "ModifiedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "Items": [
+            {
+              "Id": "846db2a6-c3a0-4457-8c34-495574529322",
+              "Text": "Statistically significant predictors with meaningful coefficient sizes should be prioritized when making recommendations or business decisions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "240a63b4-9da5-41e2-aec6-8a14b96c617c",
+              "Text": "Consider the practical significance of a finding alongside statistical significance \u2014 a statistically significant coefficient may represent a negligibly small real-world effect.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bdc03add-a7e2-48f4-b927-4c325b4939c1",
+              "Text": "Regression results should be communicated in plain language to stakeholders, focusing on what the coefficients mean for the specific context rather than technical details.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f4f2fbf1-e24b-4e6e-8431-f97e4e445f67",
+              "Text": "Predictions generated from the model should include uncertainty estimates (e.g., prediction intervals) to convey confidence in the forecast.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2437146b-c35e-478a-9d02-26032a9c5baa",
+          "TopicId": "e56a5ba2-a379-44f4-a311-32e8443a1c80",
+          "Title": "Recognizing Limitations and Avoiding Misinterpretation",
+          "BodyText": "Regression results can be misread if assumptions are violated or if correlational findings are incorrectly treated as causal conclusions.",
+          "Notes": "A classic pitfall is confusing correlation with causation \u2014 a regression may show that ice cream sales predict drowning rates, but the true driver is a confounding variable (warm weather) influencing both.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "ModifiedDate": "2026-08-24T20:35:02.8118599-04:00",
+          "Items": [
+            {
+              "Id": "d2849017-f22f-478b-85f2-436badff2035",
+              "Text": "Regression establishes association between variables, not causation; causal claims require experimental design or additional theoretical justification.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "96df9eac-1cc4-43c4-aaec-87136bf3972b",
+              "Text": "Extrapolating predictions beyond the range of the observed data can produce unreliable and misleading results.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5f58072a-ec59-4eb8-9773-e87548e70ed8",
+              "Text": "Violations of regression assumptions \u2014 such as non-linearity, heteroscedasticity, or multicollinearity \u2014 can distort coefficient estimates and significance tests.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0cf78e16-8502-450b-bbc1-c8b87ad9ae10",
+              "Text": "Omitted variable bias occurs when an important predictor is left out of the model, causing the remaining coefficients to be incorrectly estimated.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+      "Title": "Applying Regression to Real-World Datasets",
+      "Summary": "Provides hands-on practice using regression techniques on real-world data, reinforcing skills in model building and results interpretation across applied contexts.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "ModifiedDate": "2026-08-24T20:33:14.8433755-04:00",
+      "Elements": [
+        {
+          "Id": "98e81996-fd54-4423-ae00-c2b2d7696195",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Selecting and Preparing a Real-World Dataset",
+          "BodyText": "Before building a regression model, practitioners must identify an appropriate dataset and prepare it for analysis.",
+          "Notes": "Examples include housing price datasets, sales performance data, or public health records \u2014 all of which contain measurable independent and dependent variables suitable for regression.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "d8f515b3-9559-466e-8d13-59dedbfd1239",
+              "Text": "Choose a dataset where a clear dependent variable can be predicted by one or more independent variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4d17349e-8a93-474f-a7a8-8da847dc987c",
+              "Text": "Inspect the data for missing values, outliers, and inconsistencies that could distort model results.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8f931d42-3b5f-4cd4-a4dc-564ae44d67f2",
+              "Text": "Perform data cleaning steps such as imputation, removal of duplicates, and standardization of variable formats.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "61bb6cf8-c16c-4487-b16b-a4fe541e8d4b",
+              "Text": "Explore the data with descriptive statistics and visualizations to understand distributions and potential relationships.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f65de2b0-7109-4292-8626-86fa8923ad56",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Identifying Variables and Formulating a Research Question",
+          "BodyText": "A well-defined research question guides the selection of variables and the type of regression model to apply.",
+          "Notes": "For example, a researcher might ask: \u0027How do square footage and neighborhood rating predict home sale price?\u0027 This frames the dependent and independent variables clearly.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "b499ba83-8244-4903-9435-8e37110319ea",
+              "Text": "Define the dependent (outcome) variable that the model will predict or explain.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e6f85ce9-aae0-438d-8042-74d6832caa07",
+              "Text": "Identify independent (predictor) variables that are theoretically or empirically linked to the outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d60a23e2-bd82-4ca6-bb5e-d7d6795a71db",
+              "Text": "Determine whether a simple or multiple regression approach is more appropriate given the number of predictors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0bc4aca2-2490-4a85-a6cf-8aa6a6f6e901",
+              "Text": "Ensure variables are measured at the appropriate scale (continuous, categorical) for the chosen regression method.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3b5899ee-f1c3-44ef-bfd7-7951bae38ab3",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Building the Regression Model on Real Data",
+          "BodyText": "With prepared data and defined variables, practitioners construct the regression model using statistical software or tools.",
+          "Notes": "Common tools include Excel, R, Python (statsmodels or scikit-learn), and SPSS. The process involves entering variables, running the regression procedure, and obtaining output.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "8d5798e3-d369-47dd-8f5b-5b9dcfec6ec2",
+              "Text": "Input the cleaned dataset into the chosen statistical tool and specify the dependent and independent variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2caa9b00-fc0e-4a1d-ab58-bc235ab7caef",
+              "Text": "Run the regression procedure to estimate coefficients for each predictor in the model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ba4c4d72-f0ae-4e76-9480-7a0087ba0e86",
+              "Text": "Review the regression equation produced, which represents the quantified relationship between variables.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2aceded2-9aaf-47ec-9761-64a049b86307",
+              "Text": "Check that the model has converged and that output includes all necessary statistics for interpretation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0449009d-b78d-4c86-b896-16dff764ecad",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Interpreting Regression Output in Context",
+          "BodyText": "Interpreting regression results means translating statistical output into meaningful, context-specific conclusions.",
+          "Notes": "For instance, a coefficient of 50 for square footage in a housing model means that, on average, each additional square foot is associated with a $50 increase in sale price, holding other variables constant.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "6bd8fa1b-0dde-4d9a-83a7-684285d9dc1a",
+              "Text": "Interpret each regression coefficient as the expected change in the dependent variable for a one-unit increase in the predictor, all else equal.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a0b4d0a-e7f2-4e30-8b27-d34ed309bdd6",
+              "Text": "Use the R-squared value to assess what proportion of variance in the outcome is explained by the model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2d732585-8db3-4981-b1da-1a5a00b45b59",
+              "Text": "Evaluate p-values to determine which predictors are statistically significant contributors to the model.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d843f2c9-8d50-40c3-aae5-543b80b39236",
+              "Text": "Relate the numerical findings back to the original research question to communicate real-world meaning.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4d97a4bd-a26a-4344-8cad-2101163b48c7",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Evaluating Model Fit and Assumptions with Real Data",
+          "BodyText": "Applied regression requires verifying that model assumptions hold and that the model fits the data adequately.",
+          "Notes": "Residual plots, Q-Q plots, and variance inflation factor (VIF) scores are practical diagnostics commonly used when working with real datasets.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "c01895ba-78b3-4378-951d-0c97ac332994",
+              "Text": "Examine residual plots to check for patterns that would indicate violations of linearity or homoscedasticity.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b17047a0-7a91-4881-8c69-7b5402490e6f",
+              "Text": "Test for normality of residuals using visual tools or statistical tests appropriate to the dataset size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e5ee7f49-71f1-4f21-986d-d2f489d2c95e",
+              "Text": "Check for multicollinearity among predictors using correlation matrices or VIF values when multiple predictors are used.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3d947641-8465-4336-a7a9-cdbc51f9ebca",
+              "Text": "Assess whether model fit statistics support using the model for prediction or inference in the applied context.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f61e59c7-c88b-4270-8d89-96d4ca256681",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Refining and Improving the Model",
+          "BodyText": "Real-world datasets often require iterative model refinement to improve accuracy and address assumption violations.",
+          "Notes": "Refinement may include adding interaction terms, transforming skewed variables with logarithms, or removing non-significant predictors to achieve a more parsimonious model.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "fdf371fc-b54b-46b6-aedf-68e881c51615",
+              "Text": "Add, remove, or transform variables based on diagnostic results and theoretical justification.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fd2055c8-7140-46f7-9f6c-112d31aebfb0",
+              "Text": "Apply variable transformations (e.g., log, square root) to correct non-linearity or heteroscedasticity.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d47a7524-8d47-451e-86d0-ee2c77168ff6",
+              "Text": "Compare alternative model specifications using criteria such as adjusted R-squared or AIC to select the best fit.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "37936715-75d3-468f-9222-e9dcdde58737",
+              "Text": "Document each refinement step to ensure the modeling process remains transparent and reproducible.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c5cfeeaf-8c93-477d-89a3-089af24403cb",
+          "TopicId": "90656bd8-5f16-4a7a-97e8-7da95a171bc8",
+          "Title": "Communicating Regression Findings to Stakeholders",
+          "BodyText": "The final step in applied regression is translating analytical results into clear, actionable insights for a non-technical audience.",
+          "Notes": "Effective communication often uses visualizations such as scatter plots with regression lines, coefficient charts, or prediction intervals to make findings accessible.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "ModifiedDate": "2026-08-24T20:35:28.2481365-04:00",
+          "Items": [
+            {
+              "Id": "99b2a889-4768-4329-9150-cf50f23d0311",
+              "Text": "Summarize the key findings in plain language, focusing on which predictors matter most and what the model reveals about the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c4f635b3-6894-4615-9008-8a521f59a568",
+              "Text": "Use charts and graphs to visually represent the regression relationship and model predictions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f751eef0-85a7-4569-a334-330c2d1fe709",
+              "Text": "Acknowledge model limitations, such as the scope of the data or potential omitted variables, to provide an honest assessment.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d37b532f-aed6-4a4e-a439-f1e1b2ca90db",
+              "Text": "Provide recommendations or next steps based on the regression results to support data-driven decision-making.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 39
+}

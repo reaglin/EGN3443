@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Assignment 3 - Probability</title>
+<style>body{font-family:Segoe UI,Arial,sans-serif;max-width:900px;margin:24px auto;padding:0 16px;line-height:1.5;color:#222}h1{font-size:1.6em;margin-bottom:.3em}h2{font-size:1.25em;margin-top:1.4em;border-bottom:1px solid #ddd;padding-bottom:.2em}h3{font-size:1.05em;margin-bottom:.2em}.lead{color:#555}.summary{color:#444;margin:.2em 0 .4em}.bloom{color:#777;font-size:.9em}ul,ol{padding-left:1.4em}pre{background:#f6f6f6;padding:12px;border-radius:4px}.mo{display:grid;grid-template-columns:56px 1fr;gap:2px 10px;margin:0 0 10px;padding:8px 10px;background:#f7f9fc;border-left:3px solid #2e6cb4;border-radius:3px}.mo .code{font-weight:600;color:#2e6cb4}.mo .statement{grid-column:2}.mo .meta{grid-column:2;font-size:.85em;color:#777}.mo .meta span{margin-right:12px}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<div class="pm-injected-nav"><a href="index.html">← Back to Assignments</a><span class="sep">|</span><a href="../index.html">↑ Back to Module</a></div>
+<div class="pm-injected-spacer"></div>
+<h1>Assignment 3 - Probability</h1>
+<p>Objective: Determine the probability of a "21" from a deck of cards using Monte Carlo (simulation) techniques.&nbsp;</p>
+<p>Using Python (or R) write a routine to calculate the probability of getting exactly 21 in a draw from a card deck while drawing only 3 cards.&nbsp; You can easily simulate the deck as the following array;</p>
+<div>
+<div>deck1 = [1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10]</div>
+</div>
+<p>&nbsp;You will not do this from a direct calculation, but using Monte Carlo techniques. The Monte Carlo technique simulates the conditions of the problem. The pseudo-algorithm is;</p>
+<p>1. Randomly select a card from the deck (or item in the array)<br><br></p>
+<p><code>import random</code></p>
+<p><code></code><code># Example array</code><br><code>my_array = [1, 2, 3, 4, 5]</code></p>
+<p><code># Select a random item</code><br><code>random_item = random.choice(my_array)</code></p>
+<p><code>print(random_item)</code></p>
+<p>2. Remember the random item selected (not shown in code) and remove it from the array (shown in code)</p>
+<p><code>import random</code></p>
+<p><code># Sample array</code><br><code>array = [1, 2, 3, 4, 5]</code></p>
+<p><code># Select a random item using sample</code><br><code>random_item = random.sample(array, 1)[0]</code></p>
+<p><code># Remove the selected item from the array</code><br><code>array.remove(random_item)</code></p>
+<p><code>print("Selected item:", random_item)</code><br><code>print("Updated array:", array)</code></p>
+<p>3. Select 3 cards from the deck. You can do this by removing the card from the deck when selected or by excluding the index of the card selected from any additional selections.&nbsp; If the cards add to 21, increment a second counter (this is your success counter).&nbsp;</p>
+<p>4. Using 100 * number of 21's selected/number of attempts is your sampling probability.&nbsp;</p>
+<p>5. Run it 5 times with runs of 1000 attempts and 10,000 attempts and report your results and report results each time (n, s, p) where n = number of attempts, s = number of successes, and p is the calculated probability. Give n in %.<br><br></p>
+<table border="1" style="border-collapse: collapse; width: 100%;"><colgroup><col style="width: 40%;"><col style="width: 20%;"><col style="width: 40%;"></colgroup>
+<tbody>
+<tr>
+<td># of Attempts</td>
+<td># of Successes</td>
+<td>Probability of Success</td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10000</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100000</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p>This is a formal engineering report. Your code should be in the appendix. You may use AI to help with the coding. You may freely discuss your approach on Assignment 3 Discussion&nbsp;</p>
+<p><strong>Report Format (Details at&nbsp;Submission Guidelines (Engineering Reports) )</strong><br><strong>Cover</strong> - Name/Date/Class/Assignment #<br><strong>Problem Statement</strong> - Copy/Paste and then modify to state problem<br><strong>Methodology </strong>- The approach to the problem, not code, equations and explanation here<br><strong>Results</strong> -Be sure to answer the problem asked in the problem statement<br><strong>Conclusion</strong> - This can be short, any additional notes you want to make here<br><strong>Appendices</strong> - Code or any additional information here</p>
+<p></p>
+<p></p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

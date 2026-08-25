@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 4 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4 Sample Problem 2</h1><h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">2. Expected Value and Variance</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example: Electronic Component Lifetime</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Problem</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: A certain electronic component has a lifetime that follows a discrete distribution. The lifetime (in years) has the following PMF:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">P(X=1) = 0.1</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">P(X=2) = 0.2</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">P(X=3) = 0.4</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">P(X=4) = 0.2</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">P(X=5) = 0.1</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Calculate the expected lifetime and variance. If a system requires 3 of these components in series (system fails if any component fails), what's the expected time until system failure?</span></p>
+<p></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in Python (<a href="https://colab.research.google.com/drive/1mOPzYhjLXIFKao1PQ-Dl1YUdKYdKe2xy?usp=sharing" target="_blank" rel="noopener">Link</a>)</span></h3>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Define the PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_values = np.array([1, 2, 3, 4, 5])</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">probabilities = np.array([0.1, 0.2, 0.4, 0.2, 0.1])</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate expected value and variance</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">expected_value = np.sum(x_values * probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">variance = np.sum((x_values - expected_value)**2 * probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">std_dev = np.sqrt(variance)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Expected component lifetime: {expected_value:.2f} years")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Variance of lifetime: {variance:.2f} years²")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Standard deviation: {std_dev:.2f} years")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># For system with components in series, we need to model time until first failure</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This requires survival analysis, but as an approximation, we can simulate it</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def simulate_system_failure(n_components=3, n_simulations=100000):</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;system_lifetimes = []</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n_simulations):</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Sample lifetimes for each component</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;component_lifetimes = np.random.choice(x_values, size=n_components, p=probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# System fails when the first component fails</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;system_lifetime = np.min(component_lifetimes)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;system_lifetimes.append(system_lifetime)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return np.mean(system_lifetimes), np.var(system_lifetimes)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">mean_system_lifetime, var_system_lifetime = simulate_system_failure()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Expected system lifetime (simulation): {mean_system_lifetime:.2f} years")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Variance of system lifetime (simulation): {var_system_lifetime:.2f} years²")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(12, 6))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(1, 2, 1)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x_values, probabilities, width=0.4, alpha=0.7)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(expected_value, color='red', linestyle='--', label=f'E[X] = {expected_value:.2f}')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Lifetime (years)')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Component Lifetime PMF')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the simulated system lifetime distribution</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(1, 2, 2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulated_data = np.random.choice(x_values, size=10000, p=probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_lifetimes = np.min(np.random.choice(x_values, size=(10000, 3), p=probabilities), axis=1)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.hist(system_lifetimes, bins=x_values, alpha=0.7, density=True)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(mean_system_lifetime, color='red', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'E[min(X₁,X₂,X₃)] = {mean_system_lifetime:.2f}')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Lifetime (years)')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('System Lifetime Distribution')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.tight_layout()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Analytical solution for expected system lifetime</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_cdf = 1 - (1 - np.cumsum(probabilities))**3</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_pmf = np.diff(np.append(0, system_cdf))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">analytical_mean = np.sum(x_values * system_pmf)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Expected system lifetime (analytical): {analytical_mean:.2f} years")</span></p>
+<p><br><br></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in R</span></h3>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Define the PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_values &lt;- c(1, 2, 3, 4, 5)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">probabilities &lt;- c(0.1, 0.2, 0.4, 0.2, 0.1)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate expected value and variance</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">expected_value &lt;- sum(x_values * probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">variance &lt;- sum((x_values - expected_value)^2 * probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">std_dev &lt;- sqrt(variance)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Expected component lifetime:", round(expected_value, 2), "years\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Variance of lifetime:", round(variance, 2), "years²\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Standard deviation:", round(std_dev, 2), "years\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># For system with components in series, simulate to find expected system lifetime</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulate_system_failure &lt;- function(n_components=3, n_simulations=100000) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;system_lifetimes &lt;- numeric(n_simulations)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;for (i in 1:n_simulations) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Sample lifetimes for each component</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;component_lifetimes &lt;- sample(x_values, size=n_components, replace=TRUE, prob=probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# System fails when the first component fails</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;system_lifetime &lt;- min(component_lifetimes)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;system_lifetimes[i] &lt;- system_lifetime</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(list(mean=mean(system_lifetimes), var=var(system_lifetimes)))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulation_results &lt;- simulate_system_failure()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Expected system lifetime (simulation):", round(simulation_results$mean, 2), "years\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Variance of system lifetime (simulation):", round(simulation_results$var, 2), "years²\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">par(mfrow=c(1,2))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(probabilities, names.arg=x_values, main="Component Lifetime PMF",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Lifetime (years)", ylab="Probability", col="skyblue")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=1.2 + expected_value*1.2, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot spacing</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(1.2 + expected_value*1.2, max(probabilities)*0.8,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("E[X] =", round(expected_value, 2)), pos=4, col="red")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the simulated system lifetime distribution</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_lifetimes &lt;- replicate(10000, {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;component_lifetimes &lt;- sample(x_values, size=3, replace=TRUE, prob=probabilities)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;min(component_lifetimes)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">})</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">hist(system_lifetimes, breaks=seq(0.5, 5.5, 1), main="System Lifetime Distribution",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Lifetime (years)", ylab="Frequency", probability=TRUE, col="lightgreen")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=simulation_results$mean, col="red", lwd=2, lty=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(simulation_results$mean, 0.4,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("E[min(X₁,X₂,X₃)] =", round(simulation_results$mean, 2)),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="red")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Analytical solution for expected system lifetime</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_cdf &lt;- 1 - (1 - cumsum(probabilities))^3</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_pmf &lt;- diff(c(0, system_cdf))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">analytical_mean &lt;- sum(x_values * system_pmf)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Expected system lifetime (analytical):", round(analytical_mean, 2), "years\n")</span></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

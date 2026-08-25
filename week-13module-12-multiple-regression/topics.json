@@ -1,0 +1,1014 @@
+{
+  "ModuleFolderName": "Week_13_Module_12_-_Multiple_Regression",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:35:41.6653279-04:00",
+  "ModifiedDate": "2026-08-24T20:37:45.0404697-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+      "Title": "From Simple to Multiple Regression",
+      "Summary": "This topic introduces multiple regression as an extension of simple linear regression, explaining why and when multiple predictor variables are needed to better model a continuous outcome.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "ModifiedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "Elements": [
+        {
+          "Id": "7671032c-8726-406f-86a3-f4773170bac5",
+          "TopicId": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+          "Title": "Limitations of Simple Linear Regression",
+          "BodyText": "Simple linear regression models the relationship between one predictor variable and one continuous outcome, which is often insufficient for real-world data.",
+          "Notes": "For example, predicting a person\u0027s salary using only years of experience ignores other relevant factors like education level or industry, leading to an incomplete and potentially misleading model.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:36:06.163332-04:00",
+          "ModifiedDate": "2026-08-24T20:36:06.163332-04:00",
+          "Items": [
+            {
+              "Id": "d030aa94-2a00-4f0a-928b-0c93b3693423",
+              "Text": "Simple regression assumes a single predictor accounts for all systematic variation in the outcome, which is rarely true in practice.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8a0a1857-4ea1-4ee6-939d-1c433d0c81a2",
+              "Text": "Omitting important variables from a model can lead to biased estimates and poor predictive accuracy.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5bd31fae-7ec7-4757-972e-8caaa33cb94f",
+              "Text": "Real-world outcomes are typically influenced by multiple factors simultaneously, making a single-predictor model an oversimplification.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9e05c6ba-555c-4d5a-93fd-67d057a11d0f",
+              "Text": "Residual variance left unexplained by simple regression often signals the need for additional predictors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ff2a485f-3d30-4cdc-88df-bfdd2bf65e8f",
+          "TopicId": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+          "Title": "What Is Multiple Regression?",
+          "BodyText": "Multiple regression is an extension of simple linear regression that includes two or more predictor variables to explain variation in a single continuous outcome.",
+          "Notes": "For instance, a multiple regression model predicting house price might include square footage, number of bedrooms, and neighborhood rating as predictors, capturing more of the true complexity of the outcome.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:36:06.163332-04:00",
+          "ModifiedDate": "2026-08-24T20:36:06.163332-04:00",
+          "Items": [
+            {
+              "Id": "6450df56-c444-42ad-b3e3-5e3558cedb24",
+              "Text": "The general form of a multiple regression equation is: \u0176 = b\u2080 \u002B b\u2081X\u2081 \u002B b\u2082X\u2082 \u002B ... \u002B b\u2096X\u2096, where each X represents a different predictor.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cee9514a-1865-4600-8186-f41c570af3cc",
+              "Text": "The model estimates a separate regression coefficient for each predictor, reflecting its unique contribution to the outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "caa25ef1-af3f-4d03-9555-31ff01859943",
+              "Text": "Multiple regression allows researchers to model complex, multivariate relationships within a single unified framework.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "79b79a9c-0583-4abc-908b-97ba8dcc414f",
+              "Text": "The outcome variable remains continuous, consistent with the assumptions of linear regression.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "76426626-8f4e-4ca5-b1ce-7a078e5626f3",
+          "TopicId": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+          "Title": "Why Add More Predictor Variables?",
+          "BodyText": "Including additional predictors improves the model\u0027s ability to explain variance in the outcome and increases the accuracy of predictions.",
+          "Notes": "Adding predictors is most justified when there is theoretical or empirical reason to believe they are related to the outcome, not simply to inflate model fit statistics.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:36:06.163332-04:00",
+          "ModifiedDate": "2026-08-24T20:36:06.163332-04:00",
+          "Items": [
+            {
+              "Id": "421c42cc-60c1-4732-9096-695fa8fc84ed",
+              "Text": "Each additional relevant predictor accounts for variance in the outcome that would otherwise remain unexplained.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8a64425f-6ebf-491c-91c0-5b03f92629d7",
+              "Text": "More complete models reduce error and improve both explanatory power and predictive precision.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2f25e804-da20-4510-8c6a-089d18a10f8f",
+              "Text": "Including key confounding variables helps isolate the unique effect of each predictor on the outcome.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0a4dcb3f-f45f-4e61-b2c3-9669cd4caa7f",
+              "Text": "Model improvement should be guided by theory and prior research, not by indiscriminate addition of variables.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bb560606-7566-4b2d-8691-f87f3dca120a",
+          "TopicId": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+          "Title": "Controlling for Other Variables",
+          "BodyText": "A key advantage of multiple regression is the ability to statistically control for the influence of other predictors when estimating each variable\u0027s effect.",
+          "Notes": "For example, when examining the effect of exercise on blood pressure, controlling for age and diet allows for a cleaner estimate of exercise\u0027s independent contribution.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:36:06.163332-04:00",
+          "ModifiedDate": "2026-08-24T20:36:06.163332-04:00",
+          "Items": [
+            {
+              "Id": "92e9134a-0147-4346-b79e-b325f1c14152",
+              "Text": "Each regression coefficient in a multiple regression model represents the effect of that predictor while holding all other predictors constant.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1ef5bd4b-c952-45a0-a43c-802c9b1eff4c",
+              "Text": "This \u0027controlling for\u0027 feature helps disentangle the unique contributions of correlated predictors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5ac234ab-fa69-41cb-99f7-6de24a22ef8d",
+              "Text": "Statistical control in regression approximates the logic of experimental control, but within observational data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e741e160-3392-4d79-883a-6bf58dd23672",
+              "Text": "Without controlling for relevant variables, the estimated effect of any single predictor may be confounded or distorted.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0735a1ef-7c7c-4e4c-bf18-6ec5fea74857",
+          "TopicId": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+          "Title": "When to Use Multiple Regression",
+          "BodyText": "Multiple regression is appropriate when a researcher wants to explain or predict a continuous outcome using more than one predictor variable.",
+          "Notes": "Multiple regression is widely used in fields such as psychology, economics, public health, and education, wherever outcomes are shaped by several measurable factors.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:36:06.163332-04:00",
+          "ModifiedDate": "2026-08-24T20:36:06.163332-04:00",
+          "Items": [
+            {
+              "Id": "0117393e-5a2c-4d64-8c35-16373b91a152",
+              "Text": "Use multiple regression when theory or prior research suggests that several variables jointly influence the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eab431b6-c241-4190-908f-34ce518441f5",
+              "Text": "It is suitable for both explanatory research, seeking to understand relationships, and predictive modeling, seeking accurate forecasts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a0238d29-cef3-4955-98f9-632a8cc9a145",
+              "Text": "The outcome variable must be continuous and the relationships between predictors and the outcome should be approximately linear.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3759e257-c448-4e5f-be6e-87eabfdfd081",
+              "Text": "Sample size should be sufficiently large to support stable estimates; a common guideline is at least 10 to 20 cases per predictor variable.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4df5605d-ada3-47b3-8146-21a9b7e08dd3",
+          "TopicId": "d75a364b-7131-413c-a598-9b18b24d4fc2",
+          "Title": "Continuity from Simple to Multiple Regression",
+          "BodyText": "Multiple regression builds directly on the concepts and mechanics of simple linear regression, making the transition a logical and incremental step.",
+          "Notes": "Students already familiar with simple regression will recognize shared elements such as the least squares criterion, residuals, significance testing of coefficients, and R-squared as a measure of model fit.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:36:06.163332-04:00",
+          "ModifiedDate": "2026-08-24T20:36:06.163332-04:00",
+          "Items": [
+            {
+              "Id": "73228fac-ed96-4d41-83b8-e6a99edb952c",
+              "Text": "The same ordinary least squares (OLS) method used in simple regression is applied to estimate coefficients in multiple regression.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "82cbf163-6397-43ad-8120-207bcf735c31",
+              "Text": "Interpretation of individual coefficients follows the same logic, but each is now interpreted in the context of the other predictors in the model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "022e4c73-0132-4e14-b2b3-c6d702a3e465",
+              "Text": "Model fit is still assessed using R-squared, though adjusted R-squared becomes especially important when comparing models with different numbers of predictors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "188e59fa-0239-440f-9568-eb7f71b37f51",
+              "Text": "Hypothesis testing for individual coefficients still uses t-tests, while overall model significance is evaluated with an F-test.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+      "Title": "Model Specification and Structure",
+      "Summary": "This topic covers how to properly specify a multiple regression model, including selecting predictor variables and understanding the mathematical structure of the regression equation.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "ModifiedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "Elements": [
+        {
+          "Id": "0db7ec64-b202-49f5-82af-d1da01f2d02e",
+          "TopicId": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+          "Title": "From Simple to Multiple Regression",
+          "BodyText": "Multiple regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single continuous outcome variable.",
+          "Notes": "For example, instead of predicting salary from years of experience alone, multiple regression allows us to simultaneously include education level, industry, and location as predictors.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "ModifiedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "Items": [
+            {
+              "Id": "6821168a-f281-49d1-85dc-af62b7357cb3",
+              "Text": "Simple linear regression uses one predictor (X) to model an outcome (Y), while multiple regression uses two or more predictors (X\u2081, X\u2082, \u2026 X\u2096).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8b96d54d-c201-4a26-a855-f239e4162b46",
+              "Text": "Adding predictors allows the model to capture more sources of variation in the outcome, potentially improving explanatory power.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "83856831-2369-4d69-aee5-118bd8b71748",
+              "Text": "Multiple regression is appropriate when theory or prior research suggests several variables jointly influence the outcome.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8ac6db8e-54d2-41fa-a14e-eeab86a40b49",
+          "TopicId": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+          "Title": "The Multiple Regression Equation",
+          "BodyText": "The multiple regression model is expressed as a linear equation that combines a constant (intercept) with weighted contributions from each predictor variable.",
+          "Notes": "The general form is: \u0176 = b\u2080 \u002B b\u2081X\u2081 \u002B b\u2082X\u2082 \u002B \u2026 \u002B b\u2096X\u2096, where b\u2080 is the intercept and b\u2081 through b\u2096 are the regression coefficients for each predictor.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "ModifiedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "Items": [
+            {
+              "Id": "9b7beae1-24e2-47d7-b9c9-4fb0dc5e09bd",
+              "Text": "The intercept (b\u2080) represents the predicted value of Y when all predictor variables are equal to zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "68106bb5-0b93-4cdb-a127-e3f5c54f6c90",
+              "Text": "Each regression coefficient (b\u1D62) represents the expected change in Y for a one-unit increase in X\u1D62, holding all other predictors constant.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "45fcfc2f-b6e8-41e4-9267-a9da5f8b0195",
+              "Text": "The equation produces a predicted value (\u0176) for each observation, and the difference between \u0176 and the actual Y is called the residual or error term.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ca62d987-f997-408a-88a0-f43a85b9b592",
+              "Text": "The model assumes a linear relationship between each predictor and the outcome, conditional on the other predictors in the model.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "384df5a5-8bf0-40f3-89cd-0a0d62da7a4e",
+          "TopicId": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+          "Title": "Selecting Predictor Variables",
+          "BodyText": "Choosing which variables to include in a multiple regression model is a critical step that should be guided by theory, prior research, and the research question.",
+          "Notes": "Including irrelevant predictors can inflate standard errors and reduce interpretability, while omitting important predictors can bias the remaining coefficients.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "ModifiedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "Items": [
+            {
+              "Id": "30cfa9dc-ee86-4636-bb4f-9952585b5d38",
+              "Text": "Predictors should be selected based on a theoretical or empirical rationale, not solely on statistical criteria.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8564ee07-8fde-48c4-abf2-01d96a3bc0d7",
+              "Text": "Omitting a variable that is related to both the outcome and another predictor (a confounder) can lead to omitted variable bias, distorting coefficient estimates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6264bac9-9ea0-49ec-8941-49fe0ad79893",
+              "Text": "Including too many predictors relative to the sample size can lead to overfitting, where the model fits the sample data well but generalizes poorly.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4ad2f04f-de9c-4ee8-99a2-766a4bfa4d10",
+              "Text": "Exploratory techniques such as correlation matrices and scatterplot matrices can help identify candidate predictors before model building.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9a1178c6-c162-4494-b620-18a31150a917",
+          "TopicId": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+          "Title": "Interpreting Regression Coefficients in Context",
+          "BodyText": "Each coefficient in a multiple regression model has a specific conditional interpretation that differs from how coefficients are interpreted in simple regression.",
+          "Notes": "For instance, if predicting exam scores from study hours (X\u2081) and prior GPA (X\u2082), the coefficient for study hours reflects its relationship with exam scores after accounting for GPA differences.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "ModifiedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "Items": [
+            {
+              "Id": "ca1652af-eb05-49b9-87e0-11a7eb47f1f2",
+              "Text": "Each coefficient reflects the unique contribution of that predictor, controlling for the influence of all other predictors in the model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "35eb9cdf-f1f3-4fe4-83fb-58dffcb78089",
+              "Text": "This \u0027holding other variables constant\u0027 interpretation is what distinguishes partial regression coefficients from simple bivariate correlations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "51f6c434-f2dd-4de0-8b7a-58175f8e98e5",
+              "Text": "The sign of a coefficient (positive or negative) indicates the direction of the relationship between the predictor and the outcome.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f08c0287-f0f0-411e-b3bc-add53c479696",
+              "Text": "The magnitude of a coefficient should be interpreted in relation to the scale of measurement of that predictor variable.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a27861c8-b542-400e-9dd1-5e8b6b40d46a",
+          "TopicId": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+          "Title": "Assumptions Underlying Model Specification",
+          "BodyText": "A properly specified multiple regression model must satisfy several key assumptions for the estimates and inferences to be valid.",
+          "Notes": "Violations of these assumptions do not always invalidate the model but can affect the reliability and interpretability of results, making assumption checking an important part of model building.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "ModifiedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "Items": [
+            {
+              "Id": "082a397e-c5be-4c63-9e3a-916919b1738f",
+              "Text": "The relationship between each predictor and the outcome should be linear, and the model should include all relevant predictors (correct functional form).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "800d6364-c594-4f2c-9f1f-9adaa616a15c",
+              "Text": "Observations should be independent of one another, meaning the value of Y for one case should not influence Y for another case.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "840c1e21-d45f-4288-84c4-418339340a46",
+              "Text": "The model assumes that predictor variables are measured without error and that multicollinearity among predictors is not severe enough to destabilize coefficient estimates.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ed1538bb-15c3-4082-b796-93f52f459423",
+              "Text": "Residuals should be approximately normally distributed with constant variance (homoscedasticity) across all levels of the predictors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "af5e6baf-33ea-4562-8c39-49b77eb604d9",
+          "TopicId": "593875cb-7acd-4d06-9eae-789c6fda5e79",
+          "Title": "The Role of the Error Term",
+          "BodyText": "The error term in a multiple regression model accounts for all variation in the outcome that is not explained by the included predictor variables.",
+          "Notes": "A smaller average error (residual) indicates that the model\u0027s predictors are accounting for more of the variability in Y, while a large error suggests important predictors may be missing.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "ModifiedDate": "2026-08-24T20:36:30.4992579-04:00",
+          "Items": [
+            {
+              "Id": "e73b7ec5-507f-4b18-8e5d-cd845b02b429",
+              "Text": "The population regression model includes an error term (\u03B5) representing unmeasured influences, random variation, and model misspecification.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6fa6ce1b-de43-4610-8805-2d30f3b77832",
+              "Text": "Ordinary Least Squares (OLS) estimation minimizes the sum of squared residuals, producing the best linear unbiased estimates under standard assumptions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6630977e-1824-4c79-96e7-af4a86e3d069",
+              "Text": "Examining the pattern of residuals helps diagnose whether the model is correctly specified or whether systematic patterns remain unexplained.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bfb9f2a3-5118-4ce4-90ac-58c981656513",
+              "Text": "A well-specified model produces residuals that appear random with no discernible pattern when plotted against predicted values or individual predictors.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+      "Title": "Interpreting Regression Coefficients",
+      "Summary": "This topic focuses on how to interpret partial regression coefficients in a multiple regression context, distinguishing the unique contribution of each predictor while holding others constant.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "ModifiedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "Elements": [
+        {
+          "Id": "08da40ec-fb71-428a-91ab-2df97a6a71d9",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "What Are Partial Regression Coefficients?",
+          "BodyText": "In multiple regression, each predictor has a partial regression coefficient that reflects its unique relationship with the outcome variable.",
+          "Notes": "Unlike simple regression, these coefficients account for the presence of all other predictors in the model, making them \u0027partial\u0027 in nature.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "9cf6ee06-3158-4d99-b268-9a68792d63ae",
+              "Text": "A partial regression coefficient (b) represents the expected change in the outcome variable for a one-unit increase in that predictor, holding all other predictors constant.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "996b8413-830c-4d36-bfa7-2f268a31b755",
+              "Text": "The term \u0027partial\u0027 distinguishes these coefficients from those in simple linear regression, where no other variables are being controlled.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3be1c8a7-6782-41c9-ae09-c958479bf6d8",
+              "Text": "Each coefficient isolates the contribution of its predictor after removing variance shared with other predictors in the model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fcdec8be-8913-4a81-8d87-dfd4b4a25442",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "Holding Other Variables Constant",
+          "BodyText": "The phrase \u0027holding other variables constant\u0027 is central to correctly interpreting coefficients in multiple regression.",
+          "Notes": "For example, if predicting salary from years of experience and education level, the coefficient for experience tells us its effect assuming education level does not change across observations.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "a173dcec-442b-43d8-881a-27a7b19b7bda",
+              "Text": "This condition means we are statistically controlling for the influence of all other predictors when estimating the effect of one predictor.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "110d6409-3d18-44ff-a857-9d65203d200b",
+              "Text": "It allows researchers to isolate the independent contribution of each variable, even when predictors are correlated with one another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f381382c-cfa3-4d05-83b9-f970afb01375",
+              "Text": "In practice, this is a mathematical control, not a physical one \u2014 the data are not filtered, but the model accounts for shared variance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5f28070b-843d-4ed8-8376-f3d0f68d46e4",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "The Intercept in Multiple Regression",
+          "BodyText": "The intercept (b\u2080) in a multiple regression model represents the predicted value of the outcome when all predictor variables equal zero.",
+          "Notes": "The intercept is often not substantively meaningful on its own, especially when a value of zero is outside the realistic range of the predictors.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "57375a3d-8e44-4b69-b3ed-f673d072198c",
+              "Text": "The intercept anchors the regression equation and is necessary for generating predicted values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f954100e-32a4-46eb-9fd2-da2eebe59184",
+              "Text": "When zero is not a plausible value for any predictor, the intercept should be interpreted cautiously and may only serve a mathematical function.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8b316a10-caee-4fea-a7de-2c6665e6ffd3",
+              "Text": "Centering predictors (subtracting the mean) can make the intercept more interpretable by representing the predicted outcome at average levels of all predictors.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "46a63b0b-ff0f-41ec-9150-ab816ab5c515",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "Interpreting Positive and Negative Coefficients",
+          "BodyText": "The sign of a partial regression coefficient indicates the direction of the relationship between a predictor and the outcome, controlling for other variables.",
+          "Notes": "A coefficient of \u002B3.5 means the outcome increases by 3.5 units for every one-unit increase in the predictor; a coefficient of -2.1 means the outcome decreases by 2.1 units.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "f53d827c-3ec8-4974-83d2-bb920c91e81f",
+              "Text": "A positive coefficient indicates that as the predictor increases, the outcome variable also tends to increase, all else being equal.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d3732857-33e7-459c-83fc-ba2c2b82983c",
+              "Text": "A negative coefficient indicates an inverse relationship \u2014 as the predictor increases, the outcome tends to decrease.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "81907d8c-e089-45c6-8b65-f6d5d279aace",
+              "Text": "The magnitude of the coefficient reflects the strength of the effect in the original units of both the predictor and the outcome.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9364ebdb-8b3c-4de1-b762-98402a3fca68",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "Unique Contribution of Each Predictor",
+          "BodyText": "Multiple regression allows researchers to assess the unique contribution of each predictor variable beyond what is explained by the other predictors.",
+          "Notes": "This is especially valuable when predictors are correlated, as it prevents falsely attributing shared explanatory power to a single variable.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "b989396c-0b1c-49c1-8068-caf430501d6d",
+              "Text": "The partial coefficient captures only the variance in the outcome that a predictor explains independently, not variance it shares with other predictors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a5cf8329-0359-4788-b274-e74e3d1e4f31",
+              "Text": "Two predictors that are highly correlated may each have smaller partial coefficients than either would have in a simple regression model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d1a4f2a1-0d57-4a41-9613-130c16b654e4",
+              "Text": "Assessing unique contributions helps identify which variables are most informative after accounting for redundancy in the predictor set.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "06daa316-92e8-4170-9f20-225c1246cd98",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "Units of Measurement and Coefficient Comparability",
+          "BodyText": "Raw (unstandardized) partial regression coefficients are expressed in the original units of the predictors, which can make direct comparison across predictors difficult.",
+          "Notes": "Standardized coefficients (beta weights) place all predictors on a common scale, allowing relative importance to be compared more fairly across variables with different units.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "b8006dce-a1d0-4095-b9b0-153a32dd714f",
+              "Text": "If one predictor is measured in years and another in dollars, their raw coefficients cannot be directly compared for relative importance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b6c45603-27fd-4104-8a5a-07a4ed6851a4",
+              "Text": "Standardized regression coefficients (\u03B2) are computed by converting all variables to z-scores before estimation, yielding unit-free effect sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c2f08415-92df-4189-87bf-8a008ceb3cf4",
+              "Text": "A larger absolute standardized coefficient indicates a stronger unique contribution to predicting the outcome relative to other predictors in the model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c7a0b2de-fca4-4b60-b169-11471233a4a5",
+          "TopicId": "698c0b09-2c41-49ad-af1a-6ca63e6c4eee",
+          "Title": "Common Misinterpretations to Avoid",
+          "BodyText": "Partial regression coefficients are frequently misread, especially when researchers conflate correlation with unique prediction or ignore the \u0027all else equal\u0027 condition.",
+          "Notes": "Students often incorrectly interpret a non-significant coefficient as meaning a variable has no relationship with the outcome, when it may simply share variance with another predictor.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "ModifiedDate": "2026-08-24T20:36:55.4927252-04:00",
+          "Items": [
+            {
+              "Id": "fd61117d-7d5a-4423-bfde-13460796cefa",
+              "Text": "A coefficient does not represent the total effect of a predictor \u2014 it reflects only the effect after controlling for all other variables in the model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "de02db60-a522-4f12-bb39-407dbd7f9b29",
+              "Text": "Collinearity among predictors can inflate standard errors and distort coefficients, making interpretation unreliable without diagnostic checks.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f0d25fe-4a36-4c4a-a22e-1ec98ae227a2",
+              "Text": "Omitting an important predictor from the model can cause the coefficients of included predictors to be biased, a problem known as omitted variable bias.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3647e5e0-ae43-46d0-9866-701a94670e61",
+      "Title": "Assessing Model Fit",
+      "Summary": "This topic examines statistical measures used to evaluate how well a multiple regression model fits the data, with emphasis on R-squared and adjusted R-squared and what they reveal about explanatory power.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "ModifiedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "Elements": [
+        {
+          "Id": "a05dd605-c773-45c9-9a55-2b62a59a4001",
+          "TopicId": "3647e5e0-ae43-46d0-9866-701a94670e61",
+          "Title": "The Concept of Model Fit",
+          "BodyText": "Model fit refers to how well a multiple regression model explains the variation observed in the outcome variable using the selected predictors.",
+          "Notes": "A well-fitting model accounts for a large proportion of the variability in the dependent variable, leaving relatively little unexplained.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "ModifiedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "Items": [
+            {
+              "Id": "75510998-2c89-4560-98a9-af7b69a0790d",
+              "Text": "A regression model\u0027s fit is assessed by comparing predicted values to actual observed values in the dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "38808467-abfe-4125-8b25-6746cb45b598",
+              "Text": "Poor model fit suggests the predictors do not adequately explain changes in the outcome variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "806dcd08-da99-4571-8d50-8d962a35ff63",
+              "Text": "Evaluating fit is a critical step before drawing conclusions or making predictions from a regression model.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5b4c6858-94c7-4b76-b58e-1de112fa2750",
+          "TopicId": "3647e5e0-ae43-46d0-9866-701a94670e61",
+          "Title": "R-Squared (R\u00B2): Definition and Interpretation",
+          "BodyText": "R-squared, also called the coefficient of determination, measures the proportion of total variation in the dependent variable that is explained by the regression model.",
+          "Notes": "For example, an R\u00B2 of 0.75 means that 75% of the variability in the outcome is accounted for by the predictors in the model.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "ModifiedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "Items": [
+            {
+              "Id": "b53994f9-5375-42f3-9b98-ceb47ab0d6b4",
+              "Text": "R\u00B2 values range from 0 to 1, where 0 indicates no explanatory power and 1 indicates perfect explanation of the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ba6a3fbf-f803-4655-a262-5fe041cb9143",
+              "Text": "A higher R\u00B2 generally signals a better-fitting model, though context and field norms determine what constitutes an acceptable value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "16c48082-f225-4d0e-91d4-97eecf10a074",
+              "Text": "R\u00B2 is calculated as the ratio of the regression sum of squares (SSR) to the total sum of squares (SST).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "33a6e96e-6990-49fa-8732-55758abf23b0",
+          "TopicId": "3647e5e0-ae43-46d0-9866-701a94670e61",
+          "Title": "Limitations of R-Squared in Multiple Regression",
+          "BodyText": "A key limitation of R-squared is that it never decreases when additional predictor variables are added to a model, even if those predictors are not meaningfully related to the outcome.",
+          "Notes": "This can lead researchers to mistakenly believe a model improves simply because more variables were included, inflating the apparent explanatory power.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "ModifiedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "Items": [
+            {
+              "Id": "10bb274f-a1b6-4b87-a2e7-57cb629283d8",
+              "Text": "Adding irrelevant predictors will always increase or maintain R\u00B2, making it an unreliable sole measure of fit in multiple regression.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "69c6fa25-7711-4b3a-8066-13b8fb4533a6",
+              "Text": "This characteristic of R\u00B2 creates a risk of overfitting, where the model fits the sample data well but performs poorly on new data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5f02eb1a-84cb-4846-ae6b-d736f1a9254d",
+              "Text": "Because of this limitation, adjusted R-squared was developed as a more appropriate measure for multiple regression contexts.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "58041d42-b7ce-4814-a204-d53c0f467966",
+          "TopicId": "3647e5e0-ae43-46d0-9866-701a94670e61",
+          "Title": "Adjusted R-Squared: Correcting for Additional Predictors",
+          "BodyText": "Adjusted R-squared modifies the R\u00B2 statistic by penalizing the addition of predictor variables that do not improve the model in a meaningful way.",
+          "Notes": "Unlike R\u00B2, adjusted R\u00B2 can decrease if a newly added predictor does not contribute sufficient explanatory power to justify its inclusion in the model.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "ModifiedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "Items": [
+            {
+              "Id": "0cf03a70-c870-4dee-bb47-dedef218162f",
+              "Text": "Adjusted R\u00B2 accounts for the number of predictors and the sample size, providing a more conservative and accurate measure of model fit.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dcf73c38-3a2c-4099-85c2-303732f2a359",
+              "Text": "It increases only when a new predictor improves the model more than would be expected by chance alone.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e6134e0b-a001-49fe-bf48-781c95bacd50",
+              "Text": "Adjusted R\u00B2 is generally preferred over R\u00B2 when comparing multiple regression models with different numbers of predictors.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3ea04a45-d243-41f2-8c18-ea89bf008fd2",
+          "TopicId": "3647e5e0-ae43-46d0-9866-701a94670e61",
+          "Title": "Comparing R-Squared and Adjusted R-Squared",
+          "BodyText": "Understanding the relationship between R\u00B2 and adjusted R\u00B2 helps researchers make informed decisions about model complexity and variable selection.",
+          "Notes": "A large gap between R\u00B2 and adjusted R\u00B2 often signals that the model contains predictors that are not genuinely contributing to explaining the outcome.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "ModifiedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "Items": [
+            {
+              "Id": "2fd6e74e-6dbf-49b9-b0fe-96c2e251e7b1",
+              "Text": "When only one predictor is used, R\u00B2 and adjusted R\u00B2 will be very similar in value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f9a5d250-bc78-4642-9ad0-eb45f0611505",
+              "Text": "As more predictors are added, adjusted R\u00B2 will typically fall below R\u00B2, with the gap widening if non-contributing variables are included.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8e6dd603-3c49-4b92-90dc-3d24da3360c1",
+              "Text": "Comparing both statistics together provides insight into whether added model complexity is justified by genuine improvement in explanatory power.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "efe76c4d-1c40-4c6c-97c6-b20dcc45f5e6",
+          "TopicId": "3647e5e0-ae43-46d0-9866-701a94670e61",
+          "Title": "Using Model Fit Statistics to Evaluate and Refine Models",
+          "BodyText": "R-squared and adjusted R-squared are practical tools for guiding decisions about which predictors to retain or remove during model building.",
+          "Notes": "In practice, researchers often compare adjusted R\u00B2 values across candidate models to select the most parsimonious model that still explains meaningful variation in the outcome.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "ModifiedDate": "2026-08-24T20:37:16.7886028-04:00",
+          "Items": [
+            {
+              "Id": "a311a25f-b244-436c-9f71-569a558b9d32",
+              "Text": "A model with a high adjusted R\u00B2 and a small difference from R\u00B2 suggests a well-specified model with relevant predictors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e556932e-735c-4708-84f7-ce76179745e9",
+              "Text": "Researchers should consider adjusted R\u00B2 alongside other diagnostics, such as significance of individual coefficients, when refining models.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3e4ab996-bd27-4c44-ac39-ee18a3981296",
+              "Text": "Maximizing adjusted R\u00B2 alone is not sufficient; interpretability, theory, and assumption checks must also guide model selection.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "adf2fd91-2d46-4016-967a-cbca371191de",
+      "Title": "Building and Evaluating Multiple Regression Models",
+      "Summary": "This topic guides learners through the practical process of constructing, testing, and refining multiple regression models using real-world data to draw meaningful analytical conclusions.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "ModifiedDate": "2026-08-24T20:35:41.6653279-04:00",
+      "Elements": [
+        {
+          "Id": "cc15d1f4-07c1-4422-8a63-c9bbc8ee7188",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Specifying the Multiple Regression Model",
+          "BodyText": "Model specification involves selecting which predictor variables to include in the regression equation to best explain variation in the outcome variable.",
+          "Notes": "For example, predicting house prices might involve specifying predictors such as square footage, number of bedrooms, and neighborhood quality.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "76170199-7bc1-48a5-b472-8147eff970a1",
+              "Text": "The general form of a multiple regression model is: Y = \u03B20 \u002B \u03B21X1 \u002B \u03B22X2 \u002B ... \u002B \u03B2kXk \u002B \u03B5, where each X represents a predictor variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e09327b8-0814-4225-96f9-4ef49e384318",
+              "Text": "Choosing relevant predictors based on theory, prior research, or exploratory data analysis is a critical first step.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b8574901-b9dc-4afb-8953-7005132e3358",
+              "Text": "Including irrelevant predictors can reduce model efficiency, while omitting important ones can bias results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9e9df173-3db9-4e43-997c-83d00bb3b2af",
+              "Text": "Researchers must also consider the measurement level of predictors, as categorical variables require special treatment such as dummy coding.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4e115c77-5522-4fc5-af1e-c82dd966c4ad",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Estimating Regression Coefficients",
+          "BodyText": "Once the model is specified, regression coefficients are estimated using the method of ordinary least squares (OLS), which minimizes the sum of squared residuals.",
+          "Notes": "In software output, each predictor will have an associated coefficient (b), standard error, t-statistic, and p-value that together inform interpretation.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "9d21ab6e-dc5a-45dd-8ff4-36d2f5ce3be6",
+              "Text": "Each coefficient (\u03B2) represents the expected change in the outcome variable for a one-unit increase in the corresponding predictor, holding all other predictors constant.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "42537943-e3bc-4586-b50f-dc283182fb2c",
+              "Text": "The intercept (\u03B20) represents the predicted value of Y when all predictor variables equal zero.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2925b602-b2bb-4a89-9992-783fe406dcf8",
+              "Text": "Standardized coefficients (beta weights) allow comparison of the relative strength of predictors measured on different scales.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7f6e29ad-93d9-47a0-8c8f-2d5021a4c4ee",
+              "Text": "Statistical significance of each coefficient is evaluated using a t-test, with a p-value threshold typically set at 0.05.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "faaae14c-821b-4bc2-b880-76f694cdc3ea",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Assessing Model Fit with R-Squared and Adjusted R-Squared",
+          "BodyText": "R-squared (R\u00B2) measures the proportion of variance in the outcome variable explained by the set of predictor variables in the model.",
+          "Notes": "For instance, an R\u00B2 of 0.72 means that 72% of the variability in the outcome is accounted for by the predictors included in the model.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "5c6d2395-92a0-410a-b0fc-d5049493d72b",
+              "Text": "R\u00B2 ranges from 0 to 1, with higher values indicating a better fit between the model and the observed data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cb429034-832b-472d-995b-8622a603a582",
+              "Text": "Adjusted R\u00B2 penalizes for the addition of predictors that do not meaningfully improve the model, making it preferable for comparing models with different numbers of predictors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "91b512ce-5994-46ab-ba0d-1d812e5925a3",
+              "Text": "Unlike R\u00B2, adjusted R\u00B2 can decrease if an added predictor does not contribute sufficient explanatory power.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2a56e692-9fde-4890-8644-d68af74ab359",
+              "Text": "Neither R\u00B2 nor adjusted R\u00B2 alone determines model adequacy; residual analysis and significance testing are also necessary.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9714ea70-44bd-4024-92c7-54c07f63e6f0",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Testing Overall Model Significance with the F-Test",
+          "BodyText": "The F-test evaluates whether the overall multiple regression model explains a statistically significant amount of variance in the outcome variable.",
+          "Notes": "A significant F-statistic (p \u003C 0.05) indicates that at least one predictor in the model has a meaningful relationship with the outcome, justifying the model\u0027s use.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "25fe8538-0f34-42f0-8f5f-a59b6bbaf1f0",
+              "Text": "The null hypothesis for the F-test states that all regression coefficients (except the intercept) are equal to zero, meaning no predictor explains the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a30e58c1-8849-4b4c-a2d5-c2ca1446b5d1",
+              "Text": "A large F-statistic and small p-value lead to rejection of the null hypothesis, confirming that the model as a whole is statistically significant.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "357dd609-822b-4f61-a6f3-3abeb5441080",
+              "Text": "The F-test result does not indicate which specific predictors are significant \u2014 individual t-tests address that question.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dd0fed6b-52a8-4c5b-be1f-f4c32105305a",
+              "Text": "Degrees of freedom for the F-test depend on the number of predictors and the sample size, both of which affect statistical power.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bf822d23-a1ea-4924-a3b9-758a35f9677e",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Checking Regression Assumptions",
+          "BodyText": "Valid interpretation of multiple regression results depends on satisfying key statistical assumptions about the data and residuals.",
+          "Notes": "Violations of assumptions, such as non-normality or heteroscedasticity, can lead to biased estimates and incorrect conclusions, but many can be diagnosed and addressed.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "6155343a-5603-4b11-bc6a-63ab0c734b47",
+              "Text": "Linearity assumes that the relationship between each predictor and the outcome is linear, which can be assessed through scatterplots or residual plots.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f08980d0-5ff0-4100-938b-fe93fc83b202",
+              "Text": "Independence of residuals is required, meaning the error terms should not be correlated with one another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "83c703d3-cd6d-4a0e-878a-64e5527d6421",
+              "Text": "Homoscedasticity assumes that residuals have constant variance across all levels of the predicted values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a5e6bb57-c732-4808-87ed-bd47696df705",
+              "Text": "Multicollinearity occurs when predictor variables are highly correlated with each other, which can inflate standard errors and destabilize coefficient estimates; Variance Inflation Factor (VIF) is commonly used to detect it.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4baab81a-f1fc-4e7a-b867-d11bf61d7551",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Refining the Model: Variable Selection Strategies",
+          "BodyText": "After an initial model is built, researchers often refine it by adding, removing, or transforming predictors to improve interpretability and predictive accuracy.",
+          "Notes": "Common strategies include stepwise regression (forward, backward, or both), hierarchical regression where predictors are entered in theoretically motivated blocks, and comparing nested models using statistical criteria.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "b3b51665-952a-40ea-ab7c-b9da010f7f6c",
+              "Text": "Forward selection begins with no predictors and adds them one at a time based on which contributes most significantly to model fit.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "808b86b8-53b3-44aa-972c-eff83134ab52",
+              "Text": "Backward elimination starts with all candidate predictors and removes the least significant one at each step until only significant predictors remain.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "60108bf5-5f36-4633-baab-4f1d8ff862ec",
+              "Text": "Information criteria such as AIC (Akaike Information Criterion) can be used to compare competing models and balance fit against complexity.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bfc3aaf3-2269-45de-89bc-1b0c710f243e",
+              "Text": "Theoretical and practical considerations should guide variable selection rather than relying solely on automated statistical procedures.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a2d35e22-ef81-4012-a5c5-8b63ecf17b92",
+          "TopicId": "adf2fd91-2d46-4016-967a-cbca371191de",
+          "Title": "Interpreting and Communicating Results",
+          "BodyText": "The final step in building a multiple regression model is translating statistical output into meaningful, actionable conclusions for a real-world audience.",
+          "Notes": "Presenting results in a clear table with coefficients, standard errors, and significance levels, along with a plain-language narrative, is considered best practice in applied research.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "ModifiedDate": "2026-08-24T20:37:45.0403828-04:00",
+          "Items": [
+            {
+              "Id": "bcb67180-e4f6-4388-a6c4-a08cd8fbda87",
+              "Text": "Each significant predictor should be interpreted in context, describing both the direction and magnitude of its relationship with the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9be695e3-9801-4b2f-932e-97ca15ddaa00",
+              "Text": "Confidence intervals around coefficient estimates provide additional information about the precision and plausible range of each effect.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7c8c7033-f1bb-452b-a366-8e5c001606d4",
+              "Text": "Researchers should acknowledge limitations such as sample size constraints, potential omitted variables, and the observational (non-causal) nature of the findings when appropriate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4a4cf5f8-0c31-4a37-a2d0-9062e65e2d3f",
+              "Text": "Visualizations such as partial regression plots or predicted value plots can help communicate complex relationships to non-technical audiences.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 32
+}

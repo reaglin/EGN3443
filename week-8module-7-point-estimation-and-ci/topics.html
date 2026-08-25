@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 8/Module 7 - Point Estimation and CI — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div>
+<h1>Week 8/Module 7 - Point Estimation and CI — Module Topics</h1>
+<h2>Introduction to Point Estimation</h2>
+<div class="summary">This topic introduces the concept of point estimation, explaining how sample statistics such as the sample mean and sample proportion serve as single-value estimates of unknown population parameters. Learners examine the properties that make a good estimator, including unbiasedness and efficiency.</div>
+<ul>
+<li><strong>What Is Point Estimation?</strong> <span class="el-body">— Point estimation is the process of using a single value, calculated from sample data, to estimate an unknown population parameter.</span></li>
+<li><strong>Sample Mean as a Point Estimator</strong> <span class="el-body">— The sample mean is one of the most widely used point estimators, serving as the best single-value estimate of the unknown population mean.</span></li>
+<li><strong>Sample Proportion as a Point Estimator</strong> <span class="el-body">— The sample proportion (p̂) is used to estimate the unknown population proportion (p) when the variable of interest is categorical.</span></li>
+<li><strong>The Property of Unbiasedness</strong> <span class="el-body">— An estimator is considered unbiased if its expected value equals the true population parameter it is estimating.</span></li>
+<li><strong>The Property of Efficiency</strong> <span class="el-body">— Efficiency refers to how much variability an estimator has across repeated samples, with a more efficient estimator producing estimates that cluster more tightly around the true parameter.</span></li>
+<li><strong>Evaluating What Makes a Good Estimator</strong> <span class="el-body">— A good point estimator balances multiple desirable properties, with unbiasedness and efficiency being two of the most fundamental criteria used to compare estimators.</span></li>
+</ul>
+<h2>Sampling Distributions and the Central Limit Theorem</h2>
+<div class="summary">This topic explores how sampling distributions underpin the logic of estimation, with a focus on the Central Limit Theorem and its role in justifying the use of normal-based methods. Learners examine how sample size and population variability affect the behavior of sample statistics.</div>
+<ul>
+<li><strong>What Is a Sampling Distribution?</strong> <span class="el-body">— A sampling distribution describes the probability distribution of a sample statistic computed from many repeated samples drawn from the same population.</span></li>
+<li><strong>The Central Limit Theorem (CLT)</strong> <span class="el-body">— The Central Limit Theorem states that, regardless of the population&#39;s distribution, the sampling distribution of the sample mean approaches a normal distribution as the sample size increases.</span></li>
+<li><strong>Mean and Standard Error of the Sampling Distribution</strong> <span class="el-body">— The sampling distribution of the sample mean has a mean equal to the population mean (μ) and a standard deviation known as the standard error (SE), equal to σ/√n.</span></li>
+<li><strong>Effect of Sample Size on the Sampling Distribution</strong> <span class="el-body">— Increasing the sample size reduces the standard error, causing the sampling distribution to become narrower and more concentrated around the population mean.</span></li>
+<li><strong>Effect of Population Variability on the Sampling Distribution</strong> <span class="el-body">— Higher population variability (larger σ) results in a larger standard error, making it harder to estimate the population mean precisely from any given sample.</span></li>
+<li><strong>CLT and the Justification for Normal-Based Inference</strong> <span class="el-body">— The Central Limit Theorem directly justifies the use of z-scores, z-tables, and normal-distribution-based confidence intervals when working with sample means from large samples.</span></li>
+</ul>
+<h2>Constructing Confidence Intervals for Means</h2>
+<div class="summary">This topic guides learners through the step-by-step process of building confidence intervals for population means, covering scenarios with known and unknown population standard deviations. The use of z-distributions and t-distributions is addressed based on applicable conditions.</div>
+<ul>
+<li><strong>Understanding the General Structure of a Confidence Interval for a Mean</strong> <span class="el-body">— A confidence interval for a population mean is built around a point estimate — the sample mean — with a margin of error added and subtracted to form a range of plausible values.</span></li>
+<li><strong>Using the Z-Distribution When the Population Standard Deviation Is Known</strong> <span class="el-body">— When the population standard deviation (σ) is known, the z-distribution is used to determine the critical value for constructing the confidence interval.</span></li>
+<li><strong>Using the T-Distribution When the Population Standard Deviation Is Unknown</strong> <span class="el-body">— In most real-world situations, the population standard deviation is unknown and must be estimated using the sample standard deviation (s), requiring the use of the t-distribution.</span></li>
+<li><strong>Determining Degrees of Freedom and Selecting the Correct T Critical Value</strong> <span class="el-body">— When using the t-distribution, the appropriate critical value (t*) is determined by both the desired confidence level and the degrees of freedom associated with the sample.</span></li>
+<li><strong>Step-by-Step Process for Constructing a Confidence Interval for a Mean</strong> <span class="el-body">— Constructing a confidence interval follows a systematic sequence of steps that ensures the correct distribution, formula, and interpretation are applied.</span></li>
+<li><strong>Factors That Affect the Width of a Confidence Interval for a Mean</strong> <span class="el-body">— The width of a confidence interval is influenced by the confidence level chosen, the variability in the data, and the size of the sample collected.</span></li>
+</ul>
+<h2>Constructing Confidence Intervals for Proportions</h2>
+<div class="summary">This topic extends confidence interval methods to population proportions, outlining the conditions required for valid inference and the formula for the margin of error. Learners apply these techniques to practical examples involving categorical data.</div>
+<ul>
+<li><strong>What Is a Proportion and When Do We Estimate It?</strong> <span class="el-body">— A population proportion (p) represents the fraction of individuals in a population that possess a particular characteristic, such as voters supporting a candidate or customers preferring a product.</span></li>
+<li><strong>Conditions Required for Valid Proportion Inference</strong> <span class="el-body">— Before constructing a confidence interval for a proportion, three key conditions must be satisfied to ensure the sampling distribution of p̂ is approximately normal.</span></li>
+<li><strong>The Confidence Interval Formula for Proportions</strong> <span class="el-body">— Once conditions are met, a confidence interval for a population proportion is constructed using the sample proportion plus or minus a margin of error based on the standard error of p̂.</span></li>
+<li><strong>Understanding and Computing the Margin of Error</strong> <span class="el-body">— The margin of error (ME) in a proportion confidence interval quantifies how much the sample proportion is expected to vary from the true population proportion at a given confidence level.</span></li>
+<li><strong>Interpreting the Confidence Interval for a Proportion</strong> <span class="el-body">— Correct interpretation of a proportion confidence interval communicates both the range of plausible values and the meaning of the confidence level in the context of repeated sampling.</span></li>
+<li><strong>Applying Proportion Confidence Intervals to Practical Examples</strong> <span class="el-body">— Proportion confidence intervals are widely used with categorical survey and observational data, allowing analysts to draw conclusions about population-level characteristics from sample results.</span></li>
+</ul>
+<h2>Interpreting Confidence Intervals</h2>
+<div class="summary">This topic focuses on the correct interpretation of confidence intervals, clarifying common misconceptions about what a confidence level means in practice. Learners develop the ability to communicate the precision and uncertainty of estimates in context.</div>
+<ul>
+<li><strong>What a Confidence Level Actually Means</strong> <span class="el-body">— A confidence level (e.g., 95%) describes the long-run reliability of the interval construction process, not the probability that any single interval contains the true parameter.</span></li>
+<li><strong>Common Misconceptions About Confidence Intervals</strong> <span class="el-body">— Several persistent misinterpretations of confidence intervals arise in practice and must be explicitly recognized and corrected.</span></li>
+<li><strong>Correct Language for Communicating Confidence Intervals</strong> <span class="el-body">— Precise, context-appropriate language is essential when reporting confidence intervals to accurately convey the meaning of the estimate and its associated uncertainty.</span></li>
+<li><strong>Linking Interval Width to Precision and Uncertainty</strong> <span class="el-body">— The width of a confidence interval communicates how precisely the population parameter has been estimated — narrower intervals indicate greater precision.</span></li>
+<li><strong>Confidence Intervals in Context: Practical Significance</strong> <span class="el-body">— Interpreting a confidence interval requires situating it within the real-world context of the problem, not just reporting numerical bounds.</span></li>
+</ul>
+<h2>Factors Affecting Precision and Margin of Error</h2>
+<div class="summary">This topic examines how confidence level, sample size, and population variability interact to determine the width of a confidence interval and overall estimate precision. Learners evaluate trade-offs involved in designing studies to achieve desired levels of accuracy.</div>
+<ul>
+<li><strong>The Margin of Error: Definition and Role</strong> <span class="el-body">— The margin of error quantifies the maximum expected difference between a sample estimate and the true population parameter, defining the half-width of a confidence interval.</span></li>
+<li><strong>Impact of Confidence Level on Interval Width</strong> <span class="el-body">— The chosen confidence level directly determines the critical value used in constructing an interval, and higher confidence levels produce wider intervals.</span></li>
+<li><strong>Impact of Sample Size on Precision</strong> <span class="el-body">— Sample size is one of the most controllable factors affecting interval width; larger samples reduce the standard error and produce narrower, more precise confidence intervals.</span></li>
+<li><strong>Role of Population Variability</strong> <span class="el-body">— Population variability, measured by the standard deviation, reflects how spread out individual values are, and greater variability leads to wider confidence intervals.</span></li>
+<li><strong>Trade-offs in Study Design: Precision vs. Cost</strong> <span class="el-body">— Achieving high precision requires careful balancing of confidence level, sample size, and resource constraints, as increasing precision typically increases study cost and effort.</span></li>
+<li><strong>Determining Required Sample Size</strong> <span class="el-body">— Before collecting data, researchers can use the desired margin of error and confidence level to calculate the minimum sample size needed to achieve target precision.</span></li>
+<li><strong>Interpreting Precision in Context</strong> <span class="el-body">— A precise confidence interval is only meaningful when its width is evaluated relative to the practical or clinical significance of the question being studied.</span></li>
+</ul>
+<h2>Applying Estimation in Real-World Data Analysis</h2>
+<div class="summary">This topic integrates point estimation and confidence interval concepts through applied examples and guided exercises drawn from real-world contexts. Learners critically assess the reliability of estimates and make evidence-based conclusions from sample data.</div>
+<ul>
+<li><strong>Identifying the Right Estimator for the Context</strong> <span class="el-body">— Before performing estimation, analysts must determine whether the research question calls for a point estimate, a confidence interval, or both, and whether the parameter of interest is a mean or a proportion.</span></li>
+<li><strong>Extracting Point Estimates from Sample Data</strong> <span class="el-body">— A point estimate condenses sample data into a single value that serves as the best guess for an unknown population parameter, such as using the sample mean as an estimate of the population mean.</span></li>
+<li><strong>Constructing Confidence Intervals from Real Data</strong> <span class="el-body">— Confidence intervals extend point estimates by providing a range of plausible values for the population parameter, built using the point estimate, standard error, and a critical value corresponding to the chosen confidence level.</span></li>
+<li><strong>Interpreting Confidence Intervals as Evidence</strong> <span class="el-body">— Interpreting a confidence interval correctly is critical: a 95% CI means that if the sampling process were repeated many times, 95% of the resulting intervals would contain the true population parameter.</span></li>
+<li><strong>Assessing Estimate Reliability and Precision</strong> <span class="el-body">— Reliability and precision of an estimate are evaluated by examining interval width, sample size adequacy, and whether the sampling method supports valid generalization to the population.</span></li>
+<li><strong>Making Evidence-Based Conclusions from Sample Data</strong> <span class="el-body">— The ultimate goal of estimation is to support defensible, data-driven conclusions about a population, using both the point estimate and the confidence interval to frame the strength and limitations of the evidence.</span></li>
+<li><strong>Guided Application: Working Through a Real-World Estimation Problem</strong> <span class="el-body">— Applying estimation concepts end-to-end on a real dataset reinforces all prior skills: selecting the estimator, computing the point estimate, constructing the interval, and stating a conclusion.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

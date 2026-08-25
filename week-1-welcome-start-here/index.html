@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 1_Welcome- Start Here | EGN3443 Prob and Stats for Engineers</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.82;
+      margin-bottom: 0.55rem;
+      font-weight: 500;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    header p.intro {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 0.97rem;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    /* ── Main Container ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: #5a7a99;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #d6e4f0;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce8f4;
+      border-radius: 10px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(29, 90, 150, 0.13);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card — Type Badge ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* Badge colour by type */
+    .badge-module-topics    { background: #e8f4fd; color: #1a6fae; }
+    .badge-topic-overview   { background: #eaf7ee; color: #1e7e45; }
+    .badge-text-content     { background: #f3f0fb; color: #5b3da8; }
+    .badge-quiz             { background: #fff4e0; color: #b36200; }
+    .badge-assignment       { background: #fde8f0; color: #a81d4e; }
+    .badge-default          { background: #eef1f5; color: #4a5568; }
+
+    .file-type-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #7a94ab;
+      background: #f0f5fa;
+      border: 1px solid #d6e4f0;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Card — Title row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-title a {
+      color: #1a6fae;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.18s;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      border-bottom-color: #1a6fae;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #5a7a99;
+      text-decoration: none;
+      background: #eef4fb;
+      border: 1px solid #c5d9ee;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.18s, color 0.18s;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #d4e7f8;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    /* ── Card — Description ── */
+    .card-description {
+      font-size: 0.88rem;
+      color: #4a6070;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8fa5bb;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dce8f4;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1rem 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header>
+    <p class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</p>
+    <h1>Week 1 &mdash; Welcome: Start Here</h1>
+    <p class="intro">
+      Welcome to the first week of EGN3443! This module orients you to the course: what to expect,
+      how to navigate the platform, the tools you will use, and how to connect with your classmates.
+      Review each resource below before moving on to Week 2.
+    </p>
+  </header>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 6 items</p>
+
+    <div class="card-grid">
+
+      <!-- ── Card 1: Module Topics ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-module-topics">Module Topics</span>
+          <span class="file-type-tag">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" title="Open raw source file">source file</a>
+        </div>
+        <p class="card-description">
+          Outlines the key topics covered in the Week 1 welcome module, including course purpose,
+          navigation, platform orientation, and participation expectations, serving as a structural
+          overview for both learners and instructors.
+        </p>
+      </article>
+
+      <!-- ── Card 2: Overview of Topics ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-topic-overview">Topic Overview</span>
+          <span class="file-type-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Overview_of_Topics.html">Overview of Topics</a>
+          </span>
+        </div>
+        <p class="card-description">
+          Presents the full 15-week course schedule for EGN3443, detailing weekly topics from
+          introductory probability and statistics concepts through advanced engineering applications,
+          giving learners and instructors a semester-long roadmap.
+        </p>
+      </article>
+
+      <!-- ── Card 3: Report Template ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="file-type-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Report_Template.html">Report Template</a>
+          </span>
+        </div>
+        <p class="card-description">
+          Provides a standardized report template with required sections (title, name, date,
+          introduction, problem statement, etc.) that students must follow when formatting and
+          submitting all course assignments.
+        </p>
+      </article>
+
+      <!-- ── Card 4: Software for the Class ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="file-type-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Software_for_the_Class.html">Software for the Class</a>
+          </span>
+        </div>
+        <p class="card-description">
+          Introduces the two required software tools for the course&mdash;R and Python&mdash;explaining
+          installation and online access options so students can set up their programming environment
+          for statistical analysis work throughout the semester.
+        </p>
+      </article>
+
+      <!-- ── Card 5: Quiz Question Bank ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-quiz">Quiz</span>
+          <span class="file-type-tag">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="quiz/index.html">Quiz Question Bank (10 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json" title="Open raw source file">source file</a>
+        </div>
+        <p class="card-description">
+          A 10-question quiz drawing from the course syllabus that tests students&#x27; knowledge of
+          course modality, grading breakdown, instructor contact methods, learning outcomes, and
+          AI usage policy.
+        </p>
+      </article>
+
+      <!-- ── Card 6: This is Me! ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-assignment">Assignment</span>
+          <span class="file-type-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="assignments/index.html">This is Me!</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A Week 1 discussion assignment prompting students to introduce themselves by sharing their
+          name, background, major, work experience, and prior knowledge relevant to the course,
+          intended to build classroom community.
+        </p>
+      </article>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <p>EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 1: Welcome &mdash; Start Here</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 12 Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div><h1 level="1">Polynomial Regression for Material Strength Analysis: Detailed Methodology</h1>
+<h2 level="2">1. Data Exploration and Problem Understanding</h2>
+<p>The data shows a clear non-linear relationship between temperature and tensile strength in our composite material, which follows a pattern common in materials science: strength increases with temperature up to a point, then decreases as temperature continues to rise. This parabolic relationship makes polynomial regression an ideal choice.</p>
+<p><code>temp = np.array([25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300]) </code><br><code>strength = np.array([420, 530, 625, 700, 710, 680, 630, 550, 480, 380, 270, 150]) </code></p>
+<h2 level="2"><img src="Module_12_Sample_Problem_3_files/image_71538581431745258888896_20250421181020531.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></h2>
+<h2 level="2">2. Polynomial Regression Methodology</h2>
+<p>Polynomial regression extends linear regression by adding polynomial terms to the predictor variable. The general form is:</p>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mi>x</mi><mo>+</mo><msub><mi>β</mi><mn>2</mn></msub><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msub><mi>β</mi><mn>3</mn></msub><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>+</mo><msub><mi>β</mi><mi>n</mi></msub><msup><mi>x</mi><mi>n</mi></msup><mo>+</mo><mi>ϵ</mi></mrow><annotation encoding="application/x-tex" data-d2l-attr-encoding="application/x-tex">y = \beta_0 + \beta_1x + \beta_2x^2 + \beta_3x^3 + ... + \beta_nx^n + \epsilon</annotation></semantics></math><span aria-hidden="true">y=β0​+β1​x+β2​x2+β3​x3+...+βn​xn+ϵ</span></p>
+<p>Where:</p>
+<ul depth="0">
+<li index="0">$y$ is the response variable (tensile strength)</li>
+<li index="1">$x$ is the predictor variable (temperature)</li>
+<li index="2">$\beta_0$ is the intercept</li>
+<li index="3">$\beta_1, \beta_2, ..., \beta_n$ are coefficients</li>
+<li index="4">$\epsilon$ is the error term</li>
+</ul>
+<p>While polynomial regression introduces non-linearity, it's actually still a form of multiple linear regression where the transformed features (powers of x) are treated as separate predictor variables. The fitting process still uses ordinary least squares (OLS) to minimize the sum of squared residuals.</p>
+<h2 level="2">3. Model Selection</h2>
+<p>Four different polynomial degrees were evaluated:</p>
+<ul depth="0">
+<li index="0"><strong>Degree 1</strong>: Simple linear regression (underfitting)</li>
+<li index="1"><strong>Degree 2</strong>: Quadratic polynomial</li>
+<li index="2"><strong>Degree 3</strong>: Cubic polynomial</li>
+<li index="3"><strong>Degree 4</strong>: Quartic polynomial</li>
+</ul>
+<p>The evaluation metrics showed:</p>
+<ul depth="0">
+<li index="0"><strong>Degree 1</strong>: Clear underfitting, unable to capture the curvature (R² ≈ 0.38)</li>
+<li index="1"><strong>Degree 2</strong>: Good fit to the data pattern (R² ≈ 0.97)</li>
+<li index="2"><strong>Degree 3</strong>: Slightly better fit (R² ≈ 0.98) but added complexity</li>
+<li index="3"><strong>Degree 4</strong>: Risk of overfitting, following noise rather than pattern</li>
+</ul>
+<p>Degree 2 was selected as the optimal model based on the principle of parsimony (Occam's razor) - it adequately captured the relationship while maintaining simplicity.</p>
+<h2 level="2">4. Mathematical Model</h2>
+<p>The final quadratic model had the form:</p>
+<p><span aria-hidden="true">TensileStrength=255.40+6.7522×Temperature−0.0271×Temperature^2</span></p>
+<p>This equation captures the parabolic relationship between temperature and tensile strength.</p>
+<p></p>
+<h2 level="2">5. Engineering Significance</h2>
+<p>From the model, we can derive important insights:</p>
+<ol depth="0">
+<li index="0"><strong>Optimal Processing Temperature</strong>:
+<ul depth="1">
+<li index="0">The tensile strength reaches its maximum at approximately 124.5°C</li>
+<li index="1">Maximum predicted strength: 707.1 MPa</li>
+</ul>
+</li>
+<li index="1"><strong>Temperature Sensitivity</strong>:
+<ul depth="1">
+<li index="0">Below optimal: Strength increases by approximately 6.75 MPa per °C (minus squared term adjustment)</li>
+<li index="1">Above optimal: Strength decreases at an accelerating rate</li>
+</ul>
+</li>
+<li index="2"><strong>Processing Window</strong>:
+<ul depth="1">
+<li index="0">The material maintains ≥95% of its maximum strength between 95°C and 155°C</li>
+<li index="1">This defines the optimal processing window for manufacturing</li>
+</ul>
+</li>
+</ol>
+<h2 level="2">6. Comparison Between Python and R Implementations</h2>
+<p>Both implementations produced nearly identical results, with slight differences attributed to:</p>
+<ul depth="0">
+<li index="0">Numerical precision differences in computation</li>
+<li index="1">Implementation details of polynomial features generation</li>
+<li index="2">Default optimization parameters in each language's regression algorithms</li>
+</ul>
+<h2 level="2">7. Engineering Applications</h2>
+<p>This model enables:</p>
+<ol depth="0">
+<li index="0"><strong>Quality Control</strong>: Setting temperature specifications for manufacturing processes</li>
+<li index="1"><strong>Performance Prediction</strong>: Estimating material performance under different operating conditions</li>
+<li index="2"><strong>Design Constraints</strong>: Determining temperature limits for applications using this material</li>
+<li index="3"><strong>Process Optimization</strong>: Tuning manufacturing parameters to achieve maximum strength</li>
+</ol>
+<h2 level="2">8. Model Limitations</h2>
+<ol depth="0">
+<li index="0"><strong>Range Validity</strong>: The model should not be extrapolated far beyond the measured temperature range (25-300°C)</li>
+<li index="1"><strong>Single Factor</strong>: The model only accounts for temperature effects, ignoring other factors like humidity, pressure, or material batch variations</li>
+<li index="2"><strong>Static Analysis</strong>: The model doesn't account for time-dependent effects like thermal fatigue</li>
+</ol>
+<h2 level="2">9. Further Research Directions</h2>
+<p>To enhance this engineering analysis:</p>
+<ol depth="0">
+<li index="0">Collect data on additional variables (humidity, pressure, etc.)</li>
+<li index="1">Develop multivariate models incorporating these additional factors</li>
+<li index="2">Analyze the time-dependent behavior of the material</li>
+<li index="3">Investigate the relationship between microstructure and macroscopic properties</li>
+</ol>
+<h2 level="2">10. Conclusion</h2>
+<p>The quadratic polynomial regression model effectively captures the relationship between temperature and tensile strength in this composite material, providing valuable engineering insights for manufacturing process optimization and material application guidelines.</p>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/1JhYfvsN_dGEIVyDczWoTZPEaWYws_ahG?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>from sklearn.preprocessing import PolynomialFeatures</code><br><code>from sklearn.linear_model import LinearRegression</code><br><code>from sklearn.metrics import mean_squared_error, r2_score</code><br><code>from sklearn.model_selection import train_test_split</code></p>
+<p><code># Create dataset</code><br><code>temp = np.array([25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300])</code><br><code>strength = np.array([420, 530, 625, 700, 710, 680, 630, 550, 480, 380, 270, 150])</code></p>
+<p><code># Create a dataframe for easier manipulation</code><br><code>df = pd.DataFrame({'Temperature': temp, 'TensileStrength': strength})</code></p>
+<p><code># Exploratory Data Analysis</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(df['Temperature'], df['TensileStrength'], color='blue', s=60)</code><br><code>plt.title('Temperature vs Tensile Strength', fontsize=16)</code><br><code>plt.xlabel('Temperature (°C)', fontsize=14)</code><br><code>plt.ylabel('Tensile Strength (MPa)', fontsize=14)</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.savefig('raw_data_scatter.png', dpi=300, bbox_inches='tight')</code><br><code>plt.show()</code></p>
+<p><code># Compare different polynomial degrees</code><br><code>degrees = [1, 2, 3, 4]</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code>X = temp.reshape(-1, 1)</code><br><code>X_range = np.linspace(min(temp), max(temp), 100).reshape(-1, 1)</code></p>
+<p><code>for i, degree in enumerate(degrees):</code><br><code>&nbsp; &nbsp; # Create polynomial features</code><br><code>&nbsp; &nbsp; poly_features = PolynomialFeatures(degree=degree)</code><br><code>&nbsp; &nbsp; X_poly = poly_features.fit_transform(X)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Fit polynomial regression</code><br><code>&nbsp; &nbsp; poly_reg = LinearRegression()</code><br><code>&nbsp; &nbsp; poly_reg.fit(X_poly, strength)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Calculate metrics</code><br><code>&nbsp; &nbsp; y_pred = poly_reg.predict(X_poly)</code><br><code>&nbsp; &nbsp; r2 = r2_score(strength, y_pred)</code><br><code>&nbsp; &nbsp; rmse = np.sqrt(mean_squared_error(strength, y_pred))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Make predictions on a range for smoother curve</code><br><code>&nbsp; &nbsp; X_range_poly = poly_features.transform(X_range)</code><br><code>&nbsp; &nbsp; y_range_pred = poly_reg.predict(X_range_poly)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Plot the polynomial regression model</code><br><code>&nbsp; &nbsp; plt.subplot(2, 2, i+1)</code><br><code>&nbsp; &nbsp; plt.scatter(temp, strength, color='blue', s=50, alpha=0.7)</code><br><code>&nbsp; &nbsp; plt.plot(X_range, y_range_pred, color='red', linewidth=2)</code><br><code>&nbsp; &nbsp; plt.title(f'Polynomial Degree {degree}\nR² = {r2:.4f}, RMSE = {rmse:.2f}', fontsize=12)</code><br><code>&nbsp; &nbsp; plt.xlabel('Temperature (°C)', fontsize=10)</code><br><code>&nbsp; &nbsp; plt.ylabel('Tensile Strength (MPa)', fontsize=10)</code><br><code>&nbsp; &nbsp; plt.grid(True, alpha=0.3)</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.savefig('polynomial_comparison.png', dpi=300, bbox_inches='tight')</code><br><code>plt.show()</code></p>
+<p><code># Based on visual inspection and metrics, degree 2 seems appropriate</code><br><code># Let's fit the final model with degree 2</code><br><code>degree = 2</code><br><code>poly_features = PolynomialFeatures(degree=degree)</code><br><code>X_poly = poly_features.fit_transform(X)</code></p>
+<p><code># Fit the model</code><br><code>poly_reg = LinearRegression()</code><br><code>poly_reg.fit(X_poly, strength)</code></p>
+<p><code># Get model coefficients</code><br><code>coefficients = poly_reg.coef_</code><br><code>intercept = poly_reg.intercept_</code></p>
+<p><code>print(f"Intercept: {intercept:.4f}")</code><br><code>for i, coef in enumerate(coefficients[1:], 1): &nbsp;# Skip the intercept term</code><br><code>&nbsp; &nbsp; if i == 1:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; print(f"Coefficient for x: {coef:.4f}")</code><br><code>&nbsp; &nbsp; else:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; print(f"Coefficient for x^{i}: {coef:.4f}")</code></p>
+<p><code># Predict values for visualization</code><br><code>X_range = np.linspace(0, 350, 100).reshape(-1, 1)</code><br><code>X_range_poly = poly_features.transform(X_range)</code><br><code>y_range_pred = poly_reg.predict(X_range_poly)</code></p>
+<p><code># Create final visualization</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(temp, strength, color='blue', s=60, label='Actual Data')</code><br><code>plt.plot(X_range, y_range_pred, color='red', linewidth=3, label='Polynomial Regression (degree=2)')</code></p>
+<p><code># Annotate the polynomial equation</code><br><code>equation = f'y = {intercept:.2f} + {coefficients[1]:.4f}x + {coefficients[2]:.6f}x²'</code><br><code>plt.annotate(equation, xy=(0.05, 0.95), xycoords='axes fraction', fontsize=12,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))</code></p>
+<p><code># Calculate R² for annotation</code><br><code>y_pred = poly_reg.predict(X_poly)</code><br><code>r2 = r2_score(strength, y_pred)</code><br><code>rmse = np.sqrt(mean_squared_error(strength, y_pred))</code><br><code>plt.annotate(f'R² = {r2:.4f}\nRMSE = {rmse:.2f}', xy=(0.75, 0.15), xycoords='axes fraction',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;fontsize=12, bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))</code></p>
+<p><code># Identify optimal temperature for maximum strength</code><br><code>optimal_temp = -coefficients[1] / (2 * coefficients[2])</code><br><code>max_strength = poly_reg.predict(poly_features.fit_transform(np.array([[optimal_temp]])))[0]</code><br><code>plt.scatter([optimal_temp], [max_strength], color='green', s=100, marker='*',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label=f'Optimal Temperature: {optimal_temp:.1f}°C')</code><br><code>plt.annotate(f'Maximum Strength: {max_strength:.1f} MPa',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; xy=(optimal_temp, max_strength), xytext=(optimal_temp-50, max_strength+30),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; arrowprops=dict(facecolor='black', shrink=0.05, width=1.5))</code></p>
+<p><code>plt.title('Polynomial Regression Model: Temperature vs Tensile Strength', fontsize=16)</code><br><code>plt.xlabel('Temperature (°C)', fontsize=14)</code><br><code>plt.ylabel('Tensile Strength (MPa)', fontsize=14)</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.legend(loc='upper right')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('final_polynomial_model.png', dpi=300, bbox_inches='tight')</code><br><code>plt.show()</code></p>
+<p><code># Create a function to predict tensile strength at any temperature</code><br><code>def predict_strength(temperature):</code><br><code>&nbsp; &nbsp; temp_array = np.array([[temperature]])</code><br><code>&nbsp; &nbsp; temp_poly = poly_features.transform(temp_array)</code><br><code>&nbsp; &nbsp; return poly_reg.predict(temp_poly)[0]</code></p>
+<p><code># Example predictions</code><br><code>test_temps = [60, 110, 180, 260]</code><br><code>print("\nPredictions for specific temperatures:")</code><br><code>for temp in test_temps:</code><br><code>&nbsp; &nbsp; predicted = predict_strength(temp)</code><br><code>&nbsp; &nbsp; print(f"At {temp}°C, predicted tensile strength = {predicted:.2f} MPa")</code></p>
+<h2>Solution in R</h2>
+<p><code># Load required libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(gridExtra)</code></p>
+<p><code># Create dataset</code><br><code>temperature &lt;- c(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300)</code><br><code>tensile_strength &lt;- c(420, 530, 625, 700, 710, 680, 630, 550, 480, 380, 270, 150)</code></p>
+<p><code># Create dataframe</code><br><code>df &lt;- data.frame(</code><br><code>&nbsp; Temperature = temperature,</code><br><code>&nbsp; TensileStrength = tensile_strength</code><br><code>)</code></p>
+<p><code># Initial data visualization</code><br><code>p &lt;- ggplot(df, aes(x = Temperature, y = TensileStrength)) +</code><br><code>&nbsp; geom_point(size = 3, color = "blue") +</code><br><code>&nbsp; ggtitle("Temperature vs Tensile Strength") +</code><br><code>&nbsp; xlab("Temperature (°C)") +</code><br><code>&nbsp; ylab("Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(</code><br><code>&nbsp; &nbsp; plot.title = element_text(size = 16, face = "bold"),</code><br><code>&nbsp; &nbsp; axis.title = element_text(size = 14),</code><br><code>&nbsp; &nbsp; axis.text = element_text(size = 12)</code><br><code>&nbsp; )</code><br><code>print(p)</code><br><code>ggsave("raw_data_scatter_r.png", width = 10, height = 6, dpi = 300)</code></p>
+<p><code># Fit polynomial models of different degrees and calculate metrics</code><br><code>calculate_metrics &lt;- function(model, data) {</code><br><code>&nbsp; predictions &lt;- predict(model, data)</code><br><code>&nbsp; residuals &lt;- data$TensileStrength - predictions</code><br><code>&nbsp; rmse &lt;- sqrt(mean(residuals^2))</code><br><code>&nbsp; r_squared &lt;- summary(model)$r.squared</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; return(list(rmse = rmse, r_squared = r_squared))</code><br><code>}</code></p>
+<p><code># Create comparison plots for different polynomial degrees</code><br><code>plots &lt;- list()</code><br><code>models &lt;- list()</code><br><code>metrics &lt;- data.frame(Degree = 1:4, RMSE = NA, R_squared = NA)</code></p>
+<p><code>for (degree in 1:4) {</code><br><code>&nbsp; formula &lt;- as.formula(paste("TensileStrength ~ poly(Temperature,", degree, ", raw = TRUE)"))</code><br><code>&nbsp; model &lt;- lm(formula, data = df)</code><br><code>&nbsp; models[[degree]] &lt;- model</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Calculate metrics</code><br><code>&nbsp; model_metrics &lt;- calculate_metrics(model, df)</code><br><code>&nbsp; metrics[degree, "RMSE"] &lt;- model_metrics$rmse</code><br><code>&nbsp; metrics[degree, "R_squared"] &lt;- model_metrics$r_squared</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Create smooth prediction line</code><br><code>&nbsp; new_data &lt;- data.frame(Temperature = seq(min(temperature), max(temperature), length.out = 100))</code><br><code>&nbsp; predictions &lt;- predict(model, newdata = new_data)</code><br><code>&nbsp; pred_df &lt;- data.frame(Temperature = new_data$Temperature, TensileStrength = predictions)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Create plot</code><br><code>&nbsp; p &lt;- ggplot(df, aes(x = Temperature, y = TensileStrength)) +</code><br><code>&nbsp; &nbsp; geom_point(size = 3, color = "blue", alpha = 0.7) +</code><br><code>&nbsp; &nbsp; geom_line(data = pred_df, aes(x = Temperature, y = TensileStrength),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color = "red", size = 1) +</code><br><code>&nbsp; &nbsp; ggtitle(paste0("Polynomial Degree ", degree,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "\nR² = ", round(model_metrics$r_squared, 4),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ", RMSE = ", round(model_metrics$rmse, 2))) +</code><br><code>&nbsp; &nbsp; xlab("Temperature (°C)") +</code><br><code>&nbsp; &nbsp; ylab("Tensile Strength (MPa)") +</code><br><code>&nbsp; &nbsp; theme_minimal() +</code><br><code>&nbsp; &nbsp; theme(</code><br><code>&nbsp; &nbsp; &nbsp; plot.title = element_text(size = 12),</code><br><code>&nbsp; &nbsp; &nbsp; axis.title = element_text(size = 10)</code><br><code>&nbsp; &nbsp; )</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; plots[[degree]] &lt;- p</code><br><code>}</code></p>
+<p><code># Arrange comparison plots in a grid</code><br><code>grid.arrange(grobs = plots, ncol = 2)</code><br><code>ggsave("polynomial_comparison_r.png", arrangeGrob(grobs = plots, ncol = 2),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;width = 12, height = 8, dpi = 300)</code></p>
+<p><code># Print metrics table</code><br><code>print(metrics)</code></p>
+<p><code># Based on visual inspection and metrics, degree 2 seems appropriate</code><br><code># Get the chosen model</code><br><code>chosen_degree &lt;- 2</code><br><code>final_model &lt;- models[[chosen_degree]]</code><br><code>summary(final_model)</code></p>
+<p><code># Extract coefficients</code><br><code>coeffs &lt;- coef(final_model)</code><br><code>intercept &lt;- coeffs[1]</code><br><code>x_coef &lt;- coeffs[2]</code><br><code>x2_coef &lt;- coeffs[3]</code></p>
+<p><code># Calculate optimal temperature for maximum strength</code><br><code>optimal_temp &lt;- -x_coef / (2 * x2_coef)</code><br><code>max_strength &lt;- predict(final_model, newdata = data.frame(Temperature = optimal_temp))</code></p>
+<p><code># Create prediction data frame for plotting</code><br><code>pred_data &lt;- data.frame(Temperature = seq(0, 350, length.out = 100))</code><br><code>pred_data$TensileStrength &lt;- predict(final_model, newdata = pred_data)</code></p>
+<p><code># Create final visualization</code><br><code>equation_text &lt;- paste0("y = ", round(intercept, 2), " + ",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; round(x_coef, 4), "x + ",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; round(x2_coef, 6), "x²")</code></p>
+<p><code>final_plot &lt;- ggplot(df, aes(x = Temperature, y = TensileStrength)) +</code><br><code>&nbsp; geom_point(size = 3, color = "blue") +</code><br><code>&nbsp; geom_line(data = pred_data, aes(x = Temperature, y = TensileStrength),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color = "red", size = 1.2) +</code><br><code>&nbsp; geom_point(aes(x = optimal_temp, y = max_strength),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = "green", size = 5, shape = 8) +</code><br><code>&nbsp; annotate("text", x = optimal_temp, y = max_strength + 50,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste0("Optimal Temperature: ", round(optimal_temp, 1), "°C\n",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"Maximum Strength: ", round(max_strength, 1), " MPa"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hjust = 0.5, size = 4) +</code><br><code>&nbsp; annotate("text", x = 50, y = 200,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = equation_text,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hjust = 0, size = 4) +</code><br><code>&nbsp; annotate("text", x = 250, y = 650,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste0("R² = ", round(metrics$R_squared[chosen_degree], 4), "\n",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"RMSE = ", round(metrics$RMSE[chosen_degree], 2)),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hjust = 0, size = 4) +</code><br><code>&nbsp; ggtitle("Polynomial Regression Model: Temperature vs Tensile Strength") +</code><br><code>&nbsp; xlab("Temperature (°C)") +</code><br><code>&nbsp; ylab("Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(</code><br><code>&nbsp; &nbsp; plot.title = element_text(size = 16, face = "bold"),</code><br><code>&nbsp; &nbsp; axis.title = element_text(size = 14),</code><br><code>&nbsp; &nbsp; axis.text = element_text(size = 12)</code><br><code>&nbsp; )</code></p>
+<p><code>print(final_plot)</code><br><code>ggsave("final_polynomial_model_r.png", width = 10, height = 6, dpi = 300)</code></p>
+<p><code># Create a function to predict tensile strength at any temperature</code><br><code>predict_strength &lt;- function(temp) {</code><br><code>&nbsp; predict(final_model, newdata = data.frame(Temperature = temp))</code><br><code>}</code></p>
+<p><code># Example predictions</code><br><code>test_temps &lt;- c(60, 110, 180, 260)</code><br><code>predictions &lt;- sapply(test_temps, predict_strength)</code></p>
+<p><code># Print predictions</code><br><code>cat("\nPredictions for specific temperatures:\n")</code><br><code>for (i in 1:length(test_temps)) {</code><br><code>&nbsp; cat(sprintf("At %d°C, predicted tensile strength = %.2f MPa\n",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; test_temps[i], predictions[i]))</code><br><code>}</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

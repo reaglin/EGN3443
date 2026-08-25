@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 9 Sample Problem 4</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div><h1>Module 9 Sample Problem 4</h1><h2 level="2">Problem Statement</h2>
+<p>An aerospace manufacturing company produces titanium alloy components for aircraft engines. Quality engineers need to ensure that the tensile strength of these components has consistent variance across different manufacturing batches, as excessive variability could lead to safety concerns.</p>
+<p>The quality team collected tensile strength measurements (in MPa) from samples of 25 components from each of three manufacturing batches. They want to determine:</p>
+<ol depth="0">
+<li index="0">If the variance of tensile strength in Batch A is significantly different from a historically accepted variance of 225 MPa²</li>
+<li index="1">If the variances of tensile strength across all three batches are homogeneous</li>
+</ol>
+<h2 level="2">Statistical Framework</h2>
+<p>For these questions, chi-squared tests for variance are appropriate:</p>
+<ul depth="0">
+<li index="0">For comparing a sample variance to a known population variance (Question 1)</li>
+<li index="1">For testing homogeneity of variances across multiple samples (Question 2)</li>
+</ul>
+<h2 level="2">Analysis and Methodology</h2>
+<h3 level="3">Statistical Framework Explanation</h3>
+<h4 level="4">Chi-Squared Test for a Single Variance</h4>
+<p>When comparing a sample variance to a known variance (like our historical reference), we use the chi-squared test statistic:</p>
+<p>χ² = (n-1)s²/σ²</p>
+<p>Where:</p>
+<ul depth="0">
+<li index="0">n = sample size</li>
+<li index="1">s² = sample variance</li>
+<li index="2">σ² = known or reference variance</li>
+</ul>
+<p>Under the null hypothesis (H₀: σ² = σ₀²), this statistic follows a chi-squared distribution with n-1 degrees of freedom.</p>
+<h4 level="4">Tests for Homogeneity of Variances (Multiple Samples)</h4>
+<p>For comparing variances across multiple samples, we implemented:</p>
+<ol depth="0">
+<li index="0"><strong>Bartlett's Test</strong>: Tests if k samples have equal variances
+<ul depth="1">
+<li index="0">Sensitive to normality assumptions</li>
+<li index="1">Appropriate when data is normally distributed</li>
+</ul>
+</li>
+<li index="1"><strong>Levene's Test/Fligner-Killeen Test</strong>: Alternative tests that are more robust against non-normality</li>
+</ol>
+<h3 level="3">Interpreting the Results</h3>
+<p>For our aerospace example:</p>
+<h4 level="4">Test 1: Single Variance Test</h4>
+<ul depth="0">
+<li index="0">Compares Batch A's variance against the historical standard of 225 MPa²</li>
+<li index="1">The chi-squared statistic and p-value determine if the difference is statistically significant</li>
+<li index="2">If p-value &lt; α (typically 0.05), we reject the null hypothesis that the variance equals the historical value</li>
+</ul>
+<h4 level="4">Test 2: Homogeneity of Variances</h4>
+<ul depth="0">
+<li index="0">Tests whether all three batches have equal variances</li>
+<li index="1">A significant result (p-value &lt; α) indicates at least one batch has a different variance</li>
+<li index="2">This is crucial for production consistency and quality control</li>
+</ul>
+<h3 level="3">Engineering Implications</h3>
+<ol depth="0">
+<li index="0"><strong>Safety Considerations</strong>: Inconsistent variance could indicate process instability that might compromise the structural integrity of aerospace components</li>
+<li index="1"><strong>Manufacturing Process Control</strong>:
+<ul depth="1">
+<li index="0">Higher than expected variance → process may need tighter controls</li>
+<li index="1">Lower than expected variance → potentially improved process stability</li>
+</ul>
+</li>
+<li index="2"><strong>Decision Framework</strong>:
+<ul depth="1">
+<li index="0">If variances are homogeneous → production is consistent across batches</li>
+<li index="1">If variances differ → need to investigate specific batches and root causes</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Visualizations Explained</h3>
+<p>The code generates four key visualizations:</p>
+<ol depth="0">
+<li index="0"><strong>Boxplots</strong>: Show the spread and central tendency of each batch
+<ul depth="1">
+<li index="0">Longer boxes indicate greater variability</li>
+</ul>
+</li>
+<li index="1"><strong>Density/Histogram Plots</strong>: Illustrate the shape of distributions
+<ul depth="1">
+<li index="0">Width of distribution indicates variance</li>
+</ul>
+</li>
+<li index="2"><strong>Variance Comparison Chart</strong>: Directly compares sample variances to historical reference
+<ul depth="1">
+<li index="0">Visual indicator of which batches exceed acceptable variance</li>
+</ul>
+</li>
+<li index="3"><strong>Q-Q Plot</strong>: Assesses normality assumption
+<ul depth="1">
+<li index="0">Points following the diagonal line suggest normally distributed data</li>
+<li index="1">Important for validating the chi-squared test assumptions</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Methodological Considerations</h3>
+<ol depth="0">
+<li index="0"><strong>Assumptions</strong>:
+<ul depth="1">
+<li index="0">Chi-squared tests assume normally distributed data</li>
+<li index="1">Sample size considerations (n=25 per batch is generally adequate)</li>
+</ul>
+</li>
+<li index="1"><strong>Two-Tailed vs. One-Tailed Tests</strong>:
+<ul depth="1">
+<li index="0">Two-tailed tests detect variance that's either higher or lower than reference</li>
+<li index="1">One-tailed tests might be appropriate if only concerned about excessive variance</li>
+</ul>
+</li>
+</ol>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/13RK9kVpyB4lqjnqI1CRk1ioaO7O6zxGy?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import scipy.stats as stats</code><br><code>import seaborn as sns</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate sample data for three batches</code><br><code># Batch A - slightly higher variance than historical</code><br><code>batch_A = np.random.normal(loc=950, scale=18, size=25)</code><br><code># Batch B - similar variance to historical</code><br><code>batch_B = np.random.normal(loc=945, scale=15, size=25)</code><br><code># Batch C - significantly higher variance</code><br><code>batch_C = np.random.normal(loc=955, scale=22, size=25)</code></p>
+<p><code># Create a DataFrame for better analysis</code><br><code>df = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Batch A': batch_A,</code><br><code>&nbsp; &nbsp; 'Batch B': batch_B,</code><br><code>&nbsp; &nbsp; 'Batch C': batch_C</code><br><code>})</code></p>
+<p><code># Calculate basic statistics</code><br><code>stats_summary = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Mean': [batch_A.mean(), batch_B.mean(), batch_C.mean()],</code><br><code>&nbsp; &nbsp; 'Variance': [batch_A.var(), batch_B.var(), batch_C.var()],</code><br><code>&nbsp; &nbsp; 'Std Dev': [batch_A.std(), batch_B.std(), batch_C.std()]</code><br><code>}, index=['Batch A', 'Batch B', 'Batch C'])</code></p>
+<p><code>print("Summary Statistics:")</code><br><code>print(stats_summary)</code></p>
+<p><code># Test 1: Compare Batch A variance to historical variance</code><br><code>def chi_squared_variance_test(data, pop_var):</code><br><code>&nbsp; &nbsp; n = len(data)</code><br><code>&nbsp; &nbsp; sample_var = np.var(data, ddof=1)</code><br><code>&nbsp; &nbsp; chi_stat = (n - 1) * sample_var / pop_var</code><br><code>&nbsp; &nbsp; p_val_lower = stats.chi2.cdf(chi_stat, n - 1)</code><br><code>&nbsp; &nbsp; p_val_upper = 1 - p_val_lower</code><br><code>&nbsp; &nbsp; p_val_two_sided = 2 * min(p_val_lower, p_val_upper)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; return {</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'n': n,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'sample_variance': sample_var,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'population_variance': pop_var,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'chi_squared_statistic': chi_stat,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'degrees_of_freedom': n - 1,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'p_value_lower_tail': p_val_lower,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'p_value_upper_tail': p_val_upper,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; 'p_value_two_sided': p_val_two_sided</code><br><code>&nbsp; &nbsp; }</code></p>
+<p><code># Historical variance value</code><br><code>historical_variance = 225</code></p>
+<p><code># Perform chi-squared test for Batch A vs historical variance</code><br><code>print("\nTest 1: Chi-squared test for Batch A variance vs historical variance")</code><br><code>chi_squared_result = chi_squared_variance_test(batch_A, historical_variance)</code></p>
+<p><code>for key, value in chi_squared_result.items():</code><br><code>&nbsp; &nbsp; print(f"{key}: {value}")</code></p>
+<p><code># Interpretation</code><br><code>alpha = 0.05</code><br><code>if chi_squared_result['p_value_two_sided'] &lt; alpha:</code><br><code>&nbsp; &nbsp; print(f"\nAt α = {alpha}, we reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("The variance of Batch A is significantly different from the historical variance.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print(f"\nAt α = {alpha}, we fail to reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("There is no significant evidence that the variance of Batch A differs from the historical variance.")</code></p>
+<p><code># Test 2: Homogeneity of variances across all three batches (Bartlett's test)</code><br><code>bartlett_stat, bartlett_pval = stats.bartlett(batch_A, batch_B, batch_C)</code></p>
+<p><code>print("\nTest 2: Bartlett's test for homogeneity of variances")</code><br><code>print(f"Bartlett's statistic: {bartlett_stat}")</code><br><code>print(f"p-value: {bartlett_pval}")</code></p>
+<p><code>if bartlett_pval &lt; alpha:</code><br><code>&nbsp; &nbsp; print(f"\nAt α = {alpha}, we reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("The variances across the three batches are not homogeneous.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print(f"\nAt α = {alpha}, we fail to reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("There is no significant evidence that the variances differ across the three batches.")</code></p>
+<p><code># Alternative test: Levene's test (more robust against non-normality)</code><br><code>levene_stat, levene_pval = stats.levene(batch_A, batch_B, batch_C)</code></p>
+<p><code>print("\nAdditional Test: Levene's test for homogeneity of variances")</code><br><code>print(f"Levene's statistic: {levene_stat}")</code><br><code>print(f"p-value: {levene_pval}")</code></p>
+<p><code>if levene_pval &lt; alpha:</code><br><code>&nbsp; &nbsp; print(f"\nAt α = {alpha}, we reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("The variances across the three batches are not homogeneous.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print(f"\nAt α = {alpha}, we fail to reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("There is no significant evidence that the variances differ across the three batches.")</code></p>
+<p><code># Visualizations</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code># 1. Boxplot to visualize distribution and spread</code><br><code>plt.subplot(2, 2, 1)</code><br><code>sns.boxplot(data=df)</code><br><code>plt.title('Tensile Strength by Batch')</code><br><code>plt.ylabel('Tensile Strength (MPa)')</code></p>
+<p><code># 2. Histograms for each batch</code><br><code>plt.subplot(2, 2, 2)</code><br><code>for column in df.columns:</code><br><code>&nbsp; &nbsp; sns.histplot(df[column], kde=True, stat="density", label=column, alpha=0.4)</code><br><code>plt.title('Distribution of Tensile Strength')</code><br><code>plt.xlabel('Tensile Strength (MPa)')</code><br><code>plt.legend()</code></p>
+<p><code># 3. Variance Comparison</code><br><code>plt.subplot(2, 2, 3)</code><br><code>batch_vars = stats_summary['Variance']</code><br><code>plt.bar(batch_vars.index, batch_vars.values)</code><br><code>plt.axhline(y=historical_variance, color='r', linestyle='--', label='Historical Variance')</code><br><code>plt.title('Sample Variances vs Historical Variance')</code><br><code>plt.ylabel('Variance (MPa²)')</code><br><code>plt.legend()</code></p>
+<p><code># 4. QQ Plot for Batch A (to check normality assumption)</code><br><code>plt.subplot(2, 2, 4)</code><br><code>stats.probplot(batch_A, dist="norm", plot=plt)</code><br><code>plt.title('Q-Q Plot for Batch A')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<h3>Solution in R</h3>
+<p><code># Set seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate sample data for three batches</code><br><code># Batch A - slightly higher variance than historical</code><br><code>batch_A &lt;- rnorm(25, mean = 950, sd = 18)</code><br><code># Batch B - similar variance to historical</code><br><code>batch_B &lt;- rnorm(25, mean = 945, sd = 15)</code><br><code># Batch C - significantly higher variance</code><br><code>batch_C &lt;- rnorm(25, mean = 955, sd = 22)</code></p>
+<p><code># Combine data for plotting</code><br><code>data &lt;- data.frame(</code><br><code>&nbsp; Batch_A = batch_A,</code><br><code>&nbsp; Batch_B = batch_B,</code><br><code>&nbsp; Batch_C = batch_C</code><br><code>)</code></p>
+<p><code># Calculate summary statistics</code><br><code>summary_stats &lt;- data.frame(</code><br><code>&nbsp; Batch = c("Batch A", "Batch B", "Batch C"),</code><br><code>&nbsp; Mean = c(mean(batch_A), mean(batch_B), mean(batch_C)),</code><br><code>&nbsp; Variance = c(var(batch_A), var(batch_B), var(batch_C)),</code><br><code>&nbsp; StdDev = c(sd(batch_A), sd(batch_B), sd(batch_C))</code><br><code>)</code></p>
+<p><code># Display summary statistics</code><br><code>print("Summary Statistics:")</code><br><code>print(summary_stats)</code></p>
+<p><code># Test 1: Chi-squared test for Batch A variance against historical variance</code><br><code>historical_variance &lt;- 225</code><br><code>n_A &lt;- length(batch_A)</code><br><code>sample_var_A &lt;- var(batch_A)</code><br><code>chi_stat &lt;- (n_A - 1) * sample_var_A / historical_variance</code><br><code>dof &lt;- n_A - 1</code></p>
+<p><code># Calculate p-values</code><br><code>p_val_lower &lt;- pchisq(chi_stat, dof)</code><br><code>p_val_upper &lt;- 1 - p_val_lower</code><br><code>p_val_two_sided &lt;- 2 * min(p_val_lower, p_val_upper)</code></p>
+<p><code># Display results</code><br><code>cat("\nTest 1: Chi-squared test for Batch A variance vs historical variance\n")</code><br><code>cat("Sample size:", n_A, "\n")</code><br><code>cat("Sample variance:", sample_var_A, "\n")</code><br><code>cat("Historical variance:", historical_variance, "\n")</code><br><code>cat("Chi-squared statistic:", chi_stat, "\n")</code><br><code>cat("Degrees of freedom:", dof, "\n")</code><br><code>cat("p-value (two-sided):", p_val_two_sided, "\n")</code></p>
+<p><code># Interpretation</code><br><code>alpha &lt;- 0.05</code><br><code>if (p_val_two_sided &lt; alpha) {</code><br><code>&nbsp; cat("\nAt α =", alpha, "we reject the null hypothesis.\n")</code><br><code>&nbsp; cat("The variance of Batch A is significantly different from the historical variance.\n")</code><br><code>} else {</code><br><code>&nbsp; cat("\nAt α =", alpha, "we fail to reject the null hypothesis.\n")</code><br><code>&nbsp; cat("There is no significant evidence that the variance of Batch A differs from the historical variance.\n")</code><br><code>}</code></p>
+<p><code># Using R's built-in function for variance test</code><br><code>var_test_result &lt;- var.test(batch_A, sigma.squared = historical_variance)</code><br><code>cat("\nR's built-in var.test result:\n")</code><br><code>print(var_test_result)</code></p>
+<p><code># Test 2: Bartlett's test for homogeneity of variances</code><br><code>bartlett_result &lt;- bartlett.test(list(batch_A, batch_B, batch_C))</code><br><code>cat("\nTest 2: Bartlett's test for homogeneity of variances\n")</code><br><code>print(bartlett_result)</code></p>
+<p><code>if (bartlett_result$p.value &lt; alpha) {</code><br><code>&nbsp; cat("\nAt α =", alpha, "we reject the null hypothesis.\n")</code><br><code>&nbsp; cat("The variances across the three batches are not homogeneous.\n")</code><br><code>} else {</code><br><code>&nbsp; cat("\nAt α =", alpha, "we fail to reject the null hypothesis.\n")</code><br><code>&nbsp; cat("There is no significant evidence that the variances differ across the three batches.\n")</code><br><code>}</code></p>
+<p><code># Alternative: Fligner-Killeen test (more robust against non-normality)</code><br><code>fligner_result &lt;- fligner.test(list(batch_A, batch_B, batch_C))</code><br><code>cat("\nAdditional Test: Fligner-Killeen test for homogeneity of variances\n")</code><br><code>print(fligner_result)</code></p>
+<p><code># Levene's test using car package</code><br><code>if (require(car)) {</code><br><code>&nbsp; batch_combined &lt;- c(batch_A, batch_B, batch_C)</code><br><code>&nbsp; batch_factor &lt;- factor(rep(c("A", "B", "C"), each = 25))</code><br><code>&nbsp; levene_result &lt;- leveneTest(batch_combined ~ batch_factor)</code><br><code>&nbsp; cat("\nLevene's test for homogeneity of variances\n")</code><br><code>&nbsp; print(levene_result)</code><br><code>} else {</code><br><code>&nbsp; cat("\nNote: car package not available for Levene's test\n")</code><br><code>}</code></p>
+<p><code># Visualizations</code><br><code># Load necessary packages</code><br><code>library(ggplot2)</code><br><code>library(reshape2)</code><br><code>library(gridExtra)</code></p>
+<p><code># Convert data to long format for ggplot</code><br><code>data_long &lt;- melt(data, variable.name = "Batch", value.name = "TensileStrength")</code></p>
+<p><code># 1. Boxplot</code><br><code>p1 &lt;- ggplot(data_long, aes(x = Batch, y = TensileStrength)) +</code><br><code>&nbsp; geom_boxplot(aes(fill = Batch), alpha = 0.7) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; labs(title = "Tensile Strength by Batch", y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme(legend.position = "none")</code></p>
+<p><code># 2. Density plot</code><br><code>p2 &lt;- ggplot(data_long, aes(x = TensileStrength, fill = Batch)) +</code><br><code>&nbsp; geom_density(alpha = 0.5) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; labs(title = "Distribution of Tensile Strength", x = "Tensile Strength (MPa)")</code></p>
+<p><code># 3. Variance comparison</code><br><code>variance_data &lt;- data.frame(</code><br><code>&nbsp; Batch = c("Batch A", "Batch B", "Batch C", "Historical"),</code><br><code>&nbsp; Variance = c(var(batch_A), var(batch_B), var(batch_C), historical_variance)</code><br><code>)</code></p>
+<p><code>p3 &lt;- ggplot(variance_data, aes(x = Batch, y = Variance, fill = Batch)) +</code><br><code>&nbsp; geom_bar(stat = "identity", alpha = 0.7) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; labs(title = "Sample Variances vs Historical Variance", y = "Variance (MPa²)") +</code><br><code>&nbsp; theme(legend.position = "none")</code></p>
+<p><code># 4. QQ Plot for Batch A</code><br><code># Create data frame for qqplot</code><br><code>qq_data &lt;- data.frame(</code><br><code>&nbsp; theoretical = qnorm(ppoints(length(batch_A))),</code><br><code>&nbsp; sample = sort(scale(batch_A))</code><br><code>)</code></p>
+<p><code>p4 &lt;- ggplot(qq_data, aes(x = theoretical, y = sample)) +</code><br><code>&nbsp; geom_point() +</code><br><code>&nbsp; geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; labs(title = "Q-Q Plot for Batch A",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Theoretical Quantiles",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Sample Quantiles")</code></p>
+<p><code># Arrange plots</code><br><code>grid.arrange(p1, p2, p3, p4, ncol = 2)</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

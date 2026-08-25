@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 8/Module 7 – Point Estimation and CI | EGN3443</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --clr-bg:          #f4f6f9;
+      --clr-surface:     #ffffff;
+      --clr-primary:     #1a4e8a;
+      --clr-primary-dk:  #13376b;
+      --clr-accent:      #2e7dd1;
+      --clr-accent-lt:   #e8f1fb;
+      --clr-text:        #1e2532;
+      --clr-muted:       #5a6578;
+      --clr-border:      #d6dce8;
+      --clr-tag-bg:      #edf2fb;
+      --clr-tag-txt:     #1a4e8a;
+      --radius:          8px;
+      --shadow-sm:       0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:       0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
+      --font-sans:       'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--clr-primary-dk) 0%, var(--clr-primary) 55%, var(--clr-accent) 100%);
+      color: #fff;
+      padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .header-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 20px;
+      padding: .25rem .85rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.55rem, 3vw + .6rem, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: .9rem;
+      letter-spacing: -.01em;
+    }
+
+    header p.intro {
+      font-size: 1.05rem;
+      max-width: 720px;
+      color: rgba(255,255,255,.88);
+      line-height: 1.7;
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 2rem;
+      padding: .9rem 0 0;
+      border-top: 1px solid rgba(255,255,255,.22);
+      margin-top: 1.8rem;
+    }
+
+    .stats-bar span {
+      font-size: .82rem;
+      color: rgba(255,255,255,.80);
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    .stats-bar span::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.55);
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 1060px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--clr-muted);
+      margin-bottom: 1.1rem;
+      padding-bottom: .45rem;
+      border-bottom: 2px solid var(--clr-border);
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 1.35rem 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card top row ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: .2rem .6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* Type badge colours */
+    .badge-type-module   { background: #e4edff; color: #1a4e8a; }
+    .badge-type-text     { background: #e6f7f0; color: #1a6645; }
+    .badge-type-quiz     { background: #fff4e2; color: #8a4e00; }
+    .badge-type-assign   { background: #fdeef7; color: #7a1a5e; }
+
+    .badge-filetype {
+      background: var(--clr-tag-bg);
+      color: var(--clr-muted);
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+
+    /* ── Card title row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: .55rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--clr-text);
+    }
+
+    .card-name a {
+      color: var(--clr-accent);
+      text-decoration: none;
+    }
+
+    .card-name a:hover {
+      color: var(--clr-primary-dk);
+      text-decoration: underline;
+    }
+
+    .source-link {
+      font-size: .72rem;
+      font-weight: 500;
+      color: var(--clr-muted);
+      text-decoration: none;
+      border: 1px solid var(--clr-border);
+      border-radius: 4px;
+      padding: .15rem .5rem;
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+      flex-shrink: 0;
+    }
+
+    .source-link:hover {
+      background: var(--clr-accent-lt);
+      color: var(--clr-accent);
+      border-color: var(--clr-accent);
+    }
+
+    /* ── Card description ── */
+    .card-desc {
+      font-size: .875rem;
+      color: var(--clr-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: .78rem;
+      color: var(--clr-muted);
+      border-top: 1px solid var(--clr-border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      header { padding: 2rem 1rem 1.8rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header>
+    <div class="header-inner">
+      <span class="course-label">EGN3443 · Probability &amp; Statistics for Engineers</span>
+      <h1>Week 8 / Module 7 — Point Estimation and Confidence Intervals</h1>
+      <p class="intro">
+        This module develops the foundational tools of statistical inference: deriving point estimators
+        (sample mean, sample proportion, standard deviation), understanding sampling distributions and
+        the Central Limit Theorem, and constructing confidence intervals for population means.
+        Use the artifacts below to study the theory, work through interactive examples, and complete
+        the graded assessments.
+      </p>
+      <div class="stats-bar">
+        <span>7 Artifacts</span>
+        <span>2 Assignments</span>
+        <span>1 Quiz Bank · 38 questions</span>
+        <span>3 Reading / Content pages</span>
+        <span>1 Interactive Bonus Example</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main>
+    <p class="section-title">Module Artifacts</p>
+
+    <div class="card-grid">
+
+      <!-- ── Card 1: Module Topics ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-module">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">
+          This module outline covers point estimation (sample mean and proportion), sampling distributions,
+          the Central Limit Theorem, and constructing confidence intervals for means, serving as a
+          navigational overview of all topics in Module 7.
+        </p>
+      </div>
+
+      <!-- ── Card 2: Bonus Interactive ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Bonus_7_1_Interactive_Estimation_Example.html">Bonus 7-1 Interactive Estimation Example</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          This interactive bonus example walks learners through a battery manufacturing scenario in which
+          they calculate point estimates for the population mean and standard deviation and construct
+          confidence intervals using real sample data from 30 tested batteries.
+        </p>
+      </div>
+
+      <!-- ── Card 3: Module 7 Landing (PPT) ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/EGN3443_Module_7_Statistical_Estimation_Theory_a.html">EGN3443 Module 7 – Statistical Estimation Theory and Practice</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          This artifact serves as a landing page linking learners to the Module 7 PowerPoint slides and
+          lecture materials covering statistical estimation theory and practice.
+        </p>
+      </div>
+
+      <!-- ── Card 4: Main module page ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-text">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Point_Estimation_and_Confidence_Intervals.html">Point Estimation and Confidence Intervals</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          This main module page introduces the concepts of estimation, point estimators, and confidence
+          intervals, consolidating explanatory content and linking to supporting lectures so learners can
+          read and study the core theory for Module 7.
+        </p>
+      </div>
+
+      <!-- ── Card 5: Quiz ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-quiz">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="quiz/index.html">Quiz Question Bank (38 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        </div>
+        <p class="card-desc">
+          This 38-question quiz bank assesses learners on key Module 7 topics including sample mean
+          notation, standard error, interpretation of confidence intervals, simple random sampling,
+          and maximum likelihood estimation, and is used by instructors to build graded quizzes.
+        </p>
+      </div>
+
+      <!-- ── Card 6: Graded Discussion ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-assign">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Module 7 Graded Discussion</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          This graded discussion assignment asks learners to query an AI tool about how to estimate
+          expected values in a statistics context, then copy and paste the AI's response for evaluation,
+          prompting reflection on statistical estimation concepts.
+        </p>
+      </div>
+
+      <!-- ── Card 7: Assignment 7 ── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type-assign">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Assignment 7 – Estimation and Confidence Intervals</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          This graded assignment uses a battery manufacturing quality control scenario to have learners
+          calculate point estimates for the population mean and standard deviation and construct confidence
+          intervals from a sample of 30 batteries, applying the core skills of Module 7.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer>
+    EGN3443 Probability &amp; Statistics for Engineers &nbsp;·&nbsp; Week 8 / Module 7
+    &nbsp;·&nbsp; Point Estimation and Confidence Intervals
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 4/Module 3 Probability Concepts – EGN3443</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a8d0f0;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    header p.intro {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #d6eaf8;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7f8c9a;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dce3ea;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #dce3ea;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent, #2d6a9f);
+      border-radius: 10px 0 0 10px;
+    }
+
+    /* Accent colours per type */
+    .card[data-type="Module Topics"]       { --accent: #2d6a9f; }
+    .card[data-type="Text Content"]        { --accent: #27ae60; }
+    .card[data-type="Quiz"]                { --accent: #e67e22; }
+    .card[data-type="Assignment"]          { --accent: #8e44ad; }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      flex: 1 1 auto;
+    }
+
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .card-title a:hover {
+      color: #2d6a9f;
+      border-bottom-color: #2d6a9f;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      background: #7f8c9a;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 0.1rem;
+      transition: background 0.2s;
+    }
+
+    .source-link:hover { background: #5d6d7e; }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background: #eaf2fb;
+      color: #2d6a9f;
+    }
+
+    .badge[data-type="Text Content"]  { background: #eafaf1; color: #1e8449; }
+    .badge[data-type="Quiz"]          { background: #fef5e7; color: #ca6f1e; }
+    .badge[data-type="Assignment"]    { background: #f5eef8; color: #7d3c98; }
+
+    .badge-filetype {
+      background: #f0f3f6;
+      color: #5d6d7e;
+      font-family: 'Courier New', monospace;
+      font-size: 0.68rem;
+    }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: #9aa5b1;
+      border-top: 1px solid #dce3ea;
+      background: #fff;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 2rem 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <p class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</p>
+    <h1>Week 4 / Module 3: Probability Concepts</h1>
+    <p class="intro">
+      This module introduces foundational probability theory essential for engineering analysis.
+      Topics include sample spaces, probability axioms, theoretical versus experimental probability,
+      core probability rules, and Monte Carlo simulation methods. Use the resources below to
+      read, review, practice, and submit your work for Module 3.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 6 items</p>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <div class="card" data-type="Module Topics">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type" data-type="Module Topics">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          An outline of the module's learning topics covering probability fundamentals, sample spaces,
+          theoretical versus experimental probability, and core probability rules, used by instructors
+          to understand the module's scope and by learners to preview what will be studied.
+        </p>
+      </div>
+
+      <!-- Card 2: EGN3443 Module 3 - Probability Distributions -->
+      <div class="card" data-type="Text Content">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="content/EGN3443_Module_3_Probability_Distributions.html">EGN3443 Module 3 – Probability Distributions</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type" data-type="Text Content">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A landing page that links learners to the Module 3 PowerPoint slides and YouTube lecture video
+          on probability distributions, serving as a navigation hub for accessing supplementary
+          instructional resources.
+        </p>
+      </div>
+
+      <!-- Card 3: Probability Concepts -->
+      <div class="card" data-type="Text Content">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="content/Probability_Concepts.html">Probability Concepts</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type" data-type="Text Content">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A reading page covering foundational probability concepts including axioms, rules, sample spaces,
+          events, and related theorems, used by learners as the primary reference text for understanding
+          and reviewing core probability theory for the module.
+        </p>
+      </div>
+
+      <!-- Card 4: Quiz Question Bank -->
+      <div class="card" data-type="Quiz">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="quiz/index.html">Quiz Question Bank (45 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type" data-type="Quiz">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          A 45-question quiz bank containing applied probability problems set in engineering contexts
+          such as defect rates, resistor tolerances, and component selection, used by instructors to
+          assess learners' ability to calculate probabilities including binomial and combinatorial scenarios.
+        </p>
+      </div>
+
+      <!-- Card 5: Assignment 3 - Probability -->
+      <div class="card" data-type="Assignment">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="assignments/index.html">Assignment 3 – Probability</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type" data-type="Assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A programming assignment in which learners write a Python or R Monte Carlo simulation to estimate
+          the probability of drawing exactly 21 from a three-card hand using a standard deck, applying
+          computational methods to reinforce probability concepts.
+        </p>
+      </div>
+
+      <!-- Card 6: Module 3 Graded Discussion -->
+      <div class="card" data-type="Assignment">
+        <div class="card-header">
+          <span class="card-title">
+            <a href="assignments/index.html">Module 3 Graded Discussion</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type" data-type="Assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A graded discussion assignment in which learners use an AI tool to generate and evaluate examples
+          of statistically independent, mutually exclusive, and dependent events, then post and peer-review
+          responses to deepen conceptual understanding of event relationships.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 4 / Module 3 &mdash; Course Materials Index
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

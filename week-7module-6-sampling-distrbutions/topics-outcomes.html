@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 7/Module 6 - Sampling Distrbutions — Topics &amp; Learning Outcomes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.25rem;margin-top:30px;color:#1a3c6e;border-bottom:1px solid #ececec;padding-bottom:4px}
+h3{font-size:1.05rem;margin-top:22px;color:#1a3c6e}
+.toc{border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:14px 0 6px;display:flex;gap:18px;flex-wrap:wrap}
+.toc a{color:#1a3c6e;font-weight:600;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.prefix{color:#555;font-style:italic;margin:6px 0 14px}
+.mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
+.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .statement{font-weight:600;margin:4px 0 8px}
+.meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
+.meta .map{background:#eaf6ec;color:#137333}
+.co{margin:7px 0}
+.co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+<h1>Week 7/Module 6 - Sampling Distrbutions — Topics &amp; Learning Outcomes</h1>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
+
+<h2 id="topics">Module Topics</h2>
+<h3>Introduction to Sampling Distributions</h3>
+<div class="summary">This topic establishes the foundational concept of sampling distributions and explains why they are essential to statistical inference. Learners explore how sample statistics vary across repeated samples drawn from a population.</div>
+<ul>
+<li><strong>What Is a Sampling Distribution?</strong> <span class="el-body">— A sampling distribution is the probability distribution of a given statistic computed from many repeated samples drawn from the same population.</span></li>
+<li><strong>Population Parameters vs. Sample Statistics</strong> <span class="el-body">— A population parameter is a fixed value describing a population, while a sample statistic is a value calculated from a sample that serves as an estimate of that parameter.</span></li>
+<li><strong>Why Repeated Sampling Matters</strong> <span class="el-body">— The concept of repeated sampling is a thought experiment that underlies all of classical statistical inference, even when only one sample is collected in practice.</span></li>
+<li><strong>Variability of Sample Statistics</strong> <span class="el-body">— Sample statistics naturally vary from sample to sample due to random chance in the selection process, a phenomenon called sampling variability or sampling error.</span></li>
+<li><strong>The Role of Sampling Distributions in Statistical Inference</strong> <span class="el-body">— Sampling distributions serve as the bridge between descriptive statistics (summarizing a sample) and inferential statistics (drawing conclusions about a population).</span></li>
+</ul>
+<h3>Population Parameters vs. Sample Statistics</h3>
+<div class="summary">This topic distinguishes between population parameters and the sample statistics used to estimate them. Learners examine how and why these values differ and what that means for data analysis.</div>
+<ul>
+<li><strong>Defining Population Parameters</strong> <span class="el-body">— A population parameter is a fixed numerical value that describes a characteristic of an entire population.</span></li>
+<li><strong>Defining Sample Statistics</strong> <span class="el-body">— A sample statistic is a numerical value calculated from a subset of the population, used to estimate the corresponding population parameter.</span></li>
+<li><strong>The Parameter–Statistic Relationship</strong> <span class="el-body">— Sample statistics serve as estimators of population parameters, forming the bridge between observed data and broader conclusions about a population.</span></li>
+<li><strong>Why Parameters and Statistics Differ</strong> <span class="el-body">— Because a sample is only a portion of the population, the statistic calculated from it will almost never exactly equal the true population parameter.</span></li>
+<li><strong>Sampling Error and Its Implications</strong> <span class="el-body">— Sampling error is the natural discrepancy between a sample statistic and the population parameter it estimates, arising from the randomness of sample selection.</span></li>
+<li><strong>Practical Implications for Data Analysis</strong> <span class="el-body">— Understanding the distinction between parameters and statistics is essential for correctly interpreting data analysis results and drawing valid conclusions.</span></li>
+</ul>
+<h3>The Central Limit Theorem</h3>
+<div class="summary">This topic introduces the Central Limit Theorem and explains how it guarantees that sampling distributions of the mean approach normality under sufficient sample sizes. Learners explore the conditions and implications of this foundational theorem.</div>
+<ul>
+<li><strong>What Is the Central Limit Theorem?</strong> <span class="el-body">— The Central Limit Theorem (CLT) is one of the most important results in statistics, stating that the sampling distribution of the sample mean will approach a normal distribution as sample size increases, regardless of the population&#39;s original shape.</span></li>
+<li><strong>The Role of Sample Size</strong> <span class="el-body">— Sample size is the critical factor that determines how quickly and completely the sampling distribution of the mean converges to normality.</span></li>
+<li><strong>Mean of the Sampling Distribution</strong> <span class="el-body">— According to the CLT, the mean of the sampling distribution of the sample mean is equal to the population mean (μ).</span></li>
+<li><strong>Standard Error of the Mean</strong> <span class="el-body">— The CLT specifies that the standard deviation of the sampling distribution — known as the standard error — equals the population standard deviation divided by the square root of the sample size (σ/√n).</span></li>
+<li><strong>Conditions for Applying the CLT</strong> <span class="el-body">— While the CLT is broadly applicable, certain conditions should be met to ensure its validity in practice.</span></li>
+<li><strong>Implications for Statistical Inference</strong> <span class="el-body">— The Central Limit Theorem makes it possible to use normal distribution methods to draw conclusions about population parameters, even when little is known about the population&#39;s true distribution.</span></li>
+</ul>
+<h3>The Effect of Sample Size on Variability</h3>
+<div class="summary">This topic investigates how increasing or decreasing sample size affects the spread and reliability of a sampling distribution. Learners connect sample size to standard error and the precision of statistical estimates.</div>
+<ul>
+<li><strong>What Is Standard Error?</strong> <span class="el-body">— Standard error (SE) is the measure of variability in a sampling distribution, representing how much sample means are expected to differ from the true population mean.</span></li>
+<li><strong>The Inverse Relationship Between Sample Size and Spread</strong> <span class="el-body">— As sample size increases, the spread of the sampling distribution narrows, meaning estimates become more consistent and reliable.</span></li>
+<li><strong>Small Sample Sizes and High Variability</strong> <span class="el-body">— When sample sizes are small, sampling distributions are wide and flat, indicating that any single sample mean may differ substantially from the true population mean.</span></li>
+<li><strong>Large Sample Sizes and Increased Precision</strong> <span class="el-body">— Larger samples produce narrower sampling distributions, making it more likely that a sample statistic will be close to the true population parameter.</span></li>
+<li><strong>Practical Trade-offs in Choosing Sample Size</strong> <span class="el-body">— While larger samples improve precision, researchers must balance statistical benefits against real-world constraints such as cost, time, and feasibility.</span></li>
+<li><strong>Connecting Sample Size to Statistical Inference</strong> <span class="el-body">— Understanding how sample size affects variability is essential for interpreting confidence intervals, hypothesis tests, and the overall reliability of statistical conclusions.</span></li>
+</ul>
+<h3>Interpreting and Applying Sampling Distributions</h3>
+<div class="summary">This topic guides learners through interpreting sampling distributions in the context of real-world data analysis scenarios. Practical examples reinforce how sampling distributions support inference and decision-making.</div>
+<ul>
+<li><strong>Reading a Sampling Distribution</strong> <span class="el-body">— Interpreting a sampling distribution requires understanding what the distribution represents: the range of possible values a sample statistic could take across many repeated samples.</span></li>
+<li><strong>Connecting Sampling Distributions to Statistical Inference</strong> <span class="el-body">— Sampling distributions are the backbone of statistical inference, enabling analysts to make probability-based conclusions about a population from a single sample.</span></li>
+<li><strong>Using Sample Size to Inform Decisions</strong> <span class="el-body">— Sample size directly affects the shape and spread of the sampling distribution, which has practical implications for data-driven decision-making.</span></li>
+<li><strong>Applying the Central Limit Theorem in Practice</strong> <span class="el-body">— The Central Limit Theorem (CLT) guarantees that, for sufficiently large samples, the sampling distribution of the mean will be approximately normal regardless of the population&#39;s shape.</span></li>
+<li><strong>Real-World Scenario: Estimating a Population Mean</strong> <span class="el-body">— A common application of sampling distributions is estimating a population mean from survey or observational data, such as average customer satisfaction scores or employee productivity levels.</span></li>
+<li><strong>Recognizing Variability and Avoiding Misinterpretation</strong> <span class="el-body">— A critical practical skill is distinguishing natural sampling variability from meaningful differences, which prevents misguided conclusions in data analysis.</span></li>
+</ul>
+<h2 id="outcomes">Student Learning Outcomes</h2>
+<p class="prefix">By the end of this module, students will be able to:</p>
+<div class="mo">
+<div class="code">MO1</div>
+<div class="statement">Distinguish between population parameters and sample statistics in the context of a given data analysis scenario</div>
+<div class="meta"><span>Level: Understand</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO2</div>
+<div class="statement">Calculate the mean and standard error of a sampling distribution of the sample mean using the Central Limit Theorem formulas</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO3</div>
+<div class="statement">Predict how changes in sample size affect the spread of a sampling distribution by applying the inverse relationship between sample size and standard error</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO4</div>
+<div class="statement">Identify the conditions under which the Central Limit Theorem justifies using a normal distribution approximation for the sampling distribution of the mean</div>
+<div class="meta"><span>Level: Analyze</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO5</div>
+<div class="statement">Interpret a sampling distribution to distinguish natural sampling variability from meaningful differences in a real-world engineering data scenario</div>
+<div class="meta"><span>Level: Evaluate</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<h3>Course Outcomes (reference)</h3>
+<p class="empty">No course outcomes have been defined.</p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

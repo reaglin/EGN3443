@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 4 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4 Sample Problem 1</h1><p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">This guide provides practical engineering applications of discrete probability distributions with accompanying Python and R implementations. Each section covers a different distribution with real-world examples, solution approaches, and visualizations.</span></p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">1. Random Variables and Probability Mass Functions</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example: Quality Control in Circuit Board Manufacturing</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Problem</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: In circuit board manufacturing, each board has a 5% chance of having a defect. If we inspect 20 boards, what's the probability of finding exactly 2 defective boards?</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Solution</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: This follows a binomial distribution with n=20, p=0.05.</span></p>
+<h3 style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in Python (<a href="https://colab.research.google.com/drive/1zLQK0BAA_SrmVi8OzOMms490vE_9isS7?usp=sharing" target="_blank" rel="noopener">Link</a>)</span></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from scipy import stats</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n = 20&nbsp; # number of boards</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p = 0.05&nbsp; # probability of defect</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">k = 2&nbsp; # number of defects we're interested in</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate the PMF using the binomial formula</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_value = stats.binom.pmf(k=k, n=n, p=p)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Probability of exactly {k} defective boards: {pmf_value:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the entire PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x = np.arange(0, n+1)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf = stats.binom.pmf(x, n, p)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(10, 6))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x, pmf, alpha=0.7)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=k, color='red', linestyle='--', alpha=0.7, label=f'k={k}')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Defective Boards')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('PMF of Defective Circuit Boards')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xticks(x)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in R</span></h3>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n &lt;- 20&nbsp; # number of boards</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p &lt;- 0.05&nbsp; # probability of defect</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">k &lt;- 2&nbsp; # number of defects we're interested in</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate the PMF using the binomial formula</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_value &lt;- dbinom(x=k, size=n, prob=p)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Probability of exactly", k, "defective boards:", round(pmf_value, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot the entire PMF</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x &lt;- 0:n</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf &lt;- dbinom(x, size=n, prob=p)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Create the plot</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf, names.arg=x, main="PMF of Defective Circuit Boards",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Defective Boards", ylab="Probability",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col="skyblue", ylim=c(0, max(pmf) * 1.1))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Add vertical line at k=2</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=2.7, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot offset</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(2.7, max(pmf) * 0.9, "k=2", pos=4, col="red")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;"></span></strong></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;"></span></strong></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;"></span></strong></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;"></span></strong></p>
+<p></p>
+<p><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;"></span></strong></p>
+<p><br><br></p>
+<p><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;"></span></strong></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

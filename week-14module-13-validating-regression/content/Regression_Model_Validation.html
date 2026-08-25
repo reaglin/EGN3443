@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Regression Model Validation</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div><h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 23pt; font-family: Arial, sans-serif;">Module 13: Regression Model Validation</span></strong></h1>
+<h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Supporting Lectures:<br>EGN3443 Module 13 - Regression Model Validation<br></span></strong></h1>
+<h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">1. Residual Analysis</span></strong></h1>
+<h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h1>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Residual analysis is a statistical technique used to assess the quality and assumptions of a regression model by examining the differences between observed and predicted values.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Components</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Residuals</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: The difference between actual observed values and values predicted by the regression model</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Residual = Observed Value - Predicted Value</span></strong></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Types of Residual Analysis</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Graphical Methods</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Residual plots</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Q-Q plots</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Scatter plots of residuals vs. predicted values</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Statistical Tests</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Durbin-Watson test for autocorrelation</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Breusch-Pagan test for heteroscedasticity</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.linear_model import LinearRegression</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Sample data</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">X = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">y = np.array([2, 4, 5, 4, 5])</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Fit linear regression</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">model = LinearRegression()</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">model.fit(X, y)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate residuals</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">y_pred = model.predict(X)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">residuals = y - y_pred</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot residuals</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.scatter(y_pred, residuals)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Residual Plot')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Predicted Values')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Residuals')</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Errors_and_residuals">https://en.wikipedia.org/wiki/Errors_and_residuals</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://simple.wikipedia.org/wiki/Errors_and_residuals_in_statistics">https://simple.wikipedia.org/wiki/Errors_and_residuals_in_statistics</a>&nbsp;</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">2. Influence Diagnostics</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Influence diagnostics identify data points that have a significant impact on the regression model's parameters and overall fit.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Diagnostic Measures</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Leverage</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Measures how far an independent variable deviates from its mean</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">High leverage points can disproportionately influence regression results</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Cook's Distance</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Measures the influence of a data point on the regression coefficients</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Values &gt; 1 typically indicate influential observations</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from statsmodels.stats.outliers_influence import OLSInfluence</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import statsmodels.api as sm</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Sample regression model</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">X = sm.add_constant(X)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">model = sm.OLS(y, X).fit()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Compute influence measures</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">influence = OLSInfluence(model)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">leverage = influence.hat_matrix_diag</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cooks_distance = influence.cooks_distance[0]</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Cook%27s_distance">https://en.wikipedia.org/wiki/Cook%27s_distance</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Outlier">https://en.wikipedia.org/wiki/Outlier</a>&nbsp;</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">3. Transformations</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Transformations are mathematical modifications applied to variables to improve the regression model's fit, linearity, or meet statistical assumptions.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Common Transformations</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Log Transformation</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Helps linearize exponential relationships</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Reduces the impact of outliers</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Square Root Transformation</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Useful for count data</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Stabilizes variance</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Box-Cox Transformation</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Systematic method to determine optimal transformation</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from scipy import stats</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Log transformation</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">log_transformed = np.log(X)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Box-Cox transformation</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">transformed_data, lambda_param = stats.boxcox(X)</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<p></p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">4. Cross-Validation Techniques</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Cross-validation is a resampling method used to evaluate a model's performance and generalizability.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Techniques</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">K-Fold Cross-Validation</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Divides data into K equal subsets</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Uses K-1 folds for training, 1 for testing</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Leave-One-Out Cross-Validation (LOOCV)</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Uses a single observation as validation set</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Repeats process for each observation</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Stratified K-Fold</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Maintains class distribution in each fold</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.model_selection import cross_val_score, KFold</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.linear_model import LinearRegression</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># K-Fold Cross-Validation</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">kf = KFold(n_splits=5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">model = LinearRegression()</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">scores = cross_val_score(model, X, y, cv=kf)</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://scikit-learn.org/stable/modules/cross_validation.html"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Scikit-Learn: Cross-Validation</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">https://en.wikipedia.org/wiki/Cross-validation_(statistics)</a>&nbsp;</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">5. Prediction Intervals</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Prediction intervals estimate the range within which a future individual observation is likely to fall, considering both model uncertainty and inherent variability.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Wider than confidence intervals</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Accounts for individual prediction variability</span></p>
+</li>
+</ul>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Formula:</span><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><br></span><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"> Prediction Interval = Predicted Value ± t * SE * √(1 + 1/n)</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import scipy.stats as stats</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def prediction_interval(X, y, X_new, confidence=0.95):</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;model = np.polyfit(X, y, 1)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;y_pred = np.polyval(model, X_new)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Calculation details omitted for brevity</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return y_pred, interval</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Usage</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pred, pred_interval = prediction_interval(X, y, X_new)</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Prediction_interval">https://en.wikipedia.org/wiki/Prediction_interval</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://www.itl.nist.gov/div898/handbook/prc/section1/prc131.htm"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">NIST: Prediction Intervals</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Summary</span></strong></h2>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">This guide covers essential techniques for validating regression models, ensuring robust and reliable statistical analysis.</span></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

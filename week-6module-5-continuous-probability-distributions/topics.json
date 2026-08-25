@@ -1,0 +1,1283 @@
+{
+  "ModuleFolderName": "Week_6_Module_5_-_Continuous_Probability_Distributions.",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:15:42.152541-04:00",
+  "ModifiedDate": "2026-08-24T20:18:34.7619255-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+      "Title": "Introduction to Continuous Probability Distributions",
+      "Summary": "This topic establishes the foundational concepts of continuous probability distributions, contrasting them with discrete distributions and introducing key ideas such as probability density functions and the interpretation of probability over intervals.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:15:42.152541-04:00",
+      "ModifiedDate": "2026-08-24T20:15:42.152541-04:00",
+      "Elements": [
+        {
+          "Id": "c9c4adac-e0f2-40dd-8801-fbf907956c1b",
+          "TopicId": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+          "Title": "Discrete vs. Continuous Random Variables",
+          "BodyText": "A fundamental distinction in probability theory is between discrete and continuous random variables, which differ in the nature of the values they can take.",
+          "Notes": "For example, the number of customers arriving at a store is discrete (countable whole numbers), whereas the time between arrivals or a person\u0027s height is continuous (any value within a range).",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "ModifiedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "Items": [
+            {
+              "Id": "b5315499-0d4d-4a52-9a4a-345ccea73fc8",
+              "Text": "Discrete random variables take on a countable number of distinct values, such as integers, and probabilities are assigned to each specific value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2a497e1f-2049-4949-9af0-b4cd0e8d7761",
+              "Text": "Continuous random variables can take on any value within a given interval or range, making the set of possible outcomes uncountably infinite.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a321fcbf-a5dc-4dbd-872d-b8c6d0bb9b8d",
+              "Text": "Because continuous variables can assume infinitely many values, the approach to calculating probabilities must fundamentally differ from the discrete case.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "51e84808-4427-4e23-b344-1cb0a0b8b148",
+              "Text": "In practice, continuous distributions are used to model measurements such as time, weight, temperature, and distance.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6f36bd5a-ae62-4d2e-9363-910088d2438f",
+          "TopicId": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+          "Title": "Why Individual Point Probabilities Are Zero",
+          "BodyText": "One of the most important and counterintuitive properties of continuous distributions is that the probability of the variable taking any single exact value is always zero.",
+          "Notes": "Consider measuring the exact height of a person as 175.000...cm \u2014 the probability of this precise value is zero, yet heights around 175 cm are quite common. This is why we always work with intervals.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "ModifiedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "Items": [
+            {
+              "Id": "863a5c40-6033-42ac-bfc0-8b4291b8216c",
+              "Text": "Because there are infinitely many possible values in any interval, the probability must be spread across all of them, making the share assigned to any single point equal to zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a2dc9f9-34d8-4747-802e-ba91b6837ee3",
+              "Text": "This property means P(X = a) = 0 for any specific value a in a continuous distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "39033262-ff9d-4a7b-9376-58cc1373bf10",
+              "Text": "As a practical consequence, P(X \u003C a) and P(X \u2264 a) are equivalent for continuous distributions, since the probability at the boundary point is zero.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1697159e-b21a-49ba-9b96-8248e7ea0c5b",
+              "Text": "This contrasts sharply with discrete distributions, where specific outcomes can and do carry non-zero probability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8d70660b-0cb2-4682-9533-69c6025d243c",
+          "TopicId": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+          "Title": "The Probability Density Function (PDF)",
+          "BodyText": "Instead of assigning probabilities directly to individual values, continuous distributions are described by a probability density function (PDF), which characterises the relative likelihood of outcomes across the range of the variable.",
+          "Notes": "The PDF is often denoted f(x). A higher value of f(x) at a point x indicates that outcomes near x are more likely, but f(x) itself is not a probability \u2014 it is a density.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "ModifiedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "Items": [
+            {
+              "Id": "ac2b149e-04dc-4c76-aa71-aab47fa45489",
+              "Text": "The PDF, f(x), describes the shape of the distribution and indicates where values are more or less concentrated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e0e6d16a-fada-4caa-bdf3-d68368b8a16f",
+              "Text": "The value of the PDF at any point can exceed 1, because it represents density rather than probability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "def4d415-fc0b-4b5f-86a3-8455b79d130f",
+              "Text": "Two essential properties of any valid PDF are that f(x) \u2265 0 for all x, and the total area under the curve equals exactly 1.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ba45fbad-f38d-42e5-b5e4-e02db79f9829",
+              "Text": "Different continuous distributions (normal, exponential, uniform) are distinguished by the specific mathematical form of their PDFs.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e477932e-19ec-478d-a6a2-4e5616f2905a",
+          "TopicId": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+          "Title": "Probability as Area Under the Curve",
+          "BodyText": "For continuous distributions, probability is calculated as the area under the PDF curve between two values, representing the likelihood that the variable falls within that interval.",
+          "Notes": "Mathematically, P(a \u2264 X \u2264 b) is computed as the integral of f(x) from a to b. In applied settings, this is typically found using tables, software, or standard formulas rather than manual integration.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "ModifiedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "Items": [
+            {
+              "Id": "f1651c31-235a-488d-a620-b6774dc9f38e",
+              "Text": "The probability that a continuous random variable X falls between values a and b is given by the area under the PDF curve from a to b.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dcdc8c3c-1d7d-406b-b1bf-793bb54cb65c",
+              "Text": "This area is formally computed using integration: P(a \u2264 X \u2264 b) = \u222B[a to b] f(x) dx.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "890223b3-4589-4527-9f74-51e443770f68",
+              "Text": "The total area under the entire PDF curve always equals 1, reflecting the certainty that the variable will take some value in its range.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8a98552c-e5ec-401e-8738-862620ca444c",
+              "Text": "Graphically, shading the region under the curve between two points provides an intuitive representation of the associated probability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "832fd696-b3e2-437e-ae49-ffc6e5872bbe",
+          "TopicId": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+          "Title": "The Cumulative Distribution Function (CDF)",
+          "BodyText": "The cumulative distribution function (CDF) provides a convenient way to express the probability that a continuous random variable takes a value less than or equal to a given point.",
+          "Notes": "The CDF is denoted F(x) and is related to the PDF by F(x) = P(X \u2264 x). It is a non-decreasing function ranging from 0 to 1, and it is particularly useful for computing interval probabilities without performing integration each time.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "ModifiedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "Items": [
+            {
+              "Id": "50c79e14-c179-4279-9762-64d245a91945",
+              "Text": "The CDF, F(x), gives the accumulated probability from the lower bound of the distribution up to the value x.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "967fa8f1-ce4c-4a58-8b1f-174538c8ce1f",
+              "Text": "P(a \u2264 X \u2264 b) can be computed using the CDF as F(b) \u2212 F(a), simplifying interval probability calculations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "32a2525f-7fc9-405b-bb4e-7bded5bddefc",
+              "Text": "The CDF is always a non-decreasing function, starting at 0 and approaching 1 as x increases toward the upper limit of the distribution.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "501cfc5c-da89-4298-bf3f-b4dcad47c6c8",
+              "Text": "Understanding the CDF is essential for working with standard probability tables, such as those used for the normal distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "0906c1a6-863f-4926-9410-8a43db595714",
+          "TopicId": "4928cbb5-e53a-4db1-8522-ac53d9d49bf3",
+          "Title": "Key Parameters of Continuous Distributions",
+          "BodyText": "Continuous probability distributions are defined and shaped by parameters, most commonly measures of central tendency and spread, which determine where the distribution is centred and how dispersed it is.",
+          "Notes": "For example, the normal distribution is fully defined by its mean (\u03BC) and standard deviation (\u03C3), while the exponential distribution is characterised by a single rate parameter (\u03BB). Understanding parameters is essential for applying the correct distribution to real data.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "ModifiedDate": "2026-08-24T20:16:11.0428993-04:00",
+          "Items": [
+            {
+              "Id": "bb6ba855-7915-4b35-a5e8-5f132e02269b",
+              "Text": "Parameters such as the mean (\u03BC) and variance (\u03C3\u00B2) describe the location and spread of a continuous distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9cbfe5fc-ef22-43d1-833e-5c8144aa21c7",
+              "Text": "Different families of continuous distributions use different parameters; knowing their meaning is key to interpreting and applying the distribution correctly.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6022f673-7861-46c2-ac78-0c13b3624455",
+              "Text": "Changing a distribution\u0027s parameters shifts or scales the PDF curve without altering its fundamental shape or the rule that total area equals 1.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dfbae988-216c-4570-b189-a82b84290e05",
+              "Text": "In applied contexts, parameters are often estimated from sample data and used to model the underlying population distribution.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+      "Title": "The Uniform Distribution",
+      "Summary": "Learners examine the uniform distribution, its parameters, and its properties, applying it to scenarios where outcomes are equally likely across a continuous range.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:15:42.152541-04:00",
+      "ModifiedDate": "2026-08-24T20:15:42.152541-04:00",
+      "Elements": [
+        {
+          "Id": "b19881b9-a035-413c-a380-c13e97b2d518",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "What Is the Uniform Distribution?",
+          "BodyText": "The uniform distribution is a continuous probability distribution in which all outcomes within a specified range are equally likely to occur.",
+          "Notes": "It is sometimes called the rectangular distribution because its probability density function forms a perfect rectangle when plotted.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "2ccce001-636b-447e-868f-df51c58656d5",
+              "Text": "Unlike distributions that concentrate probability around a central value, the uniform distribution spreads probability evenly across its entire range.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3cb7677a-9581-4460-b5f9-17e940c5dd42",
+              "Text": "It is appropriate when there is no reason to believe any value in the interval is more likely than another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4fc86bd2-6e68-435b-88f2-f7f06da6db97",
+              "Text": "Common real-world examples include the arrival time of a bus within a fixed window or a random number generator producing values between 0 and 1.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b1febee5-11b0-48a3-8e08-96bd6e607c7e",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "Parameters of the Uniform Distribution",
+          "BodyText": "The uniform distribution is fully defined by two parameters: the lower bound (a) and the upper bound (b), which together specify the interval of possible outcomes.",
+          "Notes": "Changing either parameter shifts or stretches the distribution, but the equal-likelihood property always holds within [a, b].",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "5cee55bc-6db6-470c-a2dd-098844673bdf",
+              "Text": "The parameter a represents the minimum possible value, and b represents the maximum possible value of the distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dcd6e8bf-3117-4cfa-a191-fa83839a7c71",
+              "Text": "All values outside the interval [a, b] have zero probability of occurring.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "244320fb-0d23-40b5-91ad-f990f754702d",
+              "Text": "The width of the interval, (b \u2212 a), directly determines how spread out the distribution is.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5110472c-808f-49f5-9926-39194f3ebb5e",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "Probability Density Function (PDF)",
+          "BodyText": "The probability density function of the uniform distribution assigns a constant height to every point within the interval [a, b].",
+          "Notes": "For example, if a = 2 and b = 8, the PDF height is 1/(8\u22122) = 1/6 \u2248 0.1667 across the entire interval.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "9cef7bdf-207b-405e-a443-ad30506850ec",
+              "Text": "The PDF is defined as f(x) = 1/(b \u2212 a) for a \u2264 x \u2264 b, and 0 otherwise.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5148f33-4d11-478e-ac33-ebe82cbed674",
+              "Text": "Because the height is constant, the total area under the curve always equals 1, satisfying the requirement for any valid probability distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eebba9e3-2bf0-4d04-93d5-cc760530bddf",
+              "Text": "The flat, rectangular shape of the PDF visually confirms that no subinterval of equal width is favoured over another.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bd10c2dc-4686-41a0-96ff-76aaf9dc03ae",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "Calculating Probabilities",
+          "BodyText": "Probabilities for the uniform distribution are calculated by finding the area of a rectangle over the sub-interval of interest.",
+          "Notes": "For instance, if X ~ U(0, 10), the probability that X falls between 3 and 7 is (7 \u2212 3)/(10 \u2212 0) = 4/10 = 0.40.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "980f6d39-61f8-427b-ab4f-deb10e6c0e92",
+              "Text": "The probability that X lies between two values c and d (where a \u2264 c \u003C d \u2264 b) is P(c \u2264 X \u2264 d) = (d \u2212 c)/(b \u2212 a).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a265abf8-6506-48ea-a0f5-1fc3b1a2c7f6",
+              "Text": "Because the distribution is continuous, the probability of X equalling any exact single value is zero.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9355bd76-95ee-415e-8097-2f15170123bb",
+              "Text": "This simple ratio formula makes uniform distribution probability calculations straightforward compared to other continuous distributions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "71d6ec64-f3d8-4485-a264-e828f7b17b70",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "Mean and Variance of the Uniform Distribution",
+          "BodyText": "The mean and variance of the uniform distribution are derived directly from its two parameters, a and b, and describe the centre and spread of the distribution.",
+          "Notes": "For U(0, 10), the mean is (0 \u002B 10)/2 = 5 and the variance is (10 \u2212 0)\u00B2/12 \u2248 8.33, indicating moderate spread around the midpoint.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "102dba67-1dba-4930-b143-cb2ffcb6956b",
+              "Text": "The mean (expected value) is \u03BC = (a \u002B b)/2, which is simply the midpoint of the interval.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "02fb54cf-56a4-4a1f-969d-fe550aa9a32e",
+              "Text": "The variance is \u03C3\u00B2 = (b \u2212 a)\u00B2/12, and the standard deviation is the square root of this quantity.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "190722e2-67df-436e-975d-0c404cda623b",
+              "Text": "A wider interval produces a larger variance, reflecting the greater uncertainty about where an outcome will fall.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ecca4b97-465b-4fc8-bc63-63ecee90bb5b",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "Cumulative Distribution Function (CDF)",
+          "BodyText": "The cumulative distribution function of the uniform distribution gives the probability that X is less than or equal to a specific value x within the interval.",
+          "Notes": "For U(1, 5), F(3) = (3 \u2212 1)/(5 \u2212 1) = 0.50, meaning there is a 50% chance the outcome is at most 3.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "7481593e-ce8e-431f-a1ff-be4a14476707",
+              "Text": "The CDF is defined as F(x) = (x \u2212 a)/(b \u2212 a) for a \u2264 x \u2264 b, with F(x) = 0 for x \u003C a and F(x) = 1 for x \u003E b.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "645ee7fb-3034-4538-abbb-a204c8bf1735",
+              "Text": "Because the density is constant, the CDF increases linearly from 0 to 1 across the interval.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "26a8a21c-fc12-43b8-9c3f-3e9faa834311",
+              "Text": "The CDF is particularly useful for finding probabilities of the form P(X \u2264 x) without integrating the PDF manually.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e80f1ae8-22ee-45fb-b626-3452cc7bb03a",
+          "TopicId": "2c81c314-a924-4126-ae3f-c7dd6743d90f",
+          "Title": "Practical Applications of the Uniform Distribution",
+          "BodyText": "The uniform distribution is applied in scenarios where equal likelihood across a continuous range is a reasonable assumption, making it a useful modelling tool in various professional contexts.",
+          "Notes": "Simulation studies and random sampling methods frequently rely on the uniform distribution as a foundational building block for generating other distributions.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "ModifiedDate": "2026-08-24T20:16:35.3255288-04:00",
+          "Items": [
+            {
+              "Id": "89d8a693-d4f4-4438-9f03-f32a89cbf222",
+              "Text": "It can model waiting times when a person arrives at a random moment within a fixed service window, such as a train departing every 20 minutes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1647bada-4b05-4317-8538-73ea4d3a4fb2",
+              "Text": "Quality control processes may use it to represent measurement errors uniformly distributed within a tolerance band.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6fcfc8cb-5fd2-4369-a05f-712d6af91514",
+              "Text": "In computing and statistics, uniform random variables over [0, 1] are used to simulate outcomes from other probability distributions through techniques such as inverse transform sampling.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+      "Title": "The Normal Distribution",
+      "Summary": "This topic explores the normal distribution\u0027s shape, parameters, and significance, guiding learners through probability calculations using standard normal tables and z-scores.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:15:42.152541-04:00",
+      "ModifiedDate": "2026-08-24T20:15:42.152541-04:00",
+      "Elements": [
+        {
+          "Id": "6535c239-e455-4590-95e4-8ce99aa14544",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "Shape and Symmetry of the Normal Distribution",
+          "BodyText": "The normal distribution is a continuous probability distribution characterized by its iconic symmetric, bell-shaped curve centered around its mean.",
+          "Notes": "The bell curve is the most widely used distribution in statistics and appears naturally in many real-world phenomena such as heights, exam scores, and measurement errors.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "adcf6caf-3bba-4859-984c-f67ef5103787",
+              "Text": "The curve is perfectly symmetric about its mean, meaning the left and right halves are mirror images.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a6637373-f8b7-4c3a-a02c-e055662b5da4",
+              "Text": "The tails of the distribution extend infinitely in both directions but never touch the horizontal axis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "948c5cf8-128d-4861-b00f-113d4e93c296",
+              "Text": "The highest point of the curve occurs exactly at the mean, which is also the median and mode for a normal distribution.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1fd69a3b-c68c-476b-bf28-d7f18d9b67bc",
+              "Text": "The total area under the normal curve equals 1, representing the total probability of all outcomes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3a338775-5c2f-4a9a-b369-1a75beb04a05",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "Parameters of the Normal Distribution: Mean and Standard Deviation",
+          "BodyText": "The normal distribution is fully defined by two parameters: the mean (\u03BC) and the standard deviation (\u03C3), which control its location and spread respectively.",
+          "Notes": "For example, a distribution with \u03BC = 50 and \u03C3 = 5 is centered at 50, while increasing \u03C3 to 10 would flatten and widen the curve without shifting its center.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "ab2ff944-e24e-4aba-b932-a13ccf07e98c",
+              "Text": "The mean (\u03BC) determines where the center of the distribution is located on the horizontal axis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ebb57e6a-49c2-49b3-8481-7d8dd6272f0e",
+              "Text": "The standard deviation (\u03C3) controls the width of the bell curve; a larger \u03C3 produces a flatter, wider curve while a smaller \u03C3 produces a taller, narrower curve.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1e33db3f-9bff-49b9-9f45-1972fdbd8fb3",
+              "Text": "Changing \u03BC shifts the entire curve left or right without altering its shape.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bb9d8936-2f52-4770-8077-937dcad80677",
+              "Text": "Changing \u03C3 stretches or compresses the curve while keeping it centered at \u03BC.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "46f1b208-f8c0-48a0-81c5-24f3a450d1f8",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "The Empirical Rule (68-95-99.7 Rule)",
+          "BodyText": "The empirical rule describes the proportion of data values that fall within one, two, and three standard deviations of the mean in a normal distribution.",
+          "Notes": "This rule provides a quick way to assess probabilities without detailed calculation and is particularly useful for identifying outliers or unusual observations.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "ecbba2b8-3931-4f3f-a19b-949cc7705f4d",
+              "Text": "Approximately 68% of all values in a normal distribution fall within one standard deviation (\u00B11\u03C3) of the mean.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e6da6cad-e891-4c7d-9c9a-e96cb49adffd",
+              "Text": "Approximately 95% of all values fall within two standard deviations (\u00B12\u03C3) of the mean.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "559602df-32f8-4397-8dab-17eb737c2ede",
+              "Text": "Approximately 99.7% of all values fall within three standard deviations (\u00B13\u03C3) of the mean.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1884ad57-f89c-4875-b7f0-ea2f45e4a25b",
+              "Text": "Values beyond three standard deviations from the mean are considered extremely rare and are often treated as outliers.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3c7b9092-62e0-491d-b87a-1686959f0d3a",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "The Standard Normal Distribution and Z-Scores",
+          "BodyText": "The standard normal distribution is a special case of the normal distribution with a mean of 0 and a standard deviation of 1, used as a universal reference for probability calculations.",
+          "Notes": "Any normal distribution can be converted to the standard normal distribution through standardization, making it possible to use a single set of probability tables for all normal distributions.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "f35a7fb5-607b-47cc-afcc-24d2af2e00e1",
+              "Text": "A z-score measures how many standard deviations a particular value lies above or below the mean of its distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4ef0750a-5f34-45e7-991d-622f1e24fa65",
+              "Text": "The z-score formula is: z = (x \u2212 \u03BC) / \u03C3, where x is the observed value, \u03BC is the mean, and \u03C3 is the standard deviation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1aafa8b9-05c9-4f86-ab9c-c4134df122a1",
+              "Text": "A positive z-score indicates the value is above the mean, while a negative z-score indicates it is below the mean.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b4da7300-4307-4da2-8be9-9d6a6dada0da",
+              "Text": "Standardizing values allows direct comparison across different normal distributions with different means and standard deviations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2e7970c4-2021-490b-905d-2efc40db6312",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "Using Standard Normal Tables to Find Probabilities",
+          "BodyText": "Standard normal (Z) tables provide cumulative probabilities corresponding to z-scores, enabling learners to calculate the likelihood of outcomes within a normal distribution.",
+          "Notes": "Most standard normal tables give the area to the left of a given z-score. To find areas to the right or between two values, learners must apply complementary or subtraction rules.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "8fb27348-3c7e-4b27-a8c7-cfacc8391a77",
+              "Text": "The standard normal table lists the cumulative probability P(Z \u2264 z) for a range of z-score values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f26f05b6-686c-4c4c-a9f9-9167622170f3",
+              "Text": "To find the probability that X is greater than a value, subtract the table probability from 1: P(Z \u003E z) = 1 \u2212 P(Z \u2264 z).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "817a57c4-767f-4bf3-84e1-044c86638ec9",
+              "Text": "To find the probability that X falls between two values, calculate the z-scores for both and subtract the smaller cumulative probability from the larger.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ebb9ccb5-7eda-4864-9b15-8f4866df43e5",
+              "Text": "Negative z-scores are handled using the symmetry of the normal distribution: P(Z \u2264 \u2212z) = 1 \u2212 P(Z \u2264 z).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "475a6b51-2721-4a19-9520-df2cb220d1a3",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "Calculating Probabilities for Non-Standard Normal Distributions",
+          "BodyText": "Real-world problems often involve normal distributions that are not standardized, requiring conversion to z-scores before using probability tables.",
+          "Notes": "For example, if exam scores follow a normal distribution with \u03BC = 70 and \u03C3 = 10, the probability of scoring below 85 is found by first computing z = (85 \u2212 70) / 10 = 1.5 and then looking up P(Z \u2264 1.5) in the table.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "7525ba84-2ecc-429c-8e9b-0d15912d1ed2",
+              "Text": "Identify the mean (\u03BC) and standard deviation (\u03C3) of the given normal distribution before beginning any calculation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "acc79e14-0385-41bb-8db2-11b861b53658",
+              "Text": "Convert the raw value(s) of interest into z-scores using the standardization formula z = (x \u2212 \u03BC) / \u03C3.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3ba35f0b-b5c4-4e22-b2f0-717924259560",
+              "Text": "Use the standard normal table to retrieve the cumulative probability associated with the computed z-score(s).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9116eb0e-a47f-456e-b5ed-e507c1e3c200",
+              "Text": "Interpret the resulting probability in the context of the original problem, ensuring the answer is expressed as a proportion between 0 and 1.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "397d2f65-a32b-44f1-ba42-245d67d5c1b9",
+          "TopicId": "b4e6f559-0887-400e-ba1f-de6b38ac89fc",
+          "Title": "Significance and Real-World Applications of the Normal Distribution",
+          "BodyText": "The normal distribution holds central importance in statistics because many natural and social phenomena follow this pattern, and it underpins key inferential methods.",
+          "Notes": "Its importance is further reinforced by the Central Limit Theorem, which states that the sampling distribution of the sample mean approaches normality as sample size increases, regardless of the original population\u0027s distribution.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "ModifiedDate": "2026-08-24T20:17:04.6246571-04:00",
+          "Items": [
+            {
+              "Id": "5c7ef2af-338a-495c-83e3-022ec937cce0",
+              "Text": "Many real-world variables such as human heights, blood pressure readings, and manufacturing tolerances are approximately normally distributed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ed3e25c-edcb-4653-abc8-e5c2c7a4be70",
+              "Text": "The normal distribution forms the theoretical basis for many statistical tests, including t-tests, ANOVA, and regression analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "42ed15ea-0c04-4f70-9843-acd1c0ba0d0b",
+              "Text": "In professional contexts, the normal distribution is used in quality control to define acceptable ranges and identify defective products.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9edd80cb-8d96-4644-9e75-1be82688f846",
+              "Text": "Understanding the normal distribution allows analysts and researchers to make probabilistic predictions and informed decisions from data.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "6f58e856-76df-45f7-ada7-de12a25c8693",
+      "Title": "The Exponential Distribution",
+      "Summary": "Learners investigate the exponential distribution, its relationship to waiting times and decay processes, and how to calculate probabilities using its defining parameter.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:15:42.152541-04:00",
+      "ModifiedDate": "2026-08-24T20:15:42.152541-04:00",
+      "Elements": [
+        {
+          "Id": "bce85729-52a0-4366-a0ae-7c580f7dffcd",
+          "TopicId": "6f58e856-76df-45f7-ada7-de12a25c8693",
+          "Title": "Definition and Shape of the Exponential Distribution",
+          "BodyText": "The exponential distribution is a continuous probability distribution used to model the time between events in a process where events occur continuously and independently at a constant average rate.",
+          "Notes": "Unlike the normal distribution, the exponential distribution is right-skewed, starting at its highest point when x = 0 and decreasing rapidly as x increases.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "ModifiedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "Items": [
+            {
+              "Id": "d515c35b-0005-4ed2-af24-b6e1e3295fb4",
+              "Text": "The distribution is defined for non-negative values only (x \u2265 0), making it suitable for modelling time or distance until an event occurs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "89fe058d-1075-47ba-b0ce-eea1ff876594",
+              "Text": "Its probability density function (PDF) is f(x) = \u03BBe^(\u2212\u03BBx), where \u03BB (lambda) is the rate parameter and e is Euler\u0027s number (\u2248 2.718).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "23324123-ad95-465e-a238-285d1431c9e8",
+              "Text": "The shape of the curve is always a declining exponential, with steeper decline for larger values of \u03BB.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "eea4cd76-e9f7-4cb2-9e70-e32a3ba46601",
+              "Text": "The distribution has a memoryless property, meaning the probability of an event occurring in the next interval is independent of how much time has already passed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fc485fa7-f866-41af-b0c7-f14929aafe56",
+          "TopicId": "6f58e856-76df-45f7-ada7-de12a25c8693",
+          "Title": "The Rate Parameter Lambda (\u03BB)",
+          "BodyText": "The exponential distribution is governed by a single parameter, \u03BB (lambda), which defines both the rate at which events occur and the overall shape of the distribution.",
+          "Notes": "For example, if a customer service desk handles an average of 5 calls per hour, then \u03BB = 5, and the mean waiting time between calls is 1/5 = 0.2 hours.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "ModifiedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "Items": [
+            {
+              "Id": "e0628981-5b8c-4b27-afc2-cb275f8dfb75",
+              "Text": "Lambda (\u03BB) represents the average number of events per unit of time, also called the rate parameter.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "125f7df1-ca9c-4e66-8ac1-fe3ace311a0b",
+              "Text": "The mean of the exponential distribution is 1/\u03BB, representing the average waiting time between events.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0c64d001-07d5-4e1f-ab40-40deae548fe5",
+              "Text": "The standard deviation of the exponential distribution is also 1/\u03BB, meaning the mean and standard deviation are always equal.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "880ed706-2b4e-4874-b1a8-88a323dae470",
+              "Text": "A larger \u03BB indicates events occur more frequently, resulting in a shorter average waiting time and a steeper curve.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6052504a-76c1-42d0-83a2-31bef549196b",
+          "TopicId": "6f58e856-76df-45f7-ada7-de12a25c8693",
+          "Title": "Relationship to Waiting Times and Decay Processes",
+          "BodyText": "The exponential distribution naturally models scenarios involving waiting times and decay, making it widely applicable in fields such as engineering, operations research, and the natural sciences.",
+          "Notes": "Radioactive decay, the lifespan of electronic components, and the time between customer arrivals at a queue are all classic real-world applications of the exponential distribution.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "ModifiedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "Items": [
+            {
+              "Id": "e3961fd4-7742-4f64-938d-3b1f2f784216",
+              "Text": "Waiting time applications include modelling the time until the next phone call, bus arrival, or equipment failure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f6ab5782-0ea3-4da1-9a71-93d4ab089471",
+              "Text": "Decay process applications include radioactive decay, where the time for a particle to decay follows an exponential distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fa0c3a94-ffb6-42ed-80ab-2d73c37b1c79",
+              "Text": "The exponential distribution is the continuous counterpart of the discrete Poisson distribution, which counts the number of events in a fixed interval.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ddf61e86-0171-4e01-ae8c-aeeb1e5f36c4",
+              "Text": "When events follow a Poisson process with rate \u03BB, the time between consecutive events follows an exponential distribution with the same rate \u03BB.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "72c0d0b7-b71e-4acd-9b92-04b980732848",
+          "TopicId": "6f58e856-76df-45f7-ada7-de12a25c8693",
+          "Title": "Calculating Probabilities Using the Exponential Distribution",
+          "BodyText": "Probabilities for the exponential distribution are calculated using its cumulative distribution function (CDF), which gives the probability that the event occurs within a specified time period.",
+          "Notes": "For example, if \u03BB = 3 events per hour, the probability that the next event occurs within 0.5 hours is P(X \u2264 0.5) = 1 \u2212 e^(\u22123 \u00D7 0.5) = 1 \u2212 e^(\u22121.5) \u2248 0.7769.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "ModifiedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "Items": [
+            {
+              "Id": "3b2392f9-5adc-429e-96c9-7ca96a175cb0",
+              "Text": "The cumulative distribution function (CDF) is P(X \u2264 x) = 1 \u2212 e^(\u2212\u03BBx), giving the probability that the waiting time is at most x.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bff0757c-9140-403b-bbe0-4b3c4731d235",
+              "Text": "The probability that the waiting time exceeds a value x is given by the survival function: P(X \u003E x) = e^(\u2212\u03BBx).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2b50b689-6f7f-441f-a2d3-952d878255c4",
+              "Text": "To find the probability between two values a and b, calculate P(a \u2264 X \u2264 b) = e^(\u2212\u03BBa) \u2212 e^(\u2212\u03BBb).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "233a4fc3-819f-402a-9b46-31bf58050fe7",
+              "Text": "These calculations require only the value of \u03BB and the time interval of interest, making the exponential distribution straightforward to apply.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7f9548b1-9b97-4bca-9ad8-e8bfeda33937",
+          "TopicId": "6f58e856-76df-45f7-ada7-de12a25c8693",
+          "Title": "The Memoryless Property",
+          "BodyText": "A unique and defining feature of the exponential distribution is its memoryless property, which states that the probability of waiting an additional amount of time is unaffected by how long one has already waited.",
+          "Notes": "This property is formally stated as P(X \u003E s \u002B t | X \u003E s) = P(X \u003E t), meaning past waiting time provides no information about future waiting time. The exponential distribution is the only continuous distribution with this property.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "ModifiedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "Items": [
+            {
+              "Id": "58285892-9ef8-4e5e-b28c-ce6fc06a6a66",
+              "Text": "The memoryless property makes the exponential distribution particularly useful for modelling systems where the history of the process does not influence future outcomes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e7564e06-3d3e-4cdc-a974-3e57763cee10",
+              "Text": "In practical terms, if a machine has been running for two hours without failure, the probability it will last another hour is the same as if it had just been switched on.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d2c29928-df59-40ed-b813-3ae7da1f65b9",
+              "Text": "This property is advantageous in queuing theory and reliability engineering, where it simplifies mathematical analysis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a1141578-e37e-453a-86fc-a179008e6412",
+              "Text": "It also means that the exponential distribution is not appropriate for modelling situations where the likelihood of failure or occurrence increases with time (e.g., ageing components).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a90c3074-103b-4168-871f-cfa0508d3158",
+          "TopicId": "6f58e856-76df-45f7-ada7-de12a25c8693",
+          "Title": "Mean, Variance, and Key Summary Statistics",
+          "BodyText": "The exponential distribution\u0027s summary statistics are directly derived from the rate parameter \u03BB, providing a complete description of the distribution\u0027s central tendency and spread.",
+          "Notes": "Because the mean and standard deviation are equal (both equal to 1/\u03BB), the coefficient of variation for the exponential distribution is always exactly 1, which is a useful diagnostic check.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "ModifiedDate": "2026-08-24T20:17:30.8655692-04:00",
+          "Items": [
+            {
+              "Id": "6bf894c6-83ef-4fbf-9b0b-48d464e93e0e",
+              "Text": "The mean (expected value) of the exponential distribution is E(X) = 1/\u03BB, representing the average time between events.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0a3f0d9f-6dda-4243-abe9-38c2224b8115",
+              "Text": "The variance is Var(X) = 1/\u03BB\u00B2, and the standard deviation is therefore 1/\u03BB, equal to the mean.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bac901ee-e39c-4fed-8518-64a4b1e80810",
+              "Text": "The median of the exponential distribution is ln(2)/\u03BB \u2248 0.693/\u03BB, which is always less than the mean, reflecting the right-skewed nature of the distribution.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "851c7b63-7a30-4f41-83bc-dd7a9f44df00",
+              "Text": "These statistics allow practitioners to quickly characterise the distribution and compare it to observed data when assessing model fit.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "0376f9bb-45d4-434d-82b1-ef251a808922",
+      "Title": "Calculating and Interpreting Probabilities",
+      "Summary": "This topic focuses on the practical skills of computing probabilities across all three distributions, including worked examples that reinforce correct use of formulas and tables.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:15:42.152541-04:00",
+      "ModifiedDate": "2026-08-24T20:15:42.152541-04:00",
+      "Elements": [
+        {
+          "Id": "c5353c19-90ef-498e-a75e-bd5bc3840a3c",
+          "TopicId": "0376f9bb-45d4-434d-82b1-ef251a808922",
+          "Title": "Calculating Probabilities for the Uniform Distribution",
+          "BodyText": "The uniform distribution assigns equal probability to all outcomes within a defined interval [a, b], making probability calculations straightforward using a simple area formula.",
+          "Notes": "Example: If X ~ U(2, 10), the probability that X falls between 4 and 7 is (7 - 4) / (10 - 2) = 3/8 = 0.375.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:18:01.990872-04:00",
+          "ModifiedDate": "2026-08-24T20:18:01.990872-04:00",
+          "Items": [
+            {
+              "Id": "450f91e6-f702-4be9-b0ab-97b22bad7910",
+              "Text": "The probability of X falling within a sub-interval [c, d] is calculated as P(c \u2264 X \u2264 d) = (d - c) / (b - a).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1076aa83-2de2-45da-a290-0539c29a0275",
+              "Text": "Because the distribution is symmetric and flat, probabilities are directly proportional to the width of the interval of interest.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a665d2b1-f9e7-4846-8864-4b1b8109891e",
+              "Text": "The total area under the uniform distribution always equals 1, confirming it is a valid probability distribution.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a2f69070-3c0b-4c73-93f8-56a52b81dd44",
+              "Text": "Boundary values a and b must be clearly identified before applying the formula to avoid calculation errors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a0893761-28d4-4b9c-b5c7-c34dc1b4edba",
+          "TopicId": "0376f9bb-45d4-434d-82b1-ef251a808922",
+          "Title": "Calculating Probabilities for the Normal Distribution",
+          "BodyText": "Normal distribution probabilities are found by standardising a raw score into a Z-score and then using the standard normal table (Z-table) to find cumulative probabilities.",
+          "Notes": "Example: For X ~ N(50, 100), to find P(X \u2264 60), compute Z = (60 - 50) / 10 = 1.0, then look up Z = 1.0 in the Z-table to obtain P = 0.8413.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:18:01.990872-04:00",
+          "ModifiedDate": "2026-08-24T20:18:01.990872-04:00",
+          "Items": [
+            {
+              "Id": "15f1d9f0-8252-4ae1-89cd-14129291544c",
+              "Text": "The Z-score formula Z = (X - \u03BC) / \u03C3 converts any normal random variable to the standard normal distribution with mean 0 and standard deviation 1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ac7a329d-aba1-41cc-bcf4-41497c128520",
+              "Text": "Z-tables typically provide cumulative probabilities P(Z \u2264 z); probabilities for upper tails are found using P(Z \u003E z) = 1 - P(Z \u2264 z).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "45a742f0-3c37-45cc-a0ff-651a79d1540f",
+              "Text": "For probabilities between two values, apply P(a \u2264 X \u2264 b) = P(Z \u2264 z\u2082) - P(Z \u2264 z\u2081), where z\u2081 and z\u2082 are the respective Z-scores.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "70ff54e3-c9b3-456d-82fb-2973c7e2bb72",
+              "Text": "Symmetry of the normal curve allows P(Z \u2264 -z) = 1 - P(Z \u2264 z), which is useful when dealing with negative Z-scores.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cd80ef57-437a-4907-96a1-6b25fe22c613",
+          "TopicId": "0376f9bb-45d4-434d-82b1-ef251a808922",
+          "Title": "Calculating Probabilities for the Exponential Distribution",
+          "BodyText": "The exponential distribution models the time between events in a Poisson process, and its probabilities are computed using a closed-form cumulative distribution function (CDF).",
+          "Notes": "Example: If the average time between arrivals is 5 minutes, then \u03BB = 0.2. The probability that the next arrival occurs within 3 minutes is P(X \u2264 3) = 1 - e^(-0.2 \u00D7 3) \u2248 0.4512.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:18:01.990872-04:00",
+          "ModifiedDate": "2026-08-24T20:18:01.990872-04:00",
+          "Items": [
+            {
+              "Id": "ee5cae9b-39e1-493d-806e-5f45df753b48",
+              "Text": "The CDF of the exponential distribution is P(X \u2264 x) = 1 - e^(-\u03BBx), where \u03BB is the rate parameter and x \u2265 0.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "053ed060-661e-4a38-a427-c790f749e614",
+              "Text": "The rate parameter \u03BB is the reciprocal of the mean (\u03BB = 1/\u03BC); correctly identifying \u03BB from a word problem is a critical first step.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb549647-dcd7-4d7e-97e4-39001f4dfb83",
+              "Text": "For probabilities over an interval, use P(a \u2264 X \u2264 b) = e^(-\u03BBa) - e^(-\u03BBb) derived from the CDF.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e8e9981a-4947-4bc0-9481-61f1816cb69c",
+              "Text": "Unlike the normal distribution, no table is required; a scientific calculator or software is sufficient to evaluate exponential probabilities.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "de91efb0-a9cd-40fe-b922-801ad30ac887",
+          "TopicId": "0376f9bb-45d4-434d-82b1-ef251a808922",
+          "Title": "Interpreting Calculated Probabilities in Context",
+          "BodyText": "Arriving at a numerical probability is only the first step; interpreting what that value means within the real-world problem is equally important for sound decision-making.",
+          "Notes": "For instance, a probability of 0.05 that a machine part lasts fewer than 100 hours may signal an unacceptable failure risk in a manufacturing quality-control context.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:18:01.990872-04:00",
+          "ModifiedDate": "2026-08-24T20:18:01.990872-04:00",
+          "Items": [
+            {
+              "Id": "2f1ba625-6b0f-4a39-bf3d-b7ae29c1956d",
+              "Text": "A probability close to 1 indicates the event is very likely to occur, while a probability close to 0 indicates it is very unlikely.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "36644cf3-d72d-45ea-89ca-7760fdb0c87b",
+              "Text": "Always re-read the problem statement after calculating to ensure the probability answers the specific question asked (e.g., \u0027at most\u0027, \u0027at least\u0027, \u0027between\u0027).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7df906c2-2d73-4cec-a3ad-13f35e0aaa00",
+              "Text": "Probabilities should be reported with appropriate precision and, where relevant, converted to percentages to communicate findings to non-technical audiences.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "72313a5e-2344-4e85-9afb-635e9f534fb9",
+              "Text": "Comparing probabilities across scenarios (e.g., P(X \u003C 10) vs. P(X \u003C 20)) provides insight into distribution spread and risk levels.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e7e05efd-e7e7-4d22-a353-45ede9c54988",
+          "TopicId": "0376f9bb-45d4-434d-82b1-ef251a808922",
+          "Title": "Using Tables and Technology to Compute Probabilities",
+          "BodyText": "Both statistical tables and software tools are essential resources for efficiently computing probabilities across the normal, exponential, and uniform distributions.",
+          "Notes": "Software such as Excel (NORM.DIST, EXPON.DIST), Python (scipy.stats), and R (pnorm, pexp, punif) automate probability calculations and reduce manual error.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:18:01.990872-04:00",
+          "ModifiedDate": "2026-08-24T20:18:01.990872-04:00",
+          "Items": [
+            {
+              "Id": "bf5641f0-8c87-4870-aa60-12108e41fbad",
+              "Text": "Standard normal Z-tables are arranged by Z-score to two decimal places and return cumulative probabilities; learners must read both the row and column headings carefully.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3e58ef11-33c3-4451-b1af-c0745d3b4443",
+              "Text": "When using technology, always verify that the function returns a cumulative probability (from the left) unless otherwise specified.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "88e01bca-a6b5-460a-9ee8-3b7c118c308b",
+              "Text": "For the uniform distribution, no special table is needed since the formula is algebraic and easily computed by hand or with a basic calculator.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fb09c26e-3709-41b4-9439-915ebc92486e",
+              "Text": "Cross-checking a technology output against a manual estimate (e.g., using the 68-95-99.7 rule for the normal distribution) is good practice to catch input errors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "05488b7d-bf2c-4e1b-8341-10a71d3a7fbd",
+          "TopicId": "0376f9bb-45d4-434d-82b1-ef251a808922",
+          "Title": "Common Errors and How to Avoid Them",
+          "BodyText": "Several systematic mistakes arise when computing probabilities for continuous distributions, and recognising these pitfalls helps learners produce accurate results.",
+          "Notes": "A frequent error is forgetting to subtract the lower-tail probability when finding P(X \u003E x), resulting in the complement being omitted entirely.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:18:01.990872-04:00",
+          "ModifiedDate": "2026-08-24T20:18:01.990872-04:00",
+          "Items": [
+            {
+              "Id": "1c5b7b52-9d55-46c8-bd61-a906481ee440",
+              "Text": "Confusing the rate parameter \u03BB with the mean \u03BC in the exponential distribution is a common error; always confirm which value the problem provides before substituting.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a20e229d-0583-4238-8052-f6e259c9bfa9",
+              "Text": "Failing to standardise correctly \u2014 for example, dividing by variance instead of standard deviation \u2014 produces an incorrect Z-score and therefore a wrong probability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "daf8e38a-5f4b-4224-a5a2-25d829b36c85",
+              "Text": "For between-value normal probabilities, subtracting in the wrong order (larger Z minus smaller Z) yields a negative result, signalling an arithmetic reversal.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "61451dc6-e85d-4ac4-ae76-c72ad0818db2",
+              "Text": "Applying a discrete probability formula (such as the binomial) to a continuous variable, or vice versa, is a conceptual error that requires careful reading of the problem type.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+      "Title": "Applying Continuous Distributions to Real-World Scenarios",
+      "Summary": "Learners develop the ability to select and apply appropriate continuous distributions to model real-world data, analysing outcomes in professional and research contexts.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:15:42.152541-04:00",
+      "ModifiedDate": "2026-08-24T20:15:42.152541-04:00",
+      "Elements": [
+        {
+          "Id": "53f9a9b8-d6cf-45b0-ad02-25a8301b318a",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Selecting the Right Continuous Distribution",
+          "BodyText": "Choosing the appropriate continuous distribution is a critical first step in modelling real-world data accurately.",
+          "Notes": "For example, use the normal distribution for heights or test scores, the exponential distribution for time between events like customer arrivals, and the uniform distribution when all outcomes in a range are equally likely.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "95d1deee-e1b2-420e-943b-38b2eb4173db",
+              "Text": "The normal distribution is best suited for symmetric, bell-shaped data such as measurement errors, biological traits, and standardised test scores.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1e53af01-d690-4455-8e97-96fe5f418ae2",
+              "Text": "The exponential distribution models the time between independent random events, such as equipment failure intervals or call centre wait times.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d85d6c44-591f-4b9e-97d7-d470e091f208",
+              "Text": "The uniform distribution applies when every value within a given interval is equally probable, such as random number generation or scheduled arrival windows.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b11ee146-c10a-4d1a-b327-a4c1ef9fde4c",
+              "Text": "Examining data shape, context, and underlying process helps justify the choice of distribution before analysis begins.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c4c3956a-4a22-4cb9-ab44-75d8081c329b",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Modelling Real-World Data with the Normal Distribution",
+          "BodyText": "The normal distribution is one of the most widely applied distributions in professional and research contexts due to its prevalence in naturally occurring data.",
+          "Notes": "A quality control engineer might use the normal distribution to determine the proportion of products falling outside tolerance limits, while a researcher might apply it to analyse exam score distributions across a large cohort.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "7cb2e069-1e8b-4060-9b46-4c515995dd2b",
+              "Text": "Real-world applications include modelling human body measurements, financial returns, manufacturing tolerances, and academic performance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ee9784a-350f-4b2d-bc7b-d459b5fd3712",
+              "Text": "Parameters \u03BC (mean) and \u03C3 (standard deviation) are estimated from sample data to fit the distribution to the observed scenario.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "23e4da0f-c510-43da-9fb5-45c109639ffa",
+              "Text": "Probabilities for specific outcomes are calculated using z-scores and standard normal tables or software tools.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "262c1992-9462-40b9-b0a8-283d759d56f9",
+              "Text": "The empirical rule (68-95-99.7%) provides a quick interpretive framework for understanding spread and identifying outliers in practice.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "713b7e72-28cb-42ee-8708-91b67891fccf",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Applying the Exponential Distribution in Professional Contexts",
+          "BodyText": "The exponential distribution is widely used in reliability engineering, queuing theory, and operations management to model waiting and survival times.",
+          "Notes": "For instance, a hospital administrator might model patient inter-arrival times to optimise staffing, or a systems engineer might estimate the probability that a machine operates without failure for at least a given number of hours.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "474a0878-9706-4ded-b932-2698f9700e56",
+              "Text": "Key applications include modelling time between customer arrivals, equipment lifespans, and response times in service systems.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "35dd85c9-911c-416c-9a74-0cd8b3b0f133",
+              "Text": "The rate parameter \u03BB (lambda) is interpreted as the average number of events per unit time, with the mean of the distribution equal to 1/\u03BB.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a1d37015-358b-493b-9b0c-708b04b34ad6",
+              "Text": "Probabilities such as \u0027the next event occurs within t units of time\u0027 are computed using the cumulative distribution function P(X \u2264 t) = 1 \u2212 e^(\u2212\u03BBt).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "99fbbc57-a8f6-4ddb-ba62-8354e9ec68f0",
+              "Text": "The memoryless property of the exponential distribution makes it especially useful in scenarios where past elapsed time does not influence future probabilities.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ba9bd922-6fb1-4233-8f14-54f8175d8e55",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Using the Uniform Distribution in Practical Scenarios",
+          "BodyText": "The uniform distribution is applied when outcomes are equally likely across a defined interval, making it useful in simulation, scheduling, and fairness-based modelling.",
+          "Notes": "A logistics planner might model delivery arrival times as uniformly distributed within a two-hour window, using the distribution to calculate the probability of arrival before a specific time.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "ddb0f20e-078b-4220-8ef4-d5988ffdc573",
+              "Text": "Practical uses include modelling random sampling processes, appointment scheduling gaps, and random number generation in simulations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6e814ebd-b6b6-4f9d-95d9-4e0f1a14f792",
+              "Text": "For a uniform distribution over [a, b], the probability of an outcome within a sub-interval [c, d] is calculated as (d \u2212 c) / (b \u2212 a).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "380b598d-5535-4bcc-b1d5-f1c8f3763088",
+              "Text": "The mean and variance of the uniform distribution are determined entirely by the endpoints a and b, making parameterisation straightforward.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0f4c1bbc-af1a-4ecd-9c23-d334eb589b50",
+              "Text": "When data shows no particular concentration or pattern within a range, the uniform distribution provides a simple and defensible modelling choice.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2cc73c9a-0162-4922-88e9-01895a8aaf55",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Calculating and Interpreting Probabilities for Decision-Making",
+          "BodyText": "Once a distribution is selected and fitted, calculating probabilities enables data-driven decisions in professional and research settings.",
+          "Notes": "For example, a manufacturer might calculate the probability that a component\u0027s lifetime exceeds the warranty period, informing pricing and risk strategies.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "eb3f7343-1a3b-4e80-b32c-d180ee64d792",
+              "Text": "Probabilities are computed using cumulative distribution functions (CDFs), which give the likelihood that a variable falls below or above a threshold value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c635826-1995-4c8a-93ff-a99cb6b48498",
+              "Text": "Results must be interpreted in context \u2014 a probability of 0.05 for a defect rate may be acceptable in one industry but critical in another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "63dead99-9f50-4d3f-a031-320222df3b5a",
+              "Text": "Complement rules allow calculation of \u0027greater than\u0027 probabilities: P(X \u003E x) = 1 \u2212 P(X \u2264 x), extending interpretive flexibility.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "00014e4e-1d4f-4135-8d56-18dbea9a5da5",
+              "Text": "Combining probability calculations with domain knowledge ensures that statistical outputs translate into meaningful, actionable insights.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8e1c391f-1b30-4a10-88f4-ec4cd03a99db",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Evaluating Distribution Fit and Validating Assumptions",
+          "BodyText": "Before drawing conclusions, practitioners must verify that the chosen distribution adequately fits the real-world data being modelled.",
+          "Notes": "Histogram overlays, Q-Q plots, and goodness-of-fit tests such as the Kolmogorov-Smirnov test are common tools used to assess how well a theoretical distribution matches observed data.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "57e1707d-bb37-4600-bf54-edc7f77872e0",
+              "Text": "Visual inspection of data through histograms and density plots provides an initial check on whether the assumed distribution shape is reasonable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4827592c-d845-45ba-a5c0-bddb8e63a5af",
+              "Text": "Formal goodness-of-fit tests quantify discrepancies between observed data and the theoretical distribution, supporting or challenging the model choice.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "691662f7-f8ef-44ca-bb8b-675f90e90161",
+              "Text": "Violations of distributional assumptions \u2014 such as skewness in data assumed to be normal \u2014 can lead to inaccurate probability estimates and poor decisions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c8aeb7b0-45c9-4093-986d-ac0c99467181",
+              "Text": "Iterative model refinement, including transforming data or switching distributions, is a normal part of rigorous applied statistical analysis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b359c3e5-dba1-43e2-8928-e026e8501fad",
+          "TopicId": "e6be2f6c-45cd-47e4-a049-4664af34c751",
+          "Title": "Communicating Results in Research and Professional Reports",
+          "BodyText": "Effectively conveying the results of continuous distribution analyses to diverse audiences is an essential professional skill.",
+          "Notes": "A data analyst presenting findings to a non-technical management team should focus on practical implications \u2014 such as expected wait times or defect rates \u2014 rather than technical distributional details.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "ModifiedDate": "2026-08-24T20:18:34.7618557-04:00",
+          "Items": [
+            {
+              "Id": "ebcd297a-2de2-4001-8042-2589b91010b3",
+              "Text": "Results should be presented with clear context, specifying the distribution used, its parameters, and the business or research question being addressed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2ae81474-4b03-4f0a-8a64-02e014d32637",
+              "Text": "Graphical representations such as probability density curves and shaded area plots help non-specialist audiences understand probability findings intuitively.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7621f06d-b970-4541-ac23-9794a7c85c6c",
+              "Text": "Uncertainty and limitations of the model \u2014 including sample size constraints or assumption violations \u2014 should be transparently communicated.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "078d4b0f-25a3-4a9c-9bda-6121b5168664",
+              "Text": "Recommendations derived from the analysis should directly connect the probability outcomes to actionable decisions or further investigation steps.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 39
+}

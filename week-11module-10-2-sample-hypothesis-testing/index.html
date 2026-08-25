@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 11/Module 10 – 2 Sample Hypothesis Testing | EGN3443</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ───────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+
+    header p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.88);
+    }
+
+    /* ── Main Container ───────────────────────────────────────── */
+    main {
+      max-width: 1060px;
+      margin: 2.5rem auto 3.5rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Section Label ────────────────────────────────────────── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7f8c9a;
+      margin-bottom: 1.1rem;
+      padding-left: 2px;
+    }
+
+    /* ── Card Grid ────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ─────────────────────────────────────────────────── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ea;
+      border-radius: 10px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(46,109,164,0.13);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card – Meta Row ──────────────────────────────────────── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    /* Badge colour by type */
+    .badge-module-topics  { background: #e8f0fb; color: #1a5fa8; }
+    .badge-text-content   { background: #e9f7ef; color: #1d7a45; }
+    .badge-quiz           { background: #fff4e0; color: #b06b00; }
+    .badge-assignment     { background: #f3eeff; color: #6234b5; }
+
+    .filetype-tag {
+      font-size: 0.68rem;
+      color: #8a95a3;
+      font-family: 'Courier New', monospace;
+      background: #f0f2f5;
+      border-radius: 4px;
+      padding: 0.18rem 0.45rem;
+    }
+
+    /* ── Card – Title Row ─────────────────────────────────────── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      flex: 1 1 auto;
+    }
+
+    .card-title a {
+      color: #1a5fa8;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+      color: #0e3f76;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #7f8c9a;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #c9d3dc;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .source-link:hover {
+      background: #eef2f7;
+      color: #1a3a5c;
+      border-color: #a0b0be;
+    }
+
+    /* ── Card – Description ───────────────────────────────────── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5a6a;
+      margin-top: 0.1rem;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.78rem;
+      color: #9aa5b0;
+      border-top: 1px solid #dde3ea;
+    }
+
+    /* ── Responsive Tweaks ────────────────────────────────────── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1rem 1.75rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════════════════════════ -->
+  <header>
+    <div class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</div>
+    <h1>Week 11 / Module 10 &mdash; 2 Sample Hypothesis Testing</h1>
+    <p>
+      Explore the theory and application of two-sample hypothesis testing, including
+      independent and paired sample t-tests and tests for two proportions. Use the
+      resources below to review concepts, complete assignments, and assess your understanding.
+    </p>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════════════════════ -->
+  <main>
+    <div class="section-label">Module Artifacts &mdash; 6 items</div>
+
+    <div class="card-grid">
+
+      <!-- ── Card 1: Module Topics ──────────────────────────── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-module-topics">Module Topics</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's learning topics, covering two-sample hypothesis
+          testing foundations, independent versus paired samples, assumptions, and related
+          statistical conditions, used as a navigational reference for what the module addresses.
+        </p>
+      </div>
+
+      <!-- ── Card 2: Module 10 Landing Page ────────────────── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/EGN3443_Module_10_Hypothesis_Testing_for_2_Sampl.html">EGN3443 Module 10 - Hypothesis Testing for 2 Samples</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A landing page that organizes and links to the module's core instructional resources
+          &mdash; the PowerPoint slides, lecture video, and Google Colab notebook &mdash; for
+          learners to access all materials in one place.
+        </p>
+      </div>
+
+      <!-- ── Card 3: Study Reference ────────────────────────── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-text-content">Text Content</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Hypothesis_Testing_for_2_Samples.html">Hypothesis Testing for 2 Samples</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A detailed study reference explaining key two-sample hypothesis testing methods,
+          including the independent samples t-test, paired t-test, and tests for two proportions,
+          with definitions, characteristics, and supporting lecture links for learners to review concepts.
+        </p>
+      </div>
+
+      <!-- ── Card 4: Quiz Question Bank ────────────────────── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-quiz">Quiz</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="quiz/index.html">Quiz Question Bank (30 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        </div>
+        <p class="card-description">
+          A 30-question quiz bank assessing learners' ability to select appropriate two-sample
+          statistical tests and apply hypothesis testing procedures across engineering and applied
+          scenarios, used by instructors to build graded quizzes.
+        </p>
+      </div>
+
+      <!-- ── Card 5: Graded Discussion ─────────────────────── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-assignment">Assignment</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="assignments/index.html">Module 10 Graded Discussion</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A graded discussion assignment asking learners to describe Design of Experiments within
+          Six Sigma methodology and apply it to a real-world personal or professional scenario,
+          prompting reflection and peer engagement.
+        </p>
+      </div>
+
+      <!-- ── Card 6: Assignment 10 ──────────────────────────── -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-assignment">Assignment</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="assignments/index.html">Assignment 10 - Hypothesis Testing</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A graded assignment presenting a paired before-and-after engineering scenario involving
+          a new engine coolant additive, in which learners must conduct a two-sample hypothesis
+          test to determine whether the additive significantly reduces engine operating temperature.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════════ -->
+  <footer>
+    EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 11 / Module 10 &mdash; Course Module Index
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

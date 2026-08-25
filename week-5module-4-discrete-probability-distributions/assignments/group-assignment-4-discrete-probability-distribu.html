@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Group Assignment 4 - Discrete Probability Distributions</title>
+<style>body{font-family:Segoe UI,Arial,sans-serif;max-width:900px;margin:24px auto;padding:0 16px;line-height:1.5;color:#222}h1{font-size:1.6em;margin-bottom:.3em}h2{font-size:1.25em;margin-top:1.4em;border-bottom:1px solid #ddd;padding-bottom:.2em}h3{font-size:1.05em;margin-bottom:.2em}.lead{color:#555}.summary{color:#444;margin:.2em 0 .4em}.bloom{color:#777;font-size:.9em}ul,ol{padding-left:1.4em}pre{background:#f6f6f6;padding:12px;border-radius:4px}.mo{display:grid;grid-template-columns:56px 1fr;gap:2px 10px;margin:0 0 10px;padding:8px 10px;background:#f7f9fc;border-left:3px solid #2e6cb4;border-radius:3px}.mo .code{font-weight:600;color:#2e6cb4}.mo .statement{grid-column:2}.mo .meta{grid-column:2;font-size:.85em;color:#777}.mo .meta span{margin-right:12px}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+<div class="pm-injected-nav"><a href="index.html">← Back to Assignments</a><span class="sep">|</span><a href="../index.html">↑ Back to Module</a></div>
+<div class="pm-injected-spacer"></div>
+<h1>Group Assignment 4 - Discrete Probability Distributions</h1>
+<h1>Assignment: Probability Distribution Analysis in Semiconductor Manufacturing (Group Assignment)</h1>
+<h2>Assignment 4 Groups - Use this link to join a group. You should work together on a solution and report. Groups can contain 2 or more students.&nbsp;</h2>
+<hr>
+<h2>Background</h2>
+<p>You are a quality engineer at <strong>NanoChip Technologies</strong>, a semiconductor manufacturing company producing microprocessors. The company has collected data from multiple production scenarios that require statistical analysis to improve quality control and predict failure rates. Your task is to analyze these scenarios, identify the appropriate discrete probability distributions, and make data-driven recommendations.</p>
+<hr>
+<h2>Learning Objectives</h2>
+<p>By completing this assignment, students will be able to:</p>
+<ol>
+<li>Identify the appropriate discrete probability distribution based on problem characteristics</li>
+<li>Apply probability distributions to solve real-world engineering problems</li>
+<li>Use Python libraries (NumPy, SciPy, Matplotlib, Seaborn) for statistical analysis</li>
+<li>Create professional visualizations to communicate results</li>
+<li>Interpret results in an engineering context</li>
+</ol>
+<hr>
+<h2>Part 1: Wafer Defect Analysis (25 points)</h2>
+<h3>Scenario</h3>
+<p>Your semiconductor fabrication facility produces silicon wafers in batches of 25. Historical data shows that the probability of any individual wafer having a critical defect is 0.03 (3%). The defects occur independently.</p>
+<h3>Tasks:</h3>
+<ol>
+<li>
+<p><strong>Identify the Distribution</strong>: Explain why this scenario follows a specific discrete probability distribution. List the key characteristics that led to your choice.</p>
+</li>
+<li>
+<p><strong>Analysis Requirements</strong>:</p>
+<ul>
+<li>Calculate the probability of finding exactly 0, 1, 2, and 3 defective wafers in a batch</li>
+<li>Find the probability of finding more than 2 defective wafers in a batch</li>
+<li>Determine the expected number of defective wafers per batch and the standard deviation</li>
+<li>If the company produces 100 batches per day, what is the expected total number of defective wafers?</li>
+</ul>
+</li>
+<li>
+<p><strong>Visualization (5 points)</strong>: Create a bar plot showing the probability mass function (PMF) for 0 to 10 defective wafers.</p>
+</li>
+</ol>
+<h3>Starter Code:</h3>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set style for better-looking plots
+sns.set_style("whitegrid")
+plt.rcParams['figure.figsize'] = (10, 6)
+
+# Define parameters
+batch_size = 25
+defect_probability = 0.03
+
+# TODO: Identify and implement the correct distribution
+# Hint: Consider what type of process this represents
+
+# YOUR CODE HERE
+</code></pre>
+<hr>
+<h2>Part 2: Clean Room Particle Detection (25 points)</h2>
+<h3>Scenario</h3>
+<p>In your clean room facility, particle contamination events occur randomly at an average rate of 2.5 events per hour. You need to analyze the probability of contamination events during different time periods.</p>
+<h3>Tasks:</h3>
+<ol>
+<li>
+<p><strong>Identify the Distribution</strong>: Explain which discrete distribution models this scenario and why.</p>
+</li>
+<li>
+<p><strong>Analysis Requirements</strong>:</p>
+<ul>
+<li>Calculate the probability of exactly 0, 1, 2, 3, 4, and 5 contamination events in one hour</li>
+<li>Find the probability of more than 4 events occurring in one hour</li>
+<li>Determine the probability of no contamination events in a 30-minute period</li>
+<li>If contamination events require 15 minutes of cleaning, what's the probability that more than 1 hour of cleaning will be needed in a 4-hour shift?</li>
+</ul>
+</li>
+<li>
+<p><strong>Visualization</strong>:</p>
+<ul>
+<li>Create a subplot with 2 graphs:
+<ul>
+<li>PMF for events in 1 hour (bar plot)</li>
+<li>Cumulative Distribution Function (CDF) for events in 1 hour (step plot)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3>Data Structure:</h3>
+<pre><code># Historical contamination data (events per hour for 30 days)
+historical_data = [2, 3, 1, 4, 2, 3, 2, 1, 3, 2, 
+                   4, 2, 3, 1, 2, 3, 2, 5, 2, 3,
+                   1, 2, 3, 2, 4, 2, 3, 2, 1, 3]
+
+# Verify the average rate using this historical data
+# YOUR CODE HERE
+</code></pre>
+<hr>
+<h2>Part 3: Chip Testing Until Failure (25 points)</h2>
+<h3>Scenario</h3>
+<p>You are testing a new chip design where each chip has a 0.85 probability of passing a stress test. You continue testing chips sequentially until you find the first failure.</p>
+<h3>Tasks:</h3>
+<ol>
+<li>
+<p><strong>Identify the Distribution</strong>: Identify the appropriate distribution and explain your reasoning.</p>
+</li>
+<li>
+<p><strong>Analysis Requirements</strong>:</p>
+<ul>
+<li>Calculate the probability that the first failure occurs on the 1st, 2nd, 3rd, 4th, and 5th test</li>
+<li>Find the probability that you need to test more than 10 chips before finding a failure</li>
+<li>Determine the expected number of tests until the first failure</li>
+<li>If testing costs $50 per chip, what is the expected cost to find the first failure?</li>
+</ul>
+</li>
+<li>
+<p><strong>Visualization</strong>:</p>
+<ul>
+<li>Create a line plot showing the probability of first failure for tests 1 through 20</li>
+<li>Add a vertical line at the expected value</li>
+<li>Include proper labels and legend</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>Part 4: Multi-Stage Production Line (25 points)</h2>
+<h3>Scenario</h3>
+<p>Your production line has 5 independent inspection stations. Each station has a different probability of detecting defects:</p>
+<ul>
+<li>Station 1: 0.95 detection probability</li>
+<li>Station 2: 0.92 detection probability</li>
+<li>Station 3: 0.88 detection probability</li>
+<li>Station 4: 0.90 detection probability</li>
+<li>Station 5: 0.93 detection probability</li>
+</ul>
+<p>A defective chip passes through all stations. You want to analyze how many stations will detect the defect.</p>
+<h3>Tasks:</h3>
+<ol>
+<li>
+<p><strong>Identify the Challenge</strong>: Explain why this scenario is more complex than the previous ones. Can you use a standard distribution? If not, how will you approach it?</p>
+</li>
+<li>
+<p><strong>Simulation Approach</strong>:</p>
+<ul>
+<li>Simulate 10,000 defective chips passing through the production line</li>
+<li>Calculate the empirical probability distribution for the number of stations detecting the defect</li>
+<li>Find the probability that at least 3 stations detect a defect</li>
+<li>Determine the expected number of stations that will detect a defect</li>
+</ul>
+</li>
+<li>
+<p><strong>Advanced Visualization</strong>:</p>
+<ul>
+<li>Create a figure with 3 subplots:
+<ul>
+<li>Histogram of simulation results with empirical probabilities</li>
+<li>Box plot showing the distribution of detection counts</li>
+<li>Heatmap showing correlation between station detections</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3>Simulation Framework:</h3>
+<pre><code>def simulate_production_line(n_simulations=10000):
+    """
+    Simulate defective chips passing through inspection stations
+    
+    Returns:
+    - detection_counts: array of how many stations detected each chip
+    - station_detections: binary matrix of detection results
+    """
+    detection_probs = [0.95, 0.92, 0.88, 0.90, 0.93]
+    
+    # YOUR CODE HERE
+    
+    return detection_counts, station_detections
+
+# Run simulation and analyze
+detection_counts, station_detections = simulate_production_line()
+</code></pre>
+<p></p>
+<hr>
+<h2>Submission Requirements - I am giving a more detailed description of the report as this is a pretty extensive assignment.&nbsp;</h2>
+<h3><span style="font-size: 1.2em; letter-spacing: 0.02rem;">1. Written Report (PDF)</span></h3>
+<ul>
+<li>2-3 page report summarizing:
+<ul>
+<li>Distribution identification process for each scenario</li>
+<li>Key findings and insights</li>
+<li>Engineering implications of the results</li>
+<li>Recommendations for quality improvement</li>
+</ul>
+</li>
+</ul>
+<h3>2. Code Submission</h3>
+<ul>
+<li>Submit a Colab Notebook (.ipynb) with all code, outputs, and visualizations</li>
+<li>Code must be well-commented&nbsp;</li>
+<li>Include markdown cells explaining your reasoning</li>
+</ul>
+<h3>3. Visualization Portfolio</h3>
+<ul>
+<li>All plots must include:
+<ul>
+<li>Clear titles and axis labels</li>
+<li>Legends where appropriate</li>
+<li>Professional formatting</li>
+<li>Color-blind friendly color schemes</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>Grading Rubric</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Points</th>
+<th>Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Distribution Identification</strong></td>
+<td>20</td>
+<td>Correctly identifies each distribution with clear justification</td>
+</tr>
+<tr>
+<td><strong>Calculations</strong></td>
+<td>30</td>
+<td>Accurate probability calculations and statistical measures</td>
+</tr>
+<tr>
+<td><strong>Code Quality</strong></td>
+<td>20</td>
+<td>Clean, efficient, well-documented Python code</td>
+</tr>
+<tr>
+<td><strong>Visualizations</strong></td>
+<td>20</td>
+<td>Clear, professional, and informative plots</td>
+</tr>
+<tr>
+<td><strong>Interpretation</strong></td>
+<td>10</td>
+<td>Meaningful engineering insights and recommendations</td>
+</tr>
+<tr>
+<td><strong>Bonus</strong></td>
+<td>+10</td>
+<td>Exceptional comparative analysis and interactive features</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Resources and Hints</h2>
+<h3>Python Libraries Documentation:</h3>
+<ul>
+<li><a rel="noopener" href="https://docs.scipy.org/doc/scipy/reference/stats.html">SciPy Statistical Functions</a></li>
+<li><a rel="noopener" href="https://matplotlib.org/stable/gallery/index.html">Matplotlib Gallery</a></li>
+<li><a rel="noopener" href="https://seaborn.pydata.org/tutorial.html">Seaborn Tutorial</a></li>
+</ul>
+<h3>Distribution Quick Reference:</h3>
+<ul>
+<li><strong>Binomial</strong>: Fixed number of independent trials, constant probability</li>
+<li><strong>Poisson</strong>: Events occurring at a constant average rate</li>
+<li><strong>Geometric</strong>: Number of trials until first success</li>
+<li><strong>Hypergeometric</strong>: Sampling without replacement</li>
+<li><strong>Negative Binomial</strong>: Number of trials until r successes</li>
+</ul>
+<h3>Tips for Success:</h3>
+<ol>
+<li>Start by clearly identifying the characteristics of each scenario</li>
+<li>Test your code with simple examples first</li>
+<li>Verify calculations using multiple approaches when possible</li>
+<li>Focus on clear communication of results</li>
+<li>Consider edge cases and limitations of your models</li>
+</ol>
+<p></p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

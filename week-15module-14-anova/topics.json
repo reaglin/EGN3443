@@ -1,0 +1,1159 @@
+{
+  "ModuleFolderName": "Week_15_Module_14_-_ANOVA",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:40:54.6207441-04:00",
+  "ModifiedDate": "2026-08-24T20:43:19.6237401-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "97ec1af3-bb56-4bd0-95d3-375862e48987",
+      "Title": "Introduction to ANOVA",
+      "Summary": "This topic introduces Analysis of Variance as a statistical method designed to compare means across three or more groups. Learners explore why ANOVA is preferred over multiple t-tests and when it is the appropriate analytical choice.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "ModifiedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "Elements": [
+        {
+          "Id": "1a38a29b-1ba2-4941-a4dc-1ebc3e8aadef",
+          "TopicId": "97ec1af3-bb56-4bd0-95d3-375862e48987",
+          "Title": "What is ANOVA?",
+          "BodyText": "Analysis of Variance (ANOVA) is a statistical method used to compare means across three or more groups simultaneously.",
+          "Notes": "Despite its name referencing \u0027variance,\u0027 ANOVA is fundamentally about testing whether group means differ significantly from one another.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "ModifiedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "Items": [
+            {
+              "Id": "c8486d07-6ecf-4c81-8304-c29e5f7d1ac8",
+              "Text": "ANOVA tests the null hypothesis that all group means are equal against the alternative that at least one group mean is different.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8fac97cd-05a1-44d0-b7fa-aefe2998f59c",
+              "Text": "The method partitions total variability in the data into variability between groups and variability within groups.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "632b42af-6cc6-4000-b64b-8422273911c9",
+              "Text": "It produces an F-statistic, which reflects the ratio of between-group variance to within-group variance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0afc5bad-511b-4fa8-a653-afffabfb1fc6",
+          "TopicId": "97ec1af3-bb56-4bd0-95d3-375862e48987",
+          "Title": "Why Not Just Use Multiple t-Tests?",
+          "BodyText": "When comparing more than two groups, repeatedly applying t-tests inflates the overall Type I error rate, making ANOVA the preferred approach.",
+          "Notes": "For example, comparing three groups with three separate t-tests at \u03B1 = 0.05 raises the familywise error rate to approximately 14%, increasing the chance of a false positive.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "ModifiedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "Items": [
+            {
+              "Id": "902483ea-9f5d-40b0-a523-6a07c02535c2",
+              "Text": "Each individual t-test carries its own probability of a Type I error; running multiple tests compounds these probabilities.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1331cd0-1a4d-47a9-89cd-b5d0b8822c7d",
+              "Text": "ANOVA controls the familywise error rate by testing all group means in a single analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "14c529fe-f57d-4d60-98c0-4f5f54fa7dc5",
+              "Text": "Using ANOVA instead of multiple t-tests maintains the chosen significance level (e.g., \u03B1 = 0.05) across the entire comparison.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ad99a523-95bb-4966-8b25-d6ddab9950aa",
+          "TopicId": "97ec1af3-bb56-4bd0-95d3-375862e48987",
+          "Title": "When is ANOVA the Appropriate Choice?",
+          "BodyText": "ANOVA is appropriate when a researcher needs to compare means from three or more independent groups on a continuous outcome variable.",
+          "Notes": "For instance, a researcher comparing test scores across four different teaching methods would use ANOVA rather than a t-test or other simpler comparison.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "ModifiedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "Items": [
+            {
+              "Id": "46ee48ae-fc58-4683-9919-b3022cfc4cac",
+              "Text": "The dependent variable should be measured at the interval or ratio level.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8ddd47dd-13a3-4084-950d-7c72d442f62a",
+              "Text": "There must be three or more groups or conditions being compared.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3405f5dd-db13-4a61-922e-21e1d2e44676",
+              "Text": "The research question should focus on whether any group means differ, not simply describing distributions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ab029376-c36b-4c09-a52b-21cabaf851a7",
+          "TopicId": "97ec1af3-bb56-4bd0-95d3-375862e48987",
+          "Title": "Core Assumptions of ANOVA",
+          "BodyText": "ANOVA relies on several key assumptions that must be met for the results to be valid and interpretable.",
+          "Notes": "Violations of these assumptions can lead to inaccurate F-statistics and misleading conclusions; researchers should verify assumptions before proceeding.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "ModifiedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "Items": [
+            {
+              "Id": "d6e0691b-8a73-4533-baf0-36ccc97a1d6b",
+              "Text": "Observations within each group should be independent of one another.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a2b23422-f97d-4d83-9ca5-236e7d00aa01",
+              "Text": "The dependent variable should be approximately normally distributed within each group.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aff9715b-aae4-462f-92a7-7fd16be539ff",
+              "Text": "Groups should have roughly equal variances, a property known as homogeneity of variance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "143e5761-db0b-471e-8944-9e5b050fd3be",
+          "TopicId": "97ec1af3-bb56-4bd0-95d3-375862e48987",
+          "Title": "One-Way vs. Multi-Factor ANOVA Designs",
+          "BodyText": "ANOVA can be extended beyond a single grouping variable to accommodate more complex study designs involving multiple factors.",
+          "Notes": "A one-way ANOVA examines one independent variable, while a two-way (or higher) ANOVA examines the effects of two or more independent variables and their interactions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "ModifiedDate": "2026-08-24T20:41:09.2761546-04:00",
+          "Items": [
+            {
+              "Id": "a1222738-b5fa-46f9-bedc-ce821c3e7639",
+              "Text": "One-way ANOVA involves a single categorical independent variable with three or more levels.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "763589b3-748b-4ba3-8312-dffb08c174f0",
+              "Text": "Multi-factor ANOVA allows researchers to examine the effect of multiple independent variables simultaneously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2a3fea0c-f970-4983-a66d-1b145aab2bc0",
+              "Text": "Multi-factor designs also reveal interaction effects, showing whether the effect of one variable depends on the level of another.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+      "Title": "Assumptions Underlying ANOVA",
+      "Summary": "This topic examines the key statistical assumptions that must be met before conducting an ANOVA, including normality, homogeneity of variance, and independence of observations. Learners explore how to verify these assumptions and what to do when they are violated.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "ModifiedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "Elements": [
+        {
+          "Id": "92cf8e72-368b-4bab-ae6d-8f37a4317572",
+          "TopicId": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+          "Title": "Normality of the Dependent Variable",
+          "BodyText": "ANOVA assumes that the dependent variable is approximately normally distributed within each group being compared.",
+          "Notes": "For large samples, the Central Limit Theorem helps satisfy this assumption even when the raw data are slightly skewed. For small samples, normality is more critical.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "ModifiedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "Items": [
+            {
+              "Id": "a89e3853-3b64-44ef-b447-c4816213388b",
+              "Text": "Normality can be assessed visually using histograms, Q-Q plots, or box plots for each group.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c5cf6b87-8e92-4a35-a603-9f18982530f1",
+              "Text": "Formal statistical tests such as the Shapiro-Wilk test or Kolmogorov-Smirnov test can be used to test for departures from normality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "13c30b28-0e02-45e1-b9c1-aa6da5a5b8b5",
+              "Text": "When normality is severely violated, a non-parametric alternative such as the Kruskal-Wallis test may be more appropriate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bff00986-ea40-4db1-910a-238f1067fbd8",
+              "Text": "Moderate departures from normality are generally acceptable when group sizes are roughly equal and sufficiently large.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "455fa195-55ca-4128-8e1b-a7954baf2855",
+          "TopicId": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+          "Title": "Homogeneity of Variance (Homoscedasticity)",
+          "BodyText": "ANOVA requires that the variances of the dependent variable be approximately equal across all groups being compared, a property known as homogeneity of variance.",
+          "Notes": "Unequal variances can inflate the Type I error rate, making results unreliable. This assumption becomes more critical when group sizes are unequal.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "ModifiedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "Items": [
+            {
+              "Id": "d1d8b679-e37b-4ea5-b967-03a5dabcc2c7",
+              "Text": "Levene\u0027s Test is the most commonly used formal test for homogeneity of variance; a non-significant result suggests the assumption is met.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1fb735a1-ccdd-4e17-8f13-983a9c17e899",
+              "Text": "Bartlett\u0027s Test is another option but is more sensitive to departures from normality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8ccf3410-51e5-4d66-aa89-31bea2e14edc",
+              "Text": "When homogeneity of variance is violated, Welch\u0027s ANOVA is a robust alternative that does not assume equal variances.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "520b983b-1930-48b6-aa1c-2f736f161ccc",
+              "Text": "Visual inspection of boxplots across groups can provide an informal check of variance equality before formal testing.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6a772556-5d4b-405e-a036-7ec01990723c",
+          "TopicId": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+          "Title": "Independence of Observations",
+          "BodyText": "ANOVA assumes that each observation is independent of all others, meaning the value of one data point does not influence or predict the value of another.",
+          "Notes": "Independence is primarily a design and data-collection concern rather than something that can be tested statistically after the fact. Violating this assumption can seriously inflate the F-statistic.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "ModifiedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "Items": [
+            {
+              "Id": "ed966456-d9c6-45a1-b189-9474eb2e4117",
+              "Text": "Independence is typically ensured through proper random sampling and random assignment of participants to groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "692820a3-d4c7-48e9-958c-606a5be8d651",
+              "Text": "Repeated measures or matched designs violate the independence assumption and require a repeated-measures ANOVA instead.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9bfb5f91-c484-40fd-af7c-b30084983ed6",
+              "Text": "Clustered data, such as students nested within classrooms, also violates independence and may require multilevel modeling.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c3535e55-271c-4499-af34-2d265c592f49",
+              "Text": "Researchers should document their data collection procedures to justify the independence assumption.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "912855e5-e0c5-419a-9996-65f72847c626",
+          "TopicId": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+          "Title": "Verifying Assumptions Before Conducting ANOVA",
+          "BodyText": "Before running an ANOVA, researchers should systematically check each assumption using a combination of visual methods and formal statistical tests.",
+          "Notes": "A structured pre-analysis checklist helps ensure that results are valid and interpretable. Many statistical software packages provide assumption-checking tools as part of their ANOVA output.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "ModifiedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "Items": [
+            {
+              "Id": "0a2badad-f24b-4e48-a771-cdb30f115cb9",
+              "Text": "Begin by examining descriptive statistics and visual plots (histograms, Q-Q plots, and boxplots) for each group separately.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "da90f9b3-90ac-468c-8540-6b8bb4502afd",
+              "Text": "Run formal tests such as Shapiro-Wilk for normality and Levene\u0027s test for equality of variances.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e3d5dcf3-286c-401d-a997-346ee0bec00a",
+              "Text": "Confirm that the study design ensures independence through review of data collection methodology.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5ed1d58b-a17d-4f02-ad4b-e3ae302364c0",
+              "Text": "Document and report all assumption checks in the analysis to support transparency and reproducibility.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7f71ea0a-f979-4ecf-aad2-899e8bfc049b",
+          "TopicId": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+          "Title": "Consequences of Violating ANOVA Assumptions",
+          "BodyText": "When one or more ANOVA assumptions are violated, the resulting F-statistic and p-value may be inaccurate, leading to inflated Type I or Type II error rates.",
+          "Notes": "The severity of the impact depends on the degree of violation, the sample size, and whether group sizes are balanced. Awareness of these consequences guides researchers toward appropriate corrective actions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "ModifiedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "Items": [
+            {
+              "Id": "847174b2-c394-4e81-b5af-e470b58bae2b",
+              "Text": "Violating normality with small, unequal group sizes can distort p-values and make conclusions unreliable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4a224a9e-c6f0-4103-8679-06deb0dc8a13",
+              "Text": "Heterogeneity of variance paired with unequal group sizes is particularly problematic and can inflate the false positive rate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d84c958c-242f-4098-a7e9-d123aebdb029",
+              "Text": "Non-independence typically leads to an underestimation of standard errors, making results appear more significant than they truly are.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "85f94227-aec9-4272-9872-24d3fa5a1770",
+              "Text": "The robustness of ANOVA to mild violations is greater when sample sizes are large and balanced across groups.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cafe603e-8438-4803-a73d-7aeaac8c3784",
+          "TopicId": "a69eb718-b0ca-40f7-be39-f0f0970ed132",
+          "Title": "Alternatives and Remedies When Assumptions Are Violated",
+          "BodyText": "When ANOVA assumptions cannot be met, researchers have several alternative approaches to analyze group differences validly.",
+          "Notes": "Choosing the right remedy depends on which assumption is violated and the nature of the data. Transformation and non-parametric methods are the most common corrective strategies.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "ModifiedDate": "2026-08-24T20:41:32.1733047-04:00",
+          "Items": [
+            {
+              "Id": "07afebfa-41c4-4ad7-9ffc-507b5eb3ffc3",
+              "Text": "Data transformations such as log, square root, or reciprocal transformations can help normalize skewed distributions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f6bcbec6-157a-4b13-a20e-f21a956eda25",
+              "Text": "Welch\u0027s ANOVA is recommended when the homogeneity of variance assumption is violated, especially with unequal group sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a79b1301-a02f-4ab1-96ab-ccfc88f60590",
+              "Text": "The Kruskal-Wallis H test is a non-parametric alternative to one-way ANOVA that does not assume normality.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2953d07a-d680-4d23-94e4-4c490d8b8310",
+              "Text": "For non-independent data arising from repeated measures, a repeated-measures ANOVA or mixed-model approach should be used instead.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+      "Title": "The F-Statistic and ANOVA Logic",
+      "Summary": "This topic explains the conceptual foundation of ANOVA by breaking down how variance is partitioned into between-group and within-group components. Learners interpret the F-statistic and understand how it signals whether group differences are statistically significant.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "ModifiedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "Elements": [
+        {
+          "Id": "c69f277c-eee8-4dab-a609-b9f421eecdb5",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "Why ANOVA Instead of Multiple T-Tests",
+          "BodyText": "ANOVA addresses the problem of comparing means across three or more groups simultaneously, avoiding the inflation of Type I error that occurs when running multiple t-tests.",
+          "Notes": "For example, comparing exam scores across four teaching methods would require six separate t-tests, each carrying its own error rate. ANOVA consolidates this into a single test.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "24132b3d-842d-4254-89b6-8aa1d5dd18e8",
+              "Text": "Each additional t-test increases the cumulative probability of a false positive, known as familywise error rate inflation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "04e838f5-e685-475e-96b9-a9eb7f05c222",
+              "Text": "ANOVA controls this error rate by evaluating all group differences within one unified analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "858363c0-f70a-464c-9afb-097c9ccf1238",
+              "Text": "The result is a more statistically rigorous and efficient comparison across multiple groups.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "683d55fb-0547-4f29-8699-eab3b33ada2f",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "Partitioning Total Variance",
+          "BodyText": "The core logic of ANOVA involves decomposing the total variability in a dataset into two distinct sources: variance attributable to group differences and variance attributable to random error within groups.",
+          "Notes": "Think of total variance as a pie divided into two slices: one representing systematic differences between groups and one representing unsystematic noise within groups.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "1481979d-ff5a-4f61-ae04-6ffe631ea563",
+              "Text": "Total variance (SS_Total) equals the sum of between-group variance (SS_Between) and within-group variance (SS_Within).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dc08077d-18b9-4a07-8c6a-123adc882f4c",
+              "Text": "Between-group variance reflects how much group means differ from the overall grand mean.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5c56f27b-8d20-4e61-a1ce-a78843f5788e",
+              "Text": "Within-group variance reflects how much individual scores differ from their own group mean.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5239b4c1-ef04-4f4d-a238-565a7bc767d7",
+              "Text": "This partitioning is the mathematical foundation upon which the F-statistic is built.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "98595d52-7d11-4b1e-aea9-a8fb2e617a9e",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "Between-Group Variance (SS_Between)",
+          "BodyText": "Between-group variance captures the variability among the group means themselves, representing the effect of the grouping factor or treatment.",
+          "Notes": "If all group means were identical, SS_Between would equal zero, suggesting the grouping factor has no effect on the outcome variable.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "ed5729bb-7c3d-40ba-9429-01c623e5dba6",
+              "Text": "A large SS_Between indicates that group means are spread far apart from the grand mean.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "54a34f2c-2646-47a4-8c24-2c4e98d2efa2",
+              "Text": "This component is considered the \u0027signal\u0027 in the analysis \u2014 the systematic effect of the independent variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "109eb11d-1c1b-4fe5-b711-8a39c08aef3f",
+              "Text": "It is divided by its degrees of freedom (k \u2212 1, where k is the number of groups) to produce the Mean Square Between (MS_Between).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "59819a63-49d4-4ddf-9090-4a51673e0337",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "Within-Group Variance (SS_Within)",
+          "BodyText": "Within-group variance measures the variability of individual scores around their respective group means, representing random or unexplained error.",
+          "Notes": "This component is sometimes called the error term or residual variance. Even under identical conditions, individuals differ, producing this inherent noise.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "5fde8b04-f931-4a1c-987e-b2f928521925",
+              "Text": "A small SS_Within indicates that scores within each group are tightly clustered around their group mean.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d79ea1f4-d118-47da-bfa4-7e1da0698dc6",
+              "Text": "This component is considered the \u0027noise\u0027 in the analysis \u2014 variability not explained by the grouping factor.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "190fbce6-7c05-4aaa-9757-bcbc6ed5d527",
+              "Text": "It is divided by its degrees of freedom (N \u2212 k, where N is total sample size) to produce the Mean Square Within (MS_Within).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "95ccf71d-c41e-4583-bf10-097885e1b4e2",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "Constructing the F-Statistic",
+          "BodyText": "The F-statistic is the ratio of Mean Square Between to Mean Square Within, quantifying how much the group differences exceed the random variability within groups.",
+          "Notes": "F = MS_Between / MS_Within. An F value of 1.0 would suggest that between-group variance is no larger than within-group variance, implying no group effect.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "3f5049fe-a8be-41be-8c44-dfc6bc549e5d",
+              "Text": "When the null hypothesis is true (all group means are equal), F is expected to be approximately 1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6c12895f-9471-47c0-b4a2-62784ce00505",
+              "Text": "As group means diverge further from each other relative to within-group noise, the F value grows larger.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "10340721-0ec0-4ad4-b63f-86d3caca59ae",
+              "Text": "A larger F-statistic provides stronger evidence against the null hypothesis that all group means are equal.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d0288ff5-67d8-42b3-90e4-1b2edd377beb",
+              "Text": "The F-statistic follows an F-distribution, which is determined by two degrees of freedom values: df_Between and df_Within.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e0489783-c210-40ed-aaa0-12137de343b4",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "Interpreting the F-Statistic for Significance",
+          "BodyText": "To determine statistical significance, the calculated F-statistic is compared to a critical F-value from the F-distribution table, or a p-value is derived from it.",
+          "Notes": "For example, an F(2, 27) = 5.84 with p = .008 would lead a researcher to reject the null hypothesis at \u03B1 = .05, concluding that at least one group mean differs significantly.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "0e33ca45-9ac5-46d7-8d7b-16fe8e0cd72f",
+              "Text": "If the calculated F exceeds the critical F-value at the chosen alpha level, the null hypothesis is rejected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f6bb06e-a6bf-40c1-9532-6e113e9e8703",
+              "Text": "The p-value associated with the F-statistic represents the probability of obtaining an F this large or larger if the null hypothesis were true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "41300c5a-862b-4b04-9760-c0922fc027fc",
+              "Text": "A significant F-statistic does not identify which specific groups differ \u2014 it only signals that at least one pair of means is significantly different.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bb47bfeb-554a-4798-8292-3411faea1c1a",
+              "Text": "Post-hoc tests are required after a significant ANOVA to pinpoint which group comparisons are driving the effect.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1f47fcf4-e757-4f0f-a5aa-b21324028bfc",
+          "TopicId": "a496a80e-b4ec-48da-8a96-9be17afaa449",
+          "Title": "The ANOVA Summary Table",
+          "BodyText": "Results of an ANOVA are typically presented in a structured summary table that organizes the sources of variance, degrees of freedom, mean squares, F-statistic, and p-value.",
+          "Notes": "Familiarity with reading the ANOVA table is essential for interpreting published research and for reporting your own results in APA format.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "ModifiedDate": "2026-08-24T20:41:58.6781355-04:00",
+          "Items": [
+            {
+              "Id": "2ebf8c91-43e1-4132-8271-9e0203153270",
+              "Text": "The table lists two rows: one for Between Groups and one for Within Groups (Error), each with its own SS, df, MS, and F columns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3cbd69a8-14cd-42ed-96fe-2faef0a279d2",
+              "Text": "Degrees of freedom between = k \u2212 1; degrees of freedom within = N \u2212 k; total df = N \u2212 1.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f48de307-3cf4-43cc-be97-3e136bfbc4eb",
+              "Text": "The F value appears in the Between Groups row and is the ratio of MS_Between to MS_Within.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "86f30296-7144-48af-a857-3ae632b1b7c0",
+              "Text": "Reporting standards typically require F(df_between, df_within), the F value, and the p-value, for example: F(3, 56) = 4.21, p = .009.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+      "Title": "One-Way ANOVA",
+      "Summary": "This topic focuses on the one-way ANOVA design, in which a single independent variable is used to compare means across multiple groups. Learners practice conducting the analysis and interpreting results within this foundational design.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "ModifiedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "Elements": [
+        {
+          "Id": "58141a33-eab1-429a-9971-9f228aa83f6a",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "Definition and Purpose of One-Way ANOVA",
+          "BodyText": "One-way ANOVA is a statistical procedure used to compare the means of three or more groups based on a single independent variable.",
+          "Notes": "For example, a researcher might use one-way ANOVA to compare test scores across three different teaching methods, where the teaching method is the single independent variable.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "d81ca61a-6db2-4b7b-8ec0-88cbd2925c2d",
+              "Text": "The \u0027one-way\u0027 designation refers to the presence of exactly one independent variable (also called a factor) that defines the groups being compared.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "74f624a8-1a53-469e-b8bc-15de743d8ea2",
+              "Text": "The goal is to determine whether at least one group mean is significantly different from the others, rather than testing all possible pairs individually.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2d75f40c-6071-407e-9c7c-69a608d94c34",
+              "Text": "One-way ANOVA is the foundational ANOVA design from which more complex multi-factor designs are derived.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "15c74827-430e-48f2-bc3f-0b0778e42c7b",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "Structure of the One-Way ANOVA Design",
+          "BodyText": "In a one-way ANOVA, participants are assigned to distinct groups (levels) of a single independent variable, and a continuous dependent variable is measured for each participant.",
+          "Notes": "For instance, if comparing anxiety levels across four types of therapy, the independent variable is therapy type (with four levels) and the dependent variable is the measured anxiety score.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "6aa188d7-22c9-49e3-be37-adf34ef0ac3d",
+              "Text": "Each group represents one level of the independent variable, and group membership is mutually exclusive.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "83e7cfab-bcf5-42ff-a693-7787e1ec2993",
+              "Text": "The dependent variable must be measured on an interval or ratio scale to allow meaningful comparison of group means.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "82bc841a-4d6c-405e-b538-f0af6e85a499",
+              "Text": "The number of levels (groups) can be three or more; having only two groups would typically call for an independent-samples t-test instead.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "911712a5-c411-4278-887c-137bfc720cf2",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "Assumptions of One-Way ANOVA",
+          "BodyText": "Before conducting a one-way ANOVA, researchers must verify that the data meet several key statistical assumptions to ensure valid results.",
+          "Notes": "Violating these assumptions can lead to inflated Type I error rates or reduced statistical power, so assumption checks should always precede interpretation.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "792889a1-7fdb-4ba5-b387-ce08026fefbe",
+              "Text": "The dependent variable should be approximately normally distributed within each group.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eacd2d7b-a30e-4ab5-8f89-e8e5d4f98a3d",
+              "Text": "Homogeneity of variance assumes that the population variances across all groups are roughly equal (often tested with Levene\u0027s test).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5d1f2c28-26a0-4757-ac93-25c750ac86c0",
+              "Text": "Observations must be independent, meaning the score of one participant should not influence the score of another.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "107dd782-58c1-401a-9c5c-3d6409da4ea1",
+              "Text": "Data should be collected from a random sample representative of the population of interest.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d2a516cf-ee38-4f89-acc2-e5a596dfe960",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "The F-Statistic in One-Way ANOVA",
+          "BodyText": "One-way ANOVA tests group differences by computing an F-statistic, which is the ratio of variance between groups to variance within groups.",
+          "Notes": "A larger F-statistic indicates that the group means differ more than would be expected by chance alone, suggesting a significant effect of the independent variable.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "5dc67cd2-6848-4429-bd8a-6e60bc2b1362",
+              "Text": "Between-group variance reflects how much the group means differ from the overall (grand) mean of all observations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ccf48955-edb3-4357-baaa-b1e8810e81a4",
+              "Text": "Within-group variance (error variance) reflects the natural variation among individuals within the same group.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2e2f3060-1752-4e5e-aa2b-c5f8c3671a54",
+              "Text": "When between-group variance substantially exceeds within-group variance, the F-ratio is large and the result is more likely to be statistically significant.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fc721968-8d44-4632-83d1-606f23b8f0e9",
+              "Text": "The F-statistic is evaluated against a critical value from the F-distribution, determined by the degrees of freedom for both sources of variance.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7fae633c-0d22-49c9-b345-aad7458038f5",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "Conducting a One-Way ANOVA",
+          "BodyText": "Performing a one-way ANOVA involves a series of systematic steps from organizing the data to calculating and evaluating the F-statistic.",
+          "Notes": "Statistical software (such as SPSS, R, or Excel) can automate most calculations, but understanding the underlying steps ensures accurate setup and interpretation.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "c7028fb2-384d-44aa-bae4-39cb2b4e1e96",
+              "Text": "Begin by clearly defining the independent variable and its levels, as well as the dependent variable to be analyzed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "95a4f54a-b35d-4439-8bf5-ef56ed9fcd32",
+              "Text": "Calculate group means, the grand mean, and the sums of squares for between-group and within-group variation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c02301d7-a7ca-48f0-83cc-f594d6740534",
+              "Text": "Compute mean squares by dividing each sum of squares by its corresponding degrees of freedom, then form the F-ratio.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6710ab50-f6ca-4376-86fa-f7d6d3f551c1",
+              "Text": "Compare the obtained F-value to the critical F-value at the chosen significance level (commonly \u03B1 = .05) to make a rejection decision.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "531bd0f7-dff8-45d6-ba78-cbb00c466a1e",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "Interpreting One-Way ANOVA Results",
+          "BodyText": "Interpreting the results of a one-way ANOVA requires evaluating both statistical significance and practical meaning of any observed group differences.",
+          "Notes": "Reporting should include the F-statistic, degrees of freedom, p-value, and an effect size measure such as eta-squared (\u03B7\u00B2) to give readers a complete picture of the findings.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "d736df40-18fb-4fc2-aea0-be430fc1fbc5",
+              "Text": "A statistically significant F-test (p \u003C \u03B1) indicates that at least one group mean differs significantly from the others, but does not specify which groups differ.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5370c00a-bedf-4eb3-9ea2-87b07723b14b",
+              "Text": "Effect size measures, such as eta-squared (\u03B7\u00B2), quantify the proportion of total variance in the dependent variable explained by the independent variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c867fab9-a950-46e7-90b4-9686b66b9fd4",
+              "Text": "A non-significant result means the data do not provide sufficient evidence to conclude that any group means differ, though this is not proof that all means are equal.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b0c54319-0f46-4b09-b93b-66048146cdb0",
+              "Text": "Results should be contextualized within the research question, considering both statistical significance and the magnitude of differences among group means.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "84e2df98-a300-468a-957d-262909215333",
+          "TopicId": "d19c1d93-4a5a-4505-bbea-a4c59ebe72ab",
+          "Title": "Post-Hoc Testing Following a Significant One-Way ANOVA",
+          "BodyText": "When a one-way ANOVA yields a significant result, post-hoc tests are conducted to identify exactly which pairs of group means are significantly different from one another.",
+          "Notes": "Common post-hoc procedures include Tukey\u0027s HSD, Bonferroni correction, and Scheff\u00E9\u0027s test; the choice depends on the number of comparisons and the desired balance between Type I and Type II error control.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "ModifiedDate": "2026-08-24T20:42:25.3067713-04:00",
+          "Items": [
+            {
+              "Id": "a58c50b7-63e7-43ba-95b8-eddd02a9ce1b",
+              "Text": "Post-hoc tests are only appropriate after a significant omnibus F-test, as running them without a significant ANOVA inflates the risk of false positives.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9177a09c-a722-4101-b940-b55d97e213a4",
+              "Text": "These tests adjust for the increased risk of Type I error that arises from making multiple pairwise comparisons simultaneously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f1953589-2304-45be-8816-b87735ae4dba",
+              "Text": "Each post-hoc comparison produces its own p-value and confidence interval, allowing researchers to pinpoint the specific group differences driving the significant ANOVA result.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+      "Title": "Multi-Factor ANOVA Designs",
+      "Summary": "This topic extends the ANOVA framework to designs involving two or more independent variables, introducing concepts such as main effects and interaction effects. Learners distinguish multi-factor designs from one-way ANOVA and understand when each is appropriate.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "ModifiedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "Elements": [
+        {
+          "Id": "3434e63f-8cab-4340-acb9-0950eff53c45",
+          "TopicId": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+          "Title": "From One-Way to Multi-Factor ANOVA",
+          "BodyText": "Multi-factor ANOVA extends the one-way framework by incorporating two or more independent variables, called factors, into a single analysis.",
+          "Notes": "For example, a one-way ANOVA might examine the effect of teaching method on test scores, while a two-way ANOVA could simultaneously examine teaching method and class size.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "ModifiedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "Items": [
+            {
+              "Id": "020dbd69-8e60-440b-81f2-74c4bf0ac3f2",
+              "Text": "One-way ANOVA tests differences across levels of a single independent variable, while multi-factor ANOVA tests the effects of multiple independent variables at once.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e4dcb4f-276c-4a31-afc2-28b18eccf304",
+              "Text": "Analyzing multiple factors simultaneously is more efficient than running separate one-way ANOVAs and provides richer information about how variables relate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3ffb9428-142a-41cd-aa04-86fe4ffa75b1",
+              "Text": "Each independent variable in a multi-factor design is referred to as a \u0027factor,\u0027 and each factor has two or more levels.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "97a1e545-6070-4c92-aeff-90c1a8577753",
+          "TopicId": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+          "Title": "Main Effects",
+          "BodyText": "A main effect is the independent influence of a single factor on the dependent variable, averaged across all levels of the other factors in the design.",
+          "Notes": "In a study examining the effects of diet and exercise on weight loss, the main effect of diet reflects its overall impact regardless of exercise condition, and vice versa.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "ModifiedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "Items": [
+            {
+              "Id": "672147f0-de6e-4d03-8733-47d800c96777",
+              "Text": "Each factor in a multi-factor ANOVA has its own main effect, which is tested separately with its own F-statistic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f3fbe322-460a-4de8-8528-365b43007fec",
+              "Text": "A significant main effect indicates that at least one level of that factor produces a meaningfully different outcome on the dependent variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c5e8f8fd-d0ab-4025-a313-8eeabaabb05a",
+              "Text": "Main effects are interpreted most straightforwardly when no significant interaction effect is present between the factors.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d0a9e49a-4b54-4d66-a01a-17f5f36003e5",
+          "TopicId": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+          "Title": "Interaction Effects",
+          "BodyText": "An interaction effect occurs when the influence of one factor on the dependent variable changes depending on the level of another factor.",
+          "Notes": "For instance, a new teaching method may improve scores for younger students but have no effect on older students \u2014 this differential pattern constitutes an interaction.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "ModifiedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "Items": [
+            {
+              "Id": "e8f58538-172c-4ab7-bd60-3d80d6ab4ae8",
+              "Text": "Interaction effects are a unique and critical advantage of multi-factor designs; they cannot be detected by running separate one-way ANOVAs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e118f986-75a6-4bb6-9bda-ce8403fb561c",
+              "Text": "A significant interaction suggests that the main effects alone do not fully explain the data and that the factors must be interpreted together.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bf25a4f0-400a-40e3-93e4-de3e908dbb96",
+              "Text": "Interactions are commonly visualized using line graphs, where non-parallel lines indicate the presence of an interaction effect.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3f419416-9b38-42fa-b7e9-4a9378439140",
+          "TopicId": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+          "Title": "When to Use Multi-Factor ANOVA",
+          "BodyText": "Multi-factor ANOVA is appropriate when a researcher is interested in the effects of two or more independent variables on a single continuous dependent variable.",
+          "Notes": "Choosing a multi-factor design over multiple one-way ANOVAs also reduces the risk of inflated Type I error that comes from conducting multiple separate tests.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "ModifiedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "Items": [
+            {
+              "Id": "1a05d926-f0de-48a7-903c-08180c1f6dd3",
+              "Text": "Use multi-factor ANOVA when there is a theoretical or practical reason to believe that two or more factors may jointly influence the outcome.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "129dc1e5-6d92-48bf-aa93-99f2416105e4",
+              "Text": "The design is particularly valuable when you suspect an interaction \u2014 that is, when the effect of one variable may depend on the level of another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d6aaf779-16c8-4e7c-bddf-5e58ab2357a3",
+              "Text": "All standard ANOVA assumptions apply, including normality of residuals, homogeneity of variance, and independence of observations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5a7bf293-74b8-4ab3-9765-6bfbc375e6a0",
+          "TopicId": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+          "Title": "Structure of a Two-Way ANOVA",
+          "BodyText": "The two-way ANOVA is the most common multi-factor design, partitioning total variance into components attributable to Factor A, Factor B, their interaction, and error.",
+          "Notes": "A 2\u00D73 two-way ANOVA, for example, involves one factor with 2 levels and another with 3 levels, producing 6 total cell conditions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "ModifiedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "Items": [
+            {
+              "Id": "4bd0cc8a-d50b-428a-9aa5-515f1bb7cd07",
+              "Text": "The total sum of squares in a two-way ANOVA is divided into SS_A, SS_B, SS_AxB (interaction), and SS_error, each tested with its own F-ratio.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e2a6fcc8-de84-47e3-9d05-458fc4916b57",
+              "Text": "Cell means represent the average outcome for each unique combination of factor levels, and they are central to understanding interaction patterns.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d970b6de-897c-4a25-b13c-06fc5f57e797",
+              "Text": "Balanced designs \u2014 where each cell contains the same number of observations \u2014 simplify calculation and interpretation of two-way ANOVA results.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "49586f65-9cab-4c19-af1f-1cbd9a5912e0",
+          "TopicId": "5713809d-64aa-4cd2-a139-3d798d47c5f0",
+          "Title": "Interpreting Results in Multi-Factor Designs",
+          "BodyText": "Interpreting a multi-factor ANOVA requires evaluating each F-statistic in sequence, typically examining the interaction effect before the main effects.",
+          "Notes": "If a significant interaction is found, main effects should be interpreted cautiously, as the interaction means the effect of one factor is not consistent across levels of the other.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "ModifiedDate": "2026-08-24T20:42:48.1933956-04:00",
+          "Items": [
+            {
+              "Id": "964f586d-4bd4-420b-b15c-b0a832664f67",
+              "Text": "Researchers typically examine the interaction F-test first; a significant interaction means the main effects cannot be interpreted in isolation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a7429c8-42e5-4069-b783-964b87d29280",
+              "Text": "When no significant interaction exists, main effects can be interpreted independently and may warrant post-hoc testing if the factor has three or more levels.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e4582062-7c66-44f4-a260-9a7e01dd22f5",
+              "Text": "Effect size measures such as eta-squared (\u03B7\u00B2) or partial eta-squared can be reported for each main effect and interaction to convey practical significance.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+      "Title": "Post-Hoc Testing and Interpreting Results",
+      "Summary": "This topic covers post-hoc tests used to identify which specific group means differ after a significant ANOVA result is found. Learners develop skills in drawing meaningful, accurate conclusions from their ANOVA analyses.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "ModifiedDate": "2026-08-24T20:40:54.6207441-04:00",
+      "Elements": [
+        {
+          "Id": "d9c872c3-ae65-4c2f-a3b5-63b9fce97843",
+          "TopicId": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+          "Title": "Why Post-Hoc Tests Are Necessary",
+          "BodyText": "A significant ANOVA result tells us that at least one group mean differs from the others, but it does not identify which specific groups are different. Post-hoc tests are follow-up analyses conducted after a significant F-statistic to pinpoint exactly where those differences lie.",
+          "Notes": "Think of ANOVA as an alarm that signals a difference exists, while post-hoc tests are the investigation that finds the source. Skipping post-hoc tests after a significant ANOVA leaves the analysis incomplete.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "ModifiedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "Items": [
+            {
+              "Id": "a4e0931c-c3d1-4caa-8d83-d9673ec541a5",
+              "Text": "ANOVA is an omnibus test \u2014 it detects overall differences but cannot specify which pair or pairs of groups differ.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0355986b-1449-4485-b53a-5e2e976c9430",
+              "Text": "Post-hoc tests are only appropriate and interpretable when the overall ANOVA F-test is statistically significant.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9f65b226-4e00-47a9-a890-92ed79ae9282",
+              "Text": "Running multiple individual t-tests instead inflates the Type I error rate, making post-hoc procedures the correct alternative.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "09e054a7-4c9a-4db2-a36e-fdb2c8ae5a16",
+          "TopicId": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+          "Title": "Common Post-Hoc Testing Procedures",
+          "BodyText": "Several post-hoc tests exist, each balancing the trade-off between statistical power and control of Type I error. Choosing the right procedure depends on sample sizes, group equality, and the research context.",
+          "Notes": "Tukey\u0027s HSD is one of the most widely used procedures in behavioral and social sciences due to its balance of power and error control. Bonferroni correction is simpler but more conservative, making it better suited when the number of comparisons is small.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "ModifiedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "Items": [
+            {
+              "Id": "65b104c2-d1b2-42e3-8c75-410fed79419e",
+              "Text": "Tukey\u0027s Honestly Significant Difference (HSD) controls the familywise error rate and is appropriate when comparing all possible pairs of group means.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0f364fbf-59c9-4153-adc9-d38c688eb307",
+              "Text": "The Bonferroni correction divides the alpha level by the number of comparisons, making it more conservative and reducing the chance of false positives.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "210d67c9-459a-49b7-b0b7-ebe80e64e9ed",
+              "Text": "Scheff\u00E9\u0027s test is the most conservative option, suitable when comparisons were not planned in advance and flexibility in the types of contrasts is needed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fc40818c-4508-468d-aa3e-a8a0acb49c58",
+              "Text": "Games-Howell is preferred when group variances are unequal, offering robustness when the homogeneity of variance assumption is violated.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3f735758-7131-48ad-8a7b-fd6ff841bcd2",
+          "TopicId": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+          "Title": "Interpreting Post-Hoc Output",
+          "BodyText": "Post-hoc test output typically presents pairwise comparisons between all group combinations, along with p-values and sometimes confidence intervals. Correct interpretation requires evaluating each comparison against the adjusted significance threshold.",
+          "Notes": "For example, if comparing three teaching methods, post-hoc output might show that Method A differs significantly from Method C (p = .03), but Methods A and B and Methods B and C do not differ significantly.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "ModifiedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "Items": [
+            {
+              "Id": "917d0962-4b60-4176-a860-6596641038ab",
+              "Text": "Each pairwise comparison produces a mean difference, a test statistic, and an adjusted p-value that accounts for multiple comparisons.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0722e08e-c1fd-4769-88ed-b11bf9dc010d",
+              "Text": "A comparison is considered statistically significant when its adjusted p-value falls below the chosen alpha level (commonly .05).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1c3a9d54-ea3c-4ff6-b768-1b9009cd2329",
+              "Text": "Confidence intervals in post-hoc output that do not include zero indicate a statistically significant difference between that pair of groups.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ecc2fed5-19cc-4e06-81d4-41916bd82b7d",
+              "Text": "Effect sizes such as Cohen\u0027s d can be calculated for each significant pairwise comparison to convey the practical magnitude of the difference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "76d1d575-796f-45cd-8060-b8aa2f3cb4d9",
+          "TopicId": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+          "Title": "Controlling Familywise Error Rate",
+          "BodyText": "When multiple comparisons are made simultaneously, the probability of making at least one Type I error increases beyond the nominal alpha level \u2014 a phenomenon known as familywise error rate inflation. Post-hoc procedures are specifically designed to keep this cumulative error rate in check.",
+          "Notes": "With three groups there are three pairwise comparisons; with five groups there are ten. As comparisons multiply, so does the risk of a false positive without proper error control.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "ModifiedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "Items": [
+            {
+              "Id": "f819bb51-3f26-4487-beee-c0e49c7386b4",
+              "Text": "The familywise error rate is the probability of committing at least one Type I error across the entire family of comparisons being tested.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0273774f-7731-4d02-ab2f-428bf3e377ac",
+              "Text": "Without correction, conducting three comparisons each at \u03B1 = .05 raises the actual error rate to approximately .14 rather than .05.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6fc807c6-4925-4953-b59a-d6244f811203",
+              "Text": "Post-hoc methods apply mathematical corrections so that the overall error rate across all comparisons remains at or near the chosen alpha level.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "073ac098-9a82-411a-b17d-619f5f19f6a2",
+          "TopicId": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+          "Title": "Drawing Meaningful Conclusions from ANOVA Results",
+          "BodyText": "Interpreting ANOVA results accurately requires integrating the F-statistic, significance level, effect size, and post-hoc findings into a coherent narrative. Conclusions must reflect both statistical significance and practical importance.",
+          "Notes": "A statistically significant result with a very small effect size (e.g., \u03B7\u00B2 = .01) may have little real-world importance, while a larger effect size signals a more meaningful difference among groups.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "ModifiedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "Items": [
+            {
+              "Id": "7af827af-e87e-409d-9e33-a635d340cf97",
+              "Text": "Begin by reporting whether the overall F-test was significant, including the F-statistic, degrees of freedom, and p-value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "10d588c5-e3b3-4485-a242-f3624026d9aa",
+              "Text": "Report effect size measures such as eta-squared (\u03B7\u00B2) or partial eta-squared to communicate how much of the total variance in the outcome is explained by group membership.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7089afd2-dd83-4805-ac90-62abe7fdeb07",
+              "Text": "Summarize post-hoc results by identifying which specific group pairs differ significantly and in what direction (which mean is higher or lower).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "432076da-abd4-4db0-9b6e-818cc4d4b90e",
+              "Text": "Relate the statistical findings back to the research question, explaining what the differences mean in the context of the study rather than only reporting numbers.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "6b8c8019-ca89-424b-b795-57719fa903e7",
+              "Text": "Avoid overgeneralizing conclusions beyond the sample and conditions studied, particularly when group differences are modest or the sample is not representative.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "1fcd9014-f147-48b3-b5c0-78197b2330f4",
+          "TopicId": "aa948de2-0b13-4500-8238-2c3a1337cfbd",
+          "Title": "Reporting ANOVA and Post-Hoc Results in APA Style",
+          "BodyText": "Clear, standardized reporting of ANOVA results ensures transparency and replicability. APA style guidelines provide a consistent format for presenting F-statistics, significance, effect sizes, and post-hoc findings.",
+          "Notes": "Example APA-style statement: \u0027A one-way ANOVA revealed a significant effect of teaching method on test scores, F(2, 57) = 4.83, p = .011, \u03B7\u00B2 = .15. Post-hoc comparisons using Tukey\u0027s HSD indicated that Method A (M = 85.3, SD = 6.1) produced significantly higher scores than Method C (M = 78.9, SD = 7.4), p = .009.\u0027",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "ModifiedDate": "2026-08-24T20:43:19.6236755-04:00",
+          "Items": [
+            {
+              "Id": "94b421e0-173e-452b-9d74-6e6eff2ddbb8",
+              "Text": "Report the F-statistic with between-groups and within-groups degrees of freedom in parentheses, the exact p-value, and an effect size measure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "41675478-a750-46f6-93f0-f05cc5f77baa",
+              "Text": "When describing post-hoc results, include group means, standard deviations, and the adjusted p-value for each significant pairwise comparison.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "48afc039-93dc-4c47-bbef-231ab0704bd7",
+              "Text": "Use precise language such as \u0027significantly higher than\u0027 or \u0027did not differ significantly from\u0027 to accurately convey the direction and nature of each comparison.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}

@@ -1,0 +1,453 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 4 Sample Problem 8</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4 Sample Problem 8</h1><h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">8. Bayesian Decision-Making in Engineering</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example: Fault Detection in Manufacturing</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Problem</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: A manufacturing process has two states: normal operation (80% of the time) and faulty operation (20% of the time). A sensor system detects abnormalities with the following characteristics:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">When the process is normal, the sensor correctly identifies it 95% of the time (5% false positive)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">When the process is faulty, the sensor correctly detects it 90% of the time (10% false negative)</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">If the sensor indicates a fault, what's the probability that the process is actually faulty? How does this probability change as we adjust the prior probability of a fault?</span></p>
+<h3 style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in Python</span></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from scipy import stats</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Initial parameters</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_faulty = 0.20&nbsp; # Prior probability of faulty state</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_normal = 1 - p_faulty&nbsp; # Prior probability of normal state</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Sensor characteristics</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_given_faulty = 0.90&nbsp; # True positive rate</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_given_normal = 0.05&nbsp; # False positive rate</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate posterior probability using Bayes' theorem</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def bayes_theorem(p_faulty, p_detect_given_faulty, p_detect_given_normal):</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# P(Faulty|Detect) = P(Detect|Faulty) * P(Faulty) / P(Detect)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# P(Detect) = P(Detect|Faulty) * P(Faulty) + P(Detect|Normal) * P(Normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;p_normal = 1 - p_faulty</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;p_detect = p_detect_given_faulty * p_faulty + p_detect_given_normal * p_normal</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;p_faulty_given_detect = (p_detect_given_faulty * p_faulty) / p_detect</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return p_faulty_given_detect</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate the posterior probability</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_faulty_given_detect = bayes_theorem(p_faulty, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Prior probability of fault: {p_faulty:.2f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Posterior probability of fault given detection: {p_faulty_given_detect:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Explore how posterior changes with different prior probabilities</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prior_range = np.linspace(0.01, 0.99, 100)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">posterior_range = [bayes_theorem(p, p_detect_given_faulty, p_detect_given_normal) for p in prior_range]</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualizations</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(15, 10))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 1: Posterior vs Prior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 1)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot(prior_range, posterior_range, 'b-', linewidth=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axhline(y=0.5, color='red', linestyle='--', alpha=0.7, label='50% Decision Threshold')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot([p_faulty], [p_faulty_given_detect], 'ro', markersize=8, label='Current Scenario')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Prior Probability of Fault')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Posterior Probability of Fault Given Detection')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Posterior vs Prior Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 2: Find where Prior = Posterior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot(prior_range, posterior_range, 'b-', linewidth=2, label='Posterior')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot(prior_range, prior_range, 'g--', linewidth=2, label='Prior')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot([p_faulty], [p_faulty_given_detect], 'ro', markersize=8, label='Current Scenario')</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Find intersection point where Prior = Posterior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">intersection_idx = np.argmin(np.abs(np.array(posterior_range) - prior_range))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">intersection_prior = prior_range[intersection_idx]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">intersection_posterior = posterior_range[intersection_idx]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot([intersection_prior], [intersection_posterior], 'ko', markersize=8, label='Prior = Posterior')</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Prior Probability of Fault')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Comparison of Prior and Posterior Probabilities')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 3: Effect of changing sensor characteristics - True Positive Rate</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">tp_rates = [0.5, 0.7, 0.9, 0.99]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for tp in tp_rates:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;posteriors = [bayes_theorem(p, tp, p_detect_given_normal) for p in prior_range]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;plt.plot(prior_range, posteriors, linewidth=2, label=f'TPR = {tp}')</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axhline(y=0.5, color='red', linestyle='--', alpha=0.7)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot([p_faulty], [p_faulty_given_detect], 'ro', markersize=8)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Prior Probability of Fault')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Posterior Probability of Fault Given Detection')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Effect of Varying True Positive Rate')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 4: Effect of changing sensor characteristics - False Positive Rate</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 4)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">fp_rates = [0.01, 0.05, 0.1, 0.2]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for fp in fp_rates:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;posteriors = [bayes_theorem(p, p_detect_given_faulty, fp) for p in prior_range]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;plt.plot(prior_range, posteriors, linewidth=2, label=f'FPR = {fp}')</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axhline(y=0.5, color='red', linestyle='--', alpha=0.7)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot([p_faulty], [p_faulty_given_detect], 'ro', markersize=8)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Prior Probability of Fault')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Posterior Probability of Fault Given Detection')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Effect of Varying False Positive Rate')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.tight_layout()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Construction of full probability table</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print("\nProbability Table:")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"P(Faulty) = {p_faulty:.4f}, P(Normal) = {p_normal:.4f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"P(Detect|Faulty) = {p_detect_given_faulty:.4f}, P(Detect|Normal) = {p_detect_given_normal:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_and_faulty = p_detect_given_faulty * p_faulty</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_and_normal = p_detect_given_normal * p_normal</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect = p_detect_and_faulty + p_detect_and_normal</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"P(Detect∩Faulty) = {p_detect_and_faulty:.4f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"P(Detect∩Normal) = {p_detect_and_normal:.4f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"P(Detect) = {p_detect:.4f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"P(Faulty|Detect) = {p_faulty_given_detect:.4f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate expected cost for different decision policies</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Assume costs:&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># - False positive (stop normal process): $1000</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># - False negative (miss fault): $5000</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def calculate_expected_cost(decision_threshold, p_faulty=0.2,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost_false_positive=1000, cost_false_negative=5000):</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;"""</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;Calculate expected cost based on decision threshold.</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;- If P(Faulty|Detect) &gt; threshold, we stop the process</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;- Otherwise, we continue the process</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;"""</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;prior_range = np.linspace(0.01, 0.99, 100)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;expected_costs = []</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;for prior in prior_range:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posterior = bayes_theorem(prior, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Probability of detection</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_detect = p_detect_given_faulty * prior + p_detect_given_normal * (1 - prior)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if posterior &gt; decision_threshold:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Stop the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Cost comes from false positives</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost = cost_false_positive * p_detect_given_normal * (1 - prior)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Continue the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Cost comes from false negatives</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost = cost_false_negative * p_detect_given_faulty * prior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expected_costs.append(cost)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return prior_range, expected_costs</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot expected costs for different decision thresholds</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(12, 8))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">thresholds = [0.3, 0.5, 0.7, 0.9]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for threshold in thresholds:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;prior_range, costs = calculate_expected_cost(threshold)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;plt.plot(prior_range, costs, linewidth=2, label=f'Threshold = {threshold}')</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Prior Probability of Fault')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Expected Cost')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Expected Cost vs. Prior for Different Decision Thresholds')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Find the optimal decision threshold for our specific prior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def find_optimal_threshold(p_faulty=0.2,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost_false_positive=1000, cost_false_negative=5000):</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;thresholds = np.linspace(0.01, 0.99, 99)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;costs = []</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;for threshold in thresholds:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;posterior = bayes_theorem(p_faulty, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_detect = p_detect_given_faulty * p_faulty + p_detect_given_normal * (1 - p_faulty)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if posterior &gt; threshold:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Stop the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost = cost_false_positive * p_detect_given_normal * (1 - p_faulty)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Continue the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost = cost_false_negative * p_detect_given_faulty * p_faulty</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;costs.append(cost)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;optimal_idx = np.argmin(costs)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return thresholds[optimal_idx], costs[optimal_idx]</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">optimal_threshold, min_cost = find_optimal_threshold()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"\nOptimal decision threshold: {optimal_threshold:.4f}")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Minimum expected cost: ${min_cost:.2f}")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate the relationship between cost ratio and optimal threshold</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cost_ratios = np.logspace(-1, 1, 20)&nbsp; # Ratios from 0.1 to 10</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">optimal_thresholds = []</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for ratio in cost_ratios:</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Set cost_false_negative = ratio * cost_false_positive</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;threshold, _ = find_optimal_threshold(p_faulty=0.2,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost_false_positive=1000,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost_false_negative=1000 * ratio)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;optimal_thresholds.append(threshold)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(10, 6))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.semilogx(cost_ratios, optimal_thresholds, 'b-o')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Cost Ratio (False Negative / False Positive)')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Optimal Decision Threshold')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Optimal Decision Threshold vs. Cost Ratio')</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(True, which="both", ls="-")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in R</span></h3>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Initial parameters</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_faulty &lt;- 0.20&nbsp; # Prior probability of faulty state</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_normal &lt;- 1 - p_faulty&nbsp; # Prior probability of normal state</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Sensor characteristics</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_given_faulty &lt;- 0.90&nbsp; # True positive rate</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_given_normal &lt;- 0.05&nbsp; # False positive rate</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate posterior probability using Bayes' theorem</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">bayes_theorem &lt;- function(p_faulty, p_detect_given_faulty, p_detect_given_normal) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# P(Faulty|Detect) = P(Detect|Faulty) * P(Faulty) / P(Detect)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# P(Detect) = P(Detect|Faulty) * P(Faulty) + P(Detect|Normal) * P(Normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;p_normal &lt;- 1 - p_faulty</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;p_detect &lt;- p_detect_given_faulty * p_faulty + p_detect_given_normal * p_normal</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;p_faulty_given_detect &lt;- (p_detect_given_faulty * p_faulty) / p_detect</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(p_faulty_given_detect)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate the posterior probability</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_faulty_given_detect &lt;- bayes_theorem(p_faulty, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Prior probability of fault:", p_faulty, "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Posterior probability of fault given detection:", round(p_faulty_given_detect, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Explore how posterior changes with different prior probabilities</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">prior_range &lt;- seq(0.01, 0.99, length.out=100)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">posterior_range &lt;- sapply(prior_range, function(p) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;bayes_theorem(p, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">})</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualizations</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">par(mfrow=c(2,2))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 1: Posterior vs Prior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(prior_range, posterior_range, type="l", col="blue", lwd=2,</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Posterior vs Prior Probability",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Prior Probability of Fault",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ylab="Posterior Probability of Fault Given Detection")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=0.5, col="red", lty=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">points(p_faulty, p_faulty_given_detect, col="red", pch=16, cex=1.5)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">legend("topleft",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legend=c("Posterior", "50% Decision Threshold", "Current Scenario"),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=c("blue", "red", "red"),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lty=c(1, 2, NA),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pch=c(NA, NA, 16),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cex=0.8)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 2: Find where Prior = Posterior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(prior_range, posterior_range, type="l", col="blue", lwd=2,</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Comparison of Prior and Posterior Probabilities",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Prior Probability of Fault",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ylab="Probability")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">lines(prior_range, prior_range, col="green", lty=2, lwd=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">points(p_faulty, p_faulty_given_detect, col="red", pch=16, cex=1.5)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Find intersection point where Prior = Posterior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">intersection_idx &lt;- which.min(abs(posterior_range - prior_range))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">intersection_prior &lt;- prior_range[intersection_idx]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">intersection_posterior &lt;- posterior_range[intersection_idx]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">points(intersection_prior, intersection_posterior, col="black", pch=16, cex=1.5)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">legend("topleft",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legend=c("Posterior", "Prior", "Current Scenario", "Prior = Posterior"),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=c("blue", "green", "red", "black"),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lty=c(1, 2, NA, NA),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pch=c(NA, NA, 16, 16),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cex=0.8)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 3: Effect of changing sensor characteristics - True Positive Rate</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">tp_rates &lt;- c(0.5, 0.7, 0.9, 0.99)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">colors &lt;- c("blue", "green", "red", "purple")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(0, 0, type="n", xlim=c(0, 1), ylim=c(0, 1),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Effect of Varying True Positive Rate",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Prior Probability of Fault",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ylab="Posterior Probability of Fault Given Detection")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in 1:length(tp_rates)) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;tp &lt;- tp_rates[i]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;posteriors &lt;- sapply(prior_range, function(p) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;bayes_theorem(p, tp, p_detect_given_normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;})</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;lines(prior_range, posteriors, col=colors[i], lwd=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=0.5, col="red", lty=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">points(p_faulty, p_faulty_given_detect, col="red", pch=16, cex=1.5)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">legend("topleft",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legend=c(paste("TPR =", tp_rates), "50% Threshold", "Current Scenario"),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=c(colors, "red", "red"),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lty=c(rep(1, length(tp_rates)), 2, NA),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pch=c(rep(NA, length(tp_rates)), NA, 16),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cex=0.8)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot 4: Effect of changing sensor characteristics - False Positive Rate</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">fp_rates &lt;- c(0.01, 0.05, 0.1, 0.2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">colors &lt;- c("blue", "green", "red", "purple")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(0, 0, type="n", xlim=c(0, 1), ylim=c(0, 1),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Effect of Varying False Positive Rate",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Prior Probability of Fault",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ylab="Posterior Probability of Fault Given Detection")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in 1:length(fp_rates)) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;fp &lt;- fp_rates[i]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;posteriors &lt;- sapply(prior_range, function(p) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;bayes_theorem(p, p_detect_given_faulty, fp)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;})</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;lines(prior_range, posteriors, col=colors[i], lwd=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=0.5, col="red", lty=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">points(p_faulty, p_faulty_given_detect, col="red", pch=16, cex=1.5)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">legend("topleft",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legend=c(paste("FPR =", fp_rates), "50% Threshold", "Current Scenario"),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=c(colors, "red", "red"),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lty=c(rep(1, length(fp_rates)), 2, NA),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pch=c(rep(NA, length(fp_rates)), NA, 16),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cex=0.8)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Construction of full probability table</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("\nProbability Table:\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("P(Faulty) =", round(p_faulty, 4), ", P(Normal) =", round(p_normal, 4), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("P(Detect|Faulty) =", round(p_detect_given_faulty, 4),&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;", P(Detect|Normal) =", round(p_detect_given_normal, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_and_faulty &lt;- p_detect_given_faulty * p_faulty</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect_and_normal &lt;- p_detect_given_normal * p_normal</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_detect &lt;- p_detect_and_faulty + p_detect_and_normal</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("P(Detect∩Faulty) =", round(p_detect_and_faulty, 4), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("P(Detect∩Normal) =", round(p_detect_and_normal, 4), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("P(Detect) =", round(p_detect, 4), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("P(Faulty|Detect) =", round(p_faulty_given_detect, 4), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate expected cost for different decision policies</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Assume costs:&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># - False positive (stop normal process): $1000</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># - False negative (miss fault): $5000</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">calculate_expected_cost &lt;- function(decision_threshold, p_faulty=0.2,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost_false_positive=1000, cost_false_negative=5000) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Calculate expected cost based on decision threshold.</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# - If P(Faulty|Detect) &gt; threshold, we stop the process</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# - Otherwise, we continue the process</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;prior_range &lt;- seq(0.01, 0.99, length.out=100)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;expected_costs &lt;- numeric(length(prior_range))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;for (i in 1:length(prior_range)) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;prior &lt;- prior_range[i]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;posterior &lt;- bayes_theorem(prior, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Probability of detection</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;p_detect &lt;- p_detect_given_faulty * prior + p_detect_given_normal * (1 - prior)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;if (posterior &gt; decision_threshold) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Stop the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Cost comes from false positives</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost &lt;- cost_false_positive * p_detect_given_normal * (1 - prior)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;} else {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Continue the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Cost comes from false negatives</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost &lt;- cost_false_negative * p_detect_given_faulty * prior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;expected_costs[i] &lt;- cost</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(list(prior_range=prior_range, costs=expected_costs))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Plot expected costs for different decision thresholds</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">par(mfrow=c(1,1))</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">thresholds &lt;- c(0.3, 0.5, 0.7, 0.9)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">colors &lt;- c("blue", "red", "green", "purple")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(0, 0, type="n", xlim=c(0, 1), ylim=c(0, 500),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Expected Cost vs. Prior for Different Decision Thresholds",</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Prior Probability of Fault",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ylab="Expected Cost")</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in 1:length(thresholds)) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;threshold &lt;- thresholds[i]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;result &lt;- calculate_expected_cost(threshold)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;lines(result$prior_range, result$costs, col=colors[i], lwd=2)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">legend("topleft",&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;legend=paste("Threshold =", thresholds),</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=colors,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lty=1,</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cex=0.8)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Find the optimal decision threshold for our specific prior</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">find_optimal_threshold &lt;- function(p_faulty=0.2,&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost_false_positive=1000, cost_false_negative=5000) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;thresholds &lt;- seq(0.01, 0.99, length.out=99)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;costs &lt;- numeric(length(thresholds))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;for (i in 1:length(thresholds)) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;threshold &lt;- thresholds[i]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;posterior &lt;- bayes_theorem(p_faulty, p_detect_given_faulty, p_detect_given_normal)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;p_detect &lt;- p_detect_given_faulty * p_faulty + p_detect_given_normal * (1 - p_faulty)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;if (posterior &gt; threshold) {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Stop the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost &lt;- cost_false_positive * p_detect_given_normal * (1 - p_faulty)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;} else {</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Decision: Continue the process when detection occurs</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cost &lt;- cost_false_negative * p_detect_given_faulty * p_faulty</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;costs[i] &lt;- cost</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;optimal_idx &lt;- which.min(costs)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(list(threshold=thresholds[optimal_idx], cost=costs[optimal_idx]))</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">optimal &lt;- find_optimal_threshold()</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("\nOptimal decision threshold:", round(optimal$threshold, 4), "\n")</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Minimum expected cost: $", round(optimal$cost,</span></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

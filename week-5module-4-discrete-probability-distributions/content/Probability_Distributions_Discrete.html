@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Probability Distributions - Discrete</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4: Probability Distributions - Discrete</h1>
+<h2>Supporting Lectures:<br>EGN3443 Module 4 - Discrete Probability Distributions</h2>
+<h2><br>1. Random Variables and Probability Mass Functions (PMF)</h2>
+<h3>Definition</h3>
+<p>A random variable is a function that assigns a numerical value to each possible outcome of a random experiment. For discrete random variables, a Probability Mass Function (PMF) specifies the probability of each possible value the random variable can take.</p>
+<h3>Key Characteristics</h3>
+<ul>
+<li>Denoted typically as P(X = x)</li>
+<li>Always non-negative</li>
+<li>Sum of all probabilities equals 1</li>
+</ul>
+<h3>Example</h3>
+<p>Consider a die roll (X):</p>
+<ul>
+<li>X can take values 1, 2, 3, 4, 5, or 6</li>
+<li>PMF: P(X = k) = 1/6 for k = 1, 2, 3, 4, 5, 6</li>
+<li>Each outcome has an equal probability of 1/6</li>
+</ul>
+<p><strong>Web Reference</strong>:</p>
+<ul>
+<li><a href="https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics/pages/readings/probability-mass-function/">MIT OpenCourseWare - Probability Mass Function</a></li>
+</ul>
+<h2>2. Expected Value and Variance</h2>
+<h3>Expected Value (Mean)</h3>
+<p>The expected value represents the average outcome of a random variable over many trials.</p>
+<p><strong>Formula</strong>: E(X) = Σ [x * P(X = x)]</p>
+<h3>Variance</h3>
+<p>Variance measures the spread of a probability distribution.</p>
+<p><strong>Formula</strong>: Var(X) = E[(X - E(X))²] = Σ [(x - E(X))² * P(X = x)]</p>
+<h3>Calculation Example</h3>
+<p>Die Roll Scenario:</p>
+<ul>
+<li>E(X) = (1 * 1/6) + (2 * 1/6) + (3 * 1/6) + (4 * 1/6) + (5 * 1/6) + (6 * 1/6) = 3.5</li>
+<li>Variance calculation involves more complex steps</li>
+</ul>
+<p><strong>Web Reference</strong>:</p>
+<ul>
+<li><a href="https://www.khanacademy.org/math/statistics-probability/random-variables-stats-library/expected-value-linear-function-random-variable/v/expected-value">Khan Academy - Expected Value</a></li>
+</ul>
+<h2>3. Bernoulli and Binomial Distributions</h2>
+<h3>Bernoulli Distribution</h3>
+<p>A discrete probability distribution of a random variable which takes the value 1 with probability p and the value 0 with probability (1-p).</p>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li>p: Probability of success</li>
+<li>n: Number of trials</li>
+</ul>
+<p><strong>PMF</strong>: P(X = k) = p^k * (1-p)^(1-k), where k ∈ {0, 1}<br><br>The sum of all the probabilities of all the&nbsp; possible outcomes will 1.0<br>A stem plot is a good method of visualizing the PMF.<br><br></p>
+<h3>Binomial Distribution</h3>
+<p>Represents the number of successes in n independent Bernoulli trials.</p>
+<p><strong>Formula</strong>: P(X = k) = C(n,k) * p^k * (1-p)^(n-k)</p>
+<ul>
+<li>C(n,k) is the binomial coefficient</li>
+<li>k is the number of successes</li>
+<li>n is the total number of trials</li>
+<li>p is the probability of success</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>Coin Flips:</p>
+<ul>
+<li>n = 10 flips</li>
+<li>p = 0.5 (fair coin)</li>
+<li>Probability of exactly 7 heads: P(X = 7) = C(10,7) * (0.5)^7 * (0.5)^3 ≈ 0.117</li>
+</ul>
+<p><strong>Web Reference</strong>:&nbsp; <a href="https://en.wikipedia.org/wiki/Binomial_distribution">https://en.wikipedia.org/wiki/Binomial_distribution</a>&nbsp;</p>
+<h2>4. Poisson Distribution</h2>
+<h3>Definition</h3>
+<p>Models the number of events occurring in a fixed interval of time or space, given a constant mean rate.</p>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li>λ (lambda): Average number of events per interval</li>
+<li>k: Actual number of events</li>
+</ul>
+<p><strong>PMF</strong>: P(X = k) = (e^-λ * λ^k) / k!</p>
+<h3>Applications</h3>
+<ul>
+<li>Modeling rare events</li>
+<li>Customer arrivals</li>
+<li>Radioactive decay</li>
+<li>Network packet arrivals</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>Call Center Scenario:</p>
+<ul>
+<li>Average 5 calls per hour (λ = 5)</li>
+<li>Probability of exactly 3 calls in an hour: P(X = 3) = (e^-5 * 5^3) / 3! ≈ 0.1403</li>
+</ul>
+<p><strong>Web Reference</strong>: <a href="https://en.wikipedia.org/wiki/Poisson_distribution">https://en.wikipedia.org/wiki/Poisson_distribution</a>&nbsp;</p>
+<p></p>
+<h2>5. Hypergeometric Distribution</h2>
+<h3>Definition</h3>
+<p>Probability distribution that describes the probability of k successes in n draws, without replacement, from a finite population of size N that contains exactly K successes.</p>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li>N: Total population size</li>
+<li>K: Number of success states in the population</li>
+<li>n: Number of draws</li>
+<li>k: Number of observed successes</li>
+</ul>
+<p><strong>PMF</strong>: P(X = k) = [C(K,k) * C(N-K, n-k)] / C(N, n)</p>
+<h3>Example</h3>
+<p>Quality Control:</p>
+<ul>
+<li>100 items (N), 20 defective (K)</li>
+<li>Inspect 10 items (n)</li>
+<li>Probability of finding exactly 3 defective items (k)</li>
+</ul>
+<p><strong>Web Reference</strong>: &nbsp;<a href="https://en.wikipedia.org/wiki/Hypergeometric_distribution">https://en.wikipedia.org/wiki/Hypergeometric_distribution</a>&nbsp;<a href="https://stattrek.com/probability-distributions/hypergeometric-distribution"></a></p>
+<h2>Recommended Study Resources</h2>
+<ol>
+<li><a href="https://openstax.org/details/books/statistics">OpenStax Probability and Statistics</a></li>
+<li><a href="https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics/">MIT OpenCourseWare - Probability</a></li>
+<li><a href="https://www.edx.org/learn/probability">EdX - Probability Courses</a></li>
+</ol>
+<h2>Practice Suggestions</h2>
+<ul>
+<li>Solve problems from textbooks</li>
+<li>Use online probability calculators</li>
+<li>Create simulation experiments</li>
+<li>Practice deriving PMFs for different scenarios</li>
+</ul>
+<h2>Common Pitfalls to Avoid</h2>
+<ul>
+<li>Confusing discrete and continuous distributions</li>
+<li>Misapplying probability formulas</li>
+<li>Overlooking independence assumptions</li>
+<li>Computational errors in complex calculations</li>
+</ul>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

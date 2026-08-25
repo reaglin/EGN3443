@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Hypothesis Testing for 2 Samples</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div><h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 23pt; font-family: Arial, sans-serif;">Module 10: Hypothesis Tests for Two Samples</span></strong></h1>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Supporting Lectures:<br>EGN3443 Module 10 - Hypothesis Testing for 2 Samples<br></span></strong></h2>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">1. Independent Samples t-Test</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">An independent samples t-test compares the means of two separate, unrelated groups to determine if there is a statistically significant difference between them.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Characteristics</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Used when two distinct groups are compared</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Groups are not related or paired</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Assumes normal distribution and approximately equal variances</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Steps</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">State null and alternative hypotheses</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">H₀: μ₁ = μ₂ (population means are equal)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">H₁: μ₁ ≠ μ₂ (population means are different)</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate t-statistic: t = (x̄₁ - x̄₂) / √[(s₁²/n₁) + (s₂²/n₂)] Where:</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">x̄₁, x̄₂ are sample means</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">s₁, s₂ are sample standard deviations</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">n₁, n₂ are sample sizes</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Group 1: x̄₁ = 10, s₁ = 2, n₁ = 30</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Group 2: x̄₂ = 8, s₂ = 3, n₂ = 25</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">t = (10 - 8) / √[(2²/30) + (3²/25)]</span></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Student%27s_t-test">https://en.wikipedia.org/wiki/Student%27s_t-test</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://www.statisticshowto.com/probability-and-statistics/t-distribution/independent-samples-t-test/">https://www.statisticshowto.com/probability-and-statistics/t-distribution/independent-samples-t-test/</a> &nbsp;</li>
+</ul>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></p>
+<h3 style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><span style="font-size: 14px;"><strong>Scenarios</strong></span></h3>
+<p>An independent samples t-test is appropriate in the following scenarios:</p>
+<ol depth="0">
+<li index="0"><strong>Comparing two treatment groups</strong> in a randomized controlled trial (e.g., comparing the mean blood pressure reduction between patients receiving a new medication versus a placebo)</li>
+<li index="1"><strong>Comparing performance between two different groups</strong> that are naturally distinct (e.g., comparing mean test scores between students from two different schools)</li>
+<li index="2"><strong>Comparing a product/process change</strong> with two independent samples (e.g., comparing the tensile strength of metal parts produced by two different manufacturing methods)</li>
+<li index="3"><strong>Testing the effect of a binary categorical variable</strong> on a continuous outcome (e.g., comparing mean salary between male and female employees in a company)</li>
+<li index="4"><strong>Comparing before-and-after measurements</strong> on completely different subjects (e.g., comparing customer satisfaction scores before and after a service change, using different customers in each period)</li>
+<li index="5"><strong>Testing for differences between experimental conditions</strong> with different participants assigned to each condition (e.g., comparing reaction times between two interface designs with different users testing each design)</li>
+<li index="6"><strong>Comparing naturally occurring groups</strong> on some measured variable (e.g., comparing the mean height of plants grown in two different soil types)</li>
+<li index="7"><strong>Comparing two different methods or tools</strong> using independent samples (e.g., comparing the accuracy of two different diagnostic tests on separate groups of patients)</li>
+<li index="8"><strong>Market research comparisons</strong> between distinct consumer segments (e.g., comparing average spending between urban and rural customers)</li>
+<li index="9"><strong>Ecological studies</strong> comparing different populations or locations (e.g., comparing mean pollution levels between two different cities)</li>
+<li index="10"><strong>Comparing intervention effects</strong> between separate groups (e.g., comparing the mean weight loss between two different diet programs with different participants in each program)</li>
+<li index="11"><strong>Educational research</strong> comparing teaching methods with different classes (e.g., comparing test scores between students taught with traditional methods versus those taught with a new approach)</li>
+</ol>
+<p>For all these scenarios, the key requirements are:</p>
+<ul depth="0">
+<li index="0">The dependent variable must be continuous (or approximately continuous)</li>
+<li index="1">The observations in each group must be independent of each other</li>
+<li index="2">The two groups being compared must be independent of each other</li>
+<li index="3">The data should be approximately normally distributed or the sample size should be sufficiently large</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">2. Paired Samples t-Test</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">A paired samples t-test compares the means of two related groups, typically measurements taken from the same subjects before and after an intervention.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Characteristics</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Measurements are paired or matched</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Differences between pairs are analyzed</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Assumes normal distribution of differences</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Steps</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #202122;">State null and alternative hypotheses</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+<p><span style="font-size: 11pt; font-family: Arial, sans-serif;">H₀: μd = 0 (no difference in population means)<br></span><span style="font-size: 11pt; font-family: Arial, sans-serif;">H₁: μd ≠ 0 (significant difference exists)</span></p>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate differences between pairs</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate mean difference (d̄)</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate standard deviation of differences (sd)</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compute t-statistic: t = d̄ / (sd / √n) Where:</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">d̄ is mean difference</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">sd is standard deviation of differences</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">n is number of pairs</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Before Treatment: [10, 12, 15, 18, 20]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">After Treatment:&nbsp; [9, 11, 14, 17, 19]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Differences:&nbsp; &nbsp; &nbsp; [1, 1, 1, 1, 1]</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Mean Difference: 1</span></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://www.statology.org/paired-samples-t-test/">https://www.statology.org/paired-samples-t-test/</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/paired-sample-t-test/">https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/paired-sample-t-test/</a></li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Paired_difference_test">https://en.wikipedia.org/wiki/Paired_difference_test</a>&nbsp;</li>
+</ul>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></p>
+<h3 style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><strong>Scenarios&nbsp;</strong></h3>
+<p>A paired samples t-test (also called dependent samples t-test or paired t-test) is appropriate in the following scenarios:</p>
+<ol depth="0">
+<li index="0"><strong>Before-and-after measurements on the same subjects</strong> (e.g., comparing patients' blood pressure before and after receiving a treatment)</li>
+<li index="1"><strong>Repeated measurements on the same subject under different conditions</strong> (e.g., measuring a person's reaction time when tired versus when well-rested)</li>
+<li index="2"><strong>Matched pairs designs</strong> where subjects are deliberately matched on important characteristics (e.g., comparing treatment outcomes between pairs of twins, or patients matched by age, gender, and disease severity)</li>
+<li index="3"><strong>Crossover studies</strong> where each subject receives both treatments in sequence (e.g., comparing the effectiveness of two medications where each participant tries both drugs with a washout period between)</li>
+<li index="4"><strong>Testing the same samples under two different conditions</strong> (e.g., testing the same material samples with two different testing methods)</li>
+<li index="5"><strong>Performance comparisons using the same individuals</strong> (e.g., comparing students' scores on two different types of assessments)</li>
+<li index="6"><strong>Product comparisons where the same evaluators rate both products</strong> (e.g., having the same group of testers rate two different user interfaces)</li>
+<li index="7"><strong>Longitudinal studies with two time points</strong> for the same participants (e.g., measuring cognitive ability at the beginning and end of an educational program)</li>
+<li index="8"><strong>Split-plot agricultural experiments</strong> where measurements are taken from adjacent plots of land (e.g., comparing crop yields from two different fertilizers applied to adjacent sections of the same fields)</li>
+<li index="9"><strong>Comparing measurements taken from symmetrical body parts</strong> (e.g., comparing strength between dominant and non-dominant hands in the same individuals)</li>
+<li index="10"><strong>Software or algorithm comparison using the same datasets</strong> (e.g., comparing the accuracy of two different machine learning algorithms tested on the same datasets)</li>
+<li index="11"><strong>Taste tests where the same participants evaluate multiple products</strong> (e.g., comparing consumer ratings of two different food products tasted by the same panel)</li>
+</ol>
+<p>For all these scenarios, the key requirements are:</p>
+<ul depth="0">
+<li index="0">The dependent variable must be continuous (or approximately continuous)</li>
+<li index="1">The paired observations should have a natural connection or dependency</li>
+<li index="2">The differences between pairs should be approximately normally distributed</li>
+<li index="3">The sample must consist of matched or paired data points</li>
+</ul>
+<p>The paired t-test is particularly valuable when there's high variability between subjects but relatively consistent differences within pairs, as the pairing helps to eliminate between-subject variability and increase statistical power.</p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">3. F-Test for Comparing Variances</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">An F-test determines whether two population variances are significantly different by comparing their sample variances.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Characteristics</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Tests equality of population variances</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Uses F-distribution</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Useful in ANOVA and regression analysis</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Steps</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">State null and alternative hypotheses</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">H₀: σ₁² = σ₂² (population variances are equal)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">H₁: σ₁² ≠ σ₂² (population variances are different)</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate F-statistic: F = larger sample variance / smaller sample variance</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br><br></span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Group 1 Variance: s₁² = 25</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Group 2 Variance: s₂² = 16</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">F = 25 / 16 = 1.5625</span></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;"></span><span style="text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><a href="https://en.wikipedia.org/wiki/F-test">https://en.wikipedia.org/wiki/F-test</a></span><a href="https://en.wikipedia.org/wiki/F-test">&nbsp;</a>&nbsp;</li>
+</ul>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></p>
+<h3 style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><strong><span style="font-size: 14px;">Scenarios</span></strong></h3>
+<p>An F-test for comparing variances is appropriate in the following scenarios:</p>
+<ol depth="0">
+<li index="0"><strong>Testing homogeneity of variance</strong> before performing a t-test or ANOVA (e.g., checking if the variability in test scores is similar across different teaching methods)</li>
+<li index="1"><strong>Comparing precision between two measurement methods</strong> (e.g., determining if one laboratory technique produces more consistent results than another)</li>
+<li index="2"><strong>Quality control comparisons</strong> between manufacturing processes (e.g., comparing the consistency of parts produced by two different machines)</li>
+<li index="3"><strong>Assessing variability in biological systems</strong> (e.g., comparing the genetic diversity between two populations)</li>
+<li index="4"><strong>Comparing variability in performance</strong> between groups (e.g., determining if experienced workers have more consistent output than novices)</li>
+<li index="5"><strong>Instrument validation studies</strong> comparing the precision of two different instruments (e.g., comparing the variance in repeated measurements from two different sensors)</li>
+<li index="6"><strong>Comparing treatment consistency</strong> in pharmaceutical research (e.g., determining if one drug formulation produces more variable effects than another)</li>
+<li index="7"><strong>Comparing risk or volatility</strong> in financial investments (e.g., comparing the variance in returns between two different investment strategies)</li>
+<li index="8"><strong>Testing if experimental conditions affect variability</strong> rather than just the mean (e.g., determining if a treatment not only changes the average response but also makes responses more consistent)</li>
+<li index="9"><strong>Comparing environmental variability</strong> between sites (e.g., comparing temperature fluctuations between two different ecosystems)</li>
+<li index="10"><strong>Assessing consistency in human performance</strong> under different conditions (e.g., comparing the variability in reaction times between two different interface designs)</li>
+<li index="11"><strong>Testing if one group is more heterogeneous than another</strong> (e.g., comparing if student performance is more variable in one classroom compared to another)</li>
+</ol>
+<p>For all these scenarios, the key requirements are:</p>
+<ul depth="0">
+<li index="0">The data in both groups should be approximately normally distributed</li>
+<li index="1">The observations in each group should be independent</li>
+<li index="2">The samples should be random samples from their respective populations</li>
+</ul>
+<p>It's important to note that F-tests for comparing variances are relatively sensitive to departures from normality. If the normality assumption is violated, alternative tests like Levene's test or Brown-Forsythe test may be more appropriate for comparing variances.</p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">4. Tests for Comparing Proportions</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Tests for comparing proportions determine if there's a significant difference between the proportions of two populations or groups.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Techniques</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Two-proportion z-test</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Chi-square test of independence</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Steps</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">State null and alternative hypotheses</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate pooled proportion</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compute z-statistic: z = (p₁ - p₂) / √[p(1-p)(1/n₁ + 1/n₂)]</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Group 1: 30 successes out of 100</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Group 2: 45 successes out of 150</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Pooled proportion calculation</span></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://www.stattrek.com/hypothesis-test/difference-in-proportions.aspx"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">StatTrek: Proportion Test</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Two-proportion_Z-test">https://en.wikipedia.org/wiki/Two-proportion_Z-test</a> &nbsp;</li>
+</ul>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></p>
+<h3 level="2">Two-Proportion Z-Test Appropriate Scenarios:</h3>
+<ol depth="0">
+<li index="0"><strong>Comparing vaccination rates</strong> between two different demographic groups (e.g., comparing COVID-19 vaccination rates between urban and rural populations)</li>
+<li index="1"><strong>Comparing success rates</strong> of two different treatments or interventions (e.g., comparing the recovery rates of patients receiving two different surgical procedures)</li>
+<li index="2"><strong>A/B testing in marketing</strong> (e.g., comparing conversion rates between two different webpage designs)</li>
+<li index="3"><strong>Comparing defect rates</strong> between two manufacturing processes (e.g., determining if one assembly line produces fewer defective products than another)</li>
+<li index="4"><strong>Comparing response rates</strong> between two survey methods (e.g., determining if online surveys yield higher response rates than mail surveys)</li>
+<li index="5"><strong>Comparing pass/fail rates</strong> between two different educational approaches (e.g., comparing the proportion of students passing an exam under traditional vs. flipped classroom teaching)</li>
+<li index="6"><strong>Comparing adoption rates</strong> of two different products or technologies (e.g., comparing the percentage of businesses adopting cloud storage vs. on-premise solutions)</li>
+<li index="7"><strong>Comparing click-through rates</strong> in digital marketing (e.g., comparing the proportion of users who click on two different ad designs)</li>
+<li index="8"><strong>Comparing infection rates</strong> between two populations (e.g., comparing the proportion of infections between vaccinated and unvaccinated groups)</li>
+<li index="9"><strong>Comparing germination rates</strong> in agricultural experiments (e.g., comparing the percentage of seeds that germinate under two different conditions)</li>
+</ol>
+<h3 level="2">Chi-Squared Test of Independence Appropriate Scenarios:</h3>
+<ol depth="0">
+<li index="0"><strong>Testing for associations between categorical variables</strong> (e.g., determining if educational level is associated with voting preference)</li>
+<li index="1"><strong>Comparing distributions across multiple categories</strong> (e.g., determining if the distribution of product preferences differs between age groups)</li>
+<li index="2"><strong>Testing for differences in frequency distributions</strong> (e.g., comparing if the distribution of blood types differs between two populations)</li>
+<li index="3"><strong>Market segmentation analysis</strong> (e.g., determining if product preferences are independent of demographic factors)</li>
+<li index="4"><strong>Comparing categorical outcomes</strong> across groups (e.g., comparing diagnostic outcomes between different hospitals)</li>
+<li index="5"><strong>Analyzing survey responses</strong> with multiple categorical options (e.g., determining if response patterns to a multiple-choice question differ between groups)</li>
+<li index="6"><strong>Testing for changes in categorical distributions</strong> over time (e.g., comparing if the distribution of transportation methods changed before and after a policy change)</li>
+<li index="7"><strong>Analyzing contingency tables</strong> with multiple rows and columns (e.g., examining the relationship between educational background and career choice)</li>
+<li index="8"><strong>Comparing product preferences</strong> across demographic groups (e.g., determining if beverage preferences differ by age group)</li>
+<li index="9"><strong>Analyzing patterns in categorical data</strong> (e.g., determining if housing preferences are independent of income level)</li>
+</ol>
+<h3 level="2">Both Tests Are Appropriate When:</h3>
+<ol depth="0">
+<li index="0"><strong>Comparing binary outcomes</strong> between two groups (e.g., comparing the proportion of "yes" responses between two survey groups)</li>
+<li index="1"><strong>Testing if the proportion of a characteristic</strong> differs between two populations (e.g., comparing the percentage of left-handed people in two different countries)</li>
+<li index="2"><strong>Comparing event rates</strong> between two groups (e.g., comparing accident rates between two different manufacturing facilities)</li>
+<li index="3"><strong>Testing for differences in binary classifications</strong> (e.g., comparing the proportion of positive test results between two laboratories)</li>
+<li index="4"><strong>Analyzing 2×2 contingency tables</strong> (e.g., comparing smokers vs. non-smokers in two different regions)</li>
+</ol>
+<p>For all these scenarios, the key requirements are:</p>
+<ul depth="0">
+<li index="0">Data must be counts or frequencies (categorical data)</li>
+<li index="1">The observations should be independent</li>
+<li index="2">For the z-test, sample sizes should be sufficiently large (np ≥ 5 and n(1-p) ≥ 5 for both groups)</li>
+<li index="3">For the chi-squared test, expected frequencies should generally be ≥ 5 in each cell</li>
+</ul>
+<p>Note that for 2×2 tables, the two-proportion z-test and chi-squared test of independence are mathematically equivalent (the chi-squared statistic is the square of the z-statistic).</p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">5. Non-Parametric Alternatives</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Non-parametric tests are used when data does not meet parametric test assumptions (normality, equal variance).</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Non-Parametric Tests</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Mann-Whitney U test (alternative to independent t-test)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Wilcoxon signed-rank test (alternative to paired t-test)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Kruskal-Wallis test (alternative to one-way ANOVA)</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Characteristics</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Do not assume normal distribution</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Based on ranks of data</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">More robust for skewed or non-normal data</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Nonparametric_statistics">https://en.wikipedia.org/wiki/Nonparametric_statistics</a>&nbsp;</li>
+</ul>
+<p></p>
+<h3 level="2">Mann-Whitney U Test / Wilcoxon Rank-Sum Test (Alternative to Independent t-test)</h3>
+<ol depth="0">
+<li index="0"><strong>Comparing ordinal data</strong> between two groups (e.g., comparing customer satisfaction ratings between two service providers)</li>
+<li index="1"><strong>Analyzing data with outliers</strong> that would skew parametric tests (e.g., comparing income distributions between two regions when some extreme values exist)</li>
+<li index="2"><strong>Small sample sizes</strong> where normality cannot be verified (e.g., comparing performance metrics between two small teams)</li>
+<li index="3"><strong>Comparing data from clearly non-normal distributions</strong> (e.g., comparing response times that follow a skewed distribution)</li>
+<li index="4"><strong>Comparing ranked data</strong> between independent groups (e.g., comparing athletic performance rankings between two training programs)</li>
+<li index="5"><strong>When transformations fail</strong> to normalize the data (e.g., comparing biological measurements that remain non-normal after attempted transformations)</li>
+<li index="6"><strong>Comparing scores on assessment tools</strong> with ceiling or floor effects (e.g., comparing scores on a questionnaire where many respondents hit the maximum score)</li>
+<li index="7"><strong>When comparing medians</strong> is more appropriate than comparing means (e.g., comparing home prices between two neighborhoods)</li>
+</ol>
+<h3 level="2">Wilcoxon Signed-Rank Test (Alternative to Paired t-test)</h3>
+<ol depth="0">
+<li index="0"><strong>Before-and-after measurements</strong> when differences are not normally distributed (e.g., comparing pain scores before and after treatment)</li>
+<li index="1"><strong>Paired comparisons with outliers</strong> (e.g., comparing reaction times to two stimuli when some responses are extremely slow)</li>
+<li index="2"><strong>Small sample paired data</strong> (e.g., comparing biomarker levels in a small group of patients before and after intervention)</li>
+<li index="3"><strong>Ordinal paired measurements</strong> (e.g., comparing subjects' preference ratings for two products)</li>
+<li index="4"><strong>Ranking performance</strong> under two different conditions with the same subjects (e.g., comparing athletes' performance rankings under two different training regimens)</li>
+<li index="5"><strong>When the magnitude of differences varies widely</strong> among pairs (e.g., comparing blood pressure changes where some patients show dramatic changes while others show minimal changes)</li>
+<li index="6"><strong>Cross-over trials</strong> with non-normal outcome distributions (e.g., comparing the effects of two treatments in patients who receive both treatments in sequence)</li>
+</ol>
+<h3 level="2">Sign Test (Simplest Alternative to Paired t-test)</h3>
+<ol depth="0">
+<li index="0"><strong>When only the direction of difference matters</strong>, not the magnitude (e.g., determining if one product is consistently preferred over another)</li>
+<li index="1"><strong>Extremely skewed distributions</strong> where even ranks might be inappropriate (e.g., comparing datasets with extreme outliers)</li>
+<li index="2"><strong>Paired comparisons</strong> where only "greater than," "less than," or "equal to" information is available (e.g., comparing whether performance improved, deteriorated, or stayed the same after training)</li>
+<li index="3"><strong>When the exact values cannot be measured</strong> but the relative ordering can (e.g., comparing taste preferences between two foods)</li>
+<li index="4"><strong>Very simple before-after comparisons</strong> (e.g., comparing if a treatment leads to improvement or deterioration)</li>
+</ol>
+<h3 level="2">Fisher's Exact Test (Alternative to Chi-Square Test for Small Samples)</h3>
+<ol depth="0">
+<li index="0"><strong>Small sample comparisons of categorical data</strong> where expected cell counts are low (e.g., comparing rare disease occurrences between two small groups)</li>
+<li index="1"><strong>2×2 contingency tables</strong> with fewer than 5 expected observations in any cell (e.g., comparing adverse event occurrences between two small treatment groups)</li>
+<li index="2"><strong>Precise probability calculations</strong> for contingency tables (e.g., determining exact probability of observed distribution in genetic studies with small samples)</li>
+<li index="3"><strong>Testing association in small samples</strong> (e.g., comparing genetic mutations in small cohorts)</li>
+</ol>
+<h3 level="2">McNemar's Test (Alternative for Paired Nominal Data)</h3>
+<ol depth="0">
+<li index="0"><strong>Before-and-after comparisons</strong> with binary outcomes (e.g., comparing presence/absence of symptoms before and after treatment)</li>
+<li index="1"><strong>Matched-pairs designs</strong> with binary outcomes (e.g., comparing diagnostic test results in pairs of siblings)</li>
+<li index="2"><strong>Crossover studies</strong> with binary outcomes (e.g., comparing presence/absence of side effects under two different treatments)</li>
+<li index="3"><strong>Comparing binary responses</strong> from the same subjects under different conditions (e.g., comparing agreement/disagreement to statements before and after an informational intervention)</li>
+</ol>
+<h3 level="2">Key Considerations for All Non-parametric Tests:</h3>
+<ul depth="0">
+<li index="0">Non-parametric tests generally have lower statistical power than their parametric counterparts when parametric assumptions are met</li>
+<li index="1">They are appropriate when data transformations cannot achieve normality</li>
+<li index="2">They are often preferred when sample sizes are too small to reliably assess normality</li>
+<li index="3">They are robust against outliers and skewed distributions</li>
+<li index="4">They are suitable for ordinal data or when the measurement scale is questionable</li>
+</ul>
+<p>In general, non-parametric tests are appropriate whenever the assumptions of the corresponding parametric test cannot be met, particularly the assumption of normally distributed data or when dealing with ordinal data.</p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Conclusion</span></strong></h2>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Understanding these hypothesis tests provides powerful tools for comparing groups and making statistical inferences across various research and practical scenarios.</span></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

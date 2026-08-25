@@ -1,0 +1,1280 @@
+{
+  "ModuleFolderName": "Week_10_Module_9_-_Hypothesis_Testing_II",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:27:19.1325727-04:00",
+  "ModifiedDate": "2026-08-24T20:30:13.9528505-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+      "Title": "Two-Sample Hypothesis Tests",
+      "Summary": "Introduces hypothesis testing procedures for comparing two independent groups, covering the logic, assumptions, and application of two-sample z-tests and t-tests.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "ModifiedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "Elements": [
+        {
+          "Id": "b5f38986-2b56-4039-8617-5bfa6c00e8a6",
+          "TopicId": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+          "Title": "Logic of Two-Sample Hypothesis Testing",
+          "BodyText": "Two-sample hypothesis tests are used to determine whether there is a statistically significant difference between the means (or proportions) of two independent groups.",
+          "Notes": "For example, a researcher might ask whether the average exam scores of students taught by Method A differ from those taught by Method B.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "ModifiedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "Items": [
+            {
+              "Id": "646869d5-ecdd-4bf3-9c24-09eb148bdfb1",
+              "Text": "The null hypothesis (H\u2080) typically states that there is no difference between the two population parameters.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cfa54666-79cd-4fe6-8ae7-044a2b8ac373",
+              "Text": "The alternative hypothesis (H\u2081) states that a difference exists, and can be one-tailed or two-tailed depending on the research question.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1f0a60bb-1f1e-4484-9e02-2fdedbe465ea",
+              "Text": "The test quantifies how likely the observed difference between sample statistics is if the null hypothesis were true.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fab8d8da-44c1-4041-9053-6ec32f1790fc",
+          "TopicId": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+          "Title": "Independence Assumption and Sampling",
+          "BodyText": "A fundamental requirement of two-sample tests is that the two groups must be independent of each other, meaning observations in one group do not influence or relate to observations in the other.",
+          "Notes": "Independence is violated when, for example, the same participants appear in both groups or when groups are matched by design \u2014 such cases call for paired tests instead.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "ModifiedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "Items": [
+            {
+              "Id": "2a4e17ce-c039-4fb9-a679-34832e4e63ec",
+              "Text": "Each sample must be drawn independently from its respective population.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b1c91a67-372b-4a98-9e02-94f57a754d27",
+              "Text": "Observations within each group must also be independent of one another.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a51c1880-b63e-471b-8d2d-1bb0171e1073",
+              "Text": "Violating the independence assumption can lead to inflated Type I error rates and invalid conclusions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "861422ac-4c0e-4e8c-be5d-98b8a5b9ae97",
+          "TopicId": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+          "Title": "Two-Sample Z-Test",
+          "BodyText": "The two-sample z-test compares the means of two independent groups when population standard deviations are known and/or sample sizes are large.",
+          "Notes": "In practice, known population standard deviations are rare, so the z-test is most commonly applied when n \u2265 30 in both groups, invoking the Central Limit Theorem.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "ModifiedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "Items": [
+            {
+              "Id": "5b669ec5-33ce-4247-9746-04d77013ea94",
+              "Text": "The test statistic is calculated as the difference between sample means divided by the standard error of the difference.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "289ccdc9-c3de-44ef-9e0b-f6e983e48680",
+              "Text": "The standard error of the difference combines the variability of both samples, accounting for their respective sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0c38247e-cad7-42f1-adab-ed520ea9c564",
+              "Text": "The resulting z-score is compared to a critical value from the standard normal distribution to make a rejection decision.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "03a29921-e904-4563-8ce8-d8c39c76a315",
+          "TopicId": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+          "Title": "Two-Sample T-Test",
+          "BodyText": "The two-sample t-test is used when population standard deviations are unknown and sample sizes are small, relying on estimated standard errors and the t-distribution.",
+          "Notes": "There are two common variants: the equal-variance (pooled) t-test and the unequal-variance (Welch\u0027s) t-test; choosing between them depends on whether the population variances can be assumed equal.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "ModifiedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "Items": [
+            {
+              "Id": "c1f20434-ade4-4635-84bb-8facf326b6a2",
+              "Text": "The pooled t-test assumes equal population variances and combines both samples\u0027 variances into a single pooled estimate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fbbeb610-a5c8-4a8f-b0af-7a379bbebe12",
+              "Text": "Welch\u0027s t-test does not assume equal variances and adjusts the degrees of freedom accordingly, making it more robust in practice.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "34d76cf8-9a45-4ebf-ac3f-674409260a4c",
+              "Text": "Degrees of freedom for the t-test are based on sample sizes and, in Welch\u0027s version, also on the ratio of sample variances.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f935fe39-0906-4db9-a69c-cae63d0ec1e1",
+          "TopicId": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+          "Title": "Assumptions Underlying Two-Sample Tests",
+          "BodyText": "Both two-sample z-tests and t-tests rely on a set of statistical assumptions that must be evaluated before the results can be considered valid.",
+          "Notes": "Violations of normality can sometimes be tolerated with large samples due to the Central Limit Theorem, but independence and random sampling violations are more serious.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "ModifiedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "Items": [
+            {
+              "Id": "288926f6-be83-4370-80c6-5317ed1268c5",
+              "Text": "Both samples should be drawn randomly and independently from their respective populations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b6c92a94-3aa0-4110-94e0-a214785243b6",
+              "Text": "The data in each group should be approximately normally distributed, especially for small sample sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "da38ff64-49c7-46f1-890f-426e88e353a2",
+              "Text": "For the pooled t-test, population variances are assumed to be equal across the two groups, which can be assessed with a Levene\u0027s test or F-test.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4015e18c-f88a-4308-86bc-720da520aab3",
+          "TopicId": "09cf2902-591c-4204-b1a5-7637fbdb7297",
+          "Title": "Interpreting Results and Making Decisions",
+          "BodyText": "After computing the test statistic, the result is compared to a critical value or evaluated using a p-value to determine whether to reject the null hypothesis.",
+          "Notes": "Statistical significance does not imply practical significance; always consider effect size (e.g., Cohen\u0027s d) alongside p-values when interpreting two-sample test results.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "ModifiedDate": "2026-08-24T20:27:43.7473878-04:00",
+          "Items": [
+            {
+              "Id": "d9207b5e-e9cb-4d86-8f71-44b2eecfd9b2",
+              "Text": "If the p-value is less than the chosen significance level (\u03B1), the null hypothesis is rejected, suggesting a statistically significant difference between groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b5b7f87e-ee1f-4c7d-afad-906edf0e98cc",
+              "Text": "Confidence intervals for the difference between means can complement the hypothesis test by providing a range of plausible values for the true difference.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "41a14fcd-05a8-4358-8a2e-aaa9945bad56",
+              "Text": "The direction and magnitude of the observed difference should always be reported alongside the test statistic and p-value for a complete interpretation.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+      "Title": "Paired Sample Comparisons",
+      "Summary": "Explores methods for analyzing data collected from matched or repeated-measures designs, emphasizing how pairing reduces variability and strengthens inferential conclusions.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "ModifiedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "Elements": [
+        {
+          "Id": "38c93a2c-6a4d-4429-8b3b-7b5c6c6e25df",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "What Are Paired Sample Designs?",
+          "BodyText": "Paired sample designs involve collecting two related measurements from the same subject or from matched subjects, rather than from two independent groups.",
+          "Notes": "Common examples include pre-test/post-test studies, measuring blood pressure before and after treatment on the same patient, or matching participants by age and comparing outcomes.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "5d205462-a7b1-4128-bc2b-eda1b818d35c",
+              "Text": "Each observation in one group is uniquely linked to exactly one observation in the other group.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "45198ace-89a7-4d9c-abbc-f62964310e40",
+              "Text": "Pairing can occur within a single subject (repeated measures) or between two deliberately matched subjects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "50b80118-d638-4605-8a72-28a4ae23544e",
+              "Text": "The key feature is that the two scores are not independent of each other \u2014 they share a systematic relationship.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8143b1dc-a52d-4289-b321-df0e75c876c8",
+              "Text": "This design is fundamentally different from an independent two-sample design, where groups have no logical connection between individual observations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "88fa2f72-b7c6-411d-a17f-e2133fe734ad",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "Why Pairing Reduces Variability",
+          "BodyText": "The primary statistical advantage of pairing is that it removes between-subject variability from the error term, making the test more sensitive to true differences.",
+          "Notes": "If subjects differ widely in baseline scores (e.g., fitness levels), those individual differences inflate error variance in an independent design. Pairing cancels that out by focusing only on each subject\u0027s change score.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "22d5ab99-10a1-4d20-bd01-e189ba2688c8",
+              "Text": "By analyzing difference scores (D = X\u2081 \u2212 X\u2082) within each pair, individual-level baseline differences are eliminated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ec3ba3a2-d87f-4473-a8e4-d17437b5d72b",
+              "Text": "Smaller error variance means a smaller standard error, which produces a larger test statistic for the same true effect.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3c55c647-9f1f-4c89-bc2b-ae2824c97041",
+              "Text": "This increased statistical power means paired designs can detect smaller real-world effects with fewer participants than independent designs.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "eb43173e-ee0e-450f-b8f1-e57225926769",
+              "Text": "The benefit is greatest when within-pair correlation is high \u2014 the more similar matched subjects are, the more variability is removed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7aa6ffc4-1e66-45cd-b429-31bcc2e0f8cc",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "Computing the Paired Difference Score",
+          "BodyText": "The foundation of all paired-sample inference is the difference score D, calculated for each pair as the value in condition one minus the value in condition two.",
+          "Notes": "For example, if a participant scores 78 before training and 85 after, D = 85 \u2212 78 = 7. The sign and direction of D must be kept consistent across all pairs.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "bcb6cd9f-3c86-49f6-a6ec-7b12232b420d",
+              "Text": "Calculate D_i = X_{1i} \u2212 X_{2i} for every pair i in the dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b60e9f28-2306-47f0-979b-a9d18aba267a",
+              "Text": "Compute the mean of the difference scores: D\u0304 = \u03A3D_i / n.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "adf53649-07b5-4414-99ef-b68324c1316e",
+              "Text": "Compute the standard deviation of the difference scores (s_D) to capture how consistently the differences behave across pairs.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c9d8283d-6551-49a9-bb2d-90444016a4f6",
+              "Text": "The resulting single sample of D values is then treated like a one-sample problem, greatly simplifying the analysis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "022288c6-d161-47ad-8ced-dd4af2c9932e",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "The Paired-Sample t-Test",
+          "BodyText": "The paired-sample t-test evaluates whether the mean of the difference scores is significantly different from zero, using a t-distribution with n \u2212 1 degrees of freedom.",
+          "Notes": "The null hypothesis is H\u2080: \u03BC_D = 0, meaning no average difference between conditions. The alternative can be two-tailed (\u03BC_D \u2260 0) or one-tailed depending on the research question.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "20d341fe-0523-4d21-8ab3-b047c3f00c6d",
+              "Text": "The test statistic is calculated as t = D\u0304 / (s_D / \u221An), where n is the number of pairs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ac42d375-eead-4456-961a-ebf505108cfd",
+              "Text": "Degrees of freedom equal n \u2212 1, where n is the number of pairs, not the total number of individual observations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d1fb9995-8109-4245-956c-665931e5d56f",
+              "Text": "The calculated t-value is compared to a critical value from the t-distribution at the chosen significance level (e.g., \u03B1 = 0.05).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c18c78b9-2a18-4558-8b0f-6bb00f3191f2",
+              "Text": "If |t| exceeds the critical value, the null hypothesis is rejected, indicating a statistically significant mean difference between conditions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fdd05e76-0f0f-463e-b252-de130855ba8b",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "Assumptions of the Paired-Sample t-Test",
+          "BodyText": "Like all parametric tests, the paired-sample t-test rests on several assumptions that must be reasonably satisfied for results to be valid.",
+          "Notes": "When the normality assumption is violated and sample sizes are small, a non-parametric alternative such as the Wilcoxon signed-rank test should be considered.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "c77a305c-4f4a-47a9-96cc-49e313af0ec3",
+              "Text": "The difference scores D must be approximately normally distributed; this is more critical with small samples.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6d6f6af7-f866-4edf-b038-4810fe58d934",
+              "Text": "Each pair must be independent of all other pairs \u2014 the link is only within a pair, not across pairs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f04c3a0c-d782-4eb7-b531-4034792a29bf",
+              "Text": "The data should be measured on at least an interval scale so that meaningful difference scores can be computed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5a852bbe-ea50-48d4-81e7-0258aefcc368",
+              "Text": "With larger samples (typically n \u2265 30), the Central Limit Theorem helps satisfy the normality requirement even if the raw data are skewed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "41d7d37a-8d00-4373-82ae-696577d5653c",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "Interpreting and Reporting Results",
+          "BodyText": "Proper interpretation of a paired-sample t-test includes reporting the test statistic, degrees of freedom, p-value, and a measure of effect size to convey practical significance.",
+          "Notes": "Example reporting: \u0027t(19) = 3.42, p = .003, d = 0.76, indicating a large effect.\u0027 Always state the direction of the difference (which condition was higher) in plain language.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "6030046e-a1c7-4da9-ab62-0dfcb243a60a",
+              "Text": "Report the mean difference D\u0304 and its standard deviation s_D alongside the inferential statistics to provide context.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d6d2bd25-8ade-4d3d-b0a3-91efd1a6ddec",
+              "Text": "Cohen\u0027s d for paired samples is calculated as d = D\u0304 / s_D, providing a standardized measure of effect size independent of sample size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9e25be5-30a2-46c0-9886-ef7126a3ddbe",
+              "Text": "A statistically significant result only indicates the difference is unlikely due to chance; the effect size tells you whether the difference is practically meaningful.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "091001c3-ed9f-4452-936d-bf2bb628cda4",
+              "Text": "Confidence intervals for \u03BC_D can also be reported to show the plausible range of the true population mean difference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f7c3b6da-1670-4b2d-9caa-fa22fd8fb589",
+          "TopicId": "b3ce1f82-9d78-475f-aa3e-205f6cb1c067",
+          "Title": "When to Choose a Paired vs. Independent Design",
+          "BodyText": "Selecting the correct design and corresponding test depends on the research question, how data were collected, and the nature of the relationship between observations.",
+          "Notes": "Mistakenly applying an independent-samples t-test to paired data inflates error variance and reduces power, potentially causing a real effect to go undetected.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:28:14.869317-04:00",
+          "ModifiedDate": "2026-08-24T20:28:14.869317-04:00",
+          "Items": [
+            {
+              "Id": "228f4a42-1afb-4750-85a4-e9fd623842e3",
+              "Text": "Use a paired design when the same subjects are measured twice (repeated measures) or when subjects are deliberately matched on a relevant characteristic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8eb6f352-adc0-4901-9647-e109aa0e1a5e",
+              "Text": "Use an independent-samples design when participants are randomly and separately assigned to two unrelated groups with no meaningful link between individuals.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3deae82f-0e63-4b08-acaa-ab0de1680208",
+              "Text": "A useful rule of thumb: if you can logically connect each score in group one to exactly one score in group two, the data are paired.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7cc814b5-f4f5-4524-88d0-b0198a19c8f5",
+              "Text": "Always determine the design structure before collecting data; retroactively pairing data that were collected independently is not statistically valid.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+      "Title": "Selecting the Appropriate Statistical Test",
+      "Summary": "Guides learners through a decision-making framework for choosing the correct hypothesis test based on data type, sample size, independence, and research context.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "ModifiedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "Elements": [
+        {
+          "Id": "3dc17c4c-55ba-42e0-98dc-12b6bac95051",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "The Decision-Making Framework Overview",
+          "BodyText": "Selecting the correct statistical test requires a structured decision process rather than guesswork. A systematic framework helps researchers avoid errors that lead to invalid conclusions.",
+          "Notes": "Think of test selection as a flowchart: each answer to a key question narrows the field of appropriate tests until the best option is identified.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "60dd0f96-fda7-44c1-93ab-c16bdf8e8ed7",
+              "Text": "The framework begins with identifying the research question and the type of conclusion you want to draw (e.g., comparing groups, assessing relationships).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "92837931-a6d6-46a8-9acd-73afe00d17e3",
+              "Text": "Key decision points include the nature of the data, the number of groups or samples, and whether observations are independent.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "349d757d-dfea-4e76-94a0-18a9b72ac4f5",
+              "Text": "Skipping any step in the framework risks applying a test whose assumptions are violated, producing misleading p-values and conclusions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d7577bac-fac5-4eb0-bfb4-b2ced41a7cbe",
+              "Text": "A well-applied framework also helps justify your analytical choices when reporting results to others.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "382e199d-c15f-4992-a97d-8f9bad04f77c",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "Identifying Data Type and Measurement Level",
+          "BodyText": "The scale of measurement of your outcome variable is the first and most critical factor in test selection. Tests designed for continuous data cannot be validly applied to categorical data, and vice versa.",
+          "Notes": "Example: Comparing proportions of patients who recovered (yes/no) calls for a chi-square or z-test for proportions, not a t-test.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "e1f3f604-a80c-46ce-8d9a-a49236f52057",
+              "Text": "Continuous (interval or ratio) data support parametric tests such as t-tests and ANOVA when distributional assumptions are met.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "58d3d49b-7824-451c-9a6c-9a27e745e386",
+              "Text": "Ordinal data\u2014where ranks matter but distances between values are unequal\u2014often call for non-parametric alternatives like the Mann-Whitney U or Wilcoxon signed-rank test.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8c325733-6c1c-43c3-8743-3c7c09bb68b0",
+              "Text": "Nominal or categorical data (frequencies, proportions) are typically analyzed with chi-square tests or Fisher\u0027s exact test.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d5ce71fb-cb13-4d1b-9378-a454fac429fc",
+              "Text": "Misclassifying ordinal data as continuous is a common error that can inflate or deflate test statistics.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "75eb84e1-3e39-456a-9cfa-2775d46bbcbe",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "Assessing Sample Size and Distributional Assumptions",
+          "BodyText": "Many parametric tests assume the sampling distribution of the statistic is approximately normal, an assumption that depends heavily on sample size and the underlying population distribution. Evaluating these conditions guides the choice between parametric and non-parametric methods.",
+          "Notes": "The Central Limit Theorem generally allows parametric tests when n \u2265 30, but smaller samples require checking for normality via plots or formal tests (e.g., Shapiro-Wilk).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "132edea1-ef84-42b5-8c90-d7fe4829c4bd",
+              "Text": "Large samples (n \u2265 30 per group) typically satisfy normality assumptions through the Central Limit Theorem, making parametric tests appropriate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f1cf2a15-795f-4b55-9afa-a7db73749b76",
+              "Text": "Small samples require visual inspection (Q-Q plots, histograms) or formal normality tests before choosing a parametric approach.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3d9a3b1f-e673-49e0-92c4-ffcd2d5c7220",
+              "Text": "Severe skewness, heavy tails, or notable outliers in small samples favor non-parametric tests that do not assume a specific distribution.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cd94bc8f-cde8-4f66-a611-ac61b5117a4e",
+              "Text": "Variance homogeneity (equal variances across groups) is an additional assumption relevant to independent-samples t-tests and ANOVA; Levene\u0027s test can check this.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ed3a9f7a-03df-41e2-a572-627a263604c5",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "Determining Independence vs. Dependence of Samples",
+          "BodyText": "Whether your samples are independent or related (paired/matched) is a fundamental branching point in test selection. Using an independent-samples test on paired data wastes statistical power and may produce incorrect results.",
+          "Notes": "Classic paired scenarios: pre-test vs. post-test scores on the same subjects, or matched case-control pairs in a study.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "13c88e78-b1b9-4088-8e04-e692da04ba5e",
+              "Text": "Independent samples arise when observations in one group have no systematic relationship to observations in another group (e.g., treatment vs. control drawn from different individuals).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7d32745f-c612-4c06-a0b1-ef1ee3784380",
+              "Text": "Dependent (paired) samples occur when each observation in one group is logically linked to exactly one observation in another group, such as repeated measures on the same subject.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d1f60c5d-695a-4a1f-b1ed-754dfa103a69",
+              "Text": "The paired t-test or Wilcoxon signed-rank test should be used for dependent samples; the independent-samples t-test or Mann-Whitney U for independent samples.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c7b3cb79-7901-4b59-9e63-99917fcc2974",
+              "Text": "Incorrectly treating paired data as independent reduces sensitivity and inflates the standard error of the difference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "df325d9a-1ae7-4c5a-b9d6-bbd8be41fe2c",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "Considering the Number of Groups or Samples",
+          "BodyText": "The number of groups being compared directly determines the class of test to apply. Two-group comparisons and multi-group comparisons require fundamentally different procedures.",
+          "Notes": "Applying multiple two-sample t-tests across three or more groups inflates the Type I error rate; ANOVA controls the family-wise error rate in that scenario.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "aaa14a45-0b4e-436c-ba0c-6e2ad789d7df",
+              "Text": "Two-group comparisons of means use the independent-samples t-test (unpaired) or paired t-test (dependent), depending on sample structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b3769f94-8d6a-48a2-b572-543edb154233",
+              "Text": "Comparing three or more group means simultaneously calls for one-way ANOVA, which partitions total variance to test for any group difference.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e36ab629-9d2f-4c86-9e7e-cec87e6538e1",
+              "Text": "For two-group categorical comparisons, a 2\u00D72 chi-square or Fisher\u0027s exact test is used; larger contingency tables use the general chi-square test of independence.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "79a50d2c-3745-413d-a549-a049a857f562",
+              "Text": "Non-parametric equivalents scale similarly: Mann-Whitney U for two independent groups, Kruskal-Wallis for three or more independent groups.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fc160cc2-6a38-44b1-ae42-429bd4c3eda1",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "Aligning Test Choice with the Research Question",
+          "BodyText": "Beyond data characteristics, the specific inferential goal\u2014testing differences, associations, or relationships\u2014shapes which test is appropriate. A test that answers the wrong question produces irrelevant results even if technically applied correctly.",
+          "Notes": "Example: A researcher wanting to know whether two variables move together should use correlation or regression, not a t-test comparing group means.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "b0d8a9a1-1ccd-466a-adde-20427686cf93",
+              "Text": "Questions about mean differences between groups point toward t-tests or ANOVA; questions about relationships between two continuous variables point toward correlation or regression.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f82fb808-fb81-4b88-bf20-d7f8c0a0230c",
+              "Text": "Questions about whether an observed frequency distribution matches an expected one call for a chi-square goodness-of-fit test.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6024335a-b9fd-40c4-bc8d-87b38650bf8d",
+              "Text": "One-tailed tests are appropriate when the direction of the effect is specified in advance by theory or prior evidence; two-tailed tests are used when the direction is unknown.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1ef64c0e-c8af-4da6-925e-3e4b12c1a198",
+              "Text": "Clearly stating the research hypothesis before data collection ensures the chosen test directly addresses the question of interest.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "198e7989-b2ea-4d2b-8d2e-c9fddfca673c",
+          "TopicId": "516a18a4-0efc-49f1-94b0-a6b814d5f669",
+          "Title": "Practical Checklist for Final Test Selection",
+          "BodyText": "A concise checklist consolidates all decision criteria into a quick-reference tool that can be applied before any analysis begins. Running through each checkpoint reduces the risk of selecting an inappropriate test.",
+          "Notes": "Many statistical software packages include test-selection wizards, but understanding the underlying logic ensures you can critically evaluate automated suggestions.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "ModifiedDate": "2026-08-24T20:28:48.0930384-04:00",
+          "Items": [
+            {
+              "Id": "baec0ef2-197c-4a10-a0e7-5752f08b1eee",
+              "Text": "Step 1 \u2014 Identify the outcome variable\u0027s measurement level (nominal, ordinal, continuous).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "916baf96-d0b7-4336-97bf-931269b7725f",
+              "Text": "Step 2 \u2014 Determine the number of groups or samples involved in the comparison.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dced56da-f087-466d-ada8-c0cd6990124e",
+              "Text": "Step 3 \u2014 Establish whether samples are independent or paired/matched.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5d9f7353-9327-4456-a27e-1936200d4ae5",
+              "Text": "Step 4 \u2014 Check sample size and distributional assumptions to decide between parametric and non-parametric options.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "dad9da4d-c45b-43eb-a5c6-4a3411a468e9",
+              "Text": "Step 5 \u2014 Confirm the test matches the specific inferential goal (difference, association, goodness-of-fit) stated in the research hypothesis.",
+              "SortOrder": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fce0a780-00c7-439f-90b3-319859359316",
+      "Title": "Assumptions and Conditions for Validity",
+      "Summary": "Examines the underlying assumptions required for each inferential technique and discusses how to verify whether those conditions are met before drawing conclusions.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "ModifiedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "Elements": [
+        {
+          "Id": "88555057-60f1-4226-808c-78f81d64f9ae",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Why Assumptions Matter in Inferential Testing",
+          "BodyText": "Every inferential technique rests on a set of underlying assumptions; violating these can lead to invalid p-values, incorrect confidence intervals, and misleading conclusions.",
+          "Notes": "Think of assumptions as the contract between the data and the test: if the contract is broken, the test\u0027s guarantees no longer hold.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "0863236f-762d-4676-b6ca-374ef0dc29ed",
+              "Text": "When assumptions are violated, Type I and Type II error rates may no longer equal their nominal values (e.g., \u03B1 = 0.05 may no longer reflect the true false-positive rate).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3493a119-ebd0-405b-8e78-747e96ae940b",
+              "Text": "Checking assumptions is a required step before interpreting any test result, not an optional formality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aed0dcbb-3458-4cf2-a5ac-3c7a654ab04c",
+              "Text": "Different tests carry different assumptions, so the checking process must be tailored to the specific technique being used.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8933bdb2-6126-4ce8-a67a-4bccefd9a093",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Independence of Observations",
+          "BodyText": "Most parametric and many non-parametric tests require that observations be independent of one another, meaning the value of one data point does not influence another.",
+          "Notes": "Independence is often ensured by design (e.g., random sampling, random assignment) rather than verified statistically. Cluster sampling or repeated measures on the same subject are common sources of dependence.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "a6c049d4-5db5-434d-b7c5-f3a41010bc49",
+              "Text": "For two-sample tests, independence must hold both within each group and between the two groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0362a8df-c472-4195-80b4-3799fe6579c3",
+              "Text": "Paired designs intentionally link observations across groups, so the paired t-test is used instead of an independent-samples test to account for that dependence.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bcf6d0cb-c663-4caa-a71a-1a5aaaa8ee71",
+              "Text": "Violating independence tends to underestimate standard errors, inflating test statistics and producing artificially small p-values.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ad2b853c-6297-4622-b038-8c797dc6ed0d",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Normality Assumption and How to Verify It",
+          "BodyText": "Parametric tests such as the t-test assume that the population distribution (or the sampling distribution of the statistic) is approximately normal.",
+          "Notes": "The Central Limit Theorem provides practical relief: with sufficiently large samples (often cited as n \u2265 30), the sampling distribution of the mean approaches normality regardless of the population shape.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "173be4d9-20e3-4bdb-b401-34a555bb9c77",
+              "Text": "Visual tools such as histograms, boxplots, and Q-Q plots help assess whether sample data appear roughly normally distributed.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7d5ffe6d-27f1-417d-bb65-29af46c96652",
+              "Text": "Formal tests for normality (e.g., Shapiro-Wilk) can supplement visual inspection, though they are sensitive to sample size and should not be used in isolation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f1b4d587-c0e7-40e7-9be7-51dce6044ac8",
+              "Text": "For small samples from clearly non-normal populations, non-parametric alternatives should be considered instead of parametric tests.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8c470971-7408-4e9b-a50f-573a3062da97",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Homogeneity of Variance (Equal Variances)",
+          "BodyText": "Independent two-sample t-tests in their classical form assume that the two populations have equal variances, a condition known as homoscedasticity.",
+          "Notes": "Levene\u0027s test or Bartlett\u0027s test can formally assess equality of variances, though researchers often rely on the ratio of sample variances as a quick heuristic (a ratio greater than ~4:1 signals concern).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "de7b3be3-bd7e-427f-a2b1-9d908d3e661e",
+              "Text": "When variances are unequal, Welch\u0027s t-test should be used; it adjusts the degrees of freedom and does not require equal variances.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e5d84e60-5cc1-4461-8eb1-8c6ea19a8c03",
+              "Text": "Most modern statistical software defaults to Welch\u0027s t-test precisely because the equal-variance assumption is frequently unmet in practice.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "154e6281-1527-4ecf-97df-c4629a089fbf",
+              "Text": "Ignoring unequal variances with the pooled t-test can distort the test statistic, especially when group sizes also differ.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6d5d2626-e56a-46af-a7da-ace72cebc651",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Sample Size and the Conditions for Each Test",
+          "BodyText": "Adequate sample size is a practical condition that affects whether the theoretical assumptions of a test are reasonably satisfied and whether the test has sufficient power.",
+          "Notes": "Rules of thumb vary by test: the two-proportion z-test requires that np and n(1\u2212p) each be at least 10 in both groups; the chi-square test requires expected cell frequencies of at least 5.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "c167bc75-b566-46e1-a2c4-c2565bb8b8e1",
+              "Text": "Small samples amplify the impact of non-normality and unequal variances, making condition checking more critical.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a169c905-26cf-469b-bed7-13a6e6e4a68d",
+              "Text": "Larger samples allow the Central Limit Theorem to compensate for non-normality, broadening the range of situations where parametric tests remain valid.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7593b743-e87a-4902-8c5e-ee90eb145e3c",
+              "Text": "When sample size conditions are not met, pooling cells, collecting more data, or switching to an exact or non-parametric test are appropriate remedies.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c52f7eee-39b7-4ba9-b74a-96fae2a64472",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Conditions Specific to Paired Comparisons",
+          "BodyText": "The paired t-test requires that the differences between paired observations follow an approximately normal distribution, rather than requiring normality of the original measurements themselves.",
+          "Notes": "Pairing is valid only when a logical, one-to-one link exists between observations (e.g., before-and-after measurements on the same subject, or matched participants). Arbitrary pairing inflates error.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "decdcb83-1616-4a69-9de9-e91da24a2aa6",
+              "Text": "Check the distribution of the computed differences using a histogram or Q-Q plot before applying the paired t-test.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "28f6122b-8776-4937-9880-e381126c6815",
+              "Text": "The paired design reduces variability by removing between-subject noise, but it requires careful study design to ensure the pairing is meaningful.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "62df400c-b5f9-437c-9e69-6257f5e43bc8",
+              "Text": "If the differences are severely non-normal and the sample is small, the Wilcoxon signed-rank test is the non-parametric alternative.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "63975e76-4049-4260-825e-c425949e9f24",
+          "TopicId": "fce0a780-00c7-439f-90b3-319859359316",
+          "Title": "Using Non-Parametric Methods When Assumptions Fail",
+          "BodyText": "Non-parametric tests make fewer distributional assumptions and serve as valid alternatives when parametric conditions cannot be met.",
+          "Notes": "Non-parametric tests are generally less powerful than their parametric counterparts when parametric assumptions actually hold, so they should be chosen because assumptions are violated\u2014not merely for convenience.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "ModifiedDate": "2026-08-24T20:29:17.2933323-04:00",
+          "Items": [
+            {
+              "Id": "6145acff-de79-4184-b98c-5b96ef9e1d7a",
+              "Text": "The Mann-Whitney U test is the non-parametric counterpart to the independent two-sample t-test and requires only ordinal-level data and independent samples.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "65d6edee-7522-4fd2-979e-bf630b310aaa",
+              "Text": "The Wilcoxon signed-rank test replaces the paired t-test when the normality of differences cannot be assumed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2329bd34-c3aa-4c73-9c82-532844a1cbc9",
+              "Text": "Non-parametric tests still require independence of observations, so this assumption must be verified even when switching away from parametric methods.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+      "Title": "Introduction to Non-Parametric Methods",
+      "Summary": "Introduces non-parametric alternatives to traditional hypothesis tests, explaining when and why they are used when parametric assumptions cannot be satisfied.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "ModifiedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "Elements": [
+        {
+          "Id": "61a19448-9f85-4454-83eb-95105f681d7c",
+          "TopicId": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+          "Title": "What Are Non-Parametric Methods?",
+          "BodyText": "Non-parametric methods are statistical tests that do not rely on assumptions about the underlying population distribution, such as normality.",
+          "Notes": "Unlike parametric tests (e.g., t-tests, ANOVA), non-parametric tests make fewer and less restrictive assumptions, making them more broadly applicable in certain situations.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "ModifiedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "Items": [
+            {
+              "Id": "a3b0c18d-1dab-4556-b062-cd324468433e",
+              "Text": "Non-parametric tests are sometimes called \u0027distribution-free\u0027 tests because they do not assume a specific population distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e9bc32f7-5e0b-4041-b05b-fd40906dcc97",
+              "Text": "They work by ranking data or using other order-based statistics rather than raw numerical values.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e610c5e0-ea09-477b-9518-1b884ee2e678",
+              "Text": "They are applicable to a wide variety of data types and research scenarios where parametric conditions fail.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "cc27865b-1cac-427c-881e-064218a7e10a",
+          "TopicId": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+          "Title": "When to Use Non-Parametric Tests",
+          "BodyText": "Non-parametric tests are used when the assumptions required by parametric tests \u2014 such as normality or homogeneity of variance \u2014 cannot be reasonably satisfied.",
+          "Notes": "For example, if a sample size is very small, it may be impossible to verify normality, making a non-parametric alternative more appropriate.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "ModifiedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "Items": [
+            {
+              "Id": "da8845e1-4934-45a1-93ea-4f467e18c505",
+              "Text": "Use non-parametric methods when the sample size is too small to invoke the Central Limit Theorem or verify distributional assumptions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6914492c-1a03-4761-a0e3-14142e15abbb",
+              "Text": "They are appropriate when the data are measured on an ordinal scale, where only rank order is meaningful rather than exact numerical differences.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "edddae65-dab1-40d3-b7c2-510944b6476d",
+              "Text": "Non-parametric tests are also preferred when the data contain significant outliers that would heavily influence parametric test results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8561be85-77a9-41f8-939b-336b9dc486fc",
+              "Text": "When the population distribution is known to be heavily skewed or non-normal, non-parametric alternatives provide more reliable inference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f3bcd448-e09b-4b3a-a4da-55a40558cd2d",
+          "TopicId": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+          "Title": "Advantages of Non-Parametric Methods",
+          "BodyText": "Non-parametric methods offer flexibility and robustness, particularly in real-world datasets that do not conform to idealized statistical assumptions.",
+          "Notes": "Their robustness to outliers and non-normal distributions makes them valuable tools in applied research across many disciplines.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "ModifiedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "Items": [
+            {
+              "Id": "dc1e7fac-c66d-4c0a-8874-ca93300678ca",
+              "Text": "They are robust to outliers and extreme values because they rely on ranks rather than raw data magnitudes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "08eb5616-393d-4a82-b25e-398eb6dcee6d",
+              "Text": "Non-parametric tests can be applied to ordinal, interval, or ratio data, broadening their usability across data types.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bb7427f6-582b-4cd1-9d9c-206282e1770f",
+              "Text": "They require fewer assumptions, reducing the risk of drawing invalid conclusions due to assumption violations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a96cdd9f-2387-45e7-a579-8eb7555d0571",
+          "TopicId": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+          "Title": "Limitations and Trade-offs",
+          "BodyText": "While non-parametric tests are versatile, they come with trade-offs, most notably reduced statistical power compared to their parametric counterparts when parametric assumptions are actually met.",
+          "Notes": "Statistical power refers to the probability of correctly rejecting a false null hypothesis. Using a less powerful test when it is not necessary increases the risk of Type II errors.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "ModifiedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "Items": [
+            {
+              "Id": "7f82de75-18d1-4364-ba16-4fc270ba8020",
+              "Text": "Non-parametric tests are generally less powerful than parametric tests when the data truly meet parametric assumptions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "85fba0fa-0e5d-44b5-93b5-0d4a40693481",
+              "Text": "By discarding precise numerical information and relying on ranks, some information in the data is lost, potentially reducing sensitivity to detect true effects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b7df70b0-1471-460b-9f92-62d1c147ff85",
+              "Text": "They can be less straightforward to interpret and may not provide estimates of effect size or confidence intervals as readily as parametric tests.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8cf0d74e-8c10-4faf-87a8-41b90d3700ce",
+          "TopicId": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+          "Title": "Common Non-Parametric Alternatives to Parametric Tests",
+          "BodyText": "For most standard parametric tests, there exists a non-parametric equivalent that can be applied when the necessary assumptions are not met.",
+          "Notes": "Knowing which non-parametric test corresponds to which parametric test helps researchers make informed decisions about the appropriate method for their data.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "ModifiedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "Items": [
+            {
+              "Id": "13641827-5cdc-40e3-874b-c9d7718b94f6",
+              "Text": "The Mann-Whitney U test serves as a non-parametric alternative to the independent samples t-test, comparing two unrelated groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0090129c-e2fc-4b97-a190-fea2a7d9aaba",
+              "Text": "The Wilcoxon Signed-Rank test is the non-parametric counterpart to the paired samples t-test, used when comparing two related groups.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "71673185-a722-4876-bfb6-a0b56064b871",
+              "Text": "The Kruskal-Wallis test extends the Mann-Whitney approach to three or more independent groups, analogous to a one-way ANOVA.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fb0b0b6c-92c4-43ee-8154-f76c44c90345",
+              "Text": "Spearman\u0027s rank correlation is the non-parametric equivalent of Pearson\u0027s correlation, used when the relationship between variables is monotonic but not necessarily linear.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "85db2756-b57f-4483-8e6b-f6a003dee321",
+          "TopicId": "7431308d-b8ed-4d34-9c20-cceb6b75d8e4",
+          "Title": "Selecting the Right Test: Parametric vs. Non-Parametric",
+          "BodyText": "Choosing between a parametric and non-parametric test requires careful consideration of the data type, sample size, and the degree to which distributional assumptions are satisfied.",
+          "Notes": "A systematic decision process \u2014 checking assumptions before selecting a test \u2014 is a best practice in inferential statistics.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "ModifiedDate": "2026-08-24T20:29:40.7944426-04:00",
+          "Items": [
+            {
+              "Id": "b1fca1fb-cbdb-4cf8-87ad-84465feba196",
+              "Text": "Begin by examining the scale of measurement: nominal and ordinal data typically require non-parametric methods, while interval and ratio data may support parametric tests.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1c67e9bf-0f0a-42df-ba83-c5854f429d79",
+              "Text": "Assess whether the data approximately follow a normal distribution using visual tools (histograms, Q-Q plots) or formal normality tests (Shapiro-Wilk).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2399174d-2e09-475b-a9cc-a1c6aba77488",
+              "Text": "Consider sample size: larger samples allow parametric assumptions to be more reliably verified, while small samples often favor non-parametric approaches.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a479f95a-62a9-4ed4-ab51-f2994d50815c",
+              "Text": "If parametric assumptions are met, prefer parametric tests for their greater statistical power; otherwise, use the appropriate non-parametric alternative.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+      "Title": "Interpreting and Communicating Results",
+      "Summary": "Focuses on accurately interpreting test statistics, p-values, and confidence intervals, and on communicating findings from hypothesis tests in a statistically sound and meaningful way.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "ModifiedDate": "2026-08-24T20:27:19.1325727-04:00",
+      "Elements": [
+        {
+          "Id": "49c22940-f3ac-49e2-af17-6c1ed9a1268f",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Understanding the Test Statistic",
+          "BodyText": "A test statistic summarizes how far the observed sample data deviates from what would be expected under the null hypothesis, expressed in standardized units.",
+          "Notes": "For example, a t-statistic of 2.5 indicates the sample mean is 2.5 standard errors away from the null hypothesis value. Larger absolute values generally indicate stronger evidence against the null.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "b351def2-7d96-4ec4-b386-c00ad1890e42",
+              "Text": "The test statistic is calculated from sample data and varies depending on the type of test used (e.g., t-test, z-test, chi-square).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "75e7c09b-e368-4e1e-8b7c-6f054acc719e",
+              "Text": "Its magnitude reflects the degree of discrepancy between the observed data and the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5983d49d-f090-498f-9a1f-69b64afece92",
+              "Text": "The direction (positive or negative) of the test statistic can indicate the direction of the effect for two-tailed tests.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "846759d5-9561-4b2b-8b7d-74a30bc21f40",
+              "Text": "Always report the test statistic alongside degrees of freedom and the type of test performed for full transparency.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f2f3d0bf-fe43-47f2-a701-b869ca62a1fa",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Interpreting P-Values Correctly",
+          "BodyText": "The p-value represents the probability of obtaining a test statistic at least as extreme as the one observed, assuming the null hypothesis is true.",
+          "Notes": "A common misconception is that the p-value is the probability that the null hypothesis is true \u2014 it is not. A p-value of 0.03 means there is a 3% chance of observing results this extreme if the null hypothesis were true, not a 3% chance the null is true.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "ec3a9053-dc1e-47c8-b616-0c18d6de9822",
+              "Text": "A small p-value (typically below the significance level \u03B1) indicates that the observed data would be unlikely under the null hypothesis, providing evidence to reject it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4787a9b5-80f3-4181-8320-b5668a0e0db1",
+              "Text": "A p-value does not measure the size or practical importance of an effect \u2014 only its statistical rarity under the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0b64ba27-18a0-4a6f-85bd-92861a118d00",
+              "Text": "Failing to reject the null (large p-value) does not prove the null hypothesis is true; it simply means the data do not provide sufficient evidence against it.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0f73f4ce-995d-4897-80ea-a65c792a2110",
+              "Text": "The p-value must always be interpreted in the context of the chosen significance level (\u03B1), which should be set before data collection.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ba4dbd51-6ee8-406f-a919-1ff4a325ffc6",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Significance Levels and Decision Thresholds",
+          "BodyText": "The significance level (\u03B1) is the pre-determined threshold used to decide whether a p-value is small enough to reject the null hypothesis.",
+          "Notes": "Common choices for \u03B1 are 0.05, 0.01, and 0.10, depending on the field and the consequences of making a Type I error. In medical research, a stricter \u03B1 (e.g., 0.01) is often used because false positives carry serious risks.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "8754a1e0-80c9-4a70-8f71-91b9f4e6a828",
+              "Text": "Setting \u03B1 before the test prevents data-driven manipulation of the decision threshold, maintaining the integrity of the analysis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ee93f006-98ec-458c-9b2d-b81709f1cb5f",
+              "Text": "If the p-value is less than or equal to \u03B1, the result is declared statistically significant and the null hypothesis is rejected.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9d1a223b-ab36-4a3a-ae34-f729421441e5",
+              "Text": "The choice of \u03B1 reflects a balance between the risk of Type I errors (false positives) and Type II errors (false negatives).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5d3d7c7d-a0ee-47a2-8324-11aac39bd514",
+              "Text": "Statistical significance at a given \u03B1 level does not automatically imply that the finding is practically meaningful or important.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bb020f73-3dd2-42f0-a668-a74e396f05d6",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Using Confidence Intervals to Complement Hypothesis Tests",
+          "BodyText": "Confidence intervals provide a range of plausible values for a population parameter and offer additional context beyond a simple reject-or-fail-to-reject decision.",
+          "Notes": "A 95% confidence interval means that if the same study were repeated many times, approximately 95% of the constructed intervals would contain the true population parameter. If a 95% CI for a mean difference does not include zero, the result is statistically significant at \u03B1 = 0.05.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "4a234f72-f8c9-4ed4-b69e-10531e303346",
+              "Text": "Confidence intervals communicate both the direction and magnitude of an effect, making them more informative than p-values alone.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b836e59b-8c77-4211-98b0-aacb11efc25c",
+              "Text": "A narrow confidence interval suggests high precision in the estimate, while a wide interval indicates greater uncertainty.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "36a26c6c-09f1-46e8-b9fe-fc2d6b071e2c",
+              "Text": "When a confidence interval excludes the null value (e.g., 0 for a difference or 1 for a ratio), this is consistent with rejecting the null hypothesis at the corresponding \u03B1 level.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e6954488-96fd-42dd-8ede-5096220cdc92",
+              "Text": "Reporting confidence intervals alongside p-values is considered best practice in modern statistical communication.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7c6cc452-e113-4fe7-8b33-71b17d2436cc",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Distinguishing Statistical Significance from Practical Significance",
+          "BodyText": "A statistically significant result does not necessarily mean the finding is large enough to matter in practice; practical significance depends on the size and real-world relevance of the effect.",
+          "Notes": "For example, a study with a very large sample size might detect a statistically significant difference in blood pressure of 0.5 mmHg, which is clinically meaningless. Effect size measures such as Cohen\u0027s d or eta-squared help quantify practical importance.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "7bb030c7-619f-479c-80f0-f6411e99a457",
+              "Text": "Large sample sizes can produce statistically significant results even for trivially small effects, so effect size should always be evaluated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f745502-c350-4300-acbc-93a59bee1583",
+              "Text": "Effect size measures (e.g., Cohen\u0027s d for mean differences) quantify the magnitude of an effect independently of sample size.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dd57ae69-95e3-4e6e-b1d8-e549288e060f",
+              "Text": "Practical significance is determined by subject-matter expertise and the context of the research question, not by statistical formulas alone.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "86f46cea-d8d4-4356-b48e-abcf4a21c267",
+              "Text": "Always discuss whether a statistically significant result is large enough to have meaningful real-world implications.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e9db1ae9-c40b-4254-a059-623f2c033c67",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Reporting Hypothesis Test Results Clearly",
+          "BodyText": "Communicating hypothesis test results requires reporting all relevant statistical information in a structured and transparent manner so that readers can evaluate the evidence independently.",
+          "Notes": "A well-written results statement might read: \u0027An independent-samples t-test revealed a statistically significant difference in mean scores between Group A and Group B, t(48) = 2.74, p = .008, 95% CI [1.2, 7.8], d = 0.78.\u0027 This format gives the reader all information needed to assess the finding.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "5d721091-0c04-4d10-a0e7-6af1336ae8c3",
+              "Text": "Always report the type of test used, the test statistic value, degrees of freedom (where applicable), and the exact p-value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "532e6a82-fbc5-4425-aafc-98afa14bf804",
+              "Text": "Include confidence intervals and effect size measures to give a complete picture of the result.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "44cccb5b-dfba-4130-aad9-c15f7f5877b3",
+              "Text": "Avoid vague language such as \u0027the result was almost significant\u0027; either the threshold is met or it is not.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6e407dfe-148d-4f36-9649-86ab24f44fa6",
+              "Text": "Clearly state the conclusion in plain language, specifying whether the null hypothesis was rejected and what that means in the context of the research question.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "773ed97f-04ac-4f71-a23e-603bb66a870d",
+              "Text": "Acknowledge any limitations, such as assumption violations or small sample sizes, that may affect the reliability of the results.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "34cdbc5a-9823-4296-8586-a47dc91c4db6",
+          "TopicId": "b53f79a0-fe3a-4dc5-81a1-bba018d24ecf",
+          "Title": "Common Misinterpretations to Avoid",
+          "BodyText": "Several widespread misconceptions about hypothesis testing can lead to flawed conclusions and poor scientific communication.",
+          "Notes": "These errors are prevalent even in published research, which is why statistical literacy and careful interpretation are critically important skills for any analyst or researcher.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "ModifiedDate": "2026-08-24T20:30:13.9525228-04:00",
+          "Items": [
+            {
+              "Id": "bee29082-0a46-4a35-b6d7-72517a826a4e",
+              "Text": "Do not interpret a non-significant result as proof that the null hypothesis is true \u2014 absence of evidence is not evidence of absence.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "10580ee5-2d5c-4bc0-8d68-b8c757dbc5e7",
+              "Text": "Do not equate a smaller p-value with a larger or more important effect; p-values are influenced by sample size as well as effect magnitude.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2979357a-20f6-4953-b8a5-2e0eddb8d260",
+              "Text": "Avoid \u0027p-hacking\u0027 or selective reporting of results, which inflates the Type I error rate and undermines the validity of findings.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9b3ef00d-7e94-4c4a-b357-88df698b7354",
+              "Text": "Do not assume that replication of statistical significance across studies is sufficient \u2014 also consider consistency of effect sizes and directions.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 40
+}

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 10/Module 9 - Hypothesis Testing II — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+<h1>Week 10/Module 9 - Hypothesis Testing II — Module Topics</h1>
+<h2>Two-Sample Hypothesis Tests</h2>
+<div class="summary">Introduces hypothesis testing procedures for comparing two independent groups, covering the logic, assumptions, and application of two-sample z-tests and t-tests.</div>
+<ul>
+<li><strong>Logic of Two-Sample Hypothesis Testing</strong> <span class="el-body">— Two-sample hypothesis tests are used to determine whether there is a statistically significant difference between the means (or proportions) of two independent groups.</span></li>
+<li><strong>Independence Assumption and Sampling</strong> <span class="el-body">— A fundamental requirement of two-sample tests is that the two groups must be independent of each other, meaning observations in one group do not influence or relate to observations in the other.</span></li>
+<li><strong>Two-Sample Z-Test</strong> <span class="el-body">— The two-sample z-test compares the means of two independent groups when population standard deviations are known and/or sample sizes are large.</span></li>
+<li><strong>Two-Sample T-Test</strong> <span class="el-body">— The two-sample t-test is used when population standard deviations are unknown and sample sizes are small, relying on estimated standard errors and the t-distribution.</span></li>
+<li><strong>Assumptions Underlying Two-Sample Tests</strong> <span class="el-body">— Both two-sample z-tests and t-tests rely on a set of statistical assumptions that must be evaluated before the results can be considered valid.</span></li>
+<li><strong>Interpreting Results and Making Decisions</strong> <span class="el-body">— After computing the test statistic, the result is compared to a critical value or evaluated using a p-value to determine whether to reject the null hypothesis.</span></li>
+</ul>
+<h2>Paired Sample Comparisons</h2>
+<div class="summary">Explores methods for analyzing data collected from matched or repeated-measures designs, emphasizing how pairing reduces variability and strengthens inferential conclusions.</div>
+<ul>
+<li><strong>What Are Paired Sample Designs?</strong> <span class="el-body">— Paired sample designs involve collecting two related measurements from the same subject or from matched subjects, rather than from two independent groups.</span></li>
+<li><strong>Why Pairing Reduces Variability</strong> <span class="el-body">— The primary statistical advantage of pairing is that it removes between-subject variability from the error term, making the test more sensitive to true differences.</span></li>
+<li><strong>Computing the Paired Difference Score</strong> <span class="el-body">— The foundation of all paired-sample inference is the difference score D, calculated for each pair as the value in condition one minus the value in condition two.</span></li>
+<li><strong>The Paired-Sample t-Test</strong> <span class="el-body">— The paired-sample t-test evaluates whether the mean of the difference scores is significantly different from zero, using a t-distribution with n − 1 degrees of freedom.</span></li>
+<li><strong>Assumptions of the Paired-Sample t-Test</strong> <span class="el-body">— Like all parametric tests, the paired-sample t-test rests on several assumptions that must be reasonably satisfied for results to be valid.</span></li>
+<li><strong>Interpreting and Reporting Results</strong> <span class="el-body">— Proper interpretation of a paired-sample t-test includes reporting the test statistic, degrees of freedom, p-value, and a measure of effect size to convey practical significance.</span></li>
+<li><strong>When to Choose a Paired vs. Independent Design</strong> <span class="el-body">— Selecting the correct design and corresponding test depends on the research question, how data were collected, and the nature of the relationship between observations.</span></li>
+</ul>
+<h2>Selecting the Appropriate Statistical Test</h2>
+<div class="summary">Guides learners through a decision-making framework for choosing the correct hypothesis test based on data type, sample size, independence, and research context.</div>
+<ul>
+<li><strong>The Decision-Making Framework Overview</strong> <span class="el-body">— Selecting the correct statistical test requires a structured decision process rather than guesswork. A systematic framework helps researchers avoid errors that lead to invalid conclusions.</span></li>
+<li><strong>Identifying Data Type and Measurement Level</strong> <span class="el-body">— The scale of measurement of your outcome variable is the first and most critical factor in test selection. Tests designed for continuous data cannot be validly applied to categorical data, and vice versa.</span></li>
+<li><strong>Assessing Sample Size and Distributional Assumptions</strong> <span class="el-body">— Many parametric tests assume the sampling distribution of the statistic is approximately normal, an assumption that depends heavily on sample size and the underlying population distribution. Evaluating these conditions guides the choice between parametric and non-parametric methods.</span></li>
+<li><strong>Determining Independence vs. Dependence of Samples</strong> <span class="el-body">— Whether your samples are independent or related (paired/matched) is a fundamental branching point in test selection. Using an independent-samples test on paired data wastes statistical power and may produce incorrect results.</span></li>
+<li><strong>Considering the Number of Groups or Samples</strong> <span class="el-body">— The number of groups being compared directly determines the class of test to apply. Two-group comparisons and multi-group comparisons require fundamentally different procedures.</span></li>
+<li><strong>Aligning Test Choice with the Research Question</strong> <span class="el-body">— Beyond data characteristics, the specific inferential goal—testing differences, associations, or relationships—shapes which test is appropriate. A test that answers the wrong question produces irrelevant results even if technically applied correctly.</span></li>
+<li><strong>Practical Checklist for Final Test Selection</strong> <span class="el-body">— A concise checklist consolidates all decision criteria into a quick-reference tool that can be applied before any analysis begins. Running through each checkpoint reduces the risk of selecting an inappropriate test.</span></li>
+</ul>
+<h2>Assumptions and Conditions for Validity</h2>
+<div class="summary">Examines the underlying assumptions required for each inferential technique and discusses how to verify whether those conditions are met before drawing conclusions.</div>
+<ul>
+<li><strong>Why Assumptions Matter in Inferential Testing</strong> <span class="el-body">— Every inferential technique rests on a set of underlying assumptions; violating these can lead to invalid p-values, incorrect confidence intervals, and misleading conclusions.</span></li>
+<li><strong>Independence of Observations</strong> <span class="el-body">— Most parametric and many non-parametric tests require that observations be independent of one another, meaning the value of one data point does not influence another.</span></li>
+<li><strong>Normality Assumption and How to Verify It</strong> <span class="el-body">— Parametric tests such as the t-test assume that the population distribution (or the sampling distribution of the statistic) is approximately normal.</span></li>
+<li><strong>Homogeneity of Variance (Equal Variances)</strong> <span class="el-body">— Independent two-sample t-tests in their classical form assume that the two populations have equal variances, a condition known as homoscedasticity.</span></li>
+<li><strong>Sample Size and the Conditions for Each Test</strong> <span class="el-body">— Adequate sample size is a practical condition that affects whether the theoretical assumptions of a test are reasonably satisfied and whether the test has sufficient power.</span></li>
+<li><strong>Conditions Specific to Paired Comparisons</strong> <span class="el-body">— The paired t-test requires that the differences between paired observations follow an approximately normal distribution, rather than requiring normality of the original measurements themselves.</span></li>
+<li><strong>Using Non-Parametric Methods When Assumptions Fail</strong> <span class="el-body">— Non-parametric tests make fewer distributional assumptions and serve as valid alternatives when parametric conditions cannot be met.</span></li>
+</ul>
+<h2>Introduction to Non-Parametric Methods</h2>
+<div class="summary">Introduces non-parametric alternatives to traditional hypothesis tests, explaining when and why they are used when parametric assumptions cannot be satisfied.</div>
+<ul>
+<li><strong>What Are Non-Parametric Methods?</strong> <span class="el-body">— Non-parametric methods are statistical tests that do not rely on assumptions about the underlying population distribution, such as normality.</span></li>
+<li><strong>When to Use Non-Parametric Tests</strong> <span class="el-body">— Non-parametric tests are used when the assumptions required by parametric tests — such as normality or homogeneity of variance — cannot be reasonably satisfied.</span></li>
+<li><strong>Advantages of Non-Parametric Methods</strong> <span class="el-body">— Non-parametric methods offer flexibility and robustness, particularly in real-world datasets that do not conform to idealized statistical assumptions.</span></li>
+<li><strong>Limitations and Trade-offs</strong> <span class="el-body">— While non-parametric tests are versatile, they come with trade-offs, most notably reduced statistical power compared to their parametric counterparts when parametric assumptions are actually met.</span></li>
+<li><strong>Common Non-Parametric Alternatives to Parametric Tests</strong> <span class="el-body">— For most standard parametric tests, there exists a non-parametric equivalent that can be applied when the necessary assumptions are not met.</span></li>
+<li><strong>Selecting the Right Test: Parametric vs. Non-Parametric</strong> <span class="el-body">— Choosing between a parametric and non-parametric test requires careful consideration of the data type, sample size, and the degree to which distributional assumptions are satisfied.</span></li>
+</ul>
+<h2>Interpreting and Communicating Results</h2>
+<div class="summary">Focuses on accurately interpreting test statistics, p-values, and confidence intervals, and on communicating findings from hypothesis tests in a statistically sound and meaningful way.</div>
+<ul>
+<li><strong>Understanding the Test Statistic</strong> <span class="el-body">— A test statistic summarizes how far the observed sample data deviates from what would be expected under the null hypothesis, expressed in standardized units.</span></li>
+<li><strong>Interpreting P-Values Correctly</strong> <span class="el-body">— The p-value represents the probability of obtaining a test statistic at least as extreme as the one observed, assuming the null hypothesis is true.</span></li>
+<li><strong>Significance Levels and Decision Thresholds</strong> <span class="el-body">— The significance level (α) is the pre-determined threshold used to decide whether a p-value is small enough to reject the null hypothesis.</span></li>
+<li><strong>Using Confidence Intervals to Complement Hypothesis Tests</strong> <span class="el-body">— Confidence intervals provide a range of plausible values for a population parameter and offer additional context beyond a simple reject-or-fail-to-reject decision.</span></li>
+<li><strong>Distinguishing Statistical Significance from Practical Significance</strong> <span class="el-body">— A statistically significant result does not necessarily mean the finding is large enough to matter in practice; practical significance depends on the size and real-world relevance of the effect.</span></li>
+<li><strong>Reporting Hypothesis Test Results Clearly</strong> <span class="el-body">— Communicating hypothesis test results requires reporting all relevant statistical information in a structured and transparent manner so that readers can evaluate the evidence independently.</span></li>
+<li><strong>Common Misinterpretations to Avoid</strong> <span class="el-body">— Several widespread misconceptions about hypothesis testing can lead to flawed conclusions and poor scientific communication.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

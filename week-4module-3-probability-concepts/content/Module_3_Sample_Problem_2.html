@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 3 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div><h1>Module 3 Sample Problem 2</h1><h2>2. Independent Events: Manufacturing Quality Control</h2>
+<p>In this problem, we analyze quality control checks for gears where each check is independent of the others.</p>
+<p><strong>Key concept</strong>: For independent events, the probability of all events occurring is the product of their individual probabilities: P(A and B and C) = P(A) × P(B) × P(C)</p>
+<p><strong>Solution</strong>: The probability that a gear passes all three checks is 0.95 × 0.98 × 0.97 = 0.9033 or 90.33%.</p>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1Pamym2UMoi2XIRdUmml4J9ywT90KFvKr?usp=sharing" target="_blank" rel="noopener">Link</a>)</h3>
+<pre><code># ======================================================================
+# 2. Independent Events: Manufacturing Quality Control
+# ======================================================================
+print("Problem 2: Independent Events - Manufacturing Quality Control")
+print("-----------------------------------------------------------")
+
+"""
+Problem:
+A manufacturing process produces gears for industrial equipment. Each gear
+goes through three independent quality checks:
+- Check 1: Dimensional accuracy (passes with probability 0.95)
+- Check 2: Material hardness (passes with probability 0.98)
+- Check 3: Surface finish (passes with probability 0.97)
+
+What is the probability that a randomly selected gear passes all quality checks?
+What's the probability at least one check fails?
+"""
+
+# Python solution
+P_check1 = 0.95  # Probability of passing dimension check
+P_check2 = 0.98  # Probability of passing hardness check
+P_check3 = 0.97  # Probability of passing surface finish check
+
+# For independent events, P(A and B and C) = P(A) × P(B) × P(C)
+P_all_pass = P_check1 * P_check2 * P_check3
+
+# Probability that at least one check fails = 1 - P(all pass)
+P_at_least_one_fail = 1 - P_all_pass
+
+print(f"Probability of passing dimensional check: {P_check1}")
+print(f"Probability of passing hardness check: {P_check2}")
+print(f"Probability of passing surface finish check: {P_check3}")
+print(f"Probability that a gear passes all checks: {P_all_pass:.4f} or {P_all_pass*100:.2f}%")
+print(f"Probability that at least one check fails: {P_at_least_one_fail:.4f} or {P_at_least_one_fail*100:.2f}%")
+print()
+
+</code></pre>
+<h3>R Solution</h3>
+<pre><code># ======================================================================
+# 2. Independent Events: Manufacturing Quality Control
+# ======================================================================
+cat("Problem 2: Independent Events - Manufacturing Quality Control\n")
+cat("-----------------------------------------------------------\n")
+
+# R solution
+P_check1 &lt;- 0.95  # Probability of passing dimension check
+P_check2 &lt;- 0.98  # Probability of passing hardness check
+P_check3 &lt;- 0.97  # Probability of passing surface finish check
+
+# For independent events, P(A and B and C) = P(A) × P(B) × P(C)
+P_all_pass &lt;- P_check1 * P_check2 * P_check3
+
+# Probability that at least one check fails = 1 - P(all pass)
+P_at_least_one_fail &lt;- 1 - P_all_pass
+
+cat(sprintf("Probability of passing dimensional check: %.3f\n", P_check1))
+cat(sprintf("Probability of passing hardness check: %.3f\n", P_check2))
+cat(sprintf("Probability of passing surface finish check: %.3f\n", P_check3))
+cat(sprintf("Probability that a gear passes all checks: %.4f or %.2f%%\n", 
+            P_all_pass, P_all_pass*100))
+cat(sprintf("Probability that at least one check fails: %.4f or %.2f%%\n", 
+            P_at_least_one_fail, P_at_least_one_fail*100))
+cat("\n")</code></pre>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

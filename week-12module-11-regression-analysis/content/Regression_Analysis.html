@@ -1,0 +1,602 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Regression Analysis</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div><h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 23pt; font-family: Arial, sans-serif;">Module 11: Introduction to Regression Analysis</span></strong></h1>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Supporting Lectures:<br>EGN3443 Module 11 - Introduction to Regression Analysis<br></span></strong></h2>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">1. Simple Linear Regression Model</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">A simple linear regression model is a statistical method used to understand the relationship between two variables by fitting a linear equation to observed data. It attempts to model the relationship between a dependent (outcome) variable and an independent (predictor) variable.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Mathematical Representation</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">The simple linear regression model is expressed as: Y = β₀ + β₁X + ε</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Where:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Y = Dependent variable</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">X = Independent variable</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">β₀ = Y-intercept (the value of Y when X = 0)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">β₁ = Slope (the change in Y for one unit change in X)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">ε = Error term (random variation not explained by the model)</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Suppose we want to predict a student's final exam score (Y) based on hours studied (X):</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Y = 40 + 5X</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">If a student studies 6 hours, their predicted score would be: Y = 40 + 5(6) = 70 points</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://www.khanacademy.org/math/statistics-probability/describing-relationships-quantitative-data/regression-library/v/introduction-to-residuals-and-least-squares-regression" target="_self"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Khan Academy: Linear Regression</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Simple_linear_regression">https://en.wikipedia.org/wiki/Simple_linear_regression</a></li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">2. Least Squares Estimation</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Least Squares Estimation is a method for finding the best-fitting line by minimizing the sum of the squared vertical distances between the observed data points and the predicted line.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Process</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate the predicted values using the regression line</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Compute the residuals (differences between observed and predicted values)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Square the residuals</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Sum the squared residuals</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Find the line that minimizes this sum</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Given data points:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">(1, 2), (2, 3), (3, 5), (4, 4)</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">The least squares method finds the line that minimizes the sum of squared vertical distances from these points to the line.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation Formula</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">β₁ = Σ((X - X̄)(Y - Ȳ)) / Σ((X - X̄)²) β₀ = Ȳ - β₁X̄</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a style="text-decoration: none;" href="https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/pages/3.-double-integrals/part-b-solution-methods/least-squares-regression/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;"></span></a></p>
+<p style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://www.scribbr.com/statistics/simple-linear-regression/">https://www.scribbr.com/statistics/simple-linear-regression/</a>&nbsp;</p>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">3. Regression Assumptions</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Assumptions</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Linearity</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: The relationship between X and Y is linear</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Independence</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: Observations are independent of each other</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Homoscedasticity</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: Constant variance of residuals</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Normality</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: Residuals are normally distributed</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">No Multicollinearity</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: Independent variables are not highly correlated</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Diagnostic Techniques</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Residual plots - <a href="https://www.geeksforgeeks.org/maths/residual-analysis/">https://www.geeksforgeeks.org/maths/residual-analysis/</a>&nbsp;</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Q-Q plots - <a href="https://codefinity.com/blog/QQ-Plots">https://codefinity.com/blog/QQ-Plots</a>&nbsp;</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Variance inflation factor (VIF)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Durbin-Watson test for autocorrelation</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://www.statisticshowto.com/regression-assumptions/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Statistics How To: Regression Assumptions</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://online.stat.psu.edu/stat462/node/170/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Penn State: Regression Diagnostics</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">4. Coefficient of Determination (R²)</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">R² measures the proportion of variance in the dependent variable that is predictable from the independent variable. It ranges from 0 to 1.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Calculation</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">R² = 1 - (Sum of Squared Residuals / Total Sum of Squares)</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Interpretation</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">R² = 0.7 means 70% of the variation in Y is explained by X</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">R² = 1 indicates a perfect fit</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">R² = 0 suggests the model explains none of the variability</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">If R² = 0.65 for a height prediction model, it means 65% of the variation in height can be explained by the predictor variable.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://www.statisticshowto.com/probability-and-statistics/r-squared-statistical-analysis/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Statistics How To: R-Squared</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">https://en.wikipedia.org/wiki/Coefficient_of_determination</a></li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">5. Interpreting Regression Outputs</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Components to Analyze</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Coefficients</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Intercept (β₀)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Slope (β₁)</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">P-values</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Significance of variables</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Confidence Intervals</span></strong></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Standard Error</span></strong></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">F-statistic</span></strong></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Interpretation Steps</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Check coefficient significance (p-value &lt; 0.05)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Examine R² value</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Assess model fit through residual analysis</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Validate underlying assumptions</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Output Interpretation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Dependent Variable: Sales</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Independent Variable: Advertising Spend</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Intercept: 10,000 (base sales when no advertising)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Slope: 5 (For every $1 spent on advertising, sales increase by $5)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">R²: 0.75 (75% of sales variation explained by advertising)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">P-value: 0.001 (statistically significant relationship)</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Detailed Explanation of Output Interpretation</span></strong></h3>
+<div>
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIERAB" data-hveid="CBEQAQ"><span data-huuid="8085230275568997609">Regression results indicate the relationship between an independent variable and a dependent variable, and can be interpreted through coefficients, standard errors, p-values, and R-squared values.&nbsp;</span><span data-huuid="8085230275568997520">Coefficients show the change in the dependent variable for each unit change in the independent variable.&nbsp;</span><span data-huuid="8085230275568997431">Standard errors reflect the uncertainty in the estimated coefficients.&nbsp;</span><span data-huuid="8085230275568997342">P-values determine if a coefficient is statistically significant.&nbsp;</span><span data-huuid="8085230275568997253">R-squared measures how well the model fits the data, with higher values indicating better fit.<span jsaction="rcuQ6b:npT2md" data-cid="f879996f-3f5d-4b4f-b765-f1dfa28b8405" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568997609,8085230275568997520,8085230275568997431,8085230275568997342,8085230275568997253" data-cid="f879996f-3f5d-4b4f-b765-f1dfa28b8405">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegQIDxAB" data-hveid="CA8QAQ" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h4 data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQICBAB" data-hveid="CAgQAQ"><span data-huuid="8085230275568996986">1. Understanding Coefficients:</span></h4>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__68">
+<div id="o14GaOyRHqzbwN4Py-6PUQ__69">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568996719"><strong>Sign:</strong></span></div>
+<div><span data-huuid="8085230275568996630">A positive coefficient indicates a positive relationship, meaning as the independent variable increases, the dependent variable also tends to increase.&nbsp;</span><span data-huuid="8085230275568996541">A negative coefficient suggests a negative relationship, with the dependent variable decreasing as the independent variable increases.<span jsaction="rcuQ6b:npT2md" data-cid="4634f723-24ba-45af-9160-88659a7735c4" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568996719,8085230275568996630,8085230275568996541" data-cid="4634f723-24ba-45af-9160-88659a7735c4">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI3gEQAQ" data-hveid="CN4BEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__73">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568996363"><strong>Magnitude:</strong></span></div>
+<div><span data-huuid="8085230275569000370">The size of the coefficient represents the strength of the relationship.&nbsp;</span><span data-huuid="8085230275569000281">A larger coefficient indicates a stronger effect of the independent variable on the dependent variable.<span jsaction="rcuQ6b:npT2md" data-cid="ca7291e7-03da-4147-9588-1d9cbfba1868" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568996363,8085230275569000370,8085230275569000281" data-cid="ca7291e7-03da-4147-9588-1d9cbfba1868">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI9QEQAQ" data-hveid="CPUBEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__77">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275569000103"><strong>Interpretation:</strong></span></div>
+<div><span data-huuid="8085230275569000014">Consider a simple linear regression where the coefficient for "hours studied" is 0.5.&nbsp;</span><span data-huuid="8085230275568999925">This means that for every additional hour studied, the exam score is predicted to increase by 0.5 points.<span jsaction="rcuQ6b:npT2md" data-cid="c553cdf6-d21c-40b8-a4eb-dadc1a4e00d4" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275569000103,8085230275569000014,8085230275568999925" data-cid="c553cdf6-d21c-40b8-a4eb-dadc1a4e00d4">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIkwIQAQ" data-hveid="CJMCEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__105">
+<h4 data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIehAB" data-hveid="CHoQAQ"><span data-huuid="8085230275568999747">2. Assessing Significance with p-values:</span></h4>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__6">
+<div id="o14GaOyRHqzbwN4Py-6PUQ__10">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568999480"><strong>Null Hypothesis:</strong></span></div>
+<div><span data-huuid="8085230275568999391">Regression analysis tests the null hypothesis that there is no relationship between the independent and dependent variables.<span jsaction="rcuQ6b:npT2md" data-cid="a71621af-014d-4bc0-810f-92dd9614fbb8" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568999480,8085230275568999391" data-cid="a71621af-014d-4bc0-810f-92dd9614fbb8">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI_gEQAQ" data-hveid="CP4BEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__26">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568999213"><strong>P-value:</strong></span></div>
+<div><span data-huuid="8085230275568999124">The p-value is the probability of observing the estimated coefficient (or a more extreme value) if the null hypothesis were true.<span jsaction="rcuQ6b:npT2md" data-cid="564f0030-14f9-451e-9fab-957b67a5c099" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568999213,8085230275568999124" data-cid="564f0030-14f9-451e-9fab-957b67a5c099">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIjAIQAQ" data-hveid="CIwCEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__36">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568998946"><strong>Significance:</strong></span></div>
+<div><span data-huuid="8085230275568998857">A low p-value (typically below 0.05) indicates that the coefficient is statistically significant, meaning the observed relationship is unlikely due to random chance.<span jsaction="rcuQ6b:npT2md" data-cid="3aae0ab0-8a23-4aa3-91a8-f9a1d2626e68" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568998946,8085230275568998857" data-cid="3aae0ab0-8a23-4aa3-91a8-f9a1d2626e68">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIhwIQAQ" data-hveid="CIcCEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__42">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568998679"><strong>Interpretation:</strong></span></div>
+<div><span data-huuid="8085230275568998590">If a variable has a p-value of 0.02, it's considered statistically significant, suggesting a real relationship between the variable and the dependent variable.<span jsaction="rcuQ6b:npT2md" data-cid="334375c0-fe3b-4655-a6f5-fae9458f00c2" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568998679,8085230275568998590" data-cid="334375c0-fe3b-4655-a6f5-fae9458f00c2">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIkgIQAQ" data-hveid="CJICEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__108">
+<h4 data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIfhAB" data-hveid="CH4QAQ"><span data-huuid="8085230275568998412">3. Evaluating Model Fit with R-squared:</span></h4>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__82">
+<div id="o14GaOyRHqzbwN4Py-6PUQ__87">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568998145"><strong>R-squared:</strong></span></div>
+<div><span data-huuid="8085230275568998056">R-squared measures the proportion of variance in the dependent variable that is explained by the independent variable(s).</span></div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__92">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568997878"><strong>Interpretation:</strong></span></div>
+<div><span data-huuid="8085230275568997789">An R-squared value of 0.75 means that 75% of the variation in the dependent variable can be explained by the model, indicating a good fit.</span></div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__95">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568997611"><strong>Limitations:</strong></span></div>
+<div><span data-huuid="8085230275568997522">R-squared alone doesn't reveal whether the model is appropriate or if all predictors are truly useful.<span jsaction="rcuQ6b:npT2md" data-cid="432d0b0e-428d-41d4-8875-00655cad33d6" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568998145,8085230275568998056,8085230275568997878,8085230275568997789,8085230275568997611,8085230275568997522" data-cid="432d0b0e-428d-41d4-8875-00655cad33d6">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIggIQAQ" data-hveid="CIICEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<h4></h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__117">
+<h4 data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIdhAB" data-hveid="CHYQAQ"><span data-huuid="8085230275568997344">4. Assessing Standard Error and Confidence Intervals:</span></h4>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__8">
+<div id="o14GaOyRHqzbwN4Py-6PUQ__12">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568997077"><strong>Standard Error:</strong></span></div>
+<div><span data-huuid="8085230275568996988">The standard error quantifies the uncertainty in the estimated coefficient.&nbsp;</span><span data-huuid="8085230275568996899">A smaller standard error indicates a more precise estimate.<span jsaction="rcuQ6b:npT2md" data-cid="26e53f22-ecfc-4cdb-8974-686b69986cc4" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568997077,8085230275568996988,8085230275568996899" data-cid="26e53f22-ecfc-4cdb-8974-686b69986cc4">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIjwIQAQ" data-hveid="CI8CEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__28">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568996721"><strong>Confidence Intervals:</strong></span></div>
+<div><span data-huuid="8085230275568996632">Confidence intervals provide a range within which the true population parameter (e.g., the coefficient) is likely to fall.<span jsaction="rcuQ6b:npT2md" data-cid="b33c1b0b-6330-47c5-a194-efa70d1300a9" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568996721,8085230275568996632" data-cid="b33c1b0b-6330-47c5-a194-efa70d1300a9">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI5AEQAQ" data-hveid="COQBEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__35">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568996454"><strong>Interpretation:</strong></span></div>
+<div><span data-huuid="8085230275568996365">If a coefficient has a standard error of 0.1 and a 95% confidence interval of [0.2, 0.4], this suggests that the true coefficient likely falls between 0.2 and 0.4.<span jsaction="rcuQ6b:npT2md" data-cid="311ed796-0df5-47ec-9513-d78e6d910c06" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568996454,8085230275568996365" data-cid="311ed796-0df5-47ec-9513-d78e6d910c06">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUIiAIQAQ" data-hveid="CIgCEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__86">
+<h4 data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIcxAB" data-hveid="CHMQAQ"><span data-huuid="8085230275569000283">5. Checking Assumptions:</span></h4>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__32">
+<div id="o14GaOyRHqzbwN4Py-6PUQ__39"><span data-huuid="8085230275569000016"><strong>Linearity:</strong>&nbsp;</span><span data-huuid="8085230275568999927">The relationship between the independent and dependent variables should be linear.</span></div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__47"><span data-huuid="8085230275568999749"><strong>Homoscedasticity:</strong>&nbsp;</span><span data-huuid="8085230275568999660">The variance of the errors should be constant across all levels of the independent variable.</span></div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__50"><span data-huuid="8085230275568999482"><strong>Normality:</strong>&nbsp;</span><span data-huuid="8085230275568999393">The errors should be normally distributed.</span></div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__55"><span data-huuid="8085230275568999215"><strong>Multicollinearity:</strong>&nbsp;</span><span data-huuid="8085230275568999126">Independent variables should not be highly correlated with each other.</span></div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__60"><span data-huuid="8085230275568998948"><strong>Interpretation:</strong>&nbsp;</span><span data-huuid="8085230275568998859">Violations of these assumptions can lead to unreliable regression results.<span jsaction="rcuQ6b:npT2md" data-cid="b1011461-a2cf-4989-8d27-60d583853479" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275569000016,8085230275568999927,8085230275568999749,8085230275568999660,8085230275568999482,8085230275568999393,8085230275568999215,8085230275568999126,8085230275568998948,8085230275568998859" data-cid="b1011461-a2cf-4989-8d27-60d583853479">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI1wEQAQ" data-hveid="CNcBEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__113">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIdBAB" data-hveid="CHQQAQ"><span data-huuid="8085230275568998681">Example:</span></div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__85">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQo_EKegQIdRAB" data-hveid="CHUQAQ"><span role="heading" aria-level="2">Consider a regression analysis predicting salary (dependent variable) based on years of experience (independent variable).</span></div>
+</div>
+</div>
+<div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__9">
+<div id="o14GaOyRHqzbwN4Py-6PUQ__13">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568998236"><strong>Coefficient:</strong></span></div>
+<div><span data-huuid="8085230275568998147">The coefficient for years of experience might be 5000, meaning for each additional year of experience, salary is predicted to increase by $5000.<span jsaction="rcuQ6b:npT2md" data-cid="1f3e6be8-d828-40e5-bb85-db6abe7139c5" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568998236,8085230275568998147" data-cid="1f3e6be8-d828-40e5-bb85-db6abe7139c5">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI1QEQAQ" data-hveid="CNUBEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__27">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568997969"><strong>P-value:</strong></span></div>
+<div><span data-huuid="8085230275568997880">If the p-value is less than 0.05, the coefficient is statistically significant, suggesting that years of experience has a real effect on salary.<span jsaction="rcuQ6b:npT2md" data-cid="26c614f7-5a48-403d-92d1-3f9f1392f101" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568997969,8085230275568997880" data-cid="26c614f7-5a48-403d-92d1-3f9f1392f101">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI6gEQAQ" data-hveid="COoBEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__57">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568997702"><strong>R-squared:</strong></span></div>
+<div><span data-huuid="8085230275568997613">An R-squared value of 0.65 means that 65% of the variance in salary is explained by years of experience.<span jsaction="rcuQ6b:npT2md" data-cid="d53df3a8-2238-4fde-b82e-7117ede16b76" jscontroller="JHnpme">&nbsp;</span></span>
+<div data-uuids="8085230275568997702,8085230275568997613" data-cid="d53df3a8-2238-4fde-b82e-7117ede16b76">
+<div data-ved="2ahUKEwis78iMs-mMAxWsLdAFHUv3IwoQ3fYKegUI3QEQAQ" data-hveid="CN0BEAE" jsaction="KjsqPd" role="button" aria-label="View related links" jsname="HtgYJd" tabindex="0">
+<div>
+<div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="o14GaOyRHqzbwN4Py-6PUQ__64">
+<div data-il="">
+<div data-crb-p="">
+<div>
+<div><span data-huuid="8085230275568997435"><strong>Standard Error:</strong></span></div>
+<div><span data-huuid="8085230275568997346">A small standard error for the coefficient indicates a reliable estimate of the effect of experience on salary.<span jsaction="rcuQ6b:npT2md" data-cid="b6d61e14-a979-409a-95ba-dcbf32874946" jscontroller="JHnpme">&nbsp;</span></span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"></li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Additional Learning Resources</span></strong></h2>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Coursera: Statistical Regression Analysis Courses</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">EdX: Regression Analysis Fundamentals</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">YouTube: StatQuest with Josh Starmer (Regression Series)</span></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Recommended Software</span></strong></h2>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">R</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Python (NumPy, Pandas, SciPy)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">SPSS</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Stata</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Minitab</span></p>
+</li>
+</ul>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

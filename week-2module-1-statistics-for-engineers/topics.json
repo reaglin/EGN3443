@@ -1,0 +1,1249 @@
+{
+  "ModuleFolderName": "Week_2_Module_1_-_Statistics_for_Engineers",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:05:51.1083703-04:00",
+  "ModifiedDate": "2026-08-24T20:08:29.66838-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "46801840-46ff-41b0-99bb-58380fc0f320",
+      "Title": "Introduction to Statistics in Engineering",
+      "Summary": "Overview of why statistical thinking is essential for engineers and how data-driven decision-making improves technical outcomes. This topic establishes the foundational vocabulary and framework used throughout the module.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "ModifiedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "Elements": [
+        {
+          "Id": "a512e3cb-2f7a-41f8-bf93-29f3d7915726",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "Why Statistics Matters in Engineering",
+          "BodyText": "Engineering decisions are rarely made with perfect information, making statistical thinking a critical tool for managing uncertainty and variability in technical work.",
+          "Notes": "Examples include determining whether a manufactured component meets tolerance specifications, predicting failure rates, or evaluating the performance of a new material under varying conditions.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "0546dbc3-5869-420a-ab85-7ebdf0333ae5",
+              "Text": "Engineers routinely encounter variability in measurements, materials, and processes that cannot be ignored or assumed away.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "546c432e-b6cf-40fd-b2f8-2a1926df0f54",
+              "Text": "Statistical methods provide a rigorous framework for making reliable decisions even when data is incomplete or noisy.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "542fccb4-d82b-4d9d-9170-1912da30f339",
+              "Text": "Without statistical reasoning, engineers risk drawing incorrect conclusions that can lead to design flaws or safety issues.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cfc8ec16-3ea5-40bb-998c-cfc735d52ba9",
+              "Text": "Applying statistics allows engineers to quantify risk and communicate uncertainty with precision to stakeholders.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b7e91353-66d7-4be8-b03b-38fdfb2dad1e",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "Data-Driven Decision-Making",
+          "BodyText": "Data-driven decision-making replaces intuition-based judgments with conclusions grounded in systematically collected and analyzed evidence.",
+          "Notes": "In quality control, for instance, data-driven approaches can distinguish between random process variation and a true shift in manufacturing performance, preventing unnecessary or missed interventions.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "5bc17dde-8f5f-4c5d-b939-766099706e51",
+              "Text": "Collecting relevant, high-quality data is the first step toward making sound engineering decisions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "eb4a52ae-373a-4f22-aca1-6881accdea56",
+              "Text": "Analyzing data systematically allows engineers to identify trends, anomalies, and root causes of problems.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd103bdf-8dc8-4091-8daa-7019b686ba33",
+              "Text": "Data-driven methods improve reproducibility and transparency in engineering analysis and reporting.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ec3a1555-2932-4271-9dda-00d6f6495770",
+              "Text": "Technical outcomes such as product reliability, process efficiency, and safety margins all improve when decisions are grounded in data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "35f64a63-e91c-438c-94c3-e8762c6d5e89",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "Foundational Statistical Vocabulary",
+          "BodyText": "A shared statistical vocabulary ensures engineers can communicate findings clearly and interpret analyses consistently across teams and disciplines.",
+          "Notes": "Terms like population, sample, variable, and observation form the building blocks of every statistical discussion and must be understood precisely before advancing to more complex concepts.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "7f0c82c0-2a0f-418e-9a69-e78b88ee1070",
+              "Text": "A population refers to the entire set of items or outcomes of interest, while a sample is a subset drawn from that population for study.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c4b7b86c-a899-457a-8e90-e60ddefe53d8",
+              "Text": "A variable is any characteristic or measurement that can take on different values across observations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3255e010-d947-4a36-8cf7-db59ac60b118",
+              "Text": "Parameters describe characteristics of a population, whereas statistics describe characteristics of a sample.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2d9c0c1d-3bd1-466c-b7a0-319e2a03f843",
+              "Text": "Understanding these distinctions prevents common errors such as overgeneralizing findings from a limited sample.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5563ebe6-52bb-4244-be8c-6ca06471b416",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "Overview of Descriptive Statistics",
+          "BodyText": "Descriptive statistics summarize and organize data so that engineers can quickly grasp the essential characteristics of a dataset.",
+          "Notes": "Common descriptive measures include the mean, median, mode, range, variance, and standard deviation, each revealing different aspects of the data\u0027s central tendency or spread.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "acf2bdbc-54b0-479b-8c4a-48023896eeec",
+              "Text": "Measures of central tendency (mean, median, mode) describe where most data values cluster.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6450afba-3ca7-4c91-99ec-7dcc6558da5f",
+              "Text": "Measures of variability (range, variance, standard deviation) describe how spread out the data values are.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "51d8442d-1139-4596-b3c6-8434a47cf194",
+              "Text": "Descriptive statistics serve as the starting point for any deeper statistical analysis in engineering contexts.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ac67faf1-3f93-45ed-8dce-d92a3484f15f",
+              "Text": "Visual tools such as histograms and box plots complement numerical descriptive statistics by revealing data shape and outliers.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "13d5078d-5895-4c16-9656-e3cb3746afea",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "The Role of Probability in Engineering Analysis",
+          "BodyText": "Probability provides the mathematical language for quantifying uncertainty, which is central to both analyzing data and making engineering predictions.",
+          "Notes": "For example, probability distributions are used to model the likelihood of component failure, the spread of measurement error, or the occurrence of load conditions in structural engineering.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "5bb4c669-9baa-4c98-8ef8-ce8d967e0a89",
+              "Text": "Probability expresses the likelihood of an event occurring on a scale from 0 (impossible) to 1 (certain).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fbdca412-829b-4d27-9dd9-dbe69f92d8f3",
+              "Text": "Understanding probability allows engineers to assess risk and set appropriate safety factors in design.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9cdcd957-4cfd-43de-bfdd-6a95666f3acc",
+              "Text": "Probability distributions describe how values are expected to vary across a population or process.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "04f96918-7ffe-4c37-9f2d-697949d4c9f4",
+              "Text": "Engineers use probability as the foundation for inferential statistics, quality control, and reliability analysis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6267e6c4-5ca9-4f72-8608-a6a428ebd804",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "Understanding Data Variability",
+          "BodyText": "Variability is an inherent feature of all engineering data, and recognizing its sources is essential for accurate analysis and process improvement.",
+          "Notes": "Variability can stem from measurement error, raw material differences, environmental conditions, or process inconsistencies \u2014 each requiring different statistical strategies to address.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "87a7da7f-e695-48ca-aba4-cd18b34cd29c",
+              "Text": "No manufacturing process or measurement system is perfectly consistent; some degree of variability always exists.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9f662efa-59cc-4ab1-a45a-6d148a78fe6c",
+              "Text": "Distinguishing between natural (common cause) variability and abnormal (special cause) variability is a key engineering skill.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "920e89ed-0820-4c5b-8946-81aad10a9f20",
+              "Text": "Quantifying variability helps engineers set realistic tolerances and quality benchmarks.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "449a9723-ea39-4d39-81dd-e8c8409c5181",
+              "Text": "Reducing unwanted variability directly improves product quality, process efficiency, and engineering reliability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1bb675f8-84f1-4ca4-84a9-1b19aa9077b8",
+          "TopicId": "46801840-46ff-41b0-99bb-58380fc0f320",
+          "Title": "Statistical Thinking as an Engineering Mindset",
+          "BodyText": "Statistical thinking is more than a set of techniques \u2014 it is a disciplined approach to problem-solving that engineers apply throughout the design, testing, and quality assurance lifecycle.",
+          "Notes": "Adopting a statistical mindset means consistently asking questions such as: How confident am I in this conclusion? What is the source of this variation? How large a sample do I need to detect this effect?",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "ModifiedDate": "2026-08-24T20:06:17.9049784-04:00",
+          "Items": [
+            {
+              "Id": "d0d2e488-0e5e-4c1d-a2f7-48bed165e572",
+              "Text": "Statistical thinking involves viewing processes and outcomes as systems subject to variation rather than fixed, deterministic results.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "43d5482a-b898-479c-bfb4-2d0c1e2298dd",
+              "Text": "Engineers who think statistically are better equipped to design experiments, interpret test results, and validate models.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d9fa169e-39d5-4a5d-b903-559f40ebc0e7",
+              "Text": "This mindset supports continuous improvement by framing problems in terms of measurable, analyzable data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7447bdaa-23b8-479d-b35a-f489a4b13a39",
+              "Text": "Throughout this module, statistical thinking will serve as the unifying framework connecting all covered concepts and techniques.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+      "Title": "Descriptive Statistics",
+      "Summary": "Exploration of measures of central tendency, spread, and shape used to summarize and describe datasets. Learners will apply these tools to characterize engineering data clearly and efficiently.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "ModifiedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "Elements": [
+        {
+          "Id": "7e9189ff-a72e-4c23-a010-864e05a63c7d",
+          "TopicId": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+          "Title": "Measures of Central Tendency",
+          "BodyText": "Measures of central tendency describe the center or typical value of a dataset, giving engineers a single representative figure for a collection of data points.",
+          "Notes": "In engineering, the mean is commonly used for process monitoring, while the median is preferred when data contains extreme outliers, such as in failure time analysis.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "ModifiedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "Items": [
+            {
+              "Id": "f38b874f-5454-41eb-b642-3126fa932b47",
+              "Text": "The mean (arithmetic average) is calculated by summing all values and dividing by the number of observations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e0d1af9a-d67e-4a53-a198-201ee4711cf4",
+              "Text": "The median is the middle value when data is ordered and is resistant to the influence of outliers.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "899a1620-9dc4-4bd6-a65a-a6c03ef47f2b",
+              "Text": "The mode identifies the most frequently occurring value and is useful for categorical or discrete engineering measurements.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "52732598-b332-48c7-932c-34d6cffb066b",
+              "Text": "Choosing the appropriate measure depends on the data distribution and the engineering context being analyzed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9b060751-d29f-473a-bf56-b6c53ad0e7f7",
+          "TopicId": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+          "Title": "Measures of Spread (Variability)",
+          "BodyText": "Measures of spread quantify how much individual data points deviate from the center of the dataset, which is critical for understanding process consistency and quality in engineering.",
+          "Notes": "Standard deviation is widely used in quality control charts (e.g., control limits are typically set at \u00B13 standard deviations from the mean) to detect process instability.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "ModifiedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "Items": [
+            {
+              "Id": "a910fdd1-25e7-4f20-87d9-cf2a4d396810",
+              "Text": "Range is the simplest measure of spread, calculated as the difference between the maximum and minimum values in a dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "abb58829-56cf-430c-822e-c28b229bb56b",
+              "Text": "Variance measures the average squared deviation from the mean, capturing overall data dispersion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "46c3eac8-0022-4f17-92c3-269bb4608d18",
+              "Text": "Standard deviation is the square root of variance and is expressed in the same units as the original data, making it more interpretable.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0db2c5f7-3985-47aa-b475-6cd764591234",
+              "Text": "The interquartile range (IQR) measures the spread of the middle 50% of data and is robust against outliers.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "612d25ed-9454-4dea-9caf-b92ad10092a1",
+          "TopicId": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+          "Title": "Measures of Shape",
+          "BodyText": "Measures of shape describe the distribution\u0027s symmetry and the heaviness of its tails, helping engineers identify whether data follows expected patterns or contains anomalies.",
+          "Notes": "Skewness and kurtosis are particularly important in reliability engineering, where understanding the tail behavior of a distribution can indicate the likelihood of rare but critical failure events.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "ModifiedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "Items": [
+            {
+              "Id": "ba8324f8-376b-4e20-a776-bc5e9f3d346d",
+              "Text": "Skewness measures the asymmetry of a distribution; positive skew indicates a long right tail, while negative skew indicates a long left tail.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b221dc75-b4c3-4384-9320-18a3457f32c5",
+              "Text": "Kurtosis describes the \u0027peakedness\u0027 of a distribution and the weight of its tails relative to a normal distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b84754c9-2729-4d11-9b57-1ea1c61f5d3b",
+              "Text": "A normal (symmetric) distribution has skewness of zero and a kurtosis of three, serving as a common benchmark in engineering analysis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6cb81e6d-8c3b-4e1b-ac36-d2b0078fd907",
+              "Text": "Identifying skewness and kurtosis helps engineers determine whether standard statistical assumptions hold for their data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "19256495-0fed-49cd-835d-162a440fe9d6",
+          "TopicId": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+          "Title": "Data Summarization with Frequency Distributions",
+          "BodyText": "Frequency distributions organize raw engineering data into structured tables or intervals, making large datasets easier to interpret and communicate.",
+          "Notes": "Histograms are a visual representation of frequency distributions and are a foundational tool in quality control and process capability analysis in engineering.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "ModifiedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "Items": [
+            {
+              "Id": "b7cc0d73-0ef6-440b-b6c6-5860ea928134",
+              "Text": "A frequency distribution groups data into classes or bins and records how often values fall within each group.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c7cc45c4-2b84-4ec8-ae8a-da9d0ef4337b",
+              "Text": "Relative frequency expresses counts as proportions or percentages, allowing comparison across datasets of different sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "066f1913-2e20-49b5-9343-dd928c58ec28",
+              "Text": "Cumulative frequency distributions show the running total of observations, useful for understanding threshold-based engineering requirements.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0548aaa0-ffb8-4d18-b123-02bda3806b95",
+              "Text": "Selecting appropriate bin sizes is important; too few bins oversimplify the data, while too many can obscure meaningful patterns.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "466384de-f338-45a7-815a-ab73e40cc60d",
+          "TopicId": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+          "Title": "Percentiles and Quartiles",
+          "BodyText": "Percentiles and quartiles divide a dataset into equal parts, providing engineers with precise reference points for understanding data position and spread.",
+          "Notes": "In engineering specifications, percentiles are often used to define tolerance limits \u2014 for example, a component may be required to perform within the 5th and 95th percentile range of operating conditions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "ModifiedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "Items": [
+            {
+              "Id": "a46710c6-c9be-4bda-8745-85d5cdf9fb78",
+              "Text": "The pth percentile is the value below which p% of the observations fall, enabling detailed positional analysis of data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1fc93432-f3ed-440e-9567-b3b2d9693bfb",
+              "Text": "Quartiles divide data into four equal parts: Q1 (25th percentile), Q2 (median/50th percentile), and Q3 (75th percentile).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "88f59ca3-a8a3-42a2-ac12-018da8f88d87",
+              "Text": "The interquartile range (Q3 \u2212 Q1) derived from quartiles summarizes the central spread of the data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "07d4c65b-7dd8-4b12-b215-a6a4df52e66f",
+              "Text": "Box plots visually represent quartiles and are a practical tool for comparing variability across multiple engineering datasets.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9028257b-8033-42d2-b77a-b3292c5bd387",
+          "TopicId": "8b6fddfa-5b20-42f4-b39b-c99f7f07656b",
+          "Title": "Applying Descriptive Statistics to Engineering Data",
+          "BodyText": "Engineering applications require selecting and interpreting the right descriptive statistics to draw meaningful conclusions about processes, materials, and system performance.",
+          "Notes": "For example, a quality engineer monitoring tensile strength of steel rods would use mean and standard deviation to assess average performance and consistency, while skewness might signal a systematic production issue.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "ModifiedDate": "2026-08-24T20:06:42.3897067-04:00",
+          "Items": [
+            {
+              "Id": "c2a9c05d-bfc5-4d1d-8756-3683fa71ee91",
+              "Text": "Descriptive statistics provide a foundation for summarizing measurement data from experiments, inspections, and sensor outputs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cad3dac0-8b9f-44de-87b3-72f9dc490d37",
+              "Text": "Engineers use these tools to benchmark performance, detect anomalies, and communicate findings clearly to technical and non-technical stakeholders.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b4c3827e-4238-4464-a9c7-abb7620dad9c",
+              "Text": "Combining multiple descriptive measures (e.g., mean, standard deviation, and skewness together) gives a more complete picture of dataset behavior.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "76611960-f6c3-4629-93d7-b45dfe6f23f4",
+              "Text": "Accurate characterization of engineering data through descriptive statistics supports informed decisions in quality control, design, and process improvement.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "d8333e50-b4de-4430-ba1b-201bba623edf",
+      "Title": "Data Variability and Distribution Shape",
+      "Summary": "Examination of how data varies within engineering contexts, including range, variance, standard deviation, and the visual interpretation of distribution shapes. Understanding variability is critical for assessing process consistency and product quality.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "ModifiedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "Elements": [
+        {
+          "Id": "2400a0f9-437e-4515-b651-cf2ce52f520d",
+          "TopicId": "d8333e50-b4de-4430-ba1b-201bba623edf",
+          "Title": "Understanding Range as a Variability Measure",
+          "BodyText": "Range is the simplest measure of variability, calculated as the difference between the maximum and minimum values in a dataset.",
+          "Notes": "In engineering contexts, range is useful for quick assessments of process spread, such as identifying the full span of temperature readings in a manufacturing process. However, it is sensitive to outliers and may not represent typical variability accurately.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:07:09.107157-04:00",
+          "ModifiedDate": "2026-08-24T20:07:09.107157-04:00",
+          "Items": [
+            {
+              "Id": "691328e0-2ac8-4d81-b9b4-0bcb1d66c141",
+              "Text": "Range = Maximum value \u2212 Minimum value, providing an immediate sense of data spread.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "683b29bc-3c20-4254-bfb5-78929cdb2240",
+              "Text": "It is easy to compute but does not account for how values are distributed between the two extremes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "44655a21-ea46-4878-b157-472814740e16",
+              "Text": "In quality control, a large range may signal inconsistency in a production process that warrants further investigation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bd4c3a13-347c-431b-8ec6-1b78e8808cc6",
+              "Text": "Range should be used alongside other measures for a more complete picture of variability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d7725014-b3a5-4656-b122-9d066d50d58b",
+          "TopicId": "d8333e50-b4de-4430-ba1b-201bba623edf",
+          "Title": "Variance: Quantifying Spread Around the Mean",
+          "BodyText": "Variance measures the average squared deviation of each data point from the mean, providing a more comprehensive view of data spread than range.",
+          "Notes": "For example, if two production lines both produce parts with an average diameter of 50 mm but one has a much higher variance, the higher-variance line is less consistent and may produce more defective parts.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:07:09.107157-04:00",
+          "ModifiedDate": "2026-08-24T20:07:09.107157-04:00",
+          "Items": [
+            {
+              "Id": "d80174e6-d9b5-459f-80f4-09c8f582df0b",
+              "Text": "Variance is calculated by summing the squared differences between each observation and the mean, then dividing by the number of observations (or n\u22121 for sample variance).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "31fd0223-a62a-4065-88e8-9d9ceb1f0f5a",
+              "Text": "Squaring the deviations ensures that positive and negative differences do not cancel each other out.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bb61008d-79b5-4503-a989-d177c123004f",
+              "Text": "A higher variance indicates that data points are more spread out from the mean, reflecting less process consistency.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f6cb5f47-2597-4a4e-b68b-23ffecd47511",
+              "Text": "Engineers use variance to compare the stability of different processes or manufacturing runs.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cd00d251-b266-4821-866e-eb81363a1bcc",
+          "TopicId": "d8333e50-b4de-4430-ba1b-201bba623edf",
+          "Title": "Standard Deviation: A Practical Spread Metric",
+          "BodyText": "Standard deviation is the square root of variance and expresses variability in the same units as the original data, making it more interpretable in engineering applications.",
+          "Notes": "For instance, if a sensor records voltage with a mean of 5V and a standard deviation of 0.2V, engineers can immediately understand the typical fluctuation around the expected value without unit conversion.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:07:09.107157-04:00",
+          "ModifiedDate": "2026-08-24T20:07:09.107157-04:00",
+          "Items": [
+            {
+              "Id": "4c8f52e8-fb0d-4482-be11-1990e8021bb2",
+              "Text": "Standard deviation (\u03C3 for population, s for sample) provides an intuitive measure of how much individual data points typically deviate from the mean.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b0e58046-c2cd-4547-907d-be6d4a59992e",
+              "Text": "Smaller standard deviations indicate tighter, more consistent processes, which is often desirable in precision manufacturing.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7cfcfb44-3684-4d7f-afa6-76583377d6eb",
+              "Text": "In quality control, standard deviation is used to define acceptable tolerance bands and set control chart limits.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d9235cd0-7ca2-42d4-aa6c-13b123a8c772",
+              "Text": "It is one of the most widely used statistics in engineering analysis due to its direct interpretability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4a79fec7-8088-4b9f-bbef-30180ae18f3e",
+          "TopicId": "d8333e50-b4de-4430-ba1b-201bba623edf",
+          "Title": "Symmetric and Skewed Distribution Shapes",
+          "BodyText": "The shape of a data distribution reveals how values are spread and whether the data tends to cluster symmetrically around a central value or lean toward one side.",
+          "Notes": "A skewed distribution in engineering might occur when measuring failure times \u2014 most components may last a long time, but a few fail very early, producing a right-skewed distribution.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:07:09.107157-04:00",
+          "ModifiedDate": "2026-08-24T20:07:09.107157-04:00",
+          "Items": [
+            {
+              "Id": "876752b3-a99a-4bf5-997c-7ce6e2d3252b",
+              "Text": "A symmetric distribution has equal spread on both sides of the mean, with the normal (bell-curve) distribution being the most common example.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "93bcf70b-284f-4dbf-a7ab-05cb45a96b84",
+              "Text": "Right (positive) skew occurs when a longer tail extends to the right, indicating a few unusually high values pulling the mean upward.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "67a9b908-2d18-4a98-8e76-b08811652c12",
+              "Text": "Left (negative) skew occurs when a longer tail extends to the left, suggesting a few unusually low values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "075f0594-26f3-4bb7-8215-db8751d05b3a",
+              "Text": "Identifying skewness helps engineers choose appropriate statistical methods and interpret process behavior correctly.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fcdff6fc-2287-4855-801e-97673d1e654f",
+          "TopicId": "d8333e50-b4de-4430-ba1b-201bba623edf",
+          "Title": "Visual Tools for Interpreting Distribution Shape",
+          "BodyText": "Histograms, box plots, and frequency polygons are essential visual tools that allow engineers to quickly assess the shape and spread of a dataset.",
+          "Notes": "A histogram of machined part dimensions, for example, can immediately reveal whether the manufacturing process is centered on the target specification and whether the spread is acceptable.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:07:09.107157-04:00",
+          "ModifiedDate": "2026-08-24T20:07:09.107157-04:00",
+          "Items": [
+            {
+              "Id": "9a318922-b0f2-47c9-9edc-4031f3605621",
+              "Text": "Histograms display data frequency across intervals (bins), revealing the overall shape, center, and spread of a distribution at a glance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "de385ac6-a480-42c1-bc60-861abd14e2c4",
+              "Text": "Box plots summarize data using the median, quartiles, and outliers, making it easy to compare variability across multiple datasets or processes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "14818525-c479-4c34-8cc9-314bfd9d8951",
+              "Text": "A bell-shaped histogram suggests normally distributed data, which is a common assumption for many engineering statistical tests.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3c92ad8e-59bf-4eda-930e-6b4d5b4036a9",
+              "Text": "Visualizing distribution shape alongside numerical measures like standard deviation provides a more complete understanding of process behavior.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "61f26e38-a8ef-4150-8ee4-e76ad7e03f05",
+          "TopicId": "d8333e50-b4de-4430-ba1b-201bba623edf",
+          "Title": "Variability and Its Role in Process Consistency and Quality",
+          "BodyText": "In engineering and manufacturing, minimizing unwanted variability is fundamental to ensuring product quality, meeting specifications, and maintaining reliable processes.",
+          "Notes": "Statistical Process Control (SPC) relies heavily on monitoring variability over time. When variability increases beyond established limits, it signals that a process may be drifting out of control and corrective action is needed.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:07:09.107157-04:00",
+          "ModifiedDate": "2026-08-24T20:07:09.107157-04:00",
+          "Items": [
+            {
+              "Id": "62235069-4bf2-4b4a-befd-1c535e12503e",
+              "Text": "High variability in a manufacturing process increases the likelihood of producing parts outside acceptable tolerance limits, leading to defects.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "463df5e6-bb89-4c9d-b14f-be67e16a10b1",
+              "Text": "Understanding both the center (mean) and spread (standard deviation) of a process is necessary to fully assess its capability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0989e5bd-1373-4574-b829-0c262a6b922b",
+              "Text": "Reducing variability \u2014 through tighter process controls, better materials, or improved equipment \u2014 is a core goal of quality engineering.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fa8a5212-9d06-4232-85c4-11a5574fe176",
+              "Text": "Statistical measures of variability form the foundation of quality control techniques such as control charts and process capability indices (Cp, Cpk).",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+      "Title": "Probability Distributions",
+      "Summary": "Introduction to common probability distributions relevant to engineering, such as normal, binomial, and Poisson distributions. Learners will explore how these models represent real-world phenomena and support predictive analysis.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "ModifiedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "Elements": [
+        {
+          "Id": "bd28d48c-c7ae-4ee8-b57c-822763bdfb34",
+          "TopicId": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+          "Title": "What Is a Probability Distribution?",
+          "BodyText": "A probability distribution describes how the probabilities of outcomes are spread across the possible values of a random variable.",
+          "Notes": "In engineering, probability distributions serve as mathematical models that help predict the likelihood of various outcomes, such as component failure rates or measurement errors.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "ModifiedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "Items": [
+            {
+              "Id": "adfeef76-4e35-4882-9f60-dd8417e2d5ad",
+              "Text": "A probability distribution assigns a probability to each possible outcome of a random variable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b545b9b2-6e72-477e-aea3-a067c2cdeeae",
+              "Text": "Distributions can be discrete (countable outcomes) or continuous (any value within a range).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "57e4b2e0-3a10-4a35-9c45-555d7b60dd88",
+              "Text": "Engineers use distributions to model uncertainty and variability in systems and processes.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8badc504-8646-4870-9577-5ac86ef1bb0d",
+              "Text": "Choosing the right distribution depends on the nature of the data and the phenomenon being modeled.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "85d90996-d689-4d88-a08d-36645353075d",
+          "TopicId": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+          "Title": "The Normal Distribution",
+          "BodyText": "The normal distribution is a continuous, bell-shaped distribution that is one of the most widely used models in engineering and statistics.",
+          "Notes": "Many natural and engineered phenomena \u2014 such as material strength, measurement error, and product dimensions \u2014 tend to follow a normal distribution, making it a cornerstone of quality control and reliability analysis.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "ModifiedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "Items": [
+            {
+              "Id": "2a3b3ef5-84f6-4582-a7b4-3a197558cfb7",
+              "Text": "The normal distribution is symmetric about its mean, with data clustering around the center and tapering off toward the tails.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cc601270-58e0-49d3-981c-4cf67f16e43d",
+              "Text": "It is fully described by two parameters: the mean (\u03BC), which sets the center, and the standard deviation (\u03C3), which controls the spread.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ee5b644a-0394-45da-a1ea-734a20388d3a",
+              "Text": "The empirical rule states that approximately 68%, 95%, and 99.7% of data fall within one, two, and three standard deviations of the mean, respectively.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "49e043a2-516a-41be-a3fa-dc5728b663b6",
+              "Text": "Engineers apply the normal distribution in tolerance analysis, process capability studies, and predicting defect rates.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "129f731a-8944-4d78-8710-c7707aa877c7",
+          "TopicId": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+          "Title": "The Binomial Distribution",
+          "BodyText": "The binomial distribution is a discrete probability distribution that models the number of successes in a fixed number of independent trials, each with the same probability of success.",
+          "Notes": "A classic engineering example is quality inspection: given a known defect rate, the binomial distribution predicts how many defective parts will be found in a sample batch.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "ModifiedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "Items": [
+            {
+              "Id": "48aa3ffc-aa63-4e03-bd67-0987b1b956ee",
+              "Text": "The binomial distribution applies when there are exactly two possible outcomes per trial, commonly labeled \u0027success\u0027 and \u0027failure.\u0027",
+              "SortOrder": 0
+            },
+            {
+              "Id": "666f0c94-9a17-487c-aaa4-3de838d6d0f7",
+              "Text": "It is defined by two parameters: n (number of trials) and p (probability of success on each trial).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3bded571-7954-4671-a5f0-fc42788468c0",
+              "Text": "The distribution is used in reliability testing, acceptance sampling, and pass/fail inspection scenarios.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cc92f1b5-fc33-454c-ad8b-c84492e6fb80",
+              "Text": "As n increases and p remains moderate, the binomial distribution approximates the normal distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "857db16d-68ab-4b77-9bcc-71726553fb5f",
+          "TopicId": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+          "Title": "The Poisson Distribution",
+          "BodyText": "The Poisson distribution is a discrete distribution that models the number of events occurring within a fixed interval of time, space, or another continuum.",
+          "Notes": "Engineers frequently use the Poisson distribution to model arrival rates, equipment failures per hour, or defects per unit area in manufacturing processes.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "ModifiedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "Items": [
+            {
+              "Id": "8da98214-a966-4bba-bb5f-8e13b0ef0374",
+              "Text": "The Poisson distribution is characterized by a single parameter, \u03BB (lambda), which represents the average number of events in the given interval.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e1cdf887-79b3-4d1e-878f-596ce737ec03",
+              "Text": "It is most appropriate when events occur randomly and independently, and the average rate is known but the exact timing is unpredictable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "544987a2-90ab-4f17-8a77-bb99edefaa11",
+              "Text": "Common engineering applications include modeling network packet arrivals, machine breakdowns, and surface defects on materials.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2f14cdb0-0409-4b13-826d-ecf213c6d33f",
+              "Text": "When \u03BB is large, the Poisson distribution approximates the normal distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "dd5fe732-de6d-4ae7-9a49-728592b097a7",
+          "TopicId": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+          "Title": "Selecting the Right Distribution for Engineering Problems",
+          "BodyText": "Choosing an appropriate probability distribution is a critical step in building accurate predictive models for engineering analysis.",
+          "Notes": "An incorrect distribution choice can lead to flawed predictions and poor engineering decisions. Data visualization, domain knowledge, and goodness-of-fit tests all aid in distribution selection.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "ModifiedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "Items": [
+            {
+              "Id": "5782a996-b5ed-40e8-aab1-90e23b0bf128",
+              "Text": "Consider whether the data is discrete or continuous, as this immediately narrows the candidate distributions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0930290d-bc11-4cd7-94cb-72f2121868e6",
+              "Text": "Examine the shape of the data \u2014 symmetry, skewness, and the presence of bounds \u2014 to match data characteristics to distribution properties.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f5856fc9-00d0-4abf-be64-08e30788adb3",
+              "Text": "Use historical data and domain expertise to estimate distribution parameters such as mean, standard deviation, or event rate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7ba1126c-165f-4fcc-81b1-85a8a3127a1d",
+              "Text": "Statistical goodness-of-fit tests, such as the chi-square test, can formally evaluate how well a chosen distribution matches observed data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9d447a9a-db83-41ab-bf4e-edf7c506d7a0",
+          "TopicId": "16a8bf09-5860-4389-b036-ddde345ab0cf",
+          "Title": "Using Distributions for Predictive Analysis in Engineering",
+          "BodyText": "Probability distributions are powerful tools for making data-driven predictions about future outcomes in engineering systems.",
+          "Notes": "Predictive analysis using distributions supports proactive decision-making \u2014 for example, scheduling preventive maintenance before predicted failure events occur.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "ModifiedDate": "2026-08-24T20:07:39.8341389-04:00",
+          "Items": [
+            {
+              "Id": "a338dc9c-6e07-4759-b679-d824b3cfb9fc",
+              "Text": "Engineers use probability distributions to estimate the likelihood of events such as system failures, extreme loads, or production defects.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7b76a923-a5bc-4365-897f-16e71efe5c7c",
+              "Text": "Cumulative distribution functions (CDFs) allow engineers to calculate the probability that a variable falls below a specific threshold value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3abba832-bf24-459b-a9e7-0a121e94ea7d",
+              "Text": "Monte Carlo simulation leverages probability distributions to model the combined effect of multiple uncertain variables in complex engineering systems.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "daf26778-684c-4770-b9ed-80e11c2c6347",
+              "Text": "Predictive insights drawn from distributions inform quality control limits, safety factors, and maintenance scheduling decisions.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+      "Title": "Statistical Inference and Interpretation",
+      "Summary": "Principles for drawing conclusions from data samples and interpreting statistical results with confidence. This topic bridges raw data analysis to actionable engineering insights.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "ModifiedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "Elements": [
+        {
+          "Id": "1ed73d01-5e00-4686-88c9-b60432635cf1",
+          "TopicId": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+          "Title": "Fundamentals of Statistical Inference",
+          "BodyText": "Statistical inference is the process of drawing conclusions about a population based on data collected from a sample. Engineers rely on inference to make decisions without measuring every component or outcome in a system.",
+          "Notes": "For example, testing 50 manufactured parts to infer quality across a production run of 10,000 units is a common engineering application of statistical inference.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "ModifiedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "Items": [
+            {
+              "Id": "42b97a6e-6fed-45e1-9c4b-8e4ea890898a",
+              "Text": "Inference connects sample statistics (e.g., sample mean) to population parameters (e.g., true process mean).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1276ab1b-7ba0-4908-9cb7-b47be513eeb7",
+              "Text": "The reliability of inference depends on sample size, sampling method, and data variability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4dfe8b6e-169b-4342-b250-161647a3fe4a",
+              "Text": "Two main branches of inference are estimation (point and interval) and hypothesis testing.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f20e82a0-f52e-4b50-a743-39359b358a2a",
+          "TopicId": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+          "Title": "Point Estimates and Confidence Intervals",
+          "BodyText": "A point estimate provides a single best-guess value for a population parameter, while a confidence interval gives a range within which the true parameter is likely to fall. Confidence intervals are critical in engineering for quantifying uncertainty in measurements and predictions.",
+          "Notes": "A 95% confidence interval means that if the sampling process were repeated many times, 95% of the constructed intervals would contain the true population parameter.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "ModifiedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "Items": [
+            {
+              "Id": "f1f41781-d38e-4d88-bf7f-dbdf6cb13dc2",
+              "Text": "Point estimates are simple and intuitive but provide no information about estimation uncertainty.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "54d50925-26e2-4f9f-b05e-0f6b4b808658",
+              "Text": "Confidence intervals are defined by a lower bound, upper bound, and a confidence level (commonly 90%, 95%, or 99%).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9282d7df-68b9-4e47-950c-cc9477395fbb",
+              "Text": "Wider intervals reflect greater uncertainty, often due to smaller sample sizes or higher data variability.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8cfcfcfb-5388-4862-92fc-5354246922eb",
+              "Text": "Engineers use confidence intervals when reporting material strength, tolerance limits, or process capability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c9f18c86-0e40-45a4-8ec1-54a961ac4e2c",
+          "TopicId": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+          "Title": "Hypothesis Testing in Engineering Contexts",
+          "BodyText": "Hypothesis testing is a structured procedure for evaluating claims or assumptions about a population using sample data. In engineering, it is used to determine whether a process change, new material, or design modification produces a statistically significant effect.",
+          "Notes": "Example: Testing whether a new alloy has a higher tensile strength than the current standard by comparing sample means and evaluating statistical significance.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "ModifiedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "Items": [
+            {
+              "Id": "bd8157b6-ba87-4528-898b-d66092bcb1c9",
+              "Text": "A null hypothesis (H\u2080) states no effect or no difference; the alternative hypothesis (H\u2081) represents the claim being tested.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cab07a81-5233-4d15-8328-e3c94470280d",
+              "Text": "The p-value indicates the probability of observing the sample results if the null hypothesis were true; a low p-value (typically \u003C 0.05) leads to rejection of H\u2080.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7cf35c25-d8e4-4ce4-822f-55a188bd5234",
+              "Text": "Type I error (false positive) and Type II error (false negative) are key risks engineers must balance when setting significance levels.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2a4b789d-65af-43c0-8fc8-23a6ba7066d1",
+              "Text": "The choice of significance level (\u03B1) should reflect the engineering consequences of making incorrect decisions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "b42156ba-d89b-47f8-ab9a-bacf5df1ba1e",
+          "TopicId": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+          "Title": "Interpreting Statistical Results Practically",
+          "BodyText": "Statistical significance does not always equate to practical or engineering significance. Engineers must interpret results in the context of real-world tolerances, costs, and operational constraints.",
+          "Notes": "A statistically significant difference of 0.001 mm in a part dimension may be meaningless in practice if the engineering tolerance is \u00B11 mm.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "ModifiedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "Items": [
+            {
+              "Id": "db7342c3-0b6f-40e6-ae69-16445386f5f3",
+              "Text": "Effect size measures (such as Cohen\u0027s d or percent change) help quantify whether a statistically significant result is large enough to matter in practice.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8e625016-720b-4681-8e36-4a94f37871a0",
+              "Text": "Engineers should always ask whether a detected difference is large enough to affect system performance, safety, or quality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f245498-fa39-40c1-87e5-44042433d941",
+              "Text": "Results should be reported with both statistical metrics (p-values, confidence intervals) and engineering context (tolerances, specifications).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f7bfe3ed-34b3-46b7-868f-169f0e5660d6",
+              "Text": "Visualizations such as control charts and box plots support more intuitive interpretation of statistical findings.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d4e4a5c6-0505-4f68-b09c-00b28582dc87",
+          "TopicId": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+          "Title": "Sampling Strategies and Their Impact on Inference",
+          "BodyText": "The validity of statistical inference depends heavily on how samples are collected. Poor sampling strategies introduce bias and can lead engineers to draw incorrect conclusions from data.",
+          "Notes": "Random sampling, stratified sampling, and systematic sampling each have appropriate engineering use cases depending on the structure of the population being studied.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "ModifiedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "Items": [
+            {
+              "Id": "4e2d77c3-e87d-42d6-b2c0-f4a887b2ac5b",
+              "Text": "Random sampling ensures every unit in the population has an equal chance of selection, minimizing bias.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d5da3dcf-68cd-4da0-8730-95ca6ec78c24",
+              "Text": "Stratified sampling divides the population into subgroups (e.g., production shifts or machine lines) and samples from each, improving representativeness.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7850ace4-1e4e-4399-a31e-9d238f963f62",
+              "Text": "Sample size directly affects the margin of error and the power of hypothesis tests \u2014 larger samples yield more reliable inferences.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3035fd27-d381-446a-9c8d-37b51aee18bd",
+              "Text": "Convenience sampling and other non-random methods can introduce systematic bias that invalidates inference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "6afec2d4-012b-49a3-a617-8d451c9f74aa",
+          "TopicId": "00ceaf2c-25e8-45db-8a71-08bf346a33d1",
+          "Title": "Connecting Inference to Engineering Decision-Making",
+          "BodyText": "The ultimate goal of statistical inference in engineering is to support better, evidence-based decisions about design, manufacturing, and quality control. Properly interpreted statistical results reduce reliance on intuition and minimize costly errors.",
+          "Notes": "Engineering teams often use inference results in combination with risk assessment frameworks to decide whether to approve a design change or halt a production process.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "ModifiedDate": "2026-08-24T20:08:04.4889038-04:00",
+          "Items": [
+            {
+              "Id": "0f94922c-97ad-42d3-8e2f-9eb3f76acef6",
+              "Text": "Statistical inference provides a quantitative foundation for accepting or rejecting engineering specifications and tolerances.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c92d53fc-7ebe-44eb-b971-5dac1653c67e",
+              "Text": "Inference results should feed directly into quality control decisions, process optimization, and failure analysis workflows.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cc915c4e-515f-46b5-ba5c-a2a1bb7cc72f",
+              "Text": "Communicating uncertainty through confidence intervals and p-values helps engineering teams and stakeholders make informed trade-offs.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "524be865-f3fd-4f64-8d81-9f84166417bd",
+              "Text": "Iterative testing and inference \u2014 collecting data, drawing conclusions, adjusting processes \u2014 form the core of continuous improvement in engineering.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+      "Title": "Applications in Engineering Analysis and Quality Control",
+      "Summary": "Practical application of statistical methods to engineering problem-solving, process monitoring, and quality assurance. Learners will connect module concepts to real-world scenarios encountered in technical environments.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "ModifiedDate": "2026-08-24T20:05:51.1083703-04:00",
+      "Elements": [
+        {
+          "Id": "d43ccb28-86fb-45ef-a885-d62df48fb50c",
+          "TopicId": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+          "Title": "Statistical Process Control (SPC) in Manufacturing",
+          "BodyText": "Statistical Process Control uses statistical methods to monitor and control manufacturing processes, ensuring they operate at their full potential.",
+          "Notes": "Common SPC tools include control charts (e.g., X-bar and R charts) that track process output over time and signal when corrective action is needed.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "ModifiedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "Items": [
+            {
+              "Id": "6a924457-d137-4077-9d86-2354c3ccf1f1",
+              "Text": "Control charts distinguish between normal process variation (common cause) and unexpected deviations (special cause) requiring investigation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c16fe2fd-7145-4d61-8398-a4b115f26512",
+              "Text": "Setting control limits based on process data allows engineers to detect shifts or trends before they result in defective products.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ac862ec3-3149-4e11-820e-0446dc8edea2",
+              "Text": "SPC reduces waste and rework by enabling proactive intervention rather than reactive inspection after defects occur.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b75e8b0a-3f6a-4dc4-9ae9-4844702c3ccc",
+              "Text": "Process capability indices such as Cp and Cpk quantify how well a process meets engineering specifications.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ed02292a-e222-427c-900f-ac4a9beb0635",
+          "TopicId": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+          "Title": "Descriptive Statistics for Engineering Data Interpretation",
+          "BodyText": "Descriptive statistics summarize large datasets into meaningful measures, allowing engineers to quickly characterize the performance and behavior of systems or processes.",
+          "Notes": "For example, a mechanical engineer might use mean and standard deviation to summarize tensile strength measurements across a batch of steel samples.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "ModifiedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "Items": [
+            {
+              "Id": "b1f56d9b-24fa-494e-b5f7-8477aa52edbf",
+              "Text": "Measures of central tendency (mean, median, mode) identify the typical value within an engineering dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d62b3ac6-58df-4e12-bf28-cdebc1d27ca8",
+              "Text": "Measures of dispersion (range, variance, standard deviation) quantify how much variability exists in process outputs or material properties.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "92ad5a8b-217c-4e55-a52d-d32d2d858c83",
+              "Text": "Histograms and box plots are practical visualization tools that reveal distribution shape, outliers, and spread in engineering data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5faddbad-717d-4619-8e4c-bd0ec802ce71",
+              "Text": "Accurate data summarization supports informed decisions about design tolerances, material selection, and process adjustments.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a5e42897-050f-42b8-a016-eb2be7f3fb81",
+          "TopicId": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+          "Title": "Probability Distributions in Reliability and Failure Analysis",
+          "BodyText": "Probability distributions model the likelihood of different outcomes, making them essential for predicting component failures and assessing system reliability.",
+          "Notes": "The Weibull distribution is widely used in reliability engineering to model time-to-failure data for mechanical and electronic components.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "ModifiedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "Items": [
+            {
+              "Id": "6845859c-4be8-479e-a284-498b0dcbb698",
+              "Text": "The normal distribution commonly models measurement errors and material property variations in engineering contexts.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "11ca2218-9b90-43c7-84a3-6e161e6ccb2f",
+              "Text": "Exponential distributions are applied to model the time between failures in systems assumed to have a constant failure rate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "21133afa-c21e-4d36-bb47-8debb939c219",
+              "Text": "Understanding distribution parameters allows engineers to estimate mean time between failures (MTBF) and design maintenance schedules accordingly.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "db94f132-42a9-4884-b1d3-5f75bcb3d2bc",
+              "Text": "Reliability analysis based on probability distributions informs decisions about safety factors and warranty periods for engineered products.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "524af85b-8af7-4b6a-9495-2ec8eeaa6ff5",
+          "TopicId": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+          "Title": "Quality Control and Acceptance Sampling",
+          "BodyText": "Acceptance sampling uses statistical principles to determine whether a batch of products meets quality standards without inspecting every individual unit.",
+          "Notes": "Sampling plans are defined by parameters such as sample size and acceptance number, balancing the risk of accepting bad lots (consumer\u0027s risk) versus rejecting good lots (producer\u0027s risk).",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "ModifiedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "Items": [
+            {
+              "Id": "1d94b55f-0406-41eb-a012-afcd1f5a6e33",
+              "Text": "Statistical sampling reduces inspection costs while providing quantifiable confidence in the quality of incoming or outgoing materials.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "788157b6-6b22-4b0b-bdfe-21642ace24c5",
+              "Text": "Operating Characteristic (OC) curves graphically display the probability of accepting a lot as a function of its actual defect rate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3f9dde85-d7b2-49bc-bdc9-75304e2c7fda",
+              "Text": "Engineers use standards such as MIL-STD-1916 or ISO 2859 to design and implement defensible sampling plans.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ef7c1bac-4afe-4ae6-92bc-6a9f7d3d7329",
+              "Text": "Acceptance sampling complements SPC by providing a checkpoint at defined points in the supply chain or production process.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f16e878a-ec17-41e7-b29f-788fe723065a",
+          "TopicId": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+          "Title": "Data-Driven Decision Making in Engineering Problem-Solving",
+          "BodyText": "Applying statistical analysis to engineering challenges enables objective, evidence-based decisions rather than relying solely on intuition or experience.",
+          "Notes": "Root cause analysis techniques such as Design of Experiments (DOE) and regression analysis help engineers isolate variables that most significantly affect process outcomes.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "ModifiedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "Items": [
+            {
+              "Id": "74c4d486-4636-4974-bc1a-8f306fc14308",
+              "Text": "Hypothesis testing allows engineers to determine whether observed differences in process performance are statistically significant or due to chance variation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d3b735c9-3d34-44c5-a13e-8a4a62daab2e",
+              "Text": "Regression analysis quantifies relationships between input variables (e.g., temperature, pressure) and output responses (e.g., yield, strength).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "547134fd-31b7-41c2-aefa-12a9f7d72db6",
+              "Text": "Statistical tools support structured problem-solving frameworks such as Six Sigma\u0027s DMAIC (Define, Measure, Analyze, Improve, Control) methodology.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1e523ae0-8d64-4492-85bd-e677bd55499a",
+              "Text": "Documenting statistical findings ensures reproducibility and provides a defensible basis for engineering change requests and process improvements.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "32249a8e-fbff-4588-95c9-9694001fc851",
+          "TopicId": "04d4e17f-1a90-452b-ba17-c0b24f84e1c5",
+          "Title": "Variability Management and Tolerance Analysis",
+          "BodyText": "Managing variability in engineering systems is critical to ensuring that assemblies and products function correctly across their intended range of operating conditions.",
+          "Notes": "Worst-case and statistical tolerance stack-up analyses are common methods engineers use when designing assemblies with multiple interacting dimensions.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "ModifiedDate": "2026-08-24T20:08:29.6682707-04:00",
+          "Items": [
+            {
+              "Id": "781467ba-eee5-4ab2-a496-bcefe6c5dec9",
+              "Text": "All manufacturing processes exhibit inherent variability; statistical methods help engineers quantify and control this variability within acceptable limits.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "41791fc5-a6cc-4233-b924-22158b09dad5",
+              "Text": "Tolerance analysis uses measures of spread, such as standard deviation, to predict the combined effect of individual part variations on assembly fit and function.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2aac75bf-59e8-4be5-a2fd-06d3ff3e0020",
+              "Text": "Reducing variability through process improvement directly increases product consistency, customer satisfaction, and safety margins.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "92dc7b45-7c68-4e32-b1fc-0694b14de46c",
+              "Text": "Engineers must balance tight tolerances (higher cost) against wider tolerances (higher variability risk) using statistical trade-off analysis.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 37
+}

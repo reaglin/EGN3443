@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Plotting of PDF and CDF</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div><h1>Engineering Probability Distribution Analysis</h1>
+<p>Let me create an engineering problem that demonstrates the value of plotting probability distribution functions (PDF) and cumulative distribution functions (CDF).</p>
+<h2>Problem Statement</h2>
+<p>In semiconductor manufacturing, the thickness of oxide layers is critical for transistor performance. Engineers need to understand the statistical distribution of oxide thickness measurements across wafers to:</p>
+<ol>
+<li>Determine manufacturing process capability</li>
+<li>Set appropriate specification limits</li>
+<li>Predict yield rates</li>
+</ol>
+<p>Suppose we have measured the gate oxide thickness (in nanometers) across 1000 sample points on multiple wafers. The target thickness is 5.0 nm, and the process exhibits some natural variation.</p>
+<p>Let's analyze this data by plotting both the PDF and CDF to gain engineering insights.</p>
+<p>Let me create these plots in both Python and R with the necessary code.</p>
+<h3>Python Code (<a href="https://colab.research.google.com/drive/1NbMtCz8xt5D2yelKOq8MRYN1MB1Nx1-R?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p></p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data: oxide thickness with mean=5.0 nm and std=0.2 nm
+thickness_data = np.random.normal(loc=5.0, scale=0.2, size=1000)
+
+# Define specification limits
+lower_spec = 4.6
+upper_spec = 5.4
+
+# Create a figure with two subplots side by side
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+
+# 1. Plot the Probability Density Function (PDF)
+sns.histplot(thickness_data, kde=True, stat="density", ax=ax1)
+ax1.set_title("Gate Oxide Thickness Distribution (PDF)", fontsize=14)
+ax1.set_xlabel("Thickness (nm)", fontsize=12)
+ax1.set_ylabel("Probability Density", fontsize=12)
+
+# Add vertical lines for specification limits and target
+ax1.axvline(lower_spec, color='red', linestyle='--', label=f'Lower Spec: {lower_spec} nm')
+ax1.axvline(upper_spec, color='red', linestyle='--', label=f'Upper Spec: {upper_spec} nm')
+ax1.axvline(5.0, color='green', linestyle='-', label='Target: 5.0 nm')
+
+# Calculate process capability indices
+mean = np.mean(thickness_data)
+std = np.std(thickness_data)
+cp = (upper_spec - lower_spec) / (6 * std)
+cpk = min((upper_spec - mean) / (3 * std), (mean - lower_spec) / (3 * std))
+
+# Add text box with process capability metrics
+textstr = f'Mean: {mean:.3f} nm\nStd Dev: {std:.3f} nm\nCp: {cp:.2f}\nCpk: {cpk:.2f}'
+props = dict(boxstyle='round', facecolor='white', alpha=0.5)
+ax1.text(0.05, 0.95, textstr, transform=ax1.transAxes, fontsize=12,
+         verticalalignment='top', bbox=props)
+
+ax1.legend()
+
+# 2. Plot the Cumulative Distribution Function (CDF)
+sorted_data = np.sort(thickness_data)
+cumulative_prob = np.arange(1, len(sorted_data) + 1) / len(sorted_data)
+
+ax2.plot(sorted_data, cumulative_prob, 'b-', linewidth=2, label='Empirical CDF')
+
+# Add theoretical normal CDF
+x = np.linspace(min(thickness_data), max(thickness_data), 1000)
+cdf = stats.norm.cdf(x, loc=mean, scale=std)
+ax2.plot(x, cdf, 'r--', linewidth=1.5, label='Theoretical Normal CDF')
+
+# Add vertical lines for specification limits
+ax2.axvline(lower_spec, color='red', linestyle='--', label=f'Lower Spec: {lower_spec} nm')
+ax2.axvline(upper_spec, color='red', linestyle='--', label=f'Upper Spec: {upper_spec} nm')
+
+# Calculate yield
+yield_rate = np.mean((thickness_data &gt;= lower_spec) &amp; (thickness_data &lt;= upper_spec)) * 100
+ax2.text(0.05, 0.5, f'Yield: {yield_rate:.2f}%', transform=ax2.transAxes, 
+         fontsize=12, bbox=props)
+
+ax2.set_title("Gate Oxide Thickness CDF", fontsize=14)
+ax2.set_xlabel("Thickness (nm)", fontsize=12)
+ax2.set_ylabel("Cumulative Probability", fontsize=12)
+ax2.grid(True, alpha=0.3)
+ax2.legend()
+
+# Mark the probability at specification limits
+lower_prob = stats.norm.cdf(lower_spec, loc=mean, scale=std)
+upper_prob = stats.norm.cdf(upper_spec, loc=mean, scale=std)
+
+ax2.plot([lower_spec, lower_spec], [0, lower_prob], 'k:', alpha=0.5)
+ax2.plot([lower_spec], [lower_prob], 'ro')
+ax2.text(lower_spec-0.15, lower_prob+0.05, f'{lower_prob*100:.1f}%', fontsize=10)
+
+ax2.plot([upper_spec, upper_spec], [0, upper_prob], 'k:', alpha=0.5)
+ax2.plot([upper_spec], [upper_prob], 'ro')
+ax2.text(upper_spec+0.02, upper_prob+0.05, f'{upper_prob*100:.1f}%', fontsize=10)
+
+plt.tight_layout()
+plt.show()
+
+# Analysis of out-of-spec probabilities
+print(f"Probability below lower spec: {stats.norm.cdf(lower_spec, loc=mean, scale=std)*100:.4f}%")
+print(f"Probability above upper spec: {(1-stats.norm.cdf(upper_spec, loc=mean, scale=std))*100:.4f}%")
+print(f"Total yield: {yield_rate:.4f}%")
+print(f"Process capability (Cp): {cp:.4f}")
+print(f"Process capability (Cpk): {cpk:.4f}")
+</code></pre>
+<pre><code></code></pre>
+<pre></pre>
+<h3>R Code</h3>
+<pre><code><br><br># Set random seed for reproducibility
+set.seed(42)
+
+# Generate sample data: oxide thickness with mean=5.0 nm and std=0.2 nm
+thickness_data &lt;- rnorm(1000, mean=5.0, sd=0.2)
+
+# Define specification limits
+lower_spec &lt;- 4.6
+upper_spec &lt;- 5.4
+
+# Set up a side-by-side plotting area
+par(mfrow=c(1,2), mar=c(5,4,4,1)+0.1)
+
+# 1. Plot the Probability Density Function (PDF)
+hist(thickness_data, breaks=30, freq=FALSE, 
+     main="Gate Oxide Thickness Distribution (PDF)",
+     xlab="Thickness (nm)", ylab="Probability Density",
+     col="lightblue", border="white")
+
+# Add density curve
+lines(density(thickness_data), col="blue", lwd=2)
+
+# Add normal distribution curve
+curve(dnorm(x, mean=mean(thickness_data), sd=sd(thickness_data)), 
+      col="darkgreen", lwd=2, add=TRUE)
+
+# Add vertical lines for specification limits and target
+abline(v=lower_spec, col="red", lty=2, lwd=2)
+abline(v=upper_spec, col="red", lty=2, lwd=2)
+abline(v=5.0, col="green", lwd=2)
+
+# Calculate process capability indices
+mean_val &lt;- mean(thickness_data)
+std_val &lt;- sd(thickness_data)
+cp &lt;- (upper_spec - lower_spec) / (6 * std_val)
+cpk &lt;- min((upper_spec - mean_val) / (3 * std_val), (mean_val - lower_spec) / (3 * std_val))
+
+# Add text box with process capability metrics
+legend("topleft", 
+       legend=c(paste("Mean:", round(mean_val, 3), "nm"),
+                paste("Std Dev:", round(std_val, 3), "nm"),
+                paste("Cp:", round(cp, 2)),
+                paste("Cpk:", round(cpk, 2)),
+                paste("Target: 5.0 nm"),
+                paste("Lower Spec:", lower_spec, "nm"),
+                paste("Upper Spec:", upper_spec, "nm")),
+       bty="n", bg="white")
+
+# 2. Plot the Cumulative Distribution Function (CDF)
+plot(ecdf(thickness_data), 
+     main="Gate Oxide Thickness CDF", 
+     xlab="Thickness (nm)", ylab="Cumulative Probability",
+     verticals=TRUE, do.points=FALSE, lwd=2, col="blue")
+
+# Add theoretical normal CDF
+x_vals &lt;- seq(min(thickness_data), max(thickness_data), length.out=1000)
+lines(x_vals, pnorm(x_vals, mean=mean_val, sd=std_val), col="red", lty=2, lwd=2)
+
+# Add vertical lines for specification limits
+abline(v=lower_spec, col="red", lty=2, lwd=2)
+abline(v=upper_spec, col="red", lty=2, lwd=2)
+
+# Add grid
+grid(lty=1, col=gray(0.9))
+
+# Calculate yield
+yield_rate &lt;- mean(thickness_data &gt;= lower_spec &amp; thickness_data &lt;= upper_spec) * 100
+
+# Mark the probability at specification limits
+lower_prob &lt;- pnorm(lower_spec, mean=mean_val, sd=std_val)
+upper_prob &lt;- pnorm(upper_spec, mean=mean_val, sd=std_val)
+
+points(lower_spec, lower_prob, pch=19, col="red")
+points(upper_spec, upper_prob, pch=19, col="red")
+
+segments(lower_spec, 0, lower_spec, lower_prob, lty=3)
+segments(upper_spec, 0, upper_spec, upper_prob, lty=3)
+
+text(lower_spec - 0.07, lower_prob + 0.05, paste0(round(lower_prob*100, 1), "%"))
+text(upper_spec + 0.07, upper_prob + 0.05, paste0(round(upper_prob*100, 1), "%"))
+
+# Add legend
+legend("bottomright", 
+       legend=c("Empirical CDF", "Theoretical Normal CDF", 
+                paste("Yield:", round(yield_rate, 2), "%"),
+                paste("Lower Spec:", lower_spec, "nm"),
+                paste("Upper Spec:", upper_spec, "nm")),
+       lty=c(1, 2, NA, 2, 2), 
+       col=c("blue", "red", "black", "red", "red"),
+       lwd=c(2, 2, NA, 2, 2),
+       bty="n", bg="white")
+
+# Reset plot parameters
+par(mfrow=c(1,1))
+
+# Print analysis results
+cat("Probability below lower spec:", pnorm(lower_spec, mean=mean_val, sd=std_val)*100, "%\n")
+cat("Probability above upper spec:", (1-pnorm(upper_spec, mean=mean_val, sd=std_val))*100, "%\n")
+cat("Total yield:", yield_rate, "%\n")
+cat("Process capability (Cp):", cp, "\n")
+cat("Process capability (Cpk):", cpk, "\n")
+</code></pre>
+<h2>Engineering Applications of PDF and CDF Plots</h2>
+<h3>Applications of PDF (Probability Density Function)</h3>
+<ol>
+<li>
+<p><strong>Process Capability Analysis</strong>: The PDF shows if the process is centered on target and if the spread (standard deviation) is small enough to meet specifications. Engineers use Cp and Cpk metrics to quantify this.</p>
+</li>
+<li>
+<p><strong>Defect Rate Estimation</strong>: Areas under the tails of the distribution beyond specification limits represent expected defect rates.</p>
+</li>
+<li>
+<p><strong>Root Cause Analysis</strong>: The shape of the distribution (skewness, bimodality, etc.) can indicate specific process issues:</p>
+<ul>
+<li>Bimodal distribution might indicate two different tools or process conditions</li>
+<li>Skewed distribution could suggest a systematic bias in the process</li>
+</ul>
+</li>
+<li>
+<p><strong>Specification Setting</strong>: Understanding the natural process variation helps in setting realistic specifications that balance quality with yield.</p>
+</li>
+<li>
+<p><strong>Process Optimization</strong>: By visualizing the distribution, engineers can focus on either centering the process (shifting the mean) or reducing variation (narrowing the distribution).</p>
+</li>
+</ol>
+<h3>Applications of CDF (Cumulative Distribution Function)</h3>
+<ol>
+<li>
+<p><strong>Yield Prediction</strong>: The CDF directly shows the probability of meeting specifications. The difference between upper and lower specification limits on the CDF gives the expected yield.</p>
+</li>
+<li>
+<p><strong>Percentile Analysis</strong>: Engineers can quickly identify what percentage of parts fall below any given value, which is crucial for quality control.</p>
+</li>
+<li>
+<p><strong>Tolerance Analysis</strong>: The CDF helps determine how specification changes would impact yield without requiring recalculation of the entire model.</p>
+</li>
+<li>
+<p><strong>Reliability Engineering</strong>: For time-to-failure data, the CDF represents the failure probability by a certain time point, enabling reliability predictions.</p>
+</li>
+<li>
+<p><strong>Quantile-Based Design</strong>: Instead of designing for average conditions, engineers can design for specific percentiles (e.g., 95th percentile loads or environmental conditions).</p>
+</li>
+<li>
+<p><strong>Statistical Process Control</strong>: Monitoring shifts in the CDF over time can detect process changes earlier than traditional control charts.</p>
+</li>
+</ol>
+<h2>Conclusion</h2>
+<p>In our semiconductor example, the PDF and CDF plots reveal critical information:</p>
+<ul>
+<li>The PDF shows if our oxide thickness is centered on the target value (5.0 nm) and whether the spread is appropriate.</li>
+<li>The CDF quantifies exactly what percentage of wafers will meet specifications, allowing precise yield forecasting.</li>
+<li>Process capability indices (Cp, Cpk) quantify how well the process meets specifications.</li>
+</ul>
+<p>These visualization techniques transform raw data into actionable engineering insights, enabling better decision-making in process control, product design, and quality management.</p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

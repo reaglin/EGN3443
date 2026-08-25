@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 11/Module 10 - 2 Sample Hypothesis Testing — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+<h1>Week 11/Module 10 - 2 Sample Hypothesis Testing — Module Topics</h1>
+<h2>Foundations of Two-Sample Hypothesis Testing</h2>
+<div class="summary">Introduces the core concepts and purpose of two-sample hypothesis testing, explaining when and why comparing two groups is necessary. Covers the logical framework of null and alternative hypotheses in a two-sample context.</div>
+<ul>
+<li><strong>Why Two-Sample Testing?</strong> <span class="el-body">— Two-sample hypothesis testing is used when a researcher needs to compare a characteristic — such as a mean or proportion — across two distinct groups rather than evaluating a single group against a fixed value.</span></li>
+<li><strong>The Null Hypothesis in a Two-Sample Context</strong> <span class="el-body">— In two-sample hypothesis testing, the null hypothesis (H₀) asserts that there is no meaningful difference between the two groups being compared.</span></li>
+<li><strong>The Alternative Hypothesis in a Two-Sample Context</strong> <span class="el-body">— The alternative hypothesis (H₁ or Hₐ) represents the claim that a real difference exists between the two groups, and it defines the direction and nature of the expected difference.</span></li>
+<li><strong>The Logical Framework of Two-Sample Testing</strong> <span class="el-body">— Two-sample hypothesis testing follows a structured logical process: assume no difference, collect sample data, calculate a test statistic, and decide whether the evidence is strong enough to reject that assumption.</span></li>
+<li><strong>Independent vs. Paired Groups</strong> <span class="el-body">— A foundational distinction in two-sample testing is whether the two groups are independent of each other or whether observations in one group are naturally paired with observations in the other.</span></li>
+<li><strong>Parameters Being Compared</strong> <span class="el-body">— Two-sample tests can be designed to compare different population parameters, most commonly means or proportions, depending on the type of data and the research question.</span></li>
+</ul>
+<h2>Independent vs. Paired Samples</h2>
+<div class="summary">Distinguishes between independent and paired (dependent) sample designs, outlining the characteristics of each group type. Learners explore how the relationship between samples determines the appropriate testing approach.</div>
+<ul>
+<li><strong>Defining Independent Samples</strong> <span class="el-body">— Independent samples consist of two groups where the observations in one group have no relationship or connection to the observations in the other group.</span></li>
+<li><strong>Defining Paired (Dependent) Samples</strong> <span class="el-body">— Paired samples, also called dependent samples, occur when each observation in one group is meaningfully linked to a specific observation in the other group.</span></li>
+<li><strong>Key Characteristics That Distinguish the Two Designs</strong> <span class="el-body">— The fundamental distinction between independent and paired samples lies in whether a logical or physical link exists between individual data points across the two groups.</span></li>
+<li><strong>How the Relationship Between Samples Determines the Testing Approach</strong> <span class="el-body">— The nature of the relationship between the two samples directly governs which hypothesis test is appropriate to apply.</span></li>
+<li><strong>Real-World Design Examples</strong> <span class="el-body">— Applying the distinction between independent and paired samples to real-world scenarios helps reinforce when each design is appropriate.</span></li>
+</ul>
+<h2>Assumptions and Conditions for Two-Sample Tests</h2>
+<div class="summary">Examines the statistical assumptions underlying two-sample tests, including normality, equal variances, and random sampling. Covers how to verify these conditions before selecting and applying a test.</div>
+<ul>
+<li><strong>Random Sampling Requirement</strong> <span class="el-body">— Two-sample hypothesis tests require that data in each group be collected through a random sampling process to ensure valid inference.</span></li>
+<li><strong>Normality Assumption</strong> <span class="el-body">— Many two-sample tests assume that the underlying population distributions are approximately normal, particularly when sample sizes are small.</span></li>
+<li><strong>Equal Variances (Homogeneity of Variance)</strong> <span class="el-body">— The standard two-sample t-test assumes that the two populations have equal variances, a condition known as homogeneity of variance or homoscedasticity.</span></li>
+<li><strong>Sample Size Considerations</strong> <span class="el-body">— Adequate sample size in each group is essential for a two-sample test to have sufficient statistical power and for assumptions like normality to hold through the Central Limit Theorem.</span></li>
+<li><strong>Independence of Observations Within Groups</strong> <span class="el-body">— Within each sample, individual observations must be independent of one another — one data point should not influence another within the same group.</span></li>
+<li><strong>Verifying Conditions Before Selecting a Test</strong> <span class="el-body">— Before applying any two-sample test, analysts must systematically verify which assumptions are met to select the most appropriate test statistic.</span></li>
+</ul>
+<h2>Comparing Two Means</h2>
+<div class="summary">Focuses on hypothesis tests for the difference between two population means using t-tests for both independent and paired samples. Learners practice selecting the correct test statistic and interpreting results.</div>
+<ul>
+<li><strong>Introduction to Two-Sample Mean Comparisons</strong> <span class="el-body">— When researchers want to determine whether two population means differ, they use a two-sample hypothesis test for means. The choice of test depends on whether the samples are independent or paired.</span></li>
+<li><strong>Independent Samples t-Test</strong> <span class="el-body">— The independent samples t-test is used when two groups are drawn from separate, unrelated populations and there is no natural pairing between observations. This test compares the means of the two groups while accounting for variability within each group.</span></li>
+<li><strong>Assumptions of the Independent Samples t-Test</strong> <span class="el-body">— Valid inference from an independent samples t-test requires that several underlying assumptions be met. Violations of these assumptions can lead to incorrect conclusions.</span></li>
+<li><strong>Paired Samples t-Test</strong> <span class="el-body">— The paired samples t-test is appropriate when two measurements are taken from the same subject or from naturally matched pairs, creating a dependent relationship between observations. This design reduces variability by controlling for individual differences.</span></li>
+<li><strong>Selecting the Correct Test: Independent vs. Paired</strong> <span class="el-body">— Choosing between the independent and paired t-test is a foundational decision that shapes the entire analysis. Selecting the wrong test can invalidate conclusions.</span></li>
+<li><strong>Interpreting Results and Making Decisions</strong> <span class="el-body">— After computing the test statistic, learners must compare it to the critical value or evaluate the p-value to reach a conclusion about the null hypothesis. Interpretation must always be placed in the real-world context of the problem.</span></li>
+</ul>
+<h2>Comparing Two Proportions</h2>
+<div class="summary">Addresses hypothesis testing for the difference between two population proportions using the z-test framework. Covers the setup of hypotheses, calculation of the test statistic, and interpretation of p-values.</div>
+<ul>
+<li><strong>Setting Up Hypotheses for Two Proportions</strong> <span class="el-body">— Hypothesis testing for two proportions begins by defining the null and alternative hypotheses in terms of the difference between two population proportions, p₁ and p₂.</span></li>
+<li><strong>Assumptions and Conditions for the Two-Proportion Z-Test</strong> <span class="el-body">— Before applying the z-test to two proportions, several conditions must be verified to ensure the sampling distributions of the proportions are approximately normal.</span></li>
+<li><strong>Calculating the Pooled Proportion</strong> <span class="el-body">— Under the null hypothesis that p₁ = p₂, a pooled proportion (p̂_c) is calculated by combining the two samples to produce a single best estimate of the common population proportion.</span></li>
+<li><strong>Computing the Z-Test Statistic</strong> <span class="el-body">— The test statistic for comparing two proportions follows a z-distribution and measures how many standard errors the observed difference in sample proportions falls from zero.</span></li>
+<li><strong>Determining and Interpreting the P-Value</strong> <span class="el-body">— The p-value for a two-proportion z-test represents the probability of observing a difference as extreme as the one calculated, assuming the null hypothesis is true.</span></li>
+<li><strong>Drawing Conclusions and Contextual Interpretation</strong> <span class="el-body">— After computing the p-value, the final step is to make a statistical decision and translate it into a meaningful conclusion within the context of the original problem.</span></li>
+</ul>
+<h2>Interpreting Results and Making Data-Driven Decisions</h2>
+<div class="summary">Guides learners in drawing meaningful conclusions from two-sample test outcomes within real-world contexts. Emphasizes communicating findings clearly and using statistical evidence to support decision making.</div>
+<ul>
+<li><strong>Connecting Statistical Results to Real-World Context</strong> <span class="el-body">— A statistically significant result only becomes meaningful when interpreted within the context of the original research question or business problem.</span></li>
+<li><strong>Interpreting the P-Value and Test Statistic</strong> <span class="el-body">— The p-value and test statistic together indicate whether observed differences between two groups are likely due to chance or reflect a true population difference.</span></li>
+<li><strong>Using Confidence Intervals to Quantify Differences</strong> <span class="el-body">— Confidence intervals complement hypothesis test results by providing a range of plausible values for the true difference between two group means or proportions.</span></li>
+<li><strong>Distinguishing Statistical Significance from Practical Significance</strong> <span class="el-body">— Practical significance — often measured by effect size — determines whether a statistically significant difference is large enough to matter in a real-world decision.</span></li>
+<li><strong>Communicating Findings to Diverse Audiences</strong> <span class="el-body">— Translating statistical findings into clear, jargon-free language is essential for ensuring that decision-makers and stakeholders can act on the results.</span></li>
+<li><strong>Making Data-Driven Decisions Based on Test Outcomes</strong> <span class="el-body">— The ultimate goal of two-sample hypothesis testing in applied settings is to support a decision — whether to adopt a new process, policy, product, or intervention.</span></li>
+<li><strong>Recognizing Limitations and Assumptions in Conclusions</strong> <span class="el-body">— Every two-sample test rests on assumptions, and conclusions must acknowledge where those assumptions may not fully hold in the data collected.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

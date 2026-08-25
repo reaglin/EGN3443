@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 13 Sample Problem 4</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div><h1 level="1">Engineering Problem: Concrete Strength Prediction with Uncertainty Quantification</h1>
+<h2 level="2">Problem Statement</h2>
+<p>A civil engineering firm needs to predict the compressive strength of concrete samples based on their water-cement ratio. While point estimates are useful, they want to understand the range of possible values to ensure structural safety with a specified confidence level.</p>
+<p>For infrastructure projects, understanding not just the expected concrete strength but also the uncertainty in these predictions is critical for safety margins and quality control.</p>
+<h2 level="2">Theoretical Background</h2>
+<p>In linear regression, prediction intervals differ from confidence intervals:</p>
+<ul depth="0">
+<li index="0"><strong>Confidence intervals</strong>: Estimate uncertainty in the population mean</li>
+<li index="1"><strong>Prediction intervals</strong>: Account for both model uncertainty and inherent random variability in individual observations</li>
+</ul>
+<p>A prediction interval is wider than a confidence interval because it includes:</p>
+<ol depth="0">
+<li index="0">Uncertainty in estimating the model parameters</li>
+<li index="1">Random variability of individual observations around the regression line</li>
+</ol>
+<h2 level="2">Solution Approach</h2>
+<p>I'll develop both Python and R solutions that:</p>
+<ol depth="0">
+<li index="0">Generate synthetic data representing concrete samples</li>
+<li index="1">Fit a linear regression model</li>
+<li index="2">Calculate prediction intervals</li>
+<li index="3">Visualize the results with appropriate charts</li>
+<li index="4">Analyze the findings</li>
+</ol>
+<h2 level="2">Analysis and Insights</h2>
+<h3 level="3">Interpretation of Results</h3>
+<p>From both the Python and R implementations, we can observe several key insights:</p>
+<ol depth="0">
+<li index="0"><strong>Model Fit</strong>: The linear regression shows a strong negative correlation between water-cement ratio and concrete strength. This aligns with engineering principles - higher water-cement ratios generally produce weaker concrete.</li>
+<li index="1"><strong>Prediction Intervals</strong>: The prediction intervals widen as we move away from the mean of the water-cement ratio data. This illustrates an important property of regression models - predictions have greater uncertainty at the boundaries of our data.</li>
+<li index="2"><strong>Uncertainty Quantification</strong>: The width of the prediction intervals provides crucial information about concrete strength variability. For example, at a water-cement ratio of 0.35, we might expect a strength of approximately 42-43 MPa, but with a 95% prediction interval of about ±6 MPa.</li>
+<li index="3"><strong>Bootstrapping Validation</strong>: The bootstrap validation confirms that our prediction intervals have approximately the expected coverage rate of 95%, validating our statistical approach.</li>
+</ol>
+<h3 level="3">Engineering Applications</h3>
+<p>This analysis has several practical applications in civil engineering:</p>
+<ol depth="0">
+<li index="0"><strong>Quality Control</strong>: Prediction intervals can be used to establish acceptable ranges for concrete strength testing. If test results fall outside the prediction intervals, it may indicate issues with the concrete mix or curing process.</li>
+<li index="1"><strong>Safety Factors</strong>: Engineers can use the width of prediction intervals to inform safety factors in structural design. Wider intervals suggest greater variability, which may necessitate larger safety margins.</li>
+<li index="2"><strong>Mix Design Optimization</strong>: By understanding the relationship between water-cement ratio and strength (including uncertainty), engineers can optimize concrete mix designs for specific applications.</li>
+<li index="3"><strong>Risk Management</strong>: When a specific minimum strength is required, the lower bound of the prediction interval provides a more conservative estimate than the point prediction, helping manage risk in critical applications.</li>
+</ol>
+<h3 level="3">Limitations and Considerations</h3>
+<ol depth="0">
+<li index="0"><strong>Model Assumptions</strong>: Linear regression assumes a linear relationship and homoscedastic errors. Real concrete strength data might violate these assumptions, potentially requiring more sophisticated models.</li>
+<li index="1"><strong>Additional Variables</strong>: Real concrete strength depends on many factors beyond water-cement ratio, including cement type, aggregate properties, additives, and curing conditions. A multivariate approach would be more comprehensive.</li>
+<li index="2"><strong>Sample Size</strong>: Larger sample sizes would provide more reliable estimates of both the regression parameters and the prediction intervals.</li>
+<li index="3"><strong>Non-linear Effects</strong>: At extreme water-cement ratios, the relationship may become non-linear. Our model would need to be adjusted accordingly.</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>Prediction intervals provide a valuable tool for engineers to quantify uncertainty in concrete strength predictions. By accounting for both model uncertainty and inherent variability, they offer a more complete picture than point estimates alone.</p>
+<p><strong>NOTE: Python Code is maintained in Colab. Some code will differ as I update code and change it due to changes in statistics libraries. The code here is for demonstration.&nbsp;</strong></p>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/1cS3UCIRcTx9cg1sPmpgJTcjqEsjl1Xqq?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from sklearn.linear_model import LinearRegression</code><br><code>from sklearn.metrics import mean_squared_error, r2_score</code><br><code>import scipy.stats as stats</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate synthetic data</code><br><code># Water-cement ratio typically ranges from 0.3 to 0.7</code><br><code># Higher water-cement ratio generally leads to lower strength</code><br><code>n_samples = 100</code><br><code>water_cement_ratio = np.random.uniform(0.3, 0.7, n_samples)</code></p>
+<p><code># True relationship: strength = 60 - 50*(water_cement_ratio) + noise</code><br><code># Adding noise to simulate real-world variability</code><br><code>noise = np.random.normal(0, 3, n_samples) &nbsp;# 3 MPa standard deviation</code><br><code>strength = 60 - 50 * water_cement_ratio + noise</code></p>
+<p><code># Create a dataframe</code><br><code>df = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'water_cement_ratio': water_cement_ratio,</code><br><code>&nbsp; &nbsp; 'strength': strength</code><br><code>})</code></p>
+<p><code># Split data into X and y</code><br><code>X = df[['water_cement_ratio']]</code><br><code>y = df['strength']</code></p>
+<p><code># Fit linear regression model</code><br><code>model = LinearRegression()</code><br><code>model.fit(X, y)</code></p>
+<p><code># Get model parameters</code><br><code>slope = model.coef_[0]</code><br><code>intercept = model.intercept_</code></p>
+<p><code># Calculate predictions</code><br><code>y_pred = model.predict(X)</code></p>
+<p><code># Calculate R² and RMSE for model evaluation</code><br><code>r2 = r2_score(y, y_pred)</code><br><code>rmse = np.sqrt(mean_squared_error(y, y_pred))</code></p>
+<p><code># Calculate prediction intervals</code><br><code># For this we need the mean squared error and the leverage</code><br><code>n = len(X)</code><br><code>p = 1 &nbsp;# Number of predictors (excluding intercept)</code><br><code>dof = n - p - 1 &nbsp;# Degrees of freedom</code></p>
+<p><code># Calculate MSE from the model</code><br><code>mse = np.sum((y - y_pred)**2) / dof</code></p>
+<p><code># Prepare grid for prediction</code><br><code>x_grid = np.linspace(0.25, 0.75, 100).reshape(-1, 1)</code></p>
+<p><code># Calculate predictions for the grid</code><br><code>y_grid_pred = model.predict(x_grid)</code></p>
+<p><code># Calculate prediction intervals</code><br><code># We need the leverage values which depend on the X values</code><br><code># For simple linear regression, this can be calculated as:</code><br><code>x_mean = np.mean(X)</code><br><code>x_std = np.std(X, ddof=1)</code><br><code>t_value = stats.t.ppf(0.975, dof) &nbsp;# 95% prediction interval</code></p>
+<p><code># Initialize arrays for lower and upper bounds</code><br><code>lower_bound = np.zeros(len(x_grid))</code><br><code>upper_bound = np.zeros(len(x_grid))</code></p>
+<p><code>for i, x_val in enumerate(x_grid):</code><br><code>&nbsp; &nbsp; # Calculate leverage for this x value</code><br><code>&nbsp; &nbsp; leverage = 1/n + (x_val - x_mean)**2 / (np.sum((X - x_mean)**2))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Calculate prediction interval</code><br><code>&nbsp; &nbsp; # Formula: pred ± t * sqrt(MSE * (1 + leverage))</code><br><code>&nbsp; &nbsp; prediction_error = t_value * np.sqrt(mse * (1 + leverage))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; lower_bound[i] = y_grid_pred[i] - prediction_error</code><br><code>&nbsp; &nbsp; upper_bound[i] = y_grid_pred[i] + prediction_error</code></p>
+<p><code># Plot the results</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code># Plot data points</code><br><code>plt.scatter(X, y, alpha=0.6, color='blue', label='Concrete Samples')</code></p>
+<p><code># Plot regression line</code><br><code>plt.plot(x_grid, y_grid_pred, color='red', linewidth=2, label=f'Regression Line (R² = {r2:.3f})')</code></p>
+<p><code># Plot prediction intervals</code><br><code>plt.fill_between(x_grid.flatten(), lower_bound, upper_bound,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color='red', alpha=0.2, label='95% Prediction Interval')</code></p>
+<p><code># Plot settings</code><br><code>plt.title('Concrete Strength vs Water-Cement Ratio with Prediction Intervals', fontsize=14)</code><br><code>plt.xlabel('Water-Cement Ratio', fontsize=12)</code><br><code>plt.ylabel('Compressive Strength (MPa)', fontsize=12)</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.legend(fontsize=12)</code></p>
+<p><code># Add equation and RMSE to the plot</code><br><code>equation = f"Strength = {intercept:.2f} - {abs(slope):.2f} × (Water-Cement Ratio)"</code><br><code>plt.text(0.30, 25, equation, fontsize=12, bbox=dict(facecolor='white', alpha=0.8))</code><br><code>plt.text(0.30, 22, f"RMSE = {rmse:.2f} MPa", fontsize=12, bbox=dict(facecolor='white', alpha=0.8))</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Analysis of prediction intervals at specific points</code><br><code>test_points = np.array([0.35, 0.45, 0.55, 0.65]).reshape(-1, 1)</code><br><code>test_predictions = model.predict(test_points)</code></p>
+<p><code>print("Analysis of Prediction Intervals at Specific Water-Cement Ratios:")</code><br><code>print("------------------------------------------------------------")</code><br><code>print("W/C Ratio | Predicted Strength | 95% Prediction Interval | Interval Width")</code><br><code>print("------------------------------------------------------------")</code></p>
+<p><code>for i, x_val in enumerate(test_points):</code><br><code>&nbsp; &nbsp; # Calculate leverage for this x value</code><br><code>&nbsp; &nbsp; leverage = 1/n + (x_val - x_mean)**2 / (np.sum((X - x_mean)**2))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Calculate prediction interval</code><br><code>&nbsp; &nbsp; prediction_error = t_value * np.sqrt(mse * (1 + leverage))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; lower = test_predictions[i] - prediction_error</code><br><code>&nbsp; &nbsp; upper = test_predictions[i] + prediction_error</code><br><code>&nbsp; &nbsp; width = upper - lower</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; print(f" &nbsp;{x_val[0]:.2f} &nbsp; &nbsp;| &nbsp; &nbsp; &nbsp;{test_predictions[i]:.2f} MPa &nbsp; &nbsp; | &nbsp; [{lower[0]:.2f}, {upper[0]:.2f}] MPa &nbsp; | &nbsp; {width[0]:.2f} MPa")</code></p>
+<p><code># Perform bootstrapping to validate prediction intervals</code><br><code>n_bootstrap = 1000</code><br><code>coverage_count = 0</code></p>
+<p><code>for _ in range(n_bootstrap):</code><br><code>&nbsp; &nbsp; # Sample with replacement</code><br><code>&nbsp; &nbsp; indices = np.random.choice(n, n, replace=True)</code><br><code>&nbsp; &nbsp; X_boot = X.iloc[indices]</code><br><code>&nbsp; &nbsp; y_boot = y.iloc[indices]</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Fit model to bootstrap sample</code><br><code>&nbsp; &nbsp; model_boot = LinearRegression()</code><br><code>&nbsp; &nbsp; model_boot.fit(X_boot, y_boot)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Make predictions on original data</code><br><code>&nbsp; &nbsp; y_boot_pred = model_boot.predict(X)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Calculate if original point falls within prediction interval</code><br><code>&nbsp; &nbsp; mse_boot = np.sum((y_boot - model_boot.predict(X_boot))**2) / (len(X_boot) - p - 1)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Check for a specific point (e.g., middle of range)</code><br><code>&nbsp; &nbsp; test_idx = n // 2</code><br><code>&nbsp; &nbsp; test_x = X.iloc[test_idx:test_idx+1]</code><br><code>&nbsp; &nbsp; test_y = y.iloc[test_idx]</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; leverage_boot = 1/len(X_boot) + ((test_x.values - np.mean(X_boot))**2 /&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (np.sum((X_boot - np.mean(X_boot))**2)))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; pred_error_boot = t_value * np.sqrt(mse_boot * (1 + leverage_boot))</code><br><code>&nbsp; &nbsp; y_pred_boot = model_boot.predict(test_x)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; lower_boot = y_pred_boot - pred_error_boot</code><br><code>&nbsp; &nbsp; upper_boot = y_pred_boot + pred_error_boot</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; if lower_boot &lt;= test_y &lt;= upper_boot:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; coverage_count += 1</code></p>
+<p><code>coverage_rate = coverage_count / n_bootstrap</code><br><code>print(f"\nBootstrap Coverage Rate: {coverage_rate:.2%}")</code><br><code>print(f"Expected Coverage Rate: 95%")</code><br><code>print(f"Difference: {abs(coverage_rate - 0.95):.2%}")</code></p>
+<h2>Solution in R</h2>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

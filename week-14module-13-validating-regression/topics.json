@@ -1,0 +1,1161 @@
+{
+  "ModuleFolderName": "Week_14_Module_13_-_Validating_Regression",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:37:57.9058905-04:00",
+  "ModifiedDate": "2026-08-24T20:40:39.0866184-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+      "Title": "Foundations of Regression Validation",
+      "Summary": "Introduces the purpose and importance of validating regression models, establishing why validation is essential for ensuring reliability and generalizability of model outputs.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "ModifiedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "Elements": [
+        {
+          "Id": "3e2c6af5-6894-4ce8-b63c-0408683edf08",
+          "TopicId": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+          "Title": "What Is Regression Validation?",
+          "BodyText": "Regression validation is the systematic process of evaluating whether a regression model accurately represents the underlying data patterns and can reliably generalize to new, unseen data.",
+          "Notes": "Validation goes beyond simply fitting a model \u2014 it asks whether the model will hold up under real-world conditions and different data samples.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "ModifiedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "Items": [
+            {
+              "Id": "17ed2b3f-6253-469a-b8a4-e7ea04ff3a4d",
+              "Text": "Validation distinguishes between a model that merely fits training data and one that captures true relationships.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0f608d3f-f27f-4d41-9f7d-978d3eafa0f3",
+              "Text": "It encompasses a collection of techniques applied after model building to scrutinize model quality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f972255e-fb3d-424e-85ac-78bac874a9a7",
+              "Text": "Without validation, a model may appear successful on the surface while hiding serious structural flaws.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "69ccb9cd-ab68-4585-877d-616008618c13",
+          "TopicId": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+          "Title": "Why Validation Is Essential",
+          "BodyText": "Skipping validation risks deploying models that produce misleading predictions, leading to poor decisions in applied settings.",
+          "Notes": "In business, healthcare, or policy contexts, an unvalidated model can have significant real-world consequences if its outputs are treated as ground truth.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "ModifiedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "Items": [
+            {
+              "Id": "1908e7c6-49a9-4150-b61f-db9ff37aa563",
+              "Text": "Unvalidated models may overfit to sample-specific noise rather than generalizable signal.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "739315cc-4266-47ce-930b-da9582c36fe0",
+              "Text": "Validation helps identify when a model\u0027s assumptions are violated, which can invalidate its statistical inferences.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "98726647-6660-4896-86fb-41c392ed0ba5",
+              "Text": "Reliable model outputs depend on confirming that the model behaves consistently across different data conditions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4e408091-fe52-47d3-acc9-dcda75b4fb96",
+          "TopicId": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+          "Title": "Reliability vs. Generalizability",
+          "BodyText": "Two core goals of regression validation are ensuring a model is reliable \u2014 producing consistent results \u2014 and generalizable \u2014 performing well on data beyond the training sample.",
+          "Notes": "A model can be reliable within a dataset but fail to generalize if it has been overfit, making the distinction between these two concepts critical.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "ModifiedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "Items": [
+            {
+              "Id": "cbf8820e-44f2-4deb-b465-8e94fcfd6041",
+              "Text": "Reliability refers to the stability and consistency of model estimates across repeated measurements or samples.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "35fa585e-8c9f-497a-9ffc-022d055e0f50",
+              "Text": "Generalizability refers to the model\u0027s ability to produce accurate predictions on new, independent datasets.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c2dee4fb-eee7-4063-8285-999dede24d62",
+              "Text": "Validation techniques such as cross-validation directly test generalizability by simulating out-of-sample performance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d65da533-d5de-49c4-aee7-2d6e432393cd",
+          "TopicId": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+          "Title": "Core Assumptions Underlying Regression Models",
+          "BodyText": "Regression models rest on a set of statistical assumptions \u2014 including linearity, homoscedasticity, and independence \u2014 that must hold for results to be valid and interpretable.",
+          "Notes": "Violating these assumptions does not always invalidate a model entirely, but it does require the analyst to understand and communicate the implications of those violations.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "ModifiedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "Items": [
+            {
+              "Id": "6245c225-e4ae-42d9-b453-64fe9f353ad5",
+              "Text": "Linearity assumes the relationship between predictors and the outcome is linear in nature.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b27a9bfd-2e60-4a1e-9490-27ed125bcba1",
+              "Text": "Homoscedasticity requires that the variance of residuals remains constant across all levels of the predictor variables.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "28c72c14-1621-4d78-910c-c6099068d853",
+              "Text": "Independence assumes that individual observations are not systematically related to one another.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "849d072b-9b43-49de-8ef1-e46a7cb7d2f2",
+              "Text": "Checking these assumptions is a foundational step before drawing conclusions from any regression output.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "ef3cd0fe-8c69-4c16-9eae-be39f63ca8e3",
+          "TopicId": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+          "Title": "The Role of Residual Analysis in Validation",
+          "BodyText": "Residual analysis examines the differences between observed and predicted values to reveal patterns that indicate model misfit or assumption violations.",
+          "Notes": "Residual plots are among the most informative diagnostic tools available to regression analysts, often revealing problems invisible in summary statistics alone.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "ModifiedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "Items": [
+            {
+              "Id": "569f3359-75f5-4b46-8e8f-503049342dfa",
+              "Text": "Residuals that are randomly scattered around zero suggest the model is capturing the data structure appropriately.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "834826b7-78e0-4091-ae70-1b496875dfcf",
+              "Text": "Systematic patterns in residuals \u2014 such as curves or funneling \u2014 signal violations of linearity or homoscedasticity.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8877e340-aa12-4910-aac9-dc573bced9f1",
+              "Text": "Analyzing residuals is one of the first and most important steps in the validation workflow.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a9a76b64-a1a6-4f71-a467-47a9ff5227ae",
+          "TopicId": "55de24a6-47e5-48e6-b7d5-981a1c1f2e9e",
+          "Title": "Validation as a Cycle of Model Refinement",
+          "BodyText": "Validation is not a one-time check but an iterative process that informs ongoing model improvement and refinement.",
+          "Notes": "Each round of validation may reveal new issues \u2014 such as influential outliers or missing predictors \u2014 that prompt the analyst to revise and re-evaluate the model.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "ModifiedDate": "2026-08-24T20:38:18.5975273-04:00",
+          "Items": [
+            {
+              "Id": "e36d8ca1-b7fc-496b-9c81-19dd377cfc7c",
+              "Text": "Findings from validation often lead analysts back to the modeling stage to adjust predictors, transformations, or model structure.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "db03b226-0c1d-4574-930b-85b7be5327df",
+              "Text": "This iterative cycle ensures the final model is both statistically sound and practically useful.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8ebbc26d-f2ce-4259-be51-3252833ec12c",
+              "Text": "Documenting each validation step supports transparency and reproducibility in model development.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+      "Title": "Assessing Regression Model Assumptions",
+      "Summary": "Covers the core statistical assumptions underlying regression models, including linearity, homoscedasticity, and independence, and explains how violations of these assumptions affect model integrity.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "ModifiedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "Elements": [
+        {
+          "Id": "558f92f9-63a5-4461-b3b8-4098a80ba655",
+          "TopicId": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+          "Title": "Linearity Assumption",
+          "BodyText": "The linearity assumption requires that the relationship between the predictor variables and the outcome variable is linear, meaning changes in predictors produce proportional changes in the response.",
+          "Notes": "A common way to check linearity is to plot residuals against fitted values; a random scatter indicates linearity, while a curved pattern suggests a nonlinear relationship that may require transformation or polynomial terms.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:38:44.144631-04:00",
+          "ModifiedDate": "2026-08-24T20:38:44.144631-04:00",
+          "Items": [
+            {
+              "Id": "95f16837-3180-4049-83ed-5c5e3ac214e5",
+              "Text": "If the linearity assumption is violated, regression coefficients will be biased and predictions will be systematically inaccurate across the range of the predictors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2ae140a8-5b7f-41d4-b395-4a1b279bbdfe",
+              "Text": "Scatterplots of each predictor against the outcome variable can provide an early visual check for linearity before model fitting.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0ecd309f-14b3-4b67-92b5-857a2a6fcf63",
+              "Text": "Transformations such as logarithmic or square-root scaling can sometimes correct nonlinear relationships and restore assumption compliance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2cd85405-7774-42eb-9144-5071f0d45348",
+          "TopicId": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+          "Title": "Homoscedasticity Assumption",
+          "BodyText": "Homoscedasticity means that the variance of the residuals remains constant across all levels of the independent variables, ensuring that prediction errors are equally spread throughout the model\u0027s range.",
+          "Notes": "A residual vs. fitted value plot that shows a funnel or fan shape is a classic indicator of heteroscedasticity, where error variance increases or decreases with the fitted values.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:38:44.144631-04:00",
+          "ModifiedDate": "2026-08-24T20:38:44.144631-04:00",
+          "Items": [
+            {
+              "Id": "426c78c5-7cad-49e4-8418-1abc905de6ab",
+              "Text": "Violation of homoscedasticity, known as heteroscedasticity, leads to inefficient parameter estimates and unreliable standard errors, which in turn distorts hypothesis tests and confidence intervals.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "49978282-b59a-4e73-83d5-8bbe82458980",
+              "Text": "Weighted least squares regression or variance-stabilizing transformations on the response variable are common remedies when heteroscedasticity is detected.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c366c560-a7da-454d-8e61-7143fdf842bc",
+              "Text": "Formal statistical tests such as the Breusch-Pagan test can supplement visual inspection to confirm whether heteroscedasticity is present.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dbdf1cc5-b344-4fc6-96e0-d186d7acd7ce",
+          "TopicId": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+          "Title": "Independence of Errors Assumption",
+          "BodyText": "The independence assumption states that residuals from one observation must not be correlated with residuals from another, ensuring that each data point contributes unique information to the model.",
+          "Notes": "Independence violations are especially common in time-series data, longitudinal studies, or clustered data where observations are naturally grouped or sequenced.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:38:44.144631-04:00",
+          "ModifiedDate": "2026-08-24T20:38:44.144631-04:00",
+          "Items": [
+            {
+              "Id": "28f992e7-4a23-49cd-91c5-7778495e74a5",
+              "Text": "When errors are correlated\u2014a condition called autocorrelation\u2014standard errors are underestimated, making regression coefficients appear more statistically significant than they truly are.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "82af5d67-d2b9-42f9-bcc0-9729b49d760a",
+              "Text": "The Durbin-Watson statistic is a widely used diagnostic tool to detect autocorrelation in the residuals of a regression model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dcd3e42c-be5c-4144-8244-f0e38e616985",
+              "Text": "Remedies for violated independence include using time-series models, mixed-effects models, or incorporating lagged variables to account for the dependency structure.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2ec31b26-e80c-401a-b5d0-7166364c99c9",
+          "TopicId": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+          "Title": "Normality of Residuals",
+          "BodyText": "Although not always strictly required for estimation, the normality assumption holds that residuals are approximately normally distributed, which is important for valid inference, particularly in small samples.",
+          "Notes": "In large samples, the Central Limit Theorem often ensures that inference remains valid even with moderate departures from normality, making this assumption less critical at scale.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:38:44.144631-04:00",
+          "ModifiedDate": "2026-08-24T20:38:44.144631-04:00",
+          "Items": [
+            {
+              "Id": "eeb4316b-5b4c-4a17-b424-8675adf804c6",
+              "Text": "Departures from normality can affect the accuracy of p-values and confidence intervals, leading to incorrect conclusions about the significance of predictors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8bbc8b63-f983-4669-a0a9-8c676a71a230",
+              "Text": "Q-Q plots (quantile-quantile plots) and histograms of residuals are standard visual tools for assessing whether the normality assumption holds.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9fda3f50-aefd-4095-b79c-fc048ccaa99b",
+              "Text": "Formal tests such as the Shapiro-Wilk test can provide statistical evidence of non-normality, though visual methods are often more informative in practice.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "17d0f6d0-52fa-4e2d-8824-4cc6d84b6443",
+          "TopicId": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+          "Title": "Consequences of Assumption Violations on Model Integrity",
+          "BodyText": "When regression assumptions are violated, the model\u0027s parameter estimates, standard errors, and inferential conclusions can all be compromised, undermining the model\u0027s reliability and generalizability.",
+          "Notes": "The severity of the impact depends on the nature and degree of the violation; some violations, like mild non-normality in large samples, have minimal practical impact, while others, like severe heteroscedasticity, can fundamentally invalidate results.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:38:44.144631-04:00",
+          "ModifiedDate": "2026-08-24T20:38:44.144631-04:00",
+          "Items": [
+            {
+              "Id": "e9a7a0ed-8f1d-4d79-a113-56d5e9088be5",
+              "Text": "Biased coefficients resulting from assumption violations mean that the model does not accurately capture the true relationships in the population, leading to poor predictive performance.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "03ed0068-f766-4774-8c63-b12d1f92d1fa",
+              "Text": "Inflated or deflated standard errors caused by violations such as autocorrelation or heteroscedasticity make hypothesis tests unreliable, potentially producing false positives or false negatives.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "933bf731-5af0-4536-a3df-a7c07173e24a",
+              "Text": "Identifying and addressing assumption violations through diagnostics, transformations, or alternative modeling approaches is essential to producing trustworthy and defensible regression outputs.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "68011904-0b53-4cc1-b483-8ec2403b0220",
+          "TopicId": "fb9ff98f-690f-47c3-a41a-f6cac030769f",
+          "Title": "Diagnosing Assumptions Through Residual Analysis",
+          "BodyText": "Residual analysis is the primary diagnostic toolkit for evaluating whether regression assumptions are met, using patterns in the residuals to signal specific types of violations.",
+          "Notes": "Residuals are the differences between observed and predicted values; ideally they should appear as random noise with no discernible pattern, reflecting that all systematic information has been captured by the model.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:38:44.144631-04:00",
+          "ModifiedDate": "2026-08-24T20:38:44.144631-04:00",
+          "Items": [
+            {
+              "Id": "38c05ca2-e422-439b-b9a2-b6d10b0d8059",
+              "Text": "A residuals vs. fitted values plot is used simultaneously to check for linearity and homoscedasticity, making it one of the most informative single diagnostic plots in regression validation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "433c524a-a01d-4cd9-9bc4-faf36806c3a7",
+              "Text": "Scale-location plots, which display the square root of standardized residuals against fitted values, provide a clearer view of whether variance is constant across the fitted range.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e83a16b6-94a3-42bf-8ea3-af107965e105",
+              "Text": "Combining multiple diagnostic plots\u2014residuals vs. fitted, Q-Q plots, and scale-location plots\u2014gives a comprehensive picture of how well the model satisfies its core assumptions.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+      "Title": "Residual Analysis",
+      "Summary": "Examines how to compute, interpret, and visualize residuals to detect patterns or anomalies that indicate potential model weaknesses or assumption violations.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "ModifiedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "Elements": [
+        {
+          "Id": "2800a03e-77b0-4344-bb51-4e036c9f2eca",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "What Are Residuals?",
+          "BodyText": "A residual is the difference between an observed value and the value predicted by the regression model for that same data point.",
+          "Notes": "For example, if a model predicts a house price of $300,000 but the actual price is $320,000, the residual is \u002B$20,000. Residuals represent the unexplained portion of the outcome after the model has been applied.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "7666395c-3235-4fc3-95a4-5e8e0218a069",
+              "Text": "Residual = Observed Value \u2212 Predicted Value; a positive residual means the model underestimated, while a negative residual means it overestimated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "029ea823-cc13-4bcf-86b1-3843249783dd",
+              "Text": "Collectively, residuals capture everything the model failed to explain, making them a direct window into model performance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "94685ed4-79f4-41b8-91e5-77ca8861a78a",
+              "Text": "In ordinary least squares regression, the model is fit precisely by minimizing the sum of squared residuals.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bab951d0-470e-44d0-a653-673e10f010d8",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "Computing Residuals",
+          "BodyText": "Residuals are calculated for every observation in the dataset by subtracting each predicted value from its corresponding observed value.",
+          "Notes": "Most statistical software packages (R, Python\u0027s scikit-learn, SPSS) automatically compute and store residuals after fitting a model, making the process straightforward in practice.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "22ab5be5-0df1-4bbf-97d9-c366ba32e850",
+              "Text": "After fitting the regression equation, apply it to each observation\u0027s predictor values to generate the full set of predicted values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "935a018a-3c40-4873-aaf5-f18daf4fc181",
+              "Text": "Subtract each predicted value from the actual observed outcome to obtain the individual residuals.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b28f4d14-01b2-45dc-8a63-16f9bb964a6d",
+              "Text": "Standardized residuals (residual divided by its standard deviation) are often computed alongside raw residuals to facilitate comparison and outlier detection.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "23f1c101-ae01-4c1a-996f-1a809be286af",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "Residual Plots: Residuals vs. Fitted Values",
+          "BodyText": "Plotting residuals against fitted (predicted) values is the most fundamental diagnostic visualization in regression analysis.",
+          "Notes": "A well-behaved plot shows points randomly scattered around the horizontal zero line with no discernible pattern. A funnel shape suggests heteroscedasticity, while a curved pattern suggests non-linearity.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "eb9f14d8-fbfd-4be9-a515-2261cc8408d0",
+              "Text": "If the regression assumptions are met, residuals should appear as a random cloud centered near zero across all fitted values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "47a94548-3a74-489c-849b-c1eecfb12979",
+              "Text": "A systematic curve or arch in the plot indicates that a linear model may not adequately capture the relationship, signaling the need for transformation or polynomial terms.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "05f8b35c-7ec9-44a8-a357-c6e640f5e427",
+              "Text": "A fan-shaped spread where variance increases with fitted values is a classic indicator of heteroscedasticity (non-constant variance).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "69465be0-cdec-4245-a2b3-e4822b033a56",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "Detecting Non-Linearity Through Residuals",
+          "BodyText": "Patterns in residual plots can reveal that the true relationship between predictors and the outcome is not linear, exposing a key assumption violation.",
+          "Notes": "For instance, if residuals are consistently positive at low and high fitted values but negative in the middle, a quadratic term or data transformation (e.g., log) may improve the model.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "5923dadb-3773-4079-af1f-cf51f2e964b3",
+              "Text": "A non-random, curved pattern in a residuals-vs-fitted plot is direct evidence that the linearity assumption has been violated.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bd7beef4-0da0-48a0-b4ac-0dd54191971d",
+              "Text": "Plotting residuals against each individual predictor separately can help identify which specific variable is contributing the non-linear relationship.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3125741f-543c-44b1-aa2e-022750707ce1",
+              "Text": "Remedies include adding polynomial terms, applying variable transformations, or switching to a non-linear modeling approach.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "36907cfc-996a-447a-b197-aae26608484d",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "Assessing Homoscedasticity with Residuals",
+          "BodyText": "Homoscedasticity\u2014constant variance of residuals across all levels of predicted values\u2014is a core regression assumption that residual plots help evaluate.",
+          "Notes": "The Breusch-Pagan or White tests provide formal statistical tests for heteroscedasticity when visual inspection is inconclusive.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "37b828d7-8668-4336-ae91-eba1a2eb47fc",
+              "Text": "When residual variance is roughly equal across all fitted values, the homoscedasticity assumption is satisfied and standard errors remain reliable.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "498e92b4-b139-496a-9c4b-06db7d59d974",
+              "Text": "Heteroscedasticity inflates or deflates standard errors, leading to misleading hypothesis tests and confidence intervals for regression coefficients.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "caadb33d-e8ee-47be-9f2b-e5a35a5090c3",
+              "Text": "Weighted least squares regression or variance-stabilizing transformations (e.g., log or square-root of the outcome) are common corrective measures.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "64957058-f242-4a1e-acba-9326d5dc3623",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "Identifying Outliers and Influential Points via Residuals",
+          "BodyText": "Unusually large residuals flag potential outliers\u2014observations that the model fits poorly\u2014which may indicate data errors or genuinely anomalous cases.",
+          "Notes": "Cook\u0027s Distance combines leverage and residual magnitude to measure how much a single observation influences the entire set of estimated regression coefficients, serving as a comprehensive influence diagnostic.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "4f70400d-e255-4d12-a5a9-6d7b1b5b4d0c",
+              "Text": "Standardized residuals with an absolute value greater than 2 or 3 are commonly used thresholds for flagging potential outliers.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2bdf0f32-8495-4b6e-87be-a6cbce8336d3",
+              "Text": "High-leverage points are observations with extreme predictor values that have the potential to disproportionately pull the regression line toward them.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bc085404-5d06-44d9-a731-7a80fc4ce293",
+              "Text": "Influential observations should be investigated for data entry errors, and analysts should assess whether removing or retaining them is substantively justified rather than automatically excluded.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "71a9b396-5b3e-4cc4-a6af-55b774dc9052",
+          "TopicId": "81e82d75-cad7-46f9-8f8b-1afe926eb660",
+          "Title": "Normality of Residuals",
+          "BodyText": "Many inferential procedures in regression assume that residuals are approximately normally distributed, an assumption that can be checked visually and statistically.",
+          "Notes": "Violations of normality are less critical for large samples due to the Central Limit Theorem, but remain important for small samples where t-tests and F-tests on coefficients may be unreliable.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "ModifiedDate": "2026-08-24T20:39:12.0791486-04:00",
+          "Items": [
+            {
+              "Id": "c6bc9c70-d0bc-4d90-9aae-2b1ee27472c4",
+              "Text": "A Q-Q (quantile-quantile) plot compares the distribution of residuals to a theoretical normal distribution; points falling close to the diagonal line indicate approximate normality.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "000f57d0-26b4-45b9-b42e-edd86dcafc37",
+              "Text": "A histogram of residuals provides an accessible visual check for symmetry and bell-shaped distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0a1beae0-3ee0-4015-be06-f1e33788856e",
+              "Text": "Formal tests such as the Shapiro-Wilk test can statistically evaluate normality, though they are sensitive to sample size and should be interpreted alongside visual diagnostics.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "df11b61e-1e59-4523-b881-e9226a347523",
+      "Title": "Cross-Validation Techniques",
+      "Summary": "Explores cross-validation methods used to assess how well a regression model generalizes to independent datasets, reducing the risk of overfitting and improving predictive confidence.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "ModifiedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "Elements": [
+        {
+          "Id": "d3f21db8-7a5f-479d-b280-1dbc54aa9e8f",
+          "TopicId": "df11b61e-1e59-4523-b881-e9226a347523",
+          "Title": "Why Cross-Validation Is Needed",
+          "BodyText": "Cross-validation addresses the fundamental problem of overfitting, where a model performs well on training data but fails to generalize to new, unseen data.",
+          "Notes": "A model that is too closely fit to its training data captures noise rather than true underlying patterns, leading to poor predictive performance in practice.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "ModifiedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "Items": [
+            {
+              "Id": "615e3f2f-4335-4f44-9242-b960b6ab647a",
+              "Text": "Overfitting occurs when a model learns the specific quirks of the training dataset rather than generalizable relationships.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c3aa80b1-6570-46c5-80f9-51d84006e71e",
+              "Text": "Cross-validation provides a more realistic estimate of how well a model will perform on independent datasets.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd80de62-0a24-40d5-b75a-5b898de986ad",
+              "Text": "Using the same data for both fitting and evaluating a model produces overly optimistic performance metrics.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "108d33e3-9a55-4740-8306-f8713f200f04",
+              "Text": "Cross-validation helps analysts make more confident decisions about whether a regression model is ready for real-world application.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bfaf224f-a852-42ef-a35a-cd3c71849cf6",
+          "TopicId": "df11b61e-1e59-4523-b881-e9226a347523",
+          "Title": "Holdout Method (Train/Test Split)",
+          "BodyText": "The holdout method is the simplest form of cross-validation, dividing the available data into a training set used to build the model and a test set used to evaluate its performance.",
+          "Notes": "A common split ratio is 70/30 or 80/20 (training/testing). While easy to implement, results can vary depending on how the data is divided, especially with smaller datasets.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "ModifiedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "Items": [
+            {
+              "Id": "e6e61225-de12-4447-aabc-bd9f0133b81d",
+              "Text": "The training set is used exclusively to estimate model coefficients and fit the regression equation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "094b63ef-4f56-4a9a-942c-65294b86f968",
+              "Text": "The test set is kept separate and used only for evaluating predictive accuracy, providing an unbiased performance estimate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "898f3c4e-ad75-4417-9f3e-44ee34c60b4a",
+              "Text": "Performance metrics such as Mean Squared Error (MSE) or R-squared are computed on the test set to assess generalizability.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a0d9b8e4-d64f-498b-a71e-f6f415186e4c",
+              "Text": "The holdout method is sensitive to the random split chosen, which can produce variable results across different partitions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9fe673fd-2877-43df-9f9d-7e5d78c8d671",
+          "TopicId": "df11b61e-1e59-4523-b881-e9226a347523",
+          "Title": "K-Fold Cross-Validation",
+          "BodyText": "K-fold cross-validation improves upon the holdout method by repeatedly partitioning the data into k equally sized subsets, or folds, training and testing the model k times.",
+          "Notes": "A common choice is k=10 (10-fold cross-validation). Each fold serves as the test set exactly once, and the results are averaged across all k iterations for a more stable estimate.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "ModifiedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "Items": [
+            {
+              "Id": "7bd953ae-079e-42c7-9c44-aeeef1496bee",
+              "Text": "The dataset is divided into k equally sized folds; in each iteration, one fold serves as the test set while the remaining k-1 folds form the training set.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a5f83469-dd5e-45ab-a194-187c1503ef3e",
+              "Text": "This process is repeated k times so that every observation is used for testing exactly once, reducing evaluation bias.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9726085c-044c-4929-8f0d-62ca3b814e3f",
+              "Text": "Performance metrics are averaged across all k iterations, producing a more reliable and stable estimate of model generalizability.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "cf483fa4-621c-4a22-aa1c-28036de83cf0",
+              "Text": "K-fold cross-validation makes better use of available data compared to a single holdout split, which is especially valuable with smaller datasets.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "959364d9-9876-4b31-bed1-acb04f594883",
+          "TopicId": "df11b61e-1e59-4523-b881-e9226a347523",
+          "Title": "Leave-One-Out Cross-Validation (LOOCV)",
+          "BodyText": "Leave-One-Out Cross-Validation (LOOCV) is an extreme case of k-fold cross-validation where k equals the total number of observations, meaning each individual data point serves as its own test set.",
+          "Notes": "LOOCV is computationally expensive for large datasets but is particularly useful when data is scarce and every observation must be maximally utilized.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "ModifiedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "Items": [
+            {
+              "Id": "d8836959-2887-44a4-b69c-e347581bc7f9",
+              "Text": "In LOOCV, the model is trained on all observations except one, which is used as the sole test point; this is repeated for every observation in the dataset.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a92fed34-5b58-4a68-8f9a-0bec04efb8b8",
+              "Text": "Because nearly all data is used for training in each iteration, LOOCV produces models with very low bias in performance estimation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f23e9b58-b397-430c-a913-faeef95c57de",
+              "Text": "LOOCV can have high variance in its estimates and is computationally intensive since it requires fitting the model n times, where n is the sample size.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c412b0a1-2c35-4a16-8255-228b76602302",
+              "Text": "It is best suited for small datasets where other cross-validation methods may not yield stable performance estimates.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "d2536ed2-9c1c-4fc0-8af1-e9c7dc8b1c18",
+          "TopicId": "df11b61e-1e59-4523-b881-e9226a347523",
+          "Title": "Interpreting Cross-Validation Results",
+          "BodyText": "The output of cross-validation is a set of performance metrics computed across multiple test sets, which together provide an overall assessment of model generalizability.",
+          "Notes": "Comparing training performance to cross-validation performance is key: a large gap suggests overfitting, while consistently poor performance across both may indicate underfitting.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "ModifiedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "Items": [
+            {
+              "Id": "afe8776f-674d-46df-b861-849825be6fe4",
+              "Text": "Common metrics reported from cross-validation include average Mean Squared Error (MSE), Root Mean Squared Error (RMSE), and cross-validated R-squared.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b87f8f43-4ad6-4826-9241-20cd643713c2",
+              "Text": "A model with high training accuracy but significantly lower cross-validation accuracy is likely overfitting the training data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cc26cc33-fa8a-4c7a-8c38-4a450974c495",
+              "Text": "Low and consistent error across folds indicates that the model generalizes well to new data.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6034d6b7-aac7-499a-9db0-e094b74404cc",
+              "Text": "Cross-validation results can be used to compare competing models and select the one that best balances fit and generalizability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "7a8942a1-2740-46b9-a78a-4cea01d90fe5",
+          "TopicId": "df11b61e-1e59-4523-b881-e9226a347523",
+          "Title": "Cross-Validation and Model Refinement",
+          "BodyText": "Cross-validation is not only an evaluation tool but also a guide for model refinement, helping analysts identify when to simplify, adjust, or reconsider their regression model.",
+          "Notes": "Iterative use of cross-validation during model building \u2014 such as when selecting predictors or tuning complexity \u2014 leads to models that are more trustworthy when deployed.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "ModifiedDate": "2026-08-24T20:39:38.2995027-04:00",
+          "Items": [
+            {
+              "Id": "29f5588d-68b5-4a44-b839-fb7705c9a264",
+              "Text": "If cross-validation reveals poor generalizability, analysts may consider removing irrelevant predictors, addressing multicollinearity, or applying regularization techniques.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5e15be86-43b2-435c-aef6-ff77eca028d7",
+              "Text": "Cross-validation can be used to compare models with different sets of predictors, helping to identify the most parsimonious model that still generalizes well.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f9c13840-a822-41a1-933d-7700ea72a0db",
+              "Text": "Repeated use of cross-validation during model building should be done carefully to avoid inadvertently overfitting to the validation process itself.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "dd3a720a-3719-47f9-a45f-8abd9b726e14",
+              "Text": "Ultimately, cross-validation supports informed decision-making about whether a regression model is suitable for its intended predictive application.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+      "Title": "Identifying and Diagnosing Model Weaknesses",
+      "Summary": "Guides learners through systematic approaches to detecting common regression problems such as multicollinearity, outliers, and influential observations that can compromise model validity.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "ModifiedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "Elements": [
+        {
+          "Id": "ae7bebd6-e7c6-4090-b92b-c689e0dbf8b4",
+          "TopicId": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+          "Title": "Understanding Multicollinearity",
+          "BodyText": "Multicollinearity occurs when two or more predictor variables in a regression model are highly correlated with each other, making it difficult to isolate the individual effect of each predictor.",
+          "Notes": "For example, including both \u0027years of education\u0027 and \u0027income level\u0027 as predictors may introduce multicollinearity if the two variables are strongly related in the dataset.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "ModifiedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "Items": [
+            {
+              "Id": "5d4fa77a-35e2-4ac8-8fb7-d2bf47e43405",
+              "Text": "High multicollinearity inflates the standard errors of regression coefficients, making them unstable and difficult to interpret.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f31d84a-4137-4930-a894-c43c3756a9b4",
+              "Text": "The Variance Inflation Factor (VIF) is the primary diagnostic tool; VIF values above 5 or 10 are commonly used thresholds to flag problematic multicollinearity.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "001b24e5-678b-4c14-b31d-c2c2657aa985",
+              "Text": "Correlation matrices among predictors can provide an initial visual check before computing VIF values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "668d4621-711c-4f36-8ad1-494885e9c680",
+              "Text": "Remedies include removing one of the correlated predictors, combining them into a composite variable, or applying dimensionality reduction techniques.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c34df8eb-f399-4846-b5bd-e377be1d8b93",
+          "TopicId": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+          "Title": "Detecting Outliers in Regression",
+          "BodyText": "Outliers are data points whose response values deviate substantially from what the model predicts, and they can distort regression estimates if left unaddressed.",
+          "Notes": "A single extreme outlier can shift the regression line noticeably, leading to poor predictions for the majority of the data.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "ModifiedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "Items": [
+            {
+              "Id": "06d820b2-dc1f-4ab1-be78-c1afa8808de6",
+              "Text": "Standardized residuals and studentized residuals are used to identify outliers; observations with absolute values greater than 2 or 3 are typically flagged.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "13443fa6-eee0-4a86-a575-f3730ce72ba6",
+              "Text": "Residual plots (residuals vs. fitted values) provide a visual method for spotting observations that the model consistently mispredicts.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "24b78fa1-5be6-4805-a680-effee39897c4",
+              "Text": "Outliers should be investigated for data entry errors, measurement issues, or genuinely unusual cases before deciding whether to exclude or retain them.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "49b07934-0556-46c3-ad96-cae456d5e7cc",
+              "Text": "Removing outliers without justification can introduce bias, so decisions must be documented and theoretically grounded.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "77116030-b3d7-40aa-85a1-d0d868cd217e",
+          "TopicId": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+          "Title": "Identifying Influential Observations",
+          "BodyText": "Influential observations are data points that, if removed, would substantially change the estimated regression coefficients, even if they do not appear as obvious outliers in the response variable.",
+          "Notes": "An observation can have high leverage without being an outlier, or it can be an outlier without having high leverage; the combination of both is most concerning.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "ModifiedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "Items": [
+            {
+              "Id": "38885018-c8d4-45cf-a9e3-6e506c4c80ba",
+              "Text": "Leverage measures how far an observation\u0027s predictor values are from the mean of all predictors; high-leverage points have disproportionate potential to influence the model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4d0d36c7-0e25-4c92-bc4a-340e166f07de",
+              "Text": "Cook\u0027s Distance combines leverage and residual size into a single influence metric; values greater than 1 (or greater than 4/n) are commonly used as cut-offs.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ff2ebd45-75df-4fed-a2aa-9a9ae4f526cd",
+              "Text": "DFFITS and DFBETAS are additional diagnostics that measure how much fitted values or individual coefficients change when a specific observation is removed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "05861672-8c34-4205-a490-dfb816211b46",
+              "Text": "Influential observations should be examined contextually \u2014 they may represent important edge cases or signal model misspecification rather than errors.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c540092f-e6e0-4126-b016-9275c08f4cc3",
+          "TopicId": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+          "Title": "Systematic Diagnostic Workflow",
+          "BodyText": "A structured, step-by-step diagnostic process helps ensure that no common regression problem is overlooked during model validation.",
+          "Notes": "Running diagnostics in a consistent order \u2014 from global assumption checks down to individual observation scrutiny \u2014 prevents confirmation bias and ensures thoroughness.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "ModifiedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "Items": [
+            {
+              "Id": "1e2604d2-aa8d-4e81-98e1-36171ce5062d",
+              "Text": "Begin with visual inspection of residual plots to detect broad patterns such as nonlinearity, heteroscedasticity, or clustering before applying formal tests.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9c73b028-9ea1-4aac-8f22-27e225898be7",
+              "Text": "Proceed to compute multicollinearity diagnostics (VIF, correlation matrix) to assess whether predictor relationships are distorting coefficient estimates.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d6fdf03a-5bca-4aff-94a1-2cb866efc1b7",
+              "Text": "Follow with outlier screening using standardized residuals, then apply influence diagnostics such as Cook\u0027s Distance to identify observations driving the model.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4f75ba4c-887a-4a59-ad43-9bd8fa8f185b",
+              "Text": "Document each finding and its potential impact on model validity before deciding on corrective actions such as transformation, variable removal, or re-specification.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bbbe2132-ff35-4190-9768-a483ddb92348",
+          "TopicId": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+          "Title": "Interpreting Diagnostic Plots",
+          "BodyText": "Diagnostic plots translate numerical regression output into visual summaries that make model weaknesses easier to recognize and communicate.",
+          "Notes": "Software packages such as R and Python\u0027s statsmodels automatically generate standard sets of diagnostic plots, including residuals vs. fitted, Q-Q plots, scale-location, and residuals vs. leverage.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "ModifiedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "Items": [
+            {
+              "Id": "87c069ce-a96c-4a3a-be38-98d5350fc774",
+              "Text": "A residuals vs. fitted values plot should show points randomly scattered around zero; any systematic curve suggests a violation of linearity.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "17d33c37-c5bc-4bbf-b631-bdfffca034d0",
+              "Text": "A Normal Q-Q plot assesses whether residuals follow a normal distribution; heavy tails or S-shaped curves indicate departures from normality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0f72f86f-e692-48b5-bb71-7e609cea6ccb",
+              "Text": "A scale-location plot (square root of standardized residuals vs. fitted values) reveals heteroscedasticity when the spread of points increases or decreases systematically.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "0933e7b3-5428-4d20-947c-20b835e38ede",
+              "Text": "A residuals vs. leverage plot, often annotated with Cook\u0027s Distance contours, simultaneously identifies high-leverage and high-influence observations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a0d3dcc8-4676-4a5f-92f5-d046629d0f27",
+          "TopicId": "bcc7df58-070b-4e78-8363-6d87b85e2219",
+          "Title": "Consequences of Ignoring Model Weaknesses",
+          "BodyText": "Failing to diagnose and address regression problems can lead to biased coefficients, invalid inference, and poor predictive performance in practice.",
+          "Notes": "In applied settings such as business forecasting or clinical research, undetected model weaknesses can result in costly or harmful decisions based on misleading outputs.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "ModifiedDate": "2026-08-24T20:40:09.6618209-04:00",
+          "Items": [
+            {
+              "Id": "c3c5871a-459c-4f03-afe7-055b36235b9a",
+              "Text": "Unaddressed multicollinearity produces unreliable coefficient estimates where signs may even reverse, making interpretation meaningless.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d40c5919-d13b-4bdf-a916-fbbd7ae7ad83",
+              "Text": "Influential observations left in the model can cause it to fit a small subset of data well while performing poorly across the broader population.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bf457a78-edde-4350-9aab-95f33368ab91",
+              "Text": "Outliers that inflate residual variance reduce statistical power and can lead to incorrect conclusions about predictor significance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1755b854-4fc0-446e-9b19-481f97179094",
+              "Text": "Presenting regression results without validation evidence undermines the credibility and reproducibility of the analysis.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+      "Title": "Model Refinement and Decision-Making",
+      "Summary": "Addresses strategies for refining regression models based on validation findings and equips learners to make informed decisions about model selection, adjustment, and practical application.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "ModifiedDate": "2026-08-24T20:37:57.9058905-04:00",
+      "Elements": [
+        {
+          "Id": "d5085856-cdda-436d-bcf0-af9182ec1db5",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Interpreting Validation Results to Guide Refinement",
+          "BodyText": "Validation findings such as poor residual patterns, high cross-validation error, or violated assumptions serve as diagnostic signals that direct specific model improvements.",
+          "Notes": "For example, a funnel-shaped residual plot suggests heteroscedasticity, which may call for a log transformation of the outcome variable rather than a complete model rebuild.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "e6031a81-8884-4856-9559-d2e146405725",
+              "Text": "Residual analysis can reveal systematic patterns indicating missing predictors, non-linearity, or outlier influence that must be addressed before the model is used.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "55e9aede-ed42-4378-8835-dd001e13e689",
+              "Text": "Cross-validation metrics like RMSE or MAE that differ substantially between training and test sets signal overfitting, prompting simplification of the model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "acfb95d5-2e18-4ee2-9ab1-dc0471e78a2d",
+              "Text": "Violated assumptions are not automatic disqualifiers; each violation should be matched to a targeted corrective strategy rather than wholesale model rejection.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fdf5b988-8961-42bf-902d-b7d454923e95",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Variable Selection and Model Simplification",
+          "BodyText": "Refining a regression model often involves removing redundant or non-contributing predictors to improve interpretability and generalizability.",
+          "Notes": "Stepwise selection, LASSO regularization, and theory-driven pruning are common approaches; each has trade-offs between automation and conceptual soundness.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "70865a96-3a84-4352-8337-a5c6e8b0a547",
+              "Text": "Predictors with high p-values, low effect sizes, or high multicollinearity (VIF \u003E 10) are candidates for removal or consolidation.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1d56cfa9-0778-44c1-867c-d855e1bf38c1",
+              "Text": "Removing variables should be done iteratively, re-evaluating model fit after each change, since predictors can interact in ways that affect others when dropped.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "793d24f7-0454-4935-9ac6-522ffe6dc1d3",
+              "Text": "Simpler models with fewer predictors are often preferred when predictive accuracy is comparable, as they are easier to communicate and less prone to overfitting.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7e2c3709-a53f-44a5-ae8b-3032e9d3715e",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Applying Transformations and Functional Form Adjustments",
+          "BodyText": "When linearity or homoscedasticity assumptions are violated, transforming variables or changing the functional form of the model can restore validity.",
+          "Notes": "Common transformations include log, square root, and polynomial terms. The choice should be guided by both statistical diagnostics and theoretical reasoning about the relationship.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "b21378ea-01bc-4c5b-bb1d-73f97609dd97",
+              "Text": "Logarithmic transformations of skewed predictors or outcomes can linearize relationships and stabilize variance across the range of fitted values.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "955ce8a7-7980-463d-b34d-bc2202570f0a",
+              "Text": "Adding polynomial terms (e.g., a squared predictor) allows the model to capture curvilinear relationships without switching to a fully different model class.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "85342fd3-e828-45d8-a02d-f387afcd95b6",
+              "Text": "After any transformation, assumptions should be re-checked to confirm the adjustment resolved the original violation without introducing new problems.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9ab60ff2-b57d-466e-a01d-6108a93d8888",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Comparing Competing Models",
+          "BodyText": "Model refinement frequently involves choosing among several candidate models, requiring systematic comparison using both statistical criteria and practical considerations.",
+          "Notes": "No single criterion should dominate the decision; a model that wins on AIC but performs poorly on holdout data may not be the best practical choice.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "0d82ec87-bf56-4025-8da8-4c54a384aa67",
+              "Text": "Adjusted R\u00B2 penalizes unnecessary predictors, making it more suitable than R\u00B2 alone for comparing models with different numbers of variables.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c28f7089-3336-403f-aae6-69088b33083b",
+              "Text": "Information criteria such as AIC and BIC balance model fit against complexity, with lower values indicating a more parsimonious and better-fitting model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3ed76cec-5674-4cfa-97c2-66a2990be2dc",
+              "Text": "Cross-validation performance on held-out data provides the most direct evidence of how well competing models will generalize to new observations.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "232a0dbc-4b75-4ffe-bba9-0c753cbc43d0",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Balancing Statistical Performance and Practical Utility",
+          "BodyText": "A statistically valid model is not automatically a practically useful one; model selection must weigh predictive accuracy against interpretability, cost of data collection, and stakeholder needs.",
+          "Notes": "In applied settings, a slightly less accurate model that uses only three readily available predictors may be far more deployable than a complex model requiring ten variables.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "afc186ca-3ee4-4cd3-a315-4b6e40fe1575",
+              "Text": "Practitioners should define success criteria before selecting a final model, including acceptable error thresholds, required predictor availability, and audience for the results.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "470d293d-9d1a-448e-8fdd-2988fd81dd0c",
+              "Text": "A model with strong in-sample fit but poor out-of-sample performance should not be deployed, regardless of how impressive its R\u00B2 appears.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f6eac409-3aa9-48b0-ad4d-6157dfbf57a3",
+              "Text": "Communicating model uncertainty and limitations to decision-makers is as important as the model\u0027s numerical performance metrics.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "044bc7e6-d9be-40bd-ba82-28f5b4ef9a06",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Deciding When a Model Is Sufficient for Application",
+          "BodyText": "Knowing when to stop refining and commit to a model for practical use is a critical judgment call that balances the costs of further iteration against the risks of premature deployment.",
+          "Notes": "The principle of diminishing returns applies: successive rounds of refinement typically yield smaller improvements, and at some point additional changes add complexity without meaningful gain.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "20d5c9cb-cf95-4039-aa6f-bd9188376246",
+              "Text": "A model can be considered ready for application when it meets pre-defined accuracy benchmarks, satisfies key assumptions, and performs consistently across validation samples.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "98b1749b-e000-466f-b8aa-8f1c8d1e9020",
+              "Text": "Domain knowledge should inform the final deployment decision \u2014 statistical adequacy is necessary but not sufficient if the model contradicts established subject-matter understanding.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4b4d1b9d-5fdc-453f-83f4-fc1de9c26a3d",
+              "Text": "Documenting the validation process and any known limitations allows future users and stakeholders to apply the model responsibly and revisit it as new data become available.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "41869648-79dd-4126-882e-a08bff1b894e",
+          "TopicId": "b6705041-832d-4b09-b09d-f66a67e41bc5",
+          "Title": "Iterative Refinement as a Workflow",
+          "BodyText": "Model refinement is rarely a single step; it is best understood as a structured, iterative cycle of diagnose, adjust, validate, and re-evaluate.",
+          "Notes": "Treating refinement as a workflow rather than a one-time fix encourages disciplined decision-making and reduces the risk of cherry-picking changes that inflate apparent performance.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "ModifiedDate": "2026-08-24T20:40:39.0865051-04:00",
+          "Items": [
+            {
+              "Id": "8bfff4aa-e626-4e66-b8a3-6c3748d6a08c",
+              "Text": "Each iteration should begin with a clear hypothesis about what is wrong with the current model and what specific change is expected to address it.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "01a80a36-07f5-4253-8cb8-4a4ec2f6f359",
+              "Text": "Changes should be made one at a time when possible so that the effect of each adjustment can be isolated and evaluated independently.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c3e84adc-8e88-41f4-ab9f-671c5b26f044",
+              "Text": "Keeping a record of each model version, the rationale for changes, and the resulting validation metrics creates an audit trail that supports transparent and reproducible analysis.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 38
+}

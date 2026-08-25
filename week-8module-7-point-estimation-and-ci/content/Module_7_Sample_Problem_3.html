@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 7 Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div><h1>Module 7 Sample Problem 3</h1><h2 level="2">Module 7 Problem 3: Confidence Interval for Material Strength</h2>
+<h3 level="3">Problem Statement</h3>
+<p>An aerospace engineer is testing the tensile strength of a new aluminum alloy for aircraft components. They test 25 specimens and find a mean tensile strength of 520 MPa with a sample standard deviation of 15 MPa. Determine the 95% confidence interval for the mean tensile strength of this alloy.</p>
+<h3 level="3">Step-by-Step Solution</h3>
+<ol depth="0">
+<li index="0">Identify the given values:
+<ul depth="1">
+<li index="0">Sample size (n) = 25</li>
+<li index="1">Sample mean (x̄) = 520 MPa</li>
+<li index="2">Sample standard deviation (s) = 15 MPa</li>
+<li index="3">Confidence level = 95%</li>
+</ul>
+</li>
+<li index="1">Since the population standard deviation is unknown, we use the t-distribution:
+<ul depth="1">
+<li index="0">Degrees of freedom = n - 1 = 24</li>
+<li index="1">t(0.025, 24) for a 95% confidence level = 2.064</li>
+</ul>
+</li>
+<li index="2">Calculate the margin of error:
+<ul depth="1">
+<li index="0">Margin of error = t(0.025, 24) × (s/√n)</li>
+<li index="1">Margin of error = 2.064 × (15/√25)</li>
+<li index="2">Margin of error = 2.064 × (15/5)</li>
+<li index="3">Margin of error = 2.064 × 3</li>
+<li index="4">Margin of error = 6.192</li>
+</ul>
+</li>
+<li index="3">Calculate the confidence interval:
+<ul depth="1">
+<li index="0">CI = x̄ ± margin of error</li>
+<li index="1">CI = 520 ± 6.192</li>
+<li index="2">CI = (513.808, 526.192)</li>
+</ul>
+</li>
+</ol>
+<p>Therefore, the 95% confidence interval for the mean tensile strength is (513.81 MPa, 526.19 MPa).</p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1TQ7wDg7urkJf-ozVRgjuCFRgOpHxzf-3?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import matplotlib.pyplot as plt</code><br><code>import scipy.stats as stats</code><br><code>import seaborn as sns</code></p>
+<p><code># Example 1: Aerospace aluminum alloy tensile strength</code><br><code>sample_mean = 520 &nbsp;# MPa</code><br><code>sample_std = 15 &nbsp; &nbsp;# MPa</code><br><code>sample_size = 25</code><br><code>confidence_level = 0.95</code></p>
+<p><code># Calculate degrees of freedom and t-critical value</code><br><code>df = sample_size - 1</code><br><code>alpha = 1 - confidence_level</code><br><code>t_critical = stats.t.ppf(1 - alpha/2, df)</code></p>
+<p><code># Calculate margin of error</code><br><code>margin_of_error = t_critical * (sample_std / np.sqrt(sample_size))</code></p>
+<p><code># Calculate confidence interval</code><br><code>ci_lower = sample_mean - margin_of_error</code><br><code>ci_upper = sample_mean + margin_of_error</code></p>
+<p><code>print(f"Example 1: Tensile Strength of Aluminum Alloy")</code><br><code>print(f"Sample Mean: {sample_mean} MPa")</code><br><code>print(f"Sample Size: {sample_size}")</code><br><code>print(f"Sample Standard Deviation: {sample_std} MPa")</code><br><code>print(f"Degrees of Freedom: {df}")</code><br><code>print(f"t-critical value (95% confidence): {t_critical:.3f}")</code><br><code>print(f"Margin of Error: {margin_of_error:.3f} MPa")</code><br><code>print(f"95% Confidence Interval: ({ci_lower:.3f}, {ci_upper:.3f}) MPa")</code></p>
+<p><code># Generate a normal distribution for visualization</code><br><code>x = np.linspace(sample_mean - 4*sample_std, sample_mean + 4*sample_std, 1000)</code><br><code>y = stats.norm.pdf(x, sample_mean, sample_std)</code></p>
+<p><code># Create visualization</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.plot(x, y, 'b-', linewidth=2, label='Distribution')</code><br><code>plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label='Sample Mean')</code><br><code>plt.axvline(ci_lower, color='green', linestyle='--', linewidth=2, label='95% CI Lower')</code><br><code>plt.axvline(ci_upper, color='green', linestyle='--', linewidth=2)</code></p>
+<p><code># Shade the confidence interval</code><br><code>ci_x = np.linspace(ci_lower, ci_upper, 100)</code><br><code>ci_y = stats.norm.pdf(ci_x, sample_mean, sample_std)</code><br><code>plt.fill_between(ci_x, ci_y, alpha=0.3, color='green')</code></p>
+<p><code>plt.title('Tensile Strength of Aluminum Alloy with 95% Confidence Interval')</code><br><code>plt.xlabel('Tensile Strength (MPa)')</code><br><code>plt.ylabel('Probability Density')</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Create a bootstrap simulation to validate our confidence interval</code><br><code>np.random.seed(42)</code><br><code>bootstrap_samples = 10000</code><br><code>bootstrap_means = np.zeros(bootstrap_samples)</code></p>
+<p><code># Generate sample data based on our sample statistics</code><br><code>original_sample = np.random.normal(sample_mean, sample_std, sample_size)</code></p>
+<p><code># Bootstrap procedure</code><br><code>for i in range(bootstrap_samples):</code><br><code>&nbsp; &nbsp; # Resample with replacement</code><br><code>&nbsp; &nbsp; resample = np.random.choice(original_sample, size=sample_size, replace=True)</code><br><code>&nbsp; &nbsp; bootstrap_means[i] = np.mean(resample)</code></p>
+<p><code># Calculate bootstrap confidence interval</code><br><code>bootstrap_ci_lower = np.percentile(bootstrap_means, 2.5)</code><br><code>bootstrap_ci_upper = np.percentile(bootstrap_means, 97.5)</code></p>
+<p><code>print("\nBootstrap Validation:")</code><br><code>print(f"Bootstrap 95% CI: ({bootstrap_ci_lower:.3f}, {bootstrap_ci_upper:.3f}) MPa")</code></p>
+<p><code># Plot bootstrap distribution</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.histplot(bootstrap_means, bins=50, kde=True)</code><br><code>plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label='Sample Mean')</code><br><code>plt.axvline(bootstrap_ci_lower, color='purple', linestyle='--', linewidth=2, label='Bootstrap 95% CI')</code><br><code>plt.axvline(bootstrap_ci_upper, color='purple', linestyle='--', linewidth=2)</code><br><code>plt.title('Bootstrap Distribution of Sample Means')</code><br><code>plt.xlabel('Tensile Strength (MPa)')</code><br><code>plt.ylabel('Frequency')</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p></p>
+<h3>Solution in R</h3>
+<p><code># Example 1: Aerospace aluminum alloy tensile strength</code><br><code>sample_mean &lt;- 520 &nbsp;# MPa</code><br><code>sample_std &lt;- 15 &nbsp; &nbsp;# MPa</code><br><code>sample_size &lt;- 25</code><br><code>confidence_level &lt;- 0.95</code></p>
+<p><code># Calculate degrees of freedom and t-critical value</code><br><code>df &lt;- sample_size - 1</code><br><code>alpha &lt;- 1 - confidence_level</code><br><code>t_critical &lt;- qt(1 - alpha/2, df)</code></p>
+<p><code># Calculate margin of error</code><br><code>margin_of_error &lt;- t_critical * (sample_std / sqrt(sample_size))</code></p>
+<p><code># Calculate confidence interval</code><br><code>ci_lower &lt;- sample_mean - margin_of_error</code><br><code>ci_upper &lt;- sample_mean + margin_of_error</code></p>
+<p><code># Print results</code><br><code>cat("Example 1: Tensile Strength of Aluminum Alloy\n")</code><br><code>cat(sprintf("Sample Mean: %g MPa\n", sample_mean))</code><br><code>cat(sprintf("Sample Size: %d\n", sample_size))</code><br><code>cat(sprintf("Sample Standard Deviation: %g MPa\n", sample_std))</code><br><code>cat(sprintf("Degrees of Freedom: %d\n", df))</code><br><code>cat(sprintf("t-critical value (95%% confidence): %.3f\n", t_critical))</code><br><code>cat(sprintf("Margin of Error: %.3f MPa\n", margin_of_error))</code><br><code>cat(sprintf("95%% Confidence Interval: (%.3f, %.3f) MPa\n", ci_lower, ci_upper))</code></p>
+<p><code># Generate a normal distribution for visualization</code><br><code>x &lt;- seq(sample_mean - 4*sample_std, sample_mean + 4*sample_std, length.out = 1000)</code><br><code>y &lt;- dnorm(x, mean = sample_mean, sd = sample_std)</code></p>
+<p><code># Create visualization</code><br><code>png("tensile_strength_ci.png", width = 800, height = 600)</code><br><code>plot(x, y, type = "l", col = "blue", lwd = 2,</code><br><code>&nbsp; &nbsp; &nbsp;main = "Tensile Strength of Aluminum Alloy with 95% Confidence Interval",</code><br><code>&nbsp; &nbsp; &nbsp;xlab = "Tensile Strength (MPa)", ylab = "Probability Density")</code></p>
+<p><code># Add lines for sample mean and CI</code><br><code>abline(v = sample_mean, col = "red", lwd = 2)</code><br><code>abline(v = ci_lower, col = "green", lwd = 2, lty = 2)</code><br><code>abline(v = ci_upper, col = "green", lwd = 2, lty = 2)</code></p>
+<p><code># Shade the confidence interval</code><br><code>ci_x &lt;- seq(ci_lower, ci_upper, length.out = 100)</code><br><code>ci_y &lt;- dnorm(ci_x, mean = sample_mean, sd = sample_std)</code><br><code>polygon(c(ci_x, rev(ci_x)), c(ci_y, rep(0, length(ci_y))), col = rgb(0, 1, 0, 0.3), border = NA)</code></p>
+<p><code># Add legend</code><br><code>legend("topright", legend = c("Distribution", "Sample Mean", "95% CI"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;col = c("blue", "red", "green"), lty = c(1, 1, 2), lwd = c(2, 2, 2))</code><br><code>grid()</code><br><code>dev.off()</code></p>
+<p><code># Create a bootstrap simulation to validate our confidence interval</code><br><code>set.seed(42)</code><br><code>bootstrap_samples &lt;- 10000</code><br><code>bootstrap_means &lt;- numeric(bootstrap_samples)</code></p>
+<p><code># Generate sample data based on our sample statistics</code><br><code>original_sample &lt;- rnorm(sample_size, mean = sample_mean, sd = sample_std)</code></p>
+<p><code># Bootstrap procedure</code><br><code>for (i in 1:bootstrap_samples) {</code><br><code>&nbsp; # Resample with replacement</code><br><code>&nbsp; resample &lt;- sample(original_sample, size = sample_size, replace = TRUE)</code><br><code>&nbsp; bootstrap_means[i] &lt;- mean(resample)</code><br><code>}</code></p>
+<p><code># Calculate bootstrap confidence interval</code><br><code>bootstrap_ci &lt;- quantile(bootstrap_means, c(0.025, 0.975))</code></p>
+<p><code>cat("\nBootstrap Validation:\n")</code><br><code>cat(sprintf("Bootstrap 95%% CI: (%.3f, %.3f) MPa\n", bootstrap_ci[1], bootstrap_ci[2]))</code></p>
+<p><code># Plot bootstrap distribution</code><br><code>png("tensile_strength_bootstrap.png", width = 800, height = 600)</code><br><code>hist(bootstrap_means, breaks = 50, col = "lightblue", border = "white",</code><br><code>&nbsp; &nbsp; &nbsp;main = "Bootstrap Distribution of Sample Means",</code><br><code>&nbsp; &nbsp; &nbsp;xlab = "Tensile Strength (MPa)", freq = FALSE)</code><br><code>lines(density(bootstrap_means), col = "blue", lwd = 2)</code><br><code>abline(v = sample_mean, col = "red", lwd = 2)</code><br><code>abline(v = bootstrap_ci[1], col = "purple", lwd = 2, lty = 2)</code><br><code>abline(v = bootstrap_ci[2], col = "purple", lwd = 2, lty = 2)</code><br><code>legend("topright", legend = c("Density", "Sample Mean", "Bootstrap 95% CI"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;col = c("blue", "red", "purple"), lty = c(1, 1, 2), lwd = c(2, 2, 2))</code><br><code>grid()</code><br><code>dev.off()</code></p>
+<p><code># Verify with built-in t.test function</code><br><code>t_test_result &lt;- t.test(original_sample, conf.level = confidence_level)</code><br><code>cat("\nVerification with t.test function:\n")</code><br><code>print(t_test_result$conf.int)</code></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

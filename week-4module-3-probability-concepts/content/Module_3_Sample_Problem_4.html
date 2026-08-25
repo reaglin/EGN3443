@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 3 Sample Problem 4</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div><h1>Module 3 Sample Problem 4</h1><h2>Module 3 Problem 4. Series System Reliability: Pipeline System</h2>
+<p>This problem demonstrates how to calculate reliability for a series system where failure of any component leads to system failure.</p>
+<p><strong>Key concept</strong>: For a series system, the overall reliability is the product of the individual component reliabilities.</p>
+<p><strong>Solution</strong>: The overall system reliability with five components in series is approximately 0.9646 or 96.46%. Improving each component's reliability by 0.5% would increase the system reliability to about 0.9829 or 98.29%.</p>
+<p>Both Python and R implementations provide the same mathematical results but showcase the different syntax and approaches of each language. The code also demonstrates how to visualize series system reliability trends as the number of components increases.</p>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1bSNSndhx6YoEhEg1EjSre17tUjWR9hK5?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code># ======================================================================
+# 4. Series System Reliability: Pipeline System
+# ======================================================================
+print("Problem 4: Series System Reliability - Pipeline System")
+print("---------------------------------------------------")
+
+"""
+Problem:
+A fluid transport system consists of five pipeline sections connected in series.
+The reliability (probability of no failure) for each section is:
+- Section 1: 0.992
+- Section 2: 0.995
+- Section 3: 0.990
+- Section 4: 0.994
+- Section 5: 0.993
+
+Calculate the overall system reliability. Also, determine how the reliability
+would improve if each section's reliability was increased by 0.5%.
+"""
+
+# Python solution
+section_reliabilities = [0.992, 0.995, 0.990, 0.994, 0.993]
+
+# For a series system, overall reliability is the product of component reliabilities
+system_reliability = np.prod(section_reliabilities)
+
+# Calculate improved reliability with 0.5% increase in each section
+improved_reliabilities = [min(r + 0.005, 1.0) for r in section_reliabilities]
+improved_system_reliability = np.prod(improved_reliabilities)
+
+print(f"Individual section reliabilities: {section_reliabilities}")
+print(f"Overall system reliability: {system_reliability:.6f} or {system_reliability*100:.4f}%")
+print(f"Probability of system failure: {1-system_reliability:.6f} or {(1-system_reliability)*100:.4f}%")
+print(f"Improved section reliabilities: {improved_reliabilities}")
+print(f"Improved system reliability: {improved_system_reliability:.6f} or {improved_system_reliability*100:.4f}%")
+print(f"Reduction in failure probability: {((1-system_reliability)-(1-improved_system_reliability))/(1-system_reliability)*100:.2f}%")
+
+# Visualization of system reliability as components increase
+def plot_series_reliability(base_reliability, num_components):
+    components = np.arange(1, num_components + 1)
+    reliabilities = [base_reliability ** n for n in components]
+    
+    plt.figure(figsize=(10, 6))
+    plt.plot(components, reliabilities, 'b-o', linewidth=2)
+    plt.title('Series System Reliability vs Number of Components')
+    plt.xlabel('Number of Components')
+    plt.ylabel('System Reliability')
+    plt.grid(True)
+    plt.ylim(0, 1)
+    # Return figure instead of showing to work in artifact
+    return plt.gcf()
+
+# Uncomment to generate plot
+# plot_series_reliability(0.99, 20)</code></pre>
+<h3>R Solution</h3>
+<pre></pre>
+<pre><code># ======================================================================
+# 4. Series System Reliability: Pipeline System
+# ======================================================================
+cat("Problem 4: Series System Reliability - Pipeline System\n")
+cat("---------------------------------------------------\n")
+
+# R solution
+section_reliabilities &lt;- c(0.992, 0.995, 0.990, 0.994, 0.993)
+
+# For a series system, overall reliability is the product of component reliabilities
+system_reliability &lt;- prod(section_reliabilities)
+
+# Calculate improved reliability with 0.5% increase in each section
+improved_reliabilities &lt;- pmin(section_reliabilities + 0.005, 1.0)
+improved_system_reliability &lt;- prod(improved_reliabilities)
+
+cat("Individual section reliabilities:\n")
+print(section_reliabilities)
+cat(sprintf("Overall system reliability: %.6f or %.4f%%\n", 
+            system_reliability, system_reliability*100))
+cat(sprintf("Probability of system failure: %.6f or %.4f%%\n", 
+            1-system_reliability, (1-system_reliability)*100))
+cat("Improved section reliabilities:\n")
+print(improved_reliabilities)
+cat(sprintf("Improved system reliability: %.6f or %.4f%%\n", 
+            improved_system_reliability, improved_system_reliability*100))
+cat(sprintf("Reduction in failure probability: %.2f%%\n", 
+            ((1-system_reliability)-(1-improved_system_reliability))/(1-system_reliability)*100))
+
+# Visualization of system reliability as components increase
+plot_series_reliability &lt;- function(base_reliability, num_components) {
+  components &lt;- 1:num_components
+  reliabilities &lt;- base_reliability ^ components
+  
+  # Create plot
+  plot(components, reliabilities, type="b", col="blue", lwd=2,
+       main="Series System Reliability vs Number of Components",
+       xlab="Number of Components", ylab="System Reliability",
+       ylim=c(0, 1), pch=16)
+  grid()
+}
+
+# Uncomment to generate plot
+# plot_series_reliability(0.99, 20)
+
+
+</code><code>
+</code></pre>
+<pre></pre>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

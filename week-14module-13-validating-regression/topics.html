@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 14/Module 13 - Validating Regression — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+<h1>Week 14/Module 13 - Validating Regression — Module Topics</h1>
+<h2>Foundations of Regression Validation</h2>
+<div class="summary">Introduces the purpose and importance of validating regression models, establishing why validation is essential for ensuring reliability and generalizability of model outputs.</div>
+<ul>
+<li><strong>What Is Regression Validation?</strong> <span class="el-body">— Regression validation is the systematic process of evaluating whether a regression model accurately represents the underlying data patterns and can reliably generalize to new, unseen data.</span></li>
+<li><strong>Why Validation Is Essential</strong> <span class="el-body">— Skipping validation risks deploying models that produce misleading predictions, leading to poor decisions in applied settings.</span></li>
+<li><strong>Reliability vs. Generalizability</strong> <span class="el-body">— Two core goals of regression validation are ensuring a model is reliable — producing consistent results — and generalizable — performing well on data beyond the training sample.</span></li>
+<li><strong>Core Assumptions Underlying Regression Models</strong> <span class="el-body">— Regression models rest on a set of statistical assumptions — including linearity, homoscedasticity, and independence — that must hold for results to be valid and interpretable.</span></li>
+<li><strong>The Role of Residual Analysis in Validation</strong> <span class="el-body">— Residual analysis examines the differences between observed and predicted values to reveal patterns that indicate model misfit or assumption violations.</span></li>
+<li><strong>Validation as a Cycle of Model Refinement</strong> <span class="el-body">— Validation is not a one-time check but an iterative process that informs ongoing model improvement and refinement.</span></li>
+</ul>
+<h2>Assessing Regression Model Assumptions</h2>
+<div class="summary">Covers the core statistical assumptions underlying regression models, including linearity, homoscedasticity, and independence, and explains how violations of these assumptions affect model integrity.</div>
+<ul>
+<li><strong>Linearity Assumption</strong> <span class="el-body">— The linearity assumption requires that the relationship between the predictor variables and the outcome variable is linear, meaning changes in predictors produce proportional changes in the response.</span></li>
+<li><strong>Homoscedasticity Assumption</strong> <span class="el-body">— Homoscedasticity means that the variance of the residuals remains constant across all levels of the independent variables, ensuring that prediction errors are equally spread throughout the model&#39;s range.</span></li>
+<li><strong>Independence of Errors Assumption</strong> <span class="el-body">— The independence assumption states that residuals from one observation must not be correlated with residuals from another, ensuring that each data point contributes unique information to the model.</span></li>
+<li><strong>Normality of Residuals</strong> <span class="el-body">— Although not always strictly required for estimation, the normality assumption holds that residuals are approximately normally distributed, which is important for valid inference, particularly in small samples.</span></li>
+<li><strong>Consequences of Assumption Violations on Model Integrity</strong> <span class="el-body">— When regression assumptions are violated, the model&#39;s parameter estimates, standard errors, and inferential conclusions can all be compromised, undermining the model&#39;s reliability and generalizability.</span></li>
+<li><strong>Diagnosing Assumptions Through Residual Analysis</strong> <span class="el-body">— Residual analysis is the primary diagnostic toolkit for evaluating whether regression assumptions are met, using patterns in the residuals to signal specific types of violations.</span></li>
+</ul>
+<h2>Residual Analysis</h2>
+<div class="summary">Examines how to compute, interpret, and visualize residuals to detect patterns or anomalies that indicate potential model weaknesses or assumption violations.</div>
+<ul>
+<li><strong>What Are Residuals?</strong> <span class="el-body">— A residual is the difference between an observed value and the value predicted by the regression model for that same data point.</span></li>
+<li><strong>Computing Residuals</strong> <span class="el-body">— Residuals are calculated for every observation in the dataset by subtracting each predicted value from its corresponding observed value.</span></li>
+<li><strong>Residual Plots: Residuals vs. Fitted Values</strong> <span class="el-body">— Plotting residuals against fitted (predicted) values is the most fundamental diagnostic visualization in regression analysis.</span></li>
+<li><strong>Detecting Non-Linearity Through Residuals</strong> <span class="el-body">— Patterns in residual plots can reveal that the true relationship between predictors and the outcome is not linear, exposing a key assumption violation.</span></li>
+<li><strong>Assessing Homoscedasticity with Residuals</strong> <span class="el-body">— Homoscedasticity—constant variance of residuals across all levels of predicted values—is a core regression assumption that residual plots help evaluate.</span></li>
+<li><strong>Identifying Outliers and Influential Points via Residuals</strong> <span class="el-body">— Unusually large residuals flag potential outliers—observations that the model fits poorly—which may indicate data errors or genuinely anomalous cases.</span></li>
+<li><strong>Normality of Residuals</strong> <span class="el-body">— Many inferential procedures in regression assume that residuals are approximately normally distributed, an assumption that can be checked visually and statistically.</span></li>
+</ul>
+<h2>Cross-Validation Techniques</h2>
+<div class="summary">Explores cross-validation methods used to assess how well a regression model generalizes to independent datasets, reducing the risk of overfitting and improving predictive confidence.</div>
+<ul>
+<li><strong>Why Cross-Validation Is Needed</strong> <span class="el-body">— Cross-validation addresses the fundamental problem of overfitting, where a model performs well on training data but fails to generalize to new, unseen data.</span></li>
+<li><strong>Holdout Method (Train/Test Split)</strong> <span class="el-body">— The holdout method is the simplest form of cross-validation, dividing the available data into a training set used to build the model and a test set used to evaluate its performance.</span></li>
+<li><strong>K-Fold Cross-Validation</strong> <span class="el-body">— K-fold cross-validation improves upon the holdout method by repeatedly partitioning the data into k equally sized subsets, or folds, training and testing the model k times.</span></li>
+<li><strong>Leave-One-Out Cross-Validation (LOOCV)</strong> <span class="el-body">— Leave-One-Out Cross-Validation (LOOCV) is an extreme case of k-fold cross-validation where k equals the total number of observations, meaning each individual data point serves as its own test set.</span></li>
+<li><strong>Interpreting Cross-Validation Results</strong> <span class="el-body">— The output of cross-validation is a set of performance metrics computed across multiple test sets, which together provide an overall assessment of model generalizability.</span></li>
+<li><strong>Cross-Validation and Model Refinement</strong> <span class="el-body">— Cross-validation is not only an evaluation tool but also a guide for model refinement, helping analysts identify when to simplify, adjust, or reconsider their regression model.</span></li>
+</ul>
+<h2>Identifying and Diagnosing Model Weaknesses</h2>
+<div class="summary">Guides learners through systematic approaches to detecting common regression problems such as multicollinearity, outliers, and influential observations that can compromise model validity.</div>
+<ul>
+<li><strong>Understanding Multicollinearity</strong> <span class="el-body">— Multicollinearity occurs when two or more predictor variables in a regression model are highly correlated with each other, making it difficult to isolate the individual effect of each predictor.</span></li>
+<li><strong>Detecting Outliers in Regression</strong> <span class="el-body">— Outliers are data points whose response values deviate substantially from what the model predicts, and they can distort regression estimates if left unaddressed.</span></li>
+<li><strong>Identifying Influential Observations</strong> <span class="el-body">— Influential observations are data points that, if removed, would substantially change the estimated regression coefficients, even if they do not appear as obvious outliers in the response variable.</span></li>
+<li><strong>Systematic Diagnostic Workflow</strong> <span class="el-body">— A structured, step-by-step diagnostic process helps ensure that no common regression problem is overlooked during model validation.</span></li>
+<li><strong>Interpreting Diagnostic Plots</strong> <span class="el-body">— Diagnostic plots translate numerical regression output into visual summaries that make model weaknesses easier to recognize and communicate.</span></li>
+<li><strong>Consequences of Ignoring Model Weaknesses</strong> <span class="el-body">— Failing to diagnose and address regression problems can lead to biased coefficients, invalid inference, and poor predictive performance in practice.</span></li>
+</ul>
+<h2>Model Refinement and Decision-Making</h2>
+<div class="summary">Addresses strategies for refining regression models based on validation findings and equips learners to make informed decisions about model selection, adjustment, and practical application.</div>
+<ul>
+<li><strong>Interpreting Validation Results to Guide Refinement</strong> <span class="el-body">— Validation findings such as poor residual patterns, high cross-validation error, or violated assumptions serve as diagnostic signals that direct specific model improvements.</span></li>
+<li><strong>Variable Selection and Model Simplification</strong> <span class="el-body">— Refining a regression model often involves removing redundant or non-contributing predictors to improve interpretability and generalizability.</span></li>
+<li><strong>Applying Transformations and Functional Form Adjustments</strong> <span class="el-body">— When linearity or homoscedasticity assumptions are violated, transforming variables or changing the functional form of the model can restore validity.</span></li>
+<li><strong>Comparing Competing Models</strong> <span class="el-body">— Model refinement frequently involves choosing among several candidate models, requiring systematic comparison using both statistical criteria and practical considerations.</span></li>
+<li><strong>Balancing Statistical Performance and Practical Utility</strong> <span class="el-body">— A statistically valid model is not automatically a practically useful one; model selection must weigh predictive accuracy against interpretability, cost of data collection, and stakeholder needs.</span></li>
+<li><strong>Deciding When a Model Is Sufficient for Application</strong> <span class="el-body">— Knowing when to stop refining and commit to a model for practical use is a critical judgment call that balances the costs of further iteration against the risks of premature deployment.</span></li>
+<li><strong>Iterative Refinement as a Workflow</strong> <span class="el-body">— Model refinement is rarely a single step; it is best understood as a structured, iterative cycle of diagnose, adjust, validate, and re-evaluate.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

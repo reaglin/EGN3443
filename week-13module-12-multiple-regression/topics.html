@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 13/Module 12 - Multiple Regression — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+<h1>Week 13/Module 12 - Multiple Regression — Module Topics</h1>
+<h2>From Simple to Multiple Regression</h2>
+<div class="summary">This topic introduces multiple regression as an extension of simple linear regression, explaining why and when multiple predictor variables are needed to better model a continuous outcome.</div>
+<ul>
+<li><strong>Limitations of Simple Linear Regression</strong> <span class="el-body">— Simple linear regression models the relationship between one predictor variable and one continuous outcome, which is often insufficient for real-world data.</span></li>
+<li><strong>What Is Multiple Regression?</strong> <span class="el-body">— Multiple regression is an extension of simple linear regression that includes two or more predictor variables to explain variation in a single continuous outcome.</span></li>
+<li><strong>Why Add More Predictor Variables?</strong> <span class="el-body">— Including additional predictors improves the model&#39;s ability to explain variance in the outcome and increases the accuracy of predictions.</span></li>
+<li><strong>Controlling for Other Variables</strong> <span class="el-body">— A key advantage of multiple regression is the ability to statistically control for the influence of other predictors when estimating each variable&#39;s effect.</span></li>
+<li><strong>When to Use Multiple Regression</strong> <span class="el-body">— Multiple regression is appropriate when a researcher wants to explain or predict a continuous outcome using more than one predictor variable.</span></li>
+<li><strong>Continuity from Simple to Multiple Regression</strong> <span class="el-body">— Multiple regression builds directly on the concepts and mechanics of simple linear regression, making the transition a logical and incremental step.</span></li>
+</ul>
+<h2>Model Specification and Structure</h2>
+<div class="summary">This topic covers how to properly specify a multiple regression model, including selecting predictor variables and understanding the mathematical structure of the regression equation.</div>
+<ul>
+<li><strong>From Simple to Multiple Regression</strong> <span class="el-body">— Multiple regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single continuous outcome variable.</span></li>
+<li><strong>The Multiple Regression Equation</strong> <span class="el-body">— The multiple regression model is expressed as a linear equation that combines a constant (intercept) with weighted contributions from each predictor variable.</span></li>
+<li><strong>Selecting Predictor Variables</strong> <span class="el-body">— Choosing which variables to include in a multiple regression model is a critical step that should be guided by theory, prior research, and the research question.</span></li>
+<li><strong>Interpreting Regression Coefficients in Context</strong> <span class="el-body">— Each coefficient in a multiple regression model has a specific conditional interpretation that differs from how coefficients are interpreted in simple regression.</span></li>
+<li><strong>Assumptions Underlying Model Specification</strong> <span class="el-body">— A properly specified multiple regression model must satisfy several key assumptions for the estimates and inferences to be valid.</span></li>
+<li><strong>The Role of the Error Term</strong> <span class="el-body">— The error term in a multiple regression model accounts for all variation in the outcome that is not explained by the included predictor variables.</span></li>
+</ul>
+<h2>Interpreting Regression Coefficients</h2>
+<div class="summary">This topic focuses on how to interpret partial regression coefficients in a multiple regression context, distinguishing the unique contribution of each predictor while holding others constant.</div>
+<ul>
+<li><strong>What Are Partial Regression Coefficients?</strong> <span class="el-body">— In multiple regression, each predictor has a partial regression coefficient that reflects its unique relationship with the outcome variable.</span></li>
+<li><strong>Holding Other Variables Constant</strong> <span class="el-body">— The phrase &#39;holding other variables constant&#39; is central to correctly interpreting coefficients in multiple regression.</span></li>
+<li><strong>The Intercept in Multiple Regression</strong> <span class="el-body">— The intercept (b₀) in a multiple regression model represents the predicted value of the outcome when all predictor variables equal zero.</span></li>
+<li><strong>Interpreting Positive and Negative Coefficients</strong> <span class="el-body">— The sign of a partial regression coefficient indicates the direction of the relationship between a predictor and the outcome, controlling for other variables.</span></li>
+<li><strong>Unique Contribution of Each Predictor</strong> <span class="el-body">— Multiple regression allows researchers to assess the unique contribution of each predictor variable beyond what is explained by the other predictors.</span></li>
+<li><strong>Units of Measurement and Coefficient Comparability</strong> <span class="el-body">— Raw (unstandardized) partial regression coefficients are expressed in the original units of the predictors, which can make direct comparison across predictors difficult.</span></li>
+<li><strong>Common Misinterpretations to Avoid</strong> <span class="el-body">— Partial regression coefficients are frequently misread, especially when researchers conflate correlation with unique prediction or ignore the &#39;all else equal&#39; condition.</span></li>
+</ul>
+<h2>Assessing Model Fit</h2>
+<div class="summary">This topic examines statistical measures used to evaluate how well a multiple regression model fits the data, with emphasis on R-squared and adjusted R-squared and what they reveal about explanatory power.</div>
+<ul>
+<li><strong>The Concept of Model Fit</strong> <span class="el-body">— Model fit refers to how well a multiple regression model explains the variation observed in the outcome variable using the selected predictors.</span></li>
+<li><strong>R-Squared (R&#178;): Definition and Interpretation</strong> <span class="el-body">— R-squared, also called the coefficient of determination, measures the proportion of total variation in the dependent variable that is explained by the regression model.</span></li>
+<li><strong>Limitations of R-Squared in Multiple Regression</strong> <span class="el-body">— A key limitation of R-squared is that it never decreases when additional predictor variables are added to a model, even if those predictors are not meaningfully related to the outcome.</span></li>
+<li><strong>Adjusted R-Squared: Correcting for Additional Predictors</strong> <span class="el-body">— Adjusted R-squared modifies the R&#178; statistic by penalizing the addition of predictor variables that do not improve the model in a meaningful way.</span></li>
+<li><strong>Comparing R-Squared and Adjusted R-Squared</strong> <span class="el-body">— Understanding the relationship between R&#178; and adjusted R&#178; helps researchers make informed decisions about model complexity and variable selection.</span></li>
+<li><strong>Using Model Fit Statistics to Evaluate and Refine Models</strong> <span class="el-body">— R-squared and adjusted R-squared are practical tools for guiding decisions about which predictors to retain or remove during model building.</span></li>
+</ul>
+<h2>Building and Evaluating Multiple Regression Models</h2>
+<div class="summary">This topic guides learners through the practical process of constructing, testing, and refining multiple regression models using real-world data to draw meaningful analytical conclusions.</div>
+<ul>
+<li><strong>Specifying the Multiple Regression Model</strong> <span class="el-body">— Model specification involves selecting which predictor variables to include in the regression equation to best explain variation in the outcome variable.</span></li>
+<li><strong>Estimating Regression Coefficients</strong> <span class="el-body">— Once the model is specified, regression coefficients are estimated using the method of ordinary least squares (OLS), which minimizes the sum of squared residuals.</span></li>
+<li><strong>Assessing Model Fit with R-Squared and Adjusted R-Squared</strong> <span class="el-body">— R-squared (R&#178;) measures the proportion of variance in the outcome variable explained by the set of predictor variables in the model.</span></li>
+<li><strong>Testing Overall Model Significance with the F-Test</strong> <span class="el-body">— The F-test evaluates whether the overall multiple regression model explains a statistically significant amount of variance in the outcome variable.</span></li>
+<li><strong>Checking Regression Assumptions</strong> <span class="el-body">— Valid interpretation of multiple regression results depends on satisfying key statistical assumptions about the data and residuals.</span></li>
+<li><strong>Refining the Model: Variable Selection Strategies</strong> <span class="el-body">— After an initial model is built, researchers often refine it by adding, removing, or transforming predictors to improve interpretability and predictive accuracy.</span></li>
+<li><strong>Interpreting and Communicating Results</strong> <span class="el-body">— The final step in building a multiple regression model is translating statistical output into meaningful, actionable conclusions for a real-world audience.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

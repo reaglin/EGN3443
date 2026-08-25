@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 14 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div><h1 level="1">One-Way ANOVA Engineering Problem: Material Strength Comparison</h1>
+<h2 level="2">Problem Statement</h2>
+<p>An aerospace company is evaluating three different aluminum alloys (AA2024, AA7075, and a new experimental alloy AA-X) for use in aircraft structural components. Engineers have conducted tensile strength tests on multiple samples of each alloy. They need to determine if there is a statistically significant difference in the mean tensile strength among these three alloys.</p>
+<p>Here's the tensile strength data (in MPa) for each alloy:</p>
+<ul depth="0">
+<li index="0"><strong>AA2024</strong>: 470, 485, 478, 492, 460, 473, 488, 484, 482, 475</li>
+<li index="1"><strong>AA7075</strong>: 505, 518, 523, 508, 515, 522, 510, 529, 520, 514</li>
+<li index="2"><strong>AA-X</strong>: 495, 508, 512, 492, 516, 505, 498, 510, 504, 489</li>
+</ul>
+<h2 level="2">Method: One-Way ANOVA</h2>
+<p>Analysis of Variance (ANOVA) is a statistical technique used to compare means across three or more groups. In this case, we're using one-way ANOVA because we have only one factor (alloy type) with three levels.</p>
+<p>The key hypotheses are:</p>
+<ul depth="0">
+<li index="0"><strong>Null hypothesis (H₀)</strong>: All three alloys have the same mean tensile strength (μ₁ = μ₂ = μ₃)</li>
+<li index="1"><strong>Alternative hypothesis (H₁)</strong>: At least one alloy has a different mean tensile strength</li>
+</ul>
+<h2 level="2">Detailed Discussion of ANOVA Method and Results</h2>
+<h3 level="3">1. Understanding One-Way ANOVA</h3>
+<p>ANOVA is a statistical technique that partitions the total observed variance in a dataset into components attributed to different sources. In one-way ANOVA:</p>
+<ul depth="0">
+<li index="0"><strong>Between-group variation</strong>: Measures differences between group means</li>
+<li index="1"><strong>Within-group variation</strong>: Measures the natural variation within each group</li>
+</ul>
+<p>The F-statistic compares these two sources of variation:</p>
+<p>F = (Between-group variance) / (Within-group variance)</p>
+<p>If the groups are significantly different, the between-group variance will be large relative to the within-group variance, resulting in a large F-value and small p-value.</p>
+<h3 level="3">2. Key Statistics and Their Interpretation</h3>
+<p>From our analysis, we can see:</p>
+<h4 level="4">Summary Statistics:</h4>
+<ul depth="0">
+<li index="0"><strong>AA2024</strong>: Mean = 478.7 MPa, SD = 9.6 MPa</li>
+<li index="1"><strong>AA7075</strong>: Mean = 516.4 MPa, SD = 7.5 MPa</li>
+<li index="2"><strong>AA-X</strong>: Mean = 502.9 MPa, SD = 9.0 MPa</li>
+</ul>
+<h4 level="4">ANOVA Results:</h4>
+<ul depth="0">
+<li index="0"><strong>F-statistic</strong>: ~53.7 (large value indicating strong evidence against null hypothesis)</li>
+<li index="1"><strong>p-value</strong>: ~5.85e-11 (much less than 0.05, indicating highly statistically significant differences)</li>
+<li index="2"><strong>Eta-squared</strong>: ~0.80 (very large effect size, showing that ~80% of the total variance in tensile strength can be explained by alloy type)</li>
+</ul>
+<h4 level="4">Post-hoc Tukey's HSD Test:</h4>
+<ul depth="0">
+<li index="0">AA7075 vs AA2024: Significant difference (~37.7 MPa higher)</li>
+<li index="1">AA-X vs AA2024: Significant difference (~24.2 MPa higher)</li>
+<li index="2">AA7075 vs AA-X: Significant difference (~13.5 MPa higher)</li>
+</ul>
+<h3 level="3">3. Interpreting the Visualizations</h3>
+<p>The boxplots and mean plots clearly show the separation between the three alloys. AA7075 consistently demonstrates the highest tensile strength, followed by AA-X, with AA2024 showing the lowest values. The confidence intervals in the mean plots show minimal overlap, confirming the statistical significance of these differences.<br><br><img src="Module_14_Sample_Problem_1_files/image_1115617821745426711467_20250423164811423.png" width="818" height="488"></p>
+<h3 level="3">4. Assumption Verification</h3>
+<p>For ANOVA to be valid, several assumptions must be met:</p>
+<ul depth="0">
+<li index="0"><strong>Normality</strong>: The Shapiro-Wilk tests show p-values &gt; 0.05 for all groups, indicating that we cannot reject the null hypothesis of normality.</li>
+<li index="1"><strong>Homogeneity of variances</strong>: Levene's test shows a p-value &gt; 0.05, indicating that we cannot reject the null hypothesis of equal variances.</li>
+<li index="2"><strong>Independence</strong>: This is assumed from the experimental design.</li>
+</ul>
+<p>The QQ plots and residual plots further support these assumptions.</p>
+<h3 level="3">5. Statistical Power</h3>
+<p>The power analysis indicates very high statistical power (&gt; 0.99), meaning there was a greater than 99% chance of detecting the observed effect size given our sample size. This provides strong confidence in our results.</p>
+<h3 level="3">6. Engineering Significance of Results</h3>
+<p>From an engineering perspective, these statistical results lead to several important conclusions:</p>
+<ol depth="0">
+<li index="0"><strong>Performance Ranking</strong>: AA7075 demonstrates superior tensile strength compared to both other alloys, with an average that is about 7.8% higher than AA2024 and 2.7% higher than AA-X.</li>
+<li index="1"><strong>Design Implications</strong>: If tensile strength is the primary performance criterion, AA7075 would be the preferred choice for structural components that need to withstand significant tensile loads.</li>
+<li index="2"><strong>Tradeoff Considerations</strong>: While AA-X doesn't match AA7075's strength, it offers a meaningful improvement over AA2024. This may be relevant if other factors (such as cost, weight, corrosion resistance, etc.) favor AA-X.</li>
+<li index="3"><strong>Reliability Analysis</strong>: The relatively small standard deviations across all alloys (1.5-2% of mean values) suggest good manufacturing consistency, which is crucial for aerospace applications where reliability is paramount.</li>
+<li index="4"><strong>Safety Factors</strong>: When establishing design safety factors, engineers can now account for the statistical distribution of tensile strengths rather than relying on a single minimum value.</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>The one-way ANOVA analysis provides strong statistical evidence that there are significant differences in tensile strength among the three aluminum alloys. AA7075 demonstrated superior performance, followed by the experimental AA-X alloy, with AA2024 showing the lowest tensile strength.</p>
+<p>These findings would help aerospace engineers make informed decisions about material selection for structural components, balancing strength requirements with other design considerations. The large effect size and high statistical power give confidence in the reliability of these conclusions.</p>
+<p>For aerospace applications where maximizing strength is critical, AA7075 would be the recommended choice based on this analysis. However, the intermediate strength of AA-X might warrant further investigation if it offers advantages in other properties not examined in this study.</p>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/1egkU6loiYIAs-Q0Oo4zR3daRtC3cqSVU?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from scipy import stats</code><br><code>import statsmodels.api as sm</code><br><code>from statsmodels.formula.api import ols</code></p>
+<p><code># Create the dataset</code><br><code>aa2024 = [470, 485, 478, 492, 460, 473, 488, 484, 482, 475]</code><br><code>aa7075 = [505, 518, 523, 508, 515, 522, 510, 529, 520, 514]</code><br><code>aa_x = [495, 508, 512, 492, 516, 505, 498, 510, 504, 489]</code></p>
+<p><code># Create a DataFrame</code><br><code>data = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Strength': aa2024 + aa7075 + aa_x,</code><br><code>&nbsp; &nbsp; 'Alloy': ['AA2024'] * 10 + ['AA7075'] * 10 + ['AA-X'] * 10</code><br><code>})</code></p>
+<p><code># Display summary statistics</code><br><code>print("Summary Statistics:")</code><br><code>summary = data.groupby('Alloy')['Strength'].agg(['count', 'mean', 'std', 'min', 'max'])</code><br><code>print(summary)</code></p>
+<p><code># Create a boxplot</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.boxplot(x='Alloy', y='Strength', data=data)</code><br><code>plt.title('Tensile Strength Comparison of Aluminum Alloys')</code><br><code>plt.ylabel('Tensile Strength (MPa)')</code><br><code>plt.grid(True, linestyle='--', alpha=0.7)</code></p>
+<p><code># Add individual data points</code><br><code>sns.stripplot(x='Alloy', y='Strength', data=data, color='black', alpha=0.5)</code><br><code>plt.savefig('alloy_boxplot.png', dpi=300, bbox_inches='tight')</code><br><code>plt.close()</code></p>
+<p><code># Perform one-way ANOVA using scipy</code><br><code>f_stat, p_value = stats.f_oneway(aa2024, aa7075, aa_x)</code><br><code>print("\nOne-way ANOVA results (scipy):")</code><br><code>print(f"F-statistic: {f_stat:.4f}")</code><br><code>print(f"p-value: {p_value:.8f}")</code></p>
+<p><code># Perform one-way ANOVA using statsmodels (for more detailed output)</code><br><code>model = ols('Strength ~ C(Alloy)', data=data).fit()</code><br><code>anova_table = sm.stats.anova_lm(model, typ=2)</code><br><code>print("\nANOVA Table:")</code><br><code>print(anova_table)</code></p>
+<p><code># If p-value is significant, perform post-hoc tests (Tukey's HSD)</code><br><code>from statsmodels.stats.multicomp import pairwise_tukeyhsd</code><br><code>tukey = pairwise_tukeyhsd(data['Strength'], data['Alloy'], alpha=0.05)</code><br><code>print("\nTukey's HSD Post-hoc Test:")</code><br><code>print(tukey)</code></p>
+<p><code># Visualize means with confidence intervals</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.pointplot(x='Alloy', y='Strength', data=data, capsize=0.2, join=False)</code><br><code>plt.title('Mean Tensile Strength with 95% Confidence Intervals')</code><br><code>plt.ylabel('Tensile Strength (MPa)')</code><br><code>plt.grid(True, linestyle='--', alpha=0.7)</code><br><code>plt.savefig('alloy_means.png', dpi=300, bbox_inches='tight')</code><br><code>plt.close()</code></p>
+<p><code># Check ANOVA assumptions</code><br><code># 1. Normality test for each group</code><br><code>print("\nNormality Tests (Shapiro-Wilk):")</code><br><code>for alloy in data['Alloy'].unique():</code><br><code>&nbsp; &nbsp; stat, p = stats.shapiro(data[data['Alloy'] == alloy]['Strength'])</code><br><code>&nbsp; &nbsp; print(f"{alloy}: W={stat:.4f}, p-value={p:.4f}")</code></p>
+<p><code># 2. Homogeneity of variances (Levene's test)</code><br><code>levene_stat, levene_p = stats.levene(aa2024, aa7075, aa_x)</code><br><code>print("\nHomogeneity of Variances (Levene's Test):")</code><br><code>print(f"Statistic: {levene_stat:.4f}, p-value: {levene_p:.4f}")</code></p>
+<p><code># QQ plot to check normality</code><br><code>plt.figure(figsize=(12, 4))</code><br><code>for i, alloy in enumerate(['AA2024', 'AA7075', 'AA-X']):</code><br><code>&nbsp; &nbsp; plt.subplot(1, 3, i+1)</code><br><code>&nbsp; &nbsp; subset = data[data['Alloy'] == alloy]['Strength']</code><br><code>&nbsp; &nbsp; stats.probplot(subset, dist="norm", plot=plt)</code><br><code>&nbsp; &nbsp; plt.title(f"QQ Plot - {alloy}")</code><br><code>&nbsp; &nbsp; plt.tight_layout()</code><br><code>plt.savefig('qq_plots.png', dpi=300, bbox_inches='tight')</code><br><code>plt.close()</code></p>
+<p><code># Residual plot</code><br><code>model = ols('Strength ~ C(Alloy)', data=data).fit()</code><br><code>residuals = model.resid</code><br><code>fitted = model.fittedvalues</code></p>
+<p><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(fitted, residuals)</code><br><code>plt.axhline(y=0, color='r', linestyle='-')</code><br><code>plt.xlabel('Fitted values')</code><br><code>plt.ylabel('Residuals')</code><br><code>plt.title('Residual Plot')</code><br><code>plt.grid(True, linestyle='--', alpha=0.7)</code><br><code>plt.savefig('residual_plot.png', dpi=300, bbox_inches='tight')</code><br><code>plt.close()</code></p>
+<p><code># Effect size calculation - Eta-squared</code><br><code>def eta_squared(aov):</code><br><code>&nbsp; &nbsp; aov['eta_sq'] = aov['sum_sq'] / aov['sum_sq'].sum()</code><br><code>&nbsp; &nbsp; return aov</code></p>
+<p><code>anova_table_with_effect = eta_squared(anova_table)</code><br><code>print("\nANOVA Table with Effect Size (Eta-squared):")</code><br><code>print(anova_table_with_effect)</code></p>
+<p><code># Power analysis</code><br><code>from statsmodels.stats.power import FTestAnovaPower</code><br><code># Calculate observed effect size (f) from eta-squared</code><br><code>eta_sq = anova_table_with_effect.loc['C(Alloy)', 'eta_sq']</code><br><code>f_effect = np.sqrt(eta_sq / (1 - eta_sq))</code></p>
+<p><code># Calculate power</code><br><code>power_analysis = FTestAnovaPower()</code><br><code>power = power_analysis.solve_power(</code><br><code>&nbsp; &nbsp; effect_size=f_effect,</code><br><code>&nbsp; &nbsp; nobs=30, &nbsp;# total number of observations</code><br><code>&nbsp; &nbsp; k_groups=3, &nbsp;# number of groups</code><br><code>&nbsp; &nbsp; alpha=0.05</code><br><code>)</code><br><code>print(f"\nStatistical Power: {power:.4f}")</code></p>
+<h2>Solution in R</h2>
+<p><code># One-way ANOVA analysis for aluminum alloy tensile strength</code></p>
+<p><code># Create the dataset</code><br><code>aa2024 &lt;- c(470, 485, 478, 492, 460, 473, 488, 484, 482, 475)</code><br><code>aa7075 &lt;- c(505, 518, 523, 508, 515, 522, 510, 529, 520, 514)</code><br><code>aa_x &lt;- c(495, 508, 512, 492, 516, 505, 498, 510, 504, 489)</code></p>
+<p><code># Create a data frame</code><br><code>alloy_data &lt;- data.frame(</code><br><code>&nbsp; Strength = c(aa2024, aa7075, aa_x),</code><br><code>&nbsp; Alloy = factor(rep(c("AA2024", "AA7075", "AA-X"), each = 10))</code><br><code>)</code></p>
+<p><code># Summary statistics</code><br><code>summary_stats &lt;- tapply(alloy_data$Strength, alloy_data$Alloy,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; function(x) c(n = length(x),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;mean = mean(x),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;sd = sd(x),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;min = min(x),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;max = max(x)))</code><br><code>summary_stats</code></p>
+<p><code># Visualize the data with boxplot</code><br><code>library(ggplot2)</code></p>
+<p><code># Boxplot</code><br><code>p1 &lt;- ggplot(alloy_data, aes(x = Alloy, y = Strength, fill = Alloy)) +</code><br><code>&nbsp; geom_boxplot(alpha = 0.7) +</code><br><code>&nbsp; geom_jitter(width = 0.2, alpha = 0.5) +</code><br><code>&nbsp; theme_light() +</code><br><code>&nbsp; labs(title = "Tensile Strength Comparison of Aluminum Alloys",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Alloy Type") +</code><br><code>&nbsp; theme(legend.position = "none")</code></p>
+<p><code># Save the plot</code><br><code>png("alloy_boxplot_r.png", width = 8, height = 6, units = "in", res = 300)</code><br><code>print(p1)</code><br><code>dev.off()</code></p>
+<p><code># Perform one-way ANOVA</code><br><code>anova_result &lt;- aov(Strength ~ Alloy, data = alloy_data)</code><br><code>summary(anova_result)</code></p>
+<p><code># Get more detailed ANOVA statistics</code><br><code>anova_summary &lt;- summary(anova_result)</code><br><code>anova_table &lt;- unlist(anova_summary)</code><br><code>anova_table</code></p>
+<p><code># Calculate effect size (eta-squared)</code><br><code>eta_squared &lt;- anova_summary[[1]][1, "Sum Sq"] / sum(anova_summary[[1]][, "Sum Sq"])</code><br><code>print(paste("Eta-squared (effect size):", round(eta_squared, 4)))</code></p>
+<p><code># Perform Tukey's HSD post-hoc test</code><br><code>tukey_result &lt;- TukeyHSD(anova_result)</code><br><code>tukey_result</code></p>
+<p><code># Visualize Tukey's test results</code><br><code>png("tukey_plot_r.png", width = 8, height = 6, units = "in", res = 300)</code><br><code>plot(tukey_result, las = 1, col = "steelblue")</code><br><code>dev.off()</code></p>
+<p><code># Visualize means with confidence intervals</code><br><code>p2 &lt;- ggplot(alloy_data, aes(x = Alloy, y = Strength, color = Alloy)) +</code><br><code>&nbsp; stat_summary(fun = mean, geom = "point", size = 3) +</code><br><code>&nbsp; stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.2) +</code><br><code>&nbsp; theme_light() +</code><br><code>&nbsp; labs(title = "Mean Tensile Strength with 95% Confidence Intervals",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Alloy Type") +</code><br><code>&nbsp; theme(legend.position = "none")</code></p>
+<p><code># Save the plot</code><br><code>png("alloy_means_r.png", width = 8, height = 6, units = "in", res = 300)</code><br><code>print(p2)</code><br><code>dev.off()</code></p>
+<p><code># Check ANOVA assumptions</code><br><code># 1. Normality test for each group</code><br><code>library(car)</code><br><code>shapiro_results &lt;- tapply(alloy_data$Strength, alloy_data$Alloy, shapiro.test)</code><br><code>shapiro_results</code></p>
+<p><code># 2. Homogeneity of variances (Levene's test)</code><br><code>levene_test &lt;- leveneTest(Strength ~ Alloy, data = alloy_data)</code><br><code>levene_test</code></p>
+<p><code># QQ plots to check normality</code><br><code>png("qq_plots_r.png", width = 10, height = 4, units = "in", res = 300)</code><br><code>par(mfrow = c(1,3))</code><br><code>for (alloy_name in levels(alloy_data$Alloy)) {</code><br><code>&nbsp; subset_data &lt;- alloy_data$Strength[alloy_data$Alloy == alloy_name]</code><br><code>&nbsp; qqnorm(subset_data, main = paste("QQ Plot -", alloy_name))</code><br><code>&nbsp; qqline(subset_data, col = 2)</code><br><code>}</code><br><code>dev.off()</code></p>
+<p><code># Residual plots</code><br><code>png("residual_plots_r.png", width = 10, height = 8, units = "in", res = 300)</code><br><code>par(mfrow = c(2,2))</code><br><code>plot(anova_result)</code><br><code>dev.off()</code></p>
+<p><code># Power analysis</code><br><code>library(pwr)</code><br><code># Calculate cohen's f from eta-squared</code><br><code>f_effect &lt;- sqrt(eta_squared / (1 - eta_squared))</code><br><code># Perform power analysis</code><br><code>power_result &lt;- pwr.anova.test(k = 3, n = 10, f = f_effect, sig.level = 0.05)</code><br><code>print(paste("Statistical Power:", round(power_result$power, 4)))</code></p>
+<p><code># Create interaction plot to visualize the differences</code><br><code>png("interaction_plot_r.png", width = 8, height = 6, units = "in", res = 300)</code><br><code>with(alloy_data,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp;interaction.plot(x.factor = Alloy,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trace.factor = rep(1, nrow(alloy_data)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; response = Strength,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fun = mean,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; type = "b",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; legend = FALSE,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; xlab = "Alloy Type",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ylab = "Mean Tensile Strength (MPa)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; main = "Mean Tensile Strength by Alloy",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pch = 19,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; col = "blue"))</code><br><code>dev.off()</code></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

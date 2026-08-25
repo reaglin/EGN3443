@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 9 - Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div><h1>Module 9 - Sample Problem 3</h1><h2 level="2">Problem Statement</h2>
+<p>A battery manufacturer has recently implemented a new production process aimed at reducing the defect rate in their lithium-ion battery cells. The historical defect rate under the old process was 3.2%. After running the new process for a month, quality control engineers sampled 500 battery cells and found 10 defective units.</p>
+<p>The engineering team wants to determine:</p>
+<ol depth="0">
+<li index="0">Whether the new production process has significantly reduced the defect rate compared to the historical 3.2%</li>
+<li index="1">The confidence interval for the new defect rate</li>
+<li index="2">The sample size needed for future quality control testing to achieve a margin of error of ±0.5% with 95% confidence</li>
+</ol>
+<h2 level="2">Statistical Methodology</h2>
+<p>This problem requires:</p>
+<ol depth="0">
+<li index="0">A one-proportion z-test to compare the new defect rate against the historical rate</li>
+<li index="1">Calculation of a confidence interval for the new proportion</li>
+<li index="2">Sample size determination for future testing</li>
+</ol>
+<h2 level="2">Results Analysis</h2>
+<h3 level="3">One-Proportion Z-Test Results</h3>
+<p>The analysis shows that the new production process has a defect rate of 2.0% (10 defects out of 500 samples), compared to the historical rate of 3.2%.</p>
+<p>Key findings:</p>
+<ul depth="0">
+<li index="0">Z-statistic: approximately -1.52</li>
+<li index="1">P-value: approximately 0.0643 (Python) or 0.0645 (R)</li>
+<li index="2">At the conventional significance level of α = 0.05, we cannot reject the null hypothesis</li>
+<li index="3">This means that although the observed defect rate is lower (2.0% vs 3.2%), we don't have sufficient statistical evidence to conclude that the new process has significantly reduced the defect rate</li>
+</ul>
+<h3 level="3">Confidence Interval</h3>
+<ul depth="0">
+<li index="0">The 95% confidence interval for the new defect rate is approximately (0.0097, 0.0367)</li>
+<li index="1">This interval includes the historical defect rate of 3.2%, which aligns with our test result</li>
+<li index="2">The wide confidence interval suggests we need more data for a more precise estimate</li>
+</ul>
+<h3 level="3">Sample Size Determination</h3>
+<ul depth="0">
+<li index="0">To achieve a margin of error of ±0.5% with 95% confidence, we would need a sample size of approximately 753 battery cells</li>
+<li index="1">This would provide higher precision in future quality assessments</li>
+<li index="2">The sample size calculation used the observed proportion (2%) for the estimate</li>
+</ul>
+<h2 level="2">Conclusions and Recommendations</h2>
+<ol depth="0">
+<li index="0"><strong>Current Evidence</strong>: While the new production process shows a promising reduction in defect rate (from 3.2% to 2.0%), the current sample size of 500 units does not provide sufficient statistical evidence to declare this reduction significant at the 5% level.</li>
+<li index="1"><strong>Future Testing</strong>: To make a more definitive conclusion, the quality control team should:
+<ul depth="1">
+<li index="0">Increase the sample size to at least 753 units in future testing</li>
+<li index="1">Consider conducting a longer-term evaluation to accumulate more data</li>
+<li index="2">Reassess the significance level (α) if appropriate for the application</li>
+</ul>
+</li>
+<li index="2"><strong>Process Monitoring</strong>: Continue monitoring the process, as the observed reduction may be practically important even if not yet statistically significant.</li>
+<li index="3"><strong>Economic Analysis</strong>: Perform a cost-benefit analysis to determine if the observed reduction (even if not statistically significant) provides meaningful manufacturing cost savings.</li>
+</ol>
+<p></p>
+<h3>Solution using Python (<a href="https://colab.research.google.com/drive/14Y5znPriKHiVTXxXkyBJbB1ZRZhTmd1p?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import matplotlib.pyplot as plt</code><br><code>import scipy.stats as stats</code><br><code>import seaborn as sns</code><br><code>from statsmodels.stats.proportion import proportions_ztest, proportion_confint</code><br><code>import pandas as pd</code></p>
+<p><code># Problem parameters</code><br><code>historical_defect_rate = 0.032 &nbsp;# 3.2%</code><br><code>sample_size = 500</code><br><code>defects_observed = 10</code><br><code>new_defect_rate = defects_observed / sample_size &nbsp;# 0.02 = 2%</code><br><code>alpha = 0.05 &nbsp;# 95% confidence level</code></p>
+<p><code># 1. One-proportion z-test</code><br><code># H0: p = 0.032 (historical rate)</code><br><code># H1: p &lt; 0.032 (new rate is lower)</code><br><code>z_stat, p_value = proportions_ztest(</code><br><code>&nbsp; &nbsp; count=defects_observed,</code><br><code>&nbsp; &nbsp; nobs=sample_size,</code><br><code>&nbsp; &nbsp; value=historical_defect_rate,</code><br><code>&nbsp; &nbsp; alternative='smaller'</code><br><code>)</code></p>
+<p><code>print(f"Z-statistic: {z_stat:.4f}")</code><br><code>print(f"P-value: {p_value:.4f}")</code><br><code>print(f"Statistically significant reduction? {'Yes' if p_value &lt; alpha else 'No'}")</code></p>
+<p><code># 2. Confidence interval for the new proportion</code><br><code>ci_lower, ci_upper = proportion_confint(</code><br><code>&nbsp; &nbsp; count=defects_observed,</code><br><code>&nbsp; &nbsp; nobs=sample_size,</code><br><code>&nbsp; &nbsp; alpha=alpha,</code><br><code>&nbsp; &nbsp; method='normal'</code><br><code>)</code><br><code>print(f"\n95% Confidence Interval: ({ci_lower:.4f}, {ci_upper:.4f})")</code></p>
+<p><code># 3. Sample size calculation for future testing</code><br><code># For margin of error = 0.005 (±0.5%)</code><br><code>margin_of_error = 0.005</code><br><code>z_critical = stats.norm.ppf(1 - alpha/2) &nbsp;# Two-tailed z-score for 95% confidence</code><br><code># Using the observed proportion for the calculation</code><br><code>p_estimate = new_defect_rate</code><br><code>required_sample_size = int(np.ceil(</code><br><code>&nbsp; &nbsp; (z_critical**2 * p_estimate * (1 - p_estimate)) / (margin_of_error**2)</code><br><code>))</code><br><code>print(f"\nRequired sample size for ±0.5% margin of error: {required_sample_size}")</code></p>
+<p><code># Visualization 1: Comparing defect rates with confidence intervals</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>rates = [historical_defect_rate, new_defect_rate]</code><br><code>labels = ['Historical Process', 'New Process']</code><br><code>ci_errors = [[0, 0], [new_defect_rate - ci_lower, ci_upper - new_defect_rate]]</code></p>
+<p><code>plt.bar(labels, rates, yerr=ci_errors, capsize=10, color=['#ff9999', '#66b3ff'])</code><br><code>plt.axhline(y=historical_defect_rate, color='r', linestyle='--', alpha=0.7,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=f'Historical Rate: {historical_defect_rate:.1%}')</code><br><code>plt.ylabel('Defect Rate')</code><br><code>plt.title('Comparison of Defect Rates Between Processes')</code><br><code>plt.ylim(0, max(historical_defect_rate, ci_upper) * 1.2) &nbsp;# Add some space above bars</code><br><code>for i, rate in enumerate(rates):</code><br><code>&nbsp; &nbsp; plt.text(i, rate + 0.002, f'{rate:.1%}', ha='center')</code><br><code>plt.legend()</code><br><code>plt.grid(axis='y', alpha=0.3)</code></p>
+<p><code># Visualization 2: Sampling distribution and p-value</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>x = np.linspace(0, 0.06, 1000)</code><br><code>y = stats.norm.pdf(x, historical_defect_rate, np.sqrt(historical_defect_rate * (1 - historical_defect_rate) / sample_size))</code></p>
+<p><code>plt.plot(x, y, 'b-', label='Sampling Distribution\nunder Null Hypothesis')</code><br><code>plt.axvline(x=new_defect_rate, color='g', linestyle='-',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=f'Observed Defect Rate: {new_defect_rate:.1%}')</code></p>
+<p><code># Fill the area representing the p-value</code><br><code>rejection_x = np.linspace(0, new_defect_rate, 100)</code><br><code>rejection_y = stats.norm.pdf(rejection_x, historical_defect_rate,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; np.sqrt(historical_defect_rate * (1 - historical_defect_rate) / sample_size))</code><br><code>plt.fill_between(rejection_x, rejection_y, alpha=0.3, color='green', label=f'p-value: {p_value:.4f}')</code></p>
+<p><code>plt.xlabel('Defect Rate')</code><br><code>plt.ylabel('Probability Density')</code><br><code>plt.title('Sampling Distribution Under Null Hypothesis')</code><br><code>plt.legend()</code><br><code>plt.grid(alpha=0.3)</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Visualization 3: Required sample size vs. margin of error</code><br><code>margins = np.linspace(0.001, 0.02, 100) &nbsp;# 0.1% to 2%</code><br><code>sample_sizes = [int(np.ceil((z_critical**2 * p_estimate * (1 - p_estimate)) / (m**2)))&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for m in margins]</code></p>
+<p><code>plt.figure(figsize=(10, 6))</code><br><code>plt.plot(margins * 100, sample_sizes, 'b-')</code><br><code>plt.axvline(x=0.5, color='r', linestyle='--',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=f'Target Margin: 0.5% (n={required_sample_size})')</code><br><code>plt.axhline(y=required_sample_size, color='r', linestyle='--')</code><br><code>plt.scatter([0.5], [required_sample_size], color='red', s=80)</code></p>
+<p><code>plt.xlabel('Margin of Error (%)')</code><br><code>plt.ylabel('Required Sample Size')</code><br><code>plt.title('Sample Size vs. Margin of Error (95% Confidence)')</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.legend()</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<h3>Solution Using R</h3>
+<p><code># Battery Manufacturing Quality Control Analysis</code><br><code># One-proportion z-test for defect rates</code></p>
+<p><code># Problem parameters</code><br><code>historical_defect_rate &lt;- 0.032 &nbsp;# 3.2%</code><br><code>sample_size &lt;- 500</code><br><code>defects_observed &lt;- 10</code><br><code>new_defect_rate &lt;- defects_observed / sample_size &nbsp;# 0.02 = 2%</code><br><code>alpha &lt;- 0.05 &nbsp;# 95% confidence level</code></p>
+<p><code># 1. One-proportion z-test</code><br><code># H0: p = 0.032 (historical rate)</code><br><code># H1: p &lt; 0.032 (new rate is lower)</code><br><code>prop_test_result &lt;- prop.test(</code><br><code>&nbsp; x = defects_observed,</code><br><code>&nbsp; n = sample_size,</code><br><code>&nbsp; p = historical_defect_rate,</code><br><code>&nbsp; alternative = "less",</code><br><code>&nbsp; correct = FALSE &nbsp;# No continuity correction for z-test</code><br><code>)</code></p>
+<p><code># Print test results</code><br><code>cat("One-proportion z-test results:\n")</code><br><code>print(prop_test_result)</code><br><code>cat("\nZ-statistic:", (new_defect_rate - historical_defect_rate) /&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; sqrt(historical_defect_rate * (1 - historical_defect_rate) / sample_size), "\n")</code><br><code>cat("P-value:", prop_test_result$p.value, "\n")</code><br><code>cat("Statistically significant reduction?",&nbsp;</code><br><code>&nbsp; &nbsp; ifelse(prop_test_result$p.value &lt; alpha, "Yes", "No"), "\n\n")</code></p>
+<p><code># 2. Confidence interval for the new proportion</code><br><code>ci &lt;- prop.test(defects_observed, sample_size, conf.level = 1 - alpha)$conf.int</code><br><code>cat("95% Confidence Interval:", round(ci[1], 4), "to", round(ci[2], 4), "\n\n")</code></p>
+<p><code># 3. Sample size calculation for future testing</code><br><code># For margin of error = 0.005 (±0.5%)</code><br><code>margin_of_error &lt;- 0.005</code><br><code>z_critical &lt;- qnorm(1 - alpha/2) &nbsp;# Two-tailed z-score for 95% confidence</code><br><code>p_estimate &lt;- new_defect_rate</code><br><code>required_sample_size &lt;- ceiling(</code><br><code>&nbsp; (z_critical^2 * p_estimate * (1 - p_estimate)) / (margin_of_error^2)</code><br><code>)</code><br><code>cat("Required sample size for ±0.5% margin of error:", required_sample_size, "\n\n")</code></p>
+<p><code># Create visualizations</code><br><code>library(ggplot2)</code><br><code>library(gridExtra)</code></p>
+<p><code># Visualization 1: Comparing defect rates with confidence intervals</code><br><code>process_data &lt;- data.frame(</code><br><code>&nbsp; Process = c("Historical", "New"),</code><br><code>&nbsp; DefectRate = c(historical_defect_rate, new_defect_rate),</code><br><code>&nbsp; Lower = c(historical_defect_rate, ci[1]),</code><br><code>&nbsp; Upper = c(historical_defect_rate, ci[2])</code><br><code>)</code></p>
+<p><code>plot1 &lt;- ggplot(process_data, aes(x = Process, y = DefectRate, fill = Process)) +</code><br><code>&nbsp; geom_bar(stat = "identity", width = 0.6) +</code><br><code>&nbsp; geom_errorbar(aes(ymin = Lower, ymax = Upper), width = 0.2) +</code><br><code>&nbsp; geom_hline(yintercept = historical_defect_rate, linetype = "dashed", color = "red", size = 1) +</code><br><code>&nbsp; geom_text(aes(label = sprintf("%.1f%%", DefectRate * 100)), vjust = -0.5) +</code><br><code>&nbsp; labs(title = "Comparison of Defect Rates",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Defect Rate",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "") +</code><br><code>&nbsp; scale_fill_manual(values = c("Historical" = "#ff9999", "New" = "#66b3ff")) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(legend.position = "none") +</code><br><code>&nbsp; scale_y_continuous(labels = scales::percent, limits = c(0, max(process_data$Upper) * 1.2))</code></p>
+<p><code># Visualization 2: Sampling distribution and p-value</code><br><code>x_values &lt;- seq(0, 0.06, length.out = 1000)</code><br><code>sampling_dist &lt;- data.frame(</code><br><code>&nbsp; x = x_values,</code><br><code>&nbsp; y = dnorm(x_values, mean = historical_defect_rate,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;sd = sqrt(historical_defect_rate * (1 - historical_defect_rate) / sample_size))</code><br><code>)</code></p>
+<p><code># Create data for shaded region (p-value)</code><br><code>p_region &lt;- sampling_dist[sampling_dist$x &lt;= new_defect_rate, ]</code></p>
+<p><code>plot2 &lt;- ggplot(sampling_dist, aes(x = x, y = y)) +</code><br><code>&nbsp; geom_line(size = 1, color = "blue") +</code><br><code>&nbsp; geom_area(data = p_region, aes(x = x, y = y), fill = "green", alpha = 0.3) +</code><br><code>&nbsp; geom_vline(xintercept = new_defect_rate, color = "darkgreen", size = 1, linetype = "solid") +</code><br><code>&nbsp; annotate("text", x = new_defect_rate, y = max(sampling_dist$y) * 0.8,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = sprintf("Observed: %.1f%%", new_defect_rate * 100),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hjust = -0.1, size = 4) +</code><br><code>&nbsp; annotate("text", x = min(p_region$x), y = max(sampling_dist$y) * 0.5,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = sprintf("p-value: %.4f", prop_test_result$p.value),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hjust = 0, size = 4) +</code><br><code>&nbsp; labs(title = "Sampling Distribution Under Null Hypothesis",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Defect Rate",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Probability Density") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Visualization 3: Required sample size vs. margin of error</code><br><code>margins &lt;- seq(0.001, 0.02, length.out = 100) &nbsp;# 0.1% to 2%</code><br><code>sample_sizes &lt;- ceiling(</code><br><code>&nbsp; (z_critical^2 * p_estimate * (1 - p_estimate)) / (margins^2)</code><br><code>)</code></p>
+<p><code>sample_size_data &lt;- data.frame(</code><br><code>&nbsp; Margin = margins * 100, &nbsp;# Convert to percentage</code><br><code>&nbsp; SampleSize = sample_sizes</code><br><code>)</code></p>
+<p><code>plot3 &lt;- ggplot(sample_size_data, aes(x = Margin, y = SampleSize)) +</code><br><code>&nbsp; geom_line(size = 1, color = "blue") +</code><br><code>&nbsp; geom_vline(xintercept = 0.5, color = "red", linetype = "dashed") +</code><br><code>&nbsp; geom_hline(yintercept = required_sample_size, color = "red", linetype = "dashed") +</code><br><code>&nbsp; geom_point(aes(x = 0.5, y = required_sample_size), color = "red", size = 3) +</code><br><code>&nbsp; annotate("text", x = 0.5, y = required_sample_size * 1.1,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = sprintf("n = %d", required_sample_size),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = "red", size = 4) +</code><br><code>&nbsp; labs(title = "Sample Size vs. Margin of Error (95% Confidence)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Margin of Error (%)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Required Sample Size") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code># Print the plots</code><br><code>print(plot1)</code><br><code>print(plot2)</code><br><code>print(plot3)</code></p>
+<p><code># Save plots to file if needed</code><br><code># ggsave("defect_rate_comparison.png", plot1, width = 8, height = 6)</code><br><code># ggsave("sampling_distribution.png", plot2, width = 8, height = 6)</code><br><code># ggsave("sample_size_margin.png", plot3, width = 8, height = 6)</code></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

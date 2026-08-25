@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 13 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div><h1 level="1">Engineering Example: Linear Regression with Transformations</h1>
+<p>This engineering example demonstrates how data transformations can improve linear regression models when dealing with non-linear relationships. Let's explore log, square root, and inverse transformations with both Python and R implementations.</p>
+<h2 level="2">Problem Statement</h2>
+<p>Engineers at a chemical processing plant need to model the relationship between the concentration of a catalyst (input variable) and the reaction yield (output variable). Initial data shows a non-linear relationship that might benefit from transformations before applying linear regression. (Data is included in the code sections)</p>
+<h2 level="2">Analysis of Data Transformations in Linear Regression</h2>
+<h3 level="3">Methodology</h3>
+<ol depth="0">
+<li index="0"><strong>Data Generation</strong>: I created a synthetic dataset that follows a logarithmic relationship (y = 20*log(x) + noise) to simulate catalyst concentration vs. reaction yield with 50 data points.</li>
+<li index="1"><strong>Model Building</strong>: I developed four regression models:
+<ul depth="1">
+<li index="0">Standard linear regression without transformation</li>
+<li index="1">Linear regression with logarithmic transformation of x</li>
+<li index="2">Linear regression with square root transformation of x</li>
+<li index="3">Linear regression with inverse transformation of x (1/x)</li>
+</ul>
+</li>
+<li index="2"><strong>Evaluation Metrics</strong>: For each model, I calculated:
+<ul depth="1">
+<li index="0">R² (coefficient of determination) - higher is better</li>
+<li index="1">RMSE (root mean squared error) - lower is better</li>
+</ul>
+</li>
+<li index="3"><strong>Visualization</strong>: I created scatter plots with fitted lines and residual plots to visually assess model fit.</li>
+</ol>
+<h3 level="3">Transformation Analysis</h3>
+<h4 level="4">1. Log Transformation</h4>
+<p><strong>Mathematical form</strong>: y = β₀ + β₁ * log(x)</p>
+<p><strong>Strengths</strong>:</p>
+<ul depth="0">
+<li index="0">Excellent for data with diminishing returns/exponential decay relationships</li>
+<li index="1">Handles right-skewed data effectively</li>
+<li index="2">Particularly useful when percentage changes in X relate to absolute changes in Y</li>
+<li index="3">In our case, it perfectly matches the underlying data generation process</li>
+</ul>
+<p><strong>When to use</strong>:</p>
+<ul depth="0">
+<li index="0">When the rate of change decreases as the predictor increases</li>
+<li index="1">With positive data that spans multiple orders of magnitude</li>
+<li index="2">When dealing with growth processes that slow down over time</li>
+</ul>
+<h4 level="4">2. Square Root Transformation</h4>
+<p><strong>Mathematical form</strong>: y = β₀ + β₁ * √x</p>
+<p><strong>Strengths</strong>:</p>
+<ul depth="0">
+<li index="0">Less aggressive than logarithmic transformation</li>
+<li index="1">Good for moderately right-skewed data</li>
+<li index="2">Preserves zero values (unlike log transformation)</li>
+<li index="3">Works well for count data following Poisson distribution</li>
+</ul>
+<p><strong>When to use</strong>:</p>
+<ul depth="0">
+<li index="0">When data shows moderate curvature</li>
+<li index="1">For data with a square root relationship</li>
+<li index="2">With count data or non-negative measurements</li>
+</ul>
+<h4 level="4">3. Inverse Transformation</h4>
+<p><strong>Mathematical form</strong>: y = β₀ + β₁ * (1/x)</p>
+<p><strong>Strengths</strong>:</p>
+<ul depth="0">
+<li index="0">Useful for severely right-skewed distributions</li>
+<li index="1">Models relationships where Y approaches an asymptote as X increases</li>
+<li index="2">Effective for hyperbolic relationships</li>
+</ul>
+<p><strong>When to use</strong>:</p>
+<ul depth="0">
+<li index="0">When the relationship follows a hyperbolic pattern</li>
+<li index="1">In chemical kinetics (e.g., reaction rate vs. concentration)</li>
+<li index="2">When the effect of x diminishes dramatically as x increases</li>
+</ul>
+<h3 level="3">Results and Discussion</h3>
+<p>From our analysis across both Python and R implementations:</p>
+<ol depth="0">
+<li index="0"><strong>Log Transformation</strong> performed the best (highest R², lowest RMSE), which is expected since our data was generated with a logarithmic relationship. This demonstrates how crucial it is to match the transformation to the underlying data structure.</li>
+<li index="1"><strong>Square Root Transformation</strong> performed second best. While not capturing the relationship as well as the log transformation, it still significantly improved the model compared to no transformation.</li>
+<li index="2"><strong>The Inverse Transformation</strong> showed improvement over the base model but wasn't as effective as the other transformations for this particular dataset.</li>
+<li index="3"><strong>No Transformation</strong> performed worst, with the lowest R² and highest RMSE, confirming that non-linear relationships cannot be adequately modeled with simple linear regression without transformation.</li>
+</ol>
+<h3 level="3">Residual Analysis</h3>
+<p>The residual plots reveal important insights:</p>
+<ul depth="0">
+<li index="0">The untransformed model shows a clear pattern in residuals, indicating a poor model fit.</li>
+<li index="1">The log transformation yields the most randomly distributed residuals, suggesting it best captured the underlying relationship.</li>
+<li index="2">Square root transformation residuals show improvement but still have some pattern.</li>
+<li index="3">Inverse transformation residuals show less pattern than no transformation but more than log transformation.</li>
+</ul>
+<h3 level="3">Engineering Application</h3>
+<p>In real chemical engineering applications, these transformations have specific uses:</p>
+<ul depth="0">
+<li index="0"><strong>Log transformation</strong>: Commonly used in reaction kinetics, especially for first-order reactions</li>
+<li index="1"><strong>Square root transformation</strong>: Useful in analyzing diffusion-controlled processes</li>
+<li index="2"><strong>Inverse transformation</strong>: Applied in second-order reaction rate analysis</li>
+</ul>
+<h3 level="3">Conclusion</h3>
+<p>Selecting the appropriate transformation is crucial for accurate modeling of non-linear relationships. For our catalyst concentration example:</p>
+<ol depth="0">
+<li index="0">The logarithmic transformation provided the best fit because it matched the true underlying relationship in the data.</li>
+<li index="1">In real-world engineering scenarios, the choice of transformation should be guided by:
+<ul depth="1">
+<li index="0">Understanding of the physical/chemical processes involved</li>
+<li index="1">Visual examination of the raw data</li>
+<li index="2">Domain knowledge about expected relationships</li>
+<li index="3">Comparison of model performance metrics</li>
+<li index="4">Analysis of residual plots for patterns</li>
+</ul>
+</li>
+<li index="2">These transformations can significantly improve linear regression's applicability to non-linear problems, saving engineers from implementing more complex models when a simple transformation will suffice.</li>
+</ol>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/10VJi4rbN82_xI9FE06pW4WfLzHkcUUxz?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>from sklearn.linear_model import LinearRegression</code><br><code>from sklearn.metrics import r2_score, mean_squared_error</code><br><code>import seaborn as sns</code></p>
+<p><code># Set seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate synthetic data that follows a non-linear pattern</code><br><code># Catalyst concentration (X) between 0.5 and 10</code><br><code>n_samples = 50</code><br><code>X = np.linspace(0.5, 10, n_samples).reshape(-1, 1)</code></p>
+<p><code># True relationship is non-linear: yield = 20*log(x) + noise</code><br><code>true_yield = 20 * np.log(X) + np.random.normal(0, 2, size=(n_samples, 1))</code></p>
+<p><code># Create a DataFrame for easier manipulation</code><br><code>df = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'catalyst_concentration': X.flatten(),</code><br><code>&nbsp; &nbsp; 'reaction_yield': true_yield.flatten()</code><br><code>})</code></p>
+<p><code># Function to fit a model and evaluate</code><br><code>def fit_and_evaluate(X_transform, y, title, transformation_name):</code><br><code>&nbsp; &nbsp; model = LinearRegression()</code><br><code>&nbsp; &nbsp; model.fit(X_transform, y)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; y_pred = model.predict(X_transform)</code><br><code>&nbsp; &nbsp; r2 = r2_score(y, y_pred)</code><br><code>&nbsp; &nbsp; rmse = np.sqrt(mean_squared_error(y, y_pred))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Original X for plotting the curve</code><br><code>&nbsp; &nbsp; X_plot = np.linspace(np.min(X), np.max(X), 100).reshape(-1, 1)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Transform X_plot based on the transformation type</code><br><code>&nbsp; &nbsp; if transformation_name == 'Original':</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; X_plot_transform = X_plot</code><br><code>&nbsp; &nbsp; elif transformation_name == 'Log':</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; X_plot_transform = np.log(X_plot)</code><br><code>&nbsp; &nbsp; elif transformation_name == 'Square Root':</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; X_plot_transform = np.sqrt(X_plot)</code><br><code>&nbsp; &nbsp; elif transformation_name == 'Inverse':</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; X_plot_transform = 1/X_plot</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; y_plot_pred = model.predict(X_plot_transform)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Plotting</code><br><code>&nbsp; &nbsp; plt.figure(figsize=(10, 6))</code><br><code>&nbsp; &nbsp; plt.scatter(X, y, label='Data Points', alpha=0.6)</code><br><code>&nbsp; &nbsp; plt.plot(X_plot, y_plot_pred, 'r-', linewidth=2, label='Fitted Line')</code><br><code>&nbsp; &nbsp; plt.title(f'{title}: $R^2$ = {r2:.4f}, RMSE = {rmse:.4f}')</code><br><code>&nbsp; &nbsp; plt.xlabel('Catalyst Concentration')</code><br><code>&nbsp; &nbsp; plt.ylabel('Reaction Yield')</code><br><code>&nbsp; &nbsp; plt.legend()</code><br><code>&nbsp; &nbsp; plt.grid(True, alpha=0.3)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Print model information</code><br><code>&nbsp; &nbsp; print(f"\n{title}:")</code><br><code>&nbsp; &nbsp; print(f"Coefficient: {model.coef_[0]:.4f}")</code><br><code>&nbsp; &nbsp; print(f"Intercept: {model.intercept_:.4f}")</code><br><code>&nbsp; &nbsp; print(f"R² Score: {r2:.4f}")</code><br><code>&nbsp; &nbsp; print(f"RMSE: {rmse:.4f}")</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; return model, r2, rmse</code></p>
+<p><code># Original (no transformation)</code><br><code>X_original = X</code><br><code>model_original, r2_original, rmse_original = fit_and_evaluate(</code><br><code>&nbsp; &nbsp; X_original, true_yield, 'Linear Regression (No Transformation)', 'Original'</code><br><code>)</code></p>
+<p><code># Log transformation</code><br><code>X_log = np.log(X)</code><br><code>model_log, r2_log, rmse_log = fit_and_evaluate(</code><br><code>&nbsp; &nbsp; X_log, true_yield, 'Linear Regression with Log Transformation', 'Log'</code><br><code>)</code></p>
+<p><code># Square root transformation</code><br><code>X_sqrt = np.sqrt(X)</code><br><code>model_sqrt, r2_sqrt, rmse_sqrt = fit_and_evaluate(</code><br><code>&nbsp; &nbsp; X_sqrt, true_yield, 'Linear Regression with Square Root Transformation', 'Square Root'</code><br><code>)</code></p>
+<p><code># Inverse transformation</code><br><code>X_inv = 1/X</code><br><code>model_inv, r2_inv, rmse_inv = fit_and_evaluate(</code><br><code>&nbsp; &nbsp; X_inv, true_yield, 'Linear Regression with Inverse Transformation', 'Inverse'</code><br><code>)</code></p>
+<p><code># Residual analysis</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code># Original model residuals</code><br><code>plt.subplot(2, 2, 1)</code><br><code>y_pred_original = model_original.predict(X_original)</code><br><code>residuals_original = true_yield.flatten() - y_pred_original</code><br><code>plt.scatter(y_pred_original, residuals_original)</code><br><code>plt.axhline(y=0, color='r', linestyle='-')</code><br><code>plt.title('Residuals - No Transformation')</code><br><code>plt.xlabel('Predicted Values')</code><br><code>plt.ylabel('Residuals')</code></p>
+<p><code># Log transformation residuals</code><br><code>plt.subplot(2, 2, 2)</code><br><code>y_pred_log = model_log.predict(X_log)</code><br><code>residuals_log = true_yield.flatten() - y_pred_log</code><br><code>plt.scatter(y_pred_log, residuals_log)</code><br><code>plt.axhline(y=0, color='r', linestyle='-')</code><br><code>plt.title('Residuals - Log Transformation')</code><br><code>plt.xlabel('Predicted Values')</code><br><code>plt.ylabel('Residuals')</code></p>
+<p><code># Square root transformation residuals</code><br><code>plt.subplot(2, 2, 3)</code><br><code>y_pred_sqrt = model_sqrt.predict(X_sqrt)</code><br><code>residuals_sqrt = true_yield.flatten() - y_pred_sqrt</code><br><code>plt.scatter(y_pred_sqrt, residuals_sqrt)</code><br><code>plt.axhline(y=0, color='r', linestyle='-')</code><br><code>plt.title('Residuals - Square Root Transformation')</code><br><code>plt.xlabel('Predicted Values')</code><br><code>plt.ylabel('Residuals')</code></p>
+<p><code># Inverse transformation residuals</code><br><code>plt.subplot(2, 2, 4)</code><br><code>y_pred_inv = model_inv.predict(X_inv)</code><br><code>residuals_inv = true_yield.flatten() - y_pred_inv</code><br><code>plt.scatter(y_pred_inv, residuals_inv)</code><br><code>plt.axhline(y=0, color='r', linestyle='-')</code><br><code>plt.title('Residuals - Inverse Transformation')</code><br><code>plt.xlabel('Predicted Values')</code><br><code>plt.ylabel('Residuals')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Compare models</code><br><code>models = ['No Transformation', 'Log', 'Square Root', 'Inverse']</code><br><code>r2_scores = [r2_original, r2_log, r2_sqrt, r2_inv]</code><br><code>rmse_scores = [rmse_original, rmse_log, rmse_sqrt, rmse_inv]</code></p>
+<p><code>plt.figure(figsize=(12, 5))</code></p>
+<p><code>plt.subplot(1, 2, 1)</code><br><code>plt.bar(models, r2_scores, color=['blue', 'green', 'orange', 'red'])</code><br><code>plt.title('R² Score Comparison')</code><br><code>plt.ylabel('R² Score')</code><br><code>plt.ylim(0, 1)</code><br><code>plt.grid(axis='y', alpha=0.3)</code></p>
+<p><code>plt.subplot(1, 2, 2)</code><br><code>plt.bar(models, rmse_scores, color=['blue', 'green', 'orange', 'red'])</code><br><code>plt.title('RMSE Comparison')</code><br><code>plt.ylabel('RMSE')</code><br><code>plt.grid(axis='y', alpha=0.3)</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Summary table</code><br><code>results = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Transformation': models,</code><br><code>&nbsp; &nbsp; 'R² Score': r2_scores,</code><br><code>&nbsp; &nbsp; 'RMSE': rmse_scores</code><br><code>})</code><br><code>print("\nTransformation Comparison:")</code><br><code>print(results)</code></p>
+<h2>Solution in R</h2>
+<p><code># Load necessary libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(gridExtra)</code></p>
+<p><code># Set seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate synthetic data that follows a non-linear pattern</code><br><code># Catalyst concentration (X) between 0.5 and 10</code><br><code>n_samples &lt;- 50</code><br><code>X &lt;- seq(0.5, 10, length.out = n_samples)</code></p>
+<p><code># True relationship is non-linear: yield = 20*log(x) + noise</code><br><code>true_yield &lt;- 20 * log(X) + rnorm(n_samples, mean = 0, sd = 2)</code></p>
+<p><code># Create a data frame</code><br><code>df &lt;- data.frame(</code><br><code>&nbsp; catalyst_concentration = X,</code><br><code>&nbsp; reaction_yield = true_yield</code><br><code>)</code></p>
+<p><code># Function to fit a model and evaluate</code><br><code>fit_and_evaluate &lt;- function(df, transformation, title) {</code><br><code>&nbsp; if (transformation == "original") {</code><br><code>&nbsp; &nbsp; formula &lt;- reaction_yield ~ catalyst_concentration</code><br><code>&nbsp; &nbsp; x_var &lt;- df$catalyst_concentration</code><br><code>&nbsp; } else if (transformation == "log") {</code><br><code>&nbsp; &nbsp; formula &lt;- reaction_yield ~ log(catalyst_concentration)</code><br><code>&nbsp; &nbsp; x_var &lt;- log(df$catalyst_concentration)</code><br><code>&nbsp; } else if (transformation == "sqrt") {</code><br><code>&nbsp; &nbsp; formula &lt;- reaction_yield ~ sqrt(catalyst_concentration)</code><br><code>&nbsp; &nbsp; x_var &lt;- sqrt(df$catalyst_concentration)</code><br><code>&nbsp; } else if (transformation == "inverse") {</code><br><code>&nbsp; &nbsp; formula &lt;- reaction_yield ~ I(1/catalyst_concentration)</code><br><code>&nbsp; &nbsp; x_var &lt;- 1/df$catalyst_concentration</code><br><code>&nbsp; }</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Fit the model</code><br><code>&nbsp; model &lt;- lm(formula, data = df)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Make predictions</code><br><code>&nbsp; df$predicted &lt;- predict(model, df)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Calculate metrics</code><br><code>&nbsp; residuals &lt;- df$reaction_yield - df$predicted</code><br><code>&nbsp; r_squared &lt;- summary(model)$r.squared</code><br><code>&nbsp; rmse &lt;- sqrt(mean(residuals^2))</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Create a smooth curve for plotting</code><br><code>&nbsp; x_smooth &lt;- seq(min(df$catalyst_concentration), max(df$catalyst_concentration), length.out = 100)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; if (transformation == "original") {</code><br><code>&nbsp; &nbsp; df_smooth &lt;- data.frame(catalyst_concentration = x_smooth)</code><br><code>&nbsp; } else if (transformation == "log") {</code><br><code>&nbsp; &nbsp; df_smooth &lt;- data.frame(catalyst_concentration = x_smooth)</code><br><code>&nbsp; } else if (transformation == "sqrt") {</code><br><code>&nbsp; &nbsp; df_smooth &lt;- data.frame(catalyst_concentration = x_smooth)</code><br><code>&nbsp; } else if (transformation == "inverse") {</code><br><code>&nbsp; &nbsp; df_smooth &lt;- data.frame(catalyst_concentration = x_smooth)</code><br><code>&nbsp; }</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; df_smooth$predicted &lt;- predict(model, newdata = df_smooth)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Create plot</code><br><code>&nbsp; p &lt;- ggplot(df, aes(x = catalyst_concentration, y = reaction_yield)) +</code><br><code>&nbsp; &nbsp; geom_point(alpha = 0.6) +</code><br><code>&nbsp; &nbsp; geom_line(data = df_smooth, aes(x = catalyst_concentration, y = predicted),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color = "red", size = 1) +</code><br><code>&nbsp; &nbsp; labs(title = paste0(title, ": R² = ", round(r_squared, 4), ", RMSE = ", round(rmse, 4)),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x = "Catalyst Concentration", y = "Reaction Yield") +</code><br><code>&nbsp; &nbsp; theme_minimal() +</code><br><code>&nbsp; &nbsp; theme(plot.title = element_text(size = 10))</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Create residual plot</code><br><code>&nbsp; p_resid &lt;- ggplot(df, aes(x = predicted, y = residuals)) +</code><br><code>&nbsp; &nbsp; geom_point() +</code><br><code>&nbsp; &nbsp; geom_hline(yintercept = 0, color = "red", linetype = "dashed") +</code><br><code>&nbsp; &nbsp; labs(title = paste("Residuals -", title),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x = "Predicted Values", y = "Residuals") +</code><br><code>&nbsp; &nbsp; theme_minimal() +</code><br><code>&nbsp; &nbsp; theme(plot.title = element_text(size = 10))</code></p>
+<p><code>&nbsp; # Print model summary</code><br><code>&nbsp; cat("\n", title, ":\n")</code><br><code>&nbsp; print(summary(model))</code><br><code>&nbsp; cat("RMSE:", rmse, "\n\n")</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; return(list(model = model, r_squared = r_squared, rmse = rmse,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; plot = p, residual_plot = p_resid))</code><br><code>}</code></p>
+<p><code># Fit models with different transformations</code><br><code>model_original &lt;- fit_and_evaluate(df, "original", "Linear Regression (No Transformation)")</code><br><code>model_log &lt;- fit_and_evaluate(df, "log", "Linear Regression with Log Transformation")</code><br><code>model_sqrt &lt;- fit_and_evaluate(df, "sqrt", "Linear Regression with Square Root Transformation")</code><br><code>model_inverse &lt;- fit_and_evaluate(df, "inverse", "Linear Regression with Inverse Transformation")</code></p>
+<p><code># Arrange model plots in a grid</code><br><code>grid.arrange(</code><br><code>&nbsp; model_original$plot, model_log$plot,</code><br><code>&nbsp; model_sqrt$plot, model_inverse$plot,</code><br><code>&nbsp; ncol = 2</code><br><code>)</code></p>
+<p><code># Arrange residual plots in a grid</code><br><code>grid.arrange(</code><br><code>&nbsp; model_original$residual_plot, model_log$residual_plot,</code><br><code>&nbsp; model_sqrt$residual_plot, model_inverse$residual_plot,</code><br><code>&nbsp; ncol = 2</code><br><code>)</code></p>
+<p><code># Compare models</code><br><code>models &lt;- c("No Transformation", "Log", "Square Root", "Inverse")</code><br><code>r2_scores &lt;- c(model_original$r_squared, model_log$r_squared,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;model_sqrt$r_squared, model_inverse$r_squared)</code><br><code>rmse_scores &lt;- c(model_original$rmse, model_log$rmse,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; model_sqrt$rmse, model_inverse$rmse)</code></p>
+<p><code># Create comparison dataframe</code><br><code>comparison_df &lt;- data.frame(</code><br><code>&nbsp; Transformation = models,</code><br><code>&nbsp; R_squared = r2_scores,</code><br><code>&nbsp; RMSE = rmse_scores</code><br><code>)</code></p>
+<p><code># Plot comparison</code><br><code>p1 &lt;- ggplot(comparison_df, aes(x = Transformation, y = R_squared, fill = Transformation)) +</code><br><code>&nbsp; geom_bar(stat = "identity") +</code><br><code>&nbsp; labs(title = "R² Score Comparison", y = "R² Score") +</code><br><code>&nbsp; ylim(0, 1) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(legend.position = "none")</code></p>
+<p><code>p2 &lt;- ggplot(comparison_df, aes(x = Transformation, y = RMSE, fill = Transformation)) +</code><br><code>&nbsp; geom_bar(stat = "identity") +</code><br><code>&nbsp; labs(title = "RMSE Comparison", y = "RMSE") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(legend.position = "none")</code></p>
+<p><code>grid.arrange(p1, p2, ncol = 2)</code></p>
+<p><code># Print comparison table</code><br><code>print("Transformation Comparison:")</code><br><code>print(comparison_df)</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

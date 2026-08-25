@@ -1,0 +1,1162 @@
+{
+  "ModuleFolderName": "Week_5_Module_4_-_Discrete_Probability_Distributions",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:13:00.1347278-04:00",
+  "ModifiedDate": "2026-08-24T20:15:26.7840082-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "e52ae097-3a7d-4015-9147-3b38e19a6bb3",
+      "Title": "Introduction to Discrete Probability Distributions",
+      "Summary": "This topic establishes the foundational concepts of discrete probability distributions, explaining how probabilities are assigned to distinct, countable outcomes. Learners will understand the defining characteristics that differentiate discrete distributions from other types.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "ModifiedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "Elements": [
+        {
+          "Id": "292c5ba4-10bc-4ffa-a507-b5dfd44f0994",
+          "TopicId": "e52ae097-3a7d-4015-9147-3b38e19a6bb3",
+          "Title": "What Is a Discrete Probability Distribution?",
+          "BodyText": "A discrete probability distribution describes how probabilities are assigned to each possible distinct, countable outcome of a random variable.",
+          "Notes": "Examples of discrete outcomes include the number of customers arriving at a store, the number of defective items in a batch, or the result of rolling a die.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "ModifiedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "Items": [
+            {
+              "Id": "48325d45-7ace-4e0b-8eb4-10a75623af6c",
+              "Text": "A discrete random variable can only take on a finite or countably infinite set of values (e.g., 0, 1, 2, 3, \u2026).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "876ad77f-7059-4cfd-9462-138807cc1623",
+              "Text": "Each possible outcome is assigned a probability that reflects how likely that outcome is to occur.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "82fa664e-d578-4f47-99ba-ab0a73e50e7e",
+              "Text": "The distribution provides a complete picture of all possible outcomes and their associated probabilities.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "994aedfc-266e-42e9-ac09-ffa7d2f734e1",
+          "TopicId": "e52ae097-3a7d-4015-9147-3b38e19a6bb3",
+          "Title": "Discrete vs. Continuous Random Variables",
+          "BodyText": "Understanding the distinction between discrete and continuous random variables is essential for selecting the correct probability model.",
+          "Notes": "A helpful rule of thumb: if you can list or count the outcomes (even if the list is very long), the variable is discrete. If outcomes exist along an unbroken continuum, the variable is continuous.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "ModifiedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "Items": [
+            {
+              "Id": "f57e9ac3-aea6-455a-bec7-a2396d5cfaca",
+              "Text": "Discrete variables take on countable values, such as the number of heads in 10 coin flips.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "de20cc4b-0216-4007-b90d-df3b2ec19abe",
+              "Text": "Continuous variables can take any value within a range, such as the exact weight of a product.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "76a5fd54-f2f5-46cb-b307-4b6d1672d362",
+              "Text": "Discrete distributions use summation to calculate probabilities, whereas continuous distributions use integration over intervals.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "13caf1f9-f0d8-40a0-b21a-ac48b0740c53",
+          "TopicId": "e52ae097-3a7d-4015-9147-3b38e19a6bb3",
+          "Title": "Properties of a Valid Discrete Probability Distribution",
+          "BodyText": "For a distribution to be valid, it must satisfy two fundamental mathematical properties that ensure all probabilities are well-defined.",
+          "Notes": "These properties can be used as a quick check: if either condition fails, the distribution is not properly defined.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "ModifiedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "Items": [
+            {
+              "Id": "8745be6a-bcf3-442c-b0e9-1464ab5fc44f",
+              "Text": "Each individual probability P(x) must be between 0 and 1, inclusive: 0 \u2264 P(x) \u2264 1 for all x.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "db4dc08f-52f7-4b74-9a9e-dffda5cc0172",
+              "Text": "The sum of all probabilities across every possible outcome must equal exactly 1: \u03A3P(x) = 1.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7d29380b-4d45-4d34-ac82-7d755e3b84c0",
+              "Text": "A probability of 0 means the outcome is impossible, while a probability of 1 means it is certain.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "8222f4ce-c965-4833-a641-73a839cca5d6",
+          "TopicId": "e52ae097-3a7d-4015-9147-3b38e19a6bb3",
+          "Title": "Probability Distribution Tables and Notation",
+          "BodyText": "Discrete probability distributions are commonly represented using tables, formulas, or graphs that pair each outcome with its probability.",
+          "Notes": "A probability distribution table has two columns: one listing all possible values of the random variable X, and another listing the corresponding probability P(X = x) for each value.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "ModifiedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "Items": [
+            {
+              "Id": "d12784f4-f0b0-42d1-8592-67da3775aa77",
+              "Text": "The random variable is typically denoted by a capital letter (e.g., X), while specific values it takes are denoted by lowercase letters (e.g., x).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4207530e-b6f6-4387-b5b0-c4a29c61846a",
+              "Text": "P(X = x) is the notation used to express the probability that the random variable X equals a specific value x.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "25c0c426-d934-4a23-8b38-49de62630e1d",
+              "Text": "Graphs of discrete distributions display probability as the height of bars at each outcome value, making the distribution easy to visualize.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "260468ff-351a-4880-9e0e-d7bef9cd7bb1",
+          "TopicId": "e52ae097-3a7d-4015-9147-3b38e19a6bb3",
+          "Title": "Real-World Contexts for Discrete Distributions",
+          "BodyText": "Discrete probability distributions model a wide variety of real-world phenomena where outcomes are counted rather than measured.",
+          "Notes": "Recognizing whether a real-world situation involves countable outcomes is the first step toward choosing the appropriate discrete distribution model.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "ModifiedDate": "2026-08-24T20:13:17.3169313-04:00",
+          "Items": [
+            {
+              "Id": "aaac48ce-e896-4dc0-96ed-824e18c3e02a",
+              "Text": "Common applications include counting the number of defective products, customer arrivals, survey responses, or occurrences of an event in a fixed period.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "53c29275-5342-41f5-b558-cdc1bf2888d4",
+              "Text": "In business and science, discrete distributions help quantify risk and make predictions based on historical or theoretical probabilities.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f40e2887-5726-4b31-8603-45cc7caa573d",
+              "Text": "Identifying the correct distribution type (e.g., binomial or Poisson) depends on understanding the structure of the outcomes and the conditions of the scenario.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a98b3c18-9704-4bdb-9646-469e43342c59",
+      "Title": "Probability Mass Functions and Distribution Properties",
+      "Summary": "Learners explore the probability mass function (PMF) as the core tool for describing discrete distributions, along with essential properties such as non-negativity and the requirement that all probabilities sum to one. Key rules for constructing and validating a valid discrete probability distribution are covered.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "ModifiedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "Elements": [
+        {
+          "Id": "07106cb8-7071-40eb-ba1f-b5c52f30e664",
+          "TopicId": "a98b3c18-9704-4bdb-9646-469e43342c59",
+          "Title": "What Is a Probability Mass Function (PMF)?",
+          "BodyText": "A probability mass function (PMF) is the fundamental mathematical tool used to describe a discrete probability distribution by assigning a probability to each distinct outcome.",
+          "Notes": "For example, if X represents the number of heads in two coin flips, the PMF assigns specific probabilities to X = 0, X = 1, and X = 2.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:13:38.696994-04:00",
+          "ModifiedDate": "2026-08-24T20:13:38.696994-04:00",
+          "Items": [
+            {
+              "Id": "d34a31cd-8477-4653-a961-8c71ec619129",
+              "Text": "The PMF is written as P(X = x), representing the probability that the random variable X takes on a specific value x.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "db58569f-85ed-4999-8b6c-6b01451d17e1",
+              "Text": "It is defined only for discrete random variables, where outcomes are countable and distinct.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0cf5aae2-8651-467b-a3c5-86b5fd841fef",
+              "Text": "Each value in the domain of X must have a corresponding probability assigned by the PMF.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7930b74a-04e9-4cbc-a09b-bd5d47d5402e",
+              "Text": "The PMF fully characterizes the behavior of a discrete random variable.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9e0a99d4-e60b-4c1d-b408-f1a43f166ed4",
+          "TopicId": "a98b3c18-9704-4bdb-9646-469e43342c59",
+          "Title": "Non-Negativity Property",
+          "BodyText": "One of the essential properties of a valid PMF is non-negativity, which requires that every assigned probability must be greater than or equal to zero.",
+          "Notes": "A negative probability has no meaningful interpretation in the real world; probabilities represent likelihoods and must be non-negative by definition.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:13:38.696994-04:00",
+          "ModifiedDate": "2026-08-24T20:13:38.696994-04:00",
+          "Items": [
+            {
+              "Id": "0b2bc558-e6a8-47ec-b84a-84b6f47373bb",
+              "Text": "For all possible values x, the PMF must satisfy P(X = x) \u2265 0.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1ca598e-1f5d-44d5-a59f-6d1f317bac6f",
+              "Text": "A probability of zero is permissible and simply means that outcome cannot occur.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "16853e6c-4841-4399-9dab-ecf2beea60b5",
+              "Text": "Any distribution that assigns a negative probability to any outcome is invalid and cannot be used as a PMF.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e1eb5456-c6d8-4049-adce-64e55292bb8a",
+          "TopicId": "a98b3c18-9704-4bdb-9646-469e43342c59",
+          "Title": "The Summation Property: Probabilities Sum to One",
+          "BodyText": "A valid PMF must satisfy the requirement that the sum of all probabilities across every possible outcome equals exactly one.",
+          "Notes": "This reflects the certainty that some outcome must occur. For example, if a die has six faces, the probabilities for X = 1 through X = 6 must collectively sum to 1.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:13:38.696994-04:00",
+          "ModifiedDate": "2026-08-24T20:13:38.696994-04:00",
+          "Items": [
+            {
+              "Id": "e95a266f-ad86-4d93-be2f-0dee392e9ffe",
+              "Text": "Mathematically, this is expressed as \u03A3 P(X = x) = 1 over all possible values of x.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7bc926fb-7891-46f9-8811-b5f9c467efb4",
+              "Text": "This property ensures the distribution accounts for the entire sample space with no probability left unassigned.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b318b339-7866-4b47-a998-419567e8355b",
+              "Text": "A distribution where probabilities sum to more or less than one is not a valid probability distribution.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "331c42d2-3c8b-452b-b3e4-b449d92ace70",
+          "TopicId": "a98b3c18-9704-4bdb-9646-469e43342c59",
+          "Title": "Constructing a Discrete Probability Distribution",
+          "BodyText": "Building a valid discrete probability distribution requires systematically identifying all possible outcomes and assigning probabilities that satisfy both the non-negativity and summation properties.",
+          "Notes": "A common approach is to use a table listing each outcome alongside its probability, making it easy to verify that all conditions are met.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:13:38.696994-04:00",
+          "ModifiedDate": "2026-08-24T20:13:38.696994-04:00",
+          "Items": [
+            {
+              "Id": "1ee03e08-7d55-4483-9b26-46726f813764",
+              "Text": "Begin by listing every distinct, mutually exclusive outcome the random variable X can take.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a806f0a0-26d9-4d5e-971e-0cc095044b89",
+              "Text": "Assign a probability to each outcome based on theoretical reasoning, empirical data, or a known formula.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "95281ec8-f2ff-4cd5-84df-b1fa999d6b60",
+              "Text": "Verify that all assigned probabilities are non-negative and that they sum to exactly one before using the distribution.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e1fd5a60-853f-4feb-b86c-55d6884b1777",
+              "Text": "A probability distribution table or histogram is a useful way to organize and communicate the distribution clearly.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9788ac0f-2afe-4189-92d5-9242a9d5fe88",
+          "TopicId": "a98b3c18-9704-4bdb-9646-469e43342c59",
+          "Title": "Validating a Probability Distribution",
+          "BodyText": "Before applying a probability distribution to solve problems, learners must confirm that it satisfies the two core rules: non-negativity and the total sum equal to one.",
+          "Notes": "Validation is a critical step when working with distributions constructed from data or presented in problem sets, as errors in assignment can lead to incorrect conclusions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:13:38.696994-04:00",
+          "ModifiedDate": "2026-08-24T20:13:38.696994-04:00",
+          "Items": [
+            {
+              "Id": "a2bc315c-fee2-4a17-8743-8b1588d6ad0b",
+              "Text": "Check that every individual probability P(X = x) is greater than or equal to zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cf4b91d9-7696-42fa-8ec1-8c745d80bcf8",
+              "Text": "Calculate the sum of all probabilities and confirm the total equals exactly 1.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7d86a944-1d8e-4803-b772-a43ba01ff5ff",
+              "Text": "If either condition fails, the distribution must be corrected before any further calculations are performed.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9f84cafb-4bf0-4ea6-a737-1f8392e1f0c4",
+              "Text": "Validation applies equally to theoretical distributions and those estimated from observed data.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fedd3569-9f0c-41bf-b35f-5805f0fcf04b",
+          "TopicId": "a98b3c18-9704-4bdb-9646-469e43342c59",
+          "Title": "Interpreting PMF Values in Context",
+          "BodyText": "Each PMF value carries a direct, interpretable meaning: it represents the likelihood that the random variable equals a specific outcome in a given scenario.",
+          "Notes": "For instance, if P(X = 3) = 0.25 in a distribution of customer complaints per day, this means there is a 25% chance that exactly three complaints occur on any given day.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:13:38.696994-04:00",
+          "ModifiedDate": "2026-08-24T20:13:38.696994-04:00",
+          "Items": [
+            {
+              "Id": "63feb25f-5c90-46af-8395-5f8c2184ff36",
+              "Text": "PMF values closer to 1 indicate outcomes that are highly likely, while values closer to 0 indicate rare outcomes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "06aa33c0-f35b-42a0-8cdb-90140eacae77",
+              "Text": "Comparing PMF values across outcomes helps identify the most and least probable results of a random process.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d92a00b4-553a-4b4d-8160-c4a0993dbce2",
+              "Text": "Contextual interpretation of PMF values is essential for applying probability distributions to real-world decision-making.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+      "Title": "Expected Value and Variance of Discrete Distributions",
+      "Summary": "This topic covers the calculation and interpretation of expected value (mean) and variance for discrete random variables. Learners will understand what these measures reveal about the center and spread of a distribution in practical contexts.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "ModifiedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "Elements": [
+        {
+          "Id": "eb69c81b-7913-4587-8ba5-3f67b532cad6",
+          "TopicId": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+          "Title": "Definition of Expected Value",
+          "BodyText": "The expected value (mean) of a discrete random variable is the weighted average of all possible outcomes, where each outcome is weighted by its probability of occurrence.",
+          "Notes": "For example, if a game pays $10 with probability 0.3 and $0 with probability 0.7, the expected value is 10(0.3) \u002B 0(0.7) = $3. This represents the long-run average outcome over many repetitions.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "ModifiedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "Items": [
+            {
+              "Id": "b4d3eb6f-c651-4ba7-bc98-1f4b3eaef03d",
+              "Text": "The expected value is calculated using the formula E(X) = \u03A3 [x \u00B7 P(x)], summing the product of each outcome and its probability.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b34e23b3-2f0e-4302-b2e3-b7576527efc1",
+              "Text": "It serves as the center of the distribution, describing where outcomes tend to cluster on average.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5a3f6f5e-712e-4535-9560-8d7bbfad94c5",
+              "Text": "The expected value does not have to be a value that can actually occur; it represents a long-run average.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "066c50a7-be6e-4d5b-969c-45ee125367cc",
+              "Text": "In practical contexts, expected value helps decision-makers evaluate outcomes such as average profit, risk, or cost.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3d92972b-4402-4a5b-8021-5c4db80b2c62",
+          "TopicId": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+          "Title": "Interpreting Expected Value in Context",
+          "BodyText": "Interpreting the expected value means understanding what the computed mean tells us about the real-world scenario modeled by the distribution.",
+          "Notes": "For instance, if a discrete distribution models the number of customer complaints per day, an expected value of 3.2 means that, on average, about 3.2 complaints are received per day over the long run.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "ModifiedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "Items": [
+            {
+              "Id": "6a17aca3-e2a4-41c1-a490-18f3c90d541a",
+              "Text": "The expected value provides a single summary number representing the typical outcome of a random process.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "04b7c1b2-1ed6-4df1-ad43-8fa7e042fad3",
+              "Text": "It is most meaningful when the random process is repeated many times, as individual outcomes may vary widely.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c7a8e8fd-3f93-4400-bcf8-bcd203f3d369",
+              "Text": "Context matters: an expected value of 2.5 children per household is a statistical average, not a prediction for any one household.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3e72948f-96b5-498f-b809-70fb9c8b34fb",
+          "TopicId": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+          "Title": "Definition and Formula for Variance",
+          "BodyText": "The variance of a discrete random variable measures how spread out the outcomes are around the expected value, quantifying the average squared deviation from the mean.",
+          "Notes": "Variance is calculated as Var(X) = \u03A3 [(x \u2212 \u03BC)\u00B2 \u00B7 P(x)], where \u03BC is the expected value. Squaring the deviations ensures negative and positive differences do not cancel out.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "ModifiedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "Items": [
+            {
+              "Id": "41a8ad90-fba5-43fc-a5c9-daa165e90c1f",
+              "Text": "A larger variance indicates that outcomes are more widely dispersed around the mean, while a smaller variance indicates outcomes cluster more tightly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b081e7a9-4ce6-4424-a32a-eb870b9ab036",
+              "Text": "The standard deviation, the square root of the variance, is often preferred because it is expressed in the same units as the original variable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d540da31-b385-4781-af03-a9686166995c",
+              "Text": "Both variance and standard deviation are always non-negative values.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "816ff176-64af-4f44-bc57-3807c1033375",
+              "Text": "An equivalent computational formula is Var(X) = E(X\u00B2) \u2212 [E(X)]\u00B2, which is often easier to apply in practice.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c509a8c9-0542-42dd-a58f-b4af71367516",
+          "TopicId": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+          "Title": "Calculating Expected Value and Variance: Step-by-Step",
+          "BodyText": "Computing expected value and variance requires a systematic approach using the probability distribution table of the random variable.",
+          "Notes": "Working through a structured table \u2014 listing each x, P(x), x\u00B7P(x), and (x\u2212\u03BC)\u00B2\u00B7P(x) \u2014 reduces errors and makes the calculation transparent.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "ModifiedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "Items": [
+            {
+              "Id": "767a4bd6-aa7d-4804-9629-feda9c2c6e73",
+              "Text": "Step 1: List all possible values of the random variable x and their associated probabilities P(x), confirming that all probabilities sum to 1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5f78b7ae-cb58-42ff-86ae-04fbddf3e4d3",
+              "Text": "Step 2: Multiply each value x by its probability P(x) and sum these products to obtain E(X).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c8c83054-f56c-4457-a2b1-82bfab51c74d",
+              "Text": "Step 3: For each x, compute (x \u2212 \u03BC)\u00B2, multiply by P(x), and sum these products to obtain the variance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6b14493a-8dc9-4706-a9a9-cf7470f0ec14",
+              "Text": "Step 4: Take the square root of the variance to find the standard deviation for easier interpretation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "14f28792-cfd0-44a6-8b01-099040632330",
+          "TopicId": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+          "Title": "Interpreting Variance and Standard Deviation",
+          "BodyText": "Variance and standard deviation reveal how much variability or uncertainty exists in the outcomes of a discrete random variable, supplementing the information provided by the expected value alone.",
+          "Notes": "Two distributions can have the same expected value but very different variances. For example, one investment may average the same return as another but carry far greater risk, as reflected by a higher standard deviation.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "ModifiedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "Items": [
+            {
+              "Id": "b8f95f5e-b834-44a6-9f1c-7e71bcafb880",
+              "Text": "A low standard deviation means outcomes are predictable and consistently near the mean, indicating lower risk or uncertainty.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ac0a519-d1fc-4aed-8acc-a829d662b38e",
+              "Text": "A high standard deviation signals that outcomes vary widely from the mean, indicating greater unpredictability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "68b7401a-71ed-48b3-83b1-450689761ed3",
+              "Text": "In business and science, comparing standard deviations allows analysts to assess relative risk between different scenarios or options.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "799e5372-572c-41ee-be0b-e896cdb6bc9b",
+              "Text": "Standard deviation is expressed in the same units as the original variable, making it more directly interpretable than variance.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2195ef14-e1db-4682-be2a-d310335e10b0",
+          "TopicId": "57ec19ec-ba5b-4154-aefe-af34b936b679",
+          "Title": "Practical Applications of Expected Value and Variance",
+          "BodyText": "Expected value and variance are foundational tools used across many fields to support decision-making under uncertainty.",
+          "Notes": "Insurance companies use expected value to set premiums, and variance to understand the range of potential claims. Similarly, quality control analysts use these measures to monitor production processes.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "ModifiedDate": "2026-08-24T20:14:03.3896769-04:00",
+          "Items": [
+            {
+              "Id": "13e16bab-5e2e-4cc8-97e2-b1df865fcaa7",
+              "Text": "In finance, expected value guides investment decisions by estimating average returns, while variance measures the associated financial risk.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "73aa6ef6-0c9b-46bb-951d-952daf3bd3df",
+              "Text": "In healthcare, expected value and variance help model patient outcomes, resource demands, and the effectiveness of treatments.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "37460cd1-30e9-49f0-aa8e-7289e2ebe944",
+              "Text": "In operations management, these measures support scheduling, inventory planning, and capacity decisions by characterizing demand distributions.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9e79ea44-23ce-44d5-990d-831ed5576028",
+              "Text": "Understanding both the center and spread of a distribution leads to more informed and balanced decisions than relying on expected value alone.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+      "Title": "The Binomial Distribution",
+      "Summary": "Learners examine the binomial distribution, its conditions, formula, and applications to scenarios involving a fixed number of independent trials with two possible outcomes. Probability calculations, expected values, and variances specific to the binomial setting are practiced.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "ModifiedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "Elements": [
+        {
+          "Id": "20610638-aec2-4820-8032-a5c756f04356",
+          "TopicId": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+          "Title": "Conditions for a Binomial Experiment",
+          "BodyText": "A binomial distribution applies only when a specific set of conditions is met by the experiment or process being studied.",
+          "Notes": "A classic example is flipping a coin 10 times and counting the number of heads \u2014 each flip is independent, has two outcomes, and the probability of heads stays constant.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "ModifiedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "Items": [
+            {
+              "Id": "8c6d342e-8295-44bb-a329-8702918e8cdb",
+              "Text": "The experiment consists of a fixed number of trials, denoted n.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8196ebbf-363a-462d-9cf3-762baf3a9bee",
+              "Text": "Each trial results in exactly one of two possible outcomes, commonly called \u0027success\u0027 or \u0027failure\u0027.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ce3a0822-590a-4ce6-83af-28d7b7076d85",
+              "Text": "The probability of success, denoted p, remains constant across all trials.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "090d0b8d-528a-4604-adf5-0231db7a1764",
+              "Text": "All trials are independent of one another, meaning the outcome of one trial does not affect any other.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8df61a09-4c91-4532-bbec-3e3e562a2b1d",
+          "TopicId": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+          "Title": "The Binomial Probability Formula",
+          "BodyText": "The binomial formula calculates the probability of obtaining exactly k successes in n independent trials.",
+          "Notes": "For example, to find the probability of getting exactly 3 heads in 5 coin flips with p = 0.5, you would compute C(5,3) \u00D7 (0.5)^3 \u00D7 (0.5)^2 = 0.3125.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "ModifiedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "Items": [
+            {
+              "Id": "cb7eba70-6b05-424c-ae32-3e6f0715b396",
+              "Text": "The formula is P(X = k) = C(n, k) \u00D7 p^k \u00D7 (1 \u2212 p)^(n \u2212 k), where C(n, k) is the binomial coefficient.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e5f67758-66bc-4c30-8567-86d082549b4a",
+              "Text": "C(n, k) = n! / (k!(n \u2212 k)!) counts the number of ways to arrange k successes among n trials.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d0a51179-8bfc-485c-a916-3be82931ea04",
+              "Text": "The term p^k represents the probability of k successes, and (1 \u2212 p)^(n \u2212 k) represents the probability of the remaining failures.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b0154c1b-4a00-43ff-b969-ce6537c367fa",
+              "Text": "k can take any integer value from 0 to n, inclusive.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8ddfc8ff-3cc0-49af-9e0f-3ff2e12f4375",
+          "TopicId": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+          "Title": "Identifying the Parameters n and p",
+          "BodyText": "Before applying the binomial formula, learners must correctly identify the two key parameters that define a specific binomial distribution.",
+          "Notes": "If a quality inspector checks 20 items and the defect rate is 5%, then n = 20 and p = 0.05. Misidentifying these parameters leads to incorrect probability calculations.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "ModifiedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "Items": [
+            {
+              "Id": "40d483f1-502e-42b5-93ba-c8c96a189e1d",
+              "Text": "The parameter n is the total number of trials performed in the experiment.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f5daae50-400e-4de3-aaa5-df02f370f732",
+              "Text": "The parameter p is the probability of success on any single trial.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b7c447e0-a013-4c40-89c2-2d7cf3ac3cc0",
+              "Text": "The probability of failure on any single trial is q = 1 \u2212 p, which must also be identified.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1cabf76b-dafd-41d1-bd5e-a08c1b57fbc7",
+              "Text": "Together, n and p fully define the shape and probabilities of the binomial distribution.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e88d5e15-88db-447c-a173-4205b89aa938",
+          "TopicId": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+          "Title": "Expected Value of the Binomial Distribution",
+          "BodyText": "The expected value of a binomial random variable gives the average number of successes anticipated over many repetitions of the experiment.",
+          "Notes": "If a basketball player has a 70% free-throw success rate and attempts 10 shots, the expected number of successful shots is 10 \u00D7 0.7 = 7.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "ModifiedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "Items": [
+            {
+              "Id": "2852dafd-02b4-4d5f-afa8-9d4f830e700e",
+              "Text": "The expected value (mean) of a binomial distribution is calculated as \u03BC = n \u00D7 p.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "83a00701-fa63-420a-83a2-9dc9a111b1c8",
+              "Text": "This formula represents the long-run average number of successes if the experiment were repeated many times.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eec891c7-38f6-46f0-873b-6f13905ee60c",
+              "Text": "The expected value does not need to be a whole number, even though individual outcomes must be integers.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "486c0d20-9bc6-4150-a6ee-3ee13e3b1c20",
+          "TopicId": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+          "Title": "Variance and Standard Deviation of the Binomial Distribution",
+          "BodyText": "The variance and standard deviation measure the spread of outcomes around the expected value in a binomial distribution.",
+          "Notes": "Using the free-throw example with n = 10 and p = 0.7, the variance is 10 \u00D7 0.7 \u00D7 0.3 = 2.1, and the standard deviation is approximately 1.449.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "ModifiedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "Items": [
+            {
+              "Id": "940b8c6d-e0be-404f-a039-37edb4cb040c",
+              "Text": "The variance of a binomial distribution is \u03C3\u00B2 = n \u00D7 p \u00D7 (1 \u2212 p), also written as n \u00D7 p \u00D7 q.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c2475402-2526-415c-a1ad-8e4abcba6dbd",
+              "Text": "The standard deviation is \u03C3 = \u221A(n \u00D7 p \u00D7 (1 \u2212 p)), the square root of the variance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "252c50ac-5fff-4af0-a853-c79f98791fe4",
+              "Text": "A higher variance indicates more spread in the number of successes across repeated experiments.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "769bda60-6b95-4801-bce7-3f515313e1cd",
+              "Text": "Variance is maximized when p = 0.5, meaning outcomes are most unpredictable when success and failure are equally likely.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "43c807e5-be5d-4559-9588-ac4b56146a05",
+          "TopicId": "ccc46f33-3dbe-470d-a60c-4fd1c4510c99",
+          "Title": "Applying the Binomial Distribution to Real-World Scenarios",
+          "BodyText": "The binomial distribution is widely used to model real-world situations where outcomes are counted as successes or failures across a fixed number of trials.",
+          "Notes": "Common applications include quality control (counting defective items in a batch), medicine (number of patients responding to a treatment), and marketing (number of customers making a purchase from a sample).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "ModifiedDate": "2026-08-24T20:14:24.9347836-04:00",
+          "Items": [
+            {
+              "Id": "460f2517-c65e-407d-bbc8-a8c3ec6948f2",
+              "Text": "Any scenario with a fixed sample size, two possible outcomes, constant probability, and independent trials is a candidate for the binomial model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cdf02e12-3930-4ada-82c8-7188ff52a324",
+              "Text": "Learners should verify all four binomial conditions before applying the formula to avoid modeling errors.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f35a7c51-fccb-41d5-90c7-734b75180a45",
+              "Text": "Cumulative binomial probabilities \u2014 such as P(X \u2264 k) \u2014 can be computed by summing individual probabilities or using statistical tables and software.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "8c52b07d-8b1a-4b91-8499-89134fa41596",
+              "Text": "Recognizing when the binomial model is appropriate is a critical first step in solving applied probability problems.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "3c3748c4-f121-44af-884d-d98175ff0c08",
+      "Title": "The Poisson Distribution",
+      "Summary": "This topic introduces the Poisson distribution as a model for counting the number of events occurring within a fixed interval of time or space. Learners will apply the Poisson formula to real-world problems and interpret the rate parameter in context.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "ModifiedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "Elements": [
+        {
+          "Id": "46bdc16a-5fa7-4ed2-885c-9e4315c13584",
+          "TopicId": "3c3748c4-f121-44af-884d-d98175ff0c08",
+          "Title": "What Is the Poisson Distribution?",
+          "BodyText": "The Poisson distribution models the number of times an event occurs within a fixed interval of time, space, distance, or volume.",
+          "Notes": "Examples include the number of customers arriving at a bank per hour, the number of defects per square meter of fabric, or the number of calls received by a call center per minute.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "ModifiedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "Items": [
+            {
+              "Id": "bd5947b3-2519-448e-b4e6-5bd447e90f93",
+              "Text": "The events must occur independently of one another \u2014 the occurrence of one event does not affect the probability of another.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3acbcb61-30b6-43c9-8974-9e749a7144d0",
+              "Text": "The rate at which events occur must be constant throughout the interval being observed.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4cdf02e8-674e-4789-9756-42fd15ee51da",
+              "Text": "The distribution applies when events can theoretically occur any number of times within the interval, including zero.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3d5cd326-7078-47b2-a1bd-00dc8f9430f8",
+          "TopicId": "3c3748c4-f121-44af-884d-d98175ff0c08",
+          "Title": "The Rate Parameter (\u03BB)",
+          "BodyText": "The Greek letter lambda (\u03BB) is the defining parameter of the Poisson distribution, representing the average number of events expected to occur in a given interval.",
+          "Notes": "For example, if a hospital emergency room receives an average of 8 patients per hour, then \u03BB = 8 for a one-hour interval. If you want to find the probability for a 30-minute interval, you would adjust \u03BB to 4.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "ModifiedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "Items": [
+            {
+              "Id": "1d1ffc58-5b48-43b5-9b04-73c0ab235112",
+              "Text": "Lambda (\u03BB) must always be a positive value greater than zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "84b9fe0b-5c16-4de5-8d7e-2b510c5db05b",
+              "Text": "The value of \u03BB can be scaled proportionally when changing the size of the interval \u2014 for example, doubling the interval doubles \u03BB.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b9bda907-ab35-42c2-afe0-d72d5bf4cbac",
+              "Text": "Correctly interpreting and adjusting \u03BB for the interval in question is essential before applying the Poisson formula.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0ffc6fad-3465-46a1-8764-01d6b7c140ac",
+          "TopicId": "3c3748c4-f121-44af-884d-d98175ff0c08",
+          "Title": "The Poisson Probability Formula",
+          "BodyText": "The probability of observing exactly x events in an interval is calculated using the Poisson formula: P(X = x) = (e^(\u2212\u03BB) \u00D7 \u03BB^x) / x!",
+          "Notes": "Here, e is Euler\u0027s number (approximately 2.71828), \u03BB is the average rate of occurrence, x is the number of events whose probability is being calculated, and x! is the factorial of x.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "ModifiedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "Items": [
+            {
+              "Id": "8cd167b5-eea6-49ca-8e68-ba200c01c280",
+              "Text": "The variable x can take any non-negative integer value: 0, 1, 2, 3, and so on.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "bec22624-4748-4707-a672-232916e972a3",
+              "Text": "The term e^(\u2212\u03BB) acts as a normalizing factor, ensuring all probabilities across all possible values of x sum to 1.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "14eadf56-9c48-42be-9f1d-8da4b83b4f8d",
+              "Text": "Factorials grow very quickly, so for large values of x, the probability of occurrence typically becomes very small.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "403fdf15-6856-414b-9ad5-0999584b1ba8",
+          "TopicId": "3c3748c4-f121-44af-884d-d98175ff0c08",
+          "Title": "Mean and Variance of the Poisson Distribution",
+          "BodyText": "A key property of the Poisson distribution is that its mean and variance are both equal to \u03BB, making it uniquely simple to characterize.",
+          "Notes": "This equality is a distinguishing feature of the Poisson distribution and can be used to check whether the Poisson model is appropriate for a real-world dataset \u2014 if the observed mean and variance are approximately equal, the Poisson distribution may be a good fit.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "ModifiedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "Items": [
+            {
+              "Id": "baaf80fa-1b73-447d-b5b0-d92d8edea225",
+              "Text": "The expected value (mean) of a Poisson random variable X is E(X) = \u03BB.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "24ee3415-3c82-4307-a2f8-4e3577f6a41a",
+              "Text": "The variance of a Poisson random variable X is Var(X) = \u03BB, and the standard deviation is therefore \u221A\u03BB.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5d68d151-ba06-4f5e-80e6-8f0475be206f",
+              "Text": "Because variance equals the mean, greater values of \u03BB correspond to both a higher average count and greater spread in the distribution.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1003dbb7-3288-4093-8d59-bbcb8b663aec",
+          "TopicId": "3c3748c4-f121-44af-884d-d98175ff0c08",
+          "Title": "Conditions for Using the Poisson Distribution",
+          "BodyText": "Before applying the Poisson distribution, it is important to verify that the situation satisfies the required assumptions.",
+          "Notes": "A common mistake is applying the Poisson model when events are not truly independent or when the rate is not constant \u2014 for example, customer arrivals may vary significantly by time of day, violating the constant-rate assumption.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "ModifiedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "Items": [
+            {
+              "Id": "23f172c8-c7b3-42b8-aec9-d55e015ee049",
+              "Text": "Events must occur independently \u2014 knowing that one event occurred provides no information about when the next will occur.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d258abae-585d-4c43-b3a9-fc26b3a2457b",
+              "Text": "The average rate of occurrence (\u03BB) must remain constant across the entire interval of interest.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "709061d0-56e2-4831-9577-defb6b510904",
+              "Text": "Two events cannot occur at exactly the same instant; the probability of simultaneous events is effectively zero.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "e74d3aa7-b610-4f53-8935-78f0438f3ad2",
+              "Text": "The number of events counted must be a non-negative integer (0, 1, 2, ...).",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c54466e2-65c4-468a-9b06-c818b81c2736",
+          "TopicId": "3c3748c4-f121-44af-884d-d98175ff0c08",
+          "Title": "Applying the Poisson Formula to Real-World Problems",
+          "BodyText": "Solving Poisson probability problems involves identifying \u03BB from context, selecting the correct value of x, and substituting into the formula.",
+          "Notes": "Example: If a website averages 3 server errors per day (\u03BB = 3), the probability of exactly 5 errors occurring on a given day is P(X = 5) = (e^(\u22123) \u00D7 3^5) / 5! \u2248 0.1008, or about a 10.1% chance.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "ModifiedDate": "2026-08-24T20:14:48.4851663-04:00",
+          "Items": [
+            {
+              "Id": "65e323de-9fca-4386-8ce4-f0fd7a5bc172",
+              "Text": "Read the problem carefully to identify the stated average rate and confirm the interval matches the rate given \u2014 adjust \u03BB if necessary.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8acf6b33-884d-4d8c-a533-a0481f9eaa8c",
+              "Text": "Determine the specific number of events (x) for which you need to calculate a probability.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4d324c8f-8221-4c3a-8652-1de491cd0c90",
+              "Text": "Use the formula P(X = x) = (e^(\u2212\u03BB) \u00D7 \u03BB^x) / x!, computing each component step by step to minimize errors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "878c624d-be29-4f24-9103-33692f728312",
+              "Text": "For cumulative probabilities (e.g., \u0027at most 3 events\u0027), sum the individual Poisson probabilities for each value of x from 0 up to the specified number.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+      "Title": "Applying Discrete Distributions to Real-World Problems",
+      "Summary": "Learners synthesize their knowledge by identifying the appropriate discrete distribution for a given scenario and executing full probability analyses. Practical exercises reinforce the ability to select, apply, and interpret distribution results across diverse fields.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "ModifiedDate": "2026-08-24T20:13:00.1347278-04:00",
+      "Elements": [
+        {
+          "Id": "d1a6c907-3a1c-49e9-851d-671a26171bd7",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Identifying the Right Distribution for a Scenario",
+          "BodyText": "The first step in any discrete probability problem is selecting the distribution that best matches the structure of the situation.",
+          "Notes": "Ask key diagnostic questions: Are outcomes binary (success/failure)? Is there a fixed number of trials? Are events occurring over a continuous interval of time or space? These answers point directly to the correct distribution.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "ede3748b-ca60-4e21-a931-6e568684cc76",
+              "Text": "Use the Binomial distribution when there are a fixed number of independent trials, each with exactly two outcomes and a constant probability of success.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3152bc23-05e4-4749-9f29-9fb8c823077d",
+              "Text": "Use the Poisson distribution when counting the number of events occurring in a fixed interval of time or space, with events happening independently at a known average rate.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ed433c7d-4e3b-4f85-9ac1-a3710bf47a9b",
+              "Text": "Misidentifying the distribution leads to incorrect probability calculations, so verifying the assumptions of each distribution is a critical first step.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4b61b681-9a93-443e-878f-a07dae66f521",
+              "Text": "Real-world clues such as \u0027on average, 3 customers arrive per hour\u0027 signal Poisson, while \u0027out of 10 patients, how many recover\u0027 signals Binomial.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "09b88a77-d81e-4da7-9567-62cd36a17f54",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Setting Up the Problem Parameters",
+          "BodyText": "Once the appropriate distribution is identified, the next step is extracting and defining the numerical parameters needed to apply the distribution formula.",
+          "Notes": "For example, a quality control scenario might state that 5% of products are defective and a batch of 20 is inspected \u2014 here n=20 and p=0.05 for a Binomial model. A hospital scenario stating 4 emergency arrivals per hour gives \u03BB=4 for a Poisson model.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "ecec91c0-6dc2-4eef-afb2-f5b4ff7223f7",
+              "Text": "For the Binomial distribution, identify n (number of trials), p (probability of success), and the target value of k (number of successes).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9d1430bc-8f38-4f2a-a53d-4f4c73b84dd3",
+              "Text": "For the Poisson distribution, identify \u03BB (the average rate of occurrence) and k (the number of events of interest).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "01ccca7c-2548-4738-8f44-7e955f77d5bc",
+              "Text": "Carefully read the problem to distinguish between the average rate and a specific count, as confusing these leads to parameter errors.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "faacd04d-e60e-46ca-a2d0-b4c52205ed43",
+              "Text": "Units must be consistent \u2014 if \u03BB is given per hour but the question asks about a 30-minute window, adjust \u03BB proportionally before calculating.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "333c0719-4766-4e63-b382-0f215419604d",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Executing Probability Calculations",
+          "BodyText": "With parameters defined, learners apply the appropriate probability mass function to compute exact or cumulative probabilities.",
+          "Notes": "Cumulative probabilities often require summing individual PMF values or using complement rules (e.g., P(X \u2265 1) = 1 \u2212 P(X = 0)), which is a common and efficient technique in applied problems.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "47edbd8b-9d31-46b1-bc12-148544358124",
+              "Text": "The Binomial PMF is P(X=k) = C(n,k) \u00B7 p^k \u00B7 (1\u2212p)^(n\u2212k), where C(n,k) is the combination of n items taken k at a time.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0ab4752d-3d86-4257-a1ca-5aa22f0ded65",
+              "Text": "The Poisson PMF is P(X=k) = (e^\u2212\u03BB \u00B7 \u03BB^k) / k!, where e \u2248 2.71828.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb38d7db-5ed7-41b6-a20d-4cb21f82220c",
+              "Text": "For questions asking about ranges (e.g., \u0027at most 3\u0027 or \u0027more than 2\u0027), calculate cumulative probabilities by summing individual PMF values or using the complement rule.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "64d8d420-687b-44ea-a115-13ef88f057ad",
+              "Text": "Organized calculation steps \u2014 listing parameters, writing the formula, substituting values, and simplifying \u2014 reduce errors and improve interpretability.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4341f422-72c7-4f41-956b-c1ed5d218661",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Computing Expected Value and Variance in Context",
+          "BodyText": "Beyond single probabilities, real-world analyses require understanding the average outcome and variability, captured by the expected value and variance of the distribution.",
+          "Notes": "In a manufacturing context, knowing that a machine produces an average of 2 defective items per batch (E[X]=2) with a variance of 2 (Poisson) helps managers set quality thresholds and plan interventions.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "60259692-0fa4-4fd8-ae71-88dd16298c0d",
+              "Text": "For a Binomial distribution, the expected value is E[X] = n\u00B7p and the variance is Var(X) = n\u00B7p\u00B7(1\u2212p).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aedc533d-b233-4e56-999a-952ea8df7e09",
+              "Text": "For a Poisson distribution, both the expected value and variance equal \u03BB, meaning E[X] = Var(X) = \u03BB.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e2d75a63-23bd-4ee7-9dc7-82aa07811412",
+              "Text": "Expected value provides the long-run average outcome, which is essential for forecasting and resource planning in applied fields.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f652a3cb-6583-48d4-8c7b-3cddd0a14c16",
+              "Text": "Variance and standard deviation quantify the spread of outcomes, helping decision-makers understand the risk or uncertainty associated with a process.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a2cef36c-f993-476d-b446-7d47169c0154",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Interpreting Results in the Applied Context",
+          "BodyText": "Calculating a probability is only meaningful when the result is translated back into the language of the original problem and used to support a decision or conclusion.",
+          "Notes": "For instance, finding P(X \u2265 5) = 0.03 in a hospital arrivals problem means there is only a 3% chance of 5 or more critical arrivals in an hour \u2014 a useful insight for staffing decisions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "29775b3c-1680-4388-92e1-6eb2587c4fff",
+              "Text": "Always restate the numerical result in plain language tied to the scenario, such as \u0027there is a 12% probability that exactly 3 out of 20 units will be defective.\u0027",
+              "SortOrder": 0
+            },
+            {
+              "Id": "df8b5719-761a-43e4-8b3f-f5fc2a5c4a2a",
+              "Text": "Compare probabilities to practical thresholds \u2014 if a probability is very low (e.g., below 5%), it may be considered an unlikely or rare event in the given field.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "dc2f3aa6-6c65-4168-b06f-0dd2cc23d505",
+              "Text": "Use expected values to make recommendations, such as suggesting how many spare parts to stock based on the average number of failures expected per week.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "bffbaa52-13b3-4c74-9a95-cf3ede734d5d",
+              "Text": "Contextual interpretation bridges mathematical results and real-world action, which is the ultimate goal of applied probability analysis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "742fb294-60b6-432e-acd9-e4a06c084e9b",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Applying Distributions Across Diverse Fields",
+          "BodyText": "Discrete distributions appear across many professional domains, and recognizing their presence in varied contexts builds versatile analytical skills.",
+          "Notes": "Cross-field practice \u2014 such as analyzing both a medical trial and a call center problem using the same distribution \u2014 reinforces conceptual understanding and prevents over-reliance on surface-level pattern matching.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "335d7168-50c8-4d49-aad6-9b500cc78f40",
+              "Text": "In healthcare, the Binomial distribution can model the number of patients responding positively to a treatment out of a fixed group in a clinical trial.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d035b28e-edf4-447b-af3b-729f4792f9fb",
+              "Text": "In operations and logistics, the Poisson distribution models the number of customer arrivals, machine breakdowns, or defects occurring within a set time period.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "00786a8c-4500-4d9b-970f-3f0b40d3a44b",
+              "Text": "In finance and insurance, discrete distributions help estimate the probability of a specific number of claims or defaults within a portfolio.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "12ec854d-90ab-4032-acc4-bbbce41afef3",
+              "Text": "In quality control and manufacturing, both distributions are used to assess defect rates and determine acceptable quality levels in production batches.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "a0514eda-5467-4d0c-ad58-0b9b5aded0fc",
+              "Text": "Practicing with scenarios from multiple fields strengthens the ability to abstract the mathematical structure from context-specific language.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "c8d15897-741a-4f4a-8f63-4bf7d2be9d0f",
+          "TopicId": "af9ccff7-03e2-4317-ade6-799aafb445a3",
+          "Title": "Common Pitfalls and Problem-Solving Strategies",
+          "BodyText": "Awareness of frequent errors and the use of systematic strategies significantly improve accuracy and confidence when solving applied discrete probability problems.",
+          "Notes": "A structured checklist \u2014 identify distribution, define parameters, write the formula, calculate, and interpret \u2014 serves as an effective problem-solving scaffold for learners at any level.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "ModifiedDate": "2026-08-24T20:15:26.7839347-04:00",
+          "Items": [
+            {
+              "Id": "7a80a41d-bf1f-4994-b3ca-3942bcadb6c8",
+              "Text": "A common mistake is applying the Binomial distribution when trials are not independent or the probability of success changes across trials, violating key assumptions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fa277da7-00ef-41a9-892b-d4725b3b5033",
+              "Text": "Another frequent error is forgetting to adjust \u03BB when the time or space interval in the question differs from the interval in which the rate was originally given.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fcee2978-04ec-484f-8563-b3cc98dab6ed",
+              "Text": "Overlooking complement rules can make calculations unnecessarily complex; recognizing when P(X \u2265 k) = 1 \u2212 P(X \u2264 k\u22121) saves significant effort.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f92ab9db-f076-4d56-b591-b59a38f4e89d",
+              "Text": "Always verify that probabilities sum to 1 when constructing a full distribution table, as this serves as a built-in check for calculation accuracy.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "f1f6a12f-89a0-4a46-8f4b-3cbd4f05bbed",
+              "Text": "Drawing a simple diagram or table to organize given information before computing helps prevent misreading of problem parameters.",
+              "SortOrder": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 36
+}

@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 7 / Module 6 – Sampling Distributions | EGN3443</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --clr-bg:          #f4f6f9;
+      --clr-surface:     #ffffff;
+      --clr-primary:     #1a3a5c;
+      --clr-primary-lt:  #2660a4;
+      --clr-accent:      #e87722;
+      --clr-border:      #dde3ec;
+      --clr-text:        #1e2a38;
+      --clr-muted:       #5a6880;
+      --clr-tag-bg:      #eaf0fb;
+      --clr-tag-text:    #2660a4;
+      --radius:          8px;
+      --shadow:          0 2px 8px rgba(0,0,0,.08);
+      --shadow-hover:    0 6px 18px rgba(0,0,0,.13);
+      --font:            'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ───────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--clr-primary) 0%, #26527a 100%);
+      color: #fff;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 20px;
+      padding: .25rem .9rem;
+      margin-bottom: 1rem;
+      color: #d6e8ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: .75rem;
+      letter-spacing: -.01em;
+    }
+
+    header h1 span {
+      color: var(--clr-accent);
+    }
+
+    header p.intro {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.02rem;
+      color: #c8dcf2;
+      line-height: 1.7;
+    }
+
+    /* ── Main container ───────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--clr-muted);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--clr-border);
+    }
+
+    /* ── Card grid ───────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Individual card ─────────────────────────────────────── */
+    .card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.4rem 1.5rem 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    /* card top row: type badge + filetype pill */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .22rem .65rem;
+      border-radius: 20px;
+    }
+
+    .badge-type {
+      background: var(--clr-tag-bg);
+      color: var(--clr-tag-text);
+      border: 1px solid #c2d7f5;
+    }
+
+    .badge-filetype {
+      background: #f0f3f7;
+      color: var(--clr-muted);
+      border: 1px solid #dde3ec;
+      font-weight: 600;
+    }
+
+    /* type-specific accent stripe */
+    .card[data-type="Quiz"]       { border-top: 3px solid #8b5cf6; }
+    .card[data-type="Assignment"] { border-top: 3px solid var(--clr-accent); }
+    .card[data-type="Text Content"] { border-top: 3px solid #10b981; }
+    .card[data-type="Module Topics"] { border-top: 3px solid var(--clr-primary-lt); }
+
+    .badge-type[data-type="Quiz"]         { background: #f3f0ff; color: #6d35c3; border-color: #c9b8f4; }
+    .badge-type[data-type="Assignment"]   { background: #fff4ec; color: #b84d00; border-color: #f5c09a; }
+    .badge-type[data-type="Text Content"] { background: #e8faf5; color: #087d55; border-color: #9ddec9; }
+
+    /* card title row */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--clr-text);
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: var(--clr-primary-lt);
+      text-decoration: none;
+    }
+
+    .card-name a:hover {
+      text-decoration: underline;
+      color: var(--clr-primary);
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--clr-muted);
+      text-decoration: none;
+      border: 1px solid var(--clr-border);
+      border-radius: 4px;
+      padding: .15rem .45rem;
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+
+    .source-link:hover {
+      background: var(--clr-tag-bg);
+      color: var(--clr-primary-lt);
+      border-color: #c2d7f5;
+    }
+
+    .source-link svg {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+    }
+
+    /* description */
+    .card-desc {
+      font-size: .88rem;
+      color: var(--clr-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: .8rem;
+      color: var(--clr-muted);
+      border-top: 1px solid var(--clr-border);
+    }
+
+    /* ── Responsive tweaks ───────────────────────────────────── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1rem 1.75rem; }
+      .card  { padding: 1.15rem 1.15rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <!-- ═══════════════════════════════════ HEADER ══════════════════════════════════ -->
+  <header>
+    <div class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</div>
+    <h1>Week 7 / Module 6 &mdash; <span>Sampling Distributions</span></h1>
+    <p class="intro">
+      This module explores the foundations of statistical inference, focusing on sampling
+      distributions, population parameters versus sample statistics, the Central Limit
+      Theorem, standard error, and confidence intervals. Use the resources below to
+      read, watch, practice, and assess your understanding.
+    </p>
+  </header>
+
+  <!-- ═══════════════════════════════════ MAIN ════════════════════════════════════ -->
+  <main>
+    <p class="section-title">Module Artifacts</p>
+
+    <div class="card-grid">
+
+      <!-- ── Card 1: Module Topics ── -->
+      <div class="card" data-type="Module Topics">
+        <div class="card-meta">
+          <span class="badge badge-type" data-type="Module Topics">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" title="Raw source file">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
+            </svg>
+            source file
+          </a>
+        </div>
+        <p class="card-desc">
+          An ordered list of subtopics covered in Module 6, including sampling distributions,
+          population parameters vs. sample statistics, the Central Limit Theorem, and related
+          concepts, used to give learners and instructors an at-a-glance overview of the
+          module's curriculum.
+        </p>
+      </div>
+
+      <!-- ── Card 2: EGN3443 Module 6 Landing Page ── -->
+      <div class="card" data-type="Text Content">
+        <div class="card-meta">
+          <span class="badge badge-type" data-type="Text Content">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/EGN3443_Module_6_Sampling_Distributions_and_Infe.html">EGN3443 Module 6 – Sampling Distributions and Inference</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A landing page for Module 6 that links learners to the core resources for the module,
+          including the PowerPoint slide deck, lecture video, and a Google Colab code demonstration
+          of the Central Limit Theorem.
+        </p>
+      </div>
+
+      <!-- ── Card 3: Sampling Distributions Reading ── -->
+      <div class="card" data-type="Text Content">
+        <div class="card-meta">
+          <span class="badge badge-type" data-type="Text Content">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Sampling_Distributions.html">Sampling Distributions</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A reading page that explains key Module 6 concepts in depth, covering the Central Limit
+          Theorem and its implications, the sampling distribution of the mean, and related inference
+          topics, serving as a primary reference text to support the lecture and other materials.
+        </p>
+      </div>
+
+      <!-- ── Card 4: Quiz Question Bank ── -->
+      <div class="card" data-type="Quiz">
+        <div class="card-meta">
+          <span class="badge badge-type" data-type="Quiz">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="quiz/index.html">Quiz Question Bank (45 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json" title="Raw source file">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
+            </svg>
+            source file
+          </a>
+        </div>
+        <p class="card-desc">
+          A 45-question quiz bank assessing learners on sampling distribution concepts such as
+          applying the Central Limit Theorem to non-normal populations, calculating standard error,
+          and interpreting hypothesis testing outcomes, used by instructors to build graded quizzes.
+        </p>
+      </div>
+
+      <!-- ── Card 5: Module 6 Graded Discussion ── -->
+      <div class="card" data-type="Assignment">
+        <div class="card-meta">
+          <span class="badge badge-type" data-type="Assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Module 6 Graded Discussion</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A graded discussion assignment in which learners prompt an AI with questions about
+          sampling concepts and then reflect on the AI's response, encouraging critical engagement
+          with the importance of using samples to make statistical predictions and decisions.
+        </p>
+      </div>
+
+      <!-- ── Card 6: Assignment 6 – Sampling ── -->
+      <div class="card" data-type="Assignment">
+        <div class="card-meta">
+          <span class="badge badge-type" data-type="Assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Assignment 6 – Sampling</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A graded assignment in which learners construct and interpret 90%, 95%, and 99%
+          confidence intervals for a population proportion using survey data from a tech
+          company's user satisfaction study, applying sampling and inference skills.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <!-- ═══════════════════════════════════ FOOTER ══════════════════════════════════ -->
+  <footer>
+    <p>EGN3443 &mdash; Probability &amp; Statistics for Engineers &nbsp;|&nbsp; Week 7 / Module 6 &mdash; Sampling Distributions</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

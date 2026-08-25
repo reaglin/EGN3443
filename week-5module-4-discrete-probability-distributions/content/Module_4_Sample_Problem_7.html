@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 4 Sample Problem 7</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4 Sample Problem 7</h1><h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">7. Combined Distributions in Signal Processing</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example: Digital Communication Channel Analysis</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Problem</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: A digital communication system transmits bits over a noisy channel. The probability of bit error is 0.01. A message consists of 1000 bits with error correction that can handle up to 15 bit errors.</span></p>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">What's the probability that a message will be successfully transmitted?</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">If we transmit 100 messages, what's the probability that at least 98 will be successful?</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">What's the distribution of wait time (number of messages) until we encounter the first unsuccessful message?</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in Python</span></h3>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from scipy import stats</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import math</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_bit_error = 0.01&nbsp; # probability of bit error</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">message_length = 1000&nbsp; # bits per message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">max_errors = 15&nbsp; # maximum number of bit errors that can be corrected</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n_messages = 100&nbsp; # number of messages transmitted</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Probability of successful message transmission</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This follows a binomial distribution (number of bit errors in a message)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_message_success = stats.binom.cdf(k=max_errors, n=message_length, p=p_bit_error)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"1. Probability of successful message transmission: {p_message_success:.6f}")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Probability of at least 98 successful messages out of 100</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This is a binomial distribution of successful messages</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_at_least_98 = stats.binom.sf(k=n_messages-98-1, n=n_messages, p=p_message_success)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"2. Probability of at least 98 successful messages: {p_at_least_98:.6f}")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Distribution of wait time until first unsuccessful message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This follows a geometric distribution</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_message_fail = 1 - p_message_success</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_first_fail = stats.geom.pmf(k=np.arange(1, 51), p=p_message_fail)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">expected_wait_time = 1 / p_message_fail</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"3. Expected wait time until first unsuccessful message: {expected_wait_time:.2f} messages")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(15, 12))</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Distribution of bit errors in a message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_bit_errors = np.arange(0, 50)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_bit_errors = stats.binom.pmf(x_bit_errors, n=message_length, p=p_bit_error)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 1)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x_bit_errors, pmf_bit_errors, alpha=0.7)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=max_errors+0.5, color='red', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'Error correction limit = {max_errors}')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between(x_bit_errors[x_bit_errors &lt;= max_errors],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pmf_bit_errors[x_bit_errors &lt;= max_errors],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alpha=0.3, color='green',&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(Errors ≤ {max_errors}) = {p_message_success:.4f}')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Bit Errors in a Message')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Distribution of Bit Errors (Binomial)')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlim(-1, 30)&nbsp; # Focus on the relevant range</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Distribution of successful messages</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_successes = np.arange(0, n_messages+1)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_successes = stats.binom.pmf(x_successes, n=n_messages, p=p_message_success)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 2)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x_successes, pmf_successes, alpha=0.7)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=98-0.5, color='red', linestyle='--', label='Target = 98 messages')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between(x_successes[x_successes &gt;= 98],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pmf_successes[x_successes &gt;= 98],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alpha=0.3, color='green',&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(Successes ≥ 98) = {p_at_least_98:.4f}')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Successful Messages')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Distribution of Successful Messages (Binomial)')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Wait time distribution (geometric)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_wait = np.arange(1, 50)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_wait = stats.geom.pmf(x_wait, p=p_message_fail)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 3)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x_wait, pmf_wait, alpha=0.7)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=expected_wait_time, color='red', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'Expected wait time = {expected_wait_time:.2f}')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Messages Until First Failure')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Wait Time Distribution (Geometric)')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 4. Cumulative probability of wait time</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cdf_wait = stats.geom.cdf(x_wait, p=p_message_fail)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 4)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.plot(x_wait, cdf_wait, '-o', markersize=4)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axhline(y=0.5, color='red', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label='Median wait time')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axhline(y=0.9, color='green', linestyle='--',&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label='90% probability')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Messages')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Cumulative Probability')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('CDF of Wait Time Until First Failure')</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.tight_layout()</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Monte Carlo simulation to verify results</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def simulate_message_transmission(p_bit_error, message_length, max_errors):</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Simulate bits in a message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;errors = np.random.binomial(n=message_length, p=p_bit_error)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Check if message is successful</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return errors &lt;= max_errors</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def simulate_multiple_messages(p_bit_error, message_length, max_errors, n_messages):</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Simulate multiple message transmissions</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;successes = 0</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n_messages):</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if simulate_message_transmission(p_bit_error, message_length, max_errors):</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;successes += 1</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return successes</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def simulate_wait_time(p_bit_error, message_length, max_errors):</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Simulate until first unsuccessful message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;count = 0</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;while True:</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count += 1</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if not simulate_message_transmission(p_bit_error, message_length, max_errors):</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return count</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Run simulations</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n_simulations = 10000</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">message_success_count = sum(simulate_message_transmission(p_bit_error, message_length, max_errors)&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n_simulations))</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_message_success_sim = message_success_count / n_simulations</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">multiple_message_results = [simulate_multiple_messages(p_bit_error, message_length, max_errors, n_messages)&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n_simulations)]</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_at_least_98_sim = sum(s &gt;= 98 for s in multiple_message_results) / n_simulations</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">wait_times = [simulate_wait_time(p_bit_error, message_length, max_errors)&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n_simulations)]</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">expected_wait_time_sim = np.mean(wait_times)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print("\nSimulation Results:")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"1. Message success probability: {p_message_success_sim:.6f} (vs. analytical {p_message_success:.6f})")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"2. At least 98 successful messages: {p_at_least_98_sim:.6f} (vs. analytical {p_at_least_98:.6f})")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"3. Expected wait time: {expected_wait_time_sim:.2f} (vs. analytical {expected_wait_time:.2f})")</span></p>
+<p></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in R</span></h3>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_bit_error &lt;- 0.01&nbsp; # probability of bit error</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">message_length &lt;- 1000&nbsp; # bits per message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">max_errors &lt;- 15&nbsp; # maximum number of bit errors that can be corrected</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n_messages &lt;- 100&nbsp; # number of messages transmitted</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Probability of successful message transmission</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This follows a binomial distribution (number of bit errors in a message)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_message_success &lt;- pbinom(q=max_errors, size=message_length, prob=p_bit_error)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("1. Probability of successful message transmission:", round(p_message_success, 6), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Probability of at least 98 successful messages out of 100</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This is a binomial distribution of successful messages</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_at_least_98 &lt;- pbinom(q=n_messages-98, size=n_messages, prob=p_message_success, lower.tail=FALSE)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("2. Probability of at least 98 successful messages:", round(p_at_least_98, 6), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Distribution of wait time until first unsuccessful message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># This follows a geometric distribution</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_message_fail &lt;- 1 - p_message_success</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">expected_wait_time &lt;- 1 / p_message_fail</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("3. Expected wait time until first unsuccessful message:", round(expected_wait_time, 2), "messages\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">par(mfrow=c(2,2))</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Distribution of bit errors in a message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_bit_errors &lt;- 0:49</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_bit_errors &lt;- dbinom(x_bit_errors, size=message_length, prob=p_bit_error)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf_bit_errors, names.arg=x_bit_errors,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Distribution of Bit Errors (Binomial)",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Bit Errors in a Message", ylab="Probability",&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col="skyblue", xlim=c(0,30))&nbsp; # Focus on relevant range</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Add vertical line for error correction limit</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=(max_errors+1)*1.2, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot spacing</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Highlight the bars for successful message transmission</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in 0:max_errors) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Add green highlighting to the bars representing successful operation</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;if (pmf_bit_errors[i+1] &gt; 0.001) {&nbsp; # Only highlight visible bars</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;rect((i-0.5)*1.2, 0, (i+0.5)*1.2, pmf_bit_errors[i+1],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text((max_errors-2)*1.2, max(pmf_bit_errors)*0.8,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("P(Errors ≤", max_errors, ") =", round(p_message_success, 4)),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Distribution of successful messages</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_successes &lt;- 0:n_messages</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_successes &lt;- dbinom(x_successes, size=n_messages, prob=p_message_success)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf_successes, names.arg=x_successes,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Distribution of Successful Messages (Binomial)",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Successful Messages", ylab="Probability",&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col="skyblue")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Add vertical line for target</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=98*1.2, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot spacing</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Highlight the bars for meeting target</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in 98:n_messages) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;rect((i-0.5)*1.2, 0, (i+0.5)*1.2, pmf_successes[i+1],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(97*1.2, max(pmf_successes)*0.8,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("P(Successes ≥ 98) =", round(p_at_least_98, 4)),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Wait time distribution (geometric)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_wait &lt;- 1:49</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_wait &lt;- dgeom(x_wait-1, prob=p_message_fail)&nbsp; # R uses different parameterization</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf_wait, names.arg=x_wait,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Wait Time Distribution (Geometric)",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Messages Until First Failure", ylab="Probability",&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col="skyblue")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Add vertical line for expected wait time</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=expected_wait_time*1.2, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot spacing</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(expected_wait_time*1.2, max(pmf_wait)*0.8,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("Expected wait time =", round(expected_wait_time, 2)),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="red")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 4. Cumulative probability of wait time</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cdf_wait &lt;- pgeom(x_wait-1, prob=p_message_fail)&nbsp; # R uses different parameterization</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plot(x_wait, cdf_wait, type="o", pch=20, col="blue",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="CDF of Wait Time Until First Failure",&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Messages", ylab="Cumulative Probability")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=0.5, col="red", lwd=2, lty=2)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(h=0.9, col="green", lwd=2, lty=2)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(25, 0.51, "Median wait time", pos=4, col="red")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(25, 0.91, "90% probability", pos=4, col="green")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Monte Carlo simulation to verify results</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulate_message_transmission &lt;- function(p_bit_error, message_length, max_errors) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Simulate bits in a message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;errors &lt;- rbinom(n=1, size=message_length, prob=p_bit_error)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Check if message is successful</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(errors &lt;= max_errors)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulate_multiple_messages &lt;- function(p_bit_error, message_length, max_errors, n_messages) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Simulate multiple message transmissions</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;successes &lt;- 0</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;for (i in 1:n_messages) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;if (simulate_message_transmission(p_bit_error, message_length, max_errors)) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;successes &lt;- successes + 1</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(successes)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulate_wait_time &lt;- function(p_bit_error, message_length, max_errors) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Simulate until first unsuccessful message</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;count &lt;- 0</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;while (TRUE) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;count &lt;- count + 1</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;if (!simulate_message_transmission(p_bit_error, message_length, max_errors)) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return(count)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Run simulations</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">set.seed(42)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n_simulations &lt;- 10000</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">message_success_count &lt;- sum(replicate(n_simulations,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;simulate_message_transmission(p_bit_error, message_length, max_errors)))</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_message_success_sim &lt;- message_success_count / n_simulations</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">multiple_message_results &lt;- replicate(n_simulations,</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;simulate_multiple_messages(p_bit_error, message_length, max_errors, n_messages))</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_at_least_98_sim &lt;- sum(multiple_message_results &gt;= 98) / n_simulations</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">wait_times &lt;- replicate(n_simulations,</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;simulate_wait_time(p_bit_error, message_length, max_errors))</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">expected_wait_time_sim &lt;- mean(wait_times)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("\nSimulation Results:\n")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("1. Message success probability:", round(p_message_success_sim, 6),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;"(vs. analytical", round(p_message_success, 6), ")\n")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("2. At least 98 successful messages:", round(p_at_least_98_sim, 6),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;"(vs. analytical", round(p_at_least_98, 6), ")\n")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("3. Expected wait time:", round(expected_wait_time_sim, 2),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;"(vs. analytical", round(expected_wait_time, 2), ")\n")</span></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

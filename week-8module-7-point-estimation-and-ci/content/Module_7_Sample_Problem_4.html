@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 7 Sample Problem 4</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div><h1>Module 7 Sample Problem 4</h1><h2 level="2">Module 7 Problem 4: Confidence Interval for Electronic Component Lifetime</h2>
+<h3 level="3">Problem Statement</h3>
+<p>An electrical engineer is testing the lifetime of LED drivers in a lighting system. A random sample of 40 LED drivers is tested until failure, yielding a mean lifetime of 8,500 hours with a sample standard deviation of 450 hours. Calculate the 99% confidence interval for the mean lifetime of these LED drivers.</p>
+<h3 level="3">Step-by-Step Solution</h3>
+<ol depth="0">
+<li index="0">Identify the given values:
+<ul depth="1">
+<li index="0">Sample size (n) = 40</li>
+<li index="1">Sample mean (x̄) = 8,500 hours</li>
+<li index="2">Sample standard deviation (s) = 450 hours</li>
+<li index="3">Confidence level = 99%</li>
+</ul>
+</li>
+<li index="1">Since the population standard deviation is unknown, we use the t-distribution:
+<ul depth="1">
+<li index="0">Degrees of freedom = n - 1 = 39</li>
+<li index="1">t(0.005, 39) for a 99% confidence level = 2.708</li>
+</ul>
+</li>
+<li index="2">Calculate the margin of error:
+<ul depth="1">
+<li index="0">Margin of error = t(0.005, 39) × (s/√n)</li>
+<li index="1">Margin of error = 2.708 × (450/√40)</li>
+<li index="2">Margin of error = 2.708 × (450/6.325)</li>
+<li index="3">Margin of error = 2.708 × 71.148</li>
+<li index="4">Margin of error = 192.67</li>
+</ul>
+</li>
+<li index="3">Calculate the confidence interval:
+<ul depth="1">
+<li index="0">CI = x̄ ± margin of error</li>
+<li index="1">CI = 8,500 ± 192.67</li>
+<li index="2">CI = (8,307.33, 8,692.67)</li>
+</ul>
+</li>
+</ol>
+<p>Therefore, the 99% confidence interval for the mean lifetime is (8,307.33 hours, 8,692.67 hours).</p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1S2SOiz4IY5MS81fJiGEjhTtPL5B7Yyb0?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import matplotlib.pyplot as plt</code><br><code>import scipy.stats as stats</code><br><code>import seaborn as sns</code></p>
+<p><code># Example 2: LED driver lifetime</code><br><code>sample_mean = 8500 &nbsp;# hours</code><br><code>sample_std = 450 &nbsp; &nbsp;# hours</code><br><code>sample_size = 40</code><br><code>confidence_level = 0.99</code></p>
+<p><code># Calculate degrees of freedom and t-critical value</code><br><code>df = sample_size - 1</code><br><code>alpha = 1 - confidence_level</code><br><code>t_critical = stats.t.ppf(1 - alpha/2, df)</code></p>
+<p><code># Calculate margin of error</code><br><code>margin_of_error = t_critical * (sample_std / np.sqrt(sample_size))</code></p>
+<p><code># Calculate confidence interval</code><br><code>ci_lower = sample_mean - margin_of_error</code><br><code>ci_upper = sample_mean + margin_of_error</code></p>
+<p><code>print(f"Example 2: LED Driver Lifetime")</code><br><code>print(f"Sample Mean: {sample_mean} hours")</code><br><code>print(f"Sample Size: {sample_size}")</code><br><code>print(f"Sample Standard Deviation: {sample_std} hours")</code><br><code>print(f"Degrees of Freedom: {df}")</code><br><code>print(f"t-critical value (99% confidence): {t_critical:.3f}")</code><br><code>print(f"Margin of Error: {margin_of_error:.2f} hours")</code><br><code>print(f"99% Confidence Interval: ({ci_lower:.2f}, {ci_upper:.2f}) hours")</code></p>
+<p><code># Generate a normal distribution for visualization</code><br><code>x = np.linspace(sample_mean - 4*sample_std, sample_mean + 4*sample_std, 1000)</code><br><code>y = stats.norm.pdf(x, sample_mean, sample_std)</code></p>
+<p><code># Create visualization</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.plot(x, y, 'b-', linewidth=2, label='Distribution')</code><br><code>plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label='Sample Mean')</code><br><code>plt.axvline(ci_lower, color='green', linestyle='--', linewidth=2, label='99% CI Lower')</code><br><code>plt.axvline(ci_upper, color='green', linestyle='--', linewidth=2)</code></p>
+<p><code># Shade the confidence interval</code><br><code>ci_x = np.linspace(ci_lower, ci_upper, 100)</code><br><code>ci_y = stats.norm.pdf(ci_x, sample_mean, sample_std)</code><br><code>plt.fill_between(ci_x, ci_y, alpha=0.3, color='green')</code></p>
+<p><code>plt.title('LED Driver Lifetime with 99% Confidence Interval')</code><br><code>plt.xlabel('Lifetime (hours)')</code><br><code>plt.ylabel('Probability Density')</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Create a violin plot to illustrate the distribution</code><br><code># Generate simulated data based on our sample statistics</code><br><code>np.random.seed(42)</code><br><code>data = np.random.normal(sample_mean, sample_std, 1000)</code></p>
+<p><code>plt.figure(figsize=(10, 6))</code><br><code>sns.violinplot(y=data, inner="quartile")</code><br><code>plt.axhline(sample_mean, color='red', linestyle='-', linewidth=2, label='Sample Mean')</code><br><code>plt.axhline(ci_lower, color='green', linestyle='--', linewidth=2, label='99% CI')</code><br><code>plt.axhline(ci_upper, color='green', linestyle='--', linewidth=2)</code><br><code>plt.title('Distribution of LED Driver Lifetimes with 99% Confidence Interval')</code><br><code>plt.ylabel('Lifetime (hours)')</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Compare different confidence levels</code><br><code>confidence_levels = [0.90, 0.95, 0.99]</code><br><code>margins = []</code><br><code>ci_lowers = []</code><br><code>ci_uppers = []</code></p>
+<p><code>for cl in confidence_levels:</code><br><code>&nbsp; &nbsp; alpha = 1 - cl</code><br><code>&nbsp; &nbsp; t_crit = stats.t.ppf(1 - alpha/2, df)</code><br><code>&nbsp; &nbsp; margin = t_crit * (sample_std / np.sqrt(sample_size))</code><br><code>&nbsp; &nbsp; margins.append(margin)</code><br><code>&nbsp; &nbsp; ci_lowers.append(sample_mean - margin)</code><br><code>&nbsp; &nbsp; ci_uppers.append(sample_mean + margin)</code></p>
+<p><code>plt.figure(figsize=(10, 6))</code><br><code>for i, cl in enumerate(confidence_levels):</code><br><code>&nbsp; &nbsp; plt.plot([cl, cl], [ci_lowers[i], ci_uppers[i]], 'o-', linewidth=2,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=f"{int(cl*100)}% CI: ({ci_lowers[i]:.1f}, {ci_uppers[i]:.1f})")</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>plt.axhline(sample_mean, color='red', linestyle='-', linewidth=2, label='Sample Mean')</code><br><code>plt.title('Comparison of Different Confidence Intervals for LED Driver Lifetime')</code><br><code>plt.xlabel('Confidence Level')</code><br><code>plt.ylabel('Lifetime (hours)')</code><br><code>plt.ylim(sample_mean - 300, sample_mean + 300)</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<h3>Solution in R</h3>
+<p><code># Example 2: LED driver lifetime</code><br><code>sample_mean &lt;- 8500 &nbsp;# hours</code><br><code>sample_std &lt;- 450 &nbsp; &nbsp;# hours</code><br><code>sample_size &lt;- 40</code><br><code>confidence_level &lt;- 0.99</code></p>
+<p><code># Calculate degrees of freedom and t-critical value</code><br><code>df &lt;- sample_size - 1</code><br><code>alpha &lt;- 1 - confidence_level</code><br><code>t_critical &lt;- qt(1 - alpha/2, df)</code></p>
+<p><code># Calculate margin of error</code><br><code>margin_of_error &lt;- t_critical * (sample_std / sqrt(sample_size))</code></p>
+<p><code># Calculate confidence interval</code><br><code>ci_lower &lt;- sample_mean - margin_of_error</code><br><code>ci_upper &lt;- sample_mean + margin_of_error</code></p>
+<p><code># Print results</code><br><code>cat("Example 2: LED Driver Lifetime\n")</code><br><code>cat(sprintf("Sample Mean: %g hours\n", sample_mean))</code><br><code>cat(sprintf("Sample Size: %d\n", sample_size))</code><br><code>cat(sprintf("Sample Standard Deviation: %g hours\n", sample_std))</code><br><code>cat(sprintf("Degrees of Freedom: %d\n", df))</code><br><code>cat(sprintf("t-critical value (99%% confidence): %.3f\n", t_critical))</code><br><code>cat(sprintf("Margin of Error: %.2f hours\n", margin_of_error))</code><br><code>cat(sprintf("99%% Confidence Interval: (%.2f, %.2f) hours\n", ci_lower, ci_upper))</code></p>
+<p><code># Create necessary libraries</code><br><code>if (!require("ggplot2")) install.packages("ggplot2")</code><br><code>if (!require("gridExtra")) install.packages("gridExtra")</code><br><code>library(ggplot2)</code><br><code>library(gridExtra)</code></p>
+<p><code># Generate a normal distribution for visualization</code><br><code>x &lt;- seq(sample_mean - 4*sample_std, sample_mean + 4*sample_std, length.out = 1000)</code><br><code>y &lt;- dnorm(x, mean = sample_mean, sd = sample_std)</code><br><code>df_plot &lt;- data.frame(x = x, y = y)</code></p>
+<p><code># Create visualization with ggplot2</code><br><code>p1 &lt;- ggplot(df_plot, aes(x = x, y = y)) +</code><br><code>&nbsp; geom_line(color = "blue", size = 1) +</code><br><code>&nbsp; geom_vline(xintercept = sample_mean, color = "red", size = 1) +</code><br><code>&nbsp; geom_vline(xintercept = ci_lower, color = "green", linetype = "dashed", size = 1) +</code><br><code>&nbsp; geom_vline(xintercept = ci_upper, color = "green", linetype = "dashed", size = 1) +</code><br><code>&nbsp; geom_area(data = subset(df_plot, x &gt;= ci_lower &amp; x &lt;= ci_upper),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; aes(x = x, y = y), fill = "green", alpha = 0.3) +</code><br><code>&nbsp; labs(title = "LED Driver Lifetime with 99% Confidence Interval",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Lifetime (hours)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Probability Density") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(plot.title = element_text(hjust = 0.5))</code></p>
+<p><code># Print the plot</code><br><code>print(p1)</code><br><code>ggsave("led_lifetime_ci.png", p1, width = 10, height = 6)</code></p>
+<p><code># Generate simulated data based on our sample statistics</code><br><code>set.seed(42)</code><br><code>data &lt;- rnorm(1000, mean = sample_mean, sd = sample_std)</code><br><code>df_data &lt;- data.frame(lifetime = data)</code></p>
+<p><code># Create a violin plot</code><br><code>p2 &lt;- ggplot(df_data, aes(x = "", y = lifetime)) +</code><br><code>&nbsp; geom_violin(fill = "lightblue", color = "blue") +</code><br><code>&nbsp; geom_boxplot(width = 0.1, fill = "white", alpha = 0.7) +</code><br><code>&nbsp; geom_hline(yintercept = sample_mean, color = "red", size = 1) +</code><br><code>&nbsp; geom_hline(yintercept = ci_lower, color = "green", linetype = "dashed", size = 1) +</code><br><code>&nbsp; geom_hline(yintercept = ci_upper, color = "green", linetype = "dashed", size = 1) +</code><br><code>&nbsp; labs(title = "Distribution of LED Driver Lifetimes with 99% Confidence Interval",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Lifetime (hours)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(plot.title = element_text(hjust = 0.5))</code></p>
+<p><code># Print the plot</code><br><code>print(p2)</code><br><code>ggsave("led_lifetime_violin.png", p2, width = 10, height = 6)</code></p>
+<p><code># Compare different confidence levels</code><br><code>confidence_levels &lt;- c(0.90, 0.95, 0.99)</code><br><code>results &lt;- data.frame(</code><br><code>&nbsp; confidence_level = confidence_levels,</code><br><code>&nbsp; lower_ci = numeric(length(confidence_levels)),</code><br><code>&nbsp; upper_ci = numeric(length(confidence_levels))</code><br><code>)</code></p>
+<p><code>for (i in 1:length(confidence_levels)) {</code><br><code>&nbsp; cl &lt;- confidence_levels[i]</code><br><code>&nbsp; alpha &lt;- 1 - cl</code><br><code>&nbsp; t_crit &lt;- qt(1 - alpha/2, df)</code><br><code>&nbsp; margin &lt;- t_crit * (sample_std / sqrt(sample_size))</code><br><code>&nbsp; results$lower_ci[i] &lt;- sample_mean - margin</code><br><code>&nbsp; results$upper_ci[i] &lt;- sample_mean + margin</code><br><code>}</code></p>
+<p><code># Create comparison plot</code><br><code>p3 &lt;- ggplot(results) +</code><br><code>&nbsp; geom_errorbar(aes(x = confidence_level, ymin = lower_ci, ymax = upper_ci,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = as.factor(confidence_level)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;width = 0.02, size = 1) +</code><br><code>&nbsp; geom_point(aes(x = confidence_level, y = lower_ci, color = as.factor(confidence_level)), size = 3) +</code><br><code>&nbsp; geom_point(aes(x = confidence_level, y = upper_ci, color = as.factor(confidence_level)), size = 3) +</code><br><code>&nbsp; geom_hline(yintercept = sample_mean, color = "red", size = 1) +</code><br><code>&nbsp; scale_x_continuous(breaks = confidence_levels, labels = paste0(confidence_levels*100, "%")) +</code><br><code>&nbsp; coord_cartesian(ylim = c(sample_mean - 300, sample_mean + 300)) +</code><br><code>&nbsp; labs(title = "Comparison of Different Confidence Intervals for LED Driver Lifetime",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Confidence Level",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Lifetime (hours)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(legend.position = "none",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; plot.title = element_text(hjust = 0.5))</code></p>
+<p><code># Print the plot</code><br><code>print(p3)</code><br><code>ggsave("led_lifetime_comparison.png", p3, width = 10, height = 6)</code></p>
+<p><code># Verify with built-in t.test function</code><br><code># Generate sample data based on our sample statistics</code><br><code>set.seed(42)</code><br><code>sample_data &lt;- rnorm(sample_size, mean = sample_mean, sd = sample_std)</code><br><code>t_test_result &lt;- t.test(sample_data, conf.level = confidence_level)</code><br><code>cat("\nVerification with t.test function:\n")</code><br><code>print(t_test_result$conf.int)</code></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

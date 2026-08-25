@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 6/Module 5 - Continuous Probability Distributions. — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+<h1>Week 6/Module 5 - Continuous Probability Distributions. — Module Topics</h1>
+<h2>Introduction to Continuous Probability Distributions</h2>
+<div class="summary">This topic establishes the foundational concepts of continuous probability distributions, contrasting them with discrete distributions and introducing key ideas such as probability density functions and the interpretation of probability over intervals.</div>
+<ul>
+<li><strong>Discrete vs. Continuous Random Variables</strong> <span class="el-body">— A fundamental distinction in probability theory is between discrete and continuous random variables, which differ in the nature of the values they can take.</span></li>
+<li><strong>Why Individual Point Probabilities Are Zero</strong> <span class="el-body">— One of the most important and counterintuitive properties of continuous distributions is that the probability of the variable taking any single exact value is always zero.</span></li>
+<li><strong>The Probability Density Function (PDF)</strong> <span class="el-body">— Instead of assigning probabilities directly to individual values, continuous distributions are described by a probability density function (PDF), which characterises the relative likelihood of outcomes across the range of the variable.</span></li>
+<li><strong>Probability as Area Under the Curve</strong> <span class="el-body">— For continuous distributions, probability is calculated as the area under the PDF curve between two values, representing the likelihood that the variable falls within that interval.</span></li>
+<li><strong>The Cumulative Distribution Function (CDF)</strong> <span class="el-body">— The cumulative distribution function (CDF) provides a convenient way to express the probability that a continuous random variable takes a value less than or equal to a given point.</span></li>
+<li><strong>Key Parameters of Continuous Distributions</strong> <span class="el-body">— Continuous probability distributions are defined and shaped by parameters, most commonly measures of central tendency and spread, which determine where the distribution is centred and how dispersed it is.</span></li>
+</ul>
+<h2>The Uniform Distribution</h2>
+<div class="summary">Learners examine the uniform distribution, its parameters, and its properties, applying it to scenarios where outcomes are equally likely across a continuous range.</div>
+<ul>
+<li><strong>What Is the Uniform Distribution?</strong> <span class="el-body">— The uniform distribution is a continuous probability distribution in which all outcomes within a specified range are equally likely to occur.</span></li>
+<li><strong>Parameters of the Uniform Distribution</strong> <span class="el-body">— The uniform distribution is fully defined by two parameters: the lower bound (a) and the upper bound (b), which together specify the interval of possible outcomes.</span></li>
+<li><strong>Probability Density Function (PDF)</strong> <span class="el-body">— The probability density function of the uniform distribution assigns a constant height to every point within the interval [a, b].</span></li>
+<li><strong>Calculating Probabilities</strong> <span class="el-body">— Probabilities for the uniform distribution are calculated by finding the area of a rectangle over the sub-interval of interest.</span></li>
+<li><strong>Mean and Variance of the Uniform Distribution</strong> <span class="el-body">— The mean and variance of the uniform distribution are derived directly from its two parameters, a and b, and describe the centre and spread of the distribution.</span></li>
+<li><strong>Cumulative Distribution Function (CDF)</strong> <span class="el-body">— The cumulative distribution function of the uniform distribution gives the probability that X is less than or equal to a specific value x within the interval.</span></li>
+<li><strong>Practical Applications of the Uniform Distribution</strong> <span class="el-body">— The uniform distribution is applied in scenarios where equal likelihood across a continuous range is a reasonable assumption, making it a useful modelling tool in various professional contexts.</span></li>
+</ul>
+<h2>The Normal Distribution</h2>
+<div class="summary">This topic explores the normal distribution&#39;s shape, parameters, and significance, guiding learners through probability calculations using standard normal tables and z-scores.</div>
+<ul>
+<li><strong>Shape and Symmetry of the Normal Distribution</strong> <span class="el-body">— The normal distribution is a continuous probability distribution characterized by its iconic symmetric, bell-shaped curve centered around its mean.</span></li>
+<li><strong>Parameters of the Normal Distribution: Mean and Standard Deviation</strong> <span class="el-body">— The normal distribution is fully defined by two parameters: the mean (μ) and the standard deviation (σ), which control its location and spread respectively.</span></li>
+<li><strong>The Empirical Rule (68-95-99.7 Rule)</strong> <span class="el-body">— The empirical rule describes the proportion of data values that fall within one, two, and three standard deviations of the mean in a normal distribution.</span></li>
+<li><strong>The Standard Normal Distribution and Z-Scores</strong> <span class="el-body">— The standard normal distribution is a special case of the normal distribution with a mean of 0 and a standard deviation of 1, used as a universal reference for probability calculations.</span></li>
+<li><strong>Using Standard Normal Tables to Find Probabilities</strong> <span class="el-body">— Standard normal (Z) tables provide cumulative probabilities corresponding to z-scores, enabling learners to calculate the likelihood of outcomes within a normal distribution.</span></li>
+<li><strong>Calculating Probabilities for Non-Standard Normal Distributions</strong> <span class="el-body">— Real-world problems often involve normal distributions that are not standardized, requiring conversion to z-scores before using probability tables.</span></li>
+<li><strong>Significance and Real-World Applications of the Normal Distribution</strong> <span class="el-body">— The normal distribution holds central importance in statistics because many natural and social phenomena follow this pattern, and it underpins key inferential methods.</span></li>
+</ul>
+<h2>The Exponential Distribution</h2>
+<div class="summary">Learners investigate the exponential distribution, its relationship to waiting times and decay processes, and how to calculate probabilities using its defining parameter.</div>
+<ul>
+<li><strong>Definition and Shape of the Exponential Distribution</strong> <span class="el-body">— The exponential distribution is a continuous probability distribution used to model the time between events in a process where events occur continuously and independently at a constant average rate.</span></li>
+<li><strong>The Rate Parameter Lambda (λ)</strong> <span class="el-body">— The exponential distribution is governed by a single parameter, λ (lambda), which defines both the rate at which events occur and the overall shape of the distribution.</span></li>
+<li><strong>Relationship to Waiting Times and Decay Processes</strong> <span class="el-body">— The exponential distribution naturally models scenarios involving waiting times and decay, making it widely applicable in fields such as engineering, operations research, and the natural sciences.</span></li>
+<li><strong>Calculating Probabilities Using the Exponential Distribution</strong> <span class="el-body">— Probabilities for the exponential distribution are calculated using its cumulative distribution function (CDF), which gives the probability that the event occurs within a specified time period.</span></li>
+<li><strong>The Memoryless Property</strong> <span class="el-body">— A unique and defining feature of the exponential distribution is its memoryless property, which states that the probability of waiting an additional amount of time is unaffected by how long one has already waited.</span></li>
+<li><strong>Mean, Variance, and Key Summary Statistics</strong> <span class="el-body">— The exponential distribution&#39;s summary statistics are directly derived from the rate parameter λ, providing a complete description of the distribution&#39;s central tendency and spread.</span></li>
+</ul>
+<h2>Calculating and Interpreting Probabilities</h2>
+<div class="summary">This topic focuses on the practical skills of computing probabilities across all three distributions, including worked examples that reinforce correct use of formulas and tables.</div>
+<ul>
+<li><strong>Calculating Probabilities for the Uniform Distribution</strong> <span class="el-body">— The uniform distribution assigns equal probability to all outcomes within a defined interval [a, b], making probability calculations straightforward using a simple area formula.</span></li>
+<li><strong>Calculating Probabilities for the Normal Distribution</strong> <span class="el-body">— Normal distribution probabilities are found by standardising a raw score into a Z-score and then using the standard normal table (Z-table) to find cumulative probabilities.</span></li>
+<li><strong>Calculating Probabilities for the Exponential Distribution</strong> <span class="el-body">— The exponential distribution models the time between events in a Poisson process, and its probabilities are computed using a closed-form cumulative distribution function (CDF).</span></li>
+<li><strong>Interpreting Calculated Probabilities in Context</strong> <span class="el-body">— Arriving at a numerical probability is only the first step; interpreting what that value means within the real-world problem is equally important for sound decision-making.</span></li>
+<li><strong>Using Tables and Technology to Compute Probabilities</strong> <span class="el-body">— Both statistical tables and software tools are essential resources for efficiently computing probabilities across the normal, exponential, and uniform distributions.</span></li>
+<li><strong>Common Errors and How to Avoid Them</strong> <span class="el-body">— Several systematic mistakes arise when computing probabilities for continuous distributions, and recognising these pitfalls helps learners produce accurate results.</span></li>
+</ul>
+<h2>Applying Continuous Distributions to Real-World Scenarios</h2>
+<div class="summary">Learners develop the ability to select and apply appropriate continuous distributions to model real-world data, analysing outcomes in professional and research contexts.</div>
+<ul>
+<li><strong>Selecting the Right Continuous Distribution</strong> <span class="el-body">— Choosing the appropriate continuous distribution is a critical first step in modelling real-world data accurately.</span></li>
+<li><strong>Modelling Real-World Data with the Normal Distribution</strong> <span class="el-body">— The normal distribution is one of the most widely applied distributions in professional and research contexts due to its prevalence in naturally occurring data.</span></li>
+<li><strong>Applying the Exponential Distribution in Professional Contexts</strong> <span class="el-body">— The exponential distribution is widely used in reliability engineering, queuing theory, and operations management to model waiting and survival times.</span></li>
+<li><strong>Using the Uniform Distribution in Practical Scenarios</strong> <span class="el-body">— The uniform distribution is applied when outcomes are equally likely across a defined interval, making it useful in simulation, scheduling, and fairness-based modelling.</span></li>
+<li><strong>Calculating and Interpreting Probabilities for Decision-Making</strong> <span class="el-body">— Once a distribution is selected and fitted, calculating probabilities enables data-driven decisions in professional and research settings.</span></li>
+<li><strong>Evaluating Distribution Fit and Validating Assumptions</strong> <span class="el-body">— Before drawing conclusions, practitioners must verify that the chosen distribution adequately fits the real-world data being modelled.</span></li>
+<li><strong>Communicating Results in Research and Professional Reports</strong> <span class="el-body">— Effectively conveying the results of continuous distribution analyses to diverse audiences is an essential professional skill.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

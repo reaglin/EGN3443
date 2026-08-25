@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 9 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div><h1>Module 9 Sample Problem 1</h1><h2 level="2">Problem Statement</h2>
+<p>An automotive parts manufacturer produces piston rings with a target diameter of 74.0 mm. The manufacturing process is known to produce rings with a standard deviation of 0.05 mm. The quality control team randomly samples 36 piston rings from a recent production batch and measures their diameters, finding a sample mean of 74.02 mm.</p>
+<p>The engineering team needs to determine if this batch significantly deviates from the target specification (74.0 mm). They decide to use a Z test with a significance level of α = 0.05 to make this determination.</p>
+<h2 level="2">Statistical Hypothesis</h2>
+<ul depth="0">
+<li index="0">Null hypothesis (H₀): μ = 74.0 mm (the mean diameter equals the target specification)</li>
+<li index="1">Alternative hypothesis (H₁): μ ≠ 74.0 mm (the mean diameter differs from the target specification)</li>
+</ul>
+<h2 level="2">Results Analysis</h2>
+<p>Let's analyze the results from our hypothesis test:</p>
+<h3 level="3">Statistical Results</h3>
+<ul depth="0">
+<li index="0">Z-score: 2.4000</li>
+<li index="1">p-value: 0.0164</li>
+<li index="2">Critical Z value (α=0.05): ±1.9600</li>
+<li index="3">95% Confidence Interval: [74.0033, 74.0367] mm</li>
+<li index="4">Effect size (Cohen's d): 0.4000</li>
+</ul>
+<h3 level="3">Interpretation</h3>
+<ol depth="0">
+<li index="0"><strong>Hypothesis Test Decision</strong>: Since |Z| = 2.4 &gt; 1.96 (critical value) and p-value = 0.0164 &lt; 0.05 (significance level), we reject the null hypothesis. This means there is statistically significant evidence that the mean piston ring diameter differs from the target specification of 74.0 mm.</li>
+<li index="1"><strong>Confidence Interval</strong>: The 95% confidence interval (74.0033 mm to 74.0367 mm) does not include the target value of 74.0 mm, confirming our decision to reject the null hypothesis.</li>
+<li index="2"><strong>Effect Size</strong>: Cohen's d = 0.4 indicates a medium practical significance. While statistically significant, the actual difference (0.02 mm) represents 0.4 standard deviations, which may or may not be practically important in the context of the application.</li>
+</ol>
+<h3 level="3">Engineering Implications</h3>
+<p>Even though the test detects a statistically significant difference, the engineering team must consider:</p>
+<ol depth="0">
+<li index="0"><strong>Practical Significance</strong>: Is a 0.02 mm deviation from specification practically important for the function of the piston rings?</li>
+<li index="1"><strong>Production Consequences</strong>: Should production parameters be adjusted, or is this deviation within acceptable tolerance limits?</li>
+<li index="2"><strong>Quality Control</strong>: Does this finding suggest a systematic drift in the production process that needs correction?</li>
+</ol>
+<h2 level="2">Methodology Analysis</h2>
+<h3 level="3">Z Test Appropriateness</h3>
+<p>The Z test was appropriate for this problem because:</p>
+<ol depth="0">
+<li index="0"><strong>Known Population Standard Deviation</strong>: We knew σ = 0.05 mm from historical data or process specifications.</li>
+<li index="1"><strong>Adequate Sample Size</strong>: n = 36 is sufficiently large for the Central Limit Theorem to apply.</li>
+<li index="2"><strong>Measurement Scale</strong>: The data is continuous and measured on a ratio scale.</li>
+<li index="3"><strong>Distribution Assumption</strong>: We assumed the piston ring diameters follow a normal distribution, which is reasonable for manufacturing processes.</li>
+</ol>
+<h3 level="3">Limitations</h3>
+<ol depth="0">
+<li index="0"><strong>Population Standard Deviation</strong>: The Z test assumes we know the true population standard deviation. If this value is estimated or outdated, results could be misleading.</li>
+<li index="1"><strong>Normality</strong>: If the actual distribution of piston ring diameters is not normal, the Z test might not be appropriate, especially with smaller sample sizes.</li>
+<li index="2"><strong>Power Analysis</strong>: The analysis does not include a power calculation to determine the probability of detecting a specific deviation if it exists.</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>The quality control team has statistical evidence that the recent batch of piston rings has a mean diameter (74.02 mm) that deviates from the target specification (74.0 mm). While statistically significant, engineering judgment is required to determine if this 0.02 mm difference warrants process adjustments or if it falls within acceptable operational tolerances.</p>
+<p>This example illustrates how the Z test can be applied in engineering quality control to make data-driven decisions about manufacturing processes. Both the Python and R implementations provide comprehensive analysis tools and visualizations to help engineering teams interpret statistical results in practical contexts.</p>
+<p></p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1r6bBHFaWQSrNJYWdE3m0iUgyev__MyaO?usp=sharing" target="_blank" rel="noopener">link</a>)&nbsp;</h3>
+<p><code>import numpy as np</code><br><code>import matplotlib.pyplot as plt</code><br><code>import scipy.stats as stats</code><br><code>from matplotlib.patches import Polygon</code></p>
+<p><code># Problem parameters</code><br><code>target_mean = 74.0 &nbsp; &nbsp;# Target diameter (mm)</code><br><code>sample_mean = 74.02 &nbsp; # Observed sample mean (mm)</code><br><code>known_std = 0.05 &nbsp; &nbsp; &nbsp;# Known standard deviation (mm)</code><br><code>sample_size = 36 &nbsp; &nbsp; &nbsp;# Sample size</code></p>
+<p><code># Calculate Z statistic</code><br><code>z_score = (sample_mean - target_mean) / (known_std / np.sqrt(sample_size))</code><br><code>print(f"Z score: {z_score:.4f}")</code></p>
+<p><code># Calculate p-value (two-tailed test)</code><br><code>p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))</code><br><code>print(f"P-value: {p_value:.4f}")</code></p>
+<p><code># Critical values for alpha = 0.05 (two-tailed)</code><br><code>critical_z = stats.norm.ppf(1 - 0.05/2)</code><br><code>print(f"Critical Z value (two-tailed, alpha=0.05): ±{critical_z:.4f}")</code></p>
+<p><code># Decision</code><br><code>alpha = 0.05</code><br><code>if p_value &lt; alpha:</code><br><code>&nbsp; &nbsp; decision = "Reject the null hypothesis"</code><br><code>&nbsp; &nbsp; conclusion = "The batch significantly deviates from the target specification."</code><br><code>else:</code><br><code>&nbsp; &nbsp; decision = "Fail to reject the null hypothesis"</code><br><code>&nbsp; &nbsp; conclusion = "There is not enough evidence to conclude that the batch deviates from the target specification."</code></p>
+<p><code>print(f"Decision: {decision}")</code><br><code>print(f"Conclusion: {conclusion}")</code></p>
+<p><code># Visualization</code><br><code>plt.figure(figsize=(12, 6))</code></p>
+<p><code># Normal distribution curve</code><br><code>x = np.linspace(-4, 4, 1000)</code><br><code>y = stats.norm.pdf(x, 0, 1)</code><br><code>plt.plot(x, y, 'b-', linewidth=2, label='Standard Normal Distribution')</code></p>
+<p><code># Fill rejection regions</code><br><code>x_fill_right = np.linspace(critical_z, 4, 100)</code><br><code>y_fill_right = stats.norm.pdf(x_fill_right, 0, 1)</code><br><code>plt.fill_between(x_fill_right, y_fill_right, alpha=0.3, color='red')</code></p>
+<p><code>x_fill_left = np.linspace(-4, -critical_z, 100)</code><br><code>y_fill_left = stats.norm.pdf(x_fill_left, 0, 1)</code><br><code>plt.fill_between(x_fill_left, y_fill_left, alpha=0.3, color='red', label='Rejection Region (α=0.05)')</code></p>
+<p><code># Mark Z score</code><br><code>plt.axvline(x=z_score, color='green', linestyle='--', linewidth=2, label=f'Observed Z={z_score:.4f}')</code><br><code>plt.axvline(x=critical_z, color='red', linestyle=':', linewidth=1.5, label=f'Critical Z=±{critical_z:.4f}')</code><br><code>plt.axvline(x=-critical_z, color='red', linestyle=':', linewidth=1.5)</code></p>
+<p><code>plt.title('Z Test Analysis for Piston Ring Diameters', fontsize=15)</code><br><code>plt.xlabel('Z Score', fontsize=12)</code><br><code>plt.ylabel('Probability Density', fontsize=12)</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.legend()</code></p>
+<p><code># Add annotations</code><br><code>plt.annotate(f'p-value (two-tailed): {p_value:.4f}', xy=(0.02, 0.12), xycoords='axes fraction', fontsize=12)</code><br><code>plt.annotate(f'Decision: {decision}', xy=(0.02, 0.08), xycoords='axes fraction', fontsize=12)</code><br><code>plt.tight_layout()</code></p>
+<p><code># Create a second plot showing the actual measurements distribution</code><br><code>plt.figure(figsize=(10, 5))</code></p>
+<p><code># Simulate the data based on sample statistics</code><br><code>np.random.seed(42) &nbsp;# For reproducibility</code><br><code>simulated_data = np.random.normal(sample_mean, known_std, size=1000)</code></p>
+<p><code>plt.hist(simulated_data, bins=30, alpha=0.7, color='skyblue', edgecolor='black')</code><br><code>plt.axvline(x=target_mean, color='red', linestyle='-', linewidth=2, label=f'Target Spec: {target_mean} mm')</code><br><code>plt.axvline(x=sample_mean, color='green', linestyle='--', linewidth=2, label=f'Sample Mean: {sample_mean} mm')</code></p>
+<p><code># Add confidence interval</code><br><code>margin_error = critical_z * (known_std / np.sqrt(sample_size))</code><br><code>ci_lower = sample_mean - margin_error</code><br><code>ci_upper = sample_mean + margin_error</code><br><code>plt.axvspan(ci_lower, ci_upper, alpha=0.2, color='green', label=f'95% CI: [{ci_lower:.3f}, {ci_upper:.3f}]')</code></p>
+<p><code>plt.title('Distribution of Piston Ring Diameters', fontsize=15)</code><br><code>plt.xlabel('Diameter (mm)', fontsize=12)</code><br><code>plt.ylabel('Frequency', fontsize=12)</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code></p>
+<p><code>plt.show()</code></p>
+<p><code># Print confidence interval</code><br><code>print(f"95% Confidence Interval: [{ci_lower:.4f}, {ci_upper:.4f}] mm")</code></p>
+<p><code># Calculate effect size (standardized mean difference)</code><br><code>effect_size = (sample_mean - target_mean) / known_std</code><br><code>print(f"Effect size (Cohen's d): {effect_size:.4f}")</code></p>
+<p></p>
+<h3>Solution in R</h3>
+<p><code># Z-test implementation in R for the piston ring problem</code></p>
+<p><code># Problem parameters</code><br><code>target_mean &lt;- 74.0 &nbsp; # Target diameter (mm)</code><br><code>sample_mean &lt;- 74.02 &nbsp;# Observed sample mean (mm)</code><br><code>known_std &lt;- 0.05 &nbsp; &nbsp; # Known standard deviation (mm)</code><br><code>sample_size &lt;- 36 &nbsp; &nbsp; # Sample size</code><br><code>alpha &lt;- 0.05 &nbsp; &nbsp; &nbsp; &nbsp; # Significance level</code></p>
+<p><code># Calculate Z statistic</code><br><code>z_score &lt;- (sample_mean - target_mean) / (known_std / sqrt(sample_size))</code><br><code>cat("Z score:", round(z_score, 4), "\n")</code></p>
+<p><code># Calculate p-value (two-tailed test)</code><br><code>p_value &lt;- 2 * (1 - pnorm(abs(z_score)))</code><br><code>cat("P-value:", round(p_value, 4), "\n")</code></p>
+<p><code># Critical values for alpha = 0.05 (two-tailed)</code><br><code>critical_z &lt;- qnorm(1 - alpha/2)</code><br><code>cat("Critical Z value (two-tailed, alpha=0.05): ±", round(critical_z, 4), "\n")</code></p>
+<p><code># Decision</code><br><code>if (p_value &lt; alpha) {</code><br><code>&nbsp; decision &lt;- "Reject the null hypothesis"</code><br><code>&nbsp; conclusion &lt;- "The batch significantly deviates from the target specification."</code><br><code>} else {</code><br><code>&nbsp; decision &lt;- "Fail to reject the null hypothesis"</code><br><code>&nbsp; conclusion &lt;- "There is not enough evidence to conclude that the batch deviates from the target specification."</code><br><code>}</code></p>
+<p><code>cat("Decision:", decision, "\n")</code><br><code>cat("Conclusion:", conclusion, "\n")</code></p>
+<p><code># Calculate confidence interval</code><br><code>margin_error &lt;- critical_z * (known_std / sqrt(sample_size))</code><br><code>ci_lower &lt;- sample_mean - margin_error</code><br><code>ci_upper &lt;- sample_mean + margin_error</code><br><code>cat("95% Confidence Interval:", round(ci_lower, 4), "to", round(ci_upper, 4), "mm\n")</code></p>
+<p><code># Calculate effect size (Cohen's d)</code><br><code>effect_size &lt;- (sample_mean - target_mean) / known_std</code><br><code>cat("Effect size (Cohen's d):", round(effect_size, 4), "\n")</code></p>
+<p><code># Create visualizations</code><br><code>library(ggplot2)</code></p>
+<p><code># Visualization 1: Standard normal distribution with rejection regions</code><br><code>z_values &lt;- seq(-4, 4, length.out = 1000)</code><br><code>norm_density &lt;- dnorm(z_values)</code></p>
+<p><code>normal_dist_df &lt;- data.frame(z = z_values, density = norm_density)</code></p>
+<p><code># Create the plot</code><br><code>p1 &lt;- ggplot(normal_dist_df, aes(x = z, y = density)) +</code><br><code>&nbsp; geom_line(size = 1, color = "blue") +</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Add rejection regions</code><br><code>&nbsp; geom_area(data = subset(normal_dist_df, z &lt;= -critical_z),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; aes(x = z, y = density), fill = "red", alpha = 0.3) +</code><br><code>&nbsp; geom_area(data = subset(normal_dist_df, z &gt;= critical_z),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; aes(x = z, y = density), fill = "red", alpha = 0.3) +</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Add vertical lines</code><br><code>&nbsp; geom_vline(xintercept = z_score, color = "green", linetype = "dashed", size = 1) +</code><br><code>&nbsp; geom_vline(xintercept = c(-critical_z, critical_z), color = "red", linetype = "dotted", size = 1) +</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Labels and annotations</code><br><code>&nbsp; labs(title = "Z Test Analysis for Piston Ring Diameters",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Z Score",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Probability Density") +</code><br><code>&nbsp; annotate("text", x = z_score, y = 0.05, label = paste("Z =", round(z_score, 4)), color = "green", vjust = -1) +</code><br><code>&nbsp; annotate("text", x = critical_z, y = 0.05, label = paste("Critical Z =", round(critical_z, 4)), color = "red", vjust = -1) +</code><br><code>&nbsp; annotate("text", x = -2, y = 0.3, label = paste("p-value =", round(p_value, 4)), size = 4) +</code><br><code>&nbsp; annotate("text", x = -2, y = 0.25, label = decision, size = 4) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(panel.grid.minor = element_blank(),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; plot.title = element_text(size = 16, face = "bold"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; axis.title = element_text(size = 12))</code></p>
+<p><code>print(p1)</code></p>
+<p><code># Visualization 2: Simulated data distribution</code><br><code>set.seed(42) &nbsp;# For reproducibility</code><br><code>simulated_data &lt;- rnorm(1000, mean = sample_mean, sd = known_std)</code><br><code>sim_data_df &lt;- data.frame(diameter = simulated_data)</code></p>
+<p><code>p2 &lt;- ggplot(sim_data_df, aes(x = diameter)) +</code><br><code>&nbsp; geom_histogram(bins = 30, fill = "skyblue", color = "black", alpha = 0.7) +</code><br><code>&nbsp; geom_vline(xintercept = target_mean, color = "red", size = 1) +</code><br><code>&nbsp; geom_vline(xintercept = sample_mean, color = "green", linetype = "dashed", size = 1) +</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Add confidence interval</code><br><code>&nbsp; geom_rect(aes(xmin = ci_lower, xmax = ci_upper, ymin = 0, ymax = Inf),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fill = "green", alpha = 0.2) +</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Labels and annotations</code><br><code>&nbsp; labs(title = "Distribution of Piston Ring Diameters",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Diameter (mm)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Frequency") +</code><br><code>&nbsp; annotate("text", x = target_mean, y = 70, label = paste("Target =", target_mean), color = "red", vjust = -1) +</code><br><code>&nbsp; annotate("text", x = sample_mean, y = 80, label = paste("Sample Mean =", sample_mean), color = "green", vjust = -1) +</code><br><code>&nbsp; annotate("text", x = ci_lower + (ci_upper - ci_lower)/2, y = 90,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste("95% CI: [", round(ci_lower, 3), ", ", round(ci_upper, 3), "]", sep = ""),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = "darkgreen", vjust = -1) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; theme(panel.grid.minor = element_blank(),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; plot.title = element_text(size = 16, face = "bold"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; axis.title = element_text(size = 12))</code></p>
+<p><code>print(p2)</code></p>
+<p><code># Formal Z-test using BSDA package (if available)</code><br><code>if (requireNamespace("BSDA", quietly = TRUE)) {</code><br><code>&nbsp; library(BSDA)</code><br><code>&nbsp; z_test_result &lt;- BSDA::z.test(x = sample_mean, sigma.x = known_std, n.x = sample_size,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mu = target_mean, alternative = "two.sided")</code><br><code>&nbsp; print(z_test_result)</code><br>}</p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

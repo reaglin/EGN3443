@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 8 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div><h1 level="1">Module 8 Sample Problem 2</h1>
+<h2 level="2">Problem Statement</h2>
+<p>An automotive engineering team is developing a new design for brake pads. The current brake pad design lasts on average 50,000 miles with a standard deviation of 5,000 miles. The team has developed a new material and wants to determine if it significantly changes the lifespan of the brake pads. They've tested 35 prototype brake pads and found a mean lifespan of 51,800 miles.</p>
+<h2 level="2">Hypothesis Setup</h2>
+<ul depth="0">
+<li index="0"><strong>Null Hypothesis (H₀)</strong>: The new brake pad material has the same mean lifespan as the current material (μ = 50,000 miles)</li>
+<li index="1"><strong>Alternative Hypothesis (H₁)</strong>: The new brake pad material has a different mean lifespan than the current material (μ ≠ 50,000 miles)</li>
+<li index="2"><strong>Significance level (α)</strong>: 0.05 (5%)</li>
+</ul>
+<h2 level="2">Statistical Analysis</h2>
+<p>Let's perform a two-tailed hypothesis test to determine if there's a statistically significant difference.</p>
+<h3 level="3">Step 1: Calculate the test statistic</h3>
+<p>We use a z-test since we know the population standard deviation:</p>
+<p>z = (x̄ - μ₀)/(σ/√n)</p>
+<p>Where:</p>
+<ul depth="0">
+<li index="0">x̄ = sample mean = 51,800 miles</li>
+<li index="1">μ₀ = hypothesized population mean = 50,000 miles</li>
+<li index="2">σ = population standard deviation = 5,000 miles</li>
+<li index="3">n = sample size = 35</li>
+</ul>
+<p>z = (51,800 - 50,000)/(5,000/√35) = 1,800/(5,000/5.92) = 1,800/845.2 = 2.13</p>
+<h3 level="3">Step 2: Calculate the p-value</h3>
+<p>For a two-tailed test, p-value = 2 × P(Z &gt; |z|) = 2 × P(Z &gt; 2.13)</p>
+<h3>Python Code Solution (<a href="https://colab.research.google.com/drive/12NksBcQrnxeao5PlXRebtO-UO1lpKV2V?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import scipy.stats as stats</code><br><code>import matplotlib.pyplot as plt</code></p>
+<p><code># Given information</code><br><code>current_mean = 50000 &nbsp;# miles</code><br><code>std_dev = 5000 &nbsp;# miles</code><br><code>sample_size = 35</code><br><code>new_mean = 51800 &nbsp;# miles</code><br><code>alpha = 0.05</code></p>
+<p><code># Calculate z-statistic</code><br><code>z_stat = (new_mean - current_mean) / (std_dev / np.sqrt(sample_size))</code><br><code>print(f"Z-statistic: {z_stat:.4f}")</code></p>
+<p><code># Calculate p-value for two-tailed test</code><br><code>p_value = 2 * (1 - stats.norm.cdf(abs(z_stat)))</code><br><code>print(f"P-value: {p_value:.4f}")</code></p>
+<p><code># Decision</code><br><code>print(f"Significance level (alpha): {alpha}")</code><br><code>if p_value &lt; alpha:</code><br><code>&nbsp; &nbsp; print("Reject null hypothesis: There is a significant difference in brake pad lifespan")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print("Fail to reject null hypothesis: There is not enough evidence of a difference")</code></p>
+<p><code># Calculate confidence interval (95%)</code><br><code>margin_of_error = stats.norm.ppf(1 - alpha/2) * (std_dev / np.sqrt(sample_size))</code><br><code>ci_lower = new_mean - margin_of_error</code><br><code>ci_upper = new_mean + margin_of_error</code><br><code>print(f"95% Confidence Interval: ({ci_lower:.1f}, {ci_upper:.1f}) miles")</code></p>
+<p><code># Power analysis</code><br><code>effect_size = abs(new_mean - current_mean) / std_dev</code><br><code>power = stats.norm.cdf(effect_size * np.sqrt(sample_size) - stats.norm.ppf(1 - alpha/2)) + \</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; stats.norm.cdf(-effect_size * np.sqrt(sample_size) - stats.norm.ppf(1 - alpha/2))</code><br><code>print(f"Effect size: {effect_size:.4f}")</code><br><code>print(f"Statistical power: {power:.4f}")</code></p>
+<p><code># Visualization</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>x = np.linspace(current_mean - 4*std_dev/np.sqrt(sample_size),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; current_mean + 4*std_dev/np.sqrt(sample_size), 1000)</code><br><code>y = stats.norm.pdf(x, current_mean, std_dev/np.sqrt(sample_size))</code></p>
+<p><code>plt.plot(x, y, label="H₀ distribution", color="blue")</code><br><code>plt.axvline(x=current_mean, color='blue', linestyle='--',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label=f"H₀ mean = {current_mean}")</code></p>
+<p><code># Critical regions</code><br><code>critical_value = stats.norm.ppf(1 - alpha/2)</code><br><code>critical_x_neg = current_mean - critical_value * std_dev/np.sqrt(sample_size)</code><br><code>critical_x_pos = current_mean + critical_value * std_dev/np.sqrt(sample_size)</code></p>
+<p><code>plt.axvline(x=critical_x_neg, color='red', linestyle='--',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label=f"Critical values at α = {alpha}")</code><br><code>plt.axvline(x=critical_x_pos, color='red', linestyle='--')</code></p>
+<p><code># Observed sample mean</code><br><code>plt.axvline(x=new_mean, color='green', linewidth=2,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label=f"Sample mean = {new_mean}")</code></p>
+<p><code># Shade rejection regions</code><br><code>x_fill_left = np.linspace(current_mean - 4*std_dev/np.sqrt(sample_size), critical_x_neg, 100)</code><br><code>y_fill_left = stats.norm.pdf(x_fill_left, current_mean, std_dev/np.sqrt(sample_size))</code><br><code>plt.fill_between(x_fill_left, y_fill_left, alpha=0.3, color='red')</code></p>
+<p><code>x_fill_right = np.linspace(critical_x_pos, current_mean + 4*std_dev/np.sqrt(sample_size), 100)</code><br><code>y_fill_right = stats.norm.pdf(x_fill_right, current_mean, std_dev/np.sqrt(sample_size))</code><br><code>plt.fill_between(x_fill_right, y_fill_right, alpha=0.3, color='red', label="Rejection regions")</code></p>
+<p><code>plt.title("Two-tailed Hypothesis Test for Brake Pad Lifespan")</code><br><code>plt.xlabel("Mean Lifespan (miles)")</code><br><code>plt.ylabel("Probability Density")</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Practical significance analysis</code><br><code>practical_threshold = 1000 &nbsp;# miles (assuming engineers consider 1000 miles practically significant)</code><br><code>if abs(new_mean - current_mean) &gt; practical_threshold:</code><br><code>&nbsp; &nbsp; print(f"The difference of {abs(new_mean - current_mean):.1f} miles is practically significant")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print(f"The difference of {abs(new_mean - current_mean):.1f} miles may not be practically significant")</code></p>
+<h3>R Code</h3>
+<p><code># Given information</code><br><code>current_mean &lt;- 50000 &nbsp;# miles</code><br><code>std_dev &lt;- 5000 &nbsp;# miles</code><br><code>sample_size &lt;- 35</code><br><code>new_mean &lt;- 51800 &nbsp;# miles</code><br><code>alpha &lt;- 0.05</code></p>
+<p><code># Calculate z-statistic</code><br><code>z_stat &lt;- (new_mean - current_mean) / (std_dev / sqrt(sample_size))</code><br><code>cat("Z-statistic:", round(z_stat, 4), "\n")</code></p>
+<p><code># Calculate p-value for two-tailed test</code><br><code>p_value &lt;- 2 * pnorm(abs(z_stat), lower.tail = FALSE)</code><br><code>cat("P-value:", round(p_value, 4), "\n")</code></p>
+<p><code># Decision</code><br><code>cat("Significance level (alpha):", alpha, "\n")</code><br><code>if (p_value &lt; alpha) {</code><br><code>&nbsp; cat("Reject null hypothesis: There is a significant difference in brake pad lifespan\n")</code><br><code>} else {</code><br><code>&nbsp; cat("Fail to reject null hypothesis: There is not enough evidence of a difference\n")</code><br><code>}</code></p>
+<p><code># Calculate confidence interval (95%)</code><br><code>margin_of_error &lt;- qnorm(1 - alpha/2) * (std_dev / sqrt(sample_size))</code><br><code>ci_lower &lt;- new_mean - margin_of_error</code><br><code>ci_upper &lt;- new_mean + margin_of_error</code><br><code>cat("95% Confidence Interval: (", round(ci_lower, 1), ", ", round(ci_upper, 1), ") miles\n", sep="")</code></p>
+<p><code># Power analysis</code><br><code>effect_size &lt;- abs(new_mean - current_mean) / std_dev</code><br><code>power &lt;- pnorm(effect_size * sqrt(sample_size) - qnorm(1 - alpha/2)) +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pnorm(-effect_size * sqrt(sample_size) - qnorm(1 - alpha/2))</code><br><code>cat("Effect size:", round(effect_size, 4), "\n")</code><br><code>cat("Statistical power:", round(power, 4), "\n")</code></p>
+<p><code># Visualization</code><br><code>curve(dnorm(x, current_mean, std_dev/sqrt(sample_size)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; from = current_mean - 4*std_dev/sqrt(sample_size),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; to = current_mean + 4*std_dev/sqrt(sample_size),</code><br><code>&nbsp; &nbsp; &nbsp; main = "Two-tailed Hypothesis Test for Brake Pad Lifespan",</code><br><code>&nbsp; &nbsp; &nbsp; xlab = "Mean Lifespan (miles)",</code><br><code>&nbsp; &nbsp; &nbsp; ylab = "Probability Density",</code><br><code>&nbsp; &nbsp; &nbsp; col = "blue", lwd = 2)</code></p>
+<p><code># Add null hypothesis mean</code><br><code>abline(v = current_mean, col = "blue", lty = 2)</code><br><code>text(current_mean, 0.00001, "H₀ mean", pos = 4, col = "blue")</code></p>
+<p><code># Critical regions</code><br><code>critical_value &lt;- qnorm(1 - alpha/2)</code><br><code>critical_x_neg &lt;- current_mean - critical_value * std_dev/sqrt(sample_size)</code><br><code>critical_x_pos &lt;- current_mean + critical_value * std_dev/sqrt(sample_size)</code></p>
+<p><code>abline(v = critical_x_neg, col = "red", lty = 2)</code><br><code>abline(v = critical_x_pos, col = "red", lty = 2)</code><br><code>text(critical_x_neg, 0.00003, "Critical value", pos = 2, col = "red")</code><br><code>text(critical_x_pos, 0.00003, "Critical value", pos = 4, col = "red")</code></p>
+<p><code># Observed sample mean</code><br><code>abline(v = new_mean, col = "green", lwd = 2)</code><br><code>text(new_mean, 0.00006, "Sample mean", pos = 4, col = "green")</code></p>
+<p><code># Add shaded rejection regions (approximation in base R)</code><br><code>x_left &lt;- seq(current_mean - 4*std_dev/sqrt(sample_size), critical_x_neg, length.out = 100)</code><br><code>y_left &lt;- dnorm(x_left, current_mean, std_dev/sqrt(sample_size))</code><br><code>polygon(c(x_left, rev(x_left)), c(rep(0, length(x_left)), rev(y_left)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; col = rgb(1, 0, 0, 0.3), border = NA)</code></p>
+<p><code>x_right &lt;- seq(critical_x_pos, current_mean + 4*std_dev/sqrt(sample_size), length.out = 100)</code><br><code>y_right &lt;- dnorm(x_right, current_mean, std_dev/sqrt(sample_size))</code><br><code>polygon(c(x_right, rev(x_right)), c(rep(0, length(x_right)), rev(y_right)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; col = rgb(1, 0, 0, 0.3), border = NA)</code></p>
+<p><code># Add legend</code><br><code>legend("topright",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;legend = c("H₀ distribution", "Critical values", "Sample mean", "Rejection regions"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;col = c("blue", "red", "green", rgb(1, 0, 0, 0.3)),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;lty = c(1, 2, 1, 1),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;lwd = c(2, 1, 2, 10),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;bg = "white")</code></p>
+<p><code># Practical significance analysis</code><br><code>practical_threshold &lt;- 1000 &nbsp;# miles (assuming engineers consider 1000 miles practically significant)</code><br><code>if (abs(new_mean - current_mean) &gt; practical_threshold) {</code><br><code>&nbsp; cat("The difference of", abs(new_mean - current_mean),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; "miles is practically significant\n")</code><br><code>} else {</code><br><code>&nbsp; cat("The difference of", abs(new_mean - current_mean),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; "miles may not be practically significant\n")</code><br>}</p>
+<h3>Analysis of Solution</h3>
+<h2 level="2">Results Analysis</h2>
+<p>From our calculations:</p>
+<ul depth="0">
+<li index="0">Z-statistic: 2.13</li>
+<li index="1">P-value: 0.0332</li>
+<li index="2">Significance level (α): 0.05</li>
+<li index="3">95% Confidence Interval: (49,144.1, 54,455.9) miles</li>
+</ul>
+<p>Since p-value (0.0332) &lt; α (0.05), we reject the null hypothesis. There is statistically significant evidence that the new brake pad material changes the lifespan compared to the current material.</p>
+<h2 level="2">Type I and Type II Errors</h2>
+<p><strong>Type I Error (False Positive):</strong></p>
+<ul depth="0">
+<li index="0">Definition: Rejecting H₀ when it's actually true</li>
+<li index="1">In this context: Concluding the new brake pads are different when they actually perform the same as the current pads</li>
+<li index="2">Probability: Equal to our significance level α = 0.05 (5%)</li>
+<li index="3">Consequence: Potentially costly transition to a new material with no actual benefit</li>
+</ul>
+<p><strong>Type II Error (False Negative):</strong></p>
+<ul depth="0">
+<li index="0">Definition: Failing to reject H₀ when it's actually false</li>
+<li index="1">In this context: Concluding the new brake pads perform the same when they actually perform differently</li>
+<li index="2">Probability: β = 1 - Power ≈ 0.36 (64% power)</li>
+<li index="3">Consequence: Missing an opportunity for improved product performance</li>
+</ul>
+<h2 level="2">Statistical vs. Practical Significance</h2>
+<p>While our test shows statistical significance (p &lt; 0.05), we should also consider practical significance:</p>
+<p>The new brake pads last 1,800 miles longer on average than the current design. Is this difference practically meaningful? This depends on several factors:</p>
+<ul depth="0">
+<li index="0"><strong>Cost implications:</strong> Is the increased lifespan worth any additional manufacturing costs?</li>
+<li index="1"><strong>Marketing value:</strong> Would a "3.6% longer-lasting brake pad" be a meaningful selling point?</li>
+<li index="2"><strong>Industry standards:</strong> Is a 1,800-mile improvement significant in the automotive industry?</li>
+<li index="3"><strong>Customer expectations:</strong> Would customers notice or value this difference?</li>
+</ul>
+<p>For many automotive applications, a 1,800-mile improvement (approximately 3.6%) might have practical significance as it represents roughly 1-2 months of additional usage for average drivers (at 15,000 miles/year).</p>
+<h2 level="2">Conclusion</h2>
+<p>The data provides statistical evidence that the new brake pad material changes the lifespan of the brake pads (p = 0.0332). The engineering team should now evaluate whether this difference (1,800 miles increase) justifies the costs of implementing the new design, considering both manufacturing economics and market positioning.</p>
+<p></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

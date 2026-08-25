@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 10 Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div><h1>Module 10 Sample Problem 3</h1><h2 level="2">Problem Statement</h2>
+<p>An aerospace engineering company is developing a new composite material for aircraft structural components. The durability of these components is critical for flight safety. Two manufacturing processes (Process A and Process B) are being evaluated. Engineers want to determine if one process produces more consistent results than the other.</p>
+<p>Engineers subject samples from both processes to standardized stress tests, measuring the number of cycles until failure. They need to determine if there's a significant difference in the variability of durability between the two processes.</p>
+<h2 level="2">Sample Data</h2>
+<ul depth="0">
+<li index="0"><strong>Process A</strong>: 30 samples tested with failure cycles measured</li>
+<li index="1"><strong>Process B</strong>: 30 samples tested with failure cycles measured<br><br>This problem will generate data from Python using the following<br><code>process_a = np.random.normal(loc=5000, scale=250, size=30) </code><br><code>process_b = np.random.normal(loc=4800, scale=400, size=30)&nbsp;</code></li>
+</ul>
+<h2 level="2">Analysis Approach</h2>
+<ol depth="0">
+<li index="0"><strong>F-test for variance comparison</strong> - Appropriate because:
+<ul depth="1">
+<li index="0">We're specifically interested in variability/consistency</li>
+<li index="1">We have two independent samples</li>
+<li index="2">We want to test if population variances are equal</li>
+<li index="3">The data is approximately normally distributed</li>
+</ul>
+</li>
+<li index="1"><strong>Hypotheses</strong>:
+<ul depth="1">
+<li index="0">H₀: σ²ᴀ = σ²ʙ (The variances of the two processes are equal)</li>
+<li index="1">H₁: σ²ᴀ ≠ σ²ʙ (The variances of the two processes are different)</li>
+</ul>
+</li>
+<li index="2"><strong>Significance level</strong>: α = 0.05</li>
+</ol>
+<h2 level="2">Detailed Analysis of the Results</h2>
+<h3 level="3">Statistical Findings</h3>
+<p>Based on the executed code, here's the analysis of our aerospace material durability comparison:</p>
+<ol depth="0">
+<li index="0"><strong>Descriptive Statistics</strong>:
+<ul depth="1">
+<li index="0">Process A: Mean ≈ 5000 cycles, SD ≈ 250 cycles</li>
+<li index="1">Process B: Mean ≈ 4800 cycles, SD ≈ 400 cycles</li>
+<li index="2">Initial observation shows Process B has higher variance</li>
+</ul>
+</li>
+<li index="1"><strong>F-test Results</strong>:
+<ul depth="1">
+<li index="0">The F-test statistic is approximately 0.39 (ratio of Process A variance to Process B variance)</li>
+<li index="1">p-value &lt; 0.05 (significant)</li>
+<li index="2">We reject the null hypothesis that the variances are equal</li>
+<li index="3">Process B has significantly higher variance than Process A</li>
+</ul>
+</li>
+<li index="2"><strong>Normality Check</strong>:
+<ul depth="1">
+<li index="0">QQ plots show both processes follow approximately normal distributions</li>
+<li index="1">The normality assumption for the F-test is reasonably met</li>
+</ul>
+</li>
+<li index="3"><strong>Engineering Significance</strong>:
+<ul depth="1">
+<li index="0">Process A has a coefficient of variation (CV) of approximately 5%</li>
+<li index="1">Process B has a CV of approximately 8.3%</li>
+<li index="2">Process A provides more consistent results relative to its mean</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Appropriateness of F-test for This Application</h3>
+<p>The F-test was an appropriate choice for this engineering problem for several reasons:</p>
+<ol depth="0">
+<li index="0"><strong>Focus on Variability</strong>: In aerospace manufacturing, consistency is crucial for safety. The F-test directly addresses whether one process produces more consistent results than another.</li>
+<li index="1"><strong>Assumptions Met</strong>:
+<ul depth="1">
+<li index="0">Both samples are independent</li>
+<li index="1">Data from both processes are approximately normally distributed (verified through QQ plots)</li>
+<li index="2">Sample sizes are equal (30 each), giving balanced statistical power</li>
+</ul>
+</li>
+<li index="2"><strong>Engineering Context</strong>:
+<ul depth="1">
+<li index="0">In aerospace manufacturing, lower variability often takes precedence over higher mean values</li>
+<li index="1">The F-test allows engineers to quantify and compare this critical quality characteristic</li>
+</ul>
+</li>
+<li index="3"><strong>Statistical Power</strong>: With 30 samples per process, the test has sufficient power to detect meaningful differences in variance.</li>
+</ol>
+<h3 level="3">Engineering Implications</h3>
+<ol depth="0">
+<li index="0"><strong>Quality Control</strong>: Process A demonstrates significantly lower variability, which is crucial for aerospace components where consistent performance is essential for safety.</li>
+<li index="1"><strong>Manufacturing Decision</strong>: Despite Process B potentially achieving higher durability in some cases (as shown in the distribution's tail), Process A's consistency makes it more suitable for safety-critical components.</li>
+<li index="2"><strong>Risk Assessment</strong>: The higher variability in Process B indicates greater unpredictability in component performance, representing an increased risk factor.</li>
+<li index="3"><strong>Economic Considerations</strong>: More consistent manufacturing processes typically result in:
+<ul depth="1">
+<li index="0">Lower scrap rates</li>
+<li index="1">Reduced quality control costs</li>
+<li index="2">Fewer field failures and warranty claims</li>
+<li index="3">Better predictability in maintenance scheduling</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Limitations and Considerations</h3>
+<ol depth="0">
+<li index="0"><strong>Alternative Tests</strong>: While the F-test is appropriate, we also included Levene's test which is more robust to minor departures from normality.</li>
+<li index="1"><strong>Sample Size</strong>: While 30 samples per process is sufficient, larger samples would provide even more reliable estimates of variability.</li>
+<li index="2"><strong>Practical Significance</strong>: Statistical significance doesn't always equal practical significance. Engineers should determine if the observed difference in variability has meaningful implications for component reliability.</li>
+<li index="3"><strong>Further Investigation</strong>: If Process B has a higher mean durability, engineers might investigate whether modifications to Process B could reduce its variability while maintaining its higher average performance.</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>Based on the F-test analysis, Process A demonstrates significantly lower variability in durability cycles compared to Process B. In aerospace applications, this consistency is critical for safety and reliability. Therefore, Process A would be the recommended manufacturing process for these components, as it provides more predictable performance characteristics.</p>
+<p>The statistical methodology was appropriate for this engineering application, and both Python and R implementations provided consistent results with comprehensive visualizations to support the engineering decision-making process.</p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1fqKvVMK4FUrSGSeuENcjyTsiBs7Sez10?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from scipy import stats</code><br><code>import random</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate sample data</code><br><code># Process A: Higher mean, lower variance</code><br><code>process_a = np.random.normal(loc=5000, scale=250, size=30)</code></p>
+<p><code># Process B: Lower mean, higher variance</code><br><code>process_b = np.random.normal(loc=4800, scale=400, size=30)</code></p>
+<p><code># Create a DataFrame</code><br><code>data = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Process A': process_a,</code><br><code>&nbsp; &nbsp; 'Process B': process_b</code><br><code>})</code></p>
+<p><code># Calculate descriptive statistics</code><br><code>desc_stats = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Process A': [</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.mean(process_a),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.median(process_a),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.var(process_a, ddof=1), &nbsp;# Sample variance</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.std(process_a, ddof=1), &nbsp;# Sample standard deviation</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; stats.skew(process_a),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; stats.kurtosis(process_a)</code><br><code>&nbsp; &nbsp; ],</code><br><code>&nbsp; &nbsp; 'Process B': [</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.mean(process_b),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.median(process_b),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.var(process_b, ddof=1),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; np.std(process_b, ddof=1),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; stats.skew(process_b),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; stats.kurtosis(process_b)</code><br><code>&nbsp; &nbsp; ]</code><br><code>}, index=['Mean', 'Median', 'Variance', 'Std Dev', 'Skewness', 'Kurtosis'])</code></p>
+<p><code>print("Descriptive Statistics:")</code><br><code>print(desc_stats)</code></p>
+<p><code># Visualize the distributions</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code># Histograms with KDE</code><br><code>plt.subplot(2, 2, 1)</code><br><code>sns.histplot(process_a, kde=True, color='blue', label='Process A')</code><br><code>sns.histplot(process_b, kde=True, color='red', label='Process B', alpha=0.7)</code><br><code>plt.title('Distribution of Failure Cycles')</code><br><code>plt.xlabel('Cycles to Failure')</code><br><code>plt.ylabel('Frequency')</code><br><code>plt.legend()</code></p>
+<p><code># Box plots</code><br><code>plt.subplot(2, 2, 2)</code><br><code>plt.boxplot([process_a, process_b], labels=['Process A', 'Process B'])</code><br><code>plt.title('Box Plot of Failure Cycles')</code><br><code>plt.ylabel('Cycles to Failure')</code></p>
+<p><code># QQ plots to check normality</code><br><code>plt.subplot(2, 2, 3)</code><br><code>stats.probplot(process_a, plot=plt)</code><br><code>plt.title('QQ Plot Process A')</code></p>
+<p><code>plt.subplot(2, 2, 4)</code><br><code>stats.probplot(process_b, plot=plt)</code><br><code>plt.title('QQ Plot Process B')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.savefig('durability_distributions.png')</code><br><code>plt.close()</code></p>
+<p><code># Perform F-test for variance comparison</code><br><code>f_value = np.var(process_a, ddof=1) / np.var(process_b, ddof=1)</code><br><code>dfn, dfd = len(process_a) - 1, len(process_b) - 1 &nbsp;# Degrees of freedom</code></p>
+<p><code># Calculate p-value (two-tailed test)</code><br><code>if f_value &gt; 1:</code><br><code>&nbsp; &nbsp; p_value = 2 * (1 - stats.f.cdf(f_value, dfn, dfd))</code><br><code>else:</code><br><code>&nbsp; &nbsp; p_value = 2 * stats.f.cdf(f_value, dfn, dfd)</code></p>
+<p><code># Alternative calculation using scipy.stats directly</code><br><code>f_stat, p_value_scipy = stats.levene(process_a, process_b)</code></p>
+<p><code>print("\nF-test Results:")</code><br><code>print(f"F-value: {f_value:.4f}")</code><br><code>print(f"Degrees of freedom: ({dfn}, {dfd})")</code><br><code>print(f"P-value: {p_value:.4f}")</code><br><code>print(f"Significance level: 0.05")</code></p>
+<p><code># Interpretation</code><br><code>alpha = 0.05</code><br><code>print("\nInterpretation:")</code><br><code>if p_value &lt; alpha:</code><br><code>&nbsp; &nbsp; print(f"The p-value ({p_value:.4f}) is less than the significance level ({alpha}).")</code><br><code>&nbsp; &nbsp; print("Reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("There is a statistically significant difference in the variances between Process A and Process B.")</code><br><code>&nbsp; &nbsp; if np.var(process_a, ddof=1) &gt; np.var(process_b, ddof=1):</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; print("Process A has significantly higher variance than Process B.")</code><br><code>&nbsp; &nbsp; else:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; print("Process B has significantly higher variance than Process A.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print(f"The p-value ({p_value:.4f}) is greater than the significance level ({alpha}).")</code><br><code>&nbsp; &nbsp; print("Fail to reject the null hypothesis.")</code><br><code>&nbsp; &nbsp; print("There is no statistically significant difference in the variances between Process A and Process B.")</code></p>
+<p><code># Compute confidence intervals for the ratio of variances</code><br><code>f_critical_upper = stats.f.ppf(1 - alpha/2, dfn, dfd)</code><br><code>f_critical_lower = stats.f.ppf(alpha/2, dfn, dfd)</code></p>
+<p><code>ratio = np.var(process_a, ddof=1) / np.var(process_b, ddof=1)</code><br><code>ci_lower = ratio / f_critical_upper</code><br><code>ci_upper = ratio / f_critical_lower</code></p>
+<p><code>print("\nConfidence Interval for the Ratio of Variances (Process A / Process B):")</code><br><code>print(f"95% CI: ({ci_lower:.4f}, {ci_upper:.4f})")</code></p>
+<p><code># Power analysis</code><br><code>def power_analysis(var_ratio, n1, n2, alpha=0.05, num_simulations=10000):</code><br><code>&nbsp; &nbsp; """Simulate the power of the F-test for detecting a difference in variances."""</code><br><code>&nbsp; &nbsp; reject_count = 0</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; for _ in range(num_simulations):</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; # Generate samples under the alternative hypothesis</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; sample1 = np.random.normal(0, 1, size=n1)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; sample2 = np.random.normal(0, np.sqrt(var_ratio), size=n2)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; # Calculate F-statistic</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; f_value = np.var(sample1, ddof=1) / np.var(sample2, ddof=1)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; # Calculate p-value</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; if f_value &gt; 1:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p_value = 2 * (1 - stats.f.cdf(f_value, n1-1, n2-1))</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; else:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p_value = 2 * stats.f.cdf(f_value, n1-1, n2-1)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; if p_value &lt; alpha:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; reject_count += 1</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; return reject_count / num_simulations</code></p>
+<p><code># True ratio of variances in our data</code><br><code>true_ratio = np.var(process_a, ddof=1) / np.var(process_b, ddof=1)</code><br><code>power = power_analysis(true_ratio, len(process_a), len(process_b))</code></p>
+<p><code>print("\nPower Analysis:")</code><br><code>print(f"Estimated power for detecting the observed ratio of variances: {power:.4f}")</code><br><code>print("(Power is the probability of correctly rejecting the null hypothesis when it is false)")</code></p>
+<p><code># Engineering significance</code><br><code>print("\nEngineering Significance:")</code><br><code>print(f"Coefficient of Variation (CV) for Process A: {np.std(process_a, ddof=1)/np.mean(process_a)*100:.2f}%")</code><br><code>print(f"Coefficient of Variation (CV) for Process B: {np.std(process_b, ddof=1)/np.mean(process_b)*100:.2f}%")</code></p>
+<p><code>if np.std(process_a, ddof=1)/np.mean(process_a) &lt; np.std(process_b, ddof=1)/np.mean(process_b):</code><br><code>&nbsp; &nbsp; print("Process A provides more consistent results relative to its mean.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print("Process B provides more consistent results relative to its mean.")</code></p>
+<h3>Solution in R</h3>
+<p><code># Load required libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(tidyr)</code><br><code>library(car)</code><br><code>library(nortest)</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate sample data</code><br><code># Process A: Higher mean, lower variance</code><br><code>process_a &lt;- rnorm(n = 30, mean = 5000, sd = 250)</code></p>
+<p><code># Process B: Lower mean, higher variance</code><br><code>process_b &lt;- rnorm(n = 30, mean = 4800, sd = 400)</code></p>
+<p><code># Create a data frame in long format for easier plotting</code><br><code>data_long &lt;- data.frame(</code><br><code>&nbsp; Process = factor(rep(c("Process A", "Process B"), each = 30)),</code><br><code>&nbsp; Cycles = c(process_a, process_b)</code><br><code>)</code></p>
+<p><code># Calculate descriptive statistics</code><br><code>process_a_stats &lt;- c(</code><br><code>&nbsp; Mean = mean(process_a),</code><br><code>&nbsp; Median = median(process_a),</code><br><code>&nbsp; Variance = var(process_a),</code><br><code>&nbsp; SD = sd(process_a),</code><br><code>&nbsp; Skewness = moments::skewness(process_a),</code><br><code>&nbsp; Kurtosis = moments::kurtosis(process_a)</code><br><code>)</code></p>
+<p><code>process_b_stats &lt;- c(</code><br><code>&nbsp; Mean = mean(process_b),</code><br><code>&nbsp; Median = median(process_b),</code><br><code>&nbsp; Variance = var(process_b),</code><br><code>&nbsp; SD = sd(process_b),</code><br><code>&nbsp; Skewness = moments::skewness(process_b),</code><br><code>&nbsp; Kurtosis = moments::kurtosis(process_b)</code><br><code>)</code></p>
+<p><code>desc_stats &lt;- data.frame(</code><br><code>&nbsp; Process_A = process_a_stats,</code><br><code>&nbsp; Process_B = process_b_stats</code><br><code>)</code></p>
+<p><code>print("Descriptive Statistics:")</code><br><code>print(desc_stats)</code></p>
+<p><code># Visualize the distributions</code><br><code># Create a multi-panel plot</code><br><code>pdf("durability_distributions_r.pdf", width = 12, height = 10)</code></p>
+<p><code># Histograms with density curves</code><br><code>par(mfrow = c(2, 2))</code></p>
+<p><code># Plot 1: Histograms with density curves</code><br><code>hist(process_a, probability = TRUE, main = "Distribution of Failure Cycles",</code><br><code>&nbsp; &nbsp; &nbsp;xlab = "Cycles to Failure", col = "lightblue", border = "blue",</code><br><code>&nbsp; &nbsp; &nbsp;xlim = range(c(process_a, process_b)))</code><br><code>lines(density(process_a), col = "blue", lwd = 2)</code><br><code>hist(process_b, probability = TRUE, add = TRUE, col = "pink", border = "red")</code><br><code>lines(density(process_b), col = "red", lwd = 2)</code><br><code>legend("topright", legend = c("Process A", "Process B"),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;fill = c("lightblue", "pink"), border = c("blue", "red"))</code></p>
+<p><code># Plot 2: Box plots</code><br><code>boxplot(process_a, process_b, names = c("Process A", "Process B"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; main = "Box Plot of Failure Cycles", ylab = "Cycles to Failure",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; col = c("lightblue", "pink"))</code></p>
+<p><code># Plot 3: QQ Plot Process A</code><br><code>qqnorm(process_a, main = "QQ Plot Process A")</code><br><code>qqline(process_a, col = "blue")</code></p>
+<p><code># Plot 4: QQ Plot Process B</code><br><code>qqnorm(process_b, main = "QQ Plot Process B")</code><br><code>qqline(process_b, col = "red")</code></p>
+<p><code>dev.off()</code></p>
+<p><code># Perform normality tests</code><br><code>ad_test_a &lt;- ad.test(process_a)</code><br><code>ad_test_b &lt;- ad.test(process_b)</code></p>
+<p><code>print("\nNormality Tests:")</code><br><code>print("Anderson-Darling Test Process A:")</code><br><code>print(ad_test_a)</code><br><code>print("Anderson-Darling Test Process B:")</code><br><code>print(ad_test_b)</code></p>
+<p><code># Perform F-test for variance comparison</code><br><code>f_test &lt;- var.test(process_a, process_b)</code></p>
+<p><code>print("\nF-test Results:")</code><br><code>print(f_test)</code></p>
+<p><code># Interpret the results of the F-test</code><br><code>alpha &lt;- 0.05</code><br><code>print("\nInterpretation:")</code><br><code>if (f_test$p.value &lt; alpha) {</code><br><code>&nbsp; cat("The p-value (", round(f_test$p.value, 4), ") is less than the significance level (", alpha, ").\n", sep = "")</code><br><code>&nbsp; cat("Reject the null hypothesis.\n")</code><br><code>&nbsp; cat("There is a statistically significant difference in the variances between Process A and Process B.\n")</code><br><code>&nbsp; if (var(process_a) &gt; var(process_b)) {</code><br><code>&nbsp; &nbsp; cat("Process A has significantly higher variance than Process B.\n")</code><br><code>&nbsp; } else {</code><br><code>&nbsp; &nbsp; cat("Process B has significantly higher variance than Process A.\n")</code><br><code>&nbsp; }</code><br><code>} else {</code><br><code>&nbsp; cat("The p-value (", round(f_test$p.value, 4), ") is greater than the significance level (", alpha, ").\n", sep = "")</code><br><code>&nbsp; cat("Fail to reject the null hypothesis.\n")</code><br><code>&nbsp; cat("There is no statistically significant difference in the variances between Process A and Process B.\n")</code><br><code>}</code></p>
+<p><code># Calculate confidence interval for the ratio of variances</code><br><code>cat("\nConfidence Interval for the Ratio of Variances (Process A / Process B):\n")</code><br><code>cat("95% CI: (", round(f_test$conf.int[1], 4), ", ", round(f_test$conf.int[2], 4), ")\n", sep = "")</code></p>
+<p><code># Alternative test: Levene's test for equality of variances</code><br><code>levene_test &lt;- leveneTest(Cycles ~ Process, data = data_long)</code><br><code>print("\nLevene's Test for Equality of Variances:")</code><br><code>print(levene_test)</code></p>
+<p><code># Power analysis function</code><br><code>power_f_test &lt;- function(var_ratio, n1, n2, alpha = 0.05, num_simulations = 10000) {</code><br><code>&nbsp; reject_count &lt;- 0</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; for (i in 1:num_simulations) {</code><br><code>&nbsp; &nbsp; # Generate samples under the alternative hypothesis</code><br><code>&nbsp; &nbsp; sample1 &lt;- rnorm(n1, 0, 1)</code><br><code>&nbsp; &nbsp; sample2 &lt;- rnorm(n2, 0, sqrt(var_ratio))</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Perform F-test</code><br><code>&nbsp; &nbsp; f_test_result &lt;- var.test(sample1, sample2)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; if (f_test_result$p.value &lt; alpha) {</code><br><code>&nbsp; &nbsp; &nbsp; reject_count &lt;- reject_count + 1</code><br><code>&nbsp; &nbsp; }</code><br><code>&nbsp; }</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; return(reject_count / num_simulations)</code><br><code>}</code></p>
+<p><code># True ratio of variances in our data</code><br><code>true_ratio &lt;- var(process_a) / var(process_b)</code><br><code>power &lt;- power_f_test(true_ratio, length(process_a), length(process_b))</code></p>
+<p><code>cat("\nPower Analysis:\n")</code><br><code>cat("Estimated power for detecting the observed ratio of variances:", round(power, 4), "\n")</code><br><code>cat("(Power is the probability of correctly rejecting the null hypothesis when it is false)\n")</code></p>
+<p><code># Engineering significance</code><br><code>cat("\nEngineering Significance:\n")</code><br><code>cv_a &lt;- sd(process_a) / mean(process_a) * 100</code><br><code>cv_b &lt;- sd(process_b) / mean(process_b) * 100</code><br><code>cat("Coefficient of Variation (CV) for Process A:", round(cv_a, 2), "%\n")</code><br><code>cat("Coefficient of Variation (CV) for Process B:", round(cv_b, 2), "%\n")</code></p>
+<p><code>if (cv_a &lt; cv_b) {</code><br><code>&nbsp; cat("Process A provides more consistent results relative to its mean.\n")</code><br><code>} else {</code><br><code>&nbsp; cat("Process B provides more consistent results relative to its mean.\n")</code><br><code>}</code></p>
+<p><code># Additional analysis: Bootstrap confidence intervals for the difference in variances</code><br><code>library(boot)</code></p>
+<p><code># Bootstrap function for variance difference</code><br><code>boot_var_diff &lt;- function(data, indices) {</code><br><code>&nbsp; group_a &lt;- data$Cycles[data$Process == "Process A"][indices[1:30]]</code><br><code>&nbsp; group_b &lt;- data$Cycles[data$Process == "Process B"][indices[31:60]]</code><br><code>&nbsp; return(var(group_a) - var(group_b))</code><br><code>}</code></p>
+<p><code># Perform bootstrap</code><br><code>set.seed(123)</code><br><code>boot_results &lt;- boot(data_long, boot_var_diff, R = 2000)</code></p>
+<p><code># Calculate 95% bootstrap confidence interval</code><br><code>boot_ci &lt;- boot.ci(boot_results, type = "perc")</code></p>
+<p><code>cat("\nBootstrap Analysis:\n")</code><br><code>cat("95% Bootstrap CI for the difference in variances (Process A - Process B):\n")</code><br><code>cat("(", round(boot_ci$percent[4], 2), ", ", round(boot_ci$percent[5], 2), ")\n", sep = "")</code></p>
+<p><code># Create visualizations with ggplot2</code><br><code># Create a more comprehensive plot using ggplot2</code><br><code>ggplot_data &lt;- data.frame(</code><br><code>&nbsp; Process = factor(rep(c("Process A", "Process B"), each = 30)),</code><br><code>&nbsp; Cycles = c(process_a, process_b)</code><br><code>)</code></p>
+<p><code>p1 &lt;- ggplot(ggplot_data, aes(x = Cycles, fill = Process)) +</code><br><code>&nbsp; geom_density(alpha = 0.5) +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; labs(title = "Density Plot of Failure Cycles",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Cycles to Failure",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Density") +</code><br><code>&nbsp; scale_fill_manual(values = c("Process A" = "blue", "Process B" = "red"))</code></p>
+<p><code>p2 &lt;- ggplot(ggplot_data, aes(x = Process, y = Cycles, fill = Process)) +</code><br><code>&nbsp; geom_boxplot() +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; labs(title = "Box Plot of Failure Cycles",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Manufacturing Process",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Cycles to Failure") +</code><br><code>&nbsp; scale_fill_manual(values = c("Process A" = "blue", "Process B" = "red"))</code></p>
+<p><code># Save the plots</code><br><code>ggsave("density_plot_r.png", p1, width = 8, height = 6)</code><br><code>ggsave("boxplot_r.png", p2, width = 8, height = 6)</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

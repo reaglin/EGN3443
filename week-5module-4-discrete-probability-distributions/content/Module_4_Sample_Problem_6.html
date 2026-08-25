@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 4 Sample Problem 6</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div><h1>Module 4 Sample Problem 6</h1><h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">6. Combining Multiple Distributions: System Reliability Analysis</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example: Communication System Reliability</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Problem</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">: A communication system consists of multiple components with different reliability characteristics:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">5 identical transmitters, each with 98% reliability. At least 3 must work.</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">A backbone connection with Poisson-distributed failures (λ = 0.5 failures per month).</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">A power system that has a 99.9% uptime.</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Calculate the overall system reliability for a one-month period.</span></p>
+<h3 style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in Python</span></h3>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import numpy as np</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import matplotlib.pyplot as plt</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from scipy import stats</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">import math</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Transmitters: Binomial distribution for number of working transmitters</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n_transmitters = 5</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_transmitter = 0.98&nbsp; # reliability of each transmitter</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">min_working = 3</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Backbone: Poisson distribution for number of failures</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">lambda_backbone = 0.5&nbsp; # failures per month</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Power system: Bernoulli distribution for uptime</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_power = 0.999&nbsp; # reliability</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Calculate probability that at least 3 transmitters work</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_transmitters_ok = stats.binom.sf(min_working-1, n=n_transmitters, p=p_transmitter)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Probability of at least {min_working} transmitters working: {p_transmitters_ok:.6f}")</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Calculate probability that backbone has zero failures in a month</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_backbone_ok = stats.poisson.pmf(k=0, mu=lambda_backbone)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Probability of no backbone failures in a month: {p_backbone_ok:.6f}")</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Probability that power system works</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_power_ok = p_power</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Probability of power system working: {p_power_ok:.6f}")</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 4. Overall system reliability (assuming independence)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_reliability = p_transmitters_ok * p_backbone_ok * p_power_ok</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Overall system reliability for one month: {system_reliability:.6f}")</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Overall system reliability percentage: {system_reliability*100:.4f}%")</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.figure(figsize=(15, 12))</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Transmitter reliability (binomial distribution)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_transmitters = np.arange(0, n_transmitters+1)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_transmitters = stats.binom.pmf(x_transmitters, n=n_transmitters, p=p_transmitter)</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 1)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x_transmitters, pmf_transmitters, alpha=0.7)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=min_working-0.5, color='red', linestyle='--',&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'Min working = {min_working}')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between(x_transmitters[x_transmitters &gt;= min_working],&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pmf_transmitters[x_transmitters &gt;= min_working],&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alpha=0.3, color='green',&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(X ≥ {min_working}) = {p_transmitters_ok:.4f}')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Working Transmitters')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Transmitter Reliability (Binomial Distribution)')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xticks(x_transmitters)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Backbone reliability (Poisson distribution)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_backbone = np.arange(0, 10)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_backbone = stats.poisson.pmf(x_backbone, mu=lambda_backbone)</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 2)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(x_backbone, pmf_backbone, alpha=0.7)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=0.5, color='red', linestyle='--', label='Zero failures')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between([0], [pmf_backbone[0]], alpha=0.3, color='green',&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(X = 0) = {p_backbone_ok:.4f}')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Number of Backbone Failures')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Backbone Reliability (Poisson Distribution)')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xticks(x_backbone)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Power system reliability (Bernoulli)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 3)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar([0, 1], [1-p_power, p_power], alpha=0.7)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.axvline(x=0.5, color='red', linestyle='--', label='Working threshold')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.fill_between([1], [p_power], alpha=0.3, color='green',&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'P(Working) = {p_power:.4f}')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xlabel('Power System Status (0=Failure, 1=Working)')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Probability')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('Power System Reliability (Bernoulli Distribution)')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.xticks([0, 1], ['Failure', 'Working'])</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.legend()</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 4. System reliability breakdown</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">components = ['Transmitters', 'Backbone', 'Power', 'Overall']</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">reliabilities = [p_transmitters_ok, p_backbone_ok, p_power_ok, system_reliability]</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.subplot(2, 2, 4)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.bar(components, reliabilities, alpha=0.7)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for i, v in enumerate(reliabilities):</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;plt.text(i, v/2, f"{v:.4f}", ha='center', fontweight='bold')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylabel('Reliability')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.title('System Reliability Breakdown')</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.grid(alpha=0.3)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.ylim(0, 1.05)</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Addition: Monte Carlo simulation to verify result</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">def simulate_system(num_trials=100000):</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;success_count = 0</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(num_trials):</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Simulate transmitters</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;working_transmitters = np.random.binomial(n=n_transmitters, p=p_transmitter)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transmitters_ok = working_transmitters &gt;= min_working</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Simulate backbone</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;backbone_failures = np.random.poisson(lambda_backbone)</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;backbone_ok = backbone_failures == 0</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Simulate power</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;power_ok = np.random.random() &lt; p_power</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Check if all components work</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if transmitters_ok and backbone_ok and power_ok:</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success_count += 1</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return success_count / num_trials</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Run simulation</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulation_reliability = simulate_system()</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"\nMonte Carlo simulation reliability: {simulation_reliability:.6f}")</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">print(f"Difference from analytical result: {abs(simulation_reliability - system_reliability):.6f}")</span></p>
+<p></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.tight_layout()</span></p>
+<p style="line-height: 1.2; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">plt.show()</span></p>
+<p></p>
+<h3 style="margin-top: 16pt; margin-bottom: 4pt;"><span style="font-size: 14pt; font-family: Arial, sans-serif; color: #434343; font-weight: 400;">Solution in R</span></h3>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Parameters</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Transmitters: Binomial distribution for number of working transmitters</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n_transmitters &lt;- 5</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_transmitter &lt;- 0.98&nbsp; # reliability of each transmitter</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">min_working &lt;- 3</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Backbone: Poisson distribution for number of failures</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">lambda_backbone &lt;- 0.5&nbsp; # failures per month</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Power system: Bernoulli distribution for uptime</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_power &lt;- 0.999&nbsp; # reliability</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Calculate probability that at least 3 transmitters work</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_transmitters_ok &lt;- pbinom(min_working-1, size=n_transmitters, prob=p_transmitter, lower.tail=FALSE)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Probability of at least", min_working, "transmitters working:", round(p_transmitters_ok, 6), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Calculate probability that backbone has zero failures in a month</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_backbone_ok &lt;- dpois(x=0, lambda=lambda_backbone)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Probability of no backbone failures in a month:", round(p_backbone_ok, 6), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Probability that power system works</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">p_power_ok &lt;- p_power</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Probability of power system working:", round(p_power_ok, 6), "\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 4. Overall system reliability (assuming independence)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">system_reliability &lt;- p_transmitters_ok * p_backbone_ok * p_power_ok</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Overall system reliability for one month:", round(system_reliability, 6), "\n")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Overall system reliability percentage:", round(system_reliability*100, 4), "%\n")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Visualization</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">par(mfrow=c(2,2))</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 1. Transmitter reliability (binomial distribution)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_transmitters &lt;- 0:n_transmitters</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_transmitters &lt;- dbinom(x_transmitters, size=n_transmitters, prob=p_transmitter)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf_transmitters, names.arg=x_transmitters,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Transmitter Reliability (Binomial Distribution)",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Working Transmitters", ylab="Probability", col="skyblue")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">abline(v=(min_working-0.5)*1.2, col="red", lwd=2, lty=2)&nbsp; # Adjusted for barplot spacing</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Highlight the bars for successful system operation</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">for (i in min_working:n_transmitters) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;# Add green highlighting to the bars representing successful operation</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;rect((i-0.5)*1.2, 0, (i+0.5)*1.2, pmf_transmitters[i+1],&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(min_working*1.2, max(pmf_transmitters)*0.8,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("P(X ≥", min_working, ") =", round(p_transmitters_ok, 4)),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 2. Backbone reliability (Poisson distribution)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">x_backbone &lt;- 0:9</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">pmf_backbone &lt;- dpois(x_backbone, lambda=lambda_backbone)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(pmf_backbone, names.arg=x_backbone,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Backbone Reliability (Poisson Distribution)",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Number of Backbone Failures", ylab="Probability", col="skyblue")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Highlight the bar for zero failures</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">rect(0.5, 0, 1.5, pmf_backbone[1], col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(1, max(pmf_backbone)*0.8,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste("P(X = 0) =", round(p_backbone_ok, 4)),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 3. Power system reliability (Bernoulli)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">power_data &lt;- c(1-p_power, p_power)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">barplot(power_data, names.arg=c("Failure", "Working"),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="Power System Reliability (Bernoulli Distribution)",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xlab="Power System Status", ylab="Probability", col="skyblue")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Highlight the bar for working state</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">rect(1.7, 0, 2.3, p_power, col=rgb(0,1,0,0.3), border=NA)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(2, p_power/2, paste("P(Working) =", round(p_power, 4)),&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos=4, col="darkgreen")</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># 4. System reliability breakdown</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">components &lt;- c("Transmitters", "Backbone", "Power", "Overall")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">reliabilities &lt;- c(p_transmitters_ok, p_backbone_ok, p_power_ok, system_reliability)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">bar_positions &lt;- barplot(reliabilities, names.arg=components,&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main="System Reliability Breakdown",</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ylab="Reliability", col="skyblue", ylim=c(0, 1.05))</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Add text labels in the middle of each bar</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">text(bar_positions, reliabilities/2, round(reliabilities, 4), font=2)</span></p>
+<p></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Addition: Monte Carlo simulation to verify result</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulate_system &lt;- function(num_trials=100000) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;success_count &lt;- 0</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;for (i in 1:num_trials) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Simulate transmitters</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;working_transmitters &lt;- rbinom(n=1, size=n_transmitters, prob=p_transmitter)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;transmitters_ok &lt;- working_transmitters &gt;= min_working</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Simulate backbone</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;backbone_failures &lt;- rpois(n=1, lambda=lambda_backbone)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;backbone_ok &lt;- backbone_failures == 0</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Simulate power</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;power_ok &lt;- runif(1) &lt; p_power</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;# Check if all components work</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;if (transmitters_ok &amp;&amp; backbone_ok &amp;&amp; power_ok) {</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success_count &lt;- success_count + 1</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;return(success_count / num_trials)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">}</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Run simulation</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">set.seed(42)</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">simulation_reliability &lt;- simulate_system()</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("\nMonte Carlo simulation reliability:", round(simulation_reliability, 6), "\n")</span></p>
+<p style="margin-bottom: 4pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">cat("Difference from analytical result:", round(abs(simulation_reliability - system_reliability), 6), "\n")</span></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

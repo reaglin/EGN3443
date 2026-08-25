@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Multiple Regression Analysis</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div><h1 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 23pt; font-family: Arial, sans-serif;">Module 12: Multiple Regression Analysis</span></strong></h1>
+<h2 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Supporting Lectures:</span></strong></h2>
+<p><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">EGN3443 Module 12 - Multiple Regression Analysis</span></strong></p>
+<h2 style="margin-top: 24pt; margin-bottom: 6pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">1. Multiple Regression Models</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Multiple regression is a statistical technique that uses multiple independent variables to predict a single dependent variable. It extends simple linear regression by allowing more than one predictor variable in the model.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Key Characteristics</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Predicts a continuous outcome variable</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Uses two or more independent (predictor) variables</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Allows for more complex and nuanced predictions</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Helps understand the relationship between multiple factors and an outcome</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">General Model Equation</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Y = β₀ + β₁X₁ + β₂X₂ + ... + βₖXₖ + ε</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Where:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Y = Dependent variable</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">X₁, X₂, ..., Xₖ = Independent variables</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">β₀ = Intercept</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">β₁, β₂, ..., βₖ = Regression coefficients</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">ε = Error term</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Scenario</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Predicting house prices based on:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Square footage (X₁)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Number of bedrooms (X₂)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Neighborhood crime rate (X₃)</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Linear_regression</a></li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://www.indeed.com/career-advice/career-development/multiple-regression-analysis-definition" target="_blank" rel="noopener"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Indeed.com (yes, the job site)</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">2. Parameter Estimation and Interpretation</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Estimation Methods</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Ordinary Least Squares (OLS)</span></strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">: Most common method</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Minimizes the sum of squared residuals</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Provides unbiased estimates of regression coefficients</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Coefficient Interpretation</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Each coefficient (βᵢ) represents the change in the dependent variable for one unit change in the independent variable, holding other variables constant</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Hypothetical house price prediction model</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Y = Price</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># X1 = Square footage</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># X2 = Number of bedrooms</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Estimated coefficients</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">β₀ (Intercept) = 50,000</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">β₁ (Square footage) = 200</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">β₂ (Number of bedrooms) = 15,000</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Prediction equation</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Price = 50,000 + 200(Square Footage) + 15,000(Number of Bedrooms)</span></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Example calculation</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Price = 50,000 + 200(2000) + 15,000(3)</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 50,000 + 400,000 + 45,000</span></p>
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= $495,000</span></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Hypothesis Testing</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">t-tests for individual coefficients</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Assess statistical significance of each predictor</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://www.statisticshowto.com/regression-coefficient/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Statistics How To - Regression Coefficients</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">3. Model Selection Techniques</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Common Techniques</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Forward Selection</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Start with no variables</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Add most significant predictors sequentially</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Backward Elimination</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Start with all variables</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Remove least significant predictors</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Stepwise Regression</span></strong><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Combination of forward and backward methods</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Adds and removes variables based on statistical significance</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Evaluation Metrics</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">R-squared (R²)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Adjusted R-squared</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Akaike Information Criterion (AIC)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Bayesian Information Criterion (BIC)</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Python Example</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.feature_selection import f_regression</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.linear_model import LinearRegression</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Perform feature selection</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">F_scores, p_values = f_regression(X, y)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Select top predictors based on F-scores</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://www.jmp.com/en/statistics-knowledge-portal/what-is-multiple-regression/variable-selection">https://www.jmp.com/en/statistics-knowledge-portal/what-is-multiple-regression/variable-selection</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://scikit-learn.org/stable/modules/feature_selection.html"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Scikit-learn Model Selection</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">4. Multicollinearity</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Multicollinearity occurs when independent variables are highly correlated with each other.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Detection Methods</span></strong></h3>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">Variance Inflation Factor (VIF)</span></strong></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Measures how much the variance of an estimated regression coefficient increases</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">VIF Calculation</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from statsmodels.stats.outliers_influence import variance_inflation_factor</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Calculate VIF for each predictor</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">vif_data = pd.DataFrame()</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">vif_data["Variable"] = X.columns</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Interpretation</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">VIF &gt; 5-10 indicates significant multicollinearity</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Potential solutions:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Remove correlated predictors</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Use regularization techniques</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Collect more data</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><a style="text-decoration: none;" href="https://www.statisticshowto.com/multicollinearity/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Statistics How To - Multicollinearity</span></a></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://online.stat.psu.edu/stat462/node/177/"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Penn State - Multicollinearity</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">5. Polynomial Regression</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Definition</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Polynomial regression fits a nonlinear relationship between variables using polynomial equations.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">General Model</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Y = β₀ + β₁X + β₂X² + β₃X³ + ... + ε</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Example</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.preprocessing import PolynomialFeatures</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">from sklearn.linear_model import LinearRegression</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Create polynomial features</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">poly = PolynomialFeatures(degree=2)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">X_poly = poly.fit_transform(X)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"># Fit regression model</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">model = LinearRegression()</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">model.fit(X_poly, y)</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Use Cases</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Modeling curved relationships</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Capturing non-linear patterns in data</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Cautions</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Risk of overfitting</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Careful selection of polynomial degree</span></p>
+</li>
+</ul>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Web References</span></strong></h3>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;"><a href="https://en.wikipedia.org/wiki/Polynomial_regression">https://en.wikipedia.org/wiki/Polynomial_regression</a>&nbsp;</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><a style="text-decoration: none;" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #1155cc; font-weight: 400; text-decoration: underline; text-decoration-skip-ink: none;">Scikit-learn Polynomial Features</span></a></p>
+</li>
+</ul>
+<h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Recommended Learning Resources</span></strong></h2>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Textbooks:</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">"Applied Multiple Regression/Correlation Analysis for the Behavioral Sciences" by Jacob Cohen</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">"Regression Analysis by Example" by Samprit Chatterjee</span></p>
+</li>
+</ul>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Online Courses:</span><span style="font-size: 11pt; font-family: Arial, sans-serif;"><br></span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Coursera: Statistical Inference and Regression Models</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">edX: Regression Analysis</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

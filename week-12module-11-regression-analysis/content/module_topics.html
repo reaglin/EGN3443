@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 12/Module 11 - Regression Analysis — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+<h1>Week 12/Module 11 - Regression Analysis — Module Topics</h1>
+<h2>Foundations of Regression Analysis</h2>
+<div class="summary">Introduces the core concepts and purpose of regression analysis, including how it models relationships between variables to support data-driven decision-making.</div>
+<ul>
+<li><strong>What Is Regression Analysis?</strong> <span class="el-body">— Regression analysis is a statistical method used to model and quantify the relationship between one or more independent variables and a dependent variable.</span></li>
+<li><strong>Dependent and Independent Variables</strong> <span class="el-body">— Every regression model distinguishes between the variable being predicted (dependent) and the variable(s) used to make that prediction (independent).</span></li>
+<li><strong>Purpose of Regression in Decision-Making</strong> <span class="el-body">— Regression analysis supports data-driven decision-making by enabling analysts to understand causal relationships and generate forecasts from historical data.</span></li>
+<li><strong>Simple vs. Multiple Regression</strong> <span class="el-body">— Regression models vary in complexity depending on the number of independent variables included: simple regression uses one predictor, while multiple regression uses two or more.</span></li>
+<li><strong>The Concept of Model Fit</strong> <span class="el-body">— A key goal in regression analysis is to find the model that best fits the observed data, minimizing the difference between predicted and actual values.</span></li>
+<li><strong>Assumptions Underlying Regression Analysis</strong> <span class="el-body">— Regression analysis relies on a set of core assumptions about the data and the relationship between variables that must be considered for results to be valid.</span></li>
+</ul>
+<h2>Simple Linear Regression</h2>
+<div class="summary">Covers the construction and interpretation of simple linear regression models involving one predictor variable and one outcome variable.</div>
+<ul>
+<li><strong>What Is Simple Linear Regression?</strong> <span class="el-body">— Simple linear regression is a statistical method used to model the relationship between one predictor variable (X) and one outcome variable (Y) using a straight line.</span></li>
+<li><strong>The Regression Equation</strong> <span class="el-body">— The simple linear regression model is expressed as Ŷ = b₀ + b₁X, where b₀ is the y-intercept and b₁ is the slope of the regression line.</span></li>
+<li><strong>Estimating the Regression Line: The Least Squares Method</strong> <span class="el-body">— The regression coefficients b₀ and b₁ are estimated using the least squares method, which minimizes the sum of squared differences between observed and predicted Y values.</span></li>
+<li><strong>Interpreting the Slope and Intercept</strong> <span class="el-body">— Correctly interpreting the slope and intercept is essential for drawing meaningful conclusions from a regression model.</span></li>
+<li><strong>Assessing Model Fit with R-Squared</strong> <span class="el-body">— R-squared (R&#178;) is a key measure of how well the simple linear regression model fits the observed data, ranging from 0 to 1.</span></li>
+<li><strong>Testing the Significance of the Regression Relationship</strong> <span class="el-body">— Statistical hypothesis testing is used to determine whether the observed relationship between X and Y is statistically significant or likely due to chance.</span></li>
+<li><strong>Using the Model for Prediction</strong> <span class="el-body">— Once the regression equation is established, it can be used to predict the value of Y for a given value of X.</span></li>
+</ul>
+<h2>Multiple Regression Models</h2>
+<div class="summary">Extends regression analysis to include multiple predictor variables, exploring how to build and interpret models with greater complexity.</div>
+<ul>
+<li><strong>Introduction to Multiple Regression</strong> <span class="el-body">— Multiple regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single outcome variable.</span></li>
+<li><strong>Interpreting Multiple Regression Coefficients</strong> <span class="el-body">— In a multiple regression model, each coefficient (β) represents the expected change in the outcome variable for a one-unit increase in its corresponding predictor, while all other predictors are held constant.</span></li>
+<li><strong>Model Building and Variable Selection</strong> <span class="el-body">— Selecting the right predictor variables is a critical step in building an effective multiple regression model, balancing explanatory power with model simplicity.</span></li>
+<li><strong>Assessing Model Fit with R&#178; and Adjusted R&#178;</strong> <span class="el-body">— R&#178; measures the proportion of variance in the outcome variable explained by all predictors combined, while Adjusted R&#178; accounts for the number of predictors in the model.</span></li>
+<li><strong>Multicollinearity Among Predictors</strong> <span class="el-body">— Multicollinearity occurs when two or more predictor variables in a multiple regression model are highly correlated with each other, which can distort coefficient estimates and interpretations.</span></li>
+<li><strong>Evaluating and Validating a Multiple Regression Model</strong> <span class="el-body">— After building a multiple regression model, it is essential to evaluate its assumptions and validate its predictive performance to ensure it is appropriate for the data.</span></li>
+</ul>
+<h2>Evaluating Regression Model Performance</h2>
+<div class="summary">Examines the key metrics and diagnostic tools used to assess the accuracy, fit, and validity of regression models.</div>
+<ul>
+<li><strong>R-Squared (Coefficient of Determination)</strong> <span class="el-body">— R-squared measures the proportion of variance in the dependent variable that is explained by the independent variable(s) in the regression model.</span></li>
+<li><strong>Adjusted R-Squared</strong> <span class="el-body">— Adjusted R-squared refines the R-squared metric by penalizing the addition of predictors that do not meaningfully improve the model.</span></li>
+<li><strong>Residual Analysis</strong> <span class="el-body">— Residuals are the differences between the observed values and the values predicted by the regression model, and analyzing them reveals how well the model fits the data.</span></li>
+<li><strong>Mean Squared Error (MSE) and Root Mean Squared Error (RMSE)</strong> <span class="el-body">— MSE and RMSE quantify the average magnitude of prediction errors, providing a direct measure of how far model predictions deviate from actual values.</span></li>
+<li><strong>Statistical Significance of Coefficients (p-values)</strong> <span class="el-body">— The p-value for each regression coefficient tests whether the relationship between a predictor and the outcome variable is statistically significant or likely due to chance.</span></li>
+<li><strong>Overall Model Significance (F-Statistic)</strong> <span class="el-body">— The F-statistic tests whether the regression model as a whole explains a statistically significant portion of the variance in the dependent variable.</span></li>
+<li><strong>Assumptions Checking and Model Validity</strong> <span class="el-body">— A regression model&#39;s performance evaluation is incomplete without verifying that key statistical assumptions — such as linearity, independence, homoscedasticity, and normality of residuals — are satisfied.</span></li>
+</ul>
+<h2>Interpreting Regression Results</h2>
+<div class="summary">Focuses on drawing meaningful conclusions from regression output, including coefficients, significance levels, and practical implications for decision-making.</div>
+<ul>
+<li><strong>Understanding Regression Coefficients</strong> <span class="el-body">— Regression coefficients quantify the relationship between each predictor variable and the outcome, indicating the magnitude and direction of that relationship.</span></li>
+<li><strong>Assessing Statistical Significance</strong> <span class="el-body">— Statistical significance testing helps determine whether the observed relationship between a predictor and the outcome is likely to be real or simply due to chance.</span></li>
+<li><strong>Evaluating Model Fit with R-Squared</strong> <span class="el-body">— R-squared (R&#178;) measures the proportion of variance in the outcome variable that is explained by the predictor variables in the model.</span></li>
+<li><strong>Interpreting the Overall Model (F-Test)</strong> <span class="el-body">— The F-test evaluates whether the regression model as a whole explains a statistically significant portion of the variance in the outcome variable.</span></li>
+<li><strong>Translating Results into Practical Implications</strong> <span class="el-body">— Effective interpretation of regression output goes beyond statistical metrics to inform actionable, data-driven decisions in real-world contexts.</span></li>
+<li><strong>Recognizing Limitations and Avoiding Misinterpretation</strong> <span class="el-body">— Regression results can be misread if assumptions are violated or if correlational findings are incorrectly treated as causal conclusions.</span></li>
+</ul>
+<h2>Applying Regression to Real-World Datasets</h2>
+<div class="summary">Provides hands-on practice using regression techniques on real-world data, reinforcing skills in model building and results interpretation across applied contexts.</div>
+<ul>
+<li><strong>Selecting and Preparing a Real-World Dataset</strong> <span class="el-body">— Before building a regression model, practitioners must identify an appropriate dataset and prepare it for analysis.</span></li>
+<li><strong>Identifying Variables and Formulating a Research Question</strong> <span class="el-body">— A well-defined research question guides the selection of variables and the type of regression model to apply.</span></li>
+<li><strong>Building the Regression Model on Real Data</strong> <span class="el-body">— With prepared data and defined variables, practitioners construct the regression model using statistical software or tools.</span></li>
+<li><strong>Interpreting Regression Output in Context</strong> <span class="el-body">— Interpreting regression results means translating statistical output into meaningful, context-specific conclusions.</span></li>
+<li><strong>Evaluating Model Fit and Assumptions with Real Data</strong> <span class="el-body">— Applied regression requires verifying that model assumptions hold and that the model fits the data adequately.</span></li>
+<li><strong>Refining and Improving the Model</strong> <span class="el-body">— Real-world datasets often require iterative model refinement to improve accuracy and address assumption violations.</span></li>
+<li><strong>Communicating Regression Findings to Stakeholders</strong> <span class="el-body">— The final step in applied regression is translating analytical results into clear, actionable insights for a non-technical audience.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 6 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div><h1>Module 6 Sample Problem 1</h1><h2 style="margin-top: 18pt; margin-bottom: 4pt;"><strong><span style="font-size: 17pt; font-family: Arial, sans-serif;">Problem 1: Material Strength Testing</span></strong></h2>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Problem Statement</span></strong></h3>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">A civil engineer is testing the compressive strength of a new concrete mixture for a bridge construction project. Based on previous tests, the compressive strength of this mixture follows a right-skewed distribution with a mean of 4,200 psi and a standard deviation of 350 psi. The engineer needs to estimate the average compressive strength with high precision.</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Tasks:</span></strong></p>
+<ol style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">If the engineer takes samples of size n=5, describe the sampling distribution of the sample mean.</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">If the sample size increases to n=30, how does the sampling distribution change?</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Calculate the standard error for both sample sizes.</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Determine the 95% confidence interval for the mean compressive strength if a sample of size n=30 yields a mean of 4,150 psi.</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">How large should the sample size be to estimate the mean compressive strength with a margin of error of ±50 psi at a 95% confidence level?</span></p>
+</li>
+</ol>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Solution</span></strong></h3>
+<h4 style="margin-top: 12pt; margin-bottom: 2pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">1. Sampling Distribution for n=5</span></strong></h4>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">According to the Central Limit Theorem (CLT), when we take samples from any population distribution and calculate their means, the distribution of these sample means will approach a normal distribution as the sample size increases. However, with a small sample size of n=5, the sampling distribution will not be perfectly normal since the original distribution is right-skewed.</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">The sampling distribution of the sample mean will have:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Mean = population mean = 4,200 psi</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Standard error = population standard deviation / √n = 350 / √5 = 156.5 psi</span></p>
+</li>
+</ul>
+<h4 style="margin-top: 12pt; margin-bottom: 2pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">2. Sampling Distribution for n=30</span></strong></h4>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">With n=30, the Central Limit Theorem applies more strongly. The sampling distribution of the sample mean will be approximately normal, regardless of the shape of the original distribution.</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">The sampling distribution will have:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Mean = population mean = 4,200 psi</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">Standard error = population standard deviation / √n = 350 / √30 = 63.9 psi</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">The sampling distribution becomes narrower (smaller standard error) and more closely approximates a normal distribution.</span></p>
+<h4 style="margin-top: 12pt; margin-bottom: 2pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">3. Standard Error Calculation</span></strong></h4>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">For n=5: Standard Error = σ / √n = 350 / √5 = 156.5 psi</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">For n=30: Standard Error = σ / √n = 350 / √30 = 63.9 psi</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">As the sample size increases, the standard error decreases, indicating more precise estimates of the mean.</span></p>
+<h4 style="margin-top: 12pt; margin-bottom: 2pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">4. 95% Confidence Interval for n=30 with mean=4,150 psi</span></strong></h4>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">For a 95% confidence interval, we use the formula: CI = x̄ ± (z* × SE)</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Where:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">x̄ is the sample mean (4,150 psi)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">z* is the critical z-value for 95% confidence (1.96)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">SE is the standard error (63.9 psi)</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">CI = 4,150 ± (1.96 × 63.9) CI = 4,150 ± 125.2 CI = [4,024.8 psi, 4,275.2 psi]</span></p>
+<h4 style="margin-top: 12pt; margin-bottom: 2pt;"><strong><span style="font-size: 11pt; font-family: Arial, sans-serif;">5. Sample Size Determination</span></strong></h4>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">To determine the required sample size for a specific margin of error, we use: n = (z* × σ / E)²</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">Where:</span></p>
+<ul style="margin-bottom: 0px; padding-inline-start: 48px;">
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-top: 12pt; margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">z* is the critical z-value for 95% confidence (1.96)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 0pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">σ is the population standard deviation (350 psi)</span></p>
+</li>
+<li style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">
+<p style="margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif;">E is the desired margin of error (50 psi)</span></p>
+</li>
+</ul>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">n = (1.96 × 350 / 50)² = (13.72)² = 188.2</span></p>
+<p style="margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Arial, sans-serif; color: #000000;">The engineer should test at least 189 concrete samples to achieve the desired precision.</span></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">Python Solution (</span></strong><a style="text-decoration: none;" href="https://colab.research.google.com/drive/1WAmfLV8zx8V9wIc9iS9FwC7eCxFKMLF9?usp=sharing"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif; color: #1155cc; text-decoration: underline; text-decoration-skip-ink: none;">link</span></strong></a><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">)</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">import numpy as np</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">import matplotlib.pyplot as plt</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">import scipy.stats as stats</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">import seaborn as sns</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Set random seed for reproducibility</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">np.random.seed(42)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Population parameters</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population_mean = 4200</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population_std = 350</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Create a right-skewed distribution (using gamma distribution as an example)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Adjusting parameters to match our mean and standard deviation</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">shape = 144&nbsp; # Shape parameter for gamma distribution</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">scale = population_mean / shape&nbsp; # Scale to get our desired mean</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population = np.random.gamma(shape, scale, size=100000)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Adjust to get closer to our target parameters</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population = population * (population_mean / np.mean(population))</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population = population * (population_std / np.std(population))</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Function to simulate sampling distribution</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">def sample_distribution(population, sample_size, n_samples):</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;sample_means = []</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n_samples):</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sample = np.random.choice(population, size=sample_size, replace=True)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sample_means.append(np.mean(sample))</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;return np.array(sample_means)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Calculate sampling distributions</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">n_samples = 10000</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_means_5 = sample_distribution(population, 5, n_samples)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_means_30 = sample_distribution(population, 30, n_samples)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Calculate standard errors</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_5 = np.std(sample_means_5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_5_theoretical = population_std / np.sqrt(5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_30 = np.std(sample_means_30)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_30_theoretical = population_std / np.sqrt(30)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Calculate 95% confidence interval for n=30 with mean=4150</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_mean = 4150</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">z_critical = 1.96</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">margin_error = z_critical * se_30_theoretical</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">ci_lower = sample_mean - margin_error</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">ci_upper = sample_mean + margin_error</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Sample size determination</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">desired_margin = 50</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">required_n = int(np.ceil((z_critical * population_std / desired_margin) ** 2))</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Visualization</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.figure(figsize=(18, 12))</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 1. Original Population Distribution</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.subplot(2, 2, 1)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sns.histplot(population, kde=True, color='skyblue')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.axvline(population_mean, color='red', linestyle='--', label=f'Mean = {population_mean}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.title('Original Population Distribution (Right-Skewed)')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.xlabel('Compressive Strength (psi)')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.ylabel('Frequency')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.legend()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 2. Sampling Distribution (n=5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.subplot(2, 2, 2)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sns.histplot(sample_means_5, kde=True, color='green')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.axvline(np.mean(sample_means_5), color='red', linestyle='--',&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'Mean = {np.mean(sample_means_5):.1f}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.title(f'Sampling Distribution (n=5)\nSE (Observed): {se_5:.1f}, SE (Theoretical): {se_5_theoretical:.1f}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.xlabel('Sample Mean Compressive Strength (psi)')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.ylabel('Frequency')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.legend()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 3. Sampling Distribution (n=30)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.subplot(2, 2, 3)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sns.histplot(sample_means_30, kde=True, color='purple')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.axvline(np.mean(sample_means_30), color='red', linestyle='--',&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label=f'Mean = {np.mean(sample_means_30):.1f}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.title(f'Sampling Distribution (n=30)\nSE (Observed): {se_30:.1f}, SE (Theoretical): {se_30_theoretical:.1f}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.xlabel('Sample Mean Compressive Strength (psi)')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.ylabel('Frequency')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.legend()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 4. Confidence Interval Visualization</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.subplot(2, 2, 4)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">x = np.linspace(sample_mean - 4*se_30_theoretical, sample_mean + 4*se_30_theoretical, 1000)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">y = stats.norm.pdf(x, sample_mean, se_30_theoretical)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.plot(x, y, color='darkblue')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.fill_between(x, y, where=(x &gt;= ci_lower) &amp; (x &lt;= ci_upper), alpha=0.3, color='green')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.axvline(sample_mean, color='red', linestyle='--', label=f'Sample Mean = {sample_mean}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.axvline(ci_lower, color='green', linestyle=':', label=f'95% CI Lower: {ci_lower:.1f}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.axvline(ci_upper, color='green', linestyle=':', label=f'95% CI Upper: {ci_upper:.1f}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.title(f'95% Confidence Interval (n=30)\nRequired sample size for ±50 psi: {required_n}')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.xlabel('Compressive Strength (psi)')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.ylabel('Probability Density')</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.legend()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.tight_layout()</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">plt.show()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">print(f"Observed Standard Error (n=5): {se_5:.1f} psi")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">print(f"Theoretical Standard Error (n=5): {se_5_theoretical:.1f} psi")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">print(f"Observed Standard Error (n=30): {se_30:.1f} psi")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">print(f"Theoretical Standard Error (n=30): {se_30_theoretical:.1f} psi")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">print(f"95% Confidence Interval (n=30): [{ci_lower:.1f}, {ci_upper:.1f}] psi")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">print(f"Required sample size for ±50 psi margin of error: {required_n}")</span></code></p>
+<p></p>
+<h3 style="margin-top: 14pt; margin-bottom: 4pt;"><strong><span style="font-size: 13pt; font-family: Arial, sans-serif;">R Solution</span></strong></h3>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">library(ggplot2)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">library(gridExtra)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">library(dplyr)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Set random seed for reproducibility</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">set.seed(42)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Population parameters</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population_mean &lt;- 4200</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population_std &lt;- 350</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Create a right-skewed distribution (using gamma distribution)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Adjusting parameters to match our mean and standard deviation</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">shape &lt;- 144&nbsp; # Shape parameter for gamma distribution</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">scale &lt;- population_mean / shape&nbsp; # Scale to get our desired mean</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population &lt;- rgamma(100000, shape=shape, scale=scale)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Adjust to get closer to our target parameters</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population &lt;- population * (population_mean / mean(population))</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population &lt;- population * (population_std / sd(population))</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Function to simulate sampling distribution</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_distribution &lt;- function(population, sample_size, n_samples) {</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;sample_means &lt;- numeric(n_samples)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;for (i in 1:n_samples) {</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;sample &lt;- sample(population, size=sample_size, replace=TRUE)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;sample_means[i] &lt;- mean(sample)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;}</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;return(sample_means)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">}</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Calculate sampling distributions</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">n_samples &lt;- 10000</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_means_5 &lt;- sample_distribution(population, 5, n_samples)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_means_30 &lt;- sample_distribution(population, 30, n_samples)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Calculate standard errors</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_5 &lt;- sd(sample_means_5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_5_theoretical &lt;- population_std / sqrt(5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_30 &lt;- sd(sample_means_30)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">se_30_theoretical &lt;- population_std / sqrt(30)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Calculate 95% confidence interval for n=30 with mean=4150</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">sample_mean &lt;- 4150</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">z_critical &lt;- 1.96</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">margin_error &lt;- z_critical * se_30_theoretical</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">ci_lower &lt;- sample_mean - margin_error</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">ci_upper &lt;- sample_mean + margin_error</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Sample size determination</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">desired_margin &lt;- 50</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">required_n &lt;- ceiling((z_critical * population_std / desired_margin)^2)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Create data frames for plotting</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">population_df &lt;- data.frame(strength = population)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">means_5_df &lt;- data.frame(mean = sample_means_5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">means_30_df &lt;- data.frame(mean = sample_means_30)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Visualization</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 1. Original Population Distribution</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">p1 &lt;- ggplot(population_df, aes(x = strength)) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_histogram(aes(y=..density..), fill="skyblue", color="black", bins=50) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_density(alpha=0.2, fill="blue") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_vline(xintercept = population_mean, color="red", linetype="dashed") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;annotate("text", x = population_mean + 200, y = 0.0015,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label = paste("Mean =", population_mean), color="red") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;labs(title = "Original Population Distribution (Right-Skewed)",</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = "Compressive Strength (psi)", y = "Density") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;theme_minimal()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 2. Sampling Distribution (n=5)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">p2 &lt;- ggplot(means_5_df, aes(x = mean)) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_histogram(aes(y=..density..), fill="green", color="black", bins=40) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_density(alpha=0.2, fill="darkgreen") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_vline(xintercept = mean(sample_means_5), color="red", linetype="dashed") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;annotate("text", x = mean(sample_means_5) + 200, y = 0.003,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label = paste("Mean =", round(mean(sample_means_5), 1)), color="red") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;labs(title = paste("Sampling Distribution (n=5)\nSE (Observed):", round(se_5, 1),&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", SE (Theoretical):", round(se_5_theoretical, 1)),</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = "Sample Mean Compressive Strength (psi)", y = "Density") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;theme_minimal()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 3. Sampling Distribution (n=30)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">p3 &lt;- ggplot(means_30_df, aes(x = mean)) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_histogram(aes(y=..density..), fill="purple", color="black", bins=40) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_density(alpha=0.2, fill="darkviolet") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_vline(xintercept = mean(sample_means_30), color="red", linetype="dashed") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;annotate("text", x = mean(sample_means_30) + 100, y = 0.006,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label = paste("Mean =", round(mean(sample_means_30), 1)), color="red") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;labs(title = paste("Sampling Distribution (n=30)\nSE (Observed):", round(se_30, 1),&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", SE (Theoretical):", round(se_30_theoretical, 1)),</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = "Sample Mean Compressive Strength (psi)", y = "Density") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;theme_minimal()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># 4. Confidence Interval Visualization</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">x_range &lt;- seq(sample_mean - 4*se_30_theoretical, sample_mean + 4*se_30_theoretical, length.out = 1000)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">norm_density &lt;- dnorm(x_range, mean = sample_mean, sd = se_30_theoretical)</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">ci_df &lt;- data.frame(x = x_range, y = norm_density,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in_ci = x_range &gt;= ci_lower &amp; x_range &lt;= ci_upper)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">p4 &lt;- ggplot(ci_df, aes(x = x, y = y)) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_line(color="darkblue") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_area(aes(fill = in_ci), alpha=0.3) +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;scale_fill_manual(values = c("white", "green"), guide = "none") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_vline(xintercept = sample_mean, color="red", linetype="dashed") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_vline(xintercept = ci_lower, color="green", linetype="dotted") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;geom_vline(xintercept = ci_upper, color="green", linetype="dotted") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;annotate("text", x = sample_mean - 100, y = 0.006,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label = paste("Sample Mean =", sample_mean), color="red") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;annotate("text", x = ci_lower - 100, y = 0.004,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label = paste("Lower CI =", round(ci_lower, 1)), color="darkgreen") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;annotate("text", x = ci_upper + 100, y = 0.004,&nbsp;</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label = paste("Upper CI =", round(ci_upper, 1)), color="darkgreen") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;labs(title = paste("95% Confidence Interval (n=30)\nRequired sample size for ±50 psi:", required_n),</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x = "Compressive Strength (psi)", y = "Probability Density") +</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">&nbsp;&nbsp;theme_minimal()</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;"># Arrange all plots</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">grid.arrange(p1, p2, p3, p4, ncol=2)</span></code></p>
+<p></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">cat("Observed Standard Error (n=5):", round(se_5, 1), "psi\n")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">cat("Theoretical Standard Error (n=5):", round(se_5_theoretical, 1), "psi\n")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">cat("Observed Standard Error (n=30):", round(se_30, 1), "psi\n")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">cat("Theoretical Standard Error (n=30):", round(se_30_theoretical, 1), "psi\n")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">cat("95% Confidence Interval (n=30): [", round(ci_lower, 1), ",", round(ci_upper, 1), "] psi\n")</span></code></p>
+<p style="margin-bottom: 0pt;"><code><span style="font-size: 11pt; font-family: 'Courier New', monospace; color: #000000;">cat("Required sample size for ±50 psi margin of error:", required_n, "\n")</span></code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

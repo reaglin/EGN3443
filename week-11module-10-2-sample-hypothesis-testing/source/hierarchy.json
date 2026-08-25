@@ -1,0 +1,1147 @@
+{
+  "ModuleFolderName": "Week_11_Module_10_-_2_Sample_Hypothesis_Testing",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:30:29.4952633-04:00",
+  "ModifiedDate": "2026-08-24T20:33:01.6888812-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+      "Title": "Foundations of Two-Sample Hypothesis Testing",
+      "Summary": "Introduces the core concepts and purpose of two-sample hypothesis testing, explaining when and why comparing two groups is necessary. Covers the logical framework of null and alternative hypotheses in a two-sample context.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "ModifiedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "Elements": [
+        {
+          "Id": "634fc868-f163-44f8-b1bb-2c2da2b1898b",
+          "TopicId": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+          "Title": "Why Two-Sample Testing?",
+          "BodyText": "Two-sample hypothesis testing is used when a researcher needs to compare a characteristic \u2014 such as a mean or proportion \u2014 across two distinct groups rather than evaluating a single group against a fixed value.",
+          "Notes": "Examples include comparing average test scores between two classrooms, or the effectiveness of two medical treatments on separate patient groups.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "ModifiedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "Items": [
+            {
+              "Id": "f71d035e-81ce-416e-8da7-6400c6274846",
+              "Text": "One-sample tests evaluate a single group against a known or hypothesized population value, while two-sample tests focus on the difference between two groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "402d8ed2-b4b8-4fab-b692-ecbd87828795",
+              "Text": "The need for two-sample testing arises naturally in experiments, business analyses, and scientific studies where a comparison drives the research question.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0e9af42b-873a-4403-a58e-4864589795df",
+              "Text": "Comparing two groups allows decision-makers to determine whether an observed difference is meaningful or simply due to random chance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7c6a2ddc-da5c-48eb-818e-3c6614f1bb4c",
+          "TopicId": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+          "Title": "The Null Hypothesis in a Two-Sample Context",
+          "BodyText": "In two-sample hypothesis testing, the null hypothesis (H\u2080) asserts that there is no meaningful difference between the two groups being compared.",
+          "Notes": "For means, H\u2080 typically states \u03BC\u2081 = \u03BC\u2082; for proportions, H\u2080 states p\u2081 = p\u2082. The null hypothesis always represents the default assumption of no effect or no difference.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "ModifiedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "Items": [
+            {
+              "Id": "bcb32fb9-96a2-4114-9127-01ad955d2d3a",
+              "Text": "The null hypothesis serves as the starting assumption that any observed difference between the two groups is attributable to sampling variability alone.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e7da4610-fff0-4a7f-801f-9df67a850669",
+              "Text": "Researchers attempt to gather enough evidence to reject H\u2080, not to prove it true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eff1ecd2-1e22-4ffc-9dff-d8dc6703c665",
+              "Text": "Failing to reject H\u2080 does not confirm that the groups are identical \u2014 it only means insufficient evidence was found to declare a difference.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "791a0fc9-1dd2-47e1-a7e8-aa2888166594",
+          "TopicId": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+          "Title": "The Alternative Hypothesis in a Two-Sample Context",
+          "BodyText": "The alternative hypothesis (H\u2081 or H\u2090) represents the claim that a real difference exists between the two groups, and it defines the direction and nature of the expected difference.",
+          "Notes": "The alternative hypothesis can be two-tailed (\u03BC\u2081 \u2260 \u03BC\u2082), left-tailed (\u03BC\u2081 \u003C \u03BC\u2082), or right-tailed (\u03BC\u2081 \u003E \u03BC\u2082), depending on the research question.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "ModifiedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "Items": [
+            {
+              "Id": "90ffe55c-1254-44f4-ab73-3957a8b82bf3",
+              "Text": "A two-tailed alternative hypothesis is used when the researcher suspects a difference exists but has no prior expectation about which group will be larger.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "36e69ca6-c928-4da5-a903-2182484fa99b",
+              "Text": "A one-tailed alternative hypothesis is used when theory or prior evidence suggests the direction of the difference.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c9c8b892-f533-46f8-a9aa-b4aeee1d6a38",
+              "Text": "Choosing the correct form of the alternative hypothesis before collecting data is critical to maintaining the integrity of the test.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5c68d5d5-a2fc-4658-80bd-fec28f7d9056",
+          "TopicId": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+          "Title": "The Logical Framework of Two-Sample Testing",
+          "BodyText": "Two-sample hypothesis testing follows a structured logical process: assume no difference, collect sample data, calculate a test statistic, and decide whether the evidence is strong enough to reject that assumption.",
+          "Notes": "This framework mirrors the scientific method \u2014 beginning with a skeptical default position and requiring evidence to overturn it.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "ModifiedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "Items": [
+            {
+              "Id": "bc3a975a-4e28-4508-9e12-d6d1057a0173",
+              "Text": "The process begins by clearly stating H\u2080 and H\u2081 before any data is examined, ensuring objectivity in the analysis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d92a5f89-f521-49ec-be5f-3992f5107cfe",
+              "Text": "Sample data from both groups is used to compute a test statistic that measures how far the observed difference is from the null hypothesis value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "390b59e1-4b54-4680-9716-bc59dad0005c",
+              "Text": "A p-value or critical value comparison then determines whether the observed result would be unlikely under the null hypothesis, guiding the final decision to reject or fail to reject H\u2080.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "707170f2-1660-4c1a-ab95-0cd7699f8106",
+          "TopicId": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+          "Title": "Independent vs. Paired Groups",
+          "BodyText": "A foundational distinction in two-sample testing is whether the two groups are independent of each other or whether observations in one group are naturally paired with observations in the other.",
+          "Notes": "For example, comparing sales performance of two different store locations uses independent samples, while measuring the same employees\u0027 performance before and after training uses paired samples.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "ModifiedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "Items": [
+            {
+              "Id": "dc154db2-3f8e-46d9-abf0-112af21715e5",
+              "Text": "Independent samples consist of two separate groups with no relationship between individual observations across groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cd2470a5-e1ea-4f8d-afc5-266da44ac40b",
+              "Text": "Paired samples involve matched or related observations \u2014 such as pre-test and post-test scores from the same individuals \u2014 which reduces variability and can increase test sensitivity.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e0a2943b-ca07-44dc-a3f0-79f91ecab13f",
+              "Text": "Correctly identifying whether samples are independent or paired determines which test statistic and procedure should be applied.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fab97d46-c1fe-4e17-8167-3e8fd9e0c544",
+          "TopicId": "86dcbd94-ea9f-4430-beb7-0156d50db035",
+          "Title": "Parameters Being Compared",
+          "BodyText": "Two-sample tests can be designed to compare different population parameters, most commonly means or proportions, depending on the type of data and the research question.",
+          "Notes": "Comparing means is common with continuous numerical data (e.g., income, height, temperature), while comparing proportions applies to categorical outcomes (e.g., pass/fail rates, customer satisfaction responses).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "ModifiedDate": "2026-08-24T20:30:51.9161561-04:00",
+          "Items": [
+            {
+              "Id": "6ac3e8a7-8151-4436-b7b2-60cb3521ca62",
+              "Text": "When the outcome variable is continuous, researchers typically compare the population means (\u03BC\u2081 vs. \u03BC\u2082) of the two groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b712dbb9-2ece-4da3-9b99-70bf9bd9f9ac",
+              "Text": "When the outcome variable is binary or categorical, researchers compare population proportions (p\u2081 vs. p\u2082).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "cd30b6c5-e6ad-4689-b732-ad8ab0631ee8",
+              "Text": "The choice of parameter to compare directly influences the selection of the appropriate test statistic and distribution used in the hypothesis test.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b3ed7360-4c48-4468-86c3-cb83e428f352",
+      "Title": "Independent vs. Paired Samples",
+      "Summary": "Distinguishes between independent and paired (dependent) sample designs, outlining the characteristics of each group type. Learners explore how the relationship between samples determines the appropriate testing approach.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "ModifiedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "Elements": [
+        {
+          "Id": "a29da33a-42bf-4bb3-880e-04c2a33d6725",
+          "TopicId": "b3ed7360-4c48-4468-86c3-cb83e428f352",
+          "Title": "Defining Independent Samples",
+          "BodyText": "Independent samples consist of two groups where the observations in one group have no relationship or connection to the observations in the other group.",
+          "Notes": "Example: Comparing the average test scores of students from two different schools, where no student appears in both groups.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "ModifiedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "Items": [
+            {
+              "Id": "32f2538a-d73c-405d-9617-aa3439d05c4f",
+              "Text": "Each group is drawn separately, and membership in one group does not influence or determine membership in the other.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "35ff17ff-87e2-40b0-8444-8b967e28a0e7",
+              "Text": "The sample sizes of the two independent groups do not need to be equal.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c3ea8b9b-4913-4cd1-a394-02642e5ec420",
+              "Text": "Random assignment or selection is typically used to ensure the groups remain truly separate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "596e98fb-064d-49c2-9d70-e15da0a5c0c7",
+              "Text": "Statistical conclusions drawn from independent samples reflect differences between two distinct populations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8e5b7704-7676-49d4-b318-7c536635997a",
+          "TopicId": "b3ed7360-4c48-4468-86c3-cb83e428f352",
+          "Title": "Defining Paired (Dependent) Samples",
+          "BodyText": "Paired samples, also called dependent samples, occur when each observation in one group is meaningfully linked to a specific observation in the other group.",
+          "Notes": "Example: Measuring a patient\u0027s blood pressure before and after a treatment \u2014 both measurements belong to the same individual, creating a natural pair.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "ModifiedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "Items": [
+            {
+              "Id": "7b1757c2-059f-44f0-aee7-28700c82e257",
+              "Text": "Pairing can arise from repeated measures on the same subject, matched participants, or naturally occurring pairs such as twins.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6ef00bf9-4184-4a20-98aa-c2dd9dbf9c11",
+              "Text": "Because observations are linked, the two groups must always have the same number of data points.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2aa23c8f-5f6c-4cc6-8025-4b715e5a0b9d",
+              "Text": "The dependency between paired observations reduces variability, which can increase the statistical power of the test.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "850e1160-1b35-464c-85ae-c8e5ff78d0e4",
+              "Text": "Paired designs are often used in before-and-after studies or matched case-control studies.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "511d035d-aea1-4c82-8c77-984fc81da15e",
+          "TopicId": "b3ed7360-4c48-4468-86c3-cb83e428f352",
+          "Title": "Key Characteristics That Distinguish the Two Designs",
+          "BodyText": "The fundamental distinction between independent and paired samples lies in whether a logical or physical link exists between individual data points across the two groups.",
+          "Notes": "A quick diagnostic question: \u0027Can I match each value in Group 1 with a specific, meaningful value in Group 2?\u0027 If yes, the samples are paired.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "ModifiedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "Items": [
+            {
+              "Id": "1dca7250-a101-41fc-a3c7-620f1af0b6e8",
+              "Text": "Independent samples have no subject-level correspondence \u2014 data points are not matched across groups.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e8306124-de09-489a-9b44-7795aca5a195",
+              "Text": "Paired samples have a one-to-one correspondence between observations in each group, creating difference scores for analysis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "598e7130-dccc-4e3b-851b-39577d26efcc",
+              "Text": "Sample size equality is required for paired designs but not for independent designs.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9dd245e8-f1c1-4159-84a6-ddeac958243a",
+              "Text": "Misidentifying the design type can lead to selecting the wrong test statistic and producing invalid conclusions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "205dac92-d369-4ab3-93e3-104bbb6545d5",
+          "TopicId": "b3ed7360-4c48-4468-86c3-cb83e428f352",
+          "Title": "How the Relationship Between Samples Determines the Testing Approach",
+          "BodyText": "The nature of the relationship between the two samples directly governs which hypothesis test is appropriate to apply.",
+          "Notes": "Choosing the wrong test \u2014 for example, applying an independent samples t-test to paired data \u2014 inflates error variance and reduces the accuracy of the p-value.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "ModifiedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "Items": [
+            {
+              "Id": "deaabb78-f464-4c2b-8061-c3dc92c7f338",
+              "Text": "Independent samples call for a two-sample (independent) t-test or z-test, which compares the means of two separate distributions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "613cd4bf-df31-427c-97d4-607a70023135",
+              "Text": "Paired samples call for a paired t-test, which analyzes the mean of the differences between each linked pair of observations.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "018e735f-9989-43fe-a24b-9f57da22f91c",
+              "Text": "The paired approach controls for individual-level variability, making it more sensitive to detecting a true effect when one exists.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3f61bfad-528c-428d-9d02-750953934d78",
+              "Text": "Recognizing the sample structure is therefore a critical first step before selecting any two-sample hypothesis test.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "4003531b-fb31-4efe-8d02-d83618dd53f4",
+          "TopicId": "b3ed7360-4c48-4468-86c3-cb83e428f352",
+          "Title": "Real-World Design Examples",
+          "BodyText": "Applying the distinction between independent and paired samples to real-world scenarios helps reinforce when each design is appropriate.",
+          "Notes": "Contextual examples make it easier for learners to correctly classify their own data in practice.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "ModifiedDate": "2026-08-24T20:31:12.6522744-04:00",
+          "Items": [
+            {
+              "Id": "42e10d38-b67c-4cb8-9a34-40e8b3fb47c0",
+              "Text": "Independent design example: Comparing average salaries of employees at two different companies \u2014 the groups share no individual-level link.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "adaa3504-75ef-4d90-a031-383ba4772a8c",
+              "Text": "Paired design example: Recording employee productivity scores before and after a training program for the same group of workers.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e2de17d2-67e5-4669-983c-259a233e0250",
+              "Text": "Matched-pair design example: Pairing participants by age and gender, then assigning one to a treatment and one to a control condition.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "06c873fd-c287-4415-9964-25d3008978d2",
+              "Text": "In each paired example, the analysis focuses on the within-pair difference rather than raw group means, which is what the paired t-test leverages.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+      "Title": "Assumptions and Conditions for Two-Sample Tests",
+      "Summary": "Examines the statistical assumptions underlying two-sample tests, including normality, equal variances, and random sampling. Covers how to verify these conditions before selecting and applying a test.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "ModifiedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "Elements": [
+        {
+          "Id": "c2abcc67-db3a-4a19-8386-9e4c5980d1f9",
+          "TopicId": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+          "Title": "Random Sampling Requirement",
+          "BodyText": "Two-sample hypothesis tests require that data in each group be collected through a random sampling process to ensure valid inference.",
+          "Notes": "Violations of this assumption, such as convenience sampling or self-selection bias, can lead to misleading conclusions that do not generalize to the population.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "ModifiedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "Items": [
+            {
+              "Id": "6752b6e7-fc01-4b9a-93b9-3b4d8ee3b16f",
+              "Text": "Each sample must be drawn independently and randomly from its respective population.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7c6cf493-b299-4b30-87d1-12fcbe30a684",
+              "Text": "The two samples must also be independent of each other \u2014 observations in one group should not influence or be related to observations in the other.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e9099736-7963-4372-bbdb-94503a425940",
+              "Text": "If data come from an experiment, random assignment to groups can substitute for random sampling from a population.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1fa0febe-f06c-418e-a2f6-0dabc74b37af",
+          "TopicId": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+          "Title": "Normality Assumption",
+          "BodyText": "Many two-sample tests assume that the underlying population distributions are approximately normal, particularly when sample sizes are small.",
+          "Notes": "For large samples, the Central Limit Theorem allows the sampling distribution of the mean to be approximately normal even if the population is not, making this assumption less critical.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "ModifiedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "Items": [
+            {
+              "Id": "a36223af-b990-42e9-9770-0f86d0b62a77",
+              "Text": "Normality can be assessed visually using histograms, Q-Q plots, or boxplots of each sample.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7b5815b0-f28c-4bfc-b2d4-dbe128b5835c",
+              "Text": "Formal tests such as the Shapiro-Wilk or Kolmogorov-Smirnov test can provide statistical evidence for or against normality.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "aea8224e-4ec6-4180-ab8e-d6a5357ef23b",
+              "Text": "When normality is severely violated and sample sizes are small, non-parametric alternatives such as the Mann-Whitney U test should be considered.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "97622f60-69dc-4e5d-8a5b-89ebb9b4adf8",
+          "TopicId": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+          "Title": "Equal Variances (Homogeneity of Variance)",
+          "BodyText": "The standard two-sample t-test assumes that the two populations have equal variances, a condition known as homogeneity of variance or homoscedasticity.",
+          "Notes": "Failing to account for unequal variances when they exist can inflate Type I error rates and lead to incorrect test conclusions.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "ModifiedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "Items": [
+            {
+              "Id": "7f1386ca-2578-4e96-9605-b650fe7cfa00",
+              "Text": "Levene\u0027s Test or the F-test (Variance Ratio Test) are commonly used to formally assess whether the two group variances are significantly different.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fcbdb935-8094-414a-b57b-c135a7b7e07c",
+              "Text": "If equal variances cannot be assumed, Welch\u0027s t-test is the appropriate alternative, as it does not require this assumption.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "19f92659-3ea1-465c-8e35-239d766e31cc",
+              "Text": "A practical rule of thumb is that variances are considered unequal if the ratio of the larger to smaller sample variance exceeds 2 or 3.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9a6bb023-346a-43ba-93c0-e39ab69c3e6c",
+          "TopicId": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+          "Title": "Sample Size Considerations",
+          "BodyText": "Adequate sample size in each group is essential for a two-sample test to have sufficient statistical power and for assumptions like normality to hold through the Central Limit Theorem.",
+          "Notes": "Small samples increase the risk of both Type II errors (failing to detect a real difference) and violations of normality that cannot be corrected by the CLT.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "ModifiedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "Items": [
+            {
+              "Id": "91beab88-7f1e-47d8-8828-0e1e5d8bec2b",
+              "Text": "A common guideline is that samples of 30 or more per group allow the CLT to justify approximate normality of the sampling distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "aaa0610b-6d4e-4d25-88c4-c7267153eee5",
+              "Text": "Power analysis should be conducted before data collection to determine the minimum sample size needed to detect a meaningful effect.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1deb157b-3653-4a6b-871f-25d676bebebf",
+              "Text": "Unequal sample sizes between groups are permissible but can affect the robustness of the test, especially when combined with unequal variances.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "34efee06-eb4c-4f26-a4c0-2914ff9b0939",
+          "TopicId": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+          "Title": "Independence of Observations Within Groups",
+          "BodyText": "Within each sample, individual observations must be independent of one another \u2014 one data point should not influence another within the same group.",
+          "Notes": "Clustered data, repeated measures, or time-series data within a group violate this assumption and require specialized methods such as mixed models or paired tests.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "ModifiedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "Items": [
+            {
+              "Id": "64250046-3670-421f-b3a1-708a4797f98e",
+              "Text": "Independence within groups is typically ensured by proper study design, such as random sampling without replacement from a large population.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "dc401be5-779a-4d02-89be-7364dc9bac60",
+              "Text": "A sample size that exceeds 10% of the population (the 10% condition) can introduce dependence and should be avoided.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "26e80a25-b816-4ef4-b2a6-ad974413728d",
+              "Text": "Violations of within-group independence tend to underestimate standard errors, leading to inflated test statistics and false positives.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4c78dc24-0310-4b0f-b144-ed4a42eecf99",
+          "TopicId": "491cbc50-0d0e-4dc2-ac6a-77bcbf3f7678",
+          "Title": "Verifying Conditions Before Selecting a Test",
+          "BodyText": "Before applying any two-sample test, analysts must systematically verify which assumptions are met to select the most appropriate test statistic.",
+          "Notes": "A structured checklist approach \u2014 checking randomness, normality, variance equality, and sample size \u2014 helps prevent the misapplication of tests and supports reproducible analysis.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "ModifiedDate": "2026-08-24T20:31:35.1473751-04:00",
+          "Items": [
+            {
+              "Id": "94341345-9a93-4cd9-9a5a-418212580d5f",
+              "Text": "If normality and equal variances hold, the pooled two-sample t-test is appropriate.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2f06fa60-1f4f-4dd5-b609-61fbb7a754be",
+              "Text": "If normality holds but variances are unequal, Welch\u0027s t-test is preferred over the pooled t-test.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0934ff1c-f3ca-41d5-8e42-c69d03d22fc6",
+              "Text": "If normality cannot be established and samples are small, a non-parametric test such as the Mann-Whitney U test should be used instead.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "6d11361b-3741-4bd0-8402-83b4145573ca",
+              "Text": "Documenting the verification of each assumption is considered best practice in reporting statistical analyses.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "29136361-81f5-40a2-a36e-18cc9e20072f",
+      "Title": "Comparing Two Means",
+      "Summary": "Focuses on hypothesis tests for the difference between two population means using t-tests for both independent and paired samples. Learners practice selecting the correct test statistic and interpreting results.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "ModifiedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "Elements": [
+        {
+          "Id": "0ea23a49-f79a-4b82-9eee-11718f173cc2",
+          "TopicId": "29136361-81f5-40a2-a36e-18cc9e20072f",
+          "Title": "Introduction to Two-Sample Mean Comparisons",
+          "BodyText": "When researchers want to determine whether two population means differ, they use a two-sample hypothesis test for means. The choice of test depends on whether the samples are independent or paired.",
+          "Notes": "Example: Comparing the average test scores of students taught by two different methods (independent) vs. comparing the same students\u0027 scores before and after an intervention (paired).",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "ModifiedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "Items": [
+            {
+              "Id": "ebfc6930-d15f-449a-8c6a-9cb4dcb3a631",
+              "Text": "The null hypothesis typically states that the difference between the two population means is zero (H\u2080: \u03BC\u2081 \u2212 \u03BC\u2082 = 0).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "97abb60a-e8df-4a49-895b-5d85cfaffe40",
+              "Text": "The alternative hypothesis can be two-tailed (\u2260), left-tailed (\u003C), or right-tailed (\u003E), depending on the research question.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3530664a-3b2f-4b46-9ecc-35cbe8c5f237",
+              "Text": "Identifying whether samples are independent or related is the critical first step before selecting any test statistic.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "454fac2c-6f84-4ad2-b346-1c9a968b06cd",
+          "TopicId": "29136361-81f5-40a2-a36e-18cc9e20072f",
+          "Title": "Independent Samples t-Test",
+          "BodyText": "The independent samples t-test is used when two groups are drawn from separate, unrelated populations and there is no natural pairing between observations. This test compares the means of the two groups while accounting for variability within each group.",
+          "Notes": "Example: Testing whether men and women have different average salaries at a company. Key assumption checks include normality and whether population variances can be assumed equal.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "ModifiedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "Items": [
+            {
+              "Id": "dd124f6c-fac3-4908-a9ac-9c357b62d2dd",
+              "Text": "The test statistic is calculated as the difference between sample means divided by the standard error of that difference.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "27f4928a-c4dd-45bf-83fd-b4c594aba49e",
+              "Text": "When population variances are assumed equal, a pooled variance estimate is used; when variances are unequal, Welch\u0027s t-test is applied.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "bdc13134-7920-437d-9953-35ed204aa278",
+              "Text": "Degrees of freedom differ depending on whether pooled or Welch\u0027s formula is used, affecting the critical value lookup.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "26dc965d-0a10-4a32-a74e-ef698fcea8ba",
+              "Text": "Sample sizes do not need to be equal for this test to be valid.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "66d6a840-40a6-437e-b62f-ab309918b66f",
+          "TopicId": "29136361-81f5-40a2-a36e-18cc9e20072f",
+          "Title": "Assumptions of the Independent Samples t-Test",
+          "BodyText": "Valid inference from an independent samples t-test requires that several underlying assumptions be met. Violations of these assumptions can lead to incorrect conclusions.",
+          "Notes": "Levene\u0027s test for equality of variances is commonly used to check the equal-variance assumption before deciding between the pooled and Welch versions of the test.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "ModifiedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "Items": [
+            {
+              "Id": "13899416-5745-47d5-9c5b-cf59f053b57c",
+              "Text": "Both samples must be independently and randomly drawn from their respective populations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ca299b35-3aa3-431f-8b37-bb6b4a35a447",
+              "Text": "The data in each group should be approximately normally distributed, especially important for small sample sizes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "50eb426d-8bf5-44fe-baba-fab4098b7dbd",
+              "Text": "Observations within and between groups must be independent of one another.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f6790b77-8298-4825-844a-173190b8a72f",
+              "Text": "The equal-variance assumption (homogeneity of variance) should be evaluated before choosing the pooled or Welch formulation.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "bd503542-28a3-416b-a12f-5d9d4f33258d",
+          "TopicId": "29136361-81f5-40a2-a36e-18cc9e20072f",
+          "Title": "Paired Samples t-Test",
+          "BodyText": "The paired samples t-test is appropriate when two measurements are taken from the same subject or from naturally matched pairs, creating a dependent relationship between observations. This design reduces variability by controlling for individual differences.",
+          "Notes": "Example: A company measures employee productivity before and after a training program. Each employee provides both measurements, so the data are paired by individual.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "ModifiedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "Items": [
+            {
+              "Id": "d7f1b609-eaa6-4baa-ae2c-4f4a23274efd",
+              "Text": "The analysis focuses on the difference score (d = x\u2081 \u2212 x\u2082) for each pair, reducing the two-sample problem to a one-sample test on the differences.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d9a3005c-5c8e-45b7-a703-2be4cab3d4c8",
+              "Text": "The null hypothesis states that the mean difference equals zero (H\u2080: \u03BCd = 0).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "77e33b2c-edb8-4c12-af06-7578e3516dd7",
+              "Text": "The test statistic is the sample mean of differences divided by the standard error of the differences.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "64b1d7ff-23de-43ee-9997-68554d75ebaf",
+              "Text": "Degrees of freedom equal n \u2212 1, where n is the number of pairs, not the total number of observations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9be42bfb-ecb1-42ed-bcea-830a579b35b5",
+          "TopicId": "29136361-81f5-40a2-a36e-18cc9e20072f",
+          "Title": "Selecting the Correct Test: Independent vs. Paired",
+          "BodyText": "Choosing between the independent and paired t-test is a foundational decision that shapes the entire analysis. Selecting the wrong test can invalidate conclusions.",
+          "Notes": "A helpful rule: ask whether each observation in one group can be logically linked to exactly one observation in the other group. If yes, use the paired test.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "ModifiedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "Items": [
+            {
+              "Id": "d7609ae9-6e5f-4260-b110-9f2bfd9ed77c",
+              "Text": "Use the independent samples t-test when two groups consist of different, unrelated individuals with no natural matching.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "3bf3861e-479f-4aa2-8106-975b5afe1329",
+              "Text": "Use the paired samples t-test when data come from the same subjects measured twice, or from matched pairs designed to be similar.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "73ce2f65-2e8b-4fa9-9704-11b582ff92a3",
+              "Text": "Pairing increases statistical power by removing between-subject variability, making it preferable when a natural pairing exists.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "20a67ecc-34b5-4164-b363-07e845bf450d",
+              "Text": "Incorrectly treating paired data as independent inflates the standard error and reduces the power to detect a true difference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "81c2839d-219e-4348-bb0e-a60ec1ec5ffa",
+          "TopicId": "29136361-81f5-40a2-a36e-18cc9e20072f",
+          "Title": "Interpreting Results and Making Decisions",
+          "BodyText": "After computing the test statistic, learners must compare it to the critical value or evaluate the p-value to reach a conclusion about the null hypothesis. Interpretation must always be placed in the real-world context of the problem.",
+          "Notes": "Example conclusion: \u0027At the 0.05 significance level, there is sufficient evidence to conclude that the mean sales performance differs between the two regions (t = 2.45, p = 0.018).\u0027",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "ModifiedDate": "2026-08-24T20:32:04.4047503-04:00",
+          "Items": [
+            {
+              "Id": "dd407922-523c-489e-a645-c756cc6fd84d",
+              "Text": "If the p-value is less than the chosen significance level (\u03B1), reject the null hypothesis and conclude there is a statistically significant difference between the means.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a09ee80e-626e-46c2-9bfd-5a78780be2a9",
+              "Text": "Failing to reject H\u2080 does not prove the means are equal; it only indicates insufficient evidence of a difference given the sample data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "80b159e5-23c2-4b63-a68f-5cde7f6d4c6d",
+              "Text": "Effect size measures, such as Cohen\u0027s d, should accompany the hypothesis test result to convey the practical significance of any detected difference.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3ff7efd7-73d4-4855-9a7a-8021deabcfdf",
+              "Text": "Confidence intervals for the difference in means provide additional insight by showing the range of plausible values for \u03BC\u2081 \u2212 \u03BC\u2082.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+      "Title": "Comparing Two Proportions",
+      "Summary": "Addresses hypothesis testing for the difference between two population proportions using the z-test framework. Covers the setup of hypotheses, calculation of the test statistic, and interpretation of p-values.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "ModifiedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "Elements": [
+        {
+          "Id": "b6cb1bb2-a4a1-40b7-8cdc-9a1a51ed3502",
+          "TopicId": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+          "Title": "Setting Up Hypotheses for Two Proportions",
+          "BodyText": "Hypothesis testing for two proportions begins by defining the null and alternative hypotheses in terms of the difference between two population proportions, p\u2081 and p\u2082.",
+          "Notes": "Example: Testing whether the proportion of customers who prefer a product differs between two regions. H\u2080: p\u2081 = p\u2082 (or p\u2081 - p\u2082 = 0) and H\u2090: p\u2081 \u2260 p\u2082, p\u2081 \u003E p\u2082, or p\u2081 \u003C p\u2082 depending on the research question.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "ModifiedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "Items": [
+            {
+              "Id": "ed8ab107-d43a-4bac-a4af-04bc432ff74b",
+              "Text": "The null hypothesis typically states that there is no difference between the two population proportions (p\u2081 - p\u2082 = 0).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "66c21387-3090-4f79-8921-9bcbeefbda0c",
+              "Text": "The alternative hypothesis can be two-tailed (\u2260), left-tailed (\u003C), or right-tailed (\u003E) based on the direction of the claim being investigated.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c7162a6f-f847-4ec6-9642-f51bf44c6669",
+              "Text": "Clearly identifying which group is p\u2081 and which is p\u2082 before testing prevents confusion when interpreting results.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7870d2b6-20a4-4307-9801-7b31a5b536ca",
+              "Text": "The research question should drive the choice between a one-tailed and two-tailed alternative hypothesis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a62a6af5-15b9-4316-947b-ddf56da35bc1",
+          "TopicId": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+          "Title": "Assumptions and Conditions for the Two-Proportion Z-Test",
+          "BodyText": "Before applying the z-test to two proportions, several conditions must be verified to ensure the sampling distributions of the proportions are approximately normal.",
+          "Notes": "A common rule of thumb is that n\u2081p\u0302\u2081, n\u2081(1-p\u0302\u2081), n\u2082p\u0302\u2082, and n\u2082(1-p\u0302\u2082) must all be at least 5 (or 10 in stricter guidelines) to justify the normal approximation.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "ModifiedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "Items": [
+            {
+              "Id": "06367ad7-9a27-434e-9b7b-385556928314",
+              "Text": "Both samples must be independent of each other and randomly selected from their respective populations.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6cce073b-b63e-4138-8304-7fe43abfe08a",
+              "Text": "The success-failure condition requires that the number of successes and failures in each sample are sufficiently large to justify a normal approximation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "09f752b6-54b5-42c8-87d1-a11b2ba88d51",
+              "Text": "Sample sizes should be large enough that the Central Limit Theorem applies to each sample proportion individually.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c4d1b0cb-a57e-4c72-a94c-91fe6befac85",
+              "Text": "The two groups being compared must be distinct and not overlapping in membership.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "dc2dff9a-6e8d-4644-907a-b28870687f8f",
+          "TopicId": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+          "Title": "Calculating the Pooled Proportion",
+          "BodyText": "Under the null hypothesis that p\u2081 = p\u2082, a pooled proportion (p\u0302_c) is calculated by combining the two samples to produce a single best estimate of the common population proportion.",
+          "Notes": "The pooled proportion formula is: p\u0302_c = (x\u2081 \u002B x\u2082) / (n\u2081 \u002B n\u2082), where x\u2081 and x\u2082 are the number of successes in each sample and n\u2081 and n\u2082 are the respective sample sizes.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "ModifiedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "Items": [
+            {
+              "Id": "d7853940-3320-4a11-a6d5-b7c9921bdf27",
+              "Text": "The pooled proportion combines all observed successes from both groups and divides by the total number of observations across both samples.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "64acd2ab-e5cf-4a59-86b3-609380ab6078",
+              "Text": "Using the pooled proportion is appropriate only when the null hypothesis assumes the two population proportions are equal.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c8175cc3-6346-4874-a84e-e707559ecd4d",
+              "Text": "The pooled proportion serves as the best available estimate of the shared population proportion when H\u2080 is assumed true.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "66e8a952-6b57-4f24-81f1-9ab4cdeaafa4",
+              "Text": "If the null hypothesis specified a non-zero difference, pooling would not be appropriate and separate proportions would be used instead.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c55e0a0b-4555-4796-ad7c-5da7a4098d79",
+          "TopicId": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+          "Title": "Computing the Z-Test Statistic",
+          "BodyText": "The test statistic for comparing two proportions follows a z-distribution and measures how many standard errors the observed difference in sample proportions falls from zero.",
+          "Notes": "The formula is: z = (p\u0302\u2081 - p\u0302\u2082) / \u221A[p\u0302_c(1 - p\u0302_c)(1/n\u2081 \u002B 1/n\u2082)], where p\u0302_c is the pooled proportion. A larger absolute z-value provides stronger evidence against H\u2080.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "ModifiedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "Items": [
+            {
+              "Id": "59a11c70-0e65-4c9f-98cd-68cb4cabc5e6",
+              "Text": "The numerator of the z-statistic is the observed difference between the two sample proportions (p\u0302\u2081 - p\u0302\u2082).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5a3714a0-a656-4f4c-a20d-145759d687cb",
+              "Text": "The denominator represents the standard error of the difference in proportions, estimated using the pooled proportion under H\u2080.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8bd3ea50-f254-4b4d-bd3a-7cbf356f7a01",
+              "Text": "The resulting z-value is compared against the standard normal distribution to determine statistical significance.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5f254de9-cbfd-437d-a231-4f0291f8f4d9",
+              "Text": "A z-value near zero suggests little difference between the two proportions, while extreme values suggest a meaningful difference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "3dc2f51a-5f8f-4f0b-8880-a09985ccbbf4",
+          "TopicId": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+          "Title": "Determining and Interpreting the P-Value",
+          "BodyText": "The p-value for a two-proportion z-test represents the probability of observing a difference as extreme as the one calculated, assuming the null hypothesis is true.",
+          "Notes": "For a two-tailed test, the p-value is 2 \u00D7 P(Z \u003E |z|). For one-tailed tests, it is either P(Z \u003E z) or P(Z \u003C z) depending on the direction of H\u2090. Standard z-tables or software can be used to find these probabilities.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "ModifiedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "Items": [
+            {
+              "Id": "cfb1eaed-805f-415d-989d-ab6d65032553",
+              "Text": "A small p-value (typically less than the significance level \u03B1, such as 0.05) provides evidence to reject the null hypothesis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7057980a-8e19-4799-819f-ff9e08f93a8f",
+              "Text": "The p-value is calculated from the standard normal distribution using the computed z-test statistic.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "475f847d-4899-4b29-baf1-831968eacba0",
+              "Text": "For two-tailed tests, the p-value accounts for extreme differences in either direction by doubling the tail probability.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2483db85-c4f0-4ef3-842f-4b431833b9b1",
+              "Text": "The p-value does not measure the size or practical importance of the difference, only the strength of evidence against H\u2080.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "f2789f20-d0b9-469f-adda-0073df81806d",
+          "TopicId": "49db0af9-cd3a-48d7-bcdb-7db03f9df4cc",
+          "Title": "Drawing Conclusions and Contextual Interpretation",
+          "BodyText": "After computing the p-value, the final step is to make a statistical decision and translate it into a meaningful conclusion within the context of the original problem.",
+          "Notes": "Example conclusion: \u0027At the 5% significance level, there is sufficient evidence to conclude that the proportion of customers preferring the product is higher in Region A than in Region B (z = 2.35, p = 0.019).\u0027",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "ModifiedDate": "2026-08-24T20:32:31.4681813-04:00",
+          "Items": [
+            {
+              "Id": "dc46c59f-6662-444c-83e9-95d67304cf01",
+              "Text": "If the p-value is less than or equal to \u03B1, reject H\u2080 and conclude that the two population proportions are significantly different.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "cb44135e-0dcb-4c08-a64d-2ab884975514",
+              "Text": "If the p-value exceeds \u03B1, fail to reject H\u2080, indicating insufficient evidence of a difference between the proportions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "03521f48-1cb8-46b5-b8b4-3e6e8681faa2",
+              "Text": "Conclusions should always be stated in the context of the real-world problem, not just in statistical terms.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ac639fb2-e689-49fd-a1da-d03b1ccb5c92",
+              "Text": "Failing to reject H\u2080 does not prove the proportions are equal \u2014 it only means the data did not provide enough evidence of a difference.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+      "Title": "Interpreting Results and Making Data-Driven Decisions",
+      "Summary": "Guides learners in drawing meaningful conclusions from two-sample test outcomes within real-world contexts. Emphasizes communicating findings clearly and using statistical evidence to support decision making.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "ModifiedDate": "2026-08-24T20:30:29.4952633-04:00",
+      "Elements": [
+        {
+          "Id": "7a73adc6-0526-44b6-9c16-12f83595f82b",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Connecting Statistical Results to Real-World Context",
+          "BodyText": "A statistically significant result only becomes meaningful when interpreted within the context of the original research question or business problem.",
+          "Notes": "For example, finding a significant difference in mean sales between two store layouts is actionable only when tied back to cost, feasibility, and strategic goals.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "a171fbb0-ab13-4f17-8c71-a80c5d24da50",
+              "Text": "Always restate the original question or hypothesis before summarizing what the test result means.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d3ab6f79-b0ec-4b9c-9d2d-0f66a088177f",
+              "Text": "Distinguish between statistical significance and practical relevance \u2014 a result can be statistically significant yet too small to matter in practice.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ff3aee37-22c3-4f32-9897-3ded61af2de3",
+              "Text": "Consider the units and scale of the difference when explaining results to non-technical stakeholders.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2a9f92b5-8147-499c-9f22-a003578af773",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Interpreting the P-Value and Test Statistic",
+          "BodyText": "The p-value and test statistic together indicate whether observed differences between two groups are likely due to chance or reflect a true population difference.",
+          "Notes": "A p-value below the chosen significance level (e.g., 0.05) leads to rejecting the null hypothesis, but the size of the test statistic also signals how strong the evidence is.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "6563e38c-08d4-4532-90f3-b1cb7da058dc",
+              "Text": "A low p-value (below \u03B1) indicates strong evidence against the null hypothesis, supporting the conclusion that the two groups differ.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e9eea683-614a-40d0-8ae7-f728dade555d",
+              "Text": "Avoid interpreting the p-value as the probability that the null hypothesis is true \u2014 it is the probability of observing results as extreme as those found, assuming the null is true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "665bfc2f-1cb0-419e-b325-48b580c3c7d2",
+              "Text": "Report the exact p-value rather than just stating \u0027significant\u0027 or \u0027not significant\u0027 to provide more informative communication.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7b1fc733-c905-40e4-bc27-b6bdcd449783",
+              "Text": "The magnitude of the test statistic (e.g., t or z) reflects how far the observed difference is from what is expected under the null hypothesis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cef16a3f-d633-4f50-ab63-b40dd2f8bd00",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Using Confidence Intervals to Quantify Differences",
+          "BodyText": "Confidence intervals complement hypothesis test results by providing a range of plausible values for the true difference between two group means or proportions.",
+          "Notes": "For instance, a 95% confidence interval for the difference in means of (2.1, 8.4) tells decision-makers not just that a difference exists, but approximately how large it is.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "033a66c5-c660-403f-9a7c-7eb2401cbd31",
+              "Text": "If a confidence interval for the difference between two groups does not contain zero, this aligns with rejecting the null hypothesis at the corresponding significance level.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a471ad26-0020-4601-a2c8-cc3d041c29e1",
+              "Text": "Confidence intervals communicate uncertainty and precision, making them more informative than a binary reject/fail-to-reject conclusion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "289ecd01-b073-4256-ae26-33cd6a66f41b",
+              "Text": "Wider intervals indicate greater uncertainty, often due to smaller sample sizes or higher variability in the data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "76928b8b-57d0-4680-b2ed-4a3fd5eacdba",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Distinguishing Statistical Significance from Practical Significance",
+          "BodyText": "Practical significance \u2014 often measured by effect size \u2014 determines whether a statistically significant difference is large enough to matter in a real-world decision.",
+          "Notes": "Effect size measures such as Cohen\u0027s d for means help standardize the magnitude of differences across different studies and scales.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "ee1eeda7-3880-46f1-910f-4606db3970bf",
+              "Text": "Large sample sizes can make even trivially small differences statistically significant, so always evaluate the size of the effect, not just the p-value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ea8fdb93-f5d8-4467-bb57-13760cd0433b",
+              "Text": "Effect size metrics (e.g., Cohen\u0027s d) provide a standardized way to judge whether the difference between two groups is small, medium, or large.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "eb263951-8c79-4f36-bfce-1bb65e48c2f4",
+              "Text": "Decision-makers should weigh the cost and benefit of acting on a finding relative to the practical magnitude of the difference detected.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2cc759b3-a676-4960-b743-3919bbd4ced9",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Communicating Findings to Diverse Audiences",
+          "BodyText": "Translating statistical findings into clear, jargon-free language is essential for ensuring that decision-makers and stakeholders can act on the results.",
+          "Notes": "Using visuals such as side-by-side box plots or bar charts with error bars can make group comparisons immediately accessible to non-statistical audiences.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "fa956f7f-8377-4b2b-9671-f89d1fe47ed1",
+              "Text": "Summarize the conclusion in plain language first \u2014 state whether the groups differ and in what direction \u2014 before presenting supporting statistics.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d012a9bb-05fe-498e-9d62-906853a93d51",
+              "Text": "Provide context for numbers by referencing benchmarks, prior periods, or industry standards so the audience understands the magnitude.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "13d6678a-d46e-4d03-bcfe-a08216fe04b7",
+              "Text": "Use visualizations to reinforce verbal and written summaries, making patterns and differences intuitive to grasp.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9be8783a-f2a2-4df7-99ab-ec44ed8a1989",
+              "Text": "Tailor the level of technical detail to the audience \u2014 executives may need a high-level summary while analysts may require full methodology and output.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "73b9c20e-e9ae-46d7-96cd-75260488bccc",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Making Data-Driven Decisions Based on Test Outcomes",
+          "BodyText": "The ultimate goal of two-sample hypothesis testing in applied settings is to support a decision \u2014 whether to adopt a new process, policy, product, or intervention.",
+          "Notes": "For example, if a two-sample t-test shows a new training program significantly improves employee performance scores compared to the existing program, management can justify rolling it out more broadly.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "6b5a4aa1-d140-4d39-8a21-548547564dc3",
+              "Text": "Failing to reject the null hypothesis is not proof that no difference exists \u2014 it may reflect insufficient sample size or high variability, so consider these factors before concluding groups are equivalent.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "21d39890-3d85-4986-9ccd-75a22e8779bb",
+              "Text": "Combine statistical evidence with domain knowledge, ethical considerations, and resource constraints when making a final recommendation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ce64e3e0-7fb6-4ab9-8d3c-ea2bb1426e43",
+              "Text": "Document the hypothesis test process, assumptions, results, and rationale for the decision to maintain transparency and reproducibility.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "46dd78fb-64b0-45ac-803c-4a6378a9ad22",
+              "Text": "Consider the risk of Type I and Type II errors when determining how much evidence is required before committing to a course of action.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "e32b5ec2-5edf-409f-b2e3-365100826afd",
+          "TopicId": "b0b2f2fa-92f9-4197-a76d-b52a3ce44a92",
+          "Title": "Recognizing Limitations and Assumptions in Conclusions",
+          "BodyText": "Every two-sample test rests on assumptions, and conclusions must acknowledge where those assumptions may not fully hold in the data collected.",
+          "Notes": "If, for example, the assumption of equal variances was violated and not properly addressed, the conclusions drawn may overstate the certainty of the finding.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "ModifiedDate": "2026-08-24T20:33:01.6887397-04:00",
+          "Items": [
+            {
+              "Id": "feffd5b2-e94d-4024-b803-bdd5fe80a37c",
+              "Text": "Results are only as valid as the degree to which the test\u0027s assumptions (e.g., normality, independence, equal variance) are satisfied.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ea02d555-54c4-4e1d-a365-cf8366333e20",
+              "Text": "Violations of assumptions can lead to inflated Type I error rates or reduced power, potentially distorting conclusions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f3b461fd-a29d-429b-a201-ec49da5dc0d4",
+              "Text": "Clearly state the limitations of the analysis \u2014 including sample representativeness, data collection methods, and potential confounds \u2014 when reporting findings.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "92ad431c-cfcb-4b9a-b1ee-c54c2a58ad7b",
+              "Text": "Recommend follow-up studies or sensitivity analyses when assumptions are uncertain or data quality is questionable.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 36
+}

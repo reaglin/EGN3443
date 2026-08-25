@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 15/Module 14 – ANOVA | EGN3443</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #25567a 60%, #2e7da6 100%);
+      color: #fff;
+      padding: 2.8rem 1.5rem 2.2rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+
+    header p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.88);
+    }
+
+    /* ── Main Container ── */
+    main {
+      max-width: 1080px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #6b7c93;
+      margin-bottom: 1.1rem;
+      padding-left: 0.15rem;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce3ec;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(30, 70, 110, 0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row: badges ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #2558a7;
+    }
+
+    .badge-filetype {
+      background: #f0f3f7;
+      color: #5a6a7e;
+      border: 1px solid #d8dfe9;
+    }
+
+    /* ── Card Title Row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-title {
+      font-size: 1.0rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.35;
+    }
+
+    .card-title a {
+      color: #1a5fa8;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+      color: #0d3e73;
+    }
+
+    .source-link {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #5a8fc7;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #b8d0ea;
+      border-radius: 4px;
+      padding: 0.12rem 0.45rem;
+      background: #f0f6ff;
+      transition: background 0.15s;
+    }
+
+    .source-link:hover {
+      background: #ddeeff;
+      color: #154f8a;
+    }
+
+    /* ── Card Description ── */
+    .card-desc {
+      font-size: 0.88rem;
+      color: #4a5a6b;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Divider in card ── */
+    .card-divider {
+      height: 1px;
+      background: #edf1f6;
+      margin: 0.1rem 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.78rem;
+      color: #8fa0b3;
+      border-top: 1px solid #dce3ec;
+      margin-top: 1rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1rem 1.75rem; }
+      .card  { padding: 1.2rem 1.15rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</div>
+    <h1>Week 15 / Module 14 &mdash; ANOVA</h1>
+    <p>
+      This module introduces Analysis of Variance (ANOVA), covering foundational concepts,
+      underlying statistical assumptions, the F-statistic, and one-way ANOVA procedures.
+      Use the resources below to read, review, and assess your understanding of the material.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 4 items</p>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" title="Raw source file">source file</a>
+        </div>
+        <p class="card-desc">
+          An outline of the module's topics, spanning ANOVA fundamentals, underlying assumptions,
+          F-statistic logic, and one-way ANOVA, which instructors use to structure and preview the
+          learning sequence for the week.
+        </p>
+      </div>
+
+      <!-- Card 2: Analysis of Variance -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/Analysis_of_Variance.html">Analysis of Variance</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A comprehensive reading covering ANOVA concepts including its definition, assumptions,
+          F-statistic derivation, and one-way ANOVA procedures, which learners study as the primary
+          text reference for the module.
+        </p>
+      </div>
+
+      <!-- Card 3: EGN3443 Module 14 Landing Page -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/EGN3443_Module_14_Analysis_of_Variance_ANOVA.html">EGN3443 &ndash; Module 14 &ndash; Analysis of Variance (ANOVA)</a>
+          </span>
+        </div>
+        <p class="card-desc">
+          A landing page that consolidates all module 14 instructional resources &mdash; including
+          a PowerPoint, a recorded lecture, and a Google Colab notebook &mdash; giving learners a
+          single access point for ANOVA materials.
+        </p>
+      </div>
+
+      <!-- Card 4: Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="quiz/index.html">Quiz Question Bank (528 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json" title="Raw source file">source file</a>
+        </div>
+        <p class="card-desc">
+          A 528-question bank spanning probability, statistics, and inferential concepts such as
+          population vs. sample identification, Venn diagrams, and descriptive vs. inferential
+          statistics, which instructors draw from to build quizzes and assessments throughout the course.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 15 / Module 14 &mdash; ANOVA
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

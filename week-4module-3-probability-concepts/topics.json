@@ -1,0 +1,907 @@
+{
+  "ModuleFolderName": "Week_4_Module_3_Probability_Concepts",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:10:51.2555112-04:00",
+  "ModifiedDate": "2026-08-24T20:12:39.4326817-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+      "Title": "Introduction to Probability",
+      "Summary": "This topic establishes the foundational language and concepts of probability, including definitions of likelihood, uncertainty, and the role probability plays in data analysis and decision-making.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "ModifiedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "Elements": [
+        {
+          "Id": "8d8d808d-72e6-44e2-9731-a19b4e0ffa21",
+          "TopicId": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+          "Title": "What Is Probability?",
+          "BodyText": "Probability is a numerical measure of the likelihood that a specific event will occur, expressed as a value between 0 and 1.",
+          "Notes": "A probability of 0 means an event is impossible, while a probability of 1 means it is certain. For example, the probability of flipping a fair coin and getting heads is 0.5.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "ModifiedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "Items": [
+            {
+              "Id": "0c7e8c85-3316-488f-8096-5688d425f686",
+              "Text": "Probability quantifies uncertainty by assigning a number to how likely an outcome is.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "44d269d2-a059-4a38-9531-968380f6f429",
+              "Text": "Values closer to 0 indicate low likelihood; values closer to 1 indicate high likelihood.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5f794c8e-67da-41bb-9e0e-f6d816c825d7",
+              "Text": "Probabilities can also be expressed as percentages (e.g., 50%) or fractions (e.g., 1/2).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "7a2911e5-9a48-455c-a7e4-4c23d33c1a1a",
+          "TopicId": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+          "Title": "Uncertainty and Its Role in Probability",
+          "BodyText": "Uncertainty refers to situations where the outcome of an event cannot be known in advance with complete confidence, and probability provides a structured way to reason about such situations.",
+          "Notes": "Uncertainty is present in everyday decisions, such as predicting weather, assessing medical risk, or forecasting sales. Probability gives analysts a formal language to describe and manage that uncertainty.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "ModifiedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "Items": [
+            {
+              "Id": "1e32fe46-0811-44be-9ac4-6f41a1823f1f",
+              "Text": "Not all events are deterministic; many real-world outcomes involve inherent randomness or incomplete information.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7454be5d-710f-4736-8a68-089a76baa779",
+              "Text": "Probability allows us to make informed statements about uncertain outcomes rather than relying on guesswork.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4eb57c84-bdc1-4a1f-a04e-ccb77ba376b8",
+              "Text": "Acknowledging uncertainty is the first step toward applying probability rigorously in analysis.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6964776e-9013-4780-8883-62b014b35c27",
+          "TopicId": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+          "Title": "Key Probability Terminology",
+          "BodyText": "Understanding probability requires familiarity with a core set of terms that precisely describe outcomes and the conditions surrounding them.",
+          "Notes": "Consistent use of terminology ensures clear communication when discussing probability in data analysis or research contexts.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "ModifiedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "Items": [
+            {
+              "Id": "5eb34922-0df9-4d68-8278-f4c3675272a7",
+              "Text": "An experiment is any process or action that produces a set of observable outcomes (e.g., rolling a die).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "10750c6b-5b05-40dd-9415-2b09fca60bf0",
+              "Text": "An outcome is a single possible result of an experiment, while an event is a collection of one or more outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "82f1e986-6629-4378-b29e-c0453322894e",
+              "Text": "The sample space is the complete set of all possible outcomes for a given experiment.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9e90bd78-81c6-45bf-b1e0-7299655715a6",
+          "TopicId": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+          "Title": "The Probability Scale",
+          "BodyText": "All probabilities fall on a continuous scale from 0 to 1, providing a universal standard for comparing the likelihood of different events.",
+          "Notes": "This scale applies regardless of whether the probability is theoretical or derived from data. For instance, a rare disease with a 0.002 probability is still expressible on the same scale as a common event.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "ModifiedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "Items": [
+            {
+              "Id": "85d38eca-497e-4932-9d58-531efe3042f5",
+              "Text": "A probability of 0 represents an impossible event, and a probability of 1 represents a certain event.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d7f6d9fa-8ff8-473e-9124-2fd68c255f3e",
+              "Text": "Events with probabilities near 0.5 are considered roughly equally likely to occur or not occur.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8e377ce8-71cc-4fce-b91a-5ebb5f8c32bb",
+              "Text": "The sum of probabilities for all possible outcomes in a sample space must equal exactly 1.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "dbd1a4da-92fb-4c89-a966-d450d40fd024",
+          "TopicId": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+          "Title": "Probability in Data Analysis and Decision-Making",
+          "BodyText": "Probability serves as a critical tool in data analysis, enabling analysts and decision-makers to evaluate risk, predict outcomes, and draw evidence-based conclusions.",
+          "Notes": "Fields such as medicine, finance, engineering, and marketing rely on probability to support decisions under uncertainty. For example, a business might use probability to estimate the likelihood of a product being defective.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "ModifiedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "Items": [
+            {
+              "Id": "4ae14123-a8d6-4306-8de1-9eaaef8e6888",
+              "Text": "Data analysts use probability to model and interpret patterns observed in datasets.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f539d8fc-ed59-415e-b08d-edec6582d582",
+              "Text": "Decision-makers apply probability to weigh the potential outcomes of different choices and select the most favorable option.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "91a3a233-9168-448a-88da-2ce254192980",
+              "Text": "Understanding probability underpins many advanced analytical techniques, including statistical inference and predictive modeling.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "97a8137a-97f2-4dca-b512-1d141c247d62",
+          "TopicId": "c7ccaa08-68d1-46df-93a6-b219818901c1",
+          "Title": "Theoretical vs. Experimental Probability",
+          "BodyText": "Probability can be determined either through logical reasoning about equally likely outcomes (theoretical) or by observing the results of repeated trials (experimental).",
+          "Notes": "As the number of experimental trials increases, experimental probability tends to converge toward theoretical probability \u2014 a principle known as the Law of Large Numbers.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "ModifiedDate": "2026-08-24T20:11:11.0129325-04:00",
+          "Items": [
+            {
+              "Id": "456b292d-731f-4490-a0c4-bf8512c66c58",
+              "Text": "Theoretical probability is calculated by dividing the number of favorable outcomes by the total number of equally likely outcomes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6cb73a61-a964-40f9-a6fe-9477e17237e7",
+              "Text": "Experimental probability is calculated by dividing the number of times an event occurs by the total number of trials conducted.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c7b5d0e7-bb06-41e8-baff-43deaa047606",
+              "Text": "Both approaches are valid and complement each other depending on whether data or logic is more accessible in a given situation.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "aa1e2504-a096-44db-8105-243cda58e70a",
+      "Title": "Sample Spaces and Events",
+      "Summary": "Learners explore how to define and construct sample spaces and identify events within them, forming the structural basis for all probability calculations.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "ModifiedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "Elements": [
+        {
+          "Id": "54651a25-02cb-4c67-aaf9-6034edc8ac90",
+          "TopicId": "aa1e2504-a096-44db-8105-243cda58e70a",
+          "Title": "Defining a Sample Space",
+          "BodyText": "A sample space is the complete set of all possible outcomes of a probability experiment.",
+          "Notes": "For example, flipping a coin has a sample space of {Heads, Tails}, while rolling a six-sided die has a sample space of {1, 2, 3, 4, 5, 6}.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "ModifiedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "Items": [
+            {
+              "Id": "82bc5042-78a6-4096-ae90-9f4c5b0d7f4a",
+              "Text": "The sample space is typically denoted by the symbol S or \u03A9 and must include every possible outcome without omission.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8f6952dc-ee8f-4bc8-a491-5afe6d87bf79",
+              "Text": "No outcome in the sample space should be listed more than once; each element must be mutually exclusive and collectively exhaustive.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5b24676e-9a44-4c68-a0fb-9089920fda6b",
+              "Text": "Identifying the correct sample space is the essential first step before any probability can be calculated.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "16dc7aa0-8cba-4ba7-822b-d34366e0a648",
+          "TopicId": "aa1e2504-a096-44db-8105-243cda58e70a",
+          "Title": "Types of Sample Spaces",
+          "BodyText": "Sample spaces can be classified as finite, countably infinite, or continuous depending on the nature of the experiment.",
+          "Notes": "Drawing a card from a standard deck yields a finite sample space of 52 outcomes, while measuring the exact time a customer waits in line yields a continuous sample space.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "ModifiedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "Items": [
+            {
+              "Id": "47ba3903-ae89-4716-9326-e2c5210a85a0",
+              "Text": "A finite sample space contains a limited, countable number of outcomes, such as the results of a single coin flip or die roll.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "95dea7f5-a719-4bd9-8842-4b93071910e7",
+              "Text": "A continuous sample space contains an uncountable range of outcomes, typically arising in measurement-based experiments.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "31490823-a2de-4ba9-8971-c3737a2a8908",
+              "Text": "Recognizing which type of sample space applies to an experiment guides the appropriate probability methods to use.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c9646a6e-9ce9-40b7-a7f8-aca2b1ac9820",
+          "TopicId": "aa1e2504-a096-44db-8105-243cda58e70a",
+          "Title": "Constructing Sample Spaces Systematically",
+          "BodyText": "Organized methods such as lists, tables, and tree diagrams help ensure all outcomes in a sample space are identified accurately.",
+          "Notes": "A tree diagram for flipping two coins branches into HH, HT, TH, and TT, making it easy to confirm the sample space is complete.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "ModifiedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "Items": [
+            {
+              "Id": "56ad9a02-7377-4ecb-ac28-fd85eb01421c",
+              "Text": "A simple list works well for single-step experiments with few outcomes, but multi-step experiments benefit from structured tools.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4d4ead70-d695-44dc-820d-9d4837a67ba4",
+              "Text": "Tree diagrams visually map each stage of an experiment, branching at every decision point to reveal all combined outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a7cb087e-4252-4b0e-ac6c-27323e2182af",
+              "Text": "Organized tables or grids are useful when two independent experiments are combined, such as rolling two dice simultaneously.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "c28564ee-898d-4e8f-9cdc-40407fecefbd",
+              "Text": "Systematic construction prevents the accidental omission of outcomes, which would distort any probability calculations that follow.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2debcd14-3d10-4fbe-85f5-e73091d2c5da",
+          "TopicId": "aa1e2504-a096-44db-8105-243cda58e70a",
+          "Title": "Defining an Event",
+          "BodyText": "An event is any specific subset of a sample space \u2014 a collection of one or more outcomes that share a common characteristic of interest.",
+          "Notes": "If the sample space for a die roll is {1, 2, 3, 4, 5, 6}, then the event \u0027rolling an even number\u0027 is the subset {2, 4, 6}.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "ModifiedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "Items": [
+            {
+              "Id": "405c26fc-4610-4c52-b088-03caafde4d21",
+              "Text": "An event is always drawn from within the sample space; an outcome that does not belong to S cannot belong to any event.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "648c17d7-064d-416e-be7d-d465cdf9aa5a",
+              "Text": "A simple event contains exactly one outcome, while a compound event contains two or more outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "3540af66-cd87-429d-9f3b-74a0c8ebdf11",
+              "Text": "Events are often described in plain language and then translated into set notation to support calculation.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6805be7d-1ff1-4b18-b602-f66f2db9741e",
+          "TopicId": "aa1e2504-a096-44db-8105-243cda58e70a",
+          "Title": "Relationships Between Events",
+          "BodyText": "Events within the same sample space can relate to one another through union, intersection, and complementation, which are fundamental to probability rules.",
+          "Notes": "For a die roll, the complement of \u0027rolling a 1\u0027 is \u0027rolling any number other than 1,\u0027 i.e., {2, 3, 4, 5, 6}.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "ModifiedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "Items": [
+            {
+              "Id": "23ba9049-94e2-47d1-953a-fb6151796968",
+              "Text": "The union of two events (A \u222A B) includes all outcomes belonging to event A, event B, or both.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a1b1f397-725a-44b6-9450-b3013e44fee9",
+              "Text": "The intersection of two events (A \u2229 B) includes only the outcomes that belong to both A and B simultaneously.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "365d858f-801f-41d4-95f8-872d0a0dcdd1",
+              "Text": "The complement of an event A contains all outcomes in S that are not in A, and together A and its complement cover the entire sample space.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "9093dc2b-e9ef-4148-badd-7ffd2f4fcc02",
+              "Text": "Understanding these relationships is essential for applying addition and multiplication probability rules correctly.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cead54e8-9cd8-430a-a503-5e622c2f4e75",
+          "TopicId": "aa1e2504-a096-44db-8105-243cda58e70a",
+          "Title": "Equally Likely Outcomes and Their Importance",
+          "BodyText": "When all outcomes in a sample space are equally likely, the probability of any event can be calculated with a straightforward ratio.",
+          "Notes": "This classical probability approach applies to fair coins, unbiased dice, and well-shuffled decks, but does not apply when outcomes have unequal likelihoods.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "ModifiedDate": "2026-08-24T20:11:32.8625227-04:00",
+          "Items": [
+            {
+              "Id": "21843218-9490-4b1b-b8c3-ebcf03266d3b",
+              "Text": "The classical probability formula states: P(Event) = (Number of favorable outcomes) \u00F7 (Total number of outcomes in S).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "138568d2-610a-493c-a5c0-56eeda5af9c8",
+              "Text": "This formula is only valid when each outcome in the sample space has an identical chance of occurring.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5f1a7fe7-e574-4ca9-8deb-0b356925fd8e",
+              "Text": "Verifying that outcomes are truly equally likely is a critical assumption check before applying the classical formula.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "453a5647-4bd7-4558-9379-124f01255b6d",
+      "Title": "Theoretical vs. Experimental Probability",
+      "Summary": "This topic distinguishes between theoretical probability derived from logical reasoning and experimental probability obtained through real-world trials and observation.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "ModifiedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "Elements": [
+        {
+          "Id": "00f135f5-859a-47cd-bdf4-04262da14fa2",
+          "TopicId": "453a5647-4bd7-4558-9379-124f01255b6d",
+          "Title": "Defining Theoretical Probability",
+          "BodyText": "Theoretical probability is determined through logical reasoning and mathematical analysis, without conducting any experiments or trials.",
+          "Notes": "For example, the theoretical probability of rolling a 3 on a fair six-sided die is 1/6, derived purely from knowing there are 6 equally likely outcomes.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:11:52.171713-04:00",
+          "ModifiedDate": "2026-08-24T20:11:52.171713-04:00",
+          "Items": [
+            {
+              "Id": "dd8e0af2-b352-440c-9542-065c5445c1c2",
+              "Text": "Theoretical probability assumes all outcomes in the sample space are equally likely.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f7824877-1948-42d9-9d44-6d6d7cc6222d",
+              "Text": "It is calculated using the formula: P(Event) = Number of favorable outcomes / Total number of possible outcomes.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e812dc06-6c8b-4772-a627-6d5a646d77e2",
+              "Text": "This approach is ideal when the sample space is well-defined and outcomes are known in advance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "fdcb7b07-1e3e-4c28-ae1b-3d57004ff583",
+          "TopicId": "453a5647-4bd7-4558-9379-124f01255b6d",
+          "Title": "Defining Experimental Probability",
+          "BodyText": "Experimental probability is derived from actual observations or trials conducted in the real world, reflecting what actually happens rather than what is expected.",
+          "Notes": "For instance, if you flip a coin 100 times and get heads 47 times, the experimental probability of heads is 47/100 = 0.47, which may differ from the theoretical 0.5.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:11:52.171713-04:00",
+          "ModifiedDate": "2026-08-24T20:11:52.171713-04:00",
+          "Items": [
+            {
+              "Id": "4c7b577d-d3ac-4fdb-b9b2-b4847a8f62cd",
+              "Text": "Experimental probability is calculated as: P(Event) = Number of times the event occurs / Total number of trials.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6124e2b4-44bd-4c83-9042-6f218bb2c26f",
+              "Text": "Results can vary between experiments because they depend on actual outcomes, which are subject to chance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5d24628c-45e0-4df9-817f-c68bcb6ba640",
+              "Text": "The more trials conducted, the more reliable and stable the experimental probability tends to become.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4dce3b5e-f6b7-4c65-9938-0b7dd222d437",
+          "TopicId": "453a5647-4bd7-4558-9379-124f01255b6d",
+          "Title": "Key Differences Between the Two Approaches",
+          "BodyText": "Theoretical and experimental probability each offer distinct perspectives on likelihood, and understanding their differences is essential for correct interpretation.",
+          "Notes": "In controlled, idealized settings, the two values align closely; in messy real-world conditions, they may diverge significantly.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:11:52.171713-04:00",
+          "ModifiedDate": "2026-08-24T20:11:52.171713-04:00",
+          "Items": [
+            {
+              "Id": "3e87070f-f28d-4322-8ba3-cbd7c389c819",
+              "Text": "Theoretical probability is based on reason and mathematical models, while experimental probability is based on observed data.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4780fe90-8ab5-438b-8866-473b810fe229",
+              "Text": "Theoretical probability remains constant for a given scenario, whereas experimental probability can change with each new set of trials.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7fd235b9-814b-4b70-9b03-99ddef54837c",
+              "Text": "Neither approach is universally superior; the appropriate choice depends on context and the information available.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0ae54aed-bc71-4c2f-9dd4-416fc1a286cb",
+          "TopicId": "453a5647-4bd7-4558-9379-124f01255b6d",
+          "Title": "The Law of Large Numbers",
+          "BodyText": "The Law of Large Numbers explains the relationship between theoretical and experimental probability, stating that experimental probability converges toward theoretical probability as the number of trials increases.",
+          "Notes": "This principle underpins why casinos, insurance companies, and statisticians rely on large data sets \u2014 the larger the sample, the more predictable the outcomes become.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:11:52.171713-04:00",
+          "ModifiedDate": "2026-08-24T20:11:52.171713-04:00",
+          "Items": [
+            {
+              "Id": "895de88b-35a9-436e-a5a8-b0b2b7ad07bf",
+              "Text": "With a small number of trials, experimental probability can deviate significantly from theoretical probability.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4eda3152-f1ba-4580-a914-d2abd4b8cf3c",
+              "Text": "As trials increase indefinitely, the experimental probability gets closer and closer to the theoretical value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "29efd428-bff7-45fc-afad-f6ca0085df06",
+              "Text": "This law provides a mathematical justification for trusting large-scale experimental results in real-world applications.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "01464903-c456-44b5-9fb9-d319f81e5c6d",
+          "TopicId": "453a5647-4bd7-4558-9379-124f01255b6d",
+          "Title": "Practical Applications of Each Type",
+          "BodyText": "Both theoretical and experimental probability are used in data analysis and decision-making, each suited to different real-world scenarios.",
+          "Notes": "Medical researchers often use experimental probability from clinical trials because theoretical models of complex biological systems are difficult to construct precisely.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:11:52.171713-04:00",
+          "ModifiedDate": "2026-08-24T20:11:52.171713-04:00",
+          "Items": [
+            {
+              "Id": "d5c807b6-af0c-4369-a84c-99937d754b29",
+              "Text": "Theoretical probability is commonly applied in games of chance, quality control models, and risk assessment where outcomes are well-understood.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a39cd80a-4953-4af4-bf53-42ca58cd5c6e",
+              "Text": "Experimental probability is valuable in fields like medicine, social science, and engineering where real-world data must inform predictions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "28b5c002-f592-4586-b2c1-543e799024fe",
+              "Text": "Combining both approaches often yields the most robust analysis, using theory to form expectations and experiments to validate or refine them.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "afc0967c-e38e-41af-baab-0f7381ed9780",
+          "TopicId": "453a5647-4bd7-4558-9379-124f01255b6d",
+          "Title": "Comparing Results and Identifying Discrepancies",
+          "BodyText": "Comparing theoretical and experimental probabilities allows analysts to assess whether a model is accurate or whether real-world conditions are introducing unexpected variation.",
+          "Notes": "A large discrepancy between theoretical and experimental probability may signal a biased coin, a flawed model, or an error in data collection.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:11:52.171713-04:00",
+          "ModifiedDate": "2026-08-24T20:11:52.171713-04:00",
+          "Items": [
+            {
+              "Id": "25b9d5fd-5d81-44cf-bd90-87645cbfc4b5",
+              "Text": "When experimental probability closely matches theoretical probability, it supports the validity of the underlying model.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "0510d2d8-60db-4339-887a-e90bd0b9fe2e",
+              "Text": "Significant differences between the two may indicate bias, error, or factors not accounted for in the theoretical model.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "997271cc-f1ab-4c48-9cce-ca823d6cf825",
+              "Text": "Investigating these discrepancies is a critical skill in data analysis and scientific reasoning.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+      "Title": "Core Probability Rules",
+      "Summary": "Learners study the fundamental rules governing probability, including the addition rule, multiplication rule, and complementary probability, to calculate outcomes accurately.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "ModifiedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "Elements": [
+        {
+          "Id": "623989d5-ad79-4910-bf9a-d6fff7184966",
+          "TopicId": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+          "Title": "Complementary Probability",
+          "BodyText": "The complement of an event A is the probability that A does NOT occur, expressed as P(A\u0027) = 1 - P(A).",
+          "Notes": "For example, if the probability of rain tomorrow is 0.3, then the probability of no rain is 1 - 0.3 = 0.7. This rule is especially useful when calculating the direct probability of an event is more complex than calculating its complement.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:12:12.912743-04:00",
+          "ModifiedDate": "2026-08-24T20:12:12.912743-04:00",
+          "Items": [
+            {
+              "Id": "7db5bc83-eceb-49a2-b34e-d61041ef9fd2",
+              "Text": "All probabilities must sum to 1, so P(A) \u002B P(A\u0027) = 1 always holds.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8bf0b789-c159-4c95-9227-999961461260",
+              "Text": "Complementary probability simplifies problems where it is easier to find the likelihood of the opposite outcome.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "803d4df5-4f70-424b-8017-ec8022184844",
+              "Text": "This rule applies to any single event within a well-defined sample space.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "d3cbbc14-1bf7-42fe-925f-128e783dad27",
+          "TopicId": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+          "Title": "The Addition Rule for Mutually Exclusive Events",
+          "BodyText": "When two events cannot occur at the same time, they are mutually exclusive, and the probability of either occurring is the sum of their individual probabilities.",
+          "Notes": "For example, rolling a 2 or a 5 on a single die: P(2 or 5) = 1/6 \u002B 1/6 = 2/6 = 1/3. Mutually exclusive events share no outcomes in their intersection.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:12:12.912743-04:00",
+          "ModifiedDate": "2026-08-24T20:12:12.912743-04:00",
+          "Items": [
+            {
+              "Id": "720203ba-0d09-4864-95e5-88083ef987b3",
+              "Text": "For mutually exclusive events A and B, P(A or B) = P(A) \u002B P(B).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "54ee2473-9546-4131-8ced-47d11c43a309",
+              "Text": "These events have no overlap, meaning P(A and B) = 0.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1c584b3f-8b82-4c1b-b3f8-403b8b00199e",
+              "Text": "Identifying mutual exclusivity is a critical first step before applying this version of the addition rule.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "665aa628-bc11-4a15-aa13-1e2aeac6d3a9",
+          "TopicId": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+          "Title": "The General Addition Rule",
+          "BodyText": "When two events can occur simultaneously (non-mutually exclusive), the general addition rule adjusts for the overlap between them.",
+          "Notes": "For instance, when drawing a card that is either red or a king, some kings are red, so that overlap must be subtracted to avoid double-counting: P(Red or King) = P(Red) \u002B P(King) - P(Red and King).",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:12:12.912743-04:00",
+          "ModifiedDate": "2026-08-24T20:12:12.912743-04:00",
+          "Items": [
+            {
+              "Id": "1f353adc-b572-484b-acd3-32d03f27b391",
+              "Text": "The formula is P(A or B) = P(A) \u002B P(B) - P(A and B).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fc7acd69-ee4a-428c-be60-4e426a7bc7f9",
+              "Text": "Subtracting P(A and B) prevents double-counting outcomes that belong to both events.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fedb018e-bd32-47e2-ad51-ab57268a37de",
+              "Text": "This rule is the broader version that works for all pairs of events, including mutually exclusive ones where P(A and B) = 0.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "c94c2212-8ae8-4c63-9d27-99b332bc9f3a",
+          "TopicId": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+          "Title": "The Multiplication Rule for Independent Events",
+          "BodyText": "When two events do not influence each other, they are independent, and the probability of both occurring is the product of their individual probabilities.",
+          "Notes": "For example, flipping a coin twice: P(Heads and Heads) = 0.5 \u00D7 0.5 = 0.25. Independence means the outcome of one event provides no information about the outcome of the other.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:12:12.912743-04:00",
+          "ModifiedDate": "2026-08-24T20:12:12.912743-04:00",
+          "Items": [
+            {
+              "Id": "e98f12fc-611c-4645-a36e-0bc158b0fe87",
+              "Text": "For independent events A and B, P(A and B) = P(A) \u00D7 P(B).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4d2f6306-403e-47d1-a158-b20d83df6ebc",
+              "Text": "Common examples include repeated coin flips, dice rolls, or draws with replacement.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "d39c7bd8-0220-462b-8989-ae1c4c417740",
+              "Text": "Confirming independence before applying this rule is essential to ensure accuracy.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0eda8119-073d-4724-aa81-7b62f66d5806",
+          "TopicId": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+          "Title": "The General Multiplication Rule and Conditional Probability",
+          "BodyText": "When two events are dependent, the occurrence of one affects the probability of the other, requiring the use of conditional probability in the multiplication rule.",
+          "Notes": "For example, drawing two cards without replacement: the probability of drawing two aces is P(Ace) \u00D7 P(Ace | first was Ace) = 4/52 \u00D7 3/51. The notation P(B|A) is read as \u0027the probability of B given A has occurred.\u0027",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:12:12.912743-04:00",
+          "ModifiedDate": "2026-08-24T20:12:12.912743-04:00",
+          "Items": [
+            {
+              "Id": "974a0ba9-2358-4c4d-b550-1424be7f7ba7",
+              "Text": "The general formula is P(A and B) = P(A) \u00D7 P(B|A), where P(B|A) is the conditional probability of B given A.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "836718d9-d28e-4c8a-b699-469219376e80",
+              "Text": "Dependent events arise frequently in scenarios involving sampling without replacement.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a238eac7-4b19-4625-b773-bcf11d939f86",
+              "Text": "This rule extends the multiplication rule to all event relationships, not just independent ones.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "bbf97c48-fabf-4e30-a781-ffbe29718c17",
+          "TopicId": "579ab021-3680-4d9d-9aca-bc16ab51d752",
+          "Title": "Applying the Rules Together in Multi-Step Problems",
+          "BodyText": "Real-world probability problems often require combining the addition rule, multiplication rule, and complementary probability in sequence to reach a solution.",
+          "Notes": "For instance, calculating the probability that at least one of two independent systems fails requires using the complement rule together with the multiplication rule: P(at least one fails) = 1 - P(neither fails).",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:12:12.912743-04:00",
+          "ModifiedDate": "2026-08-24T20:12:12.912743-04:00",
+          "Items": [
+            {
+              "Id": "977f4a46-2455-4787-a6f7-0a47a6b11323",
+              "Text": "Carefully identifying whether events are mutually exclusive or independent determines which rules apply.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "57f5c939-d009-48b4-8365-35e07360f050",
+              "Text": "Using the complement rule strategically can reduce complex calculations to simpler ones.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a8f3b7a4-9910-452b-8d58-785722e25427",
+              "Text": "Organizing information with probability trees or tables helps map out multi-step problems before applying the rules.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+      "Title": "Interpreting and Applying Probability in Context",
+      "Summary": "This topic focuses on translating probability calculations into meaningful interpretations within real-world scenarios, reinforcing practical application in data analysis and informed decision-making.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "ModifiedDate": "2026-08-24T20:10:51.2555112-04:00",
+      "Elements": [
+        {
+          "Id": "de486501-13ca-45d2-bad1-7733a3e022e8",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Translating Probability Values into Plain Language",
+          "BodyText": "A probability value only becomes useful when it is expressed in terms that relate directly to the situation being analyzed.",
+          "Notes": "For example, a probability of 0.85 for a successful outcome can be stated as \u0027there is an 85% chance this event will occur,\u0027 making it immediately actionable for decision-makers.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "33ad501d-9369-4d50-b321-3e0b40ad7d85",
+              "Text": "Probability values range from 0 to 1, where 0 means impossible and 1 means certain; expressing these as percentages often aids comprehension.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "f4b25a89-5727-4af4-ad9d-f540c92087bb",
+              "Text": "Always tie the numerical probability back to the specific event and population being studied to avoid misinterpretation.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "469a1fc3-f240-4b34-8125-52e4534fb0dc",
+              "Text": "Use precise language such as \u0027likely,\u0027 \u0027unlikely,\u0027 or \u0027approximately one in four\u0027 to communicate magnitude meaningfully.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "48462422-0ef2-4bec-90d3-e98f180675bd",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Distinguishing Theoretical from Experimental Probability in Context",
+          "BodyText": "Understanding whether a probability is derived theoretically or from observed data is critical to interpreting it correctly in real-world applications.",
+          "Notes": "In quality control, an experimental probability of 0.03 defective items from 1,000 trials carries different weight than a theoretical model prediction, especially when sample size is small.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "dddee3fd-fb85-46ff-a21e-e30d73a0d820",
+              "Text": "Theoretical probability is based on equally likely outcomes and ideal conditions, while experimental probability is calculated from actual observed frequencies.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "66772db7-4113-4483-adbe-312dd35d250c",
+              "Text": "As the number of trials increases, experimental probability tends to converge toward theoretical probability, a principle known as the Law of Large Numbers.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "753627b5-a55d-4a11-b32f-62b54d4c0165",
+              "Text": "Decision-makers should note which type of probability is being reported, as this affects the confidence placed in predictions.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5760e35e-d842-42bc-9942-3602fef934b4",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Applying Probability to Inform Decision-Making",
+          "BodyText": "Probability serves as a quantitative foundation for making informed choices under uncertainty in business, medicine, science, and everyday life.",
+          "Notes": "A medical professional who knows a treatment has a 0.70 probability of success can weigh this against risks and patient preferences to guide a recommendation.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "c2ac0999-d301-4052-9629-ed034164ac8a",
+              "Text": "Higher probabilities generally support choosing an option, but context\u2014such as the severity of outcomes\u2014must also be considered alongside the numeric value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "125dbd88-bb9d-4fc9-95fd-9e89d8da5ad9",
+              "Text": "Comparing probabilities across multiple options allows analysts to rank alternatives and select the most favorable course of action.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b038ef35-497f-48f1-82c5-b3af895192e2",
+              "Text": "Probability estimates should be revisited as new data becomes available, ensuring decisions remain grounded in current evidence.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9831645a-c0c2-45c4-ad82-c0d16d192305",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Interpreting Complementary Probabilities in Real Scenarios",
+          "BodyText": "The complement rule states that the probability of an event not occurring equals one minus the probability that it does occur, offering an alternative perspective on risk.",
+          "Notes": "If there is a 0.30 probability of rain, the complement tells us there is a 0.70 probability of no rain\u2014both interpretations are useful depending on the planning decision being made.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "c344a21b-f6bc-40b5-bb6d-d8c5e71ce8f8",
+              "Text": "Recognizing the complement helps frame outcomes from both a risk and an opportunity perspective.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9ad38c3a-7d1a-4699-86ea-985583647205",
+              "Text": "In data analysis, calculating the complement is often simpler than directly computing the probability of a complex event.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4c74125c-7726-43cb-a0ba-6341c0f66a8b",
+              "Text": "Communicating complementary probabilities side by side provides stakeholders with a complete picture of possible outcomes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "a201414d-7e0c-48b9-83c3-40271ada2972",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Contextualizing Joint and Conditional Probabilities",
+          "BodyText": "Joint probabilities describe the likelihood of two events occurring together, while conditional probabilities reflect how one event\u0027s likelihood changes given knowledge of another.",
+          "Notes": "In marketing analytics, knowing that a customer who viewed a product page has a 0.60 conditional probability of purchasing (versus 0.10 without viewing) directly informs campaign targeting strategy.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "69be53f0-080d-4385-a6ff-27c1436f94c0",
+              "Text": "Joint probability is calculated as P(A and B) and is relevant when two conditions must simultaneously be true for an outcome to occur.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "93942cbd-293e-4015-8bb3-e5556774d9a4",
+              "Text": "Conditional probability P(A | B) isolates the effect of known information on the likelihood of a subsequent event.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4522c552-a264-44ff-8e83-c0be7b08947b",
+              "Text": "Misreading a conditional probability as an unconditional one is a common error that can lead to flawed conclusions in data analysis.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "b074af30-b21e-4cc3-8069-10cd3add8e56",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Using Sample Spaces to Ground Probability Interpretations",
+          "BodyText": "A clearly defined sample space ensures that probability calculations are grounded in all possible outcomes, preventing incomplete or misleading interpretations.",
+          "Notes": "When analyzing survey responses, the sample space must include all possible answer categories; omitting any category can artificially inflate or deflate the probabilities assigned to others.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "b1cfbd33-e608-423e-beb0-16cad2a124fe",
+              "Text": "The sample space represents every possible outcome of an experiment or data collection process and must be exhaustive.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "9181288a-e8be-4fb0-adaf-6135a42998e8",
+              "Text": "Verifying that all assigned probabilities across the sample space sum to 1 is a practical check that interpretations are internally consistent.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "252a0429-5c03-4869-959d-e2eae6ebfd05",
+              "Text": "Restricting or misidentifying the sample space is a frequent source of error when applying probability to complex real-world datasets.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "9520f43b-9396-4503-ab5f-5ddf4a7bc4e5",
+          "TopicId": "194e28bf-4f61-43f5-a6ed-9528182c381b",
+          "Title": "Communicating Probability Findings to Non-Technical Audiences",
+          "BodyText": "Effectively applying probability in context requires translating statistical findings into clear, accessible language for stakeholders who may not have a quantitative background.",
+          "Notes": "Rather than stating \u0027the p-value is 0.04,\u0027 an analyst might say \u0027there is only a 4% chance this result occurred by random chance,\u0027 making the implication immediately understandable.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "ModifiedDate": "2026-08-24T20:12:39.4326245-04:00",
+          "Items": [
+            {
+              "Id": "b9be4d2d-cfb1-45d8-961d-78daafbec651",
+              "Text": "Avoid jargon when presenting probability results; prioritize clarity and relevance to the audience\u0027s specific decisions or concerns.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ef6c166b-a866-4ddc-a6a7-879d4d5fde55",
+              "Text": "Visual aids such as probability trees, bar charts, or simple frequency tables can make abstract probability values more tangible.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fad82a16-19fb-4a78-8d70-7907232906d6",
+              "Text": "Always provide context for what a probability means in practice, including the consequences of both high- and low-probability outcomes.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 31
+}

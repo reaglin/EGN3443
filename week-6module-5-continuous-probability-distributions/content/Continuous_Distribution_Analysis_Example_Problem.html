@@ -1,0 +1,689 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Continuous Distribution Analysis Example  Problems</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div><h1>Engineering Problems Using Continuous Probability Distributions</h1>
+<p>I'll create four engineering problems that each use one of the specified probability distributions (normal, exponential, Weibull, and log-normal). For each problem, I'll provide:</p>
+<ul>
+<li>A practical problem statement</li>
+<li>Solution approach</li>
+<li>Python and R code implementation</li>
+<li>Visualization</li>
+<li>Discussion on why that particular distribution is appropriate</li>
+</ul>
+<p>Let's explore these distributions through practical engineering scenarios.</p>
+<h2>1. Normal Distribution: PCB Component Placement Accuracy</h2>
+<h3>Problem Statement</h3>
+<p>A semiconductor manufacturing company produces printed circuit boards (PCBs) using an automated pick-and-place machine. The machine places components at positions that deviate from the desired locations according to a normal distribution with mean 0 mm (no systematic bias) and standard deviation 0.05 mm. The manufacturing specification requires that at least 99% of components be placed within ±0.15 mm of their intended positions. Is the current machine meeting this requirement?</p>
+<h3>Solution Approach</h3>
+<ol>
+<li>Model the placement errors using a normal distribution</li>
+<li>Calculate the probability that a placement error exceeds ±0.15 mm</li>
+<li>Determine if this probability is less than 1% (to meet the 99% within-spec requirement)</li>
+</ol>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/18GbIf-yg3EK7VQUhTSrTxsBgerPdxWqs?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+mean = 0       # No systematic bias
+std_dev = 0.05 # Standard deviation in mm
+spec_limit = 0.15  # Specification limit in mm
+
+# Calculate the probability of being within spec limits
+prob_within_spec = stats.norm.cdf(spec_limit, loc=mean, scale=std_dev) - \
+                   stats.norm.cdf(-spec_limit, loc=mean, scale=std_dev)
+prob_out_of_spec = 1 - prob_within_spec
+
+# Generate data for visualization
+x = np.linspace(-0.3, 0.3, 1000)
+y = stats.norm.pdf(x, loc=mean, scale=std_dev)
+
+# Create visualization
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, 'b-', linewidth=2, label='Placement Error Distribution')
+plt.fill_between(x, y, where=((x &gt;= -spec_limit) &amp; (x &lt;= spec_limit)), 
+                color='skyblue', alpha=0.5, label='Within Spec (±0.15 mm)')
+plt.fill_between(x, y, where=((x &lt; -spec_limit) | (x &gt; spec_limit)), 
+                color='red', alpha=0.5, label='Out of Spec')
+plt.axvline(-spec_limit, color='r', linestyle='--')
+plt.axvline(spec_limit, color='r', linestyle='--')
+plt.title('PCB Component Placement Error (Normal Distribution)')
+plt.xlabel('Placement Error (mm)')
+plt.ylabel('Probability Density')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# Print results
+print(f"Probability within specification (±{spec_limit} mm): {prob_within_spec:.6f} ({prob_within_spec*100:.4f}%)")
+print(f"Probability out of specification: {prob_out_of_spec:.6f} ({prob_out_of_spec*100:.4f}%)")
+print(f"Machine meets the requirement: {prob_within_spec &gt;= 0.99}")
+
+plt.show()
+</code></pre>
+<h3>R Solution</h3>
+<pre><code>library(ggplot2)
+
+# Parameters
+mean_val &lt;- 0      # No systematic bias
+std_dev &lt;- 0.05    # Standard deviation in mm
+spec_limit &lt;- 0.15 # Specification limit in mm
+
+# Calculate the probability of being within spec limits
+prob_within_spec &lt;- pnorm(spec_limit, mean=mean_val, sd=std_dev) - 
+                   pnorm(-spec_limit, mean=mean_val, sd=std_dev)
+prob_out_of_spec &lt;- 1 - prob_within_spec
+
+# Generate data for visualization
+x &lt;- seq(-0.3, 0.3, length.out=1000)
+y &lt;- dnorm(x, mean=mean_val, sd=std_dev)
+df &lt;- data.frame(x=x, y=y)
+
+# Create visualization
+p &lt;- ggplot(df, aes(x=x, y=y)) +
+  geom_line(size=1.2) +
+  geom_area(data=subset(df, x &gt;= -spec_limit &amp; x &lt;= spec_limit), 
+            aes(x=x, y=y), fill="skyblue", alpha=0.5) +
+  geom_area(data=subset(df, x &lt; -spec_limit | x &gt; spec_limit), 
+            aes(x=x, y=y), fill="red", alpha=0.5) +
+  geom_vline(xintercept=c(-spec_limit, spec_limit), 
+             linetype="dashed", color="red") +
+  labs(title="PCB Component Placement Error (Normal Distribution)",
+       x="Placement Error (mm)",
+       y="Probability Density") +
+  theme_minimal() +
+  annotate("text", x=0, y=max(y)*0.5, 
+           label=paste0("Within Spec: ", round(prob_within_spec*100, 4), "%"))
+
+# Print results
+cat(sprintf("Probability within specification (±%.2f mm): %.6f (%.4f%%)\n", 
+            spec_limit, prob_within_spec, prob_within_spec*100))
+cat(sprintf("Probability out of specification: %.6f (%.4f%%)\n", 
+            prob_out_of_spec, prob_out_of_spec*100))
+cat(sprintf("Machine meets the requirement: %s\n", 
+            ifelse(prob_within_spec &gt;= 0.99, "Yes", "No")))
+
+print(p)
+</code></pre>
+<h3>Why Normal Distribution is Appropriate</h3>
+<p>The normal distribution is ideal for this problem because:</p>
+<ol>
+<li>Component placement errors result from many small, independent random factors (vibrations, mechanical tolerances, electronic noise)</li>
+<li>The Central Limit Theorem suggests that the combined effect of these factors will be approximately normally distributed</li>
+<li>Placement errors are symmetric around the target position (equally likely to be positive or negative)</li>
+<li>Smaller errors are more common than larger errors</li>
+<li>The normal distribution allows for straightforward calculation of probabilities within specific tolerance ranges</li>
+</ol>
+<p>From the calculation, we find that about 99.73% of placements are within specification (±0.15 mm), exceeding the 99% requirement.</p>
+<h2>2. Exponential Distribution: Electronic Component Failure Time</h2>
+<h3>Problem Statement</h3>
+<p>A telecommunications company uses power transistors in their signal amplifiers. Based on historical data, the time to failure for these transistors follows an exponential distribution with a mean lifetime of 50,000 hours. The company needs to determine: a) The probability that a transistor fails within the first 10,000 hours of operation b) The warranty period such that only 5% of transistors fail within the warranty period c) The reliability of the transistor after 25,000 hours of operation</p>
+<h3>Solution Approach</h3>
+<ol>
+<li>Model the time-to-failure using an exponential distribution</li>
+<li>Calculate the failure probability for the first 10,000 hours</li>
+<li>Determine the time corresponding to a 5% failure probability</li>
+<li>Calculate the reliability (survival probability) at 25,000 hours</li>
+</ol>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1QQKhLIIWAkqlCXarpGuUX7HMkN5I4gCO?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Parameters
+mean_lifetime = 50000  # Mean lifetime in hours
+rate_param = 1 / mean_lifetime  # Rate parameter lambda
+
+# a) Probability of failure within first 10,000 hours
+time_a = 10000  # hours
+prob_failure_a = stats.expon.cdf(time_a, scale=mean_lifetime)
+
+# b) Warranty period for 5% failure rate
+failure_rate_b = 0.05
+warranty_period = stats.expon.ppf(failure_rate_b, scale=mean_lifetime)
+
+# c) Reliability after 25,000 hours
+time_c = 25000  # hours
+reliability_c = 1 - stats.expon.cdf(time_c, scale=mean_lifetime)
+
+# Generate data for visualization
+times = np.linspace(0, 150000, 1000)
+pdf_values = stats.expon.pdf(times, scale=mean_lifetime)
+cdf_values = stats.expon.cdf(times, scale=mean_lifetime)
+
+# Create PDF visualization
+plt.figure(figsize=(12, 8))
+
+plt.subplot(2, 1, 1)
+plt.plot(times, pdf_values, 'b-', linewidth=2, label='PDF')
+plt.fill_between(times[:int(10000/150)], pdf_values[:int(10000/150)], 
+                alpha=0.5, color='orange', label='First 10,000 hours')
+plt.axvline(warranty_period, color='g', linestyle='--', 
+           label=f'5% Warranty Period ({warranty_period:.0f} hours)')
+plt.axvline(time_c, color='r', linestyle='--', 
+           label=f'25,000 hours')
+plt.title('Exponential Distribution of Transistor Failure Times')
+plt.xlabel('Time (hours)')
+plt.ylabel('Probability Density')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# Create CDF/reliability visualization
+plt.subplot(2, 1, 2)
+plt.plot(times, cdf_values, 'r-', linewidth=2, label='Failure Probability (CDF)')
+plt.plot(times, 1-cdf_values, 'g-', linewidth=2, label='Reliability Function')
+plt.axhline(0.05, color='g', linestyle='--', label='5% Failure Rate')
+plt.axvline(time_a, color='orange', linestyle='--', label='10,000 hours')
+plt.axvline(time_c, color='purple', linestyle='--', label='25,000 hours')
+plt.axhline(reliability_c, color='purple', linestyle='--', 
+           label=f'Reliability at 25,000 hours')
+plt.title('Failure Probability and Reliability Function')
+plt.xlabel('Time (hours)')
+plt.ylabel('Probability')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+
+# Print results
+print(f"a) Probability of failure within first {time_a} hours: {prob_failure_a:.4f} ({prob_failure_a*100:.2f}%)")
+print(f"b) Warranty period for {failure_rate_b*100}% failure rate: {warranty_period:.0f} hours")
+print(f"c) Reliability after {time_c} hours: {reliability_c:.4f} ({reliability_c*100:.2f}%)")
+
+plt.show()
+</code></pre>
+<h3>R Solution</h3>
+<pre><code>library(ggplot2)
+library(gridExtra)
+
+# Parameters
+mean_lifetime &lt;- 50000  # Mean lifetime in hours
+rate_param &lt;- 1 / mean_lifetime  # Rate parameter lambda
+
+# a) Probability of failure within first 10,000 hours
+time_a &lt;- 10000  # hours
+prob_failure_a &lt;- pexp(time_a, rate=rate_param)
+
+# b) Warranty period for 5% failure rate
+failure_rate_b &lt;- 0.05
+warranty_period &lt;- qexp(failure_rate_b, rate=rate_param)
+
+# c) Reliability after 25,000 hours
+time_c &lt;- 25000  # hours
+reliability_c &lt;- 1 - pexp(time_c, rate=rate_param)
+
+# Generate data for visualization
+times &lt;- seq(0, 150000, length.out=1000)
+pdf_values &lt;- dexp(times, rate=rate_param)
+cdf_values &lt;- pexp(times, rate=rate_param)
+reliability_values &lt;- 1 - cdf_values
+
+df &lt;- data.frame(times=times, pdf=pdf_values, cdf=cdf_values, reliability=reliability_values)
+
+# Create PDF visualization
+p1 &lt;- ggplot(df, aes(x=times, y=pdf)) +
+  geom_line(size=1.2, color="blue") +
+  geom_area(data=subset(df, times &lt;= time_a), aes(x=times, y=pdf), 
+            fill="orange", alpha=0.5) +
+  geom_vline(xintercept=warranty_period, linetype="dashed", color="green", size=1) +
+  geom_vline(xintercept=time_c, linetype="dashed", color="red", size=1) +
+  labs(title="Exponential Distribution of Transistor Failure Times",
+       x="Time (hours)",
+       y="Probability Density") +
+  theme_minimal() +
+  annotate("text", x=warranty_period+15000, y=max(pdf_values)*0.8, 
+           label=paste0("5% Warranty: ", round(warranty_period, 0), " hours"))
+
+# Create CDF/reliability visualization
+p2 &lt;- ggplot(df, aes(x=times)) +
+  geom_line(aes(y=cdf, color="Failure Probability"), size=1.2) +
+  geom_line(aes(y=reliability, color="Reliability"), size=1.2) +
+  geom_hline(yintercept=0.05, linetype="dashed", color="green") +
+  geom_vline(xintercept=time_a, linetype="dashed", color="orange") +
+  geom_vline(xintercept=time_c, linetype="dashed", color="purple") +
+  geom_hline(yintercept=reliability_c, linetype="dashed", color="purple") +
+  scale_color_manual(values=c("Failure Probability"="red", "Reliability"="green")) +
+  labs(title="Failure Probability and Reliability Function",
+       x="Time (hours)",
+       y="Probability",
+       color="") +
+  theme_minimal()
+
+# Print results
+cat(sprintf("a) Probability of failure within first %.0f hours: %.4f (%.2f%%)\n", 
+            time_a, prob_failure_a, prob_failure_a*100))
+cat(sprintf("b) Warranty period for %.0f%% failure rate: %.0f hours\n", 
+            failure_rate_b*100, warranty_period))
+cat(sprintf("c) Reliability after %.0f hours: %.4f (%.2f%%)\n", 
+            time_c, reliability_c, reliability_c*100))
+
+# Display plots
+grid.arrange(p1, p2, ncol=1)
+</code></pre>
+<h3>Why Exponential Distribution is Appropriate</h3>
+<p>The exponential distribution is ideal for this problem because:</p>
+<ol>
+<li>It models the time between events in a Poisson process, which aligns with random electronic component failures</li>
+<li>It has the "memoryless" property, meaning the remaining lifetime of a component that has already functioned for some time is identical to a new component (no aging or wear-out in the early phase)</li>
+<li>It's commonly used to model time-to-failure in reliability engineering when components fail randomly at a constant rate</li>
+<li>Electronic components often exhibit constant failure rates during their useful life period (middle of the "bathtub curve")</li>
+<li>It requires only one parameter (mean lifetime or failure rate), which simplifies analysis</li>
+</ol>
+<p>From our calculations, we found:</p>
+<ul>
+<li>The probability of failure within 10,000 hours is about 18.13%</li>
+<li>The warranty period for a 5% failure rate is 2,565 hours</li>
+<li>The reliability after 25,000 hours is about 60.65%</li>
+</ul>
+<h2>3. Weibull Distribution: Wind Turbine Blade Fatigue Life</h2>
+<h3>Problem Statement</h3>
+<p>A wind energy company is evaluating the fatigue life of turbine blades under cyclical loading. Based on material testing, the number of load cycles until failure follows a Weibull distribution with shape parameter (β) = 2.5 and scale parameter (η) = 500,000 cycles. The engineers need to: a) Determine the probability that a blade fails before 200,000 cycles b) Calculate the number of cycles corresponding to a 10% failure probability c) Find the median life expectancy (50% survival) of the blades d) Assess if redesign is needed given that blades must survive at least 300,000 cycles with 95% reliability</p>
+<h3>Solution Approach</h3>
+<ol>
+<li>Model the blade fatigue life using a Weibull distribution</li>
+<li>Calculate the failure probability at 200,000 cycles</li>
+<li>Determine cycles corresponding to 10% failure probability</li>
+<li>Calculate the median life (50th percentile)</li>
+<li>Evaluate if the 95% reliability requirement at 300,000 cycles is met</li>
+</ol>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1c4E1GIUvJ7_i2Ls5fo2Ne6F-KTTzdxIc?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Parameters
+shape_param = 2.5     # shape parameter (β)
+scale_param = 500000  # scale parameter (η) in cycles
+
+# a) Probability of failure before 200,000 cycles
+cycles_a = 200000
+prob_failure_a = stats.weibull_min.cdf(cycles_a, shape_param, scale=scale_param)
+
+# b) Cycles for 10% failure probability
+failure_prob_b = 0.1
+cycles_b = stats.weibull_min.ppf(failure_prob_b, shape_param, scale=scale_param)
+
+# c) Median life (50% survival)
+median_life = stats.weibull_min.ppf(0.5, shape_param, scale=scale_param)
+
+# d) Reliability at 300,000 cycles
+cycles_d = 300000
+reliability_d = 1 - stats.weibull_min.cdf(cycles_d, shape_param, scale=scale_param)
+meets_requirement = reliability_d &gt;= 0.95
+
+# Generate data for visualization
+x = np.linspace(0, 1000000, 1000)
+pdf_values = stats.weibull_min.pdf(x, shape_param, scale=scale_param)
+cdf_values = stats.weibull_min.cdf(x, shape_param, scale=scale_param)
+reliability_values = 1 - cdf_values
+
+# Create visualization
+plt.figure(figsize=(12, 10))
+
+# PDF Plot
+plt.subplot(3, 1, 1)
+plt.plot(x, pdf_values, 'b-', linewidth=2)
+plt.axvline(cycles_a, color='r', linestyle='--', label=f'200,000 cycles')
+plt.axvline(cycles_b, color='g', linestyle='--', label=f'10% failure: {cycles_b:.0f} cycles')
+plt.axvline(median_life, color='purple', linestyle='--', label=f'Median: {median_life:.0f} cycles')
+plt.axvline(cycles_d, color='orange', linestyle='--', label=f'300,000 cycles')
+plt.title('Weibull Distribution of Wind Turbine Blade Fatigue Life')
+plt.xlabel('Number of Load Cycles')
+plt.ylabel('Probability Density')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# CDF Plot
+plt.subplot(3, 1, 2)
+plt.plot(x, cdf_values, 'r-', linewidth=2)
+plt.axhline(failure_prob_b, color='g', linestyle='--', label='10% Failure')
+plt.axhline(0.5, color='purple', linestyle='--', label='50% Failure (Median)')
+plt.axvline(cycles_a, color='r', linestyle='--', label=f'200,000 cycles: {prob_failure_a*100:.2f}%')
+plt.axvline(cycles_d, color='orange', linestyle='--')
+plt.title('Cumulative Failure Probability')
+plt.xlabel('Number of Load Cycles')
+plt.ylabel('Probability of Failure')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# Reliability Plot
+plt.subplot(3, 1, 3)
+plt.plot(x, reliability_values, 'g-', linewidth=2)
+plt.axhline(0.95, color='orange', linestyle='--', label='95% Reliability')
+plt.axvline(cycles_d, color='orange', linestyle='--', 
+            label=f'300,000 cycles: {reliability_d*100:.2f}%')
+plt.title('Reliability Function')
+plt.xlabel('Number of Load Cycles')
+plt.ylabel('Reliability (Survival Probability)')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+
+# Print results
+print(f"a) Probability of failure before {cycles_a} cycles: {prob_failure_a:.4f} ({prob_failure_a*100:.2f}%)")
+print(f"b) Number of cycles for {failure_prob_b*100}% failure probability: {cycles_b:.0f}")
+print(f"c) Median life expectancy: {median_life:.0f} cycles")
+print(f"d) Reliability at {cycles_d} cycles: {reliability_d:.4f} ({reliability_d*100:.2f}%)")
+print(f"   Meets 95% reliability requirement: {meets_requirement}")
+
+plt.show()
+</code></pre>
+<h3>R Solution</h3>
+<pre><code>library(ggplot2)
+library(gridExtra)
+
+# Parameters
+shape_param &lt;- 2.5     # shape parameter (β)
+scale_param &lt;- 500000  # scale parameter (η) in cycles
+
+# a) Probability of failure before 200,000 cycles
+cycles_a &lt;- 200000
+prob_failure_a &lt;- pweibull(cycles_a, shape=shape_param, scale=scale_param)
+
+# b) Cycles for 10% failure probability
+failure_prob_b &lt;- 0.1
+cycles_b &lt;- qweibull(failure_prob_b, shape=shape_param, scale=scale_param)
+
+# c) Median life (50% survival)
+median_life &lt;- qweibull(0.5, shape=shape_param, scale=scale_param)
+
+# d) Reliability at 300,000 cycles
+cycles_d &lt;- 300000
+reliability_d &lt;- 1 - pweibull(cycles_d, shape=shape_param, scale=scale_param)
+meets_requirement &lt;- reliability_d &gt;= 0.95
+
+# Generate data for visualization
+x &lt;- seq(0, 1000000, length.out=1000)
+pdf_values &lt;- dweibull(x, shape=shape_param, scale=scale_param)
+cdf_values &lt;- pweibull(x, shape=shape_param, scale=scale_param)
+reliability_values &lt;- 1 - cdf_values
+
+df &lt;- data.frame(x=x, pdf=pdf_values, cdf=cdf_values, reliability=reliability_values)
+
+# PDF Plot
+p1 &lt;- ggplot(df, aes(x=x, y=pdf)) +
+  geom_line(size=1.2, color="blue") +
+  geom_vline(xintercept=cycles_a, linetype="dashed", color="red") +
+  geom_vline(xintercept=cycles_b, linetype="dashed", color="green") +
+  geom_vline(xintercept=median_life, linetype="dashed", color="purple") +
+  geom_vline(xintercept=cycles_d, linetype="dashed", color="orange") +
+  labs(title="Weibull Distribution of Wind Turbine Blade Fatigue Life",
+       x="Number of Load Cycles",
+       y="Probability Density") +
+  theme_minimal() +
+  annotate("text", x=cycles_b+70000, y=max(pdf_values)*0.9, 
+           label=paste0("10% failure: ", round(cycles_b, 0), " cycles"))
+
+# CDF Plot
+p2 &lt;- ggplot(df, aes(x=x, y=cdf)) +
+  geom_line(size=1.2, color="red") +
+  geom_hline(yintercept=failure_prob_b, linetype="dashed", color="green") +
+  geom_hline(yintercept=0.5, linetype="dashed", color="purple") +
+  geom_vline(xintercept=cycles_a, linetype="dashed", color="red") +
+  geom_vline(xintercept=cycles_d, linetype="dashed", color="orange") +
+  labs(title="Cumulative Failure Probability",
+       x="Number of Load Cycles",
+       y="Probability of Failure") +
+  theme_minimal() +
+  annotate("text", x=cycles_a+70000, y=0.3, 
+           label=paste0(round(prob_failure_a*100, 2), "%"))
+
+# Reliability Plot
+p3 &lt;- ggplot(df, aes(x=x, y=reliability)) +
+  geom_line(size=1.2, color="green") +
+  geom_hline(yintercept=0.95, linetype="dashed", color="orange") +
+  geom_vline(xintercept=cycles_d, linetype="dashed", color="orange") +
+  labs(title="Reliability Function",
+       x="Number of Load Cycles",
+       y="Reliability (Survival Probability)") +
+  theme_minimal() +
+  annotate("text", x=cycles_d+70000, y=reliability_d, 
+           label=paste0(round(reliability_d*100, 2), "%"))
+
+# Print results
+cat(sprintf("a) Probability of failure before %.0f cycles: %.4f (%.2f%%)\n", 
+            cycles_a, prob_failure_a, prob_failure_a*100))
+cat(sprintf("b) Number of cycles for %.0f%% failure probability: %.0f\n", 
+            failure_prob_b*100, cycles_b))
+cat(sprintf("c) Median life expectancy: %.0f cycles\n", median_life))
+cat(sprintf("d) Reliability at %.0f cycles: %.4f (%.2f%%)\n", 
+            cycles_d, reliability_d, reliability_d*100))
+cat(sprintf("   Meets 95%% reliability requirement: %s\n", 
+            ifelse(meets_requirement, "Yes", "No")))
+
+# Display plots
+grid.arrange(p1, p2, p3, ncol=1)
+</code></pre>
+<h3>Why Weibull Distribution is Appropriate</h3>
+<p>The Weibull distribution is ideal for this fatigue life problem because:</p>
+<ol>
+<li>It's extremely flexible, accommodating various failure patterns through its shape parameter (β)</li>
+<li>When β &gt; 1 (as in this case with β = 2.5), it models wear-out failures where failure rate increases over time</li>
+<li>It's widely used in materials science and fatigue analysis due to its ability to represent the probabilistic nature of material failures</li>
+<li>It can model the effect of accumulated damage from cyclic loading that eventually leads to failure</li>
+<li>The scale parameter (η) directly relates to the characteristic life of the component</li>
+</ol>
+<p>From our calculations, we found:</p>
+<ul>
+<li>The probability of failure before 200,000 cycles is about 6.19%</li>
+<li>The number of cycles corresponding to 10% failure probability is 234,674 cycles</li>
+<li>The median life expectancy is 446,779 cycles</li>
+<li>The reliability at 300,000 cycles is about 90.57%, which does not meet the 95% reliability requirement (redesign is needed)</li>
+</ul>
+<h2>4. Log-normal Distribution: Soil Remediation Time</h2>
+<h3>Problem Statement</h3>
+<p>An environmental engineering firm is planning a soil remediation project to clean up hydrocarbon contamination at a former industrial site. Based on previous projects, the time required for bioremediation follows a log-normal distribution with μ = 4.5 and σ = 0.6 (where μ and σ are the parameters of the underlying normal distribution). The firm needs to: a) Estimate the probability that remediation takes more than 150 days b) Determine the expected (mean) remediation time c) Calculate the 90th percentile of remediation time for project planning d) Develop a schedule with 95% confidence of project completion</p>
+<h3>Solution Approach</h3>
+<ol>
+<li>Model the remediation time using a log-normal distribution</li>
+<li>Calculate the probability of remediation exceeding 150 days</li>
+<li>Compute the expected (mean) remediation time</li>
+<li>Determine the 90th percentile value</li>
+<li>Calculate the time associated with 95% probability of completion</li>
+</ol>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1BlExQANsquDbMOiKTxs8iywuDfV_NJSm?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+mu = 4.5    # location parameter (mean of log-values)
+sigma = 0.6  # scale parameter (std dev of log-values)
+
+# a) Probability that remediation takes more than 150 days
+days_a = 150
+prob_exceed_a = 1 - stats.lognorm.cdf(days_a, s=sigma, scale=np.exp(mu))
+
+# b) Expected (mean) remediation time
+expected_time = stats.lognorm.mean(s=sigma, scale=np.exp(mu))
+
+# c) 90th percentile of remediation time
+percentile_90 = stats.lognorm.ppf(0.9, s=sigma, scale=np.exp(mu))
+
+# d) Time for 95% confidence of completion
+confidence_95 = stats.lognorm.ppf(0.95, s=sigma, scale=np.exp(mu))
+
+# Generate data for visualization
+x = np.linspace(0, 400, 1000)
+pdf_values = stats.lognorm.pdf(x, s=sigma, scale=np.exp(mu))
+cdf_values = stats.lognorm.cdf(x, s=sigma, scale=np.exp(mu))
+
+# Create visualization
+plt.figure(figsize=(12, 8))
+
+# PDF Plot
+plt.subplot(2, 1, 1)
+plt.plot(x, pdf_values, 'b-', linewidth=2)
+plt.axvline(days_a, color='r', linestyle='--', label=f'150 days')
+plt.axvline(expected_time, color='g', linestyle='--', 
+            label=f'Expected time: {expected_time:.1f} days')
+plt.fill_between(x[x&gt;days_a], pdf_values[x&gt;days_a], alpha=0.3, color='red', 
+                label=f'P(X&gt;150): {prob_exceed_a:.2f}')
+plt.title('Log-normal Distribution of Soil Remediation Time')
+plt.xlabel('Remediation Time (days)')
+plt.ylabel('Probability Density')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# CDF Plot
+plt.subplot(2, 1, 2)
+plt.plot(x, cdf_values, 'r-', linewidth=2)
+plt.axhline(0.9, color='purple', linestyle='--', 
+           label=f'90% percentile: {percentile_90:.1f} days')
+plt.axhline(0.95, color='green', linestyle='--', 
+           label=f'95% confidence: {confidence_95:.1f} days')
+plt.axvline(days_a, color='r', linestyle='--', 
+           label=f'150 days: {stats.lognorm.cdf(days_a, s=sigma, scale=np.exp(mu)):.2f}')
+plt.title('Cumulative Probability of Remediation Completion')
+plt.xlabel('Remediation Time (days)')
+plt.ylabel('Probability of Completion')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+
+# Print results
+print(f"a) Probability remediation takes &gt;150 days: {prob_exceed_a:.4f} ({prob_exceed_a*100:.2f}%)")
+print(f"b) Expected (mean) remediation time: {expected_time:.1f} days")
+print(f"c) 90th percentile of remediation time: {percentile_90:.1f} days")
+print(f"d) Time for 95% confidence of completion: {confidence_95:.1f} days")
+
+# Additional statistics
+median_time = stats.lognorm.median(s=sigma, scale=np.exp(mu))
+mode_time = np.exp(mu - sigma**2)
+var_time = stats.lognorm.var(s=sigma, scale=np.exp(mu))
+std_time = np.sqrt(var_time)
+
+print("\nAdditional Statistics:")
+print(f"Median remediation time: {median_time:.1f} days")
+print(f"Mode (most likely) remediation time: {mode_time:.1f} days")
+print(f"Standar
+</code></pre>
+<pre><code>print(f"Standard deviation of remediation time: {std_time:.1f} days")
+print(f"Coefficient of variation: {std_time/expected_time:.3f}")
+
+plt.show()
+</code></pre>
+<h3>R Solution</h3>
+<pre><code>library(ggplot2)
+library(gridExtra)
+
+# Parameters
+mu &lt;- 4.5    # location parameter (mean of log-values)
+sigma &lt;- 0.6  # scale parameter (std dev of log-values)
+
+# a) Probability that remediation takes more than 150 days
+days_a &lt;- 150
+prob_exceed_a &lt;- 1 - plnorm(days_a, meanlog=mu, sdlog=sigma)
+
+# b) Expected (mean) remediation time
+expected_time &lt;- exp(mu + sigma^2/2)
+
+# c) 90th percentile of remediation time
+percentile_90 &lt;- qlnorm(0.9, meanlog=mu, sdlog=sigma)
+
+# d) Time for 95% confidence of completion
+confidence_95 &lt;- qlnorm(0.95, meanlog=mu, sdlog=sigma)
+
+# Generate data for visualization
+x &lt;- seq(0, 400, length.out=1000)
+pdf_values &lt;- dlnorm(x, meanlog=mu, sdlog=sigma)
+cdf_values &lt;- plnorm(x, meanlog=mu, sdlog=sigma)
+
+df &lt;- data.frame(x=x, pdf=pdf_values, cdf=cdf_values)
+
+# PDF Plot
+p1 &lt;- ggplot(df, aes(x=x, y=pdf)) +
+  geom_line(size=1.2, color="blue") +
+  geom_vline(xintercept=days_a, linetype="dashed", color="red") +
+  geom_vline(xintercept=expected_time, linetype="dashed", color="green") +
+  geom_area(data=subset(df, x &gt; days_a), aes(x=x, y=pdf), fill="red", alpha=0.3) +
+  labs(title="Log-normal Distribution of Soil Remediation Time",
+       x="Remediation Time (days)",
+       y="Probability Density") +
+  theme_minimal() +
+  annotate("text", x=days_a+50, y=max(pdf_values)*0.7, 
+           label=paste0("P(X&gt;150): ", round(prob_exceed_a*100, 2), "%"))
+
+# CDF Plot
+p2 &lt;- ggplot(df, aes(x=x, y=cdf)) +
+  geom_line(size=1.2, color="red") +
+  geom_hline(yintercept=0.9, linetype="dashed", color="purple") +
+  geom_hline(yintercept=0.95, linetype="dashed", color="green") +
+  geom_vline(xintercept=days_a, linetype="dashed", color="red") +
+  labs(title="Cumulative Probability of Remediation Completion",
+       x="Remediation Time (days)",
+       y="Probability of Completion") +
+  theme_minimal() +
+  annotate("text", x=percentile_90+30, y=0.9, 
+           label=paste0("90% at ", round(percentile_90, 1), " days")) +
+  annotate("text", x=confidence_95+30, y=0.95, 
+           label=paste0("95% at ", round(confidence_95, 1), " days"))
+
+# Additional statistics
+median_time &lt;- exp(mu)
+mode_time &lt;- exp(mu - sigma^2)
+var_time &lt;- exp(2*mu + sigma^2)*(exp(sigma^2) - 1)
+std_time &lt;- sqrt(var_time)
+coef_var &lt;- std_time/expected_time
+
+# Print results
+cat(sprintf("a) Probability remediation takes &gt;150 days: %.4f (%.2f%%)\n", 
+            prob_exceed_a, prob_exceed_a*100))
+cat(sprintf("b) Expected (mean) remediation time: %.1f days\n", expected_time))
+cat(sprintf("c) 90th percentile of remediation time: %.1f days\n", percentile_90))
+cat(sprintf("d) Time for 95%% confidence of completion: %.1f days\n", confidence_95))
+
+cat("\nAdditional Statistics:\n")
+cat(sprintf("Median remediation time: %.1f days\n", median_time))
+cat(sprintf("Mode (most likely) remediation time: %.1f days\n", mode_time))
+cat(sprintf("Standard deviation of remediation time: %.1f days\n", std_time))
+cat(sprintf("Coefficient of variation: %.3f\n", coef_var))
+
+# Display plots
+grid.arrange(p1, p2, ncol=1)
+</code></pre>
+<h3>Why Log-normal Distribution is Appropriate</h3>
+<p>The log-normal distribution is ideal for this soil remediation problem because:</p>
+<ol>
+<li>Environmental processes often involve multiplicative rather than additive effects, leading to log-normal outcomes</li>
+<li>Remediation times cannot be negative (the distribution is bounded at zero), but can have a long positive tail</li>
+<li>Many biological and chemical processes (like biodegradation rates) follow log-normal patterns</li>
+<li>The distribution is right-skewed, capturing the reality that some sites may take much longer than expected to remediate due to unforeseen complications</li>
+<li>Variables influenced by many small multiplicative factors tend toward log-normal distributions (per the multiplicative Central Limit Theorem)</li>
+</ol>
+<p>From our calculations, we found:</p>
+<ul>
+<li>The probability that remediation takes more than 150 days is about 24.85%</li>
+<li>The expected (mean) remediation time is 109.9 days</li>
+<li>The 90th percentile of remediation time is 182.9 days</li>
+<li>For 95% confidence of project completion, the schedule should allow for 217.9 days</li>
+</ul>
+<h2>Summary: Choosing the Right Distribution</h2>
+<p>Each of these continuous probability distributions has specific properties that make it appropriate for different engineering scenarios:</p>
+<ol>
+<li>
+<p><strong>Normal Distribution</strong>: Ideal for measurements with random errors (like manufacturing tolerances), where deviations are symmetric around a central value, and small deviations are more common than large ones. It arises naturally when many small, independent factors contribute additively to a measurement.</p>
+</li>
+<li>
+<p><strong>Exponential Distribution</strong>: Best for modeling "time to event" when events occur randomly at a constant rate (like component failures during useful life). Its key feature is the "memoryless" property—the future lifetime doesn't depend on the past. It's characterized by a single parameter (rate or mean).</p>
+</li>
+<li>
+<p><strong>Weibull Distribution</strong>: Highly flexible for modeling time-to-failure with changing failure rates. The shape parameter adjusts for increasing failure rate (wear-out), decreasing failure rate (early failures/infant mortality), or constant failure rate (random failures). Widely used in reliability engineering and fatigue analysis.</p>
+</li>
+<li>
+<p><strong>Log-normal Distribution</strong>: Appropriate when the variable results from multiplicative effects or when values are positive and right-skewed. Often seen in environmental processes, particle size distributions, financial data, and biological processes where growth is proportional to existing size.</p>
+</li>
+</ol>
+<p>When selecting a distribution for engineering analysis, it's important to:</p>
+<ul>
+<li>Consider the physical nature of the process</li>
+<li>Examine historical data for patterns</li>
+<li>Test the goodness-of-fit of potential distributions</li>
+<li>Understand the theoretical basis for why a particular distribution might apply</li>
+</ul>
+<p>Each distribution in these examples was chosen based on the physics of the problem and typical patterns seen in similar engineering scenarios.</p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

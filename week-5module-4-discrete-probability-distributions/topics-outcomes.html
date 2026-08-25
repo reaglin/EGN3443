@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5/Module 4 - Discrete Probability Distributions — Topics &amp; Learning Outcomes</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.25rem;margin-top:30px;color:#1a3c6e;border-bottom:1px solid #ececec;padding-bottom:4px}
+h3{font-size:1.05rem;margin-top:22px;color:#1a3c6e}
+.toc{border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:14px 0 6px;display:flex;gap:18px;flex-wrap:wrap}
+.toc a{color:#1a3c6e;font-weight:600;text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.prefix{color:#555;font-style:italic;margin:6px 0 14px}
+.mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
+.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .statement{font-weight:600;margin:4px 0 8px}
+.meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
+.meta .map{background:#eaf6ec;color:#137333}
+.co{margin:7px 0}
+.co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+<h1>Week 5/Module 4 - Discrete Probability Distributions — Topics &amp; Learning Outcomes</h1>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
+
+<h2 id="topics">Module Topics</h2>
+<h3>Introduction to Discrete Probability Distributions</h3>
+<div class="summary">This topic establishes the foundational concepts of discrete probability distributions, explaining how probabilities are assigned to distinct, countable outcomes. Learners will understand the defining characteristics that differentiate discrete distributions from other types.</div>
+<ul>
+<li><strong>What Is a Discrete Probability Distribution?</strong> <span class="el-body">— A discrete probability distribution describes how probabilities are assigned to each possible distinct, countable outcome of a random variable.</span></li>
+<li><strong>Discrete vs. Continuous Random Variables</strong> <span class="el-body">— Understanding the distinction between discrete and continuous random variables is essential for selecting the correct probability model.</span></li>
+<li><strong>Properties of a Valid Discrete Probability Distribution</strong> <span class="el-body">— For a distribution to be valid, it must satisfy two fundamental mathematical properties that ensure all probabilities are well-defined.</span></li>
+<li><strong>Probability Distribution Tables and Notation</strong> <span class="el-body">— Discrete probability distributions are commonly represented using tables, formulas, or graphs that pair each outcome with its probability.</span></li>
+<li><strong>Real-World Contexts for Discrete Distributions</strong> <span class="el-body">— Discrete probability distributions model a wide variety of real-world phenomena where outcomes are counted rather than measured.</span></li>
+</ul>
+<h3>Probability Mass Functions and Distribution Properties</h3>
+<div class="summary">Learners explore the probability mass function (PMF) as the core tool for describing discrete distributions, along with essential properties such as non-negativity and the requirement that all probabilities sum to one. Key rules for constructing and validating a valid discrete probability distribution are covered.</div>
+<ul>
+<li><strong>What Is a Probability Mass Function (PMF)?</strong> <span class="el-body">— A probability mass function (PMF) is the fundamental mathematical tool used to describe a discrete probability distribution by assigning a probability to each distinct outcome.</span></li>
+<li><strong>Non-Negativity Property</strong> <span class="el-body">— One of the essential properties of a valid PMF is non-negativity, which requires that every assigned probability must be greater than or equal to zero.</span></li>
+<li><strong>The Summation Property: Probabilities Sum to One</strong> <span class="el-body">— A valid PMF must satisfy the requirement that the sum of all probabilities across every possible outcome equals exactly one.</span></li>
+<li><strong>Constructing a Discrete Probability Distribution</strong> <span class="el-body">— Building a valid discrete probability distribution requires systematically identifying all possible outcomes and assigning probabilities that satisfy both the non-negativity and summation properties.</span></li>
+<li><strong>Validating a Probability Distribution</strong> <span class="el-body">— Before applying a probability distribution to solve problems, learners must confirm that it satisfies the two core rules: non-negativity and the total sum equal to one.</span></li>
+<li><strong>Interpreting PMF Values in Context</strong> <span class="el-body">— Each PMF value carries a direct, interpretable meaning: it represents the likelihood that the random variable equals a specific outcome in a given scenario.</span></li>
+</ul>
+<h3>Expected Value and Variance of Discrete Distributions</h3>
+<div class="summary">This topic covers the calculation and interpretation of expected value (mean) and variance for discrete random variables. Learners will understand what these measures reveal about the center and spread of a distribution in practical contexts.</div>
+<ul>
+<li><strong>Definition of Expected Value</strong> <span class="el-body">— The expected value (mean) of a discrete random variable is the weighted average of all possible outcomes, where each outcome is weighted by its probability of occurrence.</span></li>
+<li><strong>Interpreting Expected Value in Context</strong> <span class="el-body">— Interpreting the expected value means understanding what the computed mean tells us about the real-world scenario modeled by the distribution.</span></li>
+<li><strong>Definition and Formula for Variance</strong> <span class="el-body">— The variance of a discrete random variable measures how spread out the outcomes are around the expected value, quantifying the average squared deviation from the mean.</span></li>
+<li><strong>Calculating Expected Value and Variance: Step-by-Step</strong> <span class="el-body">— Computing expected value and variance requires a systematic approach using the probability distribution table of the random variable.</span></li>
+<li><strong>Interpreting Variance and Standard Deviation</strong> <span class="el-body">— Variance and standard deviation reveal how much variability or uncertainty exists in the outcomes of a discrete random variable, supplementing the information provided by the expected value alone.</span></li>
+<li><strong>Practical Applications of Expected Value and Variance</strong> <span class="el-body">— Expected value and variance are foundational tools used across many fields to support decision-making under uncertainty.</span></li>
+</ul>
+<h3>The Binomial Distribution</h3>
+<div class="summary">Learners examine the binomial distribution, its conditions, formula, and applications to scenarios involving a fixed number of independent trials with two possible outcomes. Probability calculations, expected values, and variances specific to the binomial setting are practiced.</div>
+<ul>
+<li><strong>Conditions for a Binomial Experiment</strong> <span class="el-body">— A binomial distribution applies only when a specific set of conditions is met by the experiment or process being studied.</span></li>
+<li><strong>The Binomial Probability Formula</strong> <span class="el-body">— The binomial formula calculates the probability of obtaining exactly k successes in n independent trials.</span></li>
+<li><strong>Identifying the Parameters n and p</strong> <span class="el-body">— Before applying the binomial formula, learners must correctly identify the two key parameters that define a specific binomial distribution.</span></li>
+<li><strong>Expected Value of the Binomial Distribution</strong> <span class="el-body">— The expected value of a binomial random variable gives the average number of successes anticipated over many repetitions of the experiment.</span></li>
+<li><strong>Variance and Standard Deviation of the Binomial Distribution</strong> <span class="el-body">— The variance and standard deviation measure the spread of outcomes around the expected value in a binomial distribution.</span></li>
+<li><strong>Applying the Binomial Distribution to Real-World Scenarios</strong> <span class="el-body">— The binomial distribution is widely used to model real-world situations where outcomes are counted as successes or failures across a fixed number of trials.</span></li>
+</ul>
+<h3>The Poisson Distribution</h3>
+<div class="summary">This topic introduces the Poisson distribution as a model for counting the number of events occurring within a fixed interval of time or space. Learners will apply the Poisson formula to real-world problems and interpret the rate parameter in context.</div>
+<ul>
+<li><strong>What Is the Poisson Distribution?</strong> <span class="el-body">— The Poisson distribution models the number of times an event occurs within a fixed interval of time, space, distance, or volume.</span></li>
+<li><strong>The Rate Parameter (λ)</strong> <span class="el-body">— The Greek letter lambda (λ) is the defining parameter of the Poisson distribution, representing the average number of events expected to occur in a given interval.</span></li>
+<li><strong>The Poisson Probability Formula</strong> <span class="el-body">— The probability of observing exactly x events in an interval is calculated using the Poisson formula: P(X = x) = (e^(−λ) &#215; λ^x) / x!</span></li>
+<li><strong>Mean and Variance of the Poisson Distribution</strong> <span class="el-body">— A key property of the Poisson distribution is that its mean and variance are both equal to λ, making it uniquely simple to characterize.</span></li>
+<li><strong>Conditions for Using the Poisson Distribution</strong> <span class="el-body">— Before applying the Poisson distribution, it is important to verify that the situation satisfies the required assumptions.</span></li>
+<li><strong>Applying the Poisson Formula to Real-World Problems</strong> <span class="el-body">— Solving Poisson probability problems involves identifying λ from context, selecting the correct value of x, and substituting into the formula.</span></li>
+</ul>
+<h3>Applying Discrete Distributions to Real-World Problems</h3>
+<div class="summary">Learners synthesize their knowledge by identifying the appropriate discrete distribution for a given scenario and executing full probability analyses. Practical exercises reinforce the ability to select, apply, and interpret distribution results across diverse fields.</div>
+<ul>
+<li><strong>Identifying the Right Distribution for a Scenario</strong> <span class="el-body">— The first step in any discrete probability problem is selecting the distribution that best matches the structure of the situation.</span></li>
+<li><strong>Setting Up the Problem Parameters</strong> <span class="el-body">— Once the appropriate distribution is identified, the next step is extracting and defining the numerical parameters needed to apply the distribution formula.</span></li>
+<li><strong>Executing Probability Calculations</strong> <span class="el-body">— With parameters defined, learners apply the appropriate probability mass function to compute exact or cumulative probabilities.</span></li>
+<li><strong>Computing Expected Value and Variance in Context</strong> <span class="el-body">— Beyond single probabilities, real-world analyses require understanding the average outcome and variability, captured by the expected value and variance of the distribution.</span></li>
+<li><strong>Interpreting Results in the Applied Context</strong> <span class="el-body">— Calculating a probability is only meaningful when the result is translated back into the language of the original problem and used to support a decision or conclusion.</span></li>
+<li><strong>Applying Distributions Across Diverse Fields</strong> <span class="el-body">— Discrete distributions appear across many professional domains, and recognizing their presence in varied contexts builds versatile analytical skills.</span></li>
+<li><strong>Common Pitfalls and Problem-Solving Strategies</strong> <span class="el-body">— Awareness of frequent errors and the use of systematic strategies significantly improve accuracy and confidence when solving applied discrete probability problems.</span></li>
+</ul>
+<h2 id="outcomes">Student Learning Outcomes</h2>
+<p class="prefix">By the end of this module, students will be able to:</p>
+<div class="mo">
+<div class="code">MO1</div>
+<div class="statement">Construct a valid discrete probability distribution by assigning probabilities to all possible outcomes that satisfy both the non-negativity and summation-to-one properties</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO2</div>
+<div class="statement">Calculate the expected value and variance of a discrete random variable using its probability mass function</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO3</div>
+<div class="statement">Differentiate between the binomial and Poisson distributions by evaluating whether a given scenario satisfies the defining conditions of each distribution</div>
+<div class="meta"><span>Level: Analyze</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO4</div>
+<div class="statement">Compute exact probabilities for real-world scenarios using the binomial and Poisson probability formulas with correctly identified parameters</div>
+<div class="meta"><span>Level: Apply</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<div class="mo">
+<div class="code">MO5</div>
+<div class="statement">Interpret computed probabilities, expected values, and variances within the context of an applied engineering or scientific problem to support a data-driven conclusion</div>
+<div class="meta"><span>Level: Evaluate</span><span>Type: Cognitive</span><span class="map">Course mapping: —</span></div>
+</div>
+<h3>Course Outcomes (reference)</h3>
+<p class="empty">No course outcomes have been defined.</p>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

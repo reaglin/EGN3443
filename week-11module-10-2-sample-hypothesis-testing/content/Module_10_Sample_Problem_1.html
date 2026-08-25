@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 10 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div><h1>Module 10 Sample Problem 1</h1><h2 level="2">Problem Statement</h2>
+<p>An automotive manufacturer is testing two different catalytic converter designs to reduce harmful emissions. Design A is the current standard, while Design B is a new prototype. The engineering team wants to determine if Design B significantly reduces nitrogen oxide (NOx) emissions compared to Design A.</p>
+<p>The team conducts emission tests on 25 vehicles with Design A and 25 vehicles with Design B, measuring NOx emissions in grams per mile (g/mi).<br><br>The data in this problem is generated using the following code to simulate actual data.&nbsp;</p>
+<p><code># Generate sample data for NOx emissions (g/mi)&nbsp;<br><br># Design A: current catalytic converter <br>design_A = np.random.normal(0.07, 0.015, 25)<br> <br># Design B: new prototype catalytic converter (slightly lower mean) <br>design_B = np.random.normal(0.06, 0.012, 25)&nbsp;</code></p>
+<p><strong>Research Question:</strong> Does Design B significantly reduce NOx emissions compared to Design A?</p>
+<p><strong>Null Hypothesis (H₀):</strong> There is no significant difference in mean NOx emissions between Design A and Design B.</p>
+<p><strong>Alternative Hypothesis (H₁):</strong> Design B produces significantly lower mean NOx emissions than Design A.</p>
+<h2 level="2">Analysis of the Solution Methodology</h2>
+<h3 level="3">Appropriateness of Independent Samples t-test</h3>
+<p>For this engineering problem, an independent samples t-test is an appropriate statistical method because:</p>
+<ol depth="0">
+<li index="0"><strong>Independent Samples</strong>: The two catalytic converter designs (A and B) are tested on different vehicles, making these independent samples.</li>
+<li index="1"><strong>Continuous Dependent Variable</strong>: NOx emissions are measured on a continuous scale (g/mi).</li>
+<li index="2"><strong>Research Question</strong>: We want to determine if there's a statistically significant difference between two group means.</li>
+<li index="3"><strong>Assumptions Checked</strong>:
+<ul depth="1">
+<li index="0"><strong>Normality</strong>: The Shapiro-Wilk test was used to check if the data in each group is approximately normally distributed.</li>
+<li index="1"><strong>Homogeneity of Variance</strong>: Levene's test (Python) and F-test (R) were used to check if the two groups have similar variances.</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Key Components of the Solution</h3>
+<ol depth="0">
+<li index="0"><strong>Descriptive Statistics</strong>: Basic statistics were calculated to understand the central tendency and spread of both samples.</li>
+<li index="1"><strong>Assumption Testing</strong>:
+<ul depth="1">
+<li index="0">The data passed normality tests (p &gt; 0.05 for both groups)</li>
+<li index="1">The equal variance assumption was met (p &gt; 0.05)</li>
+</ul>
+</li>
+<li index="2"><strong>Hypothesis Testing</strong>:
+<ul depth="1">
+<li index="0">We used a one-tailed test since our alternative hypothesis specified a direction (Design B produces lower emissions)</li>
+<li index="1">The t-statistic and p-value were calculated to determine statistical significance</li>
+</ul>
+</li>
+<li index="3"><strong>Effect Size Calculation</strong>: Cohen's d was calculated to measure the practical significance of the difference.</li>
+<li index="4"><strong>Visualizations</strong>: Various plots helped to visualize the data distribution and difference between groups:
+<ul depth="1">
+<li index="0">Box plots</li>
+<li index="1">Strip plots (individual data points)</li>
+<li index="2">Violin plots</li>
+<li index="3">Histograms/density plots</li>
+<li index="4">Mean with confidence intervals</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Interpretation of Results</h3>
+<p>From the generated data:</p>
+<ol depth="0">
+<li index="0"><strong>Statistical Significance</strong>: The one-tailed p-value is less than 0.05, indicating a statistically significant difference between the catalytic converter designs.</li>
+<li index="1"><strong>Practical Significance</strong>: Cohen's d is approximately 0.7-0.8, suggesting a medium to large effect size. This means the difference is not only statistically significant but also practically meaningful.</li>
+<li index="2"><strong>Engineering Implications</strong>: Design B shows approximately a 14% reduction in NOx emissions compared to Design A. This improvement could be substantial for meeting emission regulations and environmental goals.</li>
+</ol>
+<h3 level="3">Alternative Approaches</h3>
+<p>While the independent samples t-test was appropriate, other methods could have been considered:</p>
+<ol depth="0">
+<li index="0"><strong>Mann-Whitney U test</strong>: If the data had violated normality assumptions, this non-parametric alternative would have been appropriate.</li>
+<li index="1"><strong>Welch's t-test</strong>: If variances were found to be unequal, this modified t-test would have been more appropriate than the standard t-test.</li>
+<li index="2"><strong>ANOVA</strong>: If we were comparing more than two catalytic converter designs, an ANOVA would be the appropriate choice.</li>
+</ol>
+<h3 level="3">Conclusion</h3>
+<p>The independent samples t-test was an appropriate and effective statistical methodology for this engineering problem. The results indicate that Design B significantly reduces NOx emissions compared to Design A, with a meaningful effect size. Both the Python and R implementations provide comprehensive analysis and visualization of the data, leading to the same conclusion.</p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1cdv4Fr_esZ704-Y9UgfhSVCI4e9-cF_S?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>import pandas as pd</code><br><code>from scipy import stats</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate sample data for NOx emissions (g/mi)</code><br><code># Design A: current catalytic converter</code><br><code>design_A = np.random.normal(0.07, 0.015, 25)</code><br><code># Design B: new prototype catalytic converter (slightly lower mean)</code><br><code>design_B = np.random.normal(0.06, 0.012, 25)</code></p>
+<p><code># Create a DataFrame for easier plotting</code><br><code>data = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'NOx_Emissions': np.concatenate([design_A, design_B]),</code><br><code>&nbsp; &nbsp; 'Design': ['A'] * 25 + ['B'] * 25</code><br><code>})</code></p>
+<p><code># Basic statistics</code><br><code>print("Design A - NOx Emissions (g/mi):")</code><br><code>print(f"Mean: {np.mean(design_A):.4f}")</code><br><code>print(f"Standard Deviation: {np.std(design_A, ddof=1):.4f}")</code><br><code>print(f"Min: {np.min(design_A):.4f}")</code><br><code>print(f"Max: {np.max(design_A):.4f}")</code><br><code>print("\nDesign B - NOx Emissions (g/mi):")</code><br><code>print(f"Mean: {np.mean(design_B):.4f}")</code><br><code>print(f"Standard Deviation: {np.std(design_B, ddof=1):.4f}")</code><br><code>print(f"Min: {np.min(design_B):.4f}")</code><br><code>print(f"Max: {np.max(design_B):.4f}")</code></p>
+<p><code># Check for normality using Shapiro-Wilk test</code><br><code>print("\nNormality Test (Shapiro-Wilk):")</code><br><code>print(f"Design A: W={stats.shapiro(design_A)[0]:.4f}, p-value={stats.shapiro(design_A)[1]:.4f}")</code><br><code>print(f"Design B: W={stats.shapiro(design_B)[0]:.4f}, p-value={stats.shapiro(design_B)[1]:.4f}")</code></p>
+<p><code># Check for equal variances using Levene's test</code><br><code>print("\nEqual Variances Test (Levene's):")</code><br><code>levene_result = stats.levene(design_A, design_B)</code><br><code>print(f"W={levene_result[0]:.4f}, p-value={levene_result[1]:.4f}")</code></p>
+<p><code># Perform independent samples t-test</code><br><code>t_stat, p_value = stats.ttest_ind(design_A, design_B, equal_var=True)</code><br><code>print("\nIndependent Samples t-test (two-tailed):")</code><br><code>print(f"t-statistic: {t_stat:.4f}")</code><br><code>print(f"p-value: {p_value:.4f}")</code></p>
+<p><code># Since we have a one-tailed hypothesis (Design B &lt; Design A), adjust p-value</code><br><code>one_tailed_p = p_value / 2</code><br><code>print(f"One-tailed p-value (Design B &lt; Design A): {one_tailed_p:.4f}")</code></p>
+<p><code># Check significance</code><br><code>alpha = 0.05</code><br><code>print(f"\nAt α = {alpha}, the difference is {'statistically significant' if one_tailed_p &lt; alpha else 'not statistically significant'}")</code></p>
+<p><code># Calculate Cohen's d effect size</code><br><code>mean_diff = np.mean(design_A) - np.mean(design_B)</code><br><code>pooled_std = np.sqrt(((len(design_A) - 1) * np.var(design_A, ddof=1) +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (len(design_B) - 1) * np.var(design_B, ddof=1)) /&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(len(design_A) + len(design_B) - 2))</code><br><code>cohens_d = mean_diff / pooled_std</code><br><code>print(f"\nCohen's d effect size: {cohens_d:.4f}")</code></p>
+<p><code># Interpret effect size</code><br><code>if abs(cohens_d) &lt; 0.2:</code><br><code>&nbsp; &nbsp; effect_size_interp = "negligible"</code><br><code>elif abs(cohens_d) &lt; 0.5:</code><br><code>&nbsp; &nbsp; effect_size_interp = "small"</code><br><code>elif abs(cohens_d) &lt; 0.8:</code><br><code>&nbsp; &nbsp; effect_size_interp = "medium"</code><br><code>else:</code><br><code>&nbsp; &nbsp; effect_size_interp = "large"</code><br><code>print(f"Effect size interpretation: {effect_size_interp}")</code></p>
+<p><code># Create visualizations</code><br><code>plt.figure(figsize=(12, 10))</code></p>
+<p><code># 1. Box plot</code><br><code>plt.subplot(2, 2, 1)</code><br><code>sns.boxplot(x='Design', y='NOx_Emissions', data=data)</code><br><code>plt.title('NOx Emissions by Catalytic Converter Design')</code><br><code>plt.ylabel('NOx Emissions (g/mi)')</code></p>
+<p><code># 2. Strip plot (individual data points)</code><br><code>plt.subplot(2, 2, 2)</code><br><code>sns.stripplot(x='Design', y='NOx_Emissions', data=data, jitter=True)</code><br><code>plt.title('Individual NOx Emission Measurements')</code><br><code>plt.ylabel('NOx Emissions (g/mi)')</code></p>
+<p><code># 3. Violin plot</code><br><code>plt.subplot(2, 2, 3)</code><br><code>sns.violinplot(x='Design', y='NOx_Emissions', data=data, inner='quartile')</code><br><code>plt.title('Distribution of NOx Emissions')</code><br><code>plt.ylabel('NOx Emissions (g/mi)')</code></p>
+<p><code># 4. Histogram with KDE</code><br><code>plt.subplot(2, 2, 4)</code><br><code>sns.histplot(design_A, color='blue', alpha=0.5, label='Design A', kde=True)</code><br><code>sns.histplot(design_B, color='orange', alpha=0.5, label='Design B', kde=True)</code><br><code>plt.title('Histogram of NOx Emissions')</code><br><code>plt.xlabel('NOx Emissions (g/mi)')</code><br><code>plt.ylabel('Frequency')</code><br><code>plt.legend()</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Additional visualization: Mean with 95% confidence intervals</code><br><code>plt.figure(figsize=(8, 6))</code><br><code>ci = 0.95</code><br><code>ci_A = stats.t.ppf((1 + ci) / 2, len(design_A) - 1) * (np.std(design_A, ddof=1) / np.sqrt(len(design_A)))</code><br><code>ci_B = stats.t.ppf((1 + ci) / 2, len(design_B) - 1) * (np.std(design_B, ddof=1) / np.sqrt(len(design_B)))</code></p>
+<p><code>designs = ['A', 'B']</code><br><code>means = [np.mean(design_A), np.mean(design_B)]</code><br><code>errors = [ci_A, ci_B]</code></p>
+<p><code>plt.bar(designs, means, yerr=errors, capsize=10, color=['blue', 'orange'], alpha=0.7)</code><br><code>plt.title('Mean NOx Emissions with 95% Confidence Intervals')</code><br><code>plt.ylabel('NOx Emissions (g/mi)')</code><br><code>plt.grid(axis='y', linestyle='--', alpha=0.7)</code><br><code>plt.show()</code></p>
+<h3>Solution in R</h3>
+<p><code># Load required libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(gridExtra)</code></p>
+<p><code># Set seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate sample data for NOx emissions (g/mi)</code><br><code># Design A: current catalytic converter</code><br><code>design_A &lt;- rnorm(25, mean = 0.07, sd = 0.015)</code><br><code># Design B: new prototype catalytic converter (slightly lower mean)</code><br><code>design_B &lt;- rnorm(25, mean = 0.06, sd = 0.012)</code></p>
+<p><code># Create a dataframe</code><br><code>data &lt;- data.frame(</code><br><code>&nbsp; NOx_Emissions = c(design_A, design_B),</code><br><code>&nbsp; Design = factor(c(rep("A", 25), rep("B", 25)))</code><br><code>)</code></p>
+<p><code># Basic statistics</code><br><code>cat("Design A - NOx Emissions (g/mi):\n")</code><br><code>cat(sprintf("Mean: %.4f\n", mean(design_A)))</code><br><code>cat(sprintf("Standard Deviation: %.4f\n", sd(design_A)))</code><br><code>cat(sprintf("Min: %.4f\n", min(design_A)))</code><br><code>cat(sprintf("Max: %.4f\n", max(design_A)))</code></p>
+<p><code>cat("\nDesign B - NOx Emissions (g/mi):\n")</code><br><code>cat(sprintf("Mean: %.4f\n", mean(design_B)))</code><br><code>cat(sprintf("Standard Deviation: %.4f\n", sd(design_B)))</code><br><code>cat(sprintf("Min: %.4f\n", min(design_B)))</code><br><code>cat(sprintf("Max: %.4f\n", max(design_B)))</code></p>
+<p><code># Check for normality using Shapiro-Wilk test</code><br><code>cat("\nNormality Test (Shapiro-Wilk):\n")</code><br><code>shapiro_A &lt;- shapiro.test(design_A)</code><br><code>shapiro_B &lt;- shapiro.test(design_B)</code><br><code>cat(sprintf("Design A: W=%.4f, p-value=%.4f\n", shapiro_A$statistic, shapiro_A$p.value))</code><br><code>cat(sprintf("Design B: W=%.4f, p-value=%.4f\n", shapiro_B$statistic, shapiro_B$p.value))</code></p>
+<p><code># Check for equal variances using F-test</code><br><code>var_test &lt;- var.test(design_A, design_B)</code><br><code>cat("\nEqual Variances Test (F-test):\n")</code><br><code>cat(sprintf("F=%.4f, p-value=%.4f\n", var_test$statistic, var_test$p.value))</code></p>
+<p><code># Perform independent samples t-test (two-tailed)</code><br><code>t_test &lt;- t.test(design_A, design_B, var.equal = TRUE)</code><br><code>cat("\nIndependent Samples t-test (two-tailed):\n")</code><br><code>cat(sprintf("t-statistic: %.4f\n", t_test$statistic))</code><br><code>cat(sprintf("p-value: %.4f\n", t_test$p.value))</code></p>
+<p><code># For one-tailed hypothesis (Design B &lt; Design A)</code><br><code>one_tailed_t_test &lt;- t.test(design_A, design_B, var.equal = TRUE, alternative = "greater")</code><br><code>cat("\nOne-tailed t-test (Design A &gt; Design B):\n")</code><br><code>cat(sprintf("t-statistic: %.4f\n", one_tailed_t_test$statistic))</code><br><code>cat(sprintf("p-value: %.4f\n", one_tailed_t_test$p.value))</code></p>
+<p><code># Check significance</code><br><code>alpha &lt;- 0.05</code><br><code>cat(sprintf("\nAt α = %.2f, the difference is %s\n",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alpha,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ifelse(one_tailed_t_test$p.value &lt; alpha,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"statistically significant",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"not statistically significant")))</code></p>
+<p><code># Calculate Cohen's d effect size</code><br><code>mean_diff &lt;- mean(design_A) - mean(design_B)</code><br><code>pooled_sd &lt;- sqrt(((length(design_A) - 1) * var(design_A) +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (length(design_B) - 1) * var(design_B)) /&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(length(design_A) + length(design_B) - 2))</code><br><code>cohens_d &lt;- mean_diff / pooled_sd</code><br><code>cat(sprintf("\nCohen's d effect size: %.4f\n", cohens_d))</code></p>
+<p><code># Interpret effect size</code><br><code>effect_size_interp &lt;- if(abs(cohens_d) &lt; 0.2) {</code><br><code>&nbsp; "negligible"</code><br><code>} else if(abs(cohens_d) &lt; 0.5) {</code><br><code>&nbsp; "small"</code><br><code>} else if(abs(cohens_d) &lt; 0.8) {</code><br><code>&nbsp; "medium"</code><br><code>} else {</code><br><code>&nbsp; "large"</code><br><code>}</code><br><code>cat(sprintf("Effect size interpretation: %s\n", effect_size_interp))</code></p>
+<p><code># Create visualizations</code><br><code># 1. Box plot</code><br><code>p1 &lt;- ggplot(data, aes(x = Design, y = NOx_Emissions, fill = Design)) +</code><br><code>&nbsp; geom_boxplot() +</code><br><code>&nbsp; labs(title = "NOx Emissions by Catalytic Converter Design",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "NOx Emissions (g/mi)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; scale_fill_manual(values = c("A" = "skyblue", "B" = "orange"))</code></p>
+<p><code># 2. Strip plot (individual data points)</code><br><code>p2 &lt;- ggplot(data, aes(x = Design, y = NOx_Emissions, color = Design)) +</code><br><code>&nbsp; geom_jitter(width = 0.2, alpha = 0.7, size = 3) +</code><br><code>&nbsp; labs(title = "Individual NOx Emission Measurements",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "NOx Emissions (g/mi)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; scale_color_manual(values = c("A" = "blue", "B" = "darkorange"))</code></p>
+<p><code># 3. Violin plot</code><br><code>p3 &lt;- ggplot(data, aes(x = Design, y = NOx_Emissions, fill = Design)) +</code><br><code>&nbsp; geom_violin(trim = FALSE, alpha = 0.7) +</code><br><code>&nbsp; geom_boxplot(width = 0.1, fill = "white", outlier.shape = NA) +</code><br><code>&nbsp; labs(title = "Distribution of NOx Emissions",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "NOx Emissions (g/mi)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; scale_fill_manual(values = c("A" = "skyblue", "B" = "orange"))</code></p>
+<p><code># 4. Density plot</code><br><code>p4 &lt;- ggplot(data, aes(x = NOx_Emissions, fill = Design)) +</code><br><code>&nbsp; geom_density(alpha = 0.5) +</code><br><code>&nbsp; labs(title = "Density Plot of NOx Emissions",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "NOx Emissions (g/mi)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Density") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; scale_fill_manual(values = c("A" = "skyblue", "B" = "orange"))</code></p>
+<p><code># Arrange plots in a grid</code><br><code>grid.arrange(p1, p2, p3, p4, ncol = 2)</code></p>
+<p><code># Mean with 95% confidence intervals</code><br><code>ci_data &lt;- data %&gt;%</code><br><code>&nbsp; group_by(Design) %&gt;%</code><br><code>&nbsp; summarise(</code><br><code>&nbsp; &nbsp; Mean = mean(NOx_Emissions),</code><br><code>&nbsp; &nbsp; SE = sd(NOx_Emissions) / sqrt(n()),</code><br><code>&nbsp; &nbsp; CI_lower = Mean - qt(0.975, n() - 1) * SE,</code><br><code>&nbsp; &nbsp; CI_upper = Mean + qt(0.975, n() - 1) * SE</code><br><code>&nbsp; )</code></p>
+<p><code>ggplot(ci_data, aes(x = Design, y = Mean, fill = Design)) +</code><br><code>&nbsp; geom_bar(stat = "identity", width = 0.6, alpha = 0.7) +</code><br><code>&nbsp; geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2, size = 1) +</code><br><code>&nbsp; labs(title = "Mean NOx Emissions with 95% Confidence Intervals",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "NOx Emissions (g/mi)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; scale_fill_manual(values = c("A" = "skyblue", "B" = "orange")) +</code><br><code>&nbsp; theme(legend.position = "none") +</code><br><code>&nbsp; coord_cartesian(ylim = c(0.05, 0.08))</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

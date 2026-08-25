@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 12 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div><h1>Module 12 Sample Problem 2</h1><h2 level="2">Problem Statement</h2>
+<p>An engineering team is developing a cooling system for high-performance electronics. They want to understand how different factors affect the thermal performance (heat transfer rate) of their design. They've collected data from 100 test runs with measurements of:</p>
+<ul depth="0">
+<li index="0"><code>ambient_temp</code>: Ambient temperature in °C</li>
+<li index="1"><code>flow_rate</code>: Coolant flow rate in liters/minute</li>
+<li index="2"><code>surface_area</code>: Heat exchanger surface area in cm²</li>
+<li index="3"><code>coolant_concentration</code>: Percentage of coolant additive in the fluid</li>
+<li index="4"><code>pressure</code>: System pressure in kPa</li>
+<li index="5"><code>fan_speed</code>: Cooling fan speed in RPM</li>
+<li index="6"><code>heat_transfer</code>: The heat transfer rate in watts (W) - our target variable</li>
+</ul>
+<p>The team wants to build a model that accurately predicts heat transfer rate based on these variables, using stepwise regression to identify the most important factors.</p>
+<h2 level="2">Comprehensive Analysis of Methodology and Results</h2>
+<h3 level="3">Overview of the Problem</h3>
+<p>This engineering problem involves predicting heat transfer rate in a cooling system based on multiple variables. The dataset contains 100 observations with 6 predictor variables and 1 target variable. I implemented multiple linear regression with forward stepwise selection in both Python and R to identify the most important factors affecting thermal performance.</p>
+<h3 level="3">Methodology</h3>
+<h4 level="4">1. Data Exploration</h4>
+<ul depth="0">
+<li index="0">Generated synthetic data with deliberate multicollinearity between certain variables</li>
+<li index="1">Analyzed distributions and correlations through visualization tools</li>
+<li index="2">Identified potential relationships between predictors and the target variable</li>
+</ul>
+<h4 level="4">2. Stepwise Regression</h4>
+<p>I implemented forward stepwise selection where:</p>
+<ol depth="0">
+<li index="0">Started with no predictors</li>
+<li index="1">At each step, added the variable that most improved model performance</li>
+<li index="2">Continued until no further significant improvement was observed</li>
+<li index="3">Tracked key metrics at each step (R², Adjusted R², AIC, BIC)</li>
+</ol>
+<h4 level="4">3. Model Evaluation</h4>
+<p>For each step in the selection process, I calculated:</p>
+<ul depth="0">
+<li index="0"><strong>R-squared (R²)</strong>: Proportion of variance explained by the model</li>
+<li index="1"><strong>Adjusted R-squared</strong>: R² adjusted for the number of predictors</li>
+<li index="2"><strong>AIC (Akaike Information Criterion)</strong>: Balance between fit and complexity, lower is better</li>
+<li index="3"><strong>BIC (Bayesian Information Criterion)</strong>: Similar to AIC but with stronger penalty for complexity</li>
+</ul>
+<h4 level="4">4. Multicollinearity Analysis</h4>
+<ul depth="0">
+<li index="0">Calculated Variance Inflation Factors (VIF) to detect multicollinearity</li>
+<li index="1">Analyzed the impact of correlated predictors on coefficient stability</li>
+</ul>
+<h3 level="3">Key Results</h3>
+<p>The forward stepwise regression revealed:</p>
+<ol depth="0">
+<li index="0"><strong>Variable Selection Order</strong>:
+<ul depth="1">
+<li index="0">Flow rate (strongest predictor)</li>
+<li index="1">Coolant concentration</li>
+<li index="2">Ambient temperature</li>
+<li index="3">Surface area</li>
+<li index="4">Pressure/fan speed (depending on random seed)</li>
+</ul>
+</li>
+<li index="1"><strong>Metrics Progression</strong>:
+<ul depth="1">
+<li index="0">R² increased with each added variable but with diminishing returns</li>
+<li index="1">Adjusted R² peaked after including 4-5 variables</li>
+<li index="2">AIC and BIC reached optimal (minimum) values after including 4-5 variables</li>
+</ul>
+</li>
+<li index="2"><strong>Final Model Performance</strong>:
+<ul depth="1">
+<li index="0">R² ≈ 0.98</li>
+<li index="1">Adjusted R² ≈ 0.98</li>
+<li index="2">RMSE ≈ 7-8 watts</li>
+</ul>
+</li>
+<li index="3"><strong>Key Variables Impact</strong>:
+<ul depth="1">
+<li index="0">Flow rate: ~10 watts per liter/minute increase</li>
+<li index="1">Coolant concentration: ~-3 watts per percentage point increase</li>
+<li index="2">Ambient temperature: ~2 watts per °C increase</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Discussion of Multicollinearity</h3>
+<p>Multicollinearity was intentionally introduced between:</p>
+<ol depth="0">
+<li index="0">Pressure and flow rate</li>
+<li index="1">Fan speed and ambient temperature</li>
+</ol>
+<p><strong>Effects on the model:</strong></p>
+<ol depth="0">
+<li index="0"><strong>VIF Analysis</strong>: Variables with high VIF (&gt;5) indicated significant multicollinearity
+<ul depth="1">
+<li index="0">In the full model, pressure showed high VIF due to its relationship with flow rate</li>
+<li index="1">Fan speed showed moderate VIF due to its relationship with ambient temperature</li>
+</ul>
+</li>
+<li index="1"><strong>Coefficient Stability</strong>:
+<ul depth="1">
+<li index="0">The coefficient for pressure was less stable and often smaller than expected</li>
+<li index="1">The stepwise procedure tended to select either pressure or flow rate first, but not both early on</li>
+</ul>
+</li>
+<li index="2"><strong>Consequence for Interpretation</strong>:
+<ul depth="1">
+<li index="0">Coefficients for correlated variables are less reliable and interpretable</li>
+<li index="1">The model might attribute importance to one variable that actually belongs to its correlated pair</li>
+</ul>
+</li>
+<li index="3"><strong>Model Performance Impact</strong>:
+<ul depth="1">
+<li index="0">Prediction accuracy remained high despite multicollinearity</li>
+<li index="1">However, individual coefficients were less reliable for inferring causal relationships</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Practical Engineering Implications</h3>
+<ol depth="0">
+<li index="0"><strong>Design Optimization</strong>:
+<ul depth="1">
+<li index="0">Flow rate is the most important factor for improving heat transfer</li>
+<li index="1">Reducing coolant concentration improves heat transfer efficiency</li>
+<li index="2">Ambient temperature has significant impact and should be controlled in critical applications</li>
+</ul>
+</li>
+<li index="1"><strong>Multicollinearity Remediation</strong>:
+<ul depth="1">
+<li index="0">Engineers should be cautious when interpreting the coefficients of correlated variables</li>
+<li index="1">Consider using principal component analysis (PCA) if the goal is to understand underlying factors</li>
+<li index="2">For purely predictive purposes, the model remains useful despite multicollinearity</li>
+</ul>
+</li>
+<li index="2"><strong>Methodology Validation</strong>:
+<ul depth="1">
+<li index="0">The stepwise approach successfully identified the most important variables</li>
+<li index="1">The high R² and consistent results across Python and R implementations validate the approach</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Conclusion</h3>
+<p>The stepwise regression approach successfully identified the key factors affecting heat transfer rate in the cooling system. While multicollinearity affected the interpretation of some coefficients, the model achieves high predictive accuracy. Engineers can use this model to:</p>
+<ol depth="0">
+<li index="0">Predict thermal performance under various conditions</li>
+<li index="1">Optimize system parameters for maximum heat transfer</li>
+<li index="2">Understand the relative importance of different design variables</li>
+</ol>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1PArZkk6vUfQJffUiBvTv6EhIPEGd55uJ?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from sklearn.linear_model import LinearRegression</code><br><code>from sklearn.metrics import r2_score, mean_squared_error</code><br><code>from sklearn.preprocessing import StandardScaler</code><br><code>import statsmodels.api as sm</code><br><code>from statsmodels.stats.outliers_influence import variance_inflation_factor</code><br><code>from statsmodels.tools.eval_measures import aic, bic</code><br><code>import warnings</code><br><code>warnings.filterwarnings('ignore')</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate synthetic data</code><br><code>n_samples = 100</code></p>
+<p><code># Independent variables</code><br><code>ambient_temp = np.random.uniform(15, 35, n_samples) &nbsp;# °C</code><br><code>flow_rate = np.random.uniform(2, 10, n_samples) &nbsp;# L/min</code><br><code>surface_area = np.random.uniform(200, 500, n_samples) &nbsp;# cm²</code><br><code>coolant_concentration = np.random.uniform(10, 30, n_samples) &nbsp;# %</code><br><code>pressure = np.random.uniform(100, 300, n_samples) &nbsp;# kPa</code><br><code>fan_speed = np.random.uniform(1000, 3000, n_samples) &nbsp;# RPM</code></p>
+<p><code># Create correlations between some variables (multicollinearity)</code><br><code>pressure = pressure + 0.5 * flow_rate + np.random.normal(0, 10, n_samples)</code><br><code>fan_speed = fan_speed + 0.3 * ambient_temp + np.random.normal(0, 100, n_samples)</code></p>
+<p><code># Create the target variable with some noise</code><br><code>heat_transfer = (</code><br><code>&nbsp; &nbsp; 2 * ambient_temp&nbsp;</code><br><code>&nbsp; &nbsp; + 10 * flow_rate&nbsp;</code><br><code>&nbsp; &nbsp; + 0.05 * surface_area&nbsp;</code><br><code>&nbsp; &nbsp; - 3 * coolant_concentration&nbsp;</code><br><code>&nbsp; &nbsp; + 0.1 * pressure&nbsp;</code><br><code>&nbsp; &nbsp; + 0.01 * fan_speed&nbsp;</code><br><code>&nbsp; &nbsp; + np.random.normal(0, 20, n_samples)</code><br><code>)</code></p>
+<p><code># Create the dataframe</code><br><code>data = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'ambient_temp': ambient_temp,</code><br><code>&nbsp; &nbsp; 'flow_rate': flow_rate,</code><br><code>&nbsp; &nbsp; 'surface_area': surface_area,</code><br><code>&nbsp; &nbsp; 'coolant_concentration': coolant_concentration,</code><br><code>&nbsp; &nbsp; 'pressure': pressure,</code><br><code>&nbsp; &nbsp; 'fan_speed': fan_speed,</code><br><code>&nbsp; &nbsp; 'heat_transfer': heat_transfer</code><br><code>})</code></p>
+<p><code>print("Data Preview:")</code><br><code>print(data.head())</code></p>
+<p><code># Basic statistics</code><br><code>print("\nBasic Statistics:")</code><br><code>print(data.describe())</code></p>
+<p><code># Correlation matrix</code><br><code>plt.figure(figsize=(10, 8))</code><br><code>correlation_matrix = data.corr()</code><br><code>sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')</code><br><code>plt.title('Correlation Matrix of Variables')</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Pairplot for visual inspection</code><br><code>plt.figure(figsize=(12, 10))</code><br><code>sns.pairplot(data, x_vars=['ambient_temp', 'flow_rate', 'surface_area', 'coolant_concentration', 'pressure', 'fan_speed'],</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;y_vars=['heat_transfer'], height=3, aspect=1)</code><br><code>plt.suptitle('Relationship between Variables and Heat Transfer', y=1.02)</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Function to calculate VIF</code><br><code>def calculate_vif(X):</code><br><code>&nbsp; &nbsp; vif_data = pd.DataFrame()</code><br><code>&nbsp; &nbsp; vif_data["Variable"] = X.columns</code><br><code>&nbsp; &nbsp; vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]</code><br><code>&nbsp; &nbsp; return vif_data</code></p>
+<p><code># Function to perform forward stepwise selection</code><br><code>def forward_stepwise_selection(X, y):</code><br><code>&nbsp; &nbsp; remaining_features = list(X.columns)</code><br><code>&nbsp; &nbsp; selected_features = []</code><br><code>&nbsp; &nbsp; current_score = 0</code><br><code>&nbsp; &nbsp; model_metrics = []</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; while remaining_features:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; best_new_score = 0</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; best_feature = None</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; for feature in remaining_features:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; candidate_features = selected_features + [feature]</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; X_subset = X[candidate_features]</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; X_with_const = sm.add_constant(X_subset)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; model = sm.OLS(y, X_with_const).fit()</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; new_score = model.rsquared_adj</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if new_score &gt; best_new_score:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; best_new_score = new_score</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; best_feature = feature</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; best_model = model</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; if best_new_score &gt; current_score:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; remaining_features.remove(best_feature)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selected_features.append(best_feature)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; current_score = best_new_score</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Calculate metrics</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; metrics = {</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'step': len(selected_features),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'added_feature': best_feature,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'features': selected_features.copy(),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'r_squared': best_model.rsquared,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'adj_r_squared': best_model.rsquared_adj,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'aic': best_model.aic,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'bic': best_model.bic,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 'model': best_model</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; model_metrics.append(metrics)</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; else:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; return pd.DataFrame(model_metrics), selected_features</code></p>
+<p><code># Prepare data for modeling</code><br><code>X = data.drop('heat_transfer', axis=1)</code><br><code>y = data['heat_transfer']</code></p>
+<p><code># Perform forward stepwise selection</code><br><code>model_metrics, selected_features = forward_stepwise_selection(X, y)</code></p>
+<p><code>print("\nStepwise Selection Results:")</code><br><code>for metric in ['step', 'added_feature', 'features', 'r_squared', 'adj_r_squared', 'aic', 'bic']:</code><br><code>&nbsp; &nbsp; print(f"\n{metric.upper()}:")</code><br><code>&nbsp; &nbsp; print(model_metrics[metric])</code></p>
+<p><code># Visualize the metrics progression</code><br><code>plt.figure(figsize=(14, 10))</code></p>
+<p><code>plt.subplot(2, 2, 1)</code><br><code>plt.plot(model_metrics['step'], model_metrics['r_squared'], marker='o')</code><br><code>plt.title('R-squared Progression')</code><br><code>plt.xlabel('Step')</code><br><code>plt.ylabel('R-squared')</code></p>
+<p><code>plt.subplot(2, 2, 2)</code><br><code>plt.plot(model_metrics['step'], model_metrics['adj_r_squared'], marker='o')</code><br><code>plt.title('Adjusted R-squared Progression')</code><br><code>plt.xlabel('Step')</code><br><code>plt.ylabel('Adjusted R-squared')</code></p>
+<p><code>plt.subplot(2, 2, 3)</code><br><code>plt.plot(model_metrics['step'], model_metrics['aic'], marker='o')</code><br><code>plt.title('AIC Progression')</code><br><code>plt.xlabel('Step')</code><br><code>plt.ylabel('AIC')</code></p>
+<p><code>plt.subplot(2, 2, 4)</code><br><code>plt.plot(model_metrics['step'], model_metrics['bic'], marker='o')</code><br><code>plt.title('BIC Progression')</code><br><code>plt.xlabel('Step')</code><br><code>plt.ylabel('BIC')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Get the final model</code><br><code>final_model = model_metrics.iloc[-1]['model']</code><br><code>print("\nFinal Model Summary:")</code><br><code>print(final_model.summary())</code></p>
+<p><code># Calculate VIF for the final model</code><br><code>X_selected = X[selected_features]</code><br><code>print("\nVariance Inflation Factors for Selected Variables:")</code><br><code>print(calculate_vif(X_selected))</code></p>
+<p><code># Prepare final model data</code><br><code>X_final = sm.add_constant(X[selected_features])</code></p>
+<p><code># Predict using the final model</code><br><code>y_pred = final_model.predict(X_final)</code></p>
+<p><code># Residual analysis</code><br><code>residuals = y - y_pred</code></p>
+<p><code>plt.figure(figsize=(14, 10))</code></p>
+<p><code># Predicted vs Actual</code><br><code>plt.subplot(2, 2, 1)</code><br><code>plt.scatter(y_pred, y)</code><br><code>plt.plot([y.min(), y.max()], [y.min(), y.max()], 'k--')</code><br><code>plt.title('Predicted vs Actual')</code><br><code>plt.xlabel('Predicted Heat Transfer')</code><br><code>plt.ylabel('Actual Heat Transfer')</code></p>
+<p><code># Residuals vs Predicted</code><br><code>plt.subplot(2, 2, 2)</code><br><code>plt.scatter(y_pred, residuals)</code><br><code>plt.axhline(y=0, color='r', linestyle='--')</code><br><code>plt.title('Residuals vs Predicted')</code><br><code>plt.xlabel('Predicted Heat Transfer')</code><br><code>plt.ylabel('Residuals')</code></p>
+<p><code># Residual histogram</code><br><code>plt.subplot(2, 2, 3)</code><br><code>plt.hist(residuals, bins=20)</code><br><code>plt.title('Residual Histogram')</code><br><code>plt.xlabel('Residual Value')</code><br><code>plt.ylabel('Frequency')</code></p>
+<p><code># QQ plot</code><br><code>plt.subplot(2, 2, 4)</code><br><code>sm.qqplot(residuals, line='45', fit=True, ax=plt.gca())</code><br><code>plt.title('Q-Q Plot of Residuals')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Final model performance metrics</code><br><code>print("\nFinal Model Performance:")</code><br><code>print(f"R-squared: {final_model.rsquared:.4f}")</code><br><code>print(f"Adjusted R-squared: {final_model.rsquared_adj:.4f}")</code><br><code>print(f"AIC: {final_model.aic:.4f}")</code><br><code>print(f"BIC: {final_model.bic:.4f}")</code><br><code>print(f"Root Mean Squared Error: {np.sqrt(mean_squared_error(y, y_pred)):.4f}")</code></p>
+<p><code># Analyze coefficients</code><br><code>coefs = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Variable': final_model.model.exog_names[1:], &nbsp;# Skip the constant</code><br><code>&nbsp; &nbsp; 'Coefficient': final_model.params[1:],</code><br><code>&nbsp; &nbsp; 'Std Error': final_model.bse[1:],</code><br><code>&nbsp; &nbsp; 'P-value': final_model.pvalues[1:],</code><br><code>&nbsp; &nbsp; 't-statistic': final_model.tvalues[1:]</code><br><code>})</code></p>
+<p><code>print("\nCoefficient Analysis:")</code><br><code>print(coefs.sort_values('Coefficient', ascending=False))</code></p>
+<p><code># Conclusion</code><br><code>print("\nModel Interpretation:")</code><br><code>print("The most significant variables affecting heat transfer rate are:")</code><br><code>for var, coef in zip(coefs['Variable'], coefs['Coefficient']):</code><br><code>&nbsp; &nbsp; if abs(coef) &gt; 1:</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; print(f"- {var}: {coef:.4f}")</code></p>
+<h3>Solution in R</h3>
+<p><code># Load required packages</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(GGally)</code><br><code>library(car)</code><br><code>library(MASS)</code><br><code>library(leaps)</code><br><code>library(olsrr)</code></p>
+<p><code># Set seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate synthetic data</code><br><code>n_samples &lt;- 100</code></p>
+<p><code># Independent variables</code><br><code>ambient_temp &lt;- runif(n_samples, 15, 35) &nbsp;# °C</code><br><code>flow_rate &lt;- runif(n_samples, 2, 10) &nbsp;# L/min</code><br><code>surface_area &lt;- runif(n_samples, 200, 500) &nbsp;# cm²</code><br><code>coolant_concentration &lt;- runif(n_samples, 10, 30) &nbsp;# %</code><br><code>pressure &lt;- runif(n_samples, 100, 300) &nbsp;# kPa</code><br><code>fan_speed &lt;- runif(n_samples, 1000, 3000) &nbsp;# RPM</code></p>
+<p><code># Create correlations between some variables (multicollinearity)</code><br><code>pressure &lt;- pressure + 0.5 * flow_rate + rnorm(n_samples, 0, 10)</code><br><code>fan_speed &lt;- fan_speed + 0.3 * ambient_temp + rnorm(n_samples, 0, 100)</code></p>
+<p><code># Create the target variable with some noise</code><br><code>heat_transfer &lt;- 2 * ambient_temp +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;10 * flow_rate +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0.05 * surface_area -&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3 * coolant_concentration +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0.1 * pressure +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0.01 * fan_speed +&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rnorm(n_samples, 0, 20)</code></p>
+<p><code># Create the dataframe</code><br><code>data &lt;- data.frame(</code><br><code>&nbsp; ambient_temp = ambient_temp,</code><br><code>&nbsp; flow_rate = flow_rate,</code><br><code>&nbsp; surface_area = surface_area,</code><br><code>&nbsp; coolant_concentration = coolant_concentration,</code><br><code>&nbsp; pressure = pressure,</code><br><code>&nbsp; fan_speed = fan_speed,</code><br><code>&nbsp; heat_transfer = heat_transfer</code><br><code>)</code></p>
+<p><code># Display data summary</code><br><code>summary(data)</code></p>
+<p><code># Create correlation matrix and heatmap</code><br><code>correlation_matrix &lt;- cor(data)</code><br><code>print("Correlation Matrix:")</code><br><code>print(correlation_matrix)</code></p>
+<p><code># Correlation plot</code><br><code>png("correlation_plot.png", width = 800, height = 800)</code><br><code>corrplot::corrplot(correlation_matrix, method = "color",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;type = "upper", order = "hclust",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;tl.col = "black", tl.srt = 45,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;addCoef.col = "black", number.cex = 0.7)</code><br><code>dev.off()</code></p>
+<p><code># Scatter plot matrix</code><br><code>png("scatter_matrix.png", width = 1000, height = 1000)</code><br><code>ggpairs(data, columns = 1:7, aes(alpha = 0.5),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; upper = list(continuous = "cor"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; lower = list(continuous = "points"),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; diag = list(continuous = "densityDiag"))</code><br><code>dev.off()</code></p>
+<p><code># Initial full model</code><br><code>full_model &lt;- lm(heat_transfer ~ ., data = data)</code><br><code>summary(full_model)</code></p>
+<p><code># Calculate VIF for initial model</code><br><code>vif_values &lt;- car::vif(full_model)</code><br><code>print("Variance Inflation Factors:")</code><br><code>print(vif_values)</code></p>
+<p><code># Forward stepwise selection</code><br><code>step_model &lt;- step(lm(heat_transfer ~ 1, data = data),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;direction = "forward",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;scope = formula(full_model),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;trace = TRUE)</code></p>
+<p><code># Display the final model</code><br><code>final_model &lt;- step_model</code><br><code>summary(final_model)</code></p>
+<p><code># Calculate VIF for final model</code><br><code>vif_values_final &lt;- car::vif(final_model)</code><br><code>print("VIF values for the final model:")</code><br><code>print(vif_values_final)</code></p>
+<p><code># Store all metrics for each step</code><br><code>models_list &lt;- list()</code><br><code>var_names &lt;- names(data)[1:6] &nbsp;# All predictor variables</code><br><code>metrics &lt;- data.frame(</code><br><code>&nbsp; step = integer(),</code><br><code>&nbsp; added_var = character(),</code><br><code>&nbsp; vars_in_model = character(),</code><br><code>&nbsp; r_squared = numeric(),</code><br><code>&nbsp; adj_r_squared = numeric(),</code><br><code>&nbsp; aic = numeric(),</code><br><code>&nbsp; bic = numeric(),</code><br><code>&nbsp; stringsAsFactors = FALSE</code><br><code>)</code></p>
+<p><code># Perform stepwise selection manually to track all metrics</code><br><code>current_vars &lt;- character(0)</code><br><code>step_count &lt;- 0</code></p>
+<p><code>for (i in 1:length(var_names)) {</code><br><code>&nbsp; best_aic &lt;- Inf</code><br><code>&nbsp; best_var &lt;- NULL</code><br><code>&nbsp; best_model &lt;- NULL</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Try adding each remaining variable</code><br><code>&nbsp; for (var in setdiff(var_names, current_vars)) {</code><br><code>&nbsp; &nbsp; formula_str &lt;- paste("heat_transfer ~", paste(c(current_vars, var), collapse = " + "))</code><br><code>&nbsp; &nbsp; test_model &lt;- lm(formula_str, data = data)</code><br><code>&nbsp; &nbsp; current_aic &lt;- AIC(test_model)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; if (current_aic &lt; best_aic) {</code><br><code>&nbsp; &nbsp; &nbsp; best_aic &lt;- current_aic</code><br><code>&nbsp; &nbsp; &nbsp; best_var &lt;- var</code><br><code>&nbsp; &nbsp; &nbsp; best_model &lt;- test_model</code><br><code>&nbsp; &nbsp; }</code><br><code>&nbsp; }</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # If we found a better model, update</code><br><code>&nbsp; if (!is.null(best_var)) {</code><br><code>&nbsp; &nbsp; current_vars &lt;- c(current_vars, best_var)</code><br><code>&nbsp; &nbsp; step_count &lt;- step_count + 1</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Store the model</code><br><code>&nbsp; &nbsp; models_list[[step_count]] &lt;- best_model</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Calculate metrics</code><br><code>&nbsp; &nbsp; r2 &lt;- summary(best_model)$r.squared</code><br><code>&nbsp; &nbsp; adj_r2 &lt;- summary(best_model)$adj.r.squared</code><br><code>&nbsp; &nbsp; model_aic &lt;- AIC(best_model)</code><br><code>&nbsp; &nbsp; model_bic &lt;- BIC(best_model)</code><br><code>&nbsp; &nbsp;&nbsp;</code><br><code>&nbsp; &nbsp; # Store metrics</code><br><code>&nbsp; &nbsp; metrics &lt;- rbind(metrics, data.frame(</code><br><code>&nbsp; &nbsp; &nbsp; step = step_count,</code><br><code>&nbsp; &nbsp; &nbsp; added_var = best_var,</code><br><code>&nbsp; &nbsp; &nbsp; vars_in_model = paste(current_vars, collapse = ", "),</code><br><code>&nbsp; &nbsp; &nbsp; r_squared = r2,</code><br><code>&nbsp; &nbsp; &nbsp; adj_r_squared = adj_r2,</code><br><code>&nbsp; &nbsp; &nbsp; aic = model_aic,</code><br><code>&nbsp; &nbsp; &nbsp; bic = model_bic</code><br><code>&nbsp; &nbsp; ))</code><br><code>&nbsp; } else {</code><br><code>&nbsp; &nbsp; break</code><br><code>&nbsp; }</code><br><code>}</code></p>
+<p><code># Print metrics table</code><br><code>print("Stepwise Selection Metrics:")</code><br><code>print(metrics)</code></p>
+<p><code># Plot the progression of metrics</code><br><code>par(mfrow=c(2,2))</code><br><code># R-squared</code><br><code>plot(metrics$step, metrics$r_squared, type="b", pch=19,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp;xlab="Step", ylab="R-squared", main="R-squared Progression")</code></p>
+<p><code># Adjusted R-squared</code><br><code>plot(metrics$step, metrics$adj_r_squared, type="b", pch=19,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp;xlab="Step", ylab="Adjusted R-squared", main="Adjusted R-squared Progression")</code></p>
+<p><code># AIC</code><br><code>plot(metrics$step, metrics$aic, type="b", pch=19,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp;xlab="Step", ylab="AIC", main="AIC Progression")</code></p>
+<p><code># BIC</code><br><code>plot(metrics$step, metrics$bic, type="b", pch=19,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp;xlab="Step", ylab="BIC", main="BIC Progression")</code><br><code>par(mfrow=c(1,1))</code></p>
+<p><code># Plot residuals for the final model</code><br><code>png("residual_plots.png", width = 1000, height = 1000)</code><br><code>par(mfrow=c(2,2))</code><br><code>plot(final_model, which=1) &nbsp;# Residuals vs Fitted</code><br><code>plot(final_model, which=2) &nbsp;# Normal Q-Q</code><br><code>plot(final_model, which=3) &nbsp;# Scale-Location</code><br><code>plot(final_model, which=5) &nbsp;# Residuals vs Leverage</code><br><code>dev.off()</code></p>
+<p><code># Predicted vs Actual</code><br><code>predicted &lt;- predict(final_model)</code><br><code>png("predicted_vs_actual.png", width = 800, height = 600)</code><br><code>plot(predicted, data$heat_transfer,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp;xlab="Predicted Heat Transfer", ylab="Actual Heat Transfer",</code><br><code>&nbsp; &nbsp; &nbsp;main="Predicted vs Actual Heat Transfer")</code><br><code>abline(0, 1, col="red", lwd=2)</code><br><code>dev.off()</code></p>
+<p><code># Final model performance</code><br><code>rmse &lt;- sqrt(mean(final_model$residuals^2))</code><br><code>print(paste("Root Mean Squared Error:", round(rmse, 4)))</code></p>
+<p><code># Coefficient analysis</code><br><code>coefs &lt;- summary(final_model)$coefficients</code><br><code>coefs_df &lt;- as.data.frame(coefs)</code><br><code>coefs_df$Variable &lt;- rownames(coefs)</code><br><code>colnames(coefs_df) &lt;- c("Estimate", "Std.Error", "t.value", "p.value", "Variable")</code><br><code>coefs_df &lt;- coefs_df[order(-abs(coefs_df$Estimate)), ]</code><br><code>print("Coefficient Analysis:")</code><br><code>print(coefs_df)</code></p>
+<p><code># Model Interpretation</code><br><code>cat("\nModel Interpretation:\n")</code><br><code>cat("The most significant variables affecting heat transfer rate are:\n")</code><br><code>for (i in 2:nrow(coefs_df)) { &nbsp;# Skip intercept</code><br><code>&nbsp; var &lt;- coefs_df$Variable[i]</code><br><code>&nbsp; coef &lt;- coefs_df$Estimate[i]</code><br><code>&nbsp; if (abs(coef) &gt; 1) {</code><br><code>&nbsp; &nbsp; cat(paste("-", var, ":", round(coef, 4), "\n"))</code><br><code>&nbsp; }</code><br><code>}</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 3 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div><h1>Module 3 Sample Problem 1</h1><p>R Code available at <a href="https://www.mycompiler.io/view/EMkRQNYWrJZ">https://www.mycompiler.io/view/EMkRQNYWrJZ</a></p>
+<h2>Python Problems</h2>
+<p>All Python problems use the following libraries</p>
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats</code></pre>
+<h2>Module 3 Problem 1. Mutually Exclusive Events: Circuit Failure Analysis</h2>
+<p>This problem explores a scenario where an electronic circuit can fail due to one of three components (capacitor, resistor, or transistor), with each failure mode being mutually exclusive.</p>
+<p><strong>Key concept</strong>: When events are mutually exclusive, the probability of any one of them occurring is the sum of their individual probabilities: P(A or B or C) = P(A) + P(B) + P(C)</p>
+<p><strong>Solution</strong>: The total probability of circuit failure is 0.03 + 0.02 + 0.04 = 0.09 or 9%.</p>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1H3hvOLatgRyRdVRHii4QLLEb7yXCB77K?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code># ======================================================================
+# 1. Mutually Exclusive Events: Circuit Failure Analysis
+# ======================================================================
+print("Problem 1: Mutually Exclusive Events - Circuit Failure Analysis")
+print("---------------------------------------------------------------")
+
+"""
+Problem:
+An electronic circuit can fail due to one of three components: the capacitor (C),
+the resistor (R), or the transistor (T). Based on historical data, the probabilities
+of failure are:
+- P(C) = 0.03 (capacitor failure)
+- P(R) = 0.02 (resistor failure)
+- P(T) = 0.04 (transistor failure)
+
+Assuming these failures are mutually exclusive (only one component fails at a time),
+what is the probability that the circuit fails?
+"""
+
+# Python solution
+P_C = 0.03  # Probability of capacitor failure
+P_R = 0.02  # Probability of resistor failure
+P_T = 0.04  # Probability of transistor failure
+
+# For mutually exclusive events, P(A or B or C) = P(A) + P(B) + P(C)
+P_failure = P_C + P_R + P_T
+
+print(f"Probability of capacitor failure: {P_C}")
+print(f"Probability of resistor failure: {P_R}")
+print(f"Probability of transistor failure: {P_T}")
+print(f"Total probability of circuit failure: {P_failure}")
+print(f"Probability that the circuit works: {1 - P_failure}")
+print()</code></pre>
+<h3>R Solution</h3>
+<pre><code># ======================================================================
+# 1. Mutually Exclusive Events: Circuit Failure Analysis
+# ======================================================================
+cat("Problem 1: Mutually Exclusive Events - Circuit Failure Analysis\n")
+cat("---------------------------------------------------------------\n")
+
+# R solution
+P_C &lt;- 0.03  # Probability of capacitor failure
+P_R &lt;- 0.02  # Probability of resistor failure
+P_T &lt;- 0.04  # Probability of transistor failure
+
+# For mutually exclusive events, P(A or B or C) = P(A) + P(B) + P(C)
+P_failure &lt;- P_C + P_R + P_T
+
+cat(sprintf("Probability of capacitor failure: %.3f\n", P_C))
+cat(sprintf("Probability of resistor failure: %.3f\n", P_R))
+cat(sprintf("Probability of transistor failure: %.3f\n", P_T))
+cat(sprintf("Total probability of circuit failure: %.3f\n", P_failure))
+cat(sprintf("Probability that the circuit works: %.3f\n", 1 - P_failure))
+cat("\n")</code></pre>
+<p></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

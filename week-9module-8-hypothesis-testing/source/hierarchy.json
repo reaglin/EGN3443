@@ -1,0 +1,1415 @@
+{
+  "ModuleFolderName": "Week_9_Module_8_-_Hypothesis_Testing",
+  "CourseName": "EGN3443 Prob and Stats for Engineers",
+  "GeneratedDate": "2026-08-24T20:24:02.7361948-04:00",
+  "ModifiedDate": "2026-08-24T20:26:52.7879502-04:00",
+  "Outcomes": [],
+  "Topics": [
+    {
+      "Id": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+      "Title": "Foundations of Hypothesis Testing",
+      "Summary": "Introduces the core concepts and logic underlying hypothesis testing, including the purpose of statistical hypotheses and how they relate to real-world claims.",
+      "SortOrder": 0,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "01b39ed2-422d-4887-a753-99226a8c0445",
+          "TopicId": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+          "Title": "What Is Hypothesis Testing?",
+          "BodyText": "Hypothesis testing is a formal statistical procedure used to evaluate claims or assumptions about a population based on sample data.",
+          "Notes": "Think of it as a structured decision-making process: rather than relying on intuition, we use data and probability to determine whether a claim is likely to be true.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "ModifiedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "Items": [
+            {
+              "Id": "21526766-769a-4c01-ae82-2a59e4e6cb54",
+              "Text": "It provides a systematic framework for determining whether observed data provide enough evidence to support or reject a specific claim.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "1096472a-f2f0-46a7-95b8-6c0ab55b0c22",
+              "Text": "The process is widely used in science, business, medicine, and social research to draw conclusions from limited data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9248a362-b646-43ca-8ff4-2d4ed4a4c346",
+              "Text": "Hypothesis testing does not prove a claim with certainty; it assesses the strength of evidence against a stated assumption.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "e0f05189-4b49-479b-a4e1-e17deb3f619b",
+          "TopicId": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+          "Title": "The Role of Statistical Hypotheses",
+          "BodyText": "A statistical hypothesis is a formal statement about a population parameter that can be tested using sample data.",
+          "Notes": "For example, a researcher might hypothesize that the average customer wait time at a service center is 10 minutes, then collect data to test that claim.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "ModifiedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "Items": [
+            {
+              "Id": "d7bf2a45-2907-46d1-825a-e08c7faced57",
+              "Text": "Statistical hypotheses translate real-world questions or claims into precise, testable mathematical statements.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5704b28a-f9f0-496f-9d55-9fd4500a9ff5",
+              "Text": "They always refer to population parameters (such as a mean or proportion), not to sample statistics.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4037af37-ab11-42af-9d92-22d7cd152604",
+              "Text": "Forming clear hypotheses before collecting data is essential to avoid bias and ensure the test is meaningful.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "05d5dfa5-590e-4f50-8399-e0db630d7185",
+          "TopicId": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+          "Title": "The Null Hypothesis (H\u2080)",
+          "BodyText": "The null hypothesis is the default assumption that there is no effect, no difference, or no relationship in the population being studied.",
+          "Notes": "The null hypothesis is the statement we assume to be true until evidence suggests otherwise \u2014 similar to the presumption of innocence in a legal trial.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "ModifiedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "Items": [
+            {
+              "Id": "88a09dac-520e-470c-a05a-dc225db6dcd7",
+              "Text": "The null hypothesis typically represents the status quo or a baseline condition that the researcher seeks to challenge.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "4e0a742b-6cde-4a87-8bed-d060e6f79198",
+              "Text": "It is always stated as an equality (e.g., the population mean equals a specific value).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "026b3f0e-591c-4a2c-b246-337f8bc99d4d",
+              "Text": "The goal of hypothesis testing is to assess whether collected data provide sufficient evidence to reject H\u2080.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "88730070-1b90-41e2-a5ef-780c70f5f71b",
+          "TopicId": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+          "Title": "The Alternative Hypothesis (H\u2081 or H\u2090)",
+          "BodyText": "The alternative hypothesis represents the claim or effect the researcher believes may be true if the null hypothesis is rejected.",
+          "Notes": "For instance, if H\u2080 states that a new drug has no effect, H\u2081 might state that the drug does reduce symptoms. The direction of H\u2081 determines whether the test is one-tailed or two-tailed.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "ModifiedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "Items": [
+            {
+              "Id": "84efea56-4205-456b-a73a-5fac1e90929f",
+              "Text": "The alternative hypothesis is what the researcher is typically trying to find evidence for through the test.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "00c49612-15d2-48e6-b99b-8e7c554f36f9",
+              "Text": "It can be directional (greater than or less than) or non-directional (simply \u0027not equal to\u0027), depending on the research question.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "4d129ef4-e89b-4501-8fc7-2d8823cc334f",
+              "Text": "H\u2080 and H\u2081 must be mutually exclusive and collectively exhaustive \u2014 together they cover all possible outcomes.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "0bc1b14a-8dfa-48ce-a6f4-ddee2b9fd638",
+          "TopicId": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+          "Title": "The Logic of Evidence and Decision-Making",
+          "BodyText": "Hypothesis testing operates on the principle of indirect proof: we assume the null hypothesis is true and then assess how compatible the sample data are with that assumption.",
+          "Notes": "This is analogous to a court of law where the defendant is assumed innocent (H\u2080) until the evidence is strong enough to conclude otherwise beyond a reasonable doubt.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "ModifiedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "Items": [
+            {
+              "Id": "41c85b3c-4a9d-4fbd-a3af-79c97a1f0e1e",
+              "Text": "If the observed data are very unlikely under the assumption that H\u2080 is true, we take that as evidence against H\u2080.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "341c4f73-25aa-4f7b-8c0a-14921280fa89",
+              "Text": "The strength of evidence is quantified using a test statistic and an associated probability (the p-value).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "2422a18a-22a6-42e1-875d-a2522860f25a",
+              "Text": "We never \u0027accept\u0027 the null hypothesis; we either reject it or fail to reject it based on the evidence.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "21c65c09-f4e9-4a3a-a203-4ce2b8e2c916",
+          "TopicId": "6355a573-15e7-40f7-ac6f-08e9d84fe373",
+          "Title": "Connecting Real-World Claims to Statistical Hypotheses",
+          "BodyText": "One of the most important skills in hypothesis testing is translating a practical question or claim into a properly structured pair of statistical hypotheses.",
+          "Notes": "For example, a marketing team claiming that a new campaign increases average sales above $5,000 per week would lead to H\u2080: \u03BC \u2264 $5,000 and H\u2081: \u03BC \u003E $5,000.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "ModifiedDate": "2026-08-24T20:24:23.7338946-04:00",
+          "Items": [
+            {
+              "Id": "457f36fb-25a7-40fb-a937-a423bd52d119",
+              "Text": "Real-world claims must be carefully examined to identify which part belongs in H\u2080 and which belongs in H\u2081.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5e49c3e5-2ebf-42d5-bd06-397f106788ec",
+              "Text": "The claim being tested often becomes the alternative hypothesis, since it represents a departure from the assumed baseline.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "87d4cc29-73a0-48e4-b516-a51d1221a0e8",
+              "Text": "Misidentifying the hypotheses can lead to incorrect conclusions, so precise formulation is a critical first step in any analysis.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+      "Title": "Formulating Null and Alternative Hypotheses",
+      "Summary": "Covers how to correctly define and distinguish between null and alternative hypotheses, including directional and non-directional hypothesis forms.",
+      "SortOrder": 1,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "c6e66f58-c223-4c3f-9873-f217e8da3db8",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "The Purpose of Hypothesis Formulation",
+          "BodyText": "Hypothesis formulation is the foundational step in hypothesis testing, providing a clear framework for evaluating statistical claims about a population.",
+          "Notes": "Before any data is collected or analyzed, the researcher must define what they expect to find and what they are trying to disprove. This structure keeps the testing process objective and rigorous.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "da80fc6f-893f-4779-b1ff-df85398f6a44",
+              "Text": "A hypothesis is a testable statement about a population parameter, such as a mean or proportion.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "d284201b-97f3-473c-9049-de923a5805fd",
+              "Text": "Proper formulation ensures the test is focused, reproducible, and statistically interpretable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c2c026fa-17fd-4908-82e0-6d5186612dd9",
+              "Text": "Hypotheses are always stated in terms of population parameters, not sample statistics.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "2be9f505-da53-45a2-bd78-56dedce9b2a0",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "The Null Hypothesis (H\u2080)",
+          "BodyText": "The null hypothesis represents the default assumption \u2014 typically a statement of no effect, no difference, or no relationship between variables.",
+          "Notes": "For example, if testing whether a new drug lowers blood pressure, H\u2080 would state that the drug has no effect on blood pressure (\u03BC = \u03BC\u2080). The null hypothesis is the claim the test seeks to challenge.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "eacca401-9acb-4f94-badc-3a93478adc29",
+              "Text": "The null hypothesis always includes an equality component (=, \u2264, or \u2265) and represents the status quo.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2d99115b-35fd-47bd-b000-62420bfd1be5",
+              "Text": "It is never proven true; rather, evidence either supports rejecting it or fails to reject it.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c4390be7-39f6-4130-92a2-a9465e62d6ae",
+              "Text": "Failing to reject H\u2080 does not confirm it is true \u2014 it simply means there is insufficient evidence against it.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ce0877e7-c31d-41bb-b554-59d65a65151a",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "The Alternative Hypothesis (H\u2081 or H\u2090)",
+          "BodyText": "The alternative hypothesis is the claim a researcher seeks to support, representing a deviation from the null hypothesis in a specified or unspecified direction.",
+          "Notes": "Using the drug example, the alternative hypothesis might state that the drug does lower blood pressure (\u03BC \u003C \u03BC\u2080). This is the hypothesis that is accepted when H\u2080 is rejected.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "5a6d1b78-d824-456a-b67e-981af3564653",
+              "Text": "The alternative hypothesis directly contradicts the null and captures the effect or difference the researcher expects to detect.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7e0f667a-5d59-4c8e-83aa-156a152ac1d4",
+              "Text": "It is stated using inequality symbols (\u003C, \u003E, or \u2260) depending on the direction of the expected effect.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "8339c767-ed94-4805-933a-9a3bf18b765c",
+              "Text": "The formulation of H\u2081 directly determines whether the test is one-tailed or two-tailed.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "3907c4aa-9b5c-40bd-b777-5f04911b6b4c",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "Non-Directional (Two-Tailed) Hypotheses",
+          "BodyText": "A non-directional hypothesis tests for any difference from the null value, regardless of direction, and is used when the researcher has no specific prediction about the direction of the effect.",
+          "Notes": "Example: H\u2080: \u03BC = 50 vs. H\u2081: \u03BC \u2260 50. This setup tests whether the population mean differs from 50 in either direction, splitting the significance level across both tails of the distribution.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "dac4e75f-28dd-4acd-ab0d-c9e441823f6f",
+              "Text": "Non-directional tests use the \u2260 symbol in H\u2081 and are evaluated using both tails of the sampling distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "327a8ead-e94d-4da5-b106-5c4afb02022c",
+              "Text": "They are considered more conservative and are appropriate when prior research does not strongly indicate a direction.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e1afb9eb-363e-45d2-b5fd-193f13d17396",
+              "Text": "The critical region is divided equally between the two tails, requiring a larger observed effect to achieve significance.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1ade3ce0-a440-4462-a490-7eca58bf79ba",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "Directional (One-Tailed) Hypotheses",
+          "BodyText": "A directional hypothesis specifies the expected direction of the effect \u2014 either greater than or less than the null value \u2014 and corresponds to a one-tailed test.",
+          "Notes": "Example: H\u2080: \u03BC \u2264 50 vs. H\u2081: \u03BC \u003E 50 (right-tailed), or H\u2080: \u03BC \u2265 50 vs. H\u2081: \u03BC \u003C 50 (left-tailed). The direction is chosen based on prior theory or research expectations.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "30f68244-5c82-4c64-9343-9eaf07502cf6",
+              "Text": "A right-tailed test is used when the researcher predicts the parameter is greater than the null value.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a06fa9ad-a5fc-4fe9-967c-46bd25de0c71",
+              "Text": "A left-tailed test is used when the researcher predicts the parameter is less than the null value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c22cc2a2-d5fd-4e83-9dcf-0ad78ab92c0d",
+              "Text": "One-tailed tests concentrate the entire significance level in one tail, making them more powerful in detecting effects in the predicted direction.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "4d28f0db-cc66-4f88-8438-a84133cf7777",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "Choosing Between Directional and Non-Directional Forms",
+          "BodyText": "Selecting the correct hypothesis form requires careful consideration of the research question, theoretical background, and the consequences of testing in the wrong direction.",
+          "Notes": "Choosing a one-tailed test when the direction is uncertain can lead to missing significant effects in the opposite direction. The decision must be made before data collection to avoid bias.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "289b93ef-4cee-4695-a189-23fa3fffea71",
+              "Text": "Use a two-tailed test when the research question asks whether there is any difference, with no prior expectation of direction.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "766f4189-657e-4c82-970b-8f4988ef33f1",
+              "Text": "Use a one-tailed test only when theory or prior evidence strongly supports a specific directional prediction.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "9a450c77-5919-4b56-868c-35c562fd1cf2",
+              "Text": "The choice of directionality affects the critical value, p-value interpretation, and the overall power of the test.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "125d5a75-1128-49b9-8b59-fdaaa4e0528e",
+          "TopicId": "62b11108-1737-4f33-abbc-30fee7b2af7b",
+          "Title": "Common Errors in Hypothesis Formulation",
+          "BodyText": "Incorrectly stated hypotheses can invalidate an entire study, making it essential to verify that both H\u2080 and H\u2081 are mutually exclusive, exhaustive, and properly structured.",
+          "Notes": "A frequent mistake is placing the research claim in H\u2080 rather than H\u2081, or failing to state hypotheses in terms of population parameters. Always double-check that H\u2080 contains the equality condition.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:24:49.556092-04:00",
+          "ModifiedDate": "2026-08-24T20:24:49.556092-04:00",
+          "Items": [
+            {
+              "Id": "72d95fb5-159f-44ce-8da2-f9250442a751",
+              "Text": "H\u2080 and H\u2081 must be mutually exclusive \u2014 they cannot both be true simultaneously \u2014 and together must cover all possible outcomes.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "fc479e57-3b2f-4d97-9fad-1b3061cb5494",
+              "Text": "The equality sign (=, \u2264, \u2265) must always appear in the null hypothesis, never in the alternative hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f39ada1e-421a-4042-b573-c116cdd46f4c",
+              "Text": "Hypotheses should be stated before examining the data to prevent confirmation bias from influencing the formulation.",
+              "SortOrder": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "1e437d60-455c-403e-8d5e-779768b384ed",
+      "Title": "Test Statistics and Sampling Distributions",
+      "Summary": "Explains how to select and calculate appropriate test statistics for different scenarios, and how these relate to underlying sampling distributions.",
+      "SortOrder": 2,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "929b8678-15b7-4e04-a5c4-fedb1d788e29",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "What Is a Test Statistic?",
+          "BodyText": "A test statistic is a numerical value calculated from sample data that is used to decide whether to reject the null hypothesis.",
+          "Notes": "Think of it as a standardized measure of how far your sample result is from what the null hypothesis predicts.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "6f46bd52-d844-4121-a45b-1c4f8701aa1d",
+              "Text": "The test statistic summarizes the sample evidence into a single number that can be compared against a known distribution.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "297ffb2e-4d43-463f-a8f4-c8021637a9db",
+              "Text": "Different hypothesis tests use different formulas to compute the test statistic depending on the data type and research question.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "fd00a004-90cd-4c16-ac5c-0c58a783989e",
+              "Text": "A larger absolute value of the test statistic generally indicates stronger evidence against the null hypothesis.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "ba55e1e6-5674-4630-88e1-50acaa399837",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "Sampling Distributions and Their Role",
+          "BodyText": "A sampling distribution describes how a test statistic would behave across all possible random samples of the same size if the null hypothesis were true.",
+          "Notes": "For example, under the null hypothesis, the distribution of sample means follows a normal distribution centered at the hypothesized population mean, assuming large enough sample sizes.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "ea684004-4172-4336-953f-65af8922de60",
+              "Text": "The sampling distribution provides the theoretical framework needed to determine how unusual an observed test statistic is.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "8cf5e457-3d49-4c25-b4b5-faa04cbaf6a9",
+              "Text": "Common sampling distributions used in hypothesis testing include the standard normal (Z), t, chi-square, and F distributions.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ddc9436f-821f-4bd1-9c36-cd8aa89df8a8",
+              "Text": "The shape and parameters of the sampling distribution depend on assumptions such as sample size, population variance, and data type.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "83bfbee0-e5fe-44ea-bfd5-f1734b22ea35",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "The Z-Test Statistic",
+          "BodyText": "The Z-test statistic is used when testing a population mean and the population standard deviation is known, or when the sample size is sufficiently large.",
+          "Notes": "Z = (x\u0304 \u2212 \u03BC\u2080) / (\u03C3 / \u221An), where x\u0304 is the sample mean, \u03BC\u2080 is the hypothesized mean, \u03C3 is the population standard deviation, and n is the sample size.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "edbb5f94-05b0-452c-ab7f-2958bfa96d49",
+              "Text": "The Z-test relies on the standard normal distribution, which has a mean of 0 and a standard deviation of 1.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "108dd6fa-7a39-43a5-8c5a-6da743522b7a",
+              "Text": "By the Central Limit Theorem, sample means are approximately normally distributed for large samples, making the Z-test broadly applicable.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "787f2d78-8f89-42d3-ba48-ab697218895b",
+              "Text": "The resulting Z-value is compared to critical values from the standard normal table to make a testing decision.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1445350f-cb51-4997-9015-0186492c8f37",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "The t-Test Statistic",
+          "BodyText": "The t-test statistic is used when the population standard deviation is unknown and must be estimated from the sample, which is the more common real-world scenario.",
+          "Notes": "t = (x\u0304 \u2212 \u03BC\u2080) / (s / \u221An), where s is the sample standard deviation. The t-distribution has heavier tails than the normal distribution, reflecting additional uncertainty.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "fedbe839-32b3-4fbd-a7db-181d5e67ffcb",
+              "Text": "The t-distribution is defined by degrees of freedom (df = n \u2212 1), and its shape approaches the normal distribution as sample size increases.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "22baa92e-7aef-4d3d-8550-3e56d1bc67b8",
+              "Text": "A one-sample t-test compares a sample mean to a known or hypothesized value, while two-sample t-tests compare means from two independent groups.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "696e14b1-82e8-468f-aff8-04d765dac400",
+              "Text": "The paired t-test is a variation used when two sets of observations are naturally linked, such as before-and-after measurements on the same subjects.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "1ac338ab-3798-4b96-b169-9c7f5e2ba06b",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "Choosing the Right Test Statistic",
+          "BodyText": "Selecting an appropriate test statistic depends on the type of data, the parameter being tested, the number of groups, and the assumptions that can be met.",
+          "Notes": "Choosing the wrong test statistic can lead to invalid conclusions, so understanding the conditions for each test is essential.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "48cadd27-1122-4c17-b43c-129cdc976535",
+              "Text": "For means with a known population standard deviation, use a Z-test; for means with an unknown standard deviation, use a t-test.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "7d0a23ed-68b3-40d9-9b21-122147826f99",
+              "Text": "For testing proportions from large samples, a Z-test for proportions is appropriate, using the standard error of the proportion.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5db027a2-b602-4a55-8bc9-b3746e8ad43f",
+              "Text": "For testing relationships between categorical variables or goodness-of-fit, a chi-square test statistic and chi-square distribution are used.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d8d97394-7d51-4a9a-beec-34a311e8e85d",
+              "Text": "For comparing variances or testing means across multiple groups simultaneously, an F-statistic and F-distribution are employed.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5dea4ed3-8ebb-4657-bbd2-e04191bfe39a",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "Degrees of Freedom",
+          "BodyText": "Degrees of freedom (df) are a parameter that determines the exact shape of several sampling distributions, including the t, chi-square, and F distributions.",
+          "Notes": "Intuitively, degrees of freedom represent the number of independent pieces of information available to estimate a statistic.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "ffc627b6-1f92-494a-b63b-f56bb04b18f2",
+              "Text": "For a one-sample t-test, degrees of freedom equal n \u2212 1, where n is the sample size.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2bedc529-35e0-439a-92b6-018b5252c02e",
+              "Text": "As degrees of freedom increase, the t-distribution becomes increasingly similar to the standard normal distribution.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "32f59620-0338-4c2f-b731-164cc8b08507",
+              "Text": "Correct identification of degrees of freedom is necessary to look up accurate critical values and p-values from statistical tables or software.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "25317b95-b2e2-4680-84a0-090a178f0854",
+          "TopicId": "1e437d60-455c-403e-8d5e-779768b384ed",
+          "Title": "Connecting the Test Statistic to a P-Value",
+          "BodyText": "Once a test statistic is calculated, its position within the sampling distribution determines the p-value, which quantifies the probability of observing a result as extreme as the sample under the null hypothesis.",
+          "Notes": "For a Z = 2.5 in a two-tailed test, you would find the area beyond \u00B12.5 in the standard normal distribution to compute the p-value.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "ModifiedDate": "2026-08-24T20:25:13.7571988-04:00",
+          "Items": [
+            {
+              "Id": "b285694c-6352-4f3b-952d-b2e9f7516796",
+              "Text": "The p-value is the area in the tail(s) of the sampling distribution beyond the observed test statistic.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a649ec31-b0f7-442e-9649-817aa39da431",
+              "Text": "For a one-tailed test, only one tail of the distribution is used; for a two-tailed test, both tails contribute to the p-value.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e0645c4a-696f-44fd-b6c4-e55c8f1b23cc",
+              "Text": "A smaller p-value means the observed test statistic falls further into the tail, providing stronger evidence against the null hypothesis.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "251a0cf5-a951-4926-a9fc-43d935ce19a9",
+              "Text": "The p-value is then compared to the significance level (\u03B1) to make the final reject or fail-to-reject decision.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ddc49103-216d-4977-8503-b18bffe1fee0",
+      "Title": "P-Values and Significance Levels",
+      "Summary": "Explores how to interpret p-values in context, set significance thresholds, and use these tools to make statistically grounded decisions.",
+      "SortOrder": 3,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "a215a529-2bfa-4d6b-8f74-b1c710cf379d",
+          "TopicId": "ddc49103-216d-4977-8503-b18bffe1fee0",
+          "Title": "What Is a P-Value?",
+          "BodyText": "A p-value is the probability of observing a test statistic as extreme as, or more extreme than, the one calculated from sample data, assuming the null hypothesis is true.",
+          "Notes": "For example, a p-value of 0.03 means there is a 3% chance of obtaining results at least as extreme as those observed if the null hypothesis were actually true.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "ModifiedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "Items": [
+            {
+              "Id": "bce1e009-fd01-420d-a5d9-90fd27e1def5",
+              "Text": "The p-value does NOT measure the probability that the null hypothesis is true or false.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "c51c5906-b27f-4f4b-b660-4e82f6fcc33c",
+              "Text": "Smaller p-values indicate stronger statistical evidence against the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "79895dcc-25f1-4c76-9be9-e2be0f2dc3de",
+              "Text": "The p-value is computed after selecting and running the appropriate test statistic on your sample data.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "f410f3b1-c485-47a9-9b35-71eff092dfda",
+          "TopicId": "ddc49103-216d-4977-8503-b18bffe1fee0",
+          "Title": "Setting the Significance Level (\u03B1)",
+          "BodyText": "The significance level, denoted \u03B1, is a pre-defined threshold that researchers set before conducting a test to determine when results will be considered statistically significant.",
+          "Notes": "Common choices for \u03B1 are 0.05 (5%), 0.01 (1%), and 0.10 (10%). The choice depends on the field of study and the consequences of making an error.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "ModifiedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "Items": [
+            {
+              "Id": "4755c7f8-175e-4288-9da5-90fa283c2bbf",
+              "Text": "\u03B1 must be established before data collection to avoid bias in decision-making.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "04d82b21-a0fa-455d-bfdc-f608376103e5",
+              "Text": "A lower \u03B1 (e.g., 0.01) makes the test more conservative, requiring stronger evidence to reject the null hypothesis.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "94a803a8-e399-40f6-a60f-e25f783338c1",
+              "Text": "The significance level directly controls the acceptable rate of Type I errors (false positives).",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "6cbe5c0f-8b2c-4190-9535-77a005de2057",
+          "TopicId": "ddc49103-216d-4977-8503-b18bffe1fee0",
+          "Title": "Comparing the P-Value to \u03B1",
+          "BodyText": "The core decision rule in hypothesis testing is to compare the calculated p-value to the chosen significance level \u03B1 to determine whether to reject the null hypothesis.",
+          "Notes": "If p \u2264 \u03B1, reject H\u2080 and conclude the result is statistically significant. If p \u003E \u03B1, fail to reject H\u2080, meaning insufficient evidence was found to support the alternative hypothesis.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "ModifiedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "Items": [
+            {
+              "Id": "b59bf8af-7684-4799-aac7-9c26fb87e057",
+              "Text": "When p \u2264 \u03B1, the observed result is considered unlikely under the null hypothesis, and H\u2080 is rejected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "553fc67a-1f71-42a4-abab-06cdc74f606d",
+              "Text": "When p \u003E \u03B1, the evidence is not strong enough to reject H\u2080; this does not prove H\u2080 is true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b99743db-30f7-4179-82cf-7b12c5fdfac8",
+              "Text": "This binary decision framework keeps conclusions consistent and reproducible across studies.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "205df29f-635c-4dd0-b87d-b857c70538b9",
+          "TopicId": "ddc49103-216d-4977-8503-b18bffe1fee0",
+          "Title": "Interpreting P-Values in Context",
+          "BodyText": "Statistical significance does not automatically imply practical significance; p-values must always be interpreted within the real-world context of the research question.",
+          "Notes": "A very large sample size can produce a statistically significant p-value for a trivially small effect. Conversely, a small sample may fail to detect a meaningful effect. Always pair p-values with effect size measures.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "ModifiedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "Items": [
+            {
+              "Id": "0b590525-bd08-4c4f-8eee-c96aaefa763c",
+              "Text": "A statistically significant result (small p-value) may represent an effect too small to matter in practice.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ee4b4fce-a19a-43a2-9cbf-805735ab7a4e",
+              "Text": "Context includes the magnitude of the effect, sample size, and domain-specific standards of importance.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7be68db7-8746-47ca-8766-c2357bc40cf2",
+              "Text": "Reporting confidence intervals alongside p-values provides a richer picture of the result\u0027s practical meaning.",
+              "SortOrder": 2
+            }
+          ]
+        },
+        {
+          "Id": "5b9f9954-f476-43fd-b1b9-0233e5a6f48e",
+          "TopicId": "ddc49103-216d-4977-8503-b18bffe1fee0",
+          "Title": "Common Misinterpretations of P-Values",
+          "BodyText": "P-values are among the most frequently misunderstood statistics; recognizing common errors in interpretation is essential for drawing sound conclusions.",
+          "Notes": "One prevalent misconception is treating a p-value greater than \u03B1 as proof that the null hypothesis is true, when it only indicates insufficient evidence to reject it.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "ModifiedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "Items": [
+            {
+              "Id": "2f09d2d2-9fa0-47f5-997e-0238d6a843aa",
+              "Text": "A p-value is not the probability that the null hypothesis is correct.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5c60d9b0-79b2-4161-b30c-5f0edd151948",
+              "Text": "Failing to reject H\u2080 is not the same as accepting H\u2080 as true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "b5943cba-05d9-461e-9212-d78d5ca59b28",
+              "Text": "A p-value does not indicate the size or importance of an observed effect.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "220e6af3-9549-46cd-ae19-0d165c9761ae",
+              "Text": "Multiple testing without correction inflates the chance of obtaining a significant p-value by random chance alone.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2c243c18-7cd4-4bb9-8646-99d25a593a25",
+          "TopicId": "ddc49103-216d-4977-8503-b18bffe1fee0",
+          "Title": "Using P-Values to Make Statistically Grounded Decisions",
+          "BodyText": "Hypothesis testing with p-values provides a structured framework for making data-driven decisions while acknowledging the role of chance and uncertainty.",
+          "Notes": "In applied settings such as clinical trials, quality control, or policy analysis, decisions based on p-values carry real consequences, making it vital to interpret them carefully alongside domain knowledge.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "ModifiedDate": "2026-08-24T20:25:35.1878086-04:00",
+          "Items": [
+            {
+              "Id": "946da040-85bf-4868-a562-22e941bddf23",
+              "Text": "Define the research question and significance level before collecting data to ensure objectivity.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "77418c45-4c2b-4a8d-9f51-c939f9e1c1bd",
+              "Text": "Use the p-value as one piece of evidence, not the sole determinant of a decision.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "0fa55ac1-92a5-4bb4-ad2d-687342e41e37",
+              "Text": "Communicate findings by stating the p-value, significance level, and a plain-language interpretation of what the result means for the specific context.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b7834b16-eebc-4ed1-a55d-c01bdd962b41",
+              "Text": "Consider the costs of Type I and Type II errors when selecting \u03B1 and interpreting results.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+      "Title": "Applying Common Hypothesis Tests",
+      "Summary": "Guides learners through the practical application of widely used hypothesis tests to real-world data sets through examples and exercises.",
+      "SortOrder": 4,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "d7e7f3f3-5862-460a-82d5-12ba43cfc6d9",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "One-Sample t-Test in Practice",
+          "BodyText": "The one-sample t-test is used to determine whether a sample mean differs significantly from a known or hypothesized population mean.",
+          "Notes": "Example: A quality control manager wants to know if the average weight of packaged goods (sample mean) differs from the stated 500g label. The t-test compares the sample mean to 500g, accounting for sample size and variability.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "3fc2f57e-f3af-4cc5-b556-a2e81e3775f5",
+              "Text": "Calculate the test statistic using the sample mean, hypothesized mean, sample standard deviation, and sample size.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "139bf4ce-7221-4c9b-b31e-eed50c8d27d6",
+              "Text": "Compare the resulting t-statistic to the critical value from the t-distribution for the chosen significance level.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "c2eba022-e7ad-4afd-a419-6843d14947fd",
+              "Text": "If the p-value falls below the significance threshold (e.g., 0.05), reject the null hypothesis and conclude the mean differs significantly.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "948410ec-b16b-4431-a0f1-5af7ada62334",
+              "Text": "Check assumptions: the data should be approximately normally distributed, especially important for small sample sizes.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fddba466-cec5-41ce-80a4-bad9224a8bf6",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "Two-Sample t-Test for Comparing Groups",
+          "BodyText": "The two-sample t-test evaluates whether the means of two independent groups differ significantly from one another.",
+          "Notes": "Example: A researcher compares average exam scores between two teaching methods \u2014 traditional lecture versus flipped classroom \u2014 to determine which is more effective.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "458250ce-e252-4240-9195-f6e05945c87b",
+              "Text": "Establish the null hypothesis that the two group means are equal and the alternative that they differ (or one is greater).",
+              "SortOrder": 0
+            },
+            {
+              "Id": "93974e36-9f2a-4932-9e44-2931f711cbc5",
+              "Text": "Determine whether to use a pooled (equal variances assumed) or Welch\u0027s (unequal variances) version of the test based on variance checks.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "6bbbeec9-6cb5-469b-ba49-1a77df95c610",
+              "Text": "Compute the t-statistic and degrees of freedom, then obtain the p-value to guide the decision.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "5ddae8f4-0cf4-471c-868a-7b67715dd0f8",
+              "Text": "Practical interpretation should include effect size (e.g., Cohen\u0027s d) alongside the p-value to convey the magnitude of the difference.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "1705aef1-e519-450f-8bcc-8c3fb02cd5e0",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "Paired t-Test for Before-and-After Data",
+          "BodyText": "The paired t-test is applied when the same subjects are measured twice, such as before and after an intervention, to control for individual variability.",
+          "Notes": "Example: Measuring employees\u0027 productivity scores before and after a training program, where each employee serves as their own control.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "822a5959-9cde-4b35-a204-df55072a4b86",
+              "Text": "Compute the difference score for each paired observation and test whether the mean difference is significantly different from zero.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5c278f05-153f-4874-8de2-247895706d6a",
+              "Text": "Because variability between subjects is eliminated, the paired test is typically more powerful than the independent two-sample t-test for matched data.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "96e9a525-c5b4-4ec3-8dfd-4e4a9c6dd346",
+              "Text": "Verify that the differences are approximately normally distributed before applying the test.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "3428e269-f179-4970-9ce7-244ffb2ad6aa",
+              "Text": "Report the mean difference and its confidence interval to give stakeholders a clear sense of practical impact.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "8e8aa675-0f08-407d-9394-13695e654c20",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "Chi-Square Test for Categorical Data",
+          "BodyText": "The chi-square test assesses whether observed frequencies in categorical data differ significantly from expected frequencies, or whether two categorical variables are independent.",
+          "Notes": "Example: Testing whether customer satisfaction ratings (satisfied, neutral, dissatisfied) are distributed equally across three store locations.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "b1d9d409-13cc-45ea-90dc-65019f4b5288",
+              "Text": "For a goodness-of-fit test, compare observed category counts to theoretically expected counts under the null hypothesis.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e4fe42d4-a5a1-4963-a409-2d8b7a13982f",
+              "Text": "For a test of independence, organize data into a contingency table and evaluate whether the row and column variables are associated.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "f334c1f1-f7bf-47ec-bd54-a52b016f6b27",
+              "Text": "Calculate the chi-square statistic by summing the squared differences between observed and expected frequencies divided by expected frequencies.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d7b95611-5d60-4719-9a92-880a32603ddc",
+              "Text": "Ensure expected cell counts are at least 5 in each category to satisfy the test\u0027s validity conditions.",
+              "SortOrder": 3
+            },
+            {
+              "Id": "cbcb3515-4f02-4f11-968a-ff203ed017df",
+              "Text": "Interpret a significant result as evidence that the observed distribution or association is unlikely under the null hypothesis.",
+              "SortOrder": 4
+            }
+          ]
+        },
+        {
+          "Id": "d85ca313-d611-4c10-bc49-75fe01110cdf",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "ANOVA for Comparing Multiple Group Means",
+          "BodyText": "Analysis of Variance (ANOVA) extends hypothesis testing to situations where three or more group means must be compared simultaneously.",
+          "Notes": "Example: A nutritionist tests whether mean weight loss differs across four diet plans by comparing the variance between groups to the variance within groups.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "5aad77ff-235b-44eb-9efb-168b90e1bc74",
+              "Text": "The null hypothesis in a one-way ANOVA states that all group means are equal; the alternative states that at least one group mean differs.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b11feb18-e310-4d27-a442-5bbb5dd08eca",
+              "Text": "The F-statistic is the ratio of between-group variance to within-group variance; a large F suggests the group means are not all equal.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "5b3a3e2e-4b71-431f-aa17-5f2ea00d3447",
+              "Text": "A significant ANOVA result indicates at least one group differs but does not specify which groups; post-hoc tests (e.g., Tukey\u0027s HSD) are needed for pairwise comparisons.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "d18d2f08-f79b-491a-913c-930d4e73cb58",
+              "Text": "Assumptions include normality within each group, homogeneity of variances, and independence of observations.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "2d2f08d2-4bc9-4e55-957a-843ec7567394",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "Selecting the Right Test for Real-World Data",
+          "BodyText": "Choosing the appropriate hypothesis test depends on the data type, number of groups, sample size, and whether observations are independent or paired.",
+          "Notes": "A systematic decision process prevents common errors such as applying a t-test to categorical data or ignoring dependency between observations.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "9a2fb600-e978-4767-99d3-f6ddbb022543",
+              "Text": "Identify the scale of measurement first: continuous data typically calls for t-tests or ANOVA, while categorical data calls for chi-square tests.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5df1663d-fe57-4059-becc-239c449f71a0",
+              "Text": "Determine the number of groups being compared: one sample, two independent samples, two paired samples, or three or more groups.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a534ab54-e319-4ed4-a24c-d4bc170de413",
+              "Text": "Verify that the data meet the assumptions of the chosen test before proceeding, and consider non-parametric alternatives if assumptions are violated.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "7b1e1728-71a4-4928-b2a5-7e9fad6fc5d3",
+              "Text": "Document the rationale for test selection as part of transparent and reproducible statistical reporting.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "cd439a85-3a09-453c-a7bf-13815f262251",
+          "TopicId": "4a03cb12-fbd1-43cf-b25f-74118ae54cad",
+          "Title": "Interpreting and Communicating Test Results",
+          "BodyText": "Correctly interpreting test outcomes and communicating findings clearly is as important as performing the calculations themselves.",
+          "Notes": "Misinterpretation of p-values is common; a p-value does not indicate the probability that the null hypothesis is true, only the probability of observing results as extreme as those obtained if the null were true.",
+          "SortOrder": 6,
+          "CreatedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "ModifiedDate": "2026-08-24T20:26:03.5146547-04:00",
+          "Items": [
+            {
+              "Id": "9045add5-3979-4407-8e26-741c98434839",
+              "Text": "State the conclusion in plain language tied directly to the research question rather than relying solely on statistical jargon.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a8d04d5-15be-4ad0-9f58-34277b94407f",
+              "Text": "Report the test statistic, degrees of freedom, p-value, and a confidence interval or effect size to provide a complete picture.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "1e31eec8-fcf7-459a-8021-542df32b76fd",
+              "Text": "Distinguish between statistical significance and practical significance \u2014 a statistically significant result may have little real-world importance if the effect size is small.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "fda56242-9726-4249-b24e-4dd0db15395c",
+              "Text": "Acknowledge limitations such as sample size constraints, potential confounders, or assumption violations that may affect the reliability of conclusions.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "a420f623-4b5b-499c-b693-83e903ded1b0",
+      "Title": "Type I and Type II Errors",
+      "Summary": "Examines the nature and consequences of errors in hypothesis testing, including how to identify, minimize, and communicate the risk of false conclusions.",
+      "SortOrder": 5,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "dc787f2b-d8ea-42c6-9722-92bd26d8b631",
+          "TopicId": "a420f623-4b5b-499c-b693-83e903ded1b0",
+          "Title": "Defining Type I Error (False Positive)",
+          "BodyText": "A Type I error occurs when the null hypothesis is true but is incorrectly rejected, producing a false positive conclusion.",
+          "Notes": "Example: Concluding that a new drug is effective when it actually has no effect. The researcher wrongly rejects a true null hypothesis.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "ModifiedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "Items": [
+            {
+              "Id": "e81ca9fc-fd35-4d65-89ea-b4d67bb9e6aa",
+              "Text": "A Type I error is also called a \u0027false positive\u0027 because we falsely detect an effect that does not exist.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "e81b0dff-df59-4a1d-8322-88a25a8b5065",
+              "Text": "The probability of committing a Type I error is equal to the significance level (alpha, \u03B1) chosen before the test.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "06edc974-07bb-493c-9fd6-640a779d9c2e",
+              "Text": "Common significance levels such as 0.05 mean there is a 5% risk of making a Type I error when the null hypothesis is true.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "72e68476-7b86-46f4-a07b-526c2a3c16ab",
+              "Text": "Reducing \u03B1 lowers the chance of a Type I error but increases the risk of a Type II error.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a653efd6-7d87-4ef1-be21-776fa448544f",
+          "TopicId": "a420f623-4b5b-499c-b693-83e903ded1b0",
+          "Title": "Defining Type II Error (False Negative)",
+          "BodyText": "A Type II error occurs when the null hypothesis is false but fails to be rejected, resulting in a missed detection or false negative.",
+          "Notes": "Example: Concluding that a new drug has no effect when it actually does. The researcher fails to detect a real effect that exists in the population.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "ModifiedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "Items": [
+            {
+              "Id": "b9040386-b8d6-4188-ad96-a56cbba69ec6",
+              "Text": "A Type II error is also called a \u0027false negative\u0027 because a true effect goes undetected.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "ca94e147-cdc9-4e07-9bb4-b32b9e0d51a8",
+              "Text": "The probability of committing a Type II error is denoted by beta (\u03B2).",
+              "SortOrder": 1
+            },
+            {
+              "Id": "35281acb-fd51-4bb5-b1f7-a46ec4deccd0",
+              "Text": "Factors such as small sample size, high variability in data, or a small true effect size increase the likelihood of a Type II error.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "4b27b201-3dd1-47b5-b076-36b6f9681d88",
+              "Text": "Unlike \u03B1, the value of \u03B2 is not directly set by the researcher but is influenced by study design decisions.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "40f48c71-2a83-4b2c-a9fa-4ec7bc428f46",
+          "TopicId": "a420f623-4b5b-499c-b693-83e903ded1b0",
+          "Title": "The Trade-off Between Type I and Type II Errors",
+          "BodyText": "There is an inherent inverse relationship between Type I and Type II errors; reducing one typically increases the other.",
+          "Notes": "This trade-off is a central challenge in hypothesis testing design. Researchers must decide which error type is more costly given the context of their study.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "ModifiedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "Items": [
+            {
+              "Id": "48286f0b-63cf-449d-b5f8-cbb0dbf048df",
+              "Text": "Lowering the significance level (\u03B1) makes it harder to reject the null hypothesis, reducing Type I errors but increasing Type II errors.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "07e66306-0def-43f8-a056-ef2f4a1d4abf",
+              "Text": "Raising \u03B1 makes rejection easier, reducing Type II errors but increasing the risk of false positives.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "ab807636-9d35-499a-ab89-26e8a09fc988",
+              "Text": "The context of the research should guide which error is considered more serious \u2014 for example, in medical testing, a false negative (Type II) may be more dangerous than a false positive (Type I).",
+              "SortOrder": 2
+            },
+            {
+              "Id": "2aed4b27-2fd6-4055-90a5-488177438d92",
+              "Text": "Balancing these errors requires deliberate choices about significance level, sample size, and study power.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "a3c0a11b-2625-4177-937f-c4bce244247a",
+          "TopicId": "a420f623-4b5b-499c-b693-83e903ded1b0",
+          "Title": "Statistical Power and Its Role in Minimizing Type II Errors",
+          "BodyText": "Statistical power is the probability of correctly rejecting a false null hypothesis, and it directly reflects the ability to avoid Type II errors.",
+          "Notes": "Power = 1 \u2212 \u03B2. A commonly targeted power level is 0.80, meaning there is an 80% chance of detecting a real effect if one exists.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "ModifiedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "Items": [
+            {
+              "Id": "131674f3-dd17-4278-8323-d6c631d56ad9",
+              "Text": "Higher statistical power means a lower probability of committing a Type II error.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "b391d378-b561-4609-883d-a7f3a5a1e02c",
+              "Text": "Power can be increased by using a larger sample size, which reduces variability and improves the ability to detect true effects.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "e4dc7fe7-2015-4180-a943-e0873c09117b",
+              "Text": "Increasing the significance level (\u03B1) also raises power but at the cost of a higher Type I error rate.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "b3797713-f6e4-4337-8460-2dc5e6e3be3d",
+              "Text": "Choosing a more sensitive measurement instrument or reducing data noise are additional strategies for improving power.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5386a117-2da3-49cd-b586-b75037cd041a",
+          "TopicId": "a420f623-4b5b-499c-b693-83e903ded1b0",
+          "Title": "Consequences of Each Error Type in Practice",
+          "BodyText": "The real-world consequences of Type I and Type II errors vary widely depending on the field and the decision being made.",
+          "Notes": "In criminal justice, a Type I error is convicting an innocent person; a Type II error is acquitting a guilty one. In medicine, a Type I error might lead to adopting an ineffective treatment, while a Type II error might mean withholding an effective one.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "ModifiedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "Items": [
+            {
+              "Id": "e0c05e34-1f5f-482c-a80c-65de0f8d92f0",
+              "Text": "Type I errors can lead to wasted resources, misguided policy decisions, or harmful interventions based on false conclusions.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "26cf1b34-816f-48b6-b006-bd4e328a77f2",
+              "Text": "Type II errors can result in missed opportunities, failure to adopt beneficial treatments, or overlooking important scientific findings.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "895ca78b-d5ef-4543-ac57-5a83e1e5e6db",
+              "Text": "Understanding the stakes of each error type helps researchers and decision-makers set appropriate significance levels and design studies accordingly.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "ddbc650a-d7ff-4dd6-84a5-0056e21393d6",
+              "Text": "In high-stakes fields such as pharmaceuticals or public safety, regulatory standards often specify strict error thresholds to protect against the most harmful error type.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "65c20ebc-4410-4880-a686-d01bbfe44abc",
+          "TopicId": "a420f623-4b5b-499c-b693-83e903ded1b0",
+          "Title": "Communicating Error Risk in Statistical Findings",
+          "BodyText": "Clearly reporting the risk of both error types is essential for transparent and trustworthy communication of hypothesis test results.",
+          "Notes": "Researchers should report not only whether a result is statistically significant but also the chosen \u03B1 level, confidence intervals, and ideally the power of the test, so readers can assess the credibility of the conclusions.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "ModifiedDate": "2026-08-24T20:26:28.5648344-04:00",
+          "Items": [
+            {
+              "Id": "2e07b689-2720-4745-a932-38be17ffe0f4",
+              "Text": "Always report the significance level (\u03B1) used so readers understand the accepted risk of a Type I error.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "2180b348-a40f-4186-a131-a9cd96f1baa9",
+              "Text": "Reporting confidence intervals alongside p-values provides additional context about the precision and practical significance of results.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "33eb5699-6067-4962-8a1f-3912b54b7ce5",
+              "Text": "When a result is not statistically significant, discussing the power of the test helps clarify whether this is likely a true null result or a potential Type II error.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "07fb1d45-cbf6-45bb-839f-8b1f0726669e",
+              "Text": "Transparent reporting of potential errors supports replicability and allows other researchers and stakeholders to critically evaluate conclusions.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+      "Title": "Interpreting and Communicating Results",
+      "Summary": "Focuses on how to draw statistically sound conclusions and present hypothesis testing findings clearly, accurately, and with appropriate confidence.",
+      "SortOrder": 6,
+      "CreatedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "ModifiedDate": "2026-08-24T20:24:02.7361948-04:00",
+      "Elements": [
+        {
+          "Id": "c9ee14f8-855d-4732-b18c-7a4d5013efdd",
+          "TopicId": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+          "Title": "Drawing Statistically Sound Conclusions",
+          "BodyText": "After conducting a hypothesis test, the conclusion must be grounded in the statistical evidence rather than assumptions or desired outcomes.",
+          "Notes": "A common mistake is to \u0027accept\u0027 the null hypothesis when the result is not significant; the correct language is \u0027fail to reject\u0027 the null hypothesis, preserving the logic of the test.",
+          "SortOrder": 0,
+          "CreatedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "ModifiedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "Items": [
+            {
+              "Id": "6508a531-18cc-432c-a111-5392a8b26ee5",
+              "Text": "Conclusions should always reference whether the null hypothesis is rejected or not rejected based on the p-value compared to the significance level.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "6a0969a4-31ce-483f-a9b7-ec0d337f9e45",
+              "Text": "A statistically significant result means the evidence is strong enough to reject the null hypothesis, not that the finding is practically important.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "880e2db8-33ea-4d45-8351-4116c500a81e",
+              "Text": "Avoid overstating certainty; hypothesis testing provides probabilistic evidence, not absolute proof.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "921a5b8d-073c-463d-b9d9-4682604dc971",
+              "Text": "The conclusion should logically follow from the test statistic and p-value computed during the analysis.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "5f5bac21-e4c5-4dc5-bb0a-0ca41e312e04",
+          "TopicId": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+          "Title": "Interpreting P-Values in Context",
+          "BodyText": "The p-value represents the probability of obtaining results at least as extreme as the observed data, assuming the null hypothesis is true.",
+          "Notes": "For example, a p-value of 0.03 means there is a 3% chance of observing results this extreme if the null hypothesis were true, which would lead to rejection at a 0.05 significance level.",
+          "SortOrder": 1,
+          "CreatedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "ModifiedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "Items": [
+            {
+              "Id": "cbcb8f1f-b759-4fe5-a76a-ff6bafb5c9bf",
+              "Text": "A small p-value (typically below 0.05) indicates strong evidence against the null hypothesis and supports rejection.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "95b9a84b-2873-4afc-a3d8-58c45cc87c3c",
+              "Text": "A large p-value suggests insufficient evidence to reject the null hypothesis, not evidence that it is true.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "39d62b1f-a50c-40ed-9e5c-12b6ce85f10e",
+              "Text": "The p-value must always be interpreted relative to the pre-specified significance level (alpha), not in isolation.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "17979add-c751-443a-9a6c-59669fa71f62",
+              "Text": "Misinterpreting the p-value as the probability that the null hypothesis is true is one of the most common errors in statistical communication.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c14cf72e-abd9-4d51-b0b0-3d6322a65c17",
+          "TopicId": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+          "Title": "Communicating Findings Clearly and Accurately",
+          "BodyText": "Presenting hypothesis testing results requires precise language that accurately reflects the statistical process and its limitations.",
+          "Notes": "In professional or academic reporting, stating the test used, the test statistic value, degrees of freedom, and p-value provides full transparency for the audience.",
+          "SortOrder": 2,
+          "CreatedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "ModifiedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "Items": [
+            {
+              "Id": "79ed774f-5b3a-4d0b-94c2-fc79ba6d983f",
+              "Text": "Always state the hypothesis being tested, the chosen significance level, and the resulting conclusion explicitly.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "245cff0a-f87a-410d-9978-489b9819c277",
+              "Text": "Use plain language to explain what the statistical result means in the context of the real-world question being investigated.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "009d4801-3d6e-4001-81a2-f5c9af1507a9",
+              "Text": "Avoid vague terms like \u0027proves\u0027 or \u0027confirms\u0027; instead use language such as \u0027the data provide evidence to suggest\u0027 or \u0027we fail to find evidence against.\u0027",
+              "SortOrder": 2
+            },
+            {
+              "Id": "f3259c62-4937-4e43-8545-cbd333b395ac",
+              "Text": "Reporting the effect size alongside significance helps the audience understand the practical magnitude of the finding.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "c066dff6-c9d2-4c7a-b80c-b289462c1f12",
+          "TopicId": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+          "Title": "Distinguishing Statistical Significance from Practical Significance",
+          "BodyText": "A result can be statistically significant without being meaningful in practice, and this distinction is critical when communicating findings.",
+          "Notes": "For instance, a study with a very large sample size might detect a statistically significant difference in test scores of 0.5 points, which is unlikely to matter in any practical educational setting.",
+          "SortOrder": 3,
+          "CreatedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "ModifiedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "Items": [
+            {
+              "Id": "56e636fc-0baf-4394-a581-92d368ba0f29",
+              "Text": "Statistical significance is determined by the p-value and sample size, while practical significance depends on the size and real-world impact of the effect.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "5e574331-523b-4a76-a520-567682eef2b7",
+              "Text": "Large sample sizes can produce statistically significant results even for trivially small differences.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "16df37b2-2a9e-4b8e-937c-130a4a46d55d",
+              "Text": "Communicating both statistical and practical significance gives stakeholders a complete and honest picture of the findings.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "1a0b42b2-d526-4673-9bf2-289bf3ac920e",
+              "Text": "Effect size measures such as Cohen\u0027s d or r help quantify practical significance independently of sample size.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "fd2c2bc4-ac35-4484-9f89-208812c18772",
+          "TopicId": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+          "Title": "Acknowledging and Communicating Potential Errors",
+          "BodyText": "Every hypothesis test carries the risk of Type I and Type II errors, and honest communication of results acknowledges these limitations.",
+          "Notes": "Transparency about error risks builds credibility and helps decision-makers understand the confidence level associated with the conclusions.",
+          "SortOrder": 4,
+          "CreatedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "ModifiedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "Items": [
+            {
+              "Id": "b50148a4-85ca-4a79-a9ee-b94eab6ed0cf",
+              "Text": "A Type I error (false positive) occurs when the null hypothesis is incorrectly rejected; its probability is controlled by the significance level alpha.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "a07ca0da-6c42-466b-88ec-b906f71d0f9e",
+              "Text": "A Type II error (false negative) occurs when a false null hypothesis is not rejected; reducing this risk requires adequate statistical power.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "7489fa89-2ed4-4ef0-8b5b-72bc0bb8b340",
+              "Text": "When reporting results, note the chosen alpha level to communicate the tolerated risk of a Type I error.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "a13acc0a-e026-4d85-b397-7be032f98455",
+              "Text": "Recommending replication or further study is good practice when the consequences of an error are high.",
+              "SortOrder": 3
+            }
+          ]
+        },
+        {
+          "Id": "9b2c918d-292e-4195-b23f-8faa289028ed",
+          "TopicId": "fa44d9aa-78e4-47da-b898-574420c7b56f",
+          "Title": "Presenting Results with Appropriate Confidence",
+          "BodyText": "Confidence intervals complement hypothesis test results by providing a range of plausible values for the parameter of interest, adding depth to the conclusion.",
+          "Notes": "A 95% confidence interval that does not include the null value (e.g., zero for a mean difference) is consistent with rejecting the null hypothesis at the 0.05 level.",
+          "SortOrder": 5,
+          "CreatedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "ModifiedDate": "2026-08-24T20:26:52.7875192-04:00",
+          "Items": [
+            {
+              "Id": "16353c8a-9d5f-454c-ab47-c666e88048f2",
+              "Text": "Confidence intervals convey both the direction and precision of an estimate, enriching the narrative beyond a simple reject-or-not decision.",
+              "SortOrder": 0
+            },
+            {
+              "Id": "10a2c3dd-bbcb-429d-b178-4c3dbc3f5090",
+              "Text": "Pairing a confidence interval with a p-value gives audiences a fuller understanding of uncertainty in the findings.",
+              "SortOrder": 1
+            },
+            {
+              "Id": "a1e5b287-000a-4757-93a1-819449281a51",
+              "Text": "Wider intervals indicate greater uncertainty, which should be communicated honestly alongside the conclusion.",
+              "SortOrder": 2
+            },
+            {
+              "Id": "be0ee037-5a7f-4606-9ffe-5a033b34cf42",
+              "Text": "Using confidence intervals shifts the communication focus from a binary decision to a more informative estimation framework.",
+              "SortOrder": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TotalElementCount": 45
+}

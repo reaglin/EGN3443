@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 15/Module 14 - ANOVA — Module Topics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:880px;margin:0 auto;padding:32px 24px;color:#222;line-height:1.55}
+h1{font-size:1.6rem;border-bottom:2px solid #dcdcdc;padding-bottom:8px}
+h2{font-size:1.2rem;margin-top:28px;color:#1a3c6e}
+.summary{color:#555;font-style:italic;margin:4px 0 10px}
+ul{margin:6px 0 6px 4px}
+li{margin:5px 0}
+.el-body{color:#555}
+.empty{color:#888}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+<h1>Week 15/Module 14 - ANOVA — Module Topics</h1>
+<h2>Introduction to ANOVA</h2>
+<div class="summary">This topic introduces Analysis of Variance as a statistical method designed to compare means across three or more groups. Learners explore why ANOVA is preferred over multiple t-tests and when it is the appropriate analytical choice.</div>
+<ul>
+<li><strong>What is ANOVA?</strong> <span class="el-body">— Analysis of Variance (ANOVA) is a statistical method used to compare means across three or more groups simultaneously.</span></li>
+<li><strong>Why Not Just Use Multiple t-Tests?</strong> <span class="el-body">— When comparing more than two groups, repeatedly applying t-tests inflates the overall Type I error rate, making ANOVA the preferred approach.</span></li>
+<li><strong>When is ANOVA the Appropriate Choice?</strong> <span class="el-body">— ANOVA is appropriate when a researcher needs to compare means from three or more independent groups on a continuous outcome variable.</span></li>
+<li><strong>Core Assumptions of ANOVA</strong> <span class="el-body">— ANOVA relies on several key assumptions that must be met for the results to be valid and interpretable.</span></li>
+<li><strong>One-Way vs. Multi-Factor ANOVA Designs</strong> <span class="el-body">— ANOVA can be extended beyond a single grouping variable to accommodate more complex study designs involving multiple factors.</span></li>
+</ul>
+<h2>Assumptions Underlying ANOVA</h2>
+<div class="summary">This topic examines the key statistical assumptions that must be met before conducting an ANOVA, including normality, homogeneity of variance, and independence of observations. Learners explore how to verify these assumptions and what to do when they are violated.</div>
+<ul>
+<li><strong>Normality of the Dependent Variable</strong> <span class="el-body">— ANOVA assumes that the dependent variable is approximately normally distributed within each group being compared.</span></li>
+<li><strong>Homogeneity of Variance (Homoscedasticity)</strong> <span class="el-body">— ANOVA requires that the variances of the dependent variable be approximately equal across all groups being compared, a property known as homogeneity of variance.</span></li>
+<li><strong>Independence of Observations</strong> <span class="el-body">— ANOVA assumes that each observation is independent of all others, meaning the value of one data point does not influence or predict the value of another.</span></li>
+<li><strong>Verifying Assumptions Before Conducting ANOVA</strong> <span class="el-body">— Before running an ANOVA, researchers should systematically check each assumption using a combination of visual methods and formal statistical tests.</span></li>
+<li><strong>Consequences of Violating ANOVA Assumptions</strong> <span class="el-body">— When one or more ANOVA assumptions are violated, the resulting F-statistic and p-value may be inaccurate, leading to inflated Type I or Type II error rates.</span></li>
+<li><strong>Alternatives and Remedies When Assumptions Are Violated</strong> <span class="el-body">— When ANOVA assumptions cannot be met, researchers have several alternative approaches to analyze group differences validly.</span></li>
+</ul>
+<h2>The F-Statistic and ANOVA Logic</h2>
+<div class="summary">This topic explains the conceptual foundation of ANOVA by breaking down how variance is partitioned into between-group and within-group components. Learners interpret the F-statistic and understand how it signals whether group differences are statistically significant.</div>
+<ul>
+<li><strong>Why ANOVA Instead of Multiple T-Tests</strong> <span class="el-body">— ANOVA addresses the problem of comparing means across three or more groups simultaneously, avoiding the inflation of Type I error that occurs when running multiple t-tests.</span></li>
+<li><strong>Partitioning Total Variance</strong> <span class="el-body">— The core logic of ANOVA involves decomposing the total variability in a dataset into two distinct sources: variance attributable to group differences and variance attributable to random error within groups.</span></li>
+<li><strong>Between-Group Variance (SS_Between)</strong> <span class="el-body">— Between-group variance captures the variability among the group means themselves, representing the effect of the grouping factor or treatment.</span></li>
+<li><strong>Within-Group Variance (SS_Within)</strong> <span class="el-body">— Within-group variance measures the variability of individual scores around their respective group means, representing random or unexplained error.</span></li>
+<li><strong>Constructing the F-Statistic</strong> <span class="el-body">— The F-statistic is the ratio of Mean Square Between to Mean Square Within, quantifying how much the group differences exceed the random variability within groups.</span></li>
+<li><strong>Interpreting the F-Statistic for Significance</strong> <span class="el-body">— To determine statistical significance, the calculated F-statistic is compared to a critical F-value from the F-distribution table, or a p-value is derived from it.</span></li>
+<li><strong>The ANOVA Summary Table</strong> <span class="el-body">— Results of an ANOVA are typically presented in a structured summary table that organizes the sources of variance, degrees of freedom, mean squares, F-statistic, and p-value.</span></li>
+</ul>
+<h2>One-Way ANOVA</h2>
+<div class="summary">This topic focuses on the one-way ANOVA design, in which a single independent variable is used to compare means across multiple groups. Learners practice conducting the analysis and interpreting results within this foundational design.</div>
+<ul>
+<li><strong>Definition and Purpose of One-Way ANOVA</strong> <span class="el-body">— One-way ANOVA is a statistical procedure used to compare the means of three or more groups based on a single independent variable.</span></li>
+<li><strong>Structure of the One-Way ANOVA Design</strong> <span class="el-body">— In a one-way ANOVA, participants are assigned to distinct groups (levels) of a single independent variable, and a continuous dependent variable is measured for each participant.</span></li>
+<li><strong>Assumptions of One-Way ANOVA</strong> <span class="el-body">— Before conducting a one-way ANOVA, researchers must verify that the data meet several key statistical assumptions to ensure valid results.</span></li>
+<li><strong>The F-Statistic in One-Way ANOVA</strong> <span class="el-body">— One-way ANOVA tests group differences by computing an F-statistic, which is the ratio of variance between groups to variance within groups.</span></li>
+<li><strong>Conducting a One-Way ANOVA</strong> <span class="el-body">— Performing a one-way ANOVA involves a series of systematic steps from organizing the data to calculating and evaluating the F-statistic.</span></li>
+<li><strong>Interpreting One-Way ANOVA Results</strong> <span class="el-body">— Interpreting the results of a one-way ANOVA requires evaluating both statistical significance and practical meaning of any observed group differences.</span></li>
+<li><strong>Post-Hoc Testing Following a Significant One-Way ANOVA</strong> <span class="el-body">— When a one-way ANOVA yields a significant result, post-hoc tests are conducted to identify exactly which pairs of group means are significantly different from one another.</span></li>
+</ul>
+<h2>Multi-Factor ANOVA Designs</h2>
+<div class="summary">This topic extends the ANOVA framework to designs involving two or more independent variables, introducing concepts such as main effects and interaction effects. Learners distinguish multi-factor designs from one-way ANOVA and understand when each is appropriate.</div>
+<ul>
+<li><strong>From One-Way to Multi-Factor ANOVA</strong> <span class="el-body">— Multi-factor ANOVA extends the one-way framework by incorporating two or more independent variables, called factors, into a single analysis.</span></li>
+<li><strong>Main Effects</strong> <span class="el-body">— A main effect is the independent influence of a single factor on the dependent variable, averaged across all levels of the other factors in the design.</span></li>
+<li><strong>Interaction Effects</strong> <span class="el-body">— An interaction effect occurs when the influence of one factor on the dependent variable changes depending on the level of another factor.</span></li>
+<li><strong>When to Use Multi-Factor ANOVA</strong> <span class="el-body">— Multi-factor ANOVA is appropriate when a researcher is interested in the effects of two or more independent variables on a single continuous dependent variable.</span></li>
+<li><strong>Structure of a Two-Way ANOVA</strong> <span class="el-body">— The two-way ANOVA is the most common multi-factor design, partitioning total variance into components attributable to Factor A, Factor B, their interaction, and error.</span></li>
+<li><strong>Interpreting Results in Multi-Factor Designs</strong> <span class="el-body">— Interpreting a multi-factor ANOVA requires evaluating each F-statistic in sequence, typically examining the interaction effect before the main effects.</span></li>
+</ul>
+<h2>Post-Hoc Testing and Interpreting Results</h2>
+<div class="summary">This topic covers post-hoc tests used to identify which specific group means differ after a significant ANOVA result is found. Learners develop skills in drawing meaningful, accurate conclusions from their ANOVA analyses.</div>
+<ul>
+<li><strong>Why Post-Hoc Tests Are Necessary</strong> <span class="el-body">— A significant ANOVA result tells us that at least one group mean differs from the others, but it does not identify which specific groups are different. Post-hoc tests are follow-up analyses conducted after a significant F-statistic to pinpoint exactly where those differences lie.</span></li>
+<li><strong>Common Post-Hoc Testing Procedures</strong> <span class="el-body">— Several post-hoc tests exist, each balancing the trade-off between statistical power and control of Type I error. Choosing the right procedure depends on sample sizes, group equality, and the research context.</span></li>
+<li><strong>Interpreting Post-Hoc Output</strong> <span class="el-body">— Post-hoc test output typically presents pairwise comparisons between all group combinations, along with p-values and sometimes confidence intervals. Correct interpretation requires evaluating each comparison against the adjusted significance threshold.</span></li>
+<li><strong>Controlling Familywise Error Rate</strong> <span class="el-body">— When multiple comparisons are made simultaneously, the probability of making at least one Type I error increases beyond the nominal alpha level — a phenomenon known as familywise error rate inflation. Post-hoc procedures are specifically designed to keep this cumulative error rate in check.</span></li>
+<li><strong>Drawing Meaningful Conclusions from ANOVA Results</strong> <span class="el-body">— Interpreting ANOVA results accurately requires integrating the F-statistic, significance level, effect size, and post-hoc findings into a coherent narrative. Conclusions must reflect both statistical significance and practical importance.</span></li>
+<li><strong>Reporting ANOVA and Post-Hoc Results in APA Style</strong> <span class="el-body">— Clear, standardized reporting of ANOVA results ensures transparency and replicability. APA style guidelines provide a consistent format for presenting F-statistics, significance, effect sizes, and post-hoc findings.</span></li>
+</ul>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

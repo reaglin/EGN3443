@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 13/Module 12 – Multiple Regression | EGN3443</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #25648a 100%);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a8d4f0;
+      margin-bottom: 0.45rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      max-width: 720px;
+      color: #d4e9f7;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1a3a5c;
+      border-bottom: 2px solid #d0dde9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #dce6f0;
+      border-radius: 8px;
+      padding: 1.3rem 1.4rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card header row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #1473a8;
+      border-bottom-color: #1473a8;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.73rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: #25648a;
+      border-radius: 3px;
+      padding: 0.18em 0.55em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.18s;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #1a3a5c;
+      outline: none;
+    }
+
+    /* ── Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-radius: 4px;
+      padding: 0.2em 0.6em;
+      text-transform: uppercase;
+    }
+
+    /* Type badge colours */
+    .badge-type-module-topics      { background: #e8f4fd; color: #1473a8; }
+    .badge-type-text-content       { background: #eef6ee; color: #2e7d32; }
+    .badge-type-quiz               { background: #fdf3e7; color: #b45309; }
+    .badge-type-assignment         { background: #f3eefe; color: #6a27b8; }
+
+    /* File-type badge */
+    .badge-filetype {
+      background: #f0f2f5;
+      color: #556070;
+      border: 1px solid #d0dae4;
+    }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #4a5c6b;
+      flex: 1;
+      line-height: 1.55;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a9bac;
+      padding: 1.25rem 1rem 2rem;
+      border-top: 1px solid #dce6f0;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header { padding: 1.75rem 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <p class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</p>
+      <h1>Week 13 / Module 12 &mdash; Multiple Regression</h1>
+      <p>
+        This module extends the ideas of simple linear regression to models with two or more
+        predictor variables. Explore the learning resources, reference materials, quizzes, and
+        assignments below to build and evaluate multiple regression models in engineering contexts.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-heading">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" title="View source file">source file</a>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-module-topics">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          An outline of the module's learning topics, covering the transition from simple to
+          multiple regression, model structure and variable selection, and interpretation of
+          partial regression coefficients, used to guide course design and learner navigation.
+        </p>
+      </div>
+
+      <!-- Card 2: EGN3443 Module 12 Landing -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/EGN3443_Module_12_Multiple_Regression_Analysis.html">EGN3443 Module 12 &ndash; Multiple Regression Analysis</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-text-content">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A landing page for Module 12 that provides links to the PowerPoint slides, lecture
+          recording, and a Google Colab notebook for multiple regression analysis, used by
+          learners to access all core instructional resources in one place.
+        </p>
+      </div>
+
+      <!-- Card 3: Multiple Regression Analysis reference -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Multiple_Regression_Analysis.html">Multiple Regression Analysis</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-text-content">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A comprehensive study reference page explaining multiple regression concepts including
+          model definition, key characteristics, coefficient interpretation, and model
+          evaluation, used by learners to read, review, and reinforce lecture material.
+        </p>
+      </div>
+
+      <!-- Card 4: Quiz Question Bank -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="quiz/index.html">Quiz Question Bank (30 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json" title="View source file">source file</a>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-quiz">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-desc">
+          A 30-question quiz bank covering simple and multiple linear regression concepts such
+          as R-squared interpretation, regression coefficients, model assumptions, and
+          multicollinearity, used by instructors to assess learner understanding of regression topics.
+        </p>
+      </div>
+
+      <!-- Card 5: Module 12 Graded Discussion -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Module 12 Graded Discussion</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A graded discussion assignment asking learners to propose a real-world example from a
+          field of their choice where multiple linear regression with at least two independent
+          variables would be appropriate, and to comment on a peer's response.
+        </p>
+      </div>
+
+      <!-- Card 6: Assignment 12 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Assignment 12 &ndash; Multiple Regression</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-assignment">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          A hands-on assignment requiring learners to extend their Assignment 11 simple
+          regression model by adding at least one additional predictor variable to build a
+          two-variable multiple regression model that improves predictive performance.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
+  </main>
+
+  <footer>
+    EGN3443 &mdash; Probability &amp; Statistics for Engineers &nbsp;&bull;&nbsp;
+    Week 13 / Module 12 &mdash; Multiple Regression
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

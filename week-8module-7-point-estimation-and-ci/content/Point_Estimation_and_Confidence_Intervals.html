@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Point Estimation and Confidence Intervals</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div><h1>Module 7: Point Estimation and Confidence Intervals</h1>
+<h2>Supporting Lectures:<br>EGN3443 Module 7 - Statistical Estimation Theory and Practice<br><br></h2>
+<h2>What is Estimation?</h2>
+<p>In statistics, an estimator is a rule for calculating an estimate of a given quantity based on observed data: thus the rule (the estimator), the quantity of interest (the estimand) and its result (the estimate) are distinguished.[1] For example, the sample mean is a commonly used estimator of the population mean.</p>
+<p>There are point and interval estimators. The point estimators yield single-valued results. This is in contrast to an interval estimator, where the result would be a range of plausible values. "Single value" does not necessarily mean "single number", but includes vector valued or function valued estimators.</p>
+<p>Estimation theory is concerned with the properties of estimators; that is, with defining properties that can be used to compare different estimators (different rules for creating estimates) for the same quantity, based on the same data. Such properties can be used to determine the best rules to use under given circumstances. However, in robust statistics, statistical theory goes on to consider the balance between having good properties, if tightly defined assumptions hold, and having worse properties that hold under wider conditions.</p>
+<h2></h2>
+<h2>1. Properties of Good Estimators</h2>
+<h3>Definition</h3>
+<p>An estimator is a statistical function that provides an estimate of a population parameter based on sample data. The quality of an estimator is determined by three key properties:</p>
+<h4>1.1 Unbiasedness</h4>
+<ul>
+<li><strong>Definition</strong>: An estimator is unbiased if its expected value equals the true population parameter.</li>
+<li><strong>Mathematical Representation</strong>: E(θ̂) = θ</li>
+<li><strong>Example</strong>: Sample mean (x̄) is an unbiased estimator of population mean (μ)</li>
+<li><strong>Calculation</strong>:
+<pre><code>E(x̄) = μBias = E(θ̂) - θ = 0
+</code></pre>
+</li>
+</ul>
+<p></p>
+<h4>1.2 Efficiency</h4>
+<ul>
+<li><strong>Definition</strong>: Among unbiased estimators, the most efficient has the smallest variance.</li>
+<li><strong>Measure</strong>: Cramér-Rao Lower Bound</li>
+<li><strong>Example</strong>: Maximum likelihood estimators are often the most efficient</li>
+<li><strong>Calculation</strong>: Variance efficiency = Var(θ̂) / Minimum possible variance</li>
+</ul>
+<p></p>
+<h4>1.3 Consistency</h4>
+<ul>
+<li><strong>Definition</strong>: An estimator converges to the true parameter value as sample size increases</li>
+<li><strong>Mathematical Representation</strong>: P(|θ̂ - θ| → 0) = 1 as n → ∞</li>
+<li><strong>Example</strong>: Sample variance becomes more accurate with larger samples</li>
+</ul>
+<h4>1.4 Web References</h4>
+<p>Wikipedia: <a href="https://en.wikipedia.org/wiki/Estimator">https://en.wikipedia.org/wiki/Estimator</a>&nbsp;</p>
+<p></p>
+<ul></ul>
+<h2>2. Maximum Likelihood Estimation (MLE)</h2>
+<h3>Definition</h3>
+<p>Maximum Likelihood Estimation is a method of estimating the parameters of a statistical model by maximizing the likelihood function.</p>
+<h3>Key Steps:</h3>
+<ol>
+<li>Construct the likelihood function</li>
+<li>Take the natural log (log-likelihood)</li>
+<li>Differentiate with respect to parameters</li>
+<li>Set derivatives to zero</li>
+<li>Solve for parameter estimates</li>
+</ol>
+<h3>Example: Bernoulli Distribution</h3>
+<ul>
+<li><strong>Likelihood Function</strong>: L(p) = p^x * (1-p)^(1-x)</li>
+<li><strong>Log-Likelihood</strong>: ln(L) = x * ln(p) + (1-x) * ln(1-p)</li>
+<li><strong>MLE Estimate</strong>: p̂ = x̄ (sample mean)</li>
+</ul>
+<h3>Web References:</h3>
+<ul>
+<li>Wikipedia -&nbsp;<a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation">https://en.wikipedia.org/wiki/Maximum_likelihood_estimation</a>&nbsp;</li>
+</ul>
+<h3>Sample Problems</h3>
+<ul>
+<li>Module 7 Sample Problem 1&nbsp;</li>
+<li>Module 7 Sample Problem 2&nbsp;</li>
+<li><strong>Note</strong>: In both sample problems, we went through the formal steps (above in 2). Because both problems follow a Bernoulli distribution the maximum likelihood estimator for the parameter p is the simply the mean of the sample. This is not true of all distributions, distributions with greater complexity are beyond the scope of this class. However, the full methodology for the solution is still shown.&nbsp;</li>
+<li index="0"><strong>MLE for Bernoulli</strong>: In both examples, we demonstrated that the maximum likelihood estimator for the parameter <math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math><span aria-hidden="true">p</span> of a Bernoulli distribution is simply the sample mean (proportion of successes).</li>
+<li index="1"><strong>Profile Likelihood CI</strong>: We used profile likelihood to construct confidence intervals, which can be more accurate than Wald intervals, especially when the sample size is small or <math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow></semantics></math><span aria-hidden="true">p</span> is close to 0 or 1.</li>
+<li index="2"><strong>Fisher Information</strong>: In the second example, we calculated the standard error using Fisher Information, which for a Bernoulli distribution is <math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mfrac><mrow><mi>p</mi><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo></mrow><mi>n</mi></mfrac></msqrt></mrow></semantics></math><span aria-hidden="true">np(1−p)​​</span>.</li>
+<li index="3"><strong>Optimization Methods</strong>: Both analytical solutions and numerical optimization approaches to find the MLE are shown.</li>
+</ul>
+<p></p>
+<h2>3. Confidence Intervals for Means</h2>
+<h3>Definition</h3>
+<p>A confidence interval provides a range of plausible values for a population parameter with a specified level of confidence.</p>
+<h3>Formula for Population Mean (Known σ):</h3>
+<p>CI = x̄ ± z(α/2) * (σ / √n)</p>
+<ul>
+<li>x̄: Sample mean</li>
+<li>z(α/2): Critical value from standard normal distribution</li>
+<li>σ: Population standard deviation</li>
+<li>n: Sample size</li>
+</ul>
+<h3>Example Calculation:</h3>
+<ul>
+<li>Sample mean (x̄) = 50</li>
+<li>Population σ = 10</li>
+<li>Sample size (n) = 36</li>
+<li>Confidence Level = 95%</li>
+</ul>
+<pre><code>z(0.025) = 1.96
+CI = 50 ± 1.96 * (10 / √36)
+CI = 50 ± 3.27
+CI = (46.73, 53.27)
+</code></pre>
+<h3>Web References:</h3>
+<ul>
+<li><a href="https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm">NIST - Confidence Intervals</a></li>
+<li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Confidence_interval">https://en.wikipedia.org/wiki/Confidence_interval</a>&nbsp;</li>
+<li><a href="https://www.khanacademy.org/math/statistics-probability/confidence-intervals-one-sample">Khan Academy - Confidence Intervals</a></li>
+</ul>
+<h3>Sample Problems</h3>
+<ul>
+<li>Module 7 Sample Problem 3&nbsp;</li>
+<li>Module 7 Sample Problem 4&nbsp;</li>
+<li>
+<p>From both examples, we can observe the following important principles about confidence intervals:</p>
+<ol depth="0">
+<li index="0"><strong>Sample Size Impact</strong>: As seen in Example 2 with a larger sample size (n=40), we get a narrower confidence interval compared to Example 1 (n=25), even though Example 2 uses a higher confidence level (99% vs 95%).</li>
+<li index="1"><strong>Confidence Level Effect</strong>: Higher confidence levels result in wider intervals, providing more certainty but less precision.</li>
+<li index="2"><strong>Distribution Shape</strong>: The t-distribution approaches the normal distribution as sample size increases, which is why the margin of error in Example 2 is relatively smaller despite the higher confidence level.</li>
+<li index="3"><strong>Practical Interpretation</strong>: In the engineering context, confidence intervals help quantify uncertainty in measurements of critical parameters like material strength or component lifetime, allowing for safer design decisions.</li>
+</ol>
+</li>
+</ul>
+<p>Bonus 7- 1 Interactive Estimation Problem&nbsp;</p>
+<h2>4. Confidence Intervals for Proportions</h2>
+<h3>Definition</h3>
+<p>Confidence interval for a population proportion estimates the range of true population proportion.<br><br>Population proportion is the fraction of individuals in a population that possess a certain characteristic, calculated as the number of individuals with that characteristic divided by the total population size.&nbsp; For example If a health survey indicates that 150 out of 500 surveyed individuals are smokers, the proportion of smokers in the sample is&nbsp;<br>p&nbsp;=&nbsp;150/500&nbsp;= 0.3 or 30%.</p>
+<h3>Formula:</h3>
+<p>CI = p̂ ± z(α/2) * √[(p̂ * (1-p̂)) / n]</p>
+<ul>
+<li>p̂: Sample proportion</li>
+<li>z(α/2): Critical value</li>
+<li>n: Sample size</li>
+</ul>
+<h3>Example Calculation:</h3>
+<ul>
+<li>Sample proportion (p̂) = 0.4</li>
+<li>Sample size (n) = 100</li>
+<li>Confidence Level = 90%</li>
+</ul>
+<pre><code>z(0.05) = 1.645
+CI = 0.4 ± 1.645 * √[(0.4 * 0.6) / 100]
+CI = 0.4 ± 0.082
+CI = (0.318, 0.482)
+</code></pre>
+<h3>Web References:</h3>
+<ul>
+<li>Open Library Introduction to Statistics 7.4 <a href="https://ecampusontario.pressbooks.pub/introstats/chapter/7-4-confidence-intervals-for-a-population-proportion/">https://ecampusontario.pressbooks.pub/introstats/chapter/7-4-confidence-intervals-for-a-population-proportion/</a>&nbsp;</li>
+</ul>
+<h3>Sample Problems</h3>
+<ul>
+<li>Open Library Introduction to Statistics 7.4 <a href="https://ecampusontario.pressbooks.pub/introstats/chapter/7-4-confidence-intervals-for-a-population-proportion/">https://ecampusontario.pressbooks.pub/introstats/chapter/7-4-confidence-intervals-for-a-population-proportion/</a>&nbsp;</li>
+<li>Module 7 Sample Problem 5&nbsp;</li>
+</ul>
+<p><span style="color: #000000; font-family: arial, helvetica, sans-serif; font-size: 30px;"></span><span style="color: #000000; font-family: arial, helvetica, sans-serif; font-size: 30px;">5. Tolerance Intervals in Engineering Applications</span></p>
+<h3>Definition</h3>
+<p>Tolerance intervals provide a range expected to contain a specified proportion of a population with a given confidence level.</p>
+<h3>Types:</h3>
+<ol>
+<li>Normal Distribution Tolerance Interval</li>
+<li>Non-parametric Tolerance Interval</li>
+<li>Prediction Intervals</li>
+</ol>
+<h3>Key Formulas:</h3>
+<ul>
+<li>k-factor method</li>
+<li>Based on sample mean and standard deviation</li>
+<li>Accounts for sample size and desired coverage</li>
+</ul>
+<h3>Example: Manufacturing Tolerance</h3>
+<ul>
+<li>Part diameter specifications</li>
+<li>Determining acceptable manufacturing variation</li>
+<li>Ensuring 99% of parts are within ±0.1mm of nominal size</li>
+</ul>
+<h3>Web References:</h3>
+<ul>
+<li><a href="https://www.itl.nist.gov/div898/handbook/prc/section2/prc263.htm" target="_blank" rel="noopener">NIST Engineering Statistics Handbook - Tolerance intervals for a normal distribution</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Engineering_tolerance" target="_blank" rel="noopener">Wikipedia - Engineering tolerance</a>&nbsp;</li>
+<li><a href="https://www.6sigma.us/six-sigma-in-focus/statistical-tolerancing/" target="_blank" rel="noopener">Six Sigma - Statistical Tolerancing</a>&nbsp;</li>
+</ul>
+<p></p>
+<h2>Recommended Study Resources:</h2>
+<ol>
+<li>Montgomery's "Design of Experiments"</li>
+<li>Casella &amp; Berger's "Statistical Inference"</li>
+<li>Online Coursera/edX Statistics Courses</li>
+</ol>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

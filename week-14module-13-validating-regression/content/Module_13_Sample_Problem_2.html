@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 13 Sample Problem 2</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div><h1>Module 13 Sample Problem 2</h1><h2 level="2">Problem Statement (Influence Diagnostics)</h2>
+<p>A materials engineer is studying the relationship between the processing temperature (°C) and the tensile strength (MPa) of a new aluminum alloy. The engineer collected data from 20 test specimens processed at different temperatures. Initial regression analysis suggests a linear relationship, but the engineer suspects that some data points might be disproportionately influencing the regression results.</p>
+<h2 level="2">Theoretical Background</h2>
+<h3 level="3">What Are Influence Diagnostics?</h3>
+<p>Influence diagnostics are statistical tools used to identify data points that have a disproportionate effect on the results of a regression analysis. These influential observations can substantially change:</p>
+<ol depth="0">
+<li index="0">The estimated coefficients (intercept and slopes)</li>
+<li index="1">The standard errors of these estimates</li>
+<li index="2">The overall fit of the model (R²)</li>
+<li index="3">The predictions made by the model</li>
+</ol>
+<h3 level="3">Key Diagnostic Measures</h3>
+<ol depth="0">
+<li index="0"><strong>Leverage (Hat Values)</strong> - Identifies observations with unusual predictor values.
+<ul depth="1">
+<li index="0">Range: 0 to 1</li>
+<li index="1">Rule of thumb threshold: 2p/n (where p is the number of predictors + 1, n is sample size)</li>
+</ul>
+</li>
+<li index="1"><strong>Studentized Residuals</strong> - Standardized residuals that help identify outliers in the response variable.
+<ul depth="1">
+<li index="0">Rule of thumb threshold: Values beyond ±2 are potential outliers</li>
+</ul>
+</li>
+<li index="2"><strong>Cook's Distance</strong> - Measures the overall influence of an observation on both the fitted values and estimated parameters.
+<ul depth="1">
+<li index="0">Rule of thumb threshold: 4/n</li>
+</ul>
+</li>
+<li index="3"><strong>DFFITS</strong> - Measures how much the predicted value changes when the observation is excluded.
+<ul depth="1">
+<li index="0">Rule of thumb threshold: 2√(p/n)</li>
+</ul>
+</li>
+<li index="4"><strong>DFBETAS</strong> - Measures how much each regression coefficient changes when the observation is excluded.
+<ul depth="1">
+<li index="0">Rule of thumb threshold: 2/√n</li>
+</ul>
+</li>
+</ol>
+<h2 level="2">Analysis of the Problem</h2>
+<p>In our example, the materials engineer has collected data on the relationship between processing temperature and tensile strength for a new aluminum alloy. After running the initial analysis, several key findings emerge:</p>
+<h3 level="3">Findings from Diagnostics</h3>
+<ol depth="0">
+<li index="0"><strong>Two influential data points</strong>: Using Cook's distance, we identified two observations that exceed the 4/n threshold.</li>
+<li index="1"><strong>Impact on regression coefficients</strong>: These influential points substantially change both the intercept and slope of the regression line.</li>
+<li index="2"><strong>Types of influential points</strong>:
+<ul depth="1">
+<li index="0">One has high leverage (unusual x-value) but fits the general trend</li>
+<li index="1">One is an outlier (unusual y-value) but with moderate leverage</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Effect on the Model</h3>
+<p>The identified influential points have several effects:</p>
+<ul depth="0">
+<li index="0">They pull the regression line toward themselves</li>
+<li index="1">They reduce the model's R² value</li>
+<li index="2">They increase the standard errors of the coefficient estimates</li>
+<li index="3">They might lead to incorrect inferences about the relationship between temperature and tensile strength</li>
+</ul>
+<h2 level="2">Solutions to Address Influential Points</h2>
+<p>There are several approaches to handling influential data points:</p>
+<h3 level="3">1. Investigate Potential Data Issues</h3>
+<p>Before removing any points, investigate whether they represent:</p>
+<ul depth="0">
+<li index="0">Measurement errors</li>
+<li index="1">Data entry mistakes</li>
+<li index="2">A different manufacturing process</li>
+<li index="3">Natural variation in the material</li>
+</ul>
+<h3 level="3">2. Remove Influential Points</h3>
+<p>If the points are confirmed to be errors or not representative of the process being studied:</p>
+<ul depth="0">
+<li index="0">Refit the model without these points</li>
+<li index="1">Compare the original and cleaned models</li>
+<li index="2">Document the reasons for removal</li>
+</ul>
+<p>As shown in both the Python and R implementations, removing the influential points leads to:</p>
+<ul depth="0">
+<li index="0">A steeper slope (stronger relationship between temperature and strength)</li>
+<li index="1">Higher R² value (better fit)</li>
+<li index="2">Lower standard errors (more precise estimates)</li>
+</ul>
+<h3 level="3">3. Use Robust Regression Methods</h3>
+<p>Instead of removing points, robust regression techniques reduce their influence:</p>
+<ul depth="0">
+<li index="0"><strong>Huber Regression</strong>: Assigns lower weights to observations with large residuals</li>
+<li index="1"><strong>Tukey's Bisquare</strong>: More aggressive downweighting of outliers</li>
+<li index="2"><strong>RANSAC</strong>: Identifies inliers and fits the model only to them</li>
+</ul>
+<p>The implementation demonstrates how Huber regression provides a middle ground between keeping all points and removing influential ones.</p>
+<h3 level="3">4. Transform Variables</h3>
+<p>In some cases, transforming variables can reduce the impact of influential points:</p>
+<ul depth="0">
+<li index="0">Log transformation</li>
+<li index="1">Box-Cox transformation</li>
+<li index="2">Other nonlinear transformations</li>
+</ul>
+<h3 level="3">5. Add Additional Predictors</h3>
+<p>Sometimes influential points indicate missing variables:</p>
+<ul depth="0">
+<li index="0">Consider if additional factors might explain the unusual observations</li>
+<li index="1">Add interaction terms if appropriate</li>
+</ul>
+<h2 level="2">Recommendations for the Materials Engineer</h2>
+<p>Based on our analysis, I would recommend:</p>
+<ol depth="0">
+<li index="0"><strong>Investigate the two influential points</strong> - Determine if they represent experimental errors or legitimate but unusual specimens.</li>
+<li index="1"><strong>Consider separate models</strong> - If the influential points represent a different manufacturing process or material composition, consider developing separate models.</li>
+<li index="2"><strong>Use robust regression</strong> - If all data points are valid but some have high influence, use robust regression techniques to handle them without complete removal.</li>
+<li index="3"><strong>Report multiple models</strong> - Show stakeholders both the original and modified models to help them understand the sensitivity of the results.</li>
+<li index="4"><strong>Design future experiments</strong> - Plan future tests to include replicates at the temperature ranges where influential points were found to confirm or refute their behavior.</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>Influence diagnostics are essential tools for building reliable regression models in engineering applications. By systematically identifying and addressing influential observations, engineers can develop more robust models that better represent the true relationships between variables.</p>
+<p>In this example, we've seen how seemingly small data issues can substantially impact model interpretation and predictions. The implementation in both Python and R provides a comprehensive framework for detecting and handling influential points in regression analysis.</p>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/1wp6zLN4h7AsrD4PsnTS2riYlbeuJ0oWd?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from sklearn.linear_model import LinearRegression</code><br><code>import statsmodels.api as sm</code><br><code>from statsmodels.stats.outliers_influence import OLSInfluence</code><br><code>from statsmodels.graphics.regressionplots import influence_plot</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate synthetic data for our aluminum alloy example</code><br><code>n = 20</code><br><code>temperature = np.linspace(450, 650, n)</code></p>
+<p><code># Create tensile strength with a linear relationship plus noise</code><br><code>tensile_strength = 200 + 0.5 * (temperature - 450) + np.random.normal(0, 10, n)</code></p>
+<p><code># Add two influential points</code><br><code>temperature = np.append(temperature, [500, 600])</code><br><code># One high leverage point</code><br><code>tensile_strength = np.append(tensile_strength, [290, 350])</code></p>
+<p><code># Create a DataFrame</code><br><code>data = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Temperature': temperature,</code><br><code>&nbsp; &nbsp; 'TensileStrength': tensile_strength</code><br><code>})</code></p>
+<p><code># Fit a linear regression model using statsmodels for detailed diagnostics</code><br><code>X = sm.add_constant(data['Temperature'])</code><br><code>y = data['TensileStrength']</code><br><code>model = sm.OLS(y, X).fit()</code></p>
+<p><code># Print summary of the model</code><br><code>print(model.summary())</code></p>
+<p><code># Calculate influence measures</code><br><code>influence = OLSInfluence(model)</code></p>
+<p><code># Extract key influence diagnostics</code><br><code>diagnostics = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Leverage': influence.hat_matrix_diag,</code><br><code>&nbsp; &nbsp; 'Studentized_Residuals': influence.resid_studentized_external,</code><br><code>&nbsp; &nbsp; 'Cooks_Distance': influence.cooks_distance[0],</code><br><code>&nbsp; &nbsp; 'DFFITS': influence.dffits[0],</code><br><code>&nbsp; &nbsp; 'DFBETAS_Intercept': influence.dfbetas[:,0],</code><br><code>&nbsp; &nbsp; 'DFBETAS_Slope': influence.dfbetas[:,1]</code><br><code>})</code></p>
+<p><code>diagnostics.index = data.index</code><br><code>diagnostics = pd.concat([data, diagnostics], axis=1)</code><br><code>print("\nInfluence Diagnostics:\n")</code><br><code>print(diagnostics)</code></p>
+<p><code># Visualize the data and regression line</code><br><code>plt.figure(figsize=(12, 8))</code></p>
+<p><code>plt.subplot(2, 2, 1)</code><br><code>sns.regplot(x='Temperature', y='TensileStrength', data=data,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; scatter_kws={'s': 80}, line_kws={'color': 'red'})</code><br><code>plt.title('Temperature vs Tensile Strength')</code><br><code>plt.xlabel('Temperature (°C)')</code><br><code>plt.ylabel('Tensile Strength (MPa)')</code></p>
+<p><code># Highlight points with high Cook's Distance</code><br><code>high_influence = diagnostics[diagnostics['Cooks_Distance'] &gt; 4/len(data)]</code><br><code>plt.scatter(high_influence['Temperature'], high_influence['TensileStrength'],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s=150, facecolors='none', edgecolors='green', linewidth=2,</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; label=f'High Influence Points (n={len(high_influence)})')</code><br><code>plt.legend()</code></p>
+<p><code># Plot Cook's distance</code><br><code>plt.subplot(2, 2, 2)</code><br><code>cook_threshold = 4/len(data) &nbsp;# Common threshold: 4/n</code><br><code>plt.stem(diagnostics.index, diagnostics['Cooks_Distance'], markerfmt=',')</code><br><code>plt.axhline(y=cook_threshold, color='r', linestyle='--',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=f'Threshold ({cook_threshold:.3f})')</code><br><code>plt.title("Cook's Distance")</code><br><code>plt.xlabel('Observation Index')</code><br><code>plt.ylabel("Cook's Distance")</code><br><code>plt.legend()</code></p>
+<p><code># Plot Leverage vs. Studentized Residuals</code><br><code>plt.subplot(2, 2, 3)</code><br><code>plt.scatter(diagnostics['Leverage'], diagnostics['Studentized_Residuals'])</code><br><code>plt.axhline(y=0, color='gray', linestyle='--')</code><br><code>plt.axhline(y=2, color='red', linestyle='--', label='Outlier Threshold (±2)')</code><br><code>plt.axhline(y=-2, color='red', linestyle='--')</code><br><code>leverage_threshold = 2 * (X.shape[1]) / len(data)</code><br><code>plt.axvline(x=leverage_threshold, color='blue', linestyle='--',&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=f'Leverage Threshold ({leverage_threshold:.3f})')</code><br><code>plt.title('Leverage vs. Studentized Residuals')</code><br><code>plt.xlabel('Leverage (Hat Value)')</code><br><code>plt.ylabel('Studentized Residuals')</code><br><code>plt.legend()</code></p>
+<p><code># Create a more detailed influence plot</code><br><code>plt.subplot(2, 2, 4)</code><br><code>influence_plot(model, ax=plt.gca())</code><br><code>plt.title('Influence Plot')</code><br><code>plt.tight_layout()</code><br><code>plt.show()</code></p>
+<p><code># Refit the model without influential points</code><br><code>influential_idx = diagnostics[diagnostics['Cooks_Distance'] &gt; cook_threshold].index</code><br><code>clean_data = data.drop(influential_idx)</code></p>
+<p><code>X_clean = sm.add_constant(clean_data['Temperature'])</code><br><code>y_clean = clean_data['TensileStrength']</code><br><code>model_clean = sm.OLS(y_clean, X_clean).fit()</code></p>
+<p><code># Compare original and cleaned models</code><br><code>print("\nOriginal Model:\n")</code><br><code>print(f"Intercept: {model.params[0]:.4f}")</code><br><code>print(f"Slope: {model.params[1]:.4f}")</code><br><code>print(f"R-squared: {model.rsquared:.4f}")</code></p>
+<p><code>print("\nCleaned Model (without influential points):\n")</code><br><code>print(f"Intercept: {model_clean.params[0]:.4f}")</code><br><code>print(f"Slope: {model_clean.params[1]:.4f}")</code><br><code>print(f"R-squared: {model_clean.rsquared:.4f}")</code></p>
+<p><code># Plot both models</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.scatterplot(x='Temperature', y='TensileStrength', data=data, s=80, label='All Data')</code><br><code>sns.scatterplot(x='Temperature', y='TensileStrength', data=data.loc[influential_idx],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s=150, color='red', label='Influential Points')</code></p>
+<p><code># Add regression lines</code><br><code>x_range = np.linspace(data['Temperature'].min(), data['Temperature'].max(), 100)</code><br><code># Original model</code><br><code>plt.plot(x_range, model.params[0] + model.params[1] * x_range,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'r-', label='Original Model')</code><br><code># Cleaned model</code><br><code>plt.plot(x_range, model_clean.params[0] + model_clean.params[1] * x_range,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'g-', label='Cleaned Model')</code></p>
+<p><code>plt.title('Comparison of Models With and Without Influential Points')</code><br><code>plt.xlabel('Temperature (°C)')</code><br><code>plt.ylabel('Tensile Strength (MPa)')</code><br><code>plt.legend()</code><br><code>plt.grid(True)</code><br><code>plt.show()</code></p>
+<p><code># Robust regression using Huber loss</code><br><code>from sklearn.linear_model import HuberRegressor</code></p>
+<p><code>X_for_huber = data['Temperature'].values.reshape(-1, 1)</code><br><code>huber_model = HuberRegressor(epsilon=1.35).fit(X_for_huber, y)</code></p>
+<p><code># Plot Huber regression results</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.scatterplot(x='Temperature', y='TensileStrength', data=data, s=80, label='All Data')</code><br><code>sns.scatterplot(x='Temperature', y='TensileStrength', data=data.loc[influential_idx],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s=150, color='red', label='Influential Points')</code></p>
+<p><code># Add regression lines</code><br><code>plt.plot(x_range, model.params[0] + model.params[1] * x_range,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'r-', label='OLS Model')</code><br><code>plt.plot(x_range, model_clean.params[0] + model_clean.params[1] * x_range,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'g-', label='OLS without Influential Points')</code><br><code>plt.plot(x_range, huber_model.intercept_ + huber_model.coef_[0] * x_range,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'b-', label='Robust Huber Regression')</code></p>
+<p><code>plt.title('Comparison with Robust Regression')</code><br><code>plt.xlabel('Temperature (°C)')</code><br><code>plt.ylabel('Tensile Strength (MPa)')</code><br><code>plt.legend()</code><br><code>plt.grid(True)</code><br><code>plt.show()</code></p>
+<h2>Solution in R</h2>
+<p><code># Load necessary libraries</code><br><code>library(ggplot2)</code><br><code>library(dplyr)</code><br><code>library(gridExtra)</code><br><code>library(MASS) &nbsp;# For robust regression</code></p>
+<p><code># Set seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate synthetic data for our aluminum alloy example</code><br><code>n &lt;- 20</code><br><code>temperature &lt;- seq(450, 650, length.out = n)</code></p>
+<p><code># Create tensile strength with a linear relationship plus noise</code><br><code>tensile_strength &lt;- 200 + 0.5 * (temperature - 450) + rnorm(n, 0, 10)</code></p>
+<p><code># Add two influential points</code><br><code>temperature &lt;- c(temperature, 500, 600)</code><br><code># One high leverage point with unusual strength</code><br><code>tensile_strength &lt;- c(tensile_strength, 290, 350)</code></p>
+<p><code># Create a data frame</code><br><code>data &lt;- data.frame(</code><br><code>&nbsp; Temperature = temperature,</code><br><code>&nbsp; TensileStrength = tensile_strength</code><br><code>)</code></p>
+<p><code># Fit a linear regression model</code><br><code>model &lt;- lm(TensileStrength ~ Temperature, data = data)</code></p>
+<p><code># Print model summary</code><br><code>summary(model)</code></p>
+<p><code># Calculate influence measures</code><br><code>influence_measures &lt;- influence.measures(model)</code><br><code>print(influence_measures)</code></p>
+<p><code># Extract key influence diagnostics</code><br><code>diagnostics &lt;- data.frame(</code><br><code>&nbsp; Temperature = data$Temperature,</code><br><code>&nbsp; TensileStrength = data$TensileStrength,</code><br><code>&nbsp; Leverage = hatvalues(model),</code><br><code>&nbsp; Studentized_Residuals = rstudent(model),</code><br><code>&nbsp; Cooks_Distance = cooks.distance(model),</code><br><code>&nbsp; DFFITS = dffits(model),</code><br><code>&nbsp; DFBETAS_Intercept = dfbetas(model)[,1],</code><br><code>&nbsp; DFBETAS_Slope = dfbetas(model)[,2]</code><br><code>)</code></p>
+<p><code>print(head(diagnostics))</code></p>
+<p><code># Define thresholds</code><br><code>cook_threshold &lt;- 4/nrow(data)</code><br><code>leverage_threshold &lt;- 2 * (2) / nrow(data) &nbsp;# 2 * (p/n), where p = 2 (intercept and slope)</code></p>
+<p><code># Create visualizations</code><br><code># 1. Scatter plot with regression line</code><br><code>p1 &lt;- ggplot(data, aes(x = Temperature, y = TensileStrength)) +</code><br><code>&nbsp; geom_point(size = 3) +</code><br><code>&nbsp; geom_smooth(method = "lm", color = "red", se = FALSE) +</code><br><code>&nbsp; geom_point(data = diagnostics[diagnostics$Cooks_Distance &gt; cook_threshold,],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;aes(x = Temperature, y = TensileStrength),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = "green", size = 5, shape = 1, stroke = 2) +</code><br><code>&nbsp; labs(title = "Temperature vs Tensile Strength",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_bw()</code></p>
+<p><code># 2. Cook's distance plot</code><br><code>p2 &lt;- ggplot(diagnostics, aes(x = 1:nrow(diagnostics), y = Cooks_Distance)) +</code><br><code>&nbsp; geom_segment(aes(x = 1:nrow(diagnostics), y = 0, xend = 1:nrow(diagnostics), yend = Cooks_Distance)) +</code><br><code>&nbsp; geom_point(size = 2) +</code><br><code>&nbsp; geom_hline(yintercept = cook_threshold, linetype = "dashed", color = "red") +</code><br><code>&nbsp; labs(title = "Cook's Distance",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Observation Index",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Cook's Distance") +</code><br><code>&nbsp; annotate("text", x = nrow(diagnostics)/2, y = cook_threshold + max(diagnostics$Cooks_Distance)/20,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste("Threshold =", round(cook_threshold, 3)), color = "red") +</code><br><code>&nbsp; theme_bw()</code></p>
+<p><code># 3. Leverage vs Studentized Residuals plot</code><br><code>p3 &lt;- ggplot(diagnostics, aes(x = Leverage, y = Studentized_Residuals)) +</code><br><code>&nbsp; geom_point(size = 3) +</code><br><code>&nbsp; geom_hline(yintercept = 0, linetype = "dashed", color = "gray") +</code><br><code>&nbsp; geom_hline(yintercept = c(-2, 2), linetype = "dashed", color = "red") +</code><br><code>&nbsp; geom_vline(xintercept = leverage_threshold, linetype = "dashed", color = "blue") +</code><br><code>&nbsp; labs(title = "Leverage vs Studentized Residuals",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Leverage (Hat Value)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Studentized Residuals") +</code><br><code>&nbsp; annotate("text", x = leverage_threshold + max(diagnostics$Leverage)/20, y = 0,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste("Leverage Threshold =", round(leverage_threshold, 3)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = "blue", angle = 90) +</code><br><code>&nbsp; theme_bw()</code></p>
+<p><code># 4. Influence plot (bubble plot)</code><br><code>p4 &lt;- ggplot(diagnostics, aes(x = Leverage, y = Studentized_Residuals)) +</code><br><code>&nbsp; geom_point(aes(size = Cooks_Distance), alpha = 0.7) +</code><br><code>&nbsp; geom_hline(yintercept = 0, linetype = "dashed", color = "gray") +</code><br><code>&nbsp; geom_hline(yintercept = c(-2, 2), linetype = "dashed", color = "red") +</code><br><code>&nbsp; geom_vline(xintercept = leverage_threshold, linetype = "dashed", color = "blue") +</code><br><code>&nbsp; labs(title = "Influence Plot",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Leverage (Hat Value)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Studentized Residuals",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;size = "Cook's Distance") +</code><br><code>&nbsp; theme_bw()</code></p>
+<p><code># Arrange plots in a grid</code><br><code>grid.arrange(p1, p2, p3, p4, ncol = 2)</code></p>
+<p><code># Identify influential points</code><br><code>influential_idx &lt;- which(diagnostics$Cooks_Distance &gt; cook_threshold)</code><br><code>print(paste("Influential observation indices:", paste(influential_idx, collapse = ", ")))</code></p>
+<p><code># Refit the model without influential points</code><br><code>clean_data &lt;- data[-influential_idx, ]</code><br><code>model_clean &lt;- lm(TensileStrength ~ Temperature, data = clean_data)</code></p>
+<p><code># Compare original and cleaned models</code><br><code>cat("\nOriginal Model:\n")</code><br><code>cat("Intercept:", coef(model)[1], "\n")</code><br><code>cat("Slope:", coef(model)[2], "\n")</code><br><code>cat("R-squared:", summary(model)$r.squared, "\n")</code></p>
+<p><code>cat("\nCleaned Model (without influential points):\n")</code><br><code>cat("Intercept:", coef(model_clean)[1], "\n")</code><br><code>cat("Slope:", coef(model_clean)[2], "\n")</code><br><code>cat("R-squared:", summary(model_clean)$r.squared, "\n")</code></p>
+<p><code># Plot both models</code><br><code>comparison_plot &lt;- ggplot() +</code><br><code>&nbsp; geom_point(data = data, aes(x = Temperature, y = TensileStrength), size = 3) +</code><br><code>&nbsp; geom_point(data = data[influential_idx,],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;aes(x = Temperature, y = TensileStrength, color = "Influential Points"),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;size = 5) +</code><br><code>&nbsp; geom_abline(intercept = coef(model)[1], slope = coef(model)[2],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color = "red", size = 1, linetype = "solid") +</code><br><code>&nbsp; geom_abline(intercept = coef(model_clean)[1], slope = coef(model_clean)[2],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; color = "green", size = 1, linetype = "solid") +</code><br><code>&nbsp; scale_color_manual(values = c("Influential Points" = "red")) +</code><br><code>&nbsp; labs(title = "Comparison of Models With and Without Influential Points",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;color = "Legend") +</code><br><code>&nbsp; theme_bw() +</code><br><code>&nbsp; theme(legend.position = "bottom")</code></p>
+<p><code># Add a legend for the regression lines</code><br><code>comparison_plot &lt;- comparison_plot +</code><br><code>&nbsp; annotate("text", x = min(data$Temperature) + 20, y = max(data$TensileStrength) - 10,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = "Original Model", color = "red") +</code><br><code>&nbsp; annotate("text", x = min(data$Temperature) + 20, y = max(data$TensileStrength) - 20,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = "Cleaned Model", color = "green")</code></p>
+<p><code>print(comparison_plot)</code></p>
+<p><code># Fit a robust regression model using Huber's M-estimation</code><br><code>robust_model &lt;- rlm(TensileStrength ~ Temperature, data = data)</code></p>
+<p><code># Compare all three models</code><br><code>cat("\nRobust Model (using Huber's M-estimation):\n")</code><br><code>cat("Intercept:", coef(robust_model)[1], "\n")</code><br><code>cat("Slope:", coef(robust_model)[2], "\n")</code></p>
+<p><code># Create a new x range for predictions</code><br><code>x_range &lt;- seq(min(data$Temperature), max(data$Temperature), length.out = 100)</code><br><code>pred_df &lt;- data.frame(Temperature = x_range)</code></p>
+<p><code># Make predictions</code><br><code>pred_original &lt;- predict(model, newdata = pred_df)</code><br><code>pred_clean &lt;- predict(model_clean, newdata = pred_df)</code><br><code>pred_robust &lt;- predict(robust_model, newdata = pred_df)</code></p>
+<p><code># Create prediction data frames</code><br><code>pred_df_original &lt;- data.frame(Temperature = x_range, TensileStrength = pred_original, Model = "OLS")</code><br><code>pred_df_clean &lt;- data.frame(Temperature = x_range, TensileStrength = pred_clean, Model = "OLS without Influential Points")</code><br><code>pred_df_robust &lt;- data.frame(Temperature = x_range, TensileStrength = pred_robust, Model = "Robust Regression")</code><br><code>pred_combined &lt;- rbind(pred_df_original, pred_df_clean, pred_df_robust)</code></p>
+<p><code># Plot all three models</code><br><code>final_plot &lt;- ggplot() +</code><br><code>&nbsp; geom_point(data = data, aes(x = Temperature, y = TensileStrength), size = 3) +</code><br><code>&nbsp; geom_point(data = data[influential_idx,],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;aes(x = Temperature, y = TensileStrength),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;color = "red", size = 5) +</code><br><code>&nbsp; geom_line(data = pred_combined, aes(x = Temperature, y = TensileStrength, color = Model, linetype = Model),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size = 1) +</code><br><code>&nbsp; scale_color_manual(values = c("OLS" = "red",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"OLS without Influential Points" = "green",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"Robust Regression" = "blue")) +</code><br><code>&nbsp; scale_linetype_manual(values = c("OLS" = "solid",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "OLS without Influential Points" = "dashed",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "Robust Regression" = "dotdash")) +</code><br><code>&nbsp; labs(title = "Comparison with Robust Regression",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Tensile Strength (MPa)") +</code><br><code>&nbsp; theme_bw() +</code><br><code>&nbsp; theme(legend.position = "bottom")</code></p>
+<p><code>print(final_plot)</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

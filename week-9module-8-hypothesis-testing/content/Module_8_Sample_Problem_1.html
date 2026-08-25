@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 8 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div><h1 level="1">Quality Control Hypothesis Testing Example</h1>
+<p>I'll create an engineering quality control problem involving hypothesis testing, comparing a new manufacturing process against an established standard.</p>
+<h2 level="2">Problem Statement</h2>
+<p>A semiconductor manufacturer claims their new etching process reduces defect rates in microchip production. The current process has an established defect rate of 5%. The quality control team collects data from 200 microchips produced with the new process and finds 5 defective units.</p>
+<h2 level="2">Hypotheses</h2>
+<ul depth="0">
+<li index="0"><strong>Null Hypothesis (H₀)</strong>: The new process defect rate is equal to 5% (p = 0.05)</li>
+<li index="1"><strong>Alternative Hypothesis (H₁)</strong>: The new process defect rate is less than 5% (p &lt; 0.05)</li>
+</ul>
+<p>This is a one-tailed test since we're specifically looking for improvement (reduction in defects).</p>
+<h2 level="2">Test Statistic</h2>
+<p>With 5 defects in 200 chips, the sample defect rate is 5/200 = 0.025 or 2.5%, which appears lower than the standard 5%. Let's calculate if this difference is statistically significant.</p>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/18MjCYBeMDC9bU8PtJNjHJpVWWsgbZpwS?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import scipy.stats as stats</code><br><code>import matplotlib.pyplot as plt</code></p>
+<p><code># Problem parameters</code><br><code>standard_defect_rate = 0.05 &nbsp;# 5% defect rate for the current process</code><br><code>n_samples = 200 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Number of microchips tested</code><br><code>observed_defects = 5 &nbsp; &nbsp; &nbsp; &nbsp; # Number of defects found</code><br><code>observed_defect_rate = observed_defects / n_samples &nbsp;# 2.5%</code></p>
+<p><code># Method 1: Using binomial test</code><br><code>bt_results = stats.binom_test(observed_defects, n_samples, standard_defect_rate, alternative='less')</code></p>
+<p><code>p_value = bt_results.pvalue</code></p>
+<p><code># Method 2: Using normal approximation to binomial (valid for large samples)</code><br><code># Calculate z-score</code><br><code>p_hat = observed_defect_rate</code><br><code>p0 = standard_defect_rate</code><br><code>se = np.sqrt(p0 * (1 - p0) / n_samples)</code><br><code>z_score = (p_hat - p0) / se</code><br><code>p_value_z = stats.norm.cdf(z_score) &nbsp;# For a one-tailed "less than" test</code></p>
+<p><code># Method 3: Calculate type I and type II error probabilities</code><br><code>alpha = 0.05 &nbsp;# Common significance level</code></p>
+<p><code># Type II error calculation (beta) - probability of not detecting an actual improvement</code><br><code># Assuming the true defect rate of new process is 2.5%</code><br><code>true_defect_rate = 0.025</code><br><code># Critical value for rejection</code><br><code>critical_defects = stats.binom.ppf(alpha, n_samples, standard_defect_rate)</code><br><code># Beta is probability of not rejecting H0 when true rate is 2.5%</code><br><code>beta = 1 - stats.binom.cdf(critical_defects, n_samples, true_defect_rate)</code><br><code>power = 1 - beta</code></p>
+<p><code># Print results</code><br><code>print(f"Sample defect rate: {observed_defect_rate:.4f} ({observed_defects} defects in {n_samples} chips)")</code><br><code>print(f"Standard defect rate: {standard_defect_rate:.4f}")</code><br><code>print("\nP-value calculation:")</code><br><code>print(f"P-value using binomial test: {p_value:.6f}")</code><br><code>print(f"Z-score using normal approximation: {z_score:.4f}")</code><br><code>print(f"P-value using normal approximation: {p_value_z:.6f}")</code></p>
+<p><code>print("\nError analysis:")</code><br><code>print(f"Significance level (alpha): {alpha:.2f}")</code><br><code>print(f"Type II error probability (beta): {beta:.4f}")</code><br><code>print(f"Statistical power (1-beta): {power:.4f}")</code></p>
+<p><code># Visualization of the test</code><br><code>plt.figure(figsize=(10, 6))</code></p>
+<p><code># Distribution under null hypothesis</code><br><code>x = np.arange(0, 20)</code><br><code>pmf_null = stats.binom.pmf(x, n_samples, standard_defect_rate)</code><br><code>plt.bar(x, pmf_null, alpha=0.5, color='blue', label='Null Distribution (p=5%)')</code></p>
+<p><code># Distribution under alternative hypothesis (assuming true rate is 2.5%)</code><br><code>pmf_alt = stats.binom.pmf(x, n_samples, true_defect_rate)</code><br><code>plt.bar(x, pmf_alt, alpha=0.5, color='green', label='Alternative Distribution (p=2.5%)')</code></p>
+<p><code># Mark the observed value</code><br><code>plt.axvline(x=observed_defects, color='red', linestyle='--', label=f'Observed ({observed_defects} defects)')</code></p>
+<p><code># Mark the rejection region</code><br><code>crit_value = stats.binom.ppf(alpha, n_samples, standard_defect_rate)</code><br><code>plt.axvline(x=crit_value, color='black', linestyle=':', label=f'Critical Value (reject H₀ if ≤ {crit_value:.1f})')</code></p>
+<p><code>plt.title('Binomial Distributions Under Null and Alternative Hypotheses')</code><br><code>plt.xlabel('Number of Defects')</code><br><code>plt.ylabel('Probability')</code><br><code>plt.legend()</code><br><code>plt.grid(True, alpha=0.3)</code><br><code>plt.show()</code></p>
+<p><code># Decision</code><br><code>if p_value &lt; alpha:</code><br><code>&nbsp; &nbsp; print("\nDecision: Reject the null hypothesis. The new process appears to significantly reduce defect rates.")</code><br><code>else:</code><br><code>&nbsp; &nbsp; print("\nDecision: Fail to reject the null hypothesis. Insufficient evidence that the new process reduces defect rates.")</code></p>
+<p><code># Calculate practical significance - how meaningful is this reduction?</code><br><code>relative_improvement = (standard_defect_rate - observed_defect_rate) / standard_defect_rate * 100</code><br><code>cost_per_defect = 500 &nbsp;# Assume $500 cost per defective chip</code><br><code>annual_production = 1000000 &nbsp;# Assume 1 million chips produced annually</code></p>
+<p><code>cost_savings = (standard_defect_rate - observed_defect_rate) * annual_production * cost_per_defect</code></p>
+<p><code>print("\nPractical Significance Analysis:")</code><br><code>print(f"Relative defect reduction: {relative_improvement:.1f}%")</code><br><code>print(f"Estimated annual cost savings: ${cost_savings:,.2f}")</code></p>
+<h3>R Solution&nbsp;</h3>
+<p><code># Problem parameters</code><br><code>standard_defect_rate &lt;- 0.05 &nbsp;# 5% defect rate for the current process</code><br><code>n_samples &lt;- 200 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Number of microchips tested</code><br><code>observed_defects &lt;- 5 &nbsp; &nbsp; &nbsp; &nbsp; # Number of defects found</code><br><code>observed_defect_rate &lt;- observed_defects / n_samples &nbsp;# 2.5%</code></p>
+<p><code># Method 1: Using exact binomial test</code><br><code>binom_test &lt;- binom.test(observed_defects, n_samples, p = standard_defect_rate,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;alternative = "less")</code></p>
+<p><code># Method 2: Using normal approximation to binomial</code><br><code>p_hat &lt;- observed_defect_rate</code><br><code>p0 &lt;- standard_defect_rate</code><br><code>se &lt;- sqrt(p0 * (1 - p0) / n_samples)</code><br><code>z_score &lt;- (p_hat - p0) / se</code><br><code>p_value_z &lt;- pnorm(z_score) &nbsp;# For a one-tailed "less than" test</code></p>
+<p><code># Method 3: Calculate type I and type II error probabilities</code><br><code>alpha &lt;- 0.05 &nbsp;# Common significance level</code></p>
+<p><code># Type II error calculation (beta) - probability of not detecting an actual improvement</code><br><code># Assuming the true defect rate of new process is 2.5%</code><br><code>true_defect_rate &lt;- 0.025</code><br><code># Critical value for rejection</code><br><code>critical_defects &lt;- qbinom(alpha, n_samples, standard_defect_rate)</code><br><code># Beta is probability of not rejecting H0 when true rate is 2.5%</code><br><code>beta &lt;- 1 - pbinom(critical_defects, n_samples, true_defect_rate)</code><br><code>power &lt;- 1 - beta</code></p>
+<p><code># Print results</code><br><code>cat("Sample defect rate:", format(observed_defect_rate, digits=4),&nbsp;</code><br><code>&nbsp; &nbsp; "(", observed_defects, "defects in", n_samples, "chips)\n")</code><br><code>cat("Standard defect rate:", format(standard_defect_rate, digits=4), "\n\n")</code></p>
+<p><code>cat("P-value calculation:\n")</code><br><code>cat("P-value using binomial test:", format(binom_test$p.value, digits=6), "\n")</code><br><code>cat("Z-score using normal approximation:", format(z_score, digits=4), "\n")</code><br><code>cat("P-value using normal approximation:", format(p_value_z, digits=6), "\n\n")</code></p>
+<p><code>cat("Error analysis:\n")</code><br><code>cat("Significance level (alpha):", format(alpha, digits=2), "\n")</code><br><code>cat("Type II error probability (beta):", format(beta, digits=4), "\n")</code><br><code>cat("Statistical power (1-beta):", format(power, digits=4), "\n")</code></p>
+<p><code># Visualization</code><br><code>library(ggplot2)</code></p>
+<p><code># Create data for plotting</code><br><code>x &lt;- 0:20</code><br><code>null_dist &lt;- dbinom(x, n_samples, standard_defect_rate)</code><br><code>alt_dist &lt;- dbinom(x, n_samples, true_defect_rate)</code></p>
+<p><code>plot_data &lt;- data.frame(</code><br><code>&nbsp; x = rep(x, 2),</code><br><code>&nbsp; pmf = c(null_dist, alt_dist),</code><br><code>&nbsp; distribution = rep(c("Null Hypothesis (p=5%)", "Alternative Hypothesis (p=2.5%)"), each=length(x))</code><br><code>)</code></p>
+<p><code>p &lt;- ggplot(plot_data, aes(x=x, y=pmf, fill=distribution)) +</code><br><code>&nbsp; geom_bar(stat="identity", position="identity", alpha=0.5) +</code><br><code>&nbsp; geom_vline(xintercept=observed_defects, color="red", linetype="dashed",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;size=1) +</code><br><code>&nbsp; geom_vline(xintercept=critical_defects, color="black", linetype="dotted",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;size=1) +</code><br><code>&nbsp; annotate("text", x=observed_defects+1, y=max(null_dist)*0.9,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=paste("Observed:", observed_defects), color="red") +</code><br><code>&nbsp; annotate("text", x=critical_defects+1, y=max(null_dist)*0.8,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label=paste("Critical value:", critical_defects), color="black") +</code><br><code>&nbsp; labs(title="Binomial Distributions Under Null and Alternative Hypotheses",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x="Number of Defects", y="Probability", fill="Distribution") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code>print(p)</code></p>
+<p><code># Decision</code><br><code>cat("\nDecision: ")</code><br><code>if(binom_test$p.value &lt; alpha) {</code><br><code>&nbsp; cat("Reject the null hypothesis. The new process appears to significantly reduce defect rates.\n")</code><br><code>} else {</code><br><code>&nbsp; cat("Fail to reject the null hypothesis. Insufficient evidence that the new process reduces defect rates.\n")</code><br><code>}</code></p>
+<p><code># Calculate practical significance</code><br><code>relative_improvement &lt;- (standard_defect_rate - observed_defect_rate) / standard_defect_rate * 100</code><br><code>cost_per_defect &lt;- 500 &nbsp;# Assume $500 cost per defective chip</code><br><code>annual_production &lt;- 1000000 &nbsp;# Assume 1 million chips produced annually</code></p>
+<p><code>cost_savings &lt;- (standard_defect_rate - observed_defect_rate) * annual_production * cost_per_defect</code></p>
+<p><code>cat("\nPractical Significance Analysis:\n")</code><br><code>cat("Relative defect reduction:", format(relative_improvement, digits=3), "%\n")</code><br><code>cat("Estimated annual cost savings: $", format(cost_savings, big.mark=",", digits=10), "\n")</code></p>
+<p><code># Add confidence interval for the true defect rate</code><br><code>conf_interval &lt;- binom.test(observed_defects, n_samples)$conf.int</code><br><code>cat("\nConfidence interval for true defect rate:",&nbsp;</code><br><code>&nbsp; &nbsp; format(conf_interval[1], digits=4), "to",&nbsp;</code><br><code>&nbsp; &nbsp; format(conf_interval[2], digits=4), "(95% confidence)\n")</code></p>
+<h2 level="2">Results Analysis</h2>
+<p>Running either code will produce similar results. Here's what we'd expect:</p>
+<ol depth="0">
+<li index="0"><strong>P-value</strong>: Approximately 0.065 using the exact binomial test</li>
+<li index="1"><strong>Decision</strong>: Since p-value &gt; 0.05, we fail to reject the null hypothesis</li>
+<li index="2"><strong>Confidence interval</strong> for the true defect rate: approximately (0.008, 0.057)</li>
+</ol>
+<h2 level="2">Discussion of Results</h2>
+<h3 level="3">Statistical Significance</h3>
+<p>At the standard significance level of α = 0.05, we fail to reject the null hypothesis since our p-value (≈0.065) is greater than 0.05. While the observed defect rate (2.5%) is lower than the standard rate (5%), we don't have strong enough evidence to conclude this represents a genuine improvement rather than random variation.</p>
+<h3 level="3">Type I and Type II Errors</h3>
+<ol depth="0">
+<li index="0"><strong>Type I Error (False Positive)</strong>
+<ul depth="1">
+<li index="0">This would occur if we rejected H₀ when the new process actually has a 5% defect rate</li>
+<li index="1">Probability = α = 0.05 (significance level)</li>
+<li index="2">Consequence: Incorrectly implementing a process that offers no improvement</li>
+</ul>
+</li>
+<li index="1"><strong>Type II Error (False Negative)</strong>
+<ul depth="1">
+<li index="0">This occurs if we fail to reject H₀ when the new process actually has a lower defect rate</li>
+<li index="1">Probability = β ≈ 0.44 (assuming true rate is 2.5%)</li>
+<li index="2">Consequence: Missing an opportunity to implement a genuinely better process</li>
+</ul>
+</li>
+<li index="2"><strong>Statistical Power</strong>
+<ul depth="1">
+<li index="0">Power = 1 - β ≈ 0.56</li>
+<li index="1">This relatively low power suggests our sample size may be insufficient</li>
+</ul>
+</li>
+</ol>
+<h3 level="3">Statistical vs. Practical Significance</h3>
+<p>Even though our result isn't statistically significant at α = 0.05, we should consider practical significance:</p>
+<ol depth="0">
+<li index="0"><strong>Relative Improvement</strong>: A 50% reduction in defect rate (from 5% to 2.5%)</li>
+<li index="1"><strong>Financial Impact</strong>: With our assumed parameters (annual production of 1 million chips, $500 cost per defect), this represents potential savings of $12,500,000 annually</li>
+<li index="2"><strong>Confidence Interval</strong>: The upper bound of our 95% confidence interval (0.057) is only slightly above the standard rate (0.05)</li>
+</ol>
+<h2 level="2">Conclusion</h2>
+<p>This is an excellent example of when statistical and practical significance may diverge. While our p-value (0.065) doesn't meet the conventional threshold for statistical significance, the potential 50% reduction in defect rate represents substantial practical importance.</p>
+<p>Given the high cost of defects and the promising results despite limited statistical power, the company might consider:</p>
+<ol depth="0">
+<li index="0">Conducting additional testing with a larger sample size</li>
+<li index="1">Implementing a pilot program with careful monitoring</li>
+<li index="2">Adjusting the significance level based on risk tolerance (e.g., using α = 0.10 instead of 0.05)</li>
+</ol>
+<p>Remember that hypothesis testing is a tool to guide decisions, not make them automatically. The combination of promising point estimates, reasonable confidence intervals, and substantial potential cost savings might justify further exploration of the new process despite not achieving statistical significance at the conventional level.</p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

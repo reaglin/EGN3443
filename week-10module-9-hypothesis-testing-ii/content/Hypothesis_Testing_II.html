@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Hypothesis Testing II</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div><h1>Module 9: Hypothesis Tests for Single Samples</h1>
+<h2>Supporting Lectures:<br>EGN3443 Module 9 - Hypothesis Testing for Single Samples</h2>
+<h2><br>1. Introduction to Hypothesis Testing</h2>
+<p>Hypothesis testing is a fundamental statistical method used to make inferences about a population parameter based on sample data. It provides a systematic approach to decision-making under uncertainty.</p>
+<h3>Key Concepts</h3>
+<ul>
+<li><strong>Null Hypothesis (H₀)</strong>: A statement of no effect or no difference</li>
+<li><strong>Alternative Hypothesis (Hₐ)</strong>: A statement challenging the null hypothesis</li>
+<li><strong>Significance Level (α)</strong>: The probability of making a Type I error</li>
+<li><strong>P-value</strong>: The probability of obtaining results at least as extreme as the observed results, assuming the null hypothesis is true</li>
+</ul>
+<h3>Summary of Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Statistic Measured in Null Hypothesis</th>
+<th>Test Method to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean</td>
+<td>T-Test or Z-Test</td>
+</tr>
+<tr>
+<td>Proportion</td>
+<td>Z-Test</td>
+</tr>
+<tr>
+<td>Variance</td>
+<td>Chi-Squared</td>
+</tr>
+<tr>
+<td>Sample Size</td>
+<td>Power</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Z-Tests and T-Tests for Means</h2>
+<h3>Z-Test</h3>
+<p><strong>Definition</strong>: A parametric test used when the population standard deviation is known and the sample size is large (n ≥ 30) or the population is normally distributed.</p>
+<p><strong>Use of a z-test</strong>:</p>
+<ol>
+<li>Determine whether two population means are different when the variances are known and the sample size is large</li>
+<li>Compare or determine the significance of statistical measures, particularly the mean in a sample from a normally distributed population or between two independent samples</li>
+<li>Test whether a sample mean significantly differs from a known population mean, especially when the sample size is large and the population variance is known</li>
+<li>Determine if results from a test are valid or repeatable</li>
+<li>Test whether the mean of a population is less than, greater than, or equal to a specific value, assuming the population standard deviation is known</li>
+</ol>
+<p><strong>Calculation Formula</strong>: Z = (x̄ - μ₀) / (σ / √n)</p>
+<ul>
+<li>x̄ = Sample mean</li>
+<li>μ₀ = Hypothesized population mean</li>
+<li>σ = Population standard deviation</li>
+<li>n = Sample size</li>
+</ul>
+<p><strong>Example</strong>: A manufacturing company claims its machines produce parts with a mean diameter of 10 cm. A sample of 40 parts has a mean diameter of 9.8 cm with a known population standard deviation of 0.2 cm. Test at α = 0.05.</p>
+<p><strong>Web Reference</strong>:</p>
+<ul>
+<li>StatTrek Z-Test Tutorial</li>
+<li><a href="https://en.wikipedia.org/wiki/Z-test">https://en.wikipedia.org/wiki/Z-test</a></li>
+</ul>
+<h3>T-Test</h3>
+<p><strong>Definition</strong>: Used when the population standard deviation is unknown and must be estimated from the sample, typically for smaller sample sizes.</p>
+<p><strong>Types of T-Tests</strong>:</p>
+<ul>
+<li>One-sample t-test</li>
+<li>Paired t-test</li>
+<li>Independent two-sample t-test</li>
+</ul>
+<p><strong>Use of a T-Test</strong>:</p>
+<ol>
+<li>Compare the means of two groups</li>
+<li>Determine if there is a significant difference between the means of two groups</li>
+<li>Quantify the difference between the mean of a variable from up to two samples</li>
+<li>Assess whether observed differences are significant or could have occurred by chance</li>
+</ol>
+<p><strong>Calculation Formula</strong>: t = (x̄ - μ₀) / (s / √n)</p>
+<ul>
+<li>x̄ = Sample mean</li>
+<li>μ₀ = Hypothesized population mean</li>
+<li>s = Sample standard deviation</li>
+<li>n = Sample size</li>
+</ul>
+<p><strong>Example</strong>: A researcher wants to test if a new study technique improves test scores. The average score for 15 students is 78, with a standard deviation of 6. The hypothesized population mean is 75. Test at α = 0.05.</p>
+<p><strong>Web Reference</strong>:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Student%27s_t-test">https://en.wikipedia.org/wiki/Student%27s_t-test</a></li>
+</ul>
+<h2>3. Tests for Proportions</h2>
+<p><strong>Definition</strong>: Hypothesis tests used to make inferences about population proportions.</p>
+<p><strong>Uses of the test for Proportion</strong>:</p>
+<ol>
+<li>Determining whether a predictor variable has a statistically significant relationship with an outcome variable</li>
+<li>Estimating the difference between two or more groups</li>
+<li>Testing the equality of two proportions against the alternative that they are not equal</li>
+<li>Making inferences about a population proportion</li>
+</ol>
+<p><strong>Calculation Formula</strong>: Z = (p̂ - p₀) / √[p₀(1-p₀)/n]</p>
+<ul>
+<li>p̂ = Sample proportion</li>
+<li>p₀ = Hypothesized population proportion</li>
+<li>n = Sample size</li>
+</ul>
+<p><strong>Example</strong>: A political poll claims 50% of voters support a candidate. A sample of 500 voters shows 260 supporting the candidate. Test at α = 0.05.</p>
+<p><strong>Web Reference</strong>:</p>
+<ul>
+<li>Libretexts Statistics</li>
+</ul>
+<h2>4. Chi-Square Tests for Variance</h2>
+<p><strong>Definition</strong>: A test used to compare the variance of a sample to a hypothesized population variance.</p>
+<p><strong>Calculation Formula</strong>: χ² = (n - 1)s² / σ₀²</p>
+<ul>
+<li>s² = Sample variance</li>
+<li>σ₀² = Hypothesized population variance</li>
+<li>n = Sample size</li>
+</ul>
+<p><strong>Example</strong>: A quality control engineer wants to verify if the variability in a manufacturing process meets specifications with a maximum variance of 4.</p>
+<h3>Correct Situations for Chi-Squared Tests for Variance</h3>
+<p>The chi-squared test for variance is a statistical method with specific applications. Here are the correct situations for using this test:</p>
+<h4>Testing a Single Sample Variance Against a Known Value</h4>
+<p><strong>When to use</strong>:</p>
+<ul>
+<li>You have a single sample and want to test if its variance differs significantly from a known or theoretical variance</li>
+<li>You need to determine if a process has become more or less variable than a historical standard</li>
+<li>Quality control scenarios where consistency is measured through variance</li>
+</ul>
+<p><strong>Example</strong>: Testing if the precision of a manufacturing process (measured through variance) matches specifications.</p>
+<h4>Testing Hypotheses About Population Variance</h4>
+<p><strong>When to use</strong>:</p>
+<ul>
+<li>H₀: σ² = σ₀² (null hypothesis that population variance equals a specific value)</li>
+<li>H₁: σ² ≠ σ₀² (two-sided alternative)</li>
+<li>H₁: σ² &gt; σ₀² or H₁: σ² &lt; σ₀² (one-sided alternatives)</li>
+</ul>
+<h4>Key Requirements for Valid Application</h4>
+<ul>
+<li><strong>Random sampling</strong>: The sample must be randomly drawn from the population</li>
+<li><strong>Independence</strong>: Observations must be independent of each other</li>
+<li><strong>Normality</strong>: The underlying population should be normally distributed
+<ul>
+<li>This assumption is crucial for the chi-squared test for variance</li>
+<li>The test is sensitive to departures from normality</li>
+</ul>
+</li>
+</ul>
+<h4>Important Distinctions and Limitations</h4>
+<ul>
+<li><strong>Not for comparing multiple variances directly</strong>: The basic chi-squared test is for a single sample against a reference value</li>
+<li><strong>For comparing multiple sample variances</strong>: Use specialized tests like:
+<ul>
+<li>Bartlett's test (assumes normality)</li>
+<li>Levene's test or Brown-Forsythe test (more robust against non-normality)</li>
+<li>F-test (only for comparing exactly two variances)</li>
+</ul>
+</li>
+<li><strong>Not for categorical data</strong>: Despite the name similarity, this is different from the chi-squared test of independence used for categorical data</li>
+</ul>
+<h4>Applications in Different Fields</h4>
+<ul>
+<li><strong>Engineering</strong>: Testing if component variability meets specifications</li>
+<li><strong>Manufacturing</strong>: Monitoring process stability and consistency</li>
+<li><strong>Scientific research</strong>: Verifying measurement precision or experimental consistency</li>
+<li><strong>Finance</strong>: Analyzing volatility of financial instruments against benchmarks</li>
+<li><strong>Healthcare</strong>: Ensuring consistency in diagnostic measurements</li>
+</ul>
+<h4>Common Misapplications</h4>
+<ul>
+<li>Using it when data is clearly non-normal</li>
+<li>Applying it to small samples (generally n &lt; 20) where test power is reduced</li>
+<li>Confusing it with other chi-squared tests (like goodness-of-fit or independence tests)</li>
+<li>Using it when the variances being compared aren't independent</li>
+</ul>
+<p><strong>Web Reference</strong>:</p>
+<ul>
+<li>NIST Engineering Statistics Handbook</li>
+<li><a href="https://en.wikipedia.org/wiki/Chi-squared_test">https://en.wikipedia.org/wiki/Chi-squared_test</a></li>
+</ul>
+<h2>5. Engineering Case Studies with Single Sample Tests</h2>
+<h3>Case Study 1: Manufacturing Tolerance</h3>
+<p><strong>Scenario</strong>: Verifying if machine-produced parts meet specified dimensional tolerances using hypothesis testing.</p>
+<h3>Case Study 2: Material Strength</h3>
+<p><strong>Scenario</strong>: Testing whether a new alloy meets minimum strength requirements through statistical inference.</p>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li>ASQ Six Sigma Case Studies</li>
+</ul>
+<h2>6. Sample Size and Power Calculations</h2>
+<h3>Sample Size Determination</h3>
+<p><strong>Factors Influencing Sample Size</strong>:</p>
+<ul>
+<li>Desired significance level (α)</li>
+<li>Desired power (1 - β)</li>
+<li>Expected effect size</li>
+<li>Population standard deviation</li>
+</ul>
+<p><strong>Power Calculation Formula</strong>: Power = 1 - β = Probability of correctly rejecting a false null hypothesis</p>
+<p><strong>Example</strong>: Calculating sample size needed to detect a 0.5 standard deviation difference with 80% power at α = 0.05.</p>
+<h3>Additional Resources</h3>
+<ul>
+<li>OpenIntro Statistics Textbook</li>
+</ul>
+<h3>Practical Tips</h3>
+<ul>
+<li>Always state your hypotheses clearly</li>
+<li>Choose the appropriate test based on your data characteristics</li>
+<li>Check test assumptions before conducting the analysis</li>
+<li>Interpret results in the context of your research question</li>
+</ul>
+<h3>Scenarios for Using Sample Size and Power Calculations</h3>
+<p>Sample size and power calculations are crucial in experimental design across many fields. Here are the key scenarios where they should be used:</p>
+<h4>Research and Clinical Trials</h4>
+<ul>
+<li><strong>Clinical drug trials</strong>: Determining how many patients are needed to reliably detect treatment effects while minimizing unnecessary exposure to experimental treatments</li>
+<li><strong>Medical device testing</strong>: Ensuring sufficient statistical power to demonstrate safety and efficacy to regulatory bodies like FDA or EMA</li>
+<li><strong>Phase I-IV clinical trials</strong>: Each phase requires appropriate sample sizes based on different aims (safety, efficacy, or post-market surveillance)</li>
+</ul>
+<h4>Engineering and Product Development</h4>
+<ul>
+<li><strong>Product reliability testing</strong>: Calculating how many units to test to accurately estimate failure rates and confidence intervals</li>
+<li><strong>Materials testing</strong>: Determining sample quantities needed when testing new materials or components to detect meaningful differences in properties</li>
+<li><strong>Quality control processes</strong>: Establishing appropriate sampling plans for production lines to maintain quality standards</li>
+</ul>
+<h4>Environmental and Field Studies</h4>
+<ul>
+<li><strong>Environmental impact assessments</strong>: Determining how many sampling locations and measurements are needed to detect potential contamination or ecological changes</li>
+<li><strong>Wildlife population studies</strong>: Calculating required observation counts to accurately estimate population sizes, trends, or behaviors</li>
+<li><strong>Agricultural field trials</strong>: Determining plot numbers and sizes needed to detect yield differences between treatments</li>
+</ul>
+<h4>Market Research and Business</h4>
+<ul>
+<li><strong>A/B testing</strong>: Calculating minimum visitor numbers needed for each website variant to detect conversion rate differences</li>
+<li><strong>Customer satisfaction surveys</strong>: Determining survey recipient counts needed to achieve representative results with desired confidence levels</li>
+<li><strong>Market acceptance testing</strong>: Determining sample sizes for consumer product testing to detect preference differences</li>
+</ul>
+<h4>Academic Research</h4>
+<ul>
+<li><strong>Social science studies</strong>: Calculating participant numbers needed for surveys, interviews, or experimental groups</li>
+<li><strong>Psychology experiments</strong>: Determining how many subjects are required to detect hypothesized behavioral or cognitive effects</li>
+<li><strong>Educational interventions</strong>: Calculating class or student numbers needed to evaluate teaching methods or curriculum changes</li>
+</ul>
+<h4>Critical Decision Scenarios</h4>
+<ul>
+<li><strong>When resources are limited</strong>: Optimizing sample sizes to balance statistical confidence with budget, time, or material constraints</li>
+<li><strong>When testing is destructive or expensive</strong>: Minimizing sample sizes while maintaining adequate power</li>
+<li><strong>When effect sizes are expected to be small</strong>: Ensuring sufficient samples to detect subtle but important differences</li>
+<li><strong>When consequences of incorrect decisions are severe</strong>: Using power calculations to minimize both Type I and Type II errors in high-stakes decisions</li>
+<li><strong>When planning grant proposals</strong>: Justifying sample sizes to funding agencies based on scientific principles rather than arbitrary numbers</li>
+</ul>
+<h4>Regulatory and Compliance Contexts</h4>
+<ul>
+<li><strong>Regulatory submissions</strong>: Meeting statistical requirements from bodies like FDA, EPA, or other regulatory agencies</li>
+<li><strong>Standards compliance testing</strong>: Determining appropriate sample sizes for certification to ISO, ASTM, or other industry standards</li>
+<li><strong>Legal proceedings</strong>: Establishing scientifically valid sampling plans for evidence in litigation or regulatory disputes</li>
+</ul>
+<p>In all these scenarios, power and sample size calculations provide scientific legitimacy to studies, optimize resource use, and ensure that experiments have a reasonable chance of detecting true effects when they exist.</p>
+<ul>
+<li></li>
+</ul>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

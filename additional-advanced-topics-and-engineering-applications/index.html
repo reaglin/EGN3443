@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Additional Advanced Topics and Engineering Applications | EGN3443</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3340;
+      min-height: 100vh;
+      padding: 0 0 3rem;
+    }
+
+    /* ── Header Banner ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #245c8a 60%, #2e7ab5 100%);
+      color: #fff;
+      padding: 2.6rem 2rem 2.2rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a8d4f5;
+      margin-bottom: 0.55rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      line-height: 1.7;
+      color: #d6eaf8;
+      max-width: 720px;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.4rem auto 0;
+      padding: 0 1.25rem;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #1a3a5c;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #d0dbe8;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce4ee;
+      border-radius: 8px;
+      padding: 1.4rem 1.35rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.055);
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.11);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card: top meta row ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2em 0.55em;
+      border-radius: 4px;
+      line-height: 1.5;
+    }
+
+    .badge-type {
+      background: #e8f0fb;
+      color: #1a4a8a;
+    }
+
+    .badge-filetype {
+      background: #eef7ee;
+      color: #2d6a2d;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Card: name / title row ── */
+    .card-name {
+      font-size: 1.01rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.35;
+    }
+
+    .card-name a {
+      color: #1a5fa8;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      border-bottom-color: #1a5fa8;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-block;
+      margin-left: 0.55rem;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #5a7a9a;
+      text-decoration: none;
+      background: #f0f4f8;
+      border: 1px solid #c8d6e4;
+      border-radius: 4px;
+      padding: 0.15em 0.5em;
+      vertical-align: middle;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #ddeaf5;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    .source-link::before {
+      content: '⬇ ';
+      font-size: 0.68rem;
+    }
+
+    /* ── Card: description ── */
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #4a5568;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      max-width: 960px;
+      margin: 2.8rem auto 0;
+      padding: 0 1.25rem;
+      font-size: 0.78rem;
+      color: #8a9ab0;
+      border-top: 1px solid #d0dbe8;
+      padding-top: 1.1rem;
+      text-align: center;
+    }
+
+    /* ── Responsive tweak ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1.1rem 1.7rem; }
+      .card  { padding: 1.1rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <header>
+    <div class="header-inner">
+      <p class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</p>
+      <h1>Additional Advanced Topics and Engineering Applications</h1>
+      <p>
+        This module extends foundational probability and statistics knowledge into advanced analytical
+        techniques, structured problem-solving frameworks, and real-world engineering applications.
+        Use the resources below to preview module content, study key readings, and test your
+        understanding through the question bank.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-title">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- Card 1: Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-name">
+          <a href="content/module_topics.html">Module Topics</a>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-desc">
+          A structured outline of the module's three main topic clusters &mdash; advanced analytical
+          techniques (differential equations, transforms, numerical methods), complex problem-solving
+          frameworks (RCA, decision matrices), and industry engineering applications &mdash; used by
+          instructors to organize content and by learners to preview what the module covers.
+        </p>
+      </div>
+
+      <!-- Card 2: Advanced Topics and Engineering Applications -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="content/Advanced_Topics_and_Engineering_Applications.html">Advanced Topics and Engineering Applications</a>
+        </div>
+        <p class="card-desc">
+          A reading that introduces key advanced statistics topics for engineers, including Design of
+          Experiments (DoE) and related concepts, serving as the primary reference text learners study
+          before or alongside lectures in Module 15.
+        </p>
+      </div>
+
+      <!-- Card 3: Quiz Question Bank -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Quiz</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-name">
+          <a href="quiz/index.html">Quiz Question Bank (528 questions)</a>
+          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        </div>
+        <p class="card-desc">
+          A 528-question bank covering probability and statistics fundamentals &mdash; such as
+          distinguishing populations from samples, interpreting Venn diagrams, and differentiating
+          descriptive from inferential statistics &mdash; used by instructors to build quizzes and
+          assessments throughout the course.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>EGN3443 Probability &amp; Statistics for Engineers &mdash; Additional Advanced Topics and Engineering Applications</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</html>

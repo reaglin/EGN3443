@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Descriptive Statistics for Engineers</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div><div dir="ltr" id="model-response-message-contentr_304c8191e819ed09" _ngcontent-ng-c125195398="">
+<h1>Module 2: Descriptive Statistics for Engineers</h1>
+<h2>Supporting Lectures:<br>EGN3443 Module 2 - Descriptive Statistics</h2>
+<h2><br>1. Measures of Central Tendency</h2>
+<h3>Mean (Arithmetic Average)</h3>
+<p><strong>Definition:</strong> The sum of all values divided by the total number of values.</p>
+<p><strong>Formula:</strong> μ = (Σx) / n</p>
+<ul>
+<li>μ (mu) = population mean</li>
+<li>Σx = sum of all values</li>
+<li>n = number of values</li>
+</ul>
+<p><strong>Example Calculation:</strong> Suppose you're measuring the tensile strength of steel samples: Measurements: 450 MPa, 475 MPa, 460 MPa, 465 MPa, 455 MPa Mean = (450 + 475 + 460 + 465 + 455) / 5 = 461 MPa</p>
+<p><strong></strong></p>
+<h3>Median</h3>
+<p><strong>Definition:</strong> The middle value when data is arranged in ascending or descending order.</p>
+<p><strong>Calculation Steps:</strong></p>
+<ol>
+<li>Sort values from lowest to highest</li>
+<li>If odd number of values, take the middle value</li>
+<li>If even number of values, take the average of the two middle values</li>
+</ol>
+<p><strong>Example:</strong> Bearing life cycle data: [120, 135, 140, 142, 150] Median = 140</p>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.mathsisfun.com/median.html" target="_blank" rel="noopener">MathIsFun - Median</a></li>
+</ul>
+<h3>Mode</h3>
+<p><strong>Definition:</strong> The value that appears most frequently in a dataset.</p>
+<p><strong>Example:</strong> Failure times of electronic components: [10, 12, 15, 12, 10, 15, 12] Mode = 12 (appears most often)</p>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.statisticshowto.com/mode/" target="_blank" rel="noopener">Statistics How To - Mode</a></li>
+</ul>
+<h2>2. Measures of Dispersion</h2>
+<h3>Range</h3>
+<p><strong>Definition:</strong> The difference between the maximum and minimum values in a dataset.</p>
+<p><strong>Formula:</strong> Range = Maximum Value - Minimum Value</p>
+<p><strong>Example:</strong> Temperature readings: [22°C, 25°C, 18°C, 30°C, 20°C] Range = 30°C - 18°C = 12°C</p>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.investopedia.com/terms/r/range.asp" target="_blank" rel="noopener">Investopedia - Range</a></li>
+</ul>
+<h3>Variance</h3>
+<p><strong>Definition:</strong> A measure of variability that quantifies how far a set of numbers is spread out.</p>
+<p><strong>Population Variance Formula:</strong> σ² = Σ(x - μ)² / N</p>
+<ul>
+<li>σ² = population variance</li>
+<li>x = individual values</li>
+<li>μ = mean</li>
+<li>N = total number of values</li>
+</ul>
+<p><strong>Sample Variance Formula:</strong> s² = Σ(x - x̄)² / (n-1)</p>
+<ul>
+<li>s² = sample variance</li>
+<li>x̄ = sample mean</li>
+<li>n = sample size</li>
+</ul>
+<p><strong>Example Calculation:</strong> Machine part measurements: [10.2, 10.5, 10.3, 10.4, 10.1] Mean = 10.3 Variance = [(10.2-10.3)² + (10.5-10.3)² + (10.3-10.3)² + (10.4-10.3)² + (10.1-10.3)²] / 4 ≈ 0.01</p>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.stattrek.com/statistics/dictionary.aspx?definition=variance" target="_blank" rel="noopener">Stat Trek - Variance</a></li>
+</ul>
+<h3>Standard Deviation</h3>
+<p><strong>Definition:</strong> The square root of variance, measuring the amount of variation in a dataset.</p>
+<p><strong>Formulas:</strong></p>
+<ul>
+<li>Population: σ = √[Σ(x - μ)² / N]</li>
+<li>Sample: s = √[Σ(x - x̄)² / (n-1)]</li>
+</ul>
+<p><strong>Example:</strong> Using previous machine part measurements Standard Deviation = √0.01 ≈ 0.1</p>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.mathsisfun.com/data/standard-deviation.html" target="_blank" rel="noopener">MathIsFun - Standard Deviation</a></li>
+</ul>
+<h2>3. Data Visualization Techniques</h2>
+<h3>Stem-and-Leaf Plots</h3>
+<p><strong>Definition:</strong> A method of displaying numerical data that shows the distribution of values.</p>
+<p><strong>Example:</strong> Bearing diameter measurements (mm): Stem | Leaf 24 | 5, 7, 8 25 | 1, 3, 6 26 | 0, 2, 4</p>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li>Math is Fun - Stem and Leaf</li>
+</ul>
+<h3>Box Plots</h3>
+<p><strong>Definition:</strong> A graphical representation showing the distribution of data through quartiles.</p>
+<p><strong>Key Components:</strong></p>
+<ul>
+<li>Median line</li>
+<li>Box representing interquartile range</li>
+<li>Whiskers showing data spread</li>
+<li>Potential outliers</li>
+</ul>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/box-whisker-plots/a/box-plot-review" target="_blank" rel="noopener">Khan Academy - Box Plots</a></li>
+</ul>
+<h3>Histograms</h3>
+<p><strong>Definition:</strong> A graphical representation of data distribution using rectangular bars.</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>X-axis: Data values</li>
+<li>Y-axis: Frequency or density</li>
+<li>Bar height represents data concentration</li>
+</ul>
+<p><strong>Web Reference:</strong></p>
+<ul>
+<li><a href="https://www.mathsisfun.com/data/histograms.html" target="_blank" rel="noopener">MathIsFun - Histogram</a></li>
+</ul>
+<h2>4. Interpreting Statistical Summaries in Engineering</h2>
+<h3>Practical Considerations:</h3>
+<ul>
+<li>Understand variability in manufacturing processes</li>
+<li>Assess product quality and consistency</li>
+<li>Identify potential equipment or process issues</li>
+<li>Support decision-making in design and quality control</li>
+</ul>
+<p><strong>Recommended Resources:</strong></p>
+<ul>
+<li><a href="https://asq.org/quality-resources/statistical-process-control">ASQ - Statistical Process Control</a></li>
+<li><a href="https://www.itl.nist.gov/div898/handbook/">Engineering Statistics Handbook</a></li>
+</ul>
+<h3>We will:</h3>
+<ol>
+<li>Learn formulas</li>
+<li>Practice calculations</li>
+<li>Use statistical software (Excel, R, <strong>mostly Python</strong>)</li>
+<li>Apply to real-world engineering scenarios</li>
+</ol>
+</div>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

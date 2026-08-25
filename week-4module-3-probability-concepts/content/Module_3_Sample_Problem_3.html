@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 3 Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div><h1>Module 3 Sample Problem 3</h1><h2>3. Bayes' Theorem: Structural Health Monitoring</h2>
+<p>This problem applies Bayes' theorem to determine the conditional probability of actual bridge damage given a positive sensor reading.</p>
+<p><strong>Key formula</strong>: P(D|+) = [P(+|D) × P(D)] / P(+)</p>
+<p><strong>Solution</strong>: Despite high sensor sensitivity (98%), the actual probability of damage given a positive reading is only about 14.27% due to the low prior probability of damage (0.5%) and the effect of false positives.</p>
+<h3>Python Solution (<a href="https://colab.research.google.com/drive/1cktK7hqkLblc27571lG5kQyqk4jIlYbP?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<pre><code># ======================================================================
+# 3. Bayes' Theorem: Structural Health Monitoring
+# ======================================================================
+print("Problem 3: Bayes' Theorem - Structural Health Monitoring")
+print("------------------------------------------------------")
+
+"""
+Problem:
+A bridge monitoring system uses sensors to detect potential structural damage.
+From historical data, we know:
+- The prior probability of structural damage is P(D) = 0.005 (0.5%)
+- If there is damage, the probability that the sensor will detect it is P(+|D) = 0.98 (sensitivity)
+- If there is no damage, the probability that the sensor will falsely indicate damage 
+  is P(+|not D) = 0.03 (false positive rate)
+
+If the sensor gives a positive reading, what is the probability that the bridge 
+actually has structural damage?
+"""
+
+# Python solution using Bayes' theorem
+P_D = 0.005  # Prior probability of damage
+P_pos_given_D = 0.98  # Sensitivity (true positive rate)
+P_pos_given_notD = 0.03  # False positive rate
+
+# Calculate P(+) = P(+|D) × P(D) + P(+|not D) × P(not D)
+P_not_D = 1 - P_D
+P_pos = P_pos_given_D * P_D + P_pos_given_notD * P_not_D
+
+# Apply Bayes' theorem: P(D|+) = P(+|D) × P(D) / P(+)
+P_damage_given_pos = (P_pos_given_D * P_D) / P_pos
+
+print(f"Prior probability of damage: {P_D}")
+print(f"Sensor sensitivity (true positive rate): {P_pos_given_D}")
+print(f"Sensor false positive rate: {P_pos_given_notD}")
+print(f"Probability of a positive sensor reading: {P_pos:.4f}")
+print(f"Probability of actual damage given a positive sensor reading: {P_damage_given_pos:.4f} or {P_damage_given_pos*100:.2f}%")
+print()
+</code></pre>
+<h3>R Solution</h3>
+<pre><code># ======================================================================
+# 3. Bayes' Theorem: Structural Health Monitoring
+# ======================================================================
+cat("Problem 3: Bayes' Theorem - Structural Health Monitoring\n")
+cat("------------------------------------------------------\n")
+
+# R solution using Bayes' theorem
+P_D &lt;- 0.005  # Prior probability of damage
+P_pos_given_D &lt;- 0.98  # Sensitivity (true positive rate)
+P_pos_given_notD &lt;- 0.03  # False positive rate
+
+# Calculate P(+) = P(+|D) × P(D) + P(+|not D) × P(not D)
+P_not_D &lt;- 1 - P_D
+P_pos &lt;- P_pos_given_D * P_D + P_pos_given_notD * P_not_D
+
+# Apply Bayes' theorem: P(D|+) = P(+|D) × P(D) / P(+)
+P_damage_given_pos &lt;- (P_pos_given_D * P_D) / P_pos
+
+cat(sprintf("Prior probability of damage: %.3f\n", P_D))
+cat(sprintf("Sensor sensitivity (true positive rate): %.3f\n", P_pos_given_D))
+cat(sprintf("Sensor false positive rate: %.3f\n", P_pos_given_notD))
+cat(sprintf("Probability of a positive sensor reading: %.4f\n", P_pos))
+cat(sprintf("Probability of actual damage given a positive sensor reading: %.4f or %.2f%%\n", 
+            P_damage_given_pos, P_damage_given_pos*100))
+cat("\n")
+</code></pre>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

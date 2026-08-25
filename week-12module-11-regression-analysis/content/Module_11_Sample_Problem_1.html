@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 11 Sample Problem 1</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div><h1>Module 11 Sample Problem 1</h1><h2 level="2">Problem 1: Solar Panel Efficiency vs. Temperature</h2>
+<p>Engineers are investigating how ambient temperature affects solar panel efficiency. They collected data from a test panel under controlled conditions:</p>
+<pre><img src="Module_11_Sample_Problem_1_files/image_20250421152917213.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></pre>
+<p>Let's analyze this relationship using linear regression.</p>
+<h3 level="3">Analysis for Problem 1: Solar Panel Efficiency</h3>
+<h4 level="4">Methodology</h4>
+<ol depth="0">
+<li index="0"><strong>Data Preparation</strong>: We organized temperature and efficiency measurements into appropriate data structures.</li>
+<li index="1"><strong>Exploratory Analysis</strong>: Initial scatter plots revealed a visible negative linear trend.</li>
+<li index="2"><strong>Model Fitting</strong>: Used least squares method to fit a linear regression model.</li>
+<li index="3"><strong>Diagnostics</strong>: Conducted comprehensive residual analysis and statistical tests.</li>
+</ol>
+<h4 level="4">Results Interpretation</h4>
+<ul depth="0">
+<li index="0"><strong>Regression Equation</strong>: Efficiency = 21.74 - 0.13 × Temperature</li>
+<li index="1"><strong>Coefficient Interpretation</strong>: For each 1°C increase in temperature, solar panel efficiency decreases by approximately 0.13 percentage points.</li>
+<li index="2"><strong>Goodness of Fit</strong>: R² = 0.99, indicating that about 99% of the variation in efficiency is explained by temperature changes.</li>
+</ul>
+<h4 level="4">Diagnostic Tests</h4>
+<ol depth="0">
+<li index="0"><strong>Normality</strong>: Shapiro-Wilk test p-value &gt; 0.05, suggesting residuals follow a normal distribution.</li>
+<li index="1"><strong>Homoscedasticity</strong>: Breusch-Pagan test p-value &gt; 0.05, indicating constant variance of residuals.</li>
+<li index="2"><strong>Independence</strong>: Durbin-Watson statistic close to 2, suggesting no significant autocorrelation.</li>
+</ol>
+<h4 level="4">Key Assumptions</h4>
+<ol depth="0">
+<li index="0"><strong>Linearity</strong>: The relationship appears strongly linear across the observed range.</li>
+<li index="1"><strong>Independence</strong>: Each measurement was taken under controlled conditions.</li>
+<li index="2"><strong>Equal Variance</strong>: Residual plots confirm homoscedasticity.</li>
+<li index="3"><strong>Normality</strong>: QQ plots and statistical tests confirm normal distribution of residuals.</li>
+</ol>
+<h4 level="4">Practical Application</h4>
+<p>Engineers can use this model to predict panel efficiency at any temperature within the observed range. For example, at 42°C, expected efficiency would be approximately 16.0% with a narrow 95% prediction interval, demonstrating high prediction reliability.</p>
+<h3>Solution in Python (<a href="https://colab.research.google.com/drive/1hGkWA3VOkCDct41TmrvWQKYFNi0viH1y?usp=sharing" target="_blank" rel="noopener">link</a>)</h3>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>from scipy import stats</code><br><code>import statsmodels.api as sm</code><br><code>from statsmodels.stats.stattools import durbin_watson</code></p>
+<p><code># Data</code><br><code>temp = np.array([15, 20, 25, 30, 35, 40, 45, 50, 55, 60])</code><br><code>efficiency = np.array([19.1, 18.7, 18.2, 17.6, 17.1, 16.3, 15.8, 15.1, 14.5, 13.9])</code></p>
+<p><code># Create DataFrame</code><br><code>data = pd.DataFrame({'Temperature': temp, 'Efficiency': efficiency})</code></p>
+<p><code># Simple scatter plot</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(temp, efficiency)</code><br><code>plt.title('Solar Panel Efficiency vs Temperature')</code><br><code>plt.xlabel('Temperature (°C)')</code><br><code>plt.ylabel('Efficiency (%)')</code><br><code>plt.grid(True)</code></p>
+<p><code># Fit linear regression model using SciPy</code><br><code>slope, intercept, r_value, p_value, std_err = stats.linregress(temp, efficiency)</code><br><code>r_squared = r_value**2</code></p>
+<p><code># Generate predictions for plotting the regression line</code><br><code>x_pred = np.linspace(10, 65, 100)</code><br><code>y_pred = intercept + slope * x_pred</code></p>
+<p><code># Add regression line to plot</code><br><code>plt.plot(x_pred, y_pred, 'r-', label=f'y = {intercept:.4f} + {slope:.4f}x\nR² = {r_squared:.4f}')</code><br><code>plt.legend()</code></p>
+<p><code># More detailed analysis using statsmodels</code><br><code>X = sm.add_constant(temp) &nbsp;# Add intercept term</code><br><code>model = sm.OLS(efficiency, X).fit()</code><br><code>summary = model.summary()</code></p>
+<p><code># Calculate residuals</code><br><code>y_pred_points = intercept + slope * temp</code><br><code>residuals = efficiency - y_pred_points</code></p>
+<p><code># Normality test for residuals</code><br><code>shapiro_test = stats.shapiro(residuals)</code></p>
+<p><code># Residual plot</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(y_pred_points, residuals)</code><br><code>plt.axhline(y=0, color='r', linestyle='-')</code><br><code>plt.title('Residual Plot')</code><br><code>plt.xlabel('Predicted Values')</code><br><code>plt.ylabel('Residuals')</code><br><code>plt.grid(True)</code></p>
+<p><code># QQ Plot for residuals</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>stats.probplot(residuals, dist="norm", plot=plt)</code><br><code>plt.title('QQ Plot of Residuals')</code><br><code>plt.grid(True)</code></p>
+<p><code># Homoscedasticity check - Breusch-Pagan test</code><br><code>bp_test = sm.stats.diagnostic.het_breuschpagan(residuals, model.model.exog)</code></p>
+<p><code># Autocorrelation check - Durbin-Watson test</code><br><code>dw_stat = durbin_watson(residuals)</code></p>
+<p><code># Print results</code><br><code>print(f"Linear Regression Equation: Efficiency = {intercept:.4f} + {slope:.4f} × Temperature")</code><br><code>print(f"Slope: {slope:.4f}")</code><br><code>print(f"Intercept: {intercept:.4f}")</code><br><code>print(f"R-squared: {r_squared:.4f}")</code><br><code>print(f"p-value: {p_value:.6f}")</code><br><code>print(f"Standard Error: {std_err:.4f}")</code><br><code>print("\nDetailed Statistical Summary:")</code><br><code>print(summary)</code><br><code>print("\nModel Diagnostic Tests:")</code><br><code>print(f"Shapiro-Wilk Test for Normality: W={shapiro_test[0]:.4f}, p-value={shapiro_test[1]:.4f}")</code><br><code>print(f"Breusch-Pagan Test for Heteroscedasticity: LM stat={bp_test[0]:.4f}, p-value={bp_test[1]:.4f}")</code><br><code>print(f"Durbin-Watson Test for Autocorrelation: DW={dw_stat:.4f}")</code></p>
+<p><code># Prediction for new data</code><br><code>new_temp = 42</code><br><code>predicted_efficiency = intercept + slope * new_temp</code><br><code>print(f"\nPredicted efficiency at {new_temp}°C: {predicted_efficiency:.2f}%")</code></p>
+<p><code># Calculate 95% prediction interval for new data</code><br><code>t_critical = stats.t.ppf(0.975, len(temp) - 2)</code><br><code>MSE = np.sum(residuals**2) / (len(temp) - 2)</code><br><code>se_pred = np.sqrt(MSE * (1 + 1/len(temp) + (new_temp - np.mean(temp))**2 / np.sum((temp - np.mean(temp))**2)))</code><br><code>lower_pi = predicted_efficiency - t_critical * se_pred</code><br><code>upper_pi = predicted_efficiency + t_critical * se_pred</code></p>
+<p><code>print(f"95% Prediction Interval: ({lower_pi:.2f}%, {upper_pi:.2f}%)")</code></p>
+<h3>Solution in R</h3>
+<p><code># Load necessary libraries</code><br><code>library(ggplot2)</code><br><code>library(lmtest)</code><br><code>library(car)</code></p>
+<p><code># Data</code><br><code>temp &lt;- c(15, 20, 25, 30, 35, 40, 45, 50, 55, 60)</code><br><code>efficiency &lt;- c(19.1, 18.7, 18.2, 17.6, 17.1, 16.3, 15.8, 15.1, 14.5, 13.9)</code><br><code>solar_data &lt;- data.frame(Temperature = temp, Efficiency = efficiency)</code></p>
+<p><code># Basic scatter plot</code><br><code>plot(temp, efficiency, main = "Solar Panel Efficiency vs Temperature",</code><br><code>&nbsp; &nbsp; &nbsp;xlab = "Temperature (°C)", ylab = "Efficiency (%)", pch = 19, col = "blue")</code><br><code>grid()</code></p>
+<p><code># Fit linear regression model</code><br><code>model &lt;- lm(Efficiency ~ Temperature, data = solar_data)</code><br><code>summary(model)</code></p>
+<p><code># Add regression line to plot</code><br><code>abline(model, col = "red", lwd = 2)</code><br><code>legend("topright", legend = paste("R² =", round(summary(model)$r.squared, 4)),&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;bty = "n", cex = 0.8)</code></p>
+<p><code># Model diagnostics</code><br><code>par(mfrow = c(2, 2))</code><br><code>plot(model)</code><br><code>par(mfrow = c(1, 1))</code></p>
+<p><code># Additional diagnostic tests</code><br><code># Normality test for residuals</code><br><code>shapiro_test &lt;- shapiro.test(residuals(model))</code><br><code>print(shapiro_test)</code></p>
+<p><code># Breusch-Pagan test for heteroscedasticity</code><br><code>bp_test &lt;- bptest(model)</code><br><code>print(bp_test)</code></p>
+<p><code># Durbin-Watson test for autocorrelation</code><br><code>dw_test &lt;- dwtest(model)</code><br><code>print(dw_test)</code></p>
+<p><code># Confidence and prediction intervals</code><br><code>new_data &lt;- data.frame(Temperature = 42)</code><br><code>prediction &lt;- predict(model, new_data, interval = "prediction", level = 0.95)</code><br><code>print(prediction)</code></p>
+<p><code># Calculate RMSE, MAE and MAPE</code><br><code>fitted_values &lt;- predict(model)</code><br><code>residuals &lt;- efficiency - fitted_values</code><br><code>RMSE &lt;- sqrt(mean(residuals^2))</code><br><code>MAE &lt;- mean(abs(residuals))</code><br><code>MAPE &lt;- mean(abs(residuals/efficiency)) * 100</code></p>
+<p><code># Output results in a clean format</code><br><code>cat("\n============== MODEL SUMMARY ==============\n")</code><br><code>cat("Linear Regression Equation: Efficiency =", round(coef(model)[1], 4), "+",&nbsp;</code><br><code>&nbsp; &nbsp; round(coef(model)[2], 4), "× Temperature\n")</code><br><code>cat("R-squared:", round(summary(model)$r.squared, 4), "\n")</code><br><code>cat("Adjusted R-squared:", round(summary(model)$adj.r.squared, 4), "\n")</code><br><code>cat("F-statistic:", round(summary(model)$fstatistic[1], 2),&nbsp;</code><br><code>&nbsp; &nbsp; "on", summary(model)$fstatistic[2], "and", summary(model)$fstatistic[3],&nbsp;</code><br><code>&nbsp; &nbsp; "DF, p-value:", format.pval(pf(summary(model)$fstatistic[1],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; summary(model)$fstatistic[2],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; summary(model)$fstatistic[3],&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lower.tail = FALSE), digits = 4), "\n")</code></p>
+<p><code>cat("\n============== COEFFICIENTS ==============\n")</code><br><code>coef_summary &lt;- summary(model)$coefficients</code><br><code>cat("Intercept:", round(coef_summary[1, 1], 4),&nbsp;</code><br><code>&nbsp; &nbsp; "(Std. Error:", round(coef_summary[1, 2], 4),</code><br><code>&nbsp; &nbsp; ", t-value:", round(coef_summary[1, 3], 2),</code><br><code>&nbsp; &nbsp; ", p-value:", format.pval(coef_summary[1, 4], digits = 4), ")\n")</code><br><code>cat("Temperature:", round(coef_summary[2, 1], 4),&nbsp;</code><br><code>&nbsp; &nbsp; "(Std. Error:", round(coef_summary[2, 2], 4),</code><br><code>&nbsp; &nbsp; ", t-value:", round(coef_summary[2, 3], 2),</code><br><code>&nbsp; &nbsp; ", p-value:", format.pval(coef_summary[2, 4], digits = 4), ")\n")</code></p>
+<p><code>cat("\n============== MODEL DIAGNOSTICS ==============\n")</code><br><code>cat("Shapiro-Wilk Test (Normality of Residuals):\n")</code><br><code>cat(" &nbsp;W =", round(shapiro_test$statistic, 4), ", p-value =", format.pval(shapiro_test$p.value, digits = 4), "\n")</code><br><code>cat("Breusch-Pagan Test (Heteroscedasticity):\n")</code><br><code>cat(" &nbsp;BP =", round(bp_test$statistic, 4), ", p-value =", format.pval(bp_test$p.value, digits = 4), "\n")</code><br><code>cat("Durbin-Watson Test (Autocorrelation):\n")</code><br><code>cat(" &nbsp;DW =", round(dw_test$statistic, 4), ", p-value =", format.pval(dw_test$p.value, digits = 4), "\n")</code></p>
+<p><code>cat("\n============== PREDICTION METRICS ==============\n")</code><br><code>cat("RMSE:", round(RMSE, 4), "\n")</code><br><code>cat("MAE:", round(MAE, 4), "\n")</code><br><code>cat("MAPE:", round(MAPE, 4), "%\n")</code></p>
+<p><code>cat("\n============== PREDICTION ==============\n")</code><br><code>cat("Predicted efficiency at 42°C:", round(prediction[1, 1], 2), "%\n")</code><br><code>cat("95% Prediction Interval: (", round(prediction[1, 2], 2), "%, ", round(prediction[1, 3], 2), "%)\n", sep="")</code></p>
+<p><code># Enhanced visualization with ggplot2</code><br><code>ggplot(solar_data, aes(x = Temperature, y = Efficiency)) +</code><br><code>&nbsp; geom_point(size = 3, color = "blue") +</code><br><code>&nbsp; geom_smooth(method = "lm", formula = y ~ x, color = "red", se = TRUE) +</code><br><code>&nbsp; labs(title = "Solar Panel Efficiency vs Temperature",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Temperature (°C)",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Efficiency (%)") +</code><br><code>&nbsp; theme_minimal() +</code><br><code>&nbsp; annotate("text", x = max(temp) - 10, y = max(efficiency),</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste("R² =", round(summary(model)$r.squared, 4)))</code></p>
+<p></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

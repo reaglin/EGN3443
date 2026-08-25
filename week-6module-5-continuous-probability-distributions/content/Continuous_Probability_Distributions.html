@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Continuous Probability Distributions</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div><h1>Module 5: Continuous Probability Distributions&nbsp;</h1>
+<h2>Supporting Lectures:&nbsp;<br>EGN3443 Module 5 - Continuous Probability Distributions</h2>
+<h2><br>1. Probability Density Functions (PDFs)</h2>
+<h3>Definition</h3>
+<p>A Probability Density Function (PDF) is a function that describes the likelihood of a continuous random variable taking on a specific value. Unlike discrete probability functions, PDFs represent the probability density over a range of values.</p>
+<h3>Key Characteristics</h3>
+<ul>
+<li>The total area under the PDF curve always equals 1</li>
+<li>PDFs can have values greater than 1</li>
+<li>Probability is calculated by finding the area under the curve</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>For a PDF f(x), the probability of X being between a and b is calculated by: P(a ≤ X ≤ b) = ∫[a to b] f(x) dx</p>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Probability_density_function">https://en.wikipedia.org/wiki/Probability_density_function</a>&nbsp;<a href="https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2014/pages/readings/probability-density-functions/"></a></h3>
+<h2>2. Cumulative Distribution Functions (CDFs)</h2>
+<h3>Definition</h3>
+<p>A Cumulative Distribution Function (CDF) represents the probability that a random variable X is less than or equal to a specific value x.</p>
+<h3>Mathematical Representation</h3>
+<p>F(x) = P(X ≤ x) = ∫[-∞ to x] f(t) dt</p>
+<h3>Relationship with PDF</h3>
+<p>The PDF is the derivative of the CDF: f(x) = dF(x)/dx</p>
+<h3>Example Calculation</h3>
+<p>If F(x) is the CDF of a distribution, then:</p>
+<ul>
+<li>F(x) gives the probability of X being less than or equal to x</li>
+<li>1 - F(x) gives the probability of X being greater than x</li>
+</ul>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">https://en.wikipedia.org/wiki/Cumulative_distribution_function</a>&nbsp;<a href="https://www.mathworks.com/help/stats/cumulative-distribution-function.html"></a></h3>
+<h2>3. Normal Distribution</h2>
+<h3>Definition</h3>
+<p>The Normal (Gaussian) Distribution is a symmetric probability distribution characterized by its mean (μ) and standard deviation (σ).</p>
+<h3>Probability Density Function</h3>
+<p>f(x) = (1 / (σ * √(2π))) * e^(-(x-μ)²/(2σ²))</p>
+<h3>Standard Normal Distribution</h3>
+<ul>
+<li>Mean (μ) = 0</li>
+<li>Standard Deviation (σ) = 1</li>
+<li>Z-score: Z = (X - μ) / σ</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>Probability of a value within one standard deviation: P(μ - σ ≤ X ≤ μ + σ) ≈ 0.6827 or 68.27%</p>
+<h3>Applications</h3>
+<ul>
+<li>Quality control</li>
+<li>Natural phenomena modeling</li>
+<li>Error analysis in measurements</li>
+<li>Financial modeling</li>
+</ul>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Normal_distribution">https://en.wikipedia.org/wiki/Normal_distribution</a>&nbsp;<a href="https://www.statisticshowto.com/probability-and-statistics/normal-distribution/"></a></h3>
+<h2>4. Exponential and Weibull Distributions</h2>
+<h3>Exponential Distribution</h3>
+<h4>Definition</h4>
+<p>Models time between events in a Poisson process, typically used for failure times and waiting times.</p>
+<h4>Probability Density Function</h4>
+<p>f(x) = λ * e^(-λx), where λ is the rate parameter Mean = 1/λ Variance = 1/λ²</p>
+<h4>Applications</h4>
+<ul>
+<li>Reliability engineering</li>
+<li>Queuing theory</li>
+<li>Survival analysis</li>
+</ul>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Exponential_distribution">https://en.wikipedia.org/wiki/Exponential_distribution</a>&nbsp;</h3>
+<h3>Weibull Distribution</h3>
+<h4>Definition</h4>
+<p>Flexible distribution used to model failure times and lifetime data.</p>
+<h4>Probability Density Function</h4>
+<p>f(x) = (k/λ) * (x/λ)^(k-1) * e^(-(x/λ)^k)</p>
+<ul>
+<li>k: shape parameter</li>
+<li>λ: scale parameter</li>
+</ul>
+<h4>Applications</h4>
+<ul>
+<li>Reliability engineering</li>
+<li>Lifetime prediction</li>
+<li>Failure analysis</li>
+</ul>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Weibull_distribution">https://en.wikipedia.org/wiki/Weibull_distribution</a>&nbsp;</h3>
+<h2>5. Lognormal Distribution in Engineering Applications</h2>
+<h3>Definition</h3>
+<p>A distribution where the logarithm of the variable is normally distributed.</p>
+<h3>Probability Density Function</h3>
+<p>f(x) = (1 / (x * σ * √(2π))) * e^(-(ln(x) - μ)²/(2σ²))</p>
+<ul>
+<li>x &gt; 0</li>
+<li>μ: mean of underlying normal distribution</li>
+<li>σ: standard deviation of underlying normal distribution</li>
+</ul>
+<h3>Applications</h3>
+<ul>
+<li>Failure analysis</li>
+<li>Particle size distributions</li>
+<li>Financial modeling</li>
+<li>Risk assessment in engineering</li>
+</ul>
+<h3>Example Calculation</h3>
+<p>Calculating reliability of components with inherent variability in performance.</p>
+<h3>Web References: <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">https://en.wikipedia.org/wiki/Log-normal_distribution</a>&nbsp;<a href="https://www.sciencedirect.com/topics/engineering/lognormal-distribution"></a></h3>
+<h2>Recommended Study Approach</h2>
+<ol>
+<li>Understand the theoretical foundations</li>
+<li>Practice calculating probabilities</li>
+<li>Use statistical software (R, Python, MATLAB) for visualization</li>
+<li>Solve real-world engineering problems</li>
+<li>Review case studies in various engineering domains</li>
+</ol>
+<h2>Recommended Resources</h2>
+<ul>
+<li>Textbook: "Probability and Statistics for Engineers" by Miller &amp; Freund</li>
+<li>Online Course: Coursera's "Statistics with Python Specialization"</li>
+<li>Software: R, Python (SciPy), MATLAB</li>
+</ul>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

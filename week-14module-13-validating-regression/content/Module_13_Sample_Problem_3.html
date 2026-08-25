@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css"><title>Module 13 Sample Problem 3</title></head><body style="color: rgb(32, 33, 34); font-family: undefined;">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div><h1 level="1">Engineering Cross-Validation Example: Evaluating a Linear Regression Model</h1>
+<h2 level="2">Problem Statement</h2>
+<p>In this example, we're working with data from a manufacturing process where we want to predict the tensile strength of an alloy based on various production parameters:</p>
+<ul depth="0">
+<li index="0">Temperature during processing (°C)</li>
+<li index="1">Cooling rate (°C/min)</li>
+<li index="2">Alloying element percentage (%)</li>
+<li index="3">Processing time (hours)</li>
+</ul>
+<p>Our goal is to:</p>
+<ol depth="0">
+<li index="0">Build a linear regression model to predict tensile strength</li>
+<li index="1">Evaluate model performance using cross-validation techniques</li>
+<li index="2">Analyze model generalizability</li>
+<li index="3">Determine the most influential factors</li>
+</ol>
+<h2 level="2">Analysis of the Cross-Validation Results</h2>
+<h3 level="3">Data Overview</h3>
+<p>In this engineering problem, we've created a dataset simulating factors that influence the tensile strength of an alloy during manufacturing. The dataset includes four independent variables:</p>
+<ol depth="0">
+<li index="0">Temperature during processing (150-350°C)</li>
+<li index="1">Cooling rate (2-15°C/min)</li>
+<li index="2">Alloying element percentage (1-8%)</li>
+<li index="3">Processing time (0.5-5 hours)</li>
+</ol>
+<h3 level="3">Initial Model Performance</h3>
+<p>The initial split of the data (80% training, 20% testing) shows:</p>
+<ul depth="0">
+<li index="0">Python solution: R² score of approximately 0.84-0.86</li>
+<li index="1">R solution: Similar R² values</li>
+</ul>
+<p>This indicates that the model explains about 85% of the variance in tensile strength based on our predictor variables, which is a good starting point. However, we need to validate this performance more rigorously.</p>
+<h3 level="3">Cross-Validation Results</h3>
+<p>Using 10-fold cross-validation, both solutions show:</p>
+<ul depth="0">
+<li index="0">Mean RMSE across folds: ~16-17 units</li>
+<li index="1">Standard deviation of RMSE: ~2-3 units</li>
+<li index="2">Coefficient of variation: ~0.14-0.16</li>
+</ul>
+<p>The relatively low standard deviation across folds indicates that the model performance is consistent, suggesting good generalizability.</p>
+<h3 level="3">Feature Importance Analysis</h3>
+<p>Based on the absolute coefficients, the most important features affecting tensile strength are:</p>
+<ol depth="0">
+<li index="0">Alloying element percentage (strongest positive impact)</li>
+<li index="1">Cooling rate (strong negative impact)</li>
+<li index="2">Process time (moderate positive impact)</li>
+<li index="3">Temperature (moderate positive impact)</li>
+</ol>
+<p>This matches our synthetic data generation where we designed alloy percentage to have the most substantial effect.</p>
+<h3 level="3">Multicollinearity Assessment</h3>
+<p>The Variance Inflation Factor (VIF) analysis shows that our features have VIF values close to 1, indicating minimal multicollinearity among the predictors. This suggests that our model parameters are stable and interpretable.</p>
+<h3 level="3">Residual Analysis</h3>
+<p>Looking at the residual plots:</p>
+<ol depth="0">
+<li index="0">The residuals distribution is approximately normal, suggesting the error terms follow a normal distribution.</li>
+<li index="1">Residuals vs. predicted values show no clear pattern, indicating the model is capturing the relationship well without systematic bias.</li>
+</ol>
+<h3 level="3">Learning Curves Analysis</h3>
+<p>The learning curves demonstrate:</p>
+<ol depth="0">
+<li index="0">As training size increases, both training and validation RMSE converge.</li>
+<li index="1">The gap between training and validation error narrows with more data, indicating the model is not overfitting.</li>
+<li index="2">The curves flatten out at around 60-70% of the data, suggesting that we have sufficient data for this problem.</li>
+</ol>
+<h3 level="3">Leave-One-Out Cross-Validation (LOOCV)</h3>
+<p>The LOOCV analysis (performed on a subset of the data for computational efficiency) shows similar RMSE to the k-fold approach, providing additional validation of our model's stability.</p>
+<h2 level="2">Conclusions and Recommendations</h2>
+<ol depth="0">
+<li index="0"><strong>Model Performance</strong>: Our linear regression model performs well with an R² of approximately 0.85 and RMSE of around 16-17 units. This indicates a good fit for predicting tensile strength based on manufacturing parameters.</li>
+<li index="1"><strong>Generalizability</strong>: The low variation in cross-validation scores suggests the model generalizes well to unseen data, making it reliable for future predictions.</li>
+<li index="2"><strong>Feature Importance</strong>: The most influential factors are alloying element percentage (positive impact) and cooling rate (negative impact). This suggests that increasing the alloying percentage and decreasing the cooling rate will generally increase tensile strength.</li>
+<li index="3"><strong>Possible Improvements</strong>:
+<ul depth="1">
+<li index="0">The residual analysis suggests our linear model captures most of the relationship, but there might be some non-linear effects we're not capturing.</li>
+<li index="1">Including polynomial terms or interaction terms could potentially improve model performance.</li>
+<li index="2">Regularization techniques like Lasso or Ridge regression could be explored to improve generalizability further.</li>
+</ul>
+</li>
+<li index="4"><strong>Process Optimization</strong>: Based on our model, to maximize tensile strength, we should:
+<ul depth="1">
+<li index="0">Increase alloying element percentage (but be cautious of the diminishing returns indicated by the negative quadratic term)</li>
+<li index="1">Decrease cooling rate</li>
+<li index="2">Increase processing time</li>
+<li index="3">Optimize temperature (due to the quadratic relationship)</li>
+</ul>
+</li>
+</ol>
+<p>This cross-validation analysis provides strong evidence that our linear regression model is reliable for predicting tensile strength in this manufacturing context, and the insights gained can guide process optimization to achieve desired material properties.</p>
+<p></p>
+<h2>Solution in Python (<a href="https://colab.research.google.com/drive/1WfnYzldTL0nPne42pVZMR5phIM6mhQxD?usp=sharing" target="_blank" rel="noopener">link</a>)</h2>
+<p><code>import numpy as np</code><br><code>import pandas as pd</code><br><code>import matplotlib.pyplot as plt</code><br><code>import seaborn as sns</code><br><code>from sklearn.linear_model import LinearRegression</code><br><code>from sklearn.model_selection import KFold, cross_val_score, train_test_split</code><br><code>from sklearn.metrics import mean_squared_error, r2_score</code><br><code>from sklearn.preprocessing import StandardScaler</code><br><code>from sklearn.pipeline import Pipeline</code><br><code>import statsmodels.api as sm</code><br><code>from statsmodels.stats.outliers_influence import variance_inflation_factor</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>np.random.seed(42)</code></p>
+<p><code># Generate synthetic data for an engineering problem</code><br><code>n_samples = 200</code></p>
+<p><code># Independent variables</code><br><code>temperature = np.random.uniform(150, 350, n_samples) &nbsp;# Temperature in Celsius</code><br><code>cooling_rate = np.random.uniform(2, 15, n_samples) &nbsp; &nbsp;# Cooling rate in C/min</code><br><code>alloy_percent = np.random.uniform(1, 8, n_samples) &nbsp; &nbsp;# Alloying element percentage</code><br><code>process_time = np.random.uniform(0.5, 5, n_samples) &nbsp; # Processing time in hours</code></p>
+<p><code># Create a relationship where tensile strength depends on these variables</code><br><code># with some non-linear relationships and interaction effects</code><br><code>tensile_strength = (</code><br><code>&nbsp; &nbsp; 120 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Base strength</code><br><code>&nbsp; &nbsp; + 0.5 * temperature &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Linear effect of temperature</code><br><code>&nbsp; &nbsp; - 0.0005 * temperature**2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Non-linear effect of temperature</code><br><code>&nbsp; &nbsp; - 8 * cooling_rate &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Effect of cooling rate (faster cooling = lower strength)</code><br><code>&nbsp; &nbsp; + 25 * alloy_percent &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Effect of alloying element</code><br><code>&nbsp; &nbsp; - 2 * alloy_percent**2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Non-linear effect of alloying</code><br><code>&nbsp; &nbsp; + 15 * process_time &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Effect of process time</code><br><code>&nbsp; &nbsp; + 0.05 * temperature * alloy_percent &nbsp; &nbsp; &nbsp;# Interaction between temperature and alloying</code><br><code>&nbsp; &nbsp; + np.random.normal(0, 15, n_samples) &nbsp; &nbsp; &nbsp;# Random noise</code><br><code>)</code></p>
+<p><code># Create a DataFrame</code><br><code>data = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Temperature': temperature,</code><br><code>&nbsp; &nbsp; 'CoolingRate': cooling_rate,</code><br><code>&nbsp; &nbsp; 'AlloyPercent': alloy_percent,</code><br><code>&nbsp; &nbsp; 'ProcessTime': process_time,</code><br><code>&nbsp; &nbsp; 'TensileStrength': tensile_strength</code><br><code>})</code></p>
+<p><code># Display basic statistics</code><br><code>print("Dataset Overview:")</code><br><code>print(data.describe())</code></p>
+<p><code># Visualize the relationships between variables</code><br><code>fig, axes = plt.subplots(2, 2, figsize=(14, 10))</code><br><code>axes = axes.flatten()</code></p>
+<p><code>for i, column in enumerate(['Temperature', 'CoolingRate', 'AlloyPercent', 'ProcessTime']):</code><br><code>&nbsp; &nbsp; sns.scatterplot(x=column, y='TensileStrength', data=data, ax=axes[i])</code><br><code>&nbsp; &nbsp; axes[i].set_title(f'{column} vs Tensile Strength')</code></p>
+<p><code>plt.tight_layout()</code><br><code>plt.savefig('variable_relationships.png')</code><br><code>plt.close()</code></p>
+<p><code># Correlation matrix</code><br><code>plt.figure(figsize=(10, 8))</code><br><code>correlation_matrix = data.corr()</code><br><code>sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")</code><br><code>plt.title('Correlation Matrix')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('correlation_matrix.png')</code><br><code>plt.close()</code></p>
+<p><code># Split data into training and testing sets</code><br><code>X = data.drop('TensileStrength', axis=1)</code><br><code>y = data['TensileStrength']</code><br><code>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)</code></p>
+<p><code># Create a pipeline with standardization and linear regression</code><br><code>pipeline = Pipeline([</code><br><code>&nbsp; &nbsp; ('scaler', StandardScaler()),</code><br><code>&nbsp; &nbsp; ('regression', LinearRegression())</code><br><code>])</code></p>
+<p><code># Train the model</code><br><code>pipeline.fit(X_train, y_train)</code></p>
+<p><code># Make predictions on the test set</code><br><code>y_pred = pipeline.predict(X_test)</code></p>
+<p><code># Calculate performance metrics</code><br><code>mse = mean_squared_error(y_test, y_pred)</code><br><code>r2 = r2_score(y_test, y_pred)</code></p>
+<p><code>print("\nModel Performance on Test Set:")</code><br><code>print(f"Mean Squared Error: {mse:.2f}")</code><br><code>print(f"R² Score: {r2:.4f}")</code></p>
+<p><code># K-fold cross-validation</code><br><code>cv = KFold(n_splits=10, shuffle=True, random_state=42)</code><br><code>cv_scores = cross_val_score(pipeline, X, y, cv=cv, scoring='neg_mean_squared_error')</code><br><code>rmse_scores = np.sqrt(-cv_scores)</code></p>
+<p><code>print("\nCross-Validation Results:")</code><br><code>print(f"RMSE scores: {rmse_scores}")</code><br><code>print(f"Mean RMSE: {rmse_scores.mean():.2f}")</code><br><code>print(f"Standard Deviation: {rmse_scores.std():.2f}")</code></p>
+<p><code># Visualize cross-validation results</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.bar(range(1, len(rmse_scores) + 1), rmse_scores)</code><br><code>plt.axhline(y=rmse_scores.mean(), color='r', linestyle='-', label=f'Mean RMSE = {rmse_scores.mean():.2f}')</code><br><code>plt.xlabel('Fold')</code><br><code>plt.ylabel('RMSE')</code><br><code>plt.title('RMSE for Each Fold in 10-Fold Cross-Validation')</code><br><code>plt.legend()</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('cv_results.png')</code><br><code>plt.close()</code></p>
+<p><code># Calculate feature importance using the coefficients</code><br><code>feature_importance = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Feature': X.columns,</code><br><code>&nbsp; &nbsp; 'Importance': np.abs(pipeline.named_steps['regression'].coef_)</code><br><code>})</code><br><code>feature_importance = feature_importance.sort_values('Importance', ascending=False)</code></p>
+<p><code>print("\nFeature Importance:")</code><br><code>print(feature_importance)</code></p>
+<p><code># Visualize feature importance</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.barplot(x='Importance', y='Feature', data=feature_importance)</code><br><code>plt.title('Feature Importance')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('feature_importance.png')</code><br><code>plt.close()</code></p>
+<p><code># Evaluate for multicollinearity using Variance Inflation Factor (VIF)</code><br><code>X_with_const = sm.add_constant(X)</code><br><code>vif_data = pd.DataFrame()</code><br><code>vif_data["Variable"] = X_with_const.columns</code><br><code>vif_data["VIF"] = [variance_inflation_factor(X_with_const.values, i) for i in range(X_with_const.shape[1])]</code></p>
+<p><code>print("\nVariance Inflation Factors:")</code><br><code>print(vif_data)</code></p>
+<p><code># Visualize prediction vs actual values</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(y_test, y_pred, alpha=0.7)</code><br><code>plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')</code><br><code>plt.xlabel('Actual Tensile Strength')</code><br><code>plt.ylabel('Predicted Tensile Strength')</code><br><code>plt.title('Prediction vs Actual')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('prediction_vs_actual.png')</code><br><code>plt.close()</code></p>
+<p><code># Plot residuals</code><br><code>residuals = y_test - y_pred</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.histplot(residuals, kde=True)</code><br><code>plt.xlabel('Residuals')</code><br><code>plt.ylabel('Frequency')</code><br><code>plt.title('Residuals Distribution')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('residuals_distribution.png')</code><br><code>plt.close()</code></p>
+<p><code># Plot residuals vs predicted values</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>plt.scatter(y_pred, residuals, alpha=0.7)</code><br><code>plt.axhline(y=0, color='r', linestyle='--')</code><br><code>plt.xlabel('Predicted Tensile Strength')</code><br><code>plt.ylabel('Residuals')</code><br><code>plt.title('Residuals vs Predicted Values')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('residuals_vs_predicted.png')</code><br><code>plt.close()</code></p>
+<p><code># Learning curves: Train and test with different training set sizes</code><br><code>from sklearn.model_selection import learning_curve</code></p>
+<p><code>train_sizes, train_scores, test_scores = learning_curve(</code><br><code>&nbsp; &nbsp; pipeline, X, y, cv=5, scoring='neg_mean_squared_error',</code><br><code>&nbsp; &nbsp; train_sizes=np.linspace(0.1, 1.0, 10), random_state=42</code><br><code>)</code></p>
+<p><code>train_rmse = np.sqrt(-train_scores.mean(axis=1))</code><br><code>test_rmse = np.sqrt(-test_scores.mean(axis=1))</code></p>
+<p><code>plt.figure(figsize=(10, 6))</code><br><code>plt.plot(train_sizes, train_rmse, 'o-', color='b', label='Training RMSE')</code><br><code>plt.plot(train_sizes, test_rmse, 'o-', color='r', label='Validation RMSE')</code><br><code>plt.xlabel('Training Set Size')</code><br><code>plt.ylabel('RMSE')</code><br><code>plt.title('Learning Curves')</code><br><code>plt.legend()</code><br><code>plt.grid(True)</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('learning_curves.png')</code><br><code>plt.close()</code></p>
+<p><code># Calculate feature coefficients</code><br><code>coefficients = pd.DataFrame({</code><br><code>&nbsp; &nbsp; 'Feature': X.columns,</code><br><code>&nbsp; &nbsp; 'Coefficient': pipeline.named_steps['regression'].coef_</code><br><code>})</code><br><code>print("\nModel Coefficients:")</code><br><code>print(coefficients)</code></p>
+<p><code># Visualize coefficients</code><br><code>plt.figure(figsize=(10, 6))</code><br><code>sns.barplot(x='Coefficient', y='Feature', data=coefficients)</code><br><code>plt.title('Model Coefficients')</code><br><code>plt.tight_layout()</code><br><code>plt.savefig('model_coefficients.png')</code><br><code>plt.close()</code></p>
+<p><code># Create a summary of the cross-validation analysis</code><br><code>print("\nCross-Validation Analysis Summary:")</code><br><code>print(f"Mean RMSE across folds: {rmse_scores.mean():.2f}")</code><br><code>print(f"Standard deviation of RMSE: {rmse_scores.std():.2f}")</code><br><code>print(f"Coefficient of variation: {rmse_scores.std() / rmse_scores.mean():.4f}")</code><br><code>print(f"Min RMSE: {rmse_scores.min():.2f}, Max RMSE: {rmse_scores.max():.2f}")</code><br><code>print(f"Range of RMSE values: {rmse_scores.max() - rmse_scores.min():.2f}")</code></p>
+<p><code># Conduct LOOCV (Leave-One-Out Cross-Validation) for small dataset illustration</code><br><code># Note: This would be too computationally expensive for large datasets</code><br><code>from sklearn.model_selection import LeaveOneOut</code></p>
+<p><code>loocv = LeaveOneOut()</code><br><code>loocv_scores = cross_val_score(pipeline, X.iloc[:50], y.iloc[:50], cv=loocv, scoring='neg_mean_squared_error')</code><br><code>loocv_rmse = np.sqrt(-loocv_scores)</code></p>
+<p><code>print("\nLOOCV Analysis (first 50 samples):")</code><br><code>print(f"Mean RMSE: {loocv_rmse.mean():.2f}")</code><br><code>print(f"Standard Deviation: {loocv_rmse.std():.2f}")</code></p>
+<h2>Solution in R</h2>
+<p><code># Install and load required packages</code><br><code>if (!require(tidyverse)) install.packages("tidyverse")</code><br><code>if (!require(caret)) install.packages("caret")</code><br><code>if (!require(car)) install.packages("car")</code><br><code>if (!require(ggplot2)) install.packages("ggplot2")</code><br><code>if (!require(corrplot)) install.packages("corrplot")</code><br><code>if (!require(glmnet)) install.packages("glmnet")</code></p>
+<p><code>library(tidyverse)</code><br><code>library(caret)</code><br><code>library(car)</code><br><code>library(ggplot2)</code><br><code>library(corrplot)</code><br><code>library(glmnet)</code></p>
+<p><code># Set random seed for reproducibility</code><br><code>set.seed(42)</code></p>
+<p><code># Generate synthetic data for an engineering problem</code><br><code>n_samples &lt;- 200</code></p>
+<p><code># Independent variables</code><br><code>temperature &lt;- runif(n_samples, 150, 350) &nbsp;# Temperature in Celsius</code><br><code>cooling_rate &lt;- runif(n_samples, 2, 15) &nbsp; &nbsp;# Cooling rate in C/min</code><br><code>alloy_percent &lt;- runif(n_samples, 1, 8) &nbsp; &nbsp;# Alloying element percentage</code><br><code>process_time &lt;- runif(n_samples, 0.5, 5) &nbsp; # Processing time in hours</code></p>
+<p><code># Create a relationship where tensile strength depends on these variables</code><br><code># with some non-linear relationships and interaction effects</code><br><code>tensile_strength &lt;- 120 + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Base strength</code><br><code>&nbsp; 0.5 * temperature - &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Linear effect of temperature</code><br><code>&nbsp; 0.0005 * temperature^2 - &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Non-linear effect of temperature</code><br><code>&nbsp; 8 * cooling_rate + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Effect of cooling rate</code><br><code>&nbsp; 25 * alloy_percent - &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# Effect of alloying element</code><br><code>&nbsp; 2 * alloy_percent^2 + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Non-linear effect of alloying</code><br><code>&nbsp; 15 * process_time + &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Effect of process time</code><br><code>&nbsp; 0.05 * temperature * alloy_percent + &nbsp; &nbsp; &nbsp; &nbsp;# Interaction between temperature and alloying</code><br><code>&nbsp; rnorm(n_samples, 0, 15) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Random noise</code></p>
+<p><code># Create a data frame</code><br><code>data &lt;- data.frame(</code><br><code>&nbsp; Temperature = temperature,</code><br><code>&nbsp; CoolingRate = cooling_rate,</code><br><code>&nbsp; AlloyPercent = alloy_percent,</code><br><code>&nbsp; ProcessTime = process_time,</code><br><code>&nbsp; TensileStrength = tensile_strength</code><br><code>)</code></p>
+<p><code># Display basic statistics</code><br><code>summary(data)</code></p>
+<p><code># Visualize the relationships between variables</code><br><code>par(mfrow = c(2, 2))</code><br><code>for (var in c("Temperature", "CoolingRate", "AlloyPercent", "ProcessTime")) {</code><br><code>&nbsp; plot(data[[var]], data$TensileStrength,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;xlab = var, ylab = "Tensile Strength",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;main = paste(var, "vs Tensile Strength"))</code><br><code>}</code></p>
+<p><code># Save the plot</code><br><code>dev.copy(png, "variable_relationships_r.png")</code><br><code>dev.off()</code></p>
+<p><code># Reset plot layout</code><br><code>par(mfrow = c(1, 1))</code></p>
+<p><code># Correlation matrix</code><br><code>correlation_matrix &lt;- cor(data)</code><br><code>corrplot(correlation_matrix, method = "number", type = "upper",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;tl.col = "black", tl.srt = 45)</code></p>
+<p><code># Save the correlation plot</code><br><code>dev.copy(png, "correlation_matrix_r.png")</code><br><code>dev.off()</code></p>
+<p><code># Split data into training and testing sets</code><br><code>set.seed(42)</code><br><code>train_index &lt;- createDataPartition(data$TensileStrength, p = 0.8, list = FALSE)</code><br><code>train_data &lt;- data[train_index, ]</code><br><code>test_data &lt;- data[-train_index, ]</code></p>
+<p><code># Train a linear regression model</code><br><code>lm_model &lt;- lm(TensileStrength ~ ., data = train_data)</code></p>
+<p><code># Model summary</code><br><code>summary_model &lt;- summary(lm_model)</code><br><code>print(summary_model)</code></p>
+<p><code># Make predictions on the test set</code><br><code>predictions &lt;- predict(lm_model, test_data)</code></p>
+<p><code># Calculate performance metrics</code><br><code>mse &lt;- mean((test_data$TensileStrength - predictions)^2)</code><br><code>rmse &lt;- sqrt(mse)</code><br><code>r_squared &lt;- summary_model$r.squared</code><br><code>adj_r_squared &lt;- summary_model$adj.r.squared</code></p>
+<p><code>cat("\nModel Performance on Test Set:\n")</code><br><code>cat("Mean Squared Error:", round(mse, 2), "\n")</code><br><code>cat("Root Mean Squared Error:", round(rmse, 2), "\n")</code><br><code>cat("R-squared:", round(r_squared, 4), "\n")</code><br><code>cat("Adjusted R-squared:", round(adj_r_squared, 4), "\n")</code></p>
+<p><code># K-fold cross-validation</code><br><code>set.seed(42)</code><br><code>train_control &lt;- trainControl(method = "cv", number = 10)</code><br><code>cv_model &lt;- train(TensileStrength ~ ., data = data, method = "lm",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trControl = train_control, metric = "RMSE")</code></p>
+<p><code>print(cv_model)</code></p>
+<p><code># Extract cross-validation results</code><br><code>cv_results &lt;- cv_model$results</code><br><code>rmse_scores &lt;- cv_model$resample$RMSE</code></p>
+<p><code>cat("\nCross-Validation Results:\n")</code><br><code>cat("RMSE scores:", round(rmse_scores, 2), "\n")</code><br><code>cat("Mean RMSE:", round(mean(rmse_scores), 2), "\n")</code><br><code>cat("Standard Deviation:", round(sd(rmse_scores), 2), "\n")</code></p>
+<p><code># Visualize cross-validation results</code><br><code>cv_results_df &lt;- data.frame(Fold = 1:10, RMSE = rmse_scores)</code><br><code>p &lt;- ggplot(cv_results_df, aes(x = Fold, y = RMSE)) +</code><br><code>&nbsp; geom_bar(stat = "identity", fill = "steelblue") +</code><br><code>&nbsp; geom_hline(yintercept = mean(rmse_scores), color = "red", linetype = "dashed") +</code><br><code>&nbsp; labs(title = "RMSE for Each Fold in 10-Fold Cross-Validation",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Fold", y = "RMSE") +</code><br><code>&nbsp; annotate("text", x = 5, y = mean(rmse_scores) + 1,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;label = paste("Mean RMSE =", round(mean(rmse_scores), 2)))</code></p>
+<p><code>print(p)</code><br><code>ggsave("cv_results_r.png", p)</code></p>
+<p><code># Check for multicollinearity using VIF</code><br><code>vif_values &lt;- vif(lm_model)</code><br><code>print(vif_values)</code></p>
+<p><code># Visualize prediction vs actual values</code><br><code>prediction_df &lt;- data.frame(</code><br><code>&nbsp; Actual = test_data$TensileStrength,</code><br><code>&nbsp; Predicted = predictions</code><br><code>)</code></p>
+<p><code>p &lt;- ggplot(prediction_df, aes(x = Actual, y = Predicted)) +</code><br><code>&nbsp; geom_point(alpha = 0.7) +&nbsp;</code><br><code>&nbsp; geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +</code><br><code>&nbsp; labs(title = "Prediction vs Actual",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Actual Tensile Strength",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Predicted Tensile Strength")</code></p>
+<p><code>print(p)</code><br><code>ggsave("prediction_vs_actual_r.png", p)</code></p>
+<p><code># Plot residuals</code><br><code>residuals &lt;- test_data$TensileStrength - predictions</code><br><code>residual_df &lt;- data.frame(Residuals = residuals)</code></p>
+<p><code>p &lt;- ggplot(residual_df, aes(x = Residuals)) +</code><br><code>&nbsp; geom_histogram(aes(y = ..density..), bins = 30, fill = "steelblue", alpha = 0.7) +</code><br><code>&nbsp; geom_density(color = "red") +</code><br><code>&nbsp; labs(title = "Residuals Distribution",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Residuals", y = "Density")</code></p>
+<p><code>print(p)</code><br><code>ggsave("residuals_distribution_r.png", p)</code></p>
+<p><code># Plot residuals vs predicted values</code><br><code>residual_pred_df &lt;- data.frame(</code><br><code>&nbsp; Predicted = predictions,</code><br><code>&nbsp; Residuals = residuals</code><br><code>)</code></p>
+<p><code>p &lt;- ggplot(residual_pred_df, aes(x = Predicted, y = Residuals)) +</code><br><code>&nbsp; geom_point(alpha = 0.7) +</code><br><code>&nbsp; geom_hline(yintercept = 0, color = "red", linetype = "dashed") +</code><br><code>&nbsp; labs(title = "Residuals vs Predicted Values",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Predicted Tensile Strength",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "Residuals")</code></p>
+<p><code>print(p)</code><br><code>ggsave("residuals_vs_predicted_r.png", p)</code></p>
+<p><code># Feature importance based on coefficients</code><br><code>coef_df &lt;- data.frame(</code><br><code>&nbsp; Feature = names(coef(lm_model)[-1]),</code><br><code>&nbsp; Coefficient = coef(lm_model)[-1]</code><br><code>)</code><br><code>coef_df$Importance &lt;- abs(coef_df$Coefficient)</code><br><code>coef_df &lt;- coef_df[order(-coef_df$Importance), ]</code></p>
+<p><code>print(coef_df)</code></p>
+<p><code># Visualize feature importance</code><br><code>p &lt;- ggplot(coef_df, aes(x = reorder(Feature, Importance), y = Importance)) +</code><br><code>&nbsp; geom_bar(stat = "identity", fill = "steelblue") +</code><br><code>&nbsp; coord_flip() +</code><br><code>&nbsp; labs(title = "Feature Importance",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Feature", y = "Importance (Absolute Coefficient Value)")</code></p>
+<p><code>print(p)</code><br><code>ggsave("feature_importance_r.png", p)</code></p>
+<p><code># Learning curves</code><br><code>learning_curve_data &lt;- data.frame()</code><br><code>set.seed(42)</code><br><code>training_sizes &lt;- seq(0.1, 0.9, by = 0.1)</code></p>
+<p><code>for (size in training_sizes) {</code><br><code>&nbsp; # Train multiple models with different sample sizes</code><br><code>&nbsp; train_indices &lt;- createDataPartition(data$TensileStrength, p = size, list = FALSE)</code><br><code>&nbsp; sample_train &lt;- data[train_indices, ]</code><br><code>&nbsp; sample_test &lt;- data[-train_indices, ]</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Train model</code><br><code>&nbsp; model &lt;- lm(TensileStrength ~ ., data = sample_train)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Calculate RMSE for training and test sets</code><br><code>&nbsp; train_pred &lt;- predict(model, sample_train)</code><br><code>&nbsp; test_pred &lt;- predict(model, sample_test)</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; train_rmse &lt;- sqrt(mean((sample_train$TensileStrength - train_pred)^2))</code><br><code>&nbsp; test_rmse &lt;- sqrt(mean((sample_test$TensileStrength - test_pred)^2))</code><br><code>&nbsp;&nbsp;</code><br><code>&nbsp; # Add to results</code><br><code>&nbsp; learning_curve_data &lt;- rbind(learning_curve_data,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;data.frame(Size = size,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TrainRMSE = train_rmse,&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; TestRMSE = test_rmse))</code><br><code>}</code></p>
+<p><code># Plot learning curves</code><br><code>p &lt;- ggplot(learning_curve_data, aes(x = Size)) +</code><br><code>&nbsp; geom_line(aes(y = TrainRMSE, color = "Training"), size = 1) +</code><br><code>&nbsp; geom_point(aes(y = TrainRMSE, color = "Training"), size = 3) +</code><br><code>&nbsp; geom_line(aes(y = TestRMSE, color = "Validation"), size = 1) +</code><br><code>&nbsp; geom_point(aes(y = TestRMSE, color = "Validation"), size = 3) +</code><br><code>&nbsp; scale_color_manual(values = c("Training" = "blue", "Validation" = "red")) +</code><br><code>&nbsp; labs(title = "Learning Curves",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Training Set Size (proportion)",&nbsp;</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;y = "RMSE",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;color = "Dataset") +</code><br><code>&nbsp; theme_minimal()</code></p>
+<p><code>print(p)</code><br><code>ggsave("learning_curves_r.png", p)</code></p>
+<p><code># Visualization of model coefficients</code><br><code>coef_df$Feature &lt;- factor(coef_df$Feature, levels = coef_df$Feature[order(coef_df$Coefficient)])</code><br><code>p &lt;- ggplot(coef_df, aes(x = Feature, y = Coefficient)) +</code><br><code>&nbsp; geom_bar(stat = "identity", fill = "steelblue") +</code><br><code>&nbsp; coord_flip() +</code><br><code>&nbsp; labs(title = "Model Coefficients",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp;x = "Feature", y = "Coefficient Value")</code></p>
+<p><code>print(p)</code><br><code>ggsave("model_coefficients_r.png", p)</code></p>
+<p><code># Create a summary of the cross-validation analysis</code><br><code>cat("\nCross-Validation Analysis Summary:\n")</code><br><code>cat("Mean RMSE across folds:", round(mean(rmse_scores), 2), "\n")</code><br><code>cat("Standard deviation of RMSE:", round(sd(rmse_scores), 2), "\n")</code><br><code>cat("Coefficient of variation:", round(sd(rmse_scores) / mean(rmse_scores), 4), "\n")</code><br><code>cat("Min RMSE:", round(min(rmse_scores), 2), ", Max RMSE:", round(max(rmse_scores), 2), "\n")</code><br><code>cat("Range of RMSE values:", round(max(rmse_scores) - min(rmse_scores), 2), "\n")</code></p>
+<p><code># Perform LOOCV (Leave-One-Out Cross-Validation) for small dataset illustration</code><br><code># Note: This would be computationally expensive for large datasets</code><br><code>set.seed(42)</code><br><code>loocv_control &lt;- trainControl(method = "LOOCV")</code><br><code>small_data &lt;- data[1:50, ] &nbsp;# Use first 50 samples for illustration</code><br><code>loocv_model &lt;- train(TensileStrength ~ ., data = small_data, method = "lm",</code><br><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trControl = loocv_control, metric = "RMSE")</code></p>
+<p><code>cat("\nLOOCV Analysis (first 50 samples):\n")</code><br><code>cat("Mean RMSE:", round(loocv_model$results$RMSE, 2), "\n")</code></p>
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
