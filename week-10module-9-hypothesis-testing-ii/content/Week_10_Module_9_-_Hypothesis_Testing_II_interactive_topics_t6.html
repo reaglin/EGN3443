@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting and Communicating Results</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+  <header>
+    <h1>Interpreting and Communicating Results</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Interpreting and Communicating Results</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistical hypothesis testing produces a set of numerical outputs — a test statistic, a p-value, degrees of freedom, and often a confidence interval — that must be read together and communicated with precision. Each component answers a slightly different question, and conflating them is one of the most persistent sources of error in applied research. This topic develops a thorough understanding of what each output means, how the outputs relate to one another, and how to present findings in a way that is both technically accurate and genuinely informative to a broad audience.</p>
+
+<p><strong>Understanding the Test Statistic</strong></p>
+
+<p>Every hypothesis test reduces the information in a dataset to a single number called the <em>test statistic</em>. This number summarises how far the observed data deviates from what would be expected if the null hypothesis were exactly true. The formula used to compute the test statistic depends on the type of test being performed and on the assumptions that are met:</p>
+
+<ul>
+  <li>A <strong>z-test</strong> (used when the population standard deviation is known, or when samples are large enough for the Central Limit Theorem to apply fully) produces a z-statistic that follows a standard normal distribution under the null hypothesis.</li>
+  <li>A <strong>t-test</strong> (used when the population standard deviation is unknown and the sample is relatively small) produces a t-statistic that follows a t-distribution whose shape depends on the degrees of freedom.</li>
+  <li>A <strong>chi-square test</strong> (used for categorical data, tests of independence, or goodness-of-fit assessments) produces a χ² statistic that follows a chi-square distribution under the null hypothesis.</li>
+  <li>An <strong>F-test</strong> (used in ANOVA and regression) produces an F-statistic that reflects the ratio of explained to unexplained variance.</li>
+</ul>
+
+<p>The <em>magnitude</em> of the test statistic is key: a larger absolute value means the observed data lies further from what the null hypothesis predicts, which in turn corresponds to stronger evidence against the null. For example, a t-statistic of 4.2 represents far greater departure from the null than a t-statistic of 0.8, all else being equal.</p>
+
+<p>The <em>sign</em> (direction) of the test statistic also carries information for tests involving mean differences or regression coefficients. A positive t-statistic for a two-sample test means the first group's mean exceeded the second group's mean in the sample; a negative value indicates the opposite. This directional information is especially relevant when interpreting the results of two-tailed tests, because the same p-value could correspond to effects in either direction.</p>
+
+<p>For complete and reproducible reporting, always state: (1) the name of the test, (2) the numeric value of the test statistic rounded to an appropriate number of decimal places, (3) the degrees of freedom where applicable, and (4) how the statistic was derived. For instance: <em>"An independent-samples t-test was conducted, yielding t(48) = 3.14."</em> This format alone tells a knowledgeable reader exactly which sampling distribution was used and how much information the test was based on.</p>
+
+<p><strong>Interpreting P-Values Correctly</strong></p>
+
+<p>The p-value is defined as the probability of obtaining a test statistic at least as extreme as the one observed, <em>assuming the null hypothesis is true</em>. It is a conditional probability, and that conditionality is everything. Formally:</p>
+
+<pre><code>p-value = P(observing data this extreme or more extreme | H₀ is true)</code></pre>
+
+<p>A small p-value — typically below the pre-specified significance level α — means that the observed data would be quite rare if the null hypothesis were correct. This rarity is interpreted as evidence against the null hypothesis, leading researchers to reject it. A commonly used threshold is α = 0.05, meaning we are willing to incorrectly reject a true null hypothesis no more than 5% of the time in the long run.</p>
+
+<p>Several critical misconceptions about p-values must be guarded against:</p>
+
+<ul>
+  <li><strong>The p-value is not the probability that the null hypothesis is true.</strong> It is not P(H₀ is true | observed data). That would require a prior probability for H₀, which frequentist statistics does not provide. Statements like "there is only a 3% chance that the null hypothesis is true" are incorrect.</li>
+  <li><strong>The p-value does not measure effect size or practical importance.</strong> A p-value of 0.001 does not mean the effect is large or meaningful — it simply means the data are very inconsistent with the null. With a large enough sample, even a difference of 0.0001 units can yield p = 0.001.</li>
+  <li><strong>A large p-value does not prove the null hypothesis.</strong> Failing to reject H₀ means only that the data do not provide sufficient evidence against it. The null could be false, but the study may have lacked the statistical power to detect the departure. This is the principle that <em>absence of evidence is not evidence of absence</em>.</li>
+  <li><strong>The significance level must be set before data collection.</strong> Choosing or adjusting α after seeing the p-value is a form of data manipulation. If α is set at 0.05 and p = 0.07, the result is not significant — it would be wrong to then decide that α = 0.10 would have been more appropriate all along.</li>
+</ul>
+
+<p><strong>Significance Levels and Decision Thresholds</strong></p>
+
+<p>The significance level α is the researcher's chosen maximum acceptable probability of committing a <em>Type I error</em> — rejecting the null hypothesis when it is actually true (a false positive). The most widely used values are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Significance Level (α)</th>
+      <th>Common Context</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.10</td>
+      <td>Exploratory research, pilot studies</td>
+      <td>10% tolerated false positive rate; lenient threshold</td>
+    </tr>
+    <tr>
+      <td>0.05</td>
+      <td>Most social, behavioural, and medical research</td>
+      <td>5% tolerated false positive rate; conventional default</td>
+    </tr>
+    <tr>
+      <td>0.01</td>
+      <td>Confirmatory research, stricter standards</td>
+      <td>1% tolerated false positive rate; more conservative</td>
+    </tr>
+    <tr>
+      <td>0.001 or lower</td>
+      <td>High-stakes fields (e.g., particle physics, genome-wide studies)</td>
+      <td>Very stringent; required due to multiple comparisons</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The choice of α involves a direct trade-off with the <em>Type II error rate</em> (β) — the probability of failing to reject a false null hypothesis (a false negative). Lowering α reduces false positives but increases false negatives, and vice versa. The statistical power of a test is defined as 1 − β, and adequate power (conventionally ≥ 0.80) should be ensured through appropriate sample size planning before data collection begins.</p>
+
+<p>It is also essential to apply any necessary corrections when conducting multiple hypothesis tests simultaneously. If 20 independent tests are performed at α = 0.05 each, on average one will produce a false positive even if all null hypotheses are true. Corrections such as the <strong>Bonferroni correction</strong> (dividing α by the number of tests) or the <strong>Benjamini–Hochberg procedure</strong> (controlling the false discovery rate) help manage this inflation.</p>
+
+<p>Once α is set and the test is run, the decision rule is binary and deterministic: if p ≤ α, reject H₀ and declare statistical significance; if p > α, fail to reject H₀. There is no statistical basis for treating a p-value of 0.049 as meaningfully different from one of 0.051 — both sit near the arbitrary boundary and deserve cautious interpretation.</p>
+
+<p><strong>Using Confidence Intervals to Complement Hypothesis Tests</strong></p>
+
+<p>A confidence interval (CI) provides a range of plausible values for the population parameter being estimated. For a parameter θ and a 95% confidence interval [L, U], the correct interpretation is: if the same procedure were repeated on many independent samples, approximately 95% of the resulting intervals would contain the true population parameter. It is not correct to say "there is a 95% probability that the parameter lies in this specific interval" — once computed, the interval either does or does not contain the true value.</p>
+
+<p>Confidence intervals add substantial value over p-values alone for several reasons:</p>
+
+<ul>
+  <li><strong>Direction and magnitude.</strong> A confidence interval shows not only whether an effect is statistically distinguishable from zero but also how large that effect plausibly is. A mean difference with a 95% CI of [0.1, 0.3] conveys far more than simply knowing p = 0.002.</li>
+  <li><strong>Precision of estimation.</strong> A narrow CI indicates that the estimate is precise (often because of a large or well-designed study), while a wide CI signals substantial uncertainty. For example, a hazard ratio of 2.5 with a 95% CI of [1.1, 5.7] is statistically significant but highly imprecise — the true effect could be anywhere from a modest elevation in risk to a very large one.</li>
+  <li><strong>Alignment with hypothesis testing.</strong> The connection between confidence intervals and hypothesis tests is exact: a 95% CI that excludes the null value (e.g., 0 for a difference, 1 for an odds ratio) corresponds precisely to rejecting the null at α = 0.05 using a two-tailed test. This duality means CIs can substitute for formal tests while providing richer information.</li>
+</ul>
+
+<p>Consider a concrete example. Suppose a two-sample t-test comparing the mean exam scores of two teaching methods yields t(98) = 2.45, p = 0.016, with a mean difference of 4.8 points and a 95% CI of [0.9, 8.7]. The p-value alone tells us the result is significant at α = 0.05. The CI tells us additionally that the true advantage of Method A over Method B is plausibly between 0.9 and 8.7 points — a range that allows a subject-matter expert to judge whether the improvement is educationally meaningful.</p>
+
+<p><strong>Distinguishing Statistical Significance from Practical Significance</strong></p>
+
+<p>One of the most important lessons in applied statistics is that <em>statistical significance is not the same as practical importance</em>. A result is statistically significant when the p-value falls below α; it is practically significant when the magnitude of the effect is large enough to matter in the real world. These two forms of significance are logically independent.</p>
+
+<p>The reason they can diverge is that the p-value is influenced by three things simultaneously: (1) the size of the true effect, (2) the sample size, and (3) the variability in the data. With a very large sample, even a negligibly small effect will produce a p-value below any conventional α. Conversely, with a small sample, a large and meaningful effect may fail to reach significance simply because there is not enough data to detect it reliably.</p>
+
+<p><strong>Effect size measures</strong> address this by quantifying the magnitude of an effect on a scale that does not depend on sample size. Commonly used measures include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Measure</th>
+      <th>Used For</th>
+      <th>Formula / Description</th>
+      <th>Rough Benchmarks (Cohen)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cohen's <em>d</em></td>
+      <td>Difference between two means</td>
+      <td>(μ₁ − μ₂) / pooled SD</td>
+      <td>Small: 0.2, Medium: 0.5, Large: 0.8</td>
+    </tr>
+    <tr>
+      <td>Pearson's <em>r</em></td>
+      <td>Correlation between two variables</td>
+      <td>Standardised covariance</td>
+      <td>Small: 0.1, Medium: 0.3, Large: 0.5</td>
+    </tr>
+    <tr>
+      <td>η² (eta-squared)</td>
+      <td>Proportion of variance explained in ANOVA</td>
+      <td>SS_between / SS_total</td>
+      <td>Small: 0.01, Medium: 0.06, Large: 0.14</td>
+    </tr>
+    <tr>
+      <td>Odds Ratio (OR)</td>
+      <td>Binary outcomes in logistic settings</td>
+      <td>Ratio of event odds across groups</td>
+      <td>Context-dependent; OR = 1 means no effect</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These benchmarks are useful starting points but should never replace domain knowledge. In clinical trials, a Cohen's d of 0.2 might represent a trivial improvement in a quality-of-life score but a crucial reduction in a rare serious adverse event. Practical significance must ultimately be judged by experts in the relevant field, not derived mechanically from any statistical formula.</p>
+
+<p><strong>Reporting Hypothesis Test Results Clearly</strong></p>
+
+<p>Clear reporting serves two goals: it allows readers to evaluate the analysis critically, and it allows other researchers to reproduce or build upon the work. A well-written results statement should include all of the following elements:</p>
+
+<ul>
+  <li><strong>Type of test</strong> — specify the test by name (e.g., "independent-samples t-test," "Pearson chi-square test of independence").</li>
+  <li><strong>Test statistic and degrees of freedom</strong> — report the numeric value and, where applicable, the degrees of freedom in the standard notation, e.g., t(df) or χ²(df).</li>
+  <li><strong>Exact p-value</strong> — report p to two or three decimal places (e.g., p = 0.032) rather than using vague inequalities like p &lt; 0.05 wherever possible. For very small values, p &lt; 0.001 is acceptable.</li>
+  <li><strong>Confidence interval</strong> — state the confidence level and both bounds (e.g., "95% CI [1.2, 4.7]").</li>
+  <li><strong>Effect size</strong> — report the appropriate measure with its value and, if useful, its interpretation in context.</li>
+  <li><strong>Plain-language conclusion</strong> — state whether the null hypothesis was rejected and what this means for the research question, written clearly enough for a non-statistician to understand.</li>
+  <li><strong>Limitations</strong> — acknowledge any factors that might compromise the validity of the conclusions, such as assumption violations (e.g., non-normality, unequal variances), non-random sampling, or small sample sizes that limit power.</li>
+</ul>
+
+<p>A complete example of well-reported results might read: <em>"An independent-samples t-test was used to compare mean systolic blood pressure between patients receiving the new medication (n = 52, M = 118.4, SD = 11.2) and those receiving the placebo (n = 50, M = 124.9, SD = 12.0). The test yielded t(100) = −2.83, p = 0.006, with a mean difference of −6.5 mmHg (95% CI [−11.0, −2.0]) and a Cohen's d of 0.56 (medium effect). The null hypothesis of no mean difference was rejected at α = 0.05. The observed reduction is statistically significant and clinically plausible, though confirmation in a larger, more diverse sample is warranted."</em></p>
+
+<p>Avoid certain patterns that undermine clarity and accuracy. Writing "the result was marginally significant" or "approached significance" for a p-value of, say, 0.07 is technically misleading — at the pre-specified α = 0.05 the result was not significant, and implying otherwise blurs the decision rule. Similarly, never report only that "p &lt; 0.05" without providing the actual value; exact p-values allow readers to make their own judgements and are required for any meta-analysis.</p>
+
+<p><strong>Common Misinterpretations to Avoid</strong></p>
+
+<p>Even experienced analysts commit errors in interpreting and communicating statistical results. The following are the most consequential mistakes and how to avoid them:</p>
+
+<ul>
+  <li><strong>Treating non-significance as proof of no effect.</strong> A non-significant result means the test did not find convincing evidence against H₀ given the data available. It does not establish that H₀ is true. A study with very low power might consistently fail to detect a real and important effect. The appropriate language is "we found no statistically significant evidence of an effect," not "we proved there is no effect."</li>
+  <li><strong>Equating a smaller p-value with a larger or more important effect.</strong> Because p-values depend on sample size, a study with n = 10,000 might produce p = 0.0001 for a difference of 0.5 points on a 100-point scale, while a study with n = 30 might produce p = 0.08 for a difference of 15 points. The second study's result, though not significant, may be pointing to a far more important effect. Always examine the effect size alongside the p-value.</li>
+  <li><strong>P-hacking and selective reporting.</strong> Analysing data in multiple ways and reporting only the analysis that produced p &lt; 0.05 is known as <em>p-hacking</em> or data dredging. This practice inflates the actual Type I error rate far above the nominal α, because each additional analysis provides another chance to find a spuriously significant result. Pre-registering hypotheses and analysis plans before data collection is the most effective safeguard. Reporting all tests conducted, including non-significant ones, is also essential for transparency.</li>
+  <li><strong>Over-generalising from a single significant result.</strong> Statistical significance in one study is not sufficient grounds for strong scientific conclusions. A p-value below 0.05 will occur by chance 5% of the time under H₀. Scientific confidence is appropriately built through replication — multiple independent studies that find consistent effect sizes and directions. Consistency of effect magnitudes across replications is as important as, if not more important than, consistency in achieving statistical significance.</li>
+  <li><strong>Ignoring the assumptions underlying the test.</strong> Every hypothesis test rests on assumptions (e.g., independence of observations, normality of residuals, homogeneity of variance). Violating these assumptions can distort the p-value and make the stated Type I error rate inaccurate. Always check assumptions, report when they are met or violated, and consider using alternative tests or robust methods when major violations are detected.</li>
+</ul>
+
+<p>In summary, interpreting and communicating statistical results well requires holding several ideas in mind simultaneously: the test statistic and its distribution, the exact p-value and what it genuinely measures, the confidence interval and what it reveals about plausible effect magnitudes, the appropriate effect size and what it implies practically, and an honest accounting of the study's limitations. Each piece of information complements the others, and omitting any of them risks misleading both the immediate reader and the broader scientific community.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: test statistics (types, magnitude, direction, reporting format), p-value interpretation (conditional probability, common misconceptions, pre-specification of α), significance levels (α choice, Type I/II trade-off, multiple comparisons), confidence intervals (correct interpretation, width, duality with hypothesis tests), statistical vs. practical significance (effect size measures, Cohen&#39;s benchmarks, domain context), full reporting guidelines (APA-style elements, plain-language conclusions, limitations), and common misinterpretations (non-significance ≠ no effect, p-value ≠ effect size, p-hacking, replication considerations, assumption checking). Illustrative tables and a complete worked reporting example are included.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

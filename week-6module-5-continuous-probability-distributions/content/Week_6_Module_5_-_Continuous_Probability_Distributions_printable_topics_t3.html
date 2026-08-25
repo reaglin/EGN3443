@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Normal Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+  <header>
+    <h1>The Normal Distribution</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> The Normal Distribution</h2>
+      <p>The normal distribution is one of the most important and widely encountered probability distributions in all of statistics. Often described as a "bell curve" because of its distinctive shape, the normal distribution appears naturally in countless real-world phenomena — from the heights of people in a population, to the measurement errors in scientific experiments, to the daily returns of financial assets. Understanding its properties, learning how to work with its parameters, and mastering the techniques for calculating probabilities from it are foundational skills for anyone working with data.</p>
+
+<p>What makes the normal distribution so powerful is a combination of mathematical elegance and practical ubiquity. Its shape is entirely determined by just two numbers — the mean and the standard deviation — yet those two numbers carry enormous descriptive power. The distribution also connects deeply to the broader theory of statistics: the Central Limit Theorem guarantees that the averages of large samples tend toward normality regardless of the original data's distribution, which is why the normal distribution lies at the heart of inferential statistics.</p>
+
+<p><strong>Shape and Symmetry of the Normal Distribution</strong></p>
+
+<p>The most immediately recognizable feature of the normal distribution is its shape: a smooth, symmetric, bell-shaped curve. This symmetry is not approximate — it is mathematically exact. The left half of the curve is a perfect mirror image of the right half, with the axis of symmetry passing vertically through the center of the distribution.</p>
+
+<p>The <strong>highest point</strong> of the curve occurs at the center, and this peak represents the single most likely value in the distribution. Crucially, for any normal distribution, the <strong>mean, median, and mode are all identical</strong> and all located at this central peak. This is a direct consequence of the perfect symmetry: because neither tail is heavier than the other, the balancing point (mean), the middle value (median), and the most frequent value (mode) all coincide.</p>
+
+<p>Moving away from the center in either direction, the curve descends gradually at first, then more steeply, and then begins to flatten out as it approaches the horizontal axis. The curve has two <strong>inflection points</strong> — locations where it transitions from curving downward to curving upward — which occur exactly one standard deviation above and below the mean. This geometric property provides a visual intuition for why the standard deviation is such a natural measure of spread.</p>
+
+<p>The <strong>tails</strong> of the normal distribution extend infinitely in both directions, growing ever closer to the horizontal axis but never actually touching it. Mathematically, this means that no outcome is truly impossible — there is always some positive (though perhaps astronomically small) probability of observing a value arbitrarily far from the mean. In practice, of course, values more than four or five standard deviations from the mean are so unlikely that they are treated as essentially impossible.</p>
+
+<p>One of the most consequential properties of the normal distribution is that the <strong>total area under the curve equals exactly 1</strong>. Because probability is represented by area in a continuous distribution, this means that the probabilities of all possible outcomes sum to 100%, as they must for any valid probability distribution. This fact underpins every probability calculation involving the normal distribution: finding the probability that an observation falls in any particular range is equivalent to finding the area under the curve over that range.</p>
+
+<p><strong>Parameters of the Normal Distribution: Mean and Standard Deviation</strong></p>
+
+<p>The normal distribution is completely characterized by exactly two parameters: the <strong>mean (μ)</strong> and the <strong>standard deviation (σ)</strong>. Once these two values are known, every property of the distribution — its center, its spread, and the probability of any outcome — is fully determined.</p>
+
+<p>The <strong>mean (μ)</strong> specifies where the distribution is centered on the number line. It is the value around which all observations cluster, and it is the location of the distribution's single peak. Changing μ slides the entire bell curve left or right along the horizontal axis without changing its height, width, or shape in any way. A distribution with μ = 50 and one with μ = 100 are identical in every respect except that the second is shifted 50 units to the right.</p>
+
+<p>The <strong>standard deviation (σ)</strong> controls how spread out the distribution is. A <em>small</em> standard deviation means that observations cluster tightly around the mean, producing a tall, narrow bell curve. A <em>large</em> standard deviation means that observations are dispersed widely, producing a short, broad curve. Because the total area must always equal 1, a wider curve must be shorter and a narrower curve must be taller — the two dimensions trade off against each other. Changing σ stretches or compresses the curve symmetrically about the mean while keeping the total area fixed at 1.</p>
+
+<p>To illustrate, consider three normal distributions all centered at μ = 0:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distribution</th>
+      <th>Mean (μ)</th>
+      <th>Standard Deviation (σ)</th>
+      <th>Curve Appearance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>0</td>
+      <td>1</td>
+      <td>Moderately tall, moderately wide</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>0</td>
+      <td>0.5</td>
+      <td>Very tall, narrow</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Short, very wide</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In formal notation, we write <em>X ~ N(μ, σ²)</em> to say that the random variable X follows a normal distribution with mean μ and variance σ² (the square of the standard deviation). Some textbooks use σ in place of σ², so it is always worth checking which convention an author is using.</p>
+
+<p><strong>The Empirical Rule (68-95-99.7 Rule)</strong></p>
+
+<p>One of the most practically useful properties of the normal distribution is the <strong>Empirical Rule</strong>, sometimes called the 68-95-99.7 Rule. This rule describes precisely how much of a normal distribution's data falls within various distances from the mean, expressed in units of standard deviations.</p>
+
+<ul>
+  <li><strong>Within ±1σ of the mean:</strong> Approximately <strong>68%</strong> of all values fall between μ − σ and μ + σ. This means that just over two-thirds of observations are within one standard deviation of the center.</li>
+  <li><strong>Within ±2σ of the mean:</strong> Approximately <strong>95%</strong> of all values fall between μ − 2σ and μ + 2σ. The vast majority of observations are captured within two standard deviations.</li>
+  <li><strong>Within ±3σ of the mean:</strong> Approximately <strong>99.7%</strong> of all values fall between μ − 3σ and μ + 3σ. Nearly all observations lie within three standard deviations, leaving only 0.3% in the extreme tails.</li>
+</ul>
+
+<p>To make this concrete, consider a population of adult women whose heights follow a normal distribution with a mean of μ = 165 cm and a standard deviation of σ = 6 cm. Applying the Empirical Rule:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Range</th>
+      <th>Interval (cm)</th>
+      <th>Approximate % of Women</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Within ±1σ</td>
+      <td>159 to 171</td>
+      <td>~68%</td>
+    </tr>
+    <tr>
+      <td>Within ±2σ</td>
+      <td>153 to 177</td>
+      <td>~95%</td>
+    </tr>
+    <tr>
+      <td>Within ±3σ</td>
+      <td>147 to 183</td>
+      <td>~99.7%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Empirical Rule also implies that values beyond three standard deviations from the mean — below 147 cm or above 183 cm in our example — are exceedingly rare, occurring in fewer than 3 out of every 1,000 observations. Such values are often flagged as <strong>outliers</strong> or subjected to additional scrutiny in data analysis.</p>
+
+<p>The rule is also useful in reverse: if you observe a value that is, say, 2.5 standard deviations above the mean, you immediately know that it is more extreme than approximately 95% of the population — a rare but not impossible observation.</p>
+
+<p><strong>The Standard Normal Distribution and Z-Scores</strong></p>
+
+<p>There are infinitely many possible normal distributions, each with its own mean and standard deviation. To make calculations tractable — and comparable across different distributions — statisticians use a single reference distribution: the <strong>standard normal distribution</strong>, which has a mean of <em>μ = 0</em> and a standard deviation of <em>σ = 1</em>. It is conventionally denoted <em>Z ~ N(0, 1)</em>.</p>
+
+<p>The process of converting a value from any normal distribution into its equivalent on the standard normal distribution is called <strong>standardization</strong>, and the result is called a <strong>z-score</strong>. The z-score formula is:</p>
+
+<pre><code>z = (x − μ) / σ</code></pre>
+
+<p>where <em>x</em> is the observed value, <em>μ</em> is the mean of the distribution, and <em>σ</em> is the standard deviation. The z-score answers the question: <em>how many standard deviations above or below the mean is this value?</em></p>
+
+<ul>
+  <li>A <strong>positive z-score</strong> means the value is above the mean.</li>
+  <li>A <strong>negative z-score</strong> means the value is below the mean.</li>
+  <li>A <strong>z-score of zero</strong> means the value is exactly equal to the mean.</li>
+</ul>
+
+<p>For example, suppose exam scores follow a normal distribution with μ = 70 and σ = 10. A student who scored 85 has a z-score of:</p>
+
+<pre><code>z = (85 − 70) / 10 = 15 / 10 = 1.5</code></pre>
+
+<p>This tells us the student scored 1.5 standard deviations above the mean. A student who scored 55 has a z-score of:</p>
+
+<pre><code>z = (55 − 70) / 10 = −15 / 10 = −1.5</code></pre>
+
+<p>This student scored 1.5 standard deviations below the mean. The fact that both z-scores have the same magnitude (1.5) confirms that both scores are equally far from the mean — one on each side.</p>
+
+<p>The power of z-scores goes beyond a single distribution. Because standardization removes the units and scale of the original distribution, z-scores allow meaningful comparisons across <em>different</em> normal distributions. If one student scored 85 on a history exam (μ = 70, σ = 10, so z = 1.5) and another scored 92 on a biology exam (μ = 80, σ = 8, so z = 1.5), the z-scores reveal that both students performed equally well relative to their respective class distributions, even though their raw scores differ.</p>
+
+<p><strong>Using Standard Normal Tables to Find Probabilities</strong></p>
+
+<p>The <strong>standard normal table</strong> (also called a Z-table) is a reference tool that lists, for each z-score value, the <strong>cumulative probability</strong> P(Z ≤ z) — that is, the probability that a standard normal random variable takes a value less than or equal to z. This cumulative probability corresponds to the area under the standard normal curve to the <em>left</em> of z.</p>
+
+<p>Tables are typically organized with z-scores in rows and columns. The row gives the z-score to one decimal place, and the column gives the second decimal place. For example, to find P(Z ≤ 1.23), you locate the row for 1.2 and the column for 0.03, reading off a probability of approximately 0.8907.</p>
+
+<p>There are four main types of probability calculations, each building on the basic table lookup:</p>
+
+<ul>
+  <li><strong>P(Z ≤ z) — area to the left:</strong> Read directly from the table. For z = 1.23, P(Z ≤ 1.23) ≈ 0.8907, meaning about 89.07% of values fall below z = 1.23.</li>
+  <li><strong>P(Z > z) — area to the right:</strong> Because the total area equals 1, use the complement rule: P(Z > z) = 1 − P(Z ≤ z). For z = 1.23: P(Z > 1.23) = 1 − 0.8907 = 0.1093.</li>
+  <li><strong>P(z₁ ≤ Z ≤ z₂) — area between two values:</strong> Subtract the smaller cumulative probability from the larger: P(z₁ ≤ Z ≤ z₂) = P(Z ≤ z₂) − P(Z ≤ z₁). For example, P(−1 ≤ Z ≤ 1) = P(Z ≤ 1) − P(Z ≤ −1) ≈ 0.8413 − 0.1587 = 0.6826, which aligns with the Empirical Rule's 68%.</li>
+  <li><strong>P(Z ≤ −z) — negative z-scores:</strong> Using the symmetry of the standard normal distribution: P(Z ≤ −z) = 1 − P(Z ≤ z). For instance, P(Z ≤ −1.23) = 1 − P(Z ≤ 1.23) = 1 − 0.8907 = 0.1093. Many tables also directly list probabilities for negative z-scores.</li>
+</ul>
+
+<p>The following table shows selected z-score values and their cumulative probabilities, illustrating the structure of the standard normal table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>z</th>
+      <th>P(Z ≤ z)</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>−2.00</td>
+      <td>0.0228</td>
+      <td>2.28% of values fall below z = −2</td>
+    </tr>
+    <tr>
+      <td>−1.00</td>
+      <td>0.1587</td>
+      <td>15.87% of values fall below z = −1</td>
+    </tr>
+    <tr>
+      <td>0.00</td>
+      <td>0.5000</td>
+      <td>50% of values fall below the mean</td>
+    </tr>
+    <tr>
+      <td>1.00</td>
+      <td>0.8413</td>
+      <td>84.13% of values fall below z = 1</td>
+    </tr>
+    <tr>
+      <td>1.96</td>
+      <td>0.9750</td>
+      <td>97.50% of values fall below z = 1.96</td>
+    </tr>
+    <tr>
+      <td>2.00</td>
+      <td>0.9772</td>
+      <td>97.72% of values fall below z = 2</td>
+    </tr>
+    <tr>
+      <td>3.00</td>
+      <td>0.9987</td>
+      <td>99.87% of values fall below z = 3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that z = 1.96 corresponds to a cumulative probability of 0.9750, which means P(−1.96 ≤ Z ≤ 1.96) = 0.9750 − 0.0250 = 0.9500. This is why 1.96 appears so frequently in statistics: it is the z-score that captures the middle 95% of the standard normal distribution and forms the basis for 95% confidence intervals.</p>
+
+<p><strong>Calculating Probabilities for Non-Standard Normal Distributions</strong></p>
+
+<p>In practice, real-world normal distributions almost never have μ = 0 and σ = 1. The approach is therefore to <strong>standardize</strong> — convert the problem into one involving the standard normal distribution — and then use the Z-table as described above. The process follows a clear sequence of steps:</p>
+
+<ul>
+  <li><strong>Step 1:</strong> Identify the mean (μ) and standard deviation (σ) of the distribution. These may be given directly or derived from context.</li>
+  <li><strong>Step 2:</strong> Convert the raw value(s) of interest into z-scores using z = (x − μ) / σ.</li>
+  <li><strong>Step 3:</strong> Use the standard normal table to find the cumulative probability associated with the computed z-score(s).</li>
+  <li><strong>Step 4:</strong> Combine the table values (using subtraction for between-values, or 1 minus for right-tail probabilities) to answer the specific probability question.</li>
+  <li><strong>Step 5:</strong> Interpret the result in context, expressing it as a proportion between 0 and 1 or as a percentage.</li>
+</ul>
+
+<p>Let us work through a detailed example. Suppose that the lifespans of a particular brand of light bulb follow a normal distribution with a mean of μ = 1,200 hours and a standard deviation of σ = 150 hours. We want to answer three questions:</p>
+
+<p><em>Question 1: What is the probability that a randomly chosen bulb lasts fewer than 1,050 hours?</em></p>
+
+<pre><code>z = (1050 − 1200) / 150 = −150 / 150 = −1.00
+
+P(X &lt; 1050) = P(Z &lt; −1.00) = 1 − P(Z ≤ 1.00) = 1 − 0.8413 = 0.1587</code></pre>
+
+<p>There is approximately a 15.87% chance the bulb lasts fewer than 1,050 hours.</p>
+
+<p><em>Question 2: What is the probability that a bulb lasts more than 1,500 hours?</em></p>
+
+<pre><code>z = (1500 − 1200) / 150 = 300 / 150 = 2.00
+
+P(X &gt; 1500) = P(Z &gt; 2.00) = 1 − P(Z ≤ 2.00) = 1 − 0.9772 = 0.0228</code></pre>
+
+<p>There is approximately a 2.28% chance a bulb lasts more than 1,500 hours.</p>
+
+<p><em>Question 3: What is the probability that a bulb lasts between 1,050 and 1,500 hours?</em></p>
+
+<pre><code>z₁ = (1050 − 1200) / 150 = −1.00  →  P(Z ≤ −1.00) = 0.1587
+z₂ = (1500 − 1200) / 150 =  2.00  →  P(Z ≤  2.00) = 0.9772
+
+P(1050 &lt; X &lt; 1500) = 0.9772 − 0.1587 = 0.8185</code></pre>
+
+<p>There is approximately an 81.85% chance a bulb lasts between 1,050 and 1,500 hours. Note that this result could also be obtained by combining the answers to Questions 1 and 2: 1 − 0.1587 − 0.0228 = 0.8185, which confirms the calculation.</p>
+
+<p><strong>Significance and Real-World Applications of the Normal Distribution</strong></p>
+
+<p>The normal distribution is not merely a mathematical abstraction — it appears with remarkable frequency in the natural and social world. This prevalence is partly explained by the <strong>Central Limit Theorem</strong>, which states that when many independent random influences combine additively to produce an outcome, the resulting variable tends to follow a normal distribution regardless of the distributions of the individual influences. This is why so many biological measurements — heights, weights, blood pressure, reaction times — are approximately normally distributed: each is shaped by many small, independent genetic and environmental factors.</p>
+
+<p>Some important real-world domains where the normal distribution plays a central role include:</p>
+
+<ul>
+  <li><strong>Manufacturing and quality control:</strong> Tolerances in machined parts, the weight of packaged goods, and the purity of chemical compounds all tend to be normally distributed. Control charts use the Empirical Rule to define acceptable limits (typically μ ± 3σ), flagging products outside that range as potentially defective. The philosophy of Six Sigma quality management is built directly on reducing the standard deviation of a process so that defects — defined as values beyond ±6σ — become vanishingly rare.</li>
+  <li><strong>Medicine and public health:</strong> Clinical reference ranges for blood tests (e.g., normal cholesterol levels, normal blood glucose) are typically defined as the central 95% of a healthy population's distribution, corresponding to μ ± 1.96σ. Physicians use these ranges to flag abnormal test results.</li>
+  <li><strong>Finance:</strong> Daily returns on financial assets are often modeled as approximately normal (though with somewhat heavier tails in reality). Risk metrics such as Value at Risk (VaR) use the normal distribution to estimate the probability of large losses over a given time horizon.</li>
+  <li><strong>Education and psychometrics:</strong> Standardized tests such as the SAT and IQ assessments are deliberately designed and scaled so that scores follow a normal distribution with a specified mean and standard deviation, facilitating comparison across test-takers.</li>
+  <li><strong>Statistical inference:</strong> Many fundamental statistical procedures — including t-tests, ANOVA, linear regression, and z-tests for proportions — rely on the assumption that the data are normally distributed (or that sample means are approximately normally distributed by the Central Limit Theorem). Understanding the normal distribution is therefore a prerequisite for understanding a vast swath of applied statistics.</li>
+</ul>
+
+<p>Beyond individual techniques, the normal distribution provides researchers and analysts with a principled framework for <strong>probabilistic reasoning</strong>. Knowing that a measurement is 2.5 standard deviations above the mean immediately conveys that this is an unusual result — one that would occur by chance less than about 1.2% of the time under normal conditions. This kind of reasoning is the foundation of hypothesis testing: if an observed result is sufficiently far from what we would expect under the null hypothesis, we conclude that something other than chance is at work.</p>
+
+<p>In summary, the normal distribution is remarkable for the combination of its mathematical tractability, its two-parameter simplicity, its deep theoretical justification through the Central Limit Theorem, and its pervasive appearance in data from almost every field of human inquiry. Mastering its properties and the techniques for computing probabilities from it opens the door to a wide range of statistical analysis and real-world decision-making.</p>
+      <div class="notes"><strong>Notes</strong>The topic integrates all seven subtopic areas into a single cohesive narrative. The worked light-bulb example in the non-standard section is deliberately multi-part to show left-tail, right-tail, and between-values calculations in one coherent context. The z = 1.96 entry in the table is included to pre-empt the confidence-interval connection students will encounter in later modules.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

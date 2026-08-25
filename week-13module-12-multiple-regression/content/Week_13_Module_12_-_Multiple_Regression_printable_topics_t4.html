@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessing Model Fit</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+  <header>
+    <h1>Assessing Model Fit</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Assessing Model Fit</h2>
+      <p>When a regression model is built, the central question is not simply whether the model runs or produces coefficients, but whether those coefficients and predictors actually do a good job of capturing the variation in the outcome variable. <strong>Assessing model fit</strong> is the process of measuring how closely a model's predictions align with the actual observed data. A model that fits well generates predicted values that are close to the real values; a model that fits poorly produces predictions that are systematically off, suggesting the chosen predictors are not doing enough work to explain the outcome. This evaluation step is not optional — drawing conclusions from a poorly fitting model can lead to misleading inferences, faulty predictions, and wasted resources. Understanding model fit statistics, and knowing their strengths and limitations, is therefore foundational to responsible regression analysis.</p>
+
+<p>At its core, model fit is assessed by comparing <strong>predicted values</strong> (often written as ŷ) to <strong>actual observed values</strong> (y). The differences between these two quantities are called <em>residuals</em>. A model with good fit will have small, random residuals; a model with poor fit will have large or patterned residuals, indicating that something important is being missed. When predictors do not adequately explain changes in the outcome, the residuals carry the unexplained information, and no amount of coefficient interpretation can rescue a fundamentally misspecified model. This is why model fit diagnostics must come early in the analysis workflow — before conclusions are drawn or predictions are delivered to stakeholders.</p>
+
+<p><strong>R-Squared (R²)</strong> is the most widely reported measure of model fit in regression analysis. Conceptually, it answers the question: "Of all the variation in the outcome variable, what proportion is explained by the predictors in this model?" R² is calculated as the ratio of two sums of squares:</p>
+
+<ul>
+  <li><strong>Regression Sum of Squares (SSR)</strong>: the variation in the outcome that is explained by the model — that is, how much the predicted values deviate from the mean of the outcome.</li>
+  <li><strong>Total Sum of Squares (SST)</strong>: the total variation in the outcome — how much the observed values deviate from their own mean.</li>
+</ul>
+
+<p>The formula is: <code>R² = SSR / SST</code>, which is equivalent to <code>1 − (SSE / SST)</code>, where SSE is the sum of squared errors (the unexplained variation). R² values range from 0 to 1. An R² of 0 means the predictors explain none of the variation in the outcome — the model is no better than simply predicting the mean every time. An R² of 1 means the predictors explain all of the variation perfectly, with no residual error at all. In practice, values between these extremes are the norm.</p>
+
+<p>Interpreting R² requires context. In highly controlled laboratory settings or physical science applications, R² values above 0.95 might be expected. In social sciences, economics, or public health research, where human behavior introduces substantial unpredictability, R² values of 0.30 to 0.50 may be perfectly respectable. For example, a model predicting annual household income from education level and work experience might achieve an R² of 0.45 — meaning 45% of the variation in income is explained. Whether that is "good" depends entirely on the field and the purpose of the model. The important principle is that a higher R² generally signals a better-fitting model, but the threshold for acceptability is always set by domain knowledge and field norms, not by a universal standard.</p>
+
+<p>Consider a concrete numerical example. Suppose a dataset contains five observations of hours studied (predictor) and exam scores (outcome):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Hours Studied (x)</th>
+      <th>Exam Score (y)</th>
+      <th>Predicted Score (ŷ)</th>
+      <th>Residual (y − ŷ)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>55</td>
+      <td>57</td>
+      <td>−2</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>4</td>
+      <td>68</td>
+      <td>67</td>
+      <td>+1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>6</td>
+      <td>74</td>
+      <td>77</td>
+      <td>−3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>8</td>
+      <td>89</td>
+      <td>87</td>
+      <td>+2</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>10</td>
+      <td>96</td>
+      <td>97</td>
+      <td>−1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this scenario the residuals are small and do not show an obvious pattern, which is consistent with a well-fitting model. If you were to compute R², you would find it close to 1 — the hours-studied predictor captures most of the variation in exam scores. The key insight is that R² is not computed from raw intuition but from a precise decomposition of variation in the outcome variable.</p>
+
+<p>Despite its intuitive appeal, <strong>R² has a critical limitation in multiple regression</strong>: it <em>never decreases</em> when a new predictor is added to the model, regardless of whether that predictor is meaningful or completely irrelevant. Adding a variable — even one that is pure random noise — will always cause R² to increase slightly or remain unchanged, never to decrease. This is a mathematical consequence of how least squares estimation works: the model will always find some coefficient for the new variable that marginally reduces the sum of squared errors, even if only by fitting noise.</p>
+
+<p>This characteristic creates a serious practical problem. A researcher could keep adding irrelevant predictors — age, shoe size, favorite color — and watch R² climb toward 1.0, all while the model becomes increasingly meaningless. This is the essence of <strong>overfitting</strong>: the model fits the sample data very well, having absorbed not just the true signal but also the random noise specific to that sample. When such a model is applied to new, unseen data, its performance collapses, because the noise it learned does not generalize. Relying solely on R² to select a multiple regression model is therefore a recipe for choosing overly complex, poorly generalizing models.</p>
+
+<p>To address this limitation, statisticians developed <strong>Adjusted R-Squared</strong>, often written as R²<sub>adj</sub>. The adjustment penalizes the model for including additional predictors, correcting for the fact that R² will mechanically increase with each added variable. The formula for adjusted R² is:</p>
+
+<pre><code>R²_adj = 1 − [(1 − R²) × (n − 1) / (n − k − 1)]</code></pre>
+
+<p>where <em>n</em> is the number of observations in the dataset and <em>k</em> is the number of predictor variables in the model. The term <code>(n − 1) / (n − k − 1)</code> is always greater than or equal to 1, which means adjusted R² will always be less than or equal to R². The penalty grows as <em>k</em> increases relative to <em>n</em>. This means that if a new predictor is added and it does not explain enough additional variation to justify the cost of the extra parameter, the adjusted R² will actually <em>decrease</em>, sending a clear signal that the added complexity is not worthwhile.</p>
+
+<p>Crucially, adjusted R² increases only when a new predictor improves the model's explanatory power by <em>more than would be expected by chance alone</em>. This makes it a far more reliable guide for model building in multiple regression contexts. For instance, suppose a model with two predictors achieves R² = 0.72 and adjusted R² = 0.70. A third predictor is added and R² rises to 0.73, but adjusted R² falls to 0.69. The rise in R² might tempt a researcher to include the third variable, but the fall in adjusted R² reveals the truth: the new predictor is not adding genuine explanatory value — it is merely fitting noise.</p>
+
+<p>The <strong>comparison between R² and adjusted R²</strong> is itself an informative diagnostic. When only a single predictor is in the model, the two values will be nearly identical, because there is nothing to penalize beyond the minimum. As more predictors are added, adjusted R² will increasingly diverge below R², and the size of the gap communicates something important:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>R²</th>
+      <th>Adjusted R²</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Simple regression, 1 predictor</td>
+      <td>0.65</td>
+      <td>0.64</td>
+      <td>Very small gap; R² is a reliable indicator of fit</td>
+    </tr>
+    <tr>
+      <td>Multiple regression, 4 meaningful predictors</td>
+      <td>0.81</td>
+      <td>0.79</td>
+      <td>Small gap; added predictors are contributing genuinely</td>
+    </tr>
+    <tr>
+      <td>Multiple regression, 4 meaningful + 5 noise predictors</td>
+      <td>0.85</td>
+      <td>0.73</td>
+      <td>Large gap; noise variables inflated R² without real gain</td>
+    </tr>
+    <tr>
+      <td>Overfitted model with many predictors, small n</td>
+      <td>0.94</td>
+      <td>0.61</td>
+      <td>Extreme gap; model is severely overfit and will not generalize</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A small gap between R² and adjusted R² suggests the model's complexity is justified. A large and widening gap is a warning sign that variables should be reconsidered or removed. This comparison is one of the simplest and most intuitive diagnostics available to researchers doing model refinement.</p>
+
+<p>When it comes to <strong>using model fit statistics to evaluate and refine models</strong>, the goal is not simply to maximize any single number. A model with a high adjusted R² and a small difference from R² is a positive sign — it suggests a well-specified model where the included predictors are relevant and the model is not overfit. However, adjusted R² should never be used in isolation. A responsible analyst will simultaneously examine:</p>
+
+<ul>
+  <li><strong>The statistical significance of individual coefficients</strong>: A predictor that does not have a statistically significant coefficient (e.g., p-value greater than the chosen threshold) may warrant removal, especially if its inclusion is also lowering adjusted R².</li>
+  <li><strong>Theoretical justification</strong>: Including a variable simply because it raises adjusted R² is not sufficient. There should be a plausible, theory-driven reason for every predictor in the model. Including variables without theoretical grounding risks spurious correlations.</li>
+  <li><strong>Assumption checks</strong>: Even a model with an impressive adjusted R² can be invalid if regression assumptions — linearity, independence of errors, homoscedasticity, normality of residuals — are violated. Fit statistics do not substitute for residual diagnostics.</li>
+  <li><strong>Interpretability</strong>: A simpler model that is only marginally worse in fit but far easier to interpret and communicate is often preferable in practice, especially in applied settings where findings must be explained to non-technical audiences.</li>
+</ul>
+
+<p>For example, imagine a researcher modeling blood pressure as an outcome variable. Model A includes three predictors — age, BMI, and sodium intake — and achieves an adjusted R² of 0.58. Model B adds seven more variables — hours of sleep, stress score, marital status, income, coffee consumption, ambient temperature, and pet ownership — and achieves an adjusted R² of 0.60. The tiny improvement in adjusted R² does not justify the added complexity, the reduced interpretability, the increased risk of multicollinearity, and the loss of degrees of freedom. Model A is almost certainly the better choice for practical use.</p>
+
+<p>The overarching lesson is that <strong>model fit assessment is a multi-faceted process</strong>. R² provides a simple, intuitive snapshot of explanatory power but is unreliable as a sole criterion in multiple regression. Adjusted R² corrects for model complexity and is the preferred metric when comparing models with different numbers of predictors. Comparing the two together reveals whether added predictors are contributing genuine explanatory value or merely inflating fit statistics by absorbing noise. And both statistics should always be interpreted alongside coefficient significance, theoretical reasoning, assumption diagnostics, and practical interpretability to arrive at a model that is not just statistically impressive on paper, but genuinely useful and trustworthy in practice.</p>
+      <div class="notes"><strong>Notes</strong>Emphasize the overfitting intuition strongly — students often struggle to understand why a higher R&#178; is not always better. The table comparing R&#178; vs. adjusted R&#178; across scenarios is particularly useful for visual learners. Instructors may want to walk through the adjusted R&#178; formula step by step, substituting real values for n and k to show how the penalty operates mechanically.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

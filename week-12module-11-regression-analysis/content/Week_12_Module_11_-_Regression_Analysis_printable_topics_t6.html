@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Regression to Real-World Datasets</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+  <header>
+    <h1>Applying Regression to Real-World Datasets</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Applying Regression to Real-World Datasets</h2>
+      <p>Regression analysis moves from textbook exercises to genuine insight only when applied to real-world data. Real datasets are messy, multifaceted, and full of surprises — missing entries, skewed distributions, correlated predictors, and outcomes that resist tidy linear relationships. Working through these challenges is exactly what transforms a theoretical understanding of regression into a practical, transferable skill. This topic walks through every stage of an applied regression project: selecting and preparing data, defining the research question, building and interpreting the model, diagnosing assumption violations, refining the specification, and finally communicating results to an audience that may have little statistical background.</p>
+
+<p><strong>Selecting and Preparing a Real-World Dataset</strong></p>
+
+<p>The foundation of any regression project is a well-chosen dataset. A good dataset for regression has a clearly identifiable <em>dependent variable</em> — something you genuinely want to understand or predict — along with one or more candidate predictors that have a plausible connection to that outcome. Classic examples include predicting house sale prices from square footage, number of bedrooms, and neighborhood characteristics; forecasting patient hospital readmission from age, diagnosis codes, and length of stay; or explaining student exam scores from study hours, prior GPA, and socioeconomic indicators.</p>
+
+<p>Before any modeling begins, the data must be thoroughly inspected and cleaned. Raw datasets almost always contain problems that, if ignored, will distort regression coefficients and invalidate statistical tests.</p>
+
+<ul>
+  <li><strong>Missing values:</strong> Identify every column with missing entries and decide on a strategy. Simple options include <em>listwise deletion</em> (dropping any row with a missing value), which is safe when missingness is rare and random, and <em>mean or median imputation</em>, which replaces missing values with the column's central tendency. More sophisticated approaches such as multiple imputation or model-based imputation are warranted when missingness is substantial or systematic. For example, in a housing dataset, if the <code>garage_size</code> field is blank only for older homes, imputing with the overall mean would introduce a systematic error; a better strategy might be imputing from a subset of comparable homes.</li>
+  <li><strong>Outliers:</strong> Extreme values can exert disproportionate influence on the least-squares regression line. Use scatter plots, box plots, and z-scores (flagging values beyond ±3 standard deviations) to locate outliers. Investigate each one: Is it a data-entry error (a house recorded as 50,000 square feet instead of 5,000)? If so, correct or remove it. Is it a genuine extreme case? If so, consider whether it belongs in the analysis or should be handled with a robust regression method.</li>
+  <li><strong>Duplicates and inconsistencies:</strong> Check for duplicate rows that could artificially inflate sample size and bias estimates. Standardize categorical variable formats — for instance, "New York," "new york," and "NY" should all map to a single consistent label before encoding.</li>
+  <li><strong>Descriptive statistics and visualization:</strong> Before running any model, compute means, medians, standard deviations, and ranges for every variable. Plot histograms to understand distributions, scatter plots to visualize pairwise relationships between predictors and the outcome, and a correlation matrix heatmap to get an early sense of multicollinearity. These exploratory steps often reveal the need for transformations before modeling even begins.</li>
+</ul>
+
+<p>Consider a concrete example. Suppose you download a publicly available dataset of used car listings with variables including <code>price</code> (the outcome), <code>mileage</code>, <code>age</code>, <code>engine_size</code>, <code>fuel_type</code>, and <code>brand</code>. Initial inspection finds that 8% of <code>price</code> values are missing (handled by imputing from comparable brand/age/mileage combinations), three rows have <code>mileage</code> = 0 (likely data errors, removed), and <code>fuel_type</code> is coded inconsistently across rows. After cleaning, a histogram of <code>price</code> reveals strong right skew, suggesting a log transformation may be appropriate — a note to revisit during model refinement.</p>
+
+<p><strong>Identifying Variables and Formulating a Research Question</strong></p>
+
+<p>A precise research question anchors every modeling decision that follows. Without one, variable selection becomes arbitrary and interpretation loses direction. A well-formed research question specifies the outcome, the key predictors of interest, and the population or context to which findings will apply.</p>
+
+<ul>
+  <li><strong>Defining the dependent variable:</strong> The dependent variable (also called the outcome, response, or criterion variable) is what you are trying to explain or predict. It must be measured on a continuous scale for standard linear regression. In the car example, <code>price</code> is the natural dependent variable because understanding what drives price is directly actionable for buyers, sellers, and platforms alike.</li>
+  <li><strong>Identifying independent variables:</strong> Independent variables (predictors, explanatory variables, covariates) should be chosen based on both theoretical reasoning and empirical availability. Theory first: what factors are known or hypothesized to influence car prices? Mileage (higher mileage → lower price), age (older → lower price), engine size (larger → often higher price in certain segments), fuel type, and brand reputation are all defensible candidates. Avoid including variables purely because they are available; every additional predictor consumes degrees of freedom and risks overfitting.</li>
+  <li><strong>Simple versus multiple regression:</strong> If a single dominant predictor explains most variance and the research question is focused (e.g., "How much does mileage alone predict price?"), simple linear regression suffices. When multiple predictors simultaneously influence the outcome and controlling for confounders matters, multiple regression is necessary. For the car dataset, omitting <code>age</code> when estimating the effect of <code>mileage</code> would likely produce a biased coefficient because older cars tend to have more mileage; multiple regression isolates each predictor's independent contribution.</li>
+  <li><strong>Variable scales and encoding:</strong> Linear regression requires that the dependent variable be continuous. Predictors can be continuous (mileage, age) or categorical. Categorical variables must be <em>dummy-coded</em> (also called one-hot encoding): a variable with <em>k</em> categories is represented by <em>k − 1</em> binary (0/1) columns, with one category serving as the reference group. For <code>fuel_type</code> with categories Petrol, Diesel, and Electric, you would create two dummies — <code>is_diesel</code> and <code>is_electric</code> — with Petrol as the implicit baseline. The coefficient on <code>is_diesel</code> then represents the average price difference between Diesel and Petrol vehicles, holding all else constant.</li>
+</ul>
+
+<p>A well-formed research question for this example might be: <em>"Which combination of mileage, vehicle age, engine size, fuel type, and brand best predicts the sale price of used cars listed on this platform, and what is the independent contribution of each factor?"</em></p>
+
+<p><strong>Building the Regression Model on Real Data</strong></p>
+
+<p>With a clean dataset and a clear research question, the next step is to estimate the model. In Python, the <code>statsmodels</code> library provides detailed output suited for inference, while <code>scikit-learn</code> is often preferred for predictive modeling pipelines. In R, the built-in <code>lm()</code> function is the standard tool. The example below uses Python with <code>statsmodels</code>.</p>
+
+<pre><code>import pandas as pd
+import statsmodels.api as sm
+
+# Load cleaned dataset
+df = pd.read_csv('used_cars_clean.csv')
+
+# Define predictors and outcome
+X = df[['mileage', 'age', 'engine_size', 'is_diesel', 'is_electric']]
+y = df['log_price']   # log-transformed price
+
+# Add intercept constant
+X = sm.add_constant(X)
+
+# Fit the model
+model = sm.OLS(y, X).fit()
+
+# Display full regression table
+print(model.summary())
+</code></pre>
+
+<p>Running this procedure yields a regression summary table. The key outputs include:</p>
+
+<ul>
+  <li><strong>Estimated coefficients (β̂):</strong> One for each predictor plus the intercept. These quantify the direction and magnitude of each predictor's relationship with the outcome.</li>
+  <li><strong>Standard errors:</strong> Measure the precision of each coefficient estimate. Smaller standard errors indicate more reliable estimates.</li>
+  <li><strong>t-statistics and p-values:</strong> Used to test whether each coefficient is significantly different from zero.</li>
+  <li><strong>R-squared and Adjusted R-squared:</strong> Indicate how much variance in the outcome the model accounts for.</li>
+  <li><strong>F-statistic:</strong> Tests whether the model as a whole explains significant variance, i.e., whether at least one predictor is related to the outcome.</li>
+</ul>
+
+<p>Before moving to interpretation, verify that the model converged (no warnings about singular matrices or failed optimization) and that the number of observations matches expectations after cleaning.</p>
+
+<p><strong>Interpreting Regression Output in Context</strong></p>
+
+<p>Interpreting regression output requires translating mathematical coefficients into statements that are meaningful within the substantive domain. Below is an illustrative (hypothetical) output table for the used car model.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Predictor</th>
+      <th>Coefficient (β̂)</th>
+      <th>Std. Error</th>
+      <th>t-value</th>
+      <th>p-value</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Intercept</td>
+      <td>10.842</td>
+      <td>0.053</td>
+      <td>204.57</td>
+      <td>&lt;0.001</td>
+      <td>Baseline log-price when all predictors = 0</td>
+    </tr>
+    <tr>
+      <td>mileage (per 1,000 km)</td>
+      <td>−0.012</td>
+      <td>0.001</td>
+      <td>−12.00</td>
+      <td>&lt;0.001</td>
+      <td>Each additional 1,000 km reduces log-price by 0.012 (~1.2% price drop)</td>
+    </tr>
+    <tr>
+      <td>age (years)</td>
+      <td>−0.087</td>
+      <td>0.005</td>
+      <td>−17.40</td>
+      <td>&lt;0.001</td>
+      <td>Each additional year reduces log-price by 0.087 (~8.3% price drop)</td>
+    </tr>
+    <tr>
+      <td>engine_size (liters)</td>
+      <td>0.134</td>
+      <td>0.018</td>
+      <td>7.44</td>
+      <td>&lt;0.001</td>
+      <td>Each additional liter of engine size raises log-price by ~14.3%</td>
+    </tr>
+    <tr>
+      <td>is_diesel</td>
+      <td>0.076</td>
+      <td>0.022</td>
+      <td>3.45</td>
+      <td>0.001</td>
+      <td>Diesel vehicles are priced ~7.9% higher than equivalent Petrol vehicles</td>
+    </tr>
+    <tr>
+      <td>is_electric</td>
+      <td>0.201</td>
+      <td>0.041</td>
+      <td>4.90</td>
+      <td>&lt;0.001</td>
+      <td>Electric vehicles are priced ~22.3% higher than equivalent Petrol vehicles</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Several interpretation principles deserve emphasis:</p>
+
+<ul>
+  <li><strong>Ceteris paribus (all else equal):</strong> Every coefficient describes the relationship between one predictor and the outcome <em>holding all other predictors constant</em>. The coefficient on <code>mileage</code> tells you the expected change in log-price for a one-unit increase in mileage among cars that are otherwise identical in age, engine size, fuel type, etc. This is the key advantage of multiple regression over simple bivariate analysis.</li>
+  <li><strong>Log-transformed outcomes:</strong> When the dependent variable is log-transformed, coefficients are interpreted as <em>proportional</em> changes. A coefficient of −0.087 on <code>age</code> means each additional year is associated with a multiplicative change of e<sup>−0.087</sup> ≈ 0.917 in price — roughly an 8.3% reduction. For small coefficients (|β| &lt; 0.1), the percentage approximation β × 100% is accurate enough for communication.</li>
+  <li><strong>R-squared:</strong> If R² = 0.74, the model explains 74% of the variance in log-price. This is a measure of <em>fit</em>, not of whether individual predictors are causal. A high R² with non-significant predictors can occur when predictors are highly correlated; a low R² with significant predictors can occur in noisy domains where many unmeasured factors influence the outcome.</li>
+  <li><strong>Statistical versus practical significance:</strong> A predictor can be highly statistically significant (very small p-value) yet have a negligible real-world effect, especially with large samples. Always consider the magnitude of coefficients alongside their significance. Conversely, a coefficient that is practically large but not statistically significant may simply reflect insufficient data.</li>
+  <li><strong>Relating findings to the research question:</strong> The model shows that vehicle age is the single strongest depreciating factor (largest standardized coefficient magnitude), that electric vehicles command a substantial premium, and that mileage matters but less so than age when both are controlled for simultaneously. These findings are directly actionable: a used car platform could use this model to flag mispriced listings or provide sellers with price guidance.</li>
+</ul>
+
+<p><strong>Evaluating Model Fit and Assumptions with Real Data</strong></p>
+
+<p>A regression model is only as trustworthy as its underlying assumptions. Violating these assumptions does not always invalidate the model, but it does affect the reliability of coefficient estimates, standard errors, and significance tests. The four core assumptions of ordinary least squares (OLS) regression are linearity, independence of errors, homoscedasticity (constant variance of residuals), and normality of residuals.</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between each predictor and the outcome (after accounting for other predictors) should be approximately linear. Check this with <em>partial regression plots</em> (added-variable plots) or by plotting residuals against each predictor. A curved pattern in a residuals-vs-predictor plot signals non-linearity. For example, if plotting residuals against <code>mileage</code> shows a U-shape, the true relationship may be quadratic, requiring a squared term.</li>
+  <li><strong>Homoscedasticity:</strong> Residual variance should be roughly constant across all fitted values. A fan-shaped pattern in the <em>residuals vs. fitted values</em> plot — where spread grows with fitted values — indicates heteroscedasticity. This is common when the outcome is a dollar amount (price variance tends to grow with price level), which is precisely why log-transforming price often stabilizes variance. The Breusch-Pagan test provides a formal statistical check.</li>
+  <li><strong>Normality of residuals:</strong> OLS coefficient estimates are unbiased regardless of the residual distribution, but p-values and confidence intervals rely on the normality assumption. Assess this with a <em>Q-Q plot</em> (quantile-quantile plot) of residuals — points should fall approximately on the diagonal line. The Shapiro-Wilk test is appropriate for small samples; for large samples (n > 1,000), the central limit theorem renders minor departures from normality practically inconsequential.</li>
+  <li><strong>Multicollinearity:</strong> When two or more predictors are highly correlated with each other, their individual coefficients become unstable and standard errors inflate, making it difficult to discern the independent contribution of each variable. Detect multicollinearity with a <em>correlation matrix</em> (flag pairs with |r| &gt; 0.80) and with <em>Variance Inflation Factors (VIF)</em>. A VIF above 5 warrants attention; above 10 is typically considered severe. In the car dataset, <code>mileage</code> and <code>age</code> are likely correlated (r ≈ 0.65), but not so severely as to require action. If you were to include both <code>engine_size</code> and a highly correlated <code>cylinder_count</code>, VIF values would likely exceed 10, necessitating the removal of one.</li>
+  <li><strong>Independence of errors:</strong> Residuals should not be correlated with each other. This assumption is most often violated in time-series data (autocorrelation) or clustered data (e.g., students within schools). The Durbin-Watson statistic tests for first-order autocorrelation; values near 2 indicate no autocorrelation.</li>
+</ul>
+
+<p>A practical diagnostic workflow in Python:</p>
+
+<pre><code>import matplotlib.pyplot as plt
+import scipy.stats as stats
+import numpy as np
+
+fitted = model.fittedvalues
+residuals = model.resid
+
+# 1. Residuals vs. Fitted — check linearity and homoscedasticity
+plt.scatter(fitted, residuals, alpha=0.4)
+plt.axhline(0, color='red', linestyle='--')
+plt.xlabel('Fitted Values')
+plt.ylabel('Residuals')
+plt.title('Residuals vs. Fitted')
+plt.show()
+
+# 2. Q-Q plot — check normality
+stats.probplot(residuals, dist="norm", plot=plt)
+plt.title('Normal Q-Q Plot')
+plt.show()
+
+# 3. VIF — check multicollinearity
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+vif_data = pd.DataFrame()
+vif_data['Feature'] = X.columns
+vif_data['VIF'] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+print(vif_data)
+</code></pre>
+
+<p><strong>Refining and Improving the Model</strong></p>
+
+<p>Rarely does the first model specification turn out to be the best one. Diagnostic results, theoretical reconsideration, and comparison of fit statistics all drive iterative refinement.</p>
+
+<ul>
+  <li><strong>Variable transformations:</strong> If the residuals-vs-fitted plot shows a fan shape even after log-transforming the outcome, consider transforming skewed predictors as well. Mileage, for instance, is often right-skewed; applying a log transformation (<code>log_mileage</code>) can linearize the relationship and reduce heteroscedasticity. Square root transformations are milder alternatives for moderately skewed variables. When a predictor's relationship with the outcome is clearly non-linear (U-shaped or inverted-U), adding a squared term (e.g., <code>age²</code>) creates a polynomial regression that captures the curvature while remaining estimable with standard OLS.</li>
+  <li><strong>Adding or removing predictors:</strong> If theory suggests an important variable was omitted, add it and check whether it is significant and whether model fit improves. Be cautious about adding variables purely to inflate R²; use <em>adjusted R²</em>, which penalizes for additional predictors, or <em>AIC (Akaike Information Criterion)</em> to compare models of different sizes. Lower AIC indicates a better balance between fit and parsimony.</li>
+  <li><strong>Interaction terms:</strong> Sometimes the effect of one predictor depends on the level of another. For example, the price premium for an electric vehicle might be larger for newer cars than for older ones. Including an interaction term <code>is_electric × age</code> tests and quantifies this conditional relationship. Interpreting interactions requires care: each interacting variable's coefficient now represents its effect only when the other is zero.</li>
+  <li><strong>Influential observations:</strong> Cook's Distance measures how much each observation influences the estimated coefficients. Observations with Cook's D greater than 4/n are often considered influential and warrant closer inspection — they may be legitimate data points from an unusual segment or they may be errors requiring correction.</li>
+  <li><strong>Transparency and reproducibility:</strong> Document every decision: why a variable was removed, what transformation was applied and why, which model specification was selected as final. This documentation allows others (and your future self) to audit the analysis, reproduce results, and extend the work. Version-controlled scripts (e.g., in a Git repository) and annotated notebooks (Jupyter, R Markdown) serve this purpose well.</li>
+</ul>
+
+<p>A structured comparison of candidate models aids the selection process:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Predictors</th>
+      <th>R²</th>
+      <th>Adjusted R²</th>
+      <th>AIC</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>M1 (baseline)</td>
+      <td>mileage, age</td>
+      <td>0.61</td>
+      <td>0.610</td>
+      <td>4,812</td>
+      <td>Simple model; omits fuel type and engine size</td>
+    </tr>
+    <tr>
+      <td>M2 (extended)</td>
+      <td>mileage, age, engine_size, is_diesel, is_electric</td>
+      <td>0.74</td>
+      <td>0.739</td>
+      <td>4,501</td>
+      <td>Substantially better fit; all predictors significant</td>
+    </tr>
+    <tr>
+      <td>M3 (log mileage)</td>
+      <td>log_mileage, age, engine_size, is_diesel, is_electric</td>
+      <td>0.77</td>
+      <td>0.769</td>
+      <td>4,423</td>
+      <td>Log transformation of mileage improves fit; residuals more homoscedastic</td>
+    </tr>
+    <tr>
+      <td>M4 (with interaction)</td>
+      <td>log_mileage, age, engine_size, is_diesel, is_electric, is_electric×age</td>
+      <td>0.78</td>
+      <td>0.779</td>
+      <td>4,415</td>
+      <td>Interaction term significant; electric premium declines with age</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Model M4 is selected as the final specification: it has the best adjusted R² and lowest AIC, the interaction term is theoretically defensible (electric vehicle technology and battery concerns make older electrics proportionally less attractive), and diagnostic plots show no major assumption violations.</p>
+
+<p><strong>Communicating Regression Findings to Stakeholders</strong></p>
+
+<p>The most technically sophisticated model delivers no value if its findings cannot be understood and acted upon by decision-makers. Translating regression results into clear, accessible communication is a distinct and critical skill.</p>
+
+<ul>
+  <li><strong>Plain-language summaries:</strong> Replace statistical jargon with concrete statements. Instead of "the coefficient on <code>age</code> is −0.087 (p &lt; 0.001)," say: "On average, a car loses about 8% of its value for every additional year of age, even when mileage, engine size, and fuel type are the same." This framing retains accuracy while being immediately interpretable by a non-statistician.</li>
+  <li><strong>Visualizations:</strong> A well-designed chart communicates in seconds what a table of coefficients communicates in minutes. Useful visualizations for regression results include:
+    <ul>
+      <li><em>Coefficient plots:</em> Display each predictor's coefficient and confidence interval as a horizontal bar or dot plot, ordered by effect size, making it easy to see which predictors matter most and in which direction.</li>
+      <li><em>Partial regression plots:</em> Show the relationship between one predictor and the outcome after controlling for other predictors — especially useful for continuous predictors.</li>
+      <li><em>Predicted vs. actual plots:</em> Plot model predictions against observed values; points close to the 45° diagonal indicate good fit.</li>
+      <li><em>Scenario-based predictions:</em> Create a small table or bar chart showing predicted prices for illustrative car profiles (e.g., a 3-year-old electric with 30,000 km vs. a 3-year-old petrol with the same mileage), making the model's implications concrete.</li>
+    </ul>
+  </li>
+  <li><strong>Acknowledging limitations:</strong> Honest communication includes disclosing what the model does not account for. In the car example: the dataset may not include condition rating or service history, both of which affect price; the model applies to the specific platform and time period of the data and may not generalize to other markets; and the model establishes association, not causation — higher engine size predicts higher price, but recommending that someone install a larger engine to increase resale value would be a misuse of these findings.</li>
+  <li><strong>Actionable recommendations:</strong> Regression findings should ideally translate into decisions. For a used car platform, recommendations from this model might include: implementing an automated pricing tool that flags listings more than 15% above or below model predictions as potentially mispriced; advising sellers that reducing asking price to reflect age depreciation will likely reduce time-to-sale; and prioritizing the acquisition of electric vehicle inventory given the demonstrated price premium. Grounding recommendations in the actual coefficient estimates makes them more credible and precisely targeted.</li>
+</ul>
+
+<p>The entire applied regression workflow — from raw data to communicated insight — is iterative and reflexive. Early exploratory choices inform model building; diagnostic results loop back to data preparation; stakeholder feedback may reframe the research question. Mastering this full cycle, rather than any single step within it, is what defines competence in applied regression analysis.</p>
+      <div class="notes"><strong>Notes</strong>Illustrative coefficient values and dataset details are hypothetical examples constructed to demonstrate interpretation principles. Students should apply these techniques to actual datasets (e.g., from Kaggle, UCI ML Repository, or government open-data portals) to develop genuine hands-on proficiency.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Probability</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+  <header>
+    <h1>Introduction to Probability</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Introduction to Probability</h2>
+      <p>Probability is one of the most powerful and widely used concepts in mathematics, data science, and everyday reasoning. At its core, probability is a formal system for measuring and communicating uncertainty. Whenever you check a weather forecast, assess the risk of an investment, or decide whether to carry an umbrella, you are implicitly reasoning about probability. By formalizing these intuitions into precise numbers and rules, probability gives analysts and decision-makers a rigorous, consistent language for talking about outcomes that are not guaranteed. This topic introduces the foundational ideas you need before exploring any deeper aspect of probability theory.</p>
+
+<p><strong>What Is Probability?</strong></p>
+
+<p>Probability is a numerical measure of how likely an event is to occur. Rather than simply saying an outcome is "possible" or "unlikely," probability assigns a specific number to that likelihood, making comparisons and calculations possible. The probability of any event is always a value between 0 and 1, inclusive. A probability of <strong>0</strong> means the event is absolutely impossible — it cannot happen under any circumstances within the defined scenario. A probability of <strong>1</strong> means the event is absolutely certain — it will always happen. Every other event falls somewhere between these two extremes.</p>
+
+<p>Probabilities can be expressed in several equivalent ways depending on context:</p>
+<ul>
+  <li><strong>As a decimal:</strong> 0.25, 0.5, 0.9</li>
+  <li><strong>As a fraction:</strong> 1/4, 1/2, 9/10</li>
+  <li><strong>As a percentage:</strong> 25%, 50%, 90%</li>
+</ul>
+
+<p>For example, saying there is a <em>0.25 probability</em> of rain, a <em>1-in-4 chance</em> of rain, and a <em>25% chance</em> of rain all communicate exactly the same information. The choice of representation is purely a matter of convention or audience preference. In mathematical and statistical work, the decimal form is most common because it integrates cleanly into formulas and calculations.</p>
+
+<p>Values closer to 0 reflect events we consider unlikely or rare. Values closer to 1 reflect events we consider highly probable or nearly certain. A value near 0.5 indicates an event that is roughly as likely to happen as not — like a fair coin coming up heads.</p>
+
+<p><strong>Uncertainty and Its Role in Probability</strong></p>
+
+<p>To understand why probability exists as a field of study, it is essential to understand the concept of <em>uncertainty</em>. Not all events in the world are deterministic — that is, not all outcomes are fully predictable even in principle. Randomness and incomplete information are features of nearly every real-world process worth studying.</p>
+
+<p>Consider two contrasting situations. First, if you push a ball off a perfectly frictionless table in a vacuum with a known force, classical physics can tell you exactly where it will land — the outcome is deterministic. Second, if you roll a standard six-sided die, even knowing everything about the die and your throw, the outcome is effectively unpredictable in practice. We say the outcome is <em>random</em>, not because the universe is mystical, but because the sensitivity of the outcome to tiny variations in force and angle makes prediction impossible with normal measurement tools.</p>
+
+<p>Probability allows us to make <strong>informed, structured statements</strong> about uncertain outcomes instead of simply giving up or guessing arbitrarily. Rather than saying "I have no idea what will happen," a probabilistic statement says "Based on known information and logical reasoning, outcome A is three times more likely than outcome B." This is infinitely more useful for planning, risk management, and analysis.</p>
+
+<p>Acknowledging uncertainty honestly is also a mark of intellectual rigor. Overconfidence — treating uncertain outcomes as if they were guaranteed — leads to poor decisions and failed predictions. Probability provides the tools to be precise about what we do not know, which is just as important as being precise about what we do know.</p>
+
+<p><strong>Key Probability Terminology</strong></p>
+
+<p>Probability has its own precise vocabulary. Using these terms consistently and correctly is critical for clear communication and accurate reasoning. The three most fundamental terms are <em>experiment</em>, <em>outcome</em>, and <em>sample space</em>.</p>
+
+<ul>
+  <li><strong>Experiment:</strong> In probability, an experiment is any well-defined process or action that produces an observable result. The result must be uncertain before the experiment is performed — otherwise there is nothing probabilistic to analyze. Classic examples include rolling a die, flipping a coin, drawing a card from a shuffled deck, or recording whether a customer makes a purchase. In data analysis, an experiment might also refer to running an A/B test or randomly sampling a record from a database.</li>
+  <li><strong>Outcome:</strong> An outcome is a single, specific result of an experiment. When you roll a six-sided die, the possible outcomes are 1, 2, 3, 4, 5, and 6. Each of these is one distinct outcome. Outcomes must be mutually exclusive (only one can occur at a time in a single trial) and collectively exhaustive (they account for everything that can happen).</li>
+  <li><strong>Event:</strong> An event is a collection of one or more outcomes that share some characteristic of interest. For example, when rolling a die, "rolling an even number" is an event that includes the outcomes {2, 4, 6}. An event with exactly one outcome is called a <em>simple event</em>, while an event with more than one outcome is called a <em>compound event</em>. Probability is typically assigned to events, not just individual outcomes.</li>
+  <li><strong>Sample Space:</strong> The sample space, often written as <em>S</em> or <em>Ω</em> (omega), is the complete set of all possible outcomes of an experiment. For a coin flip, the sample space is {Heads, Tails}. For a six-sided die, it is {1, 2, 3, 4, 5, 6}. For drawing a single card from a standard deck, the sample space contains 52 elements. Defining the sample space clearly is always the first step in any probability problem, because every probability calculation depends on knowing all the possibilities.</li>
+</ul>
+
+<p>To see these terms in action together, consider drawing a single card from a standard 52-card deck:</p>
+<ul>
+  <li><strong>Experiment:</strong> Drawing one card at random from the shuffled deck.</li>
+  <li><strong>Sample space:</strong> All 52 cards (Ace through King, in four suits).</li>
+  <li><strong>Outcome:</strong> Drawing the 7 of Hearts is one specific outcome.</li>
+  <li><strong>Event:</strong> "Drawing a heart" is an event containing 13 outcomes (all cards of the heart suit).</li>
+</ul>
+
+<p><strong>The Probability Scale</strong></p>
+
+<p>The probability scale runs from 0 to 1, and understanding what different points on this scale mean conceptually is just as important as knowing how to compute probabilities.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Probability Value</th>
+      <th>Interpretation</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Impossible — will never occur</td>
+      <td>Rolling a 7 on a standard six-sided die</td>
+    </tr>
+    <tr>
+      <td>Greater than 0, less than 0.5</td>
+      <td>Unlikely — less probable than not occurring</td>
+      <td>Rolling a 6 on a fair die (probability ≈ 0.167)</td>
+    </tr>
+    <tr>
+      <td>0.5</td>
+      <td>Equally likely to occur or not occur</td>
+      <td>Flipping a fair coin and getting heads</td>
+    </tr>
+    <tr>
+      <td>Greater than 0.5, less than 1</td>
+      <td>Likely — more probable than not occurring</td>
+      <td>Drawing a non-ace from a standard deck (≈ 0.923)</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Certain — will always occur</td>
+      <td>Rolling a number between 1 and 6 on a fair die</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One of the most important rules governing the probability scale is the <strong>total probability rule</strong>: the probabilities of all possible outcomes in a sample space must sum to exactly 1. This makes intuitive sense — something has to happen, and the combined likelihood of all possibilities must account for 100% of the chance. If you calculate probabilities for outcomes in a sample space and they do not sum to 1, something has gone wrong in your reasoning or arithmetic.</p>
+
+<p>For example, with a fair six-sided die, each face has probability 1/6. The six outcomes together give: 1/6 + 1/6 + 1/6 + 1/6 + 1/6 + 1/6 = 6/6 = 1. ✓</p>
+
+<p><strong>Probability in Data Analysis and Decision-Making</strong></p>
+
+<p>Probability is not just an abstract mathematical curiosity — it is a practical tool used constantly in data analysis and professional decision-making. Understanding how probability connects to these applied fields helps motivate why mastering its foundations matters so much.</p>
+
+<p>In <strong>data analysis</strong>, probability is used to model and interpret patterns within datasets. When an analyst examines a large dataset and observes that 30% of customers who see a particular advertisement make a purchase, that percentage is being interpreted as an empirical probability. Analysts use probability to assess whether patterns in data are meaningful or might simply be the result of random chance. This distinction — signal versus noise — is central to all of statistics.</p>
+
+<p>In <strong>decision-making</strong>, probability helps quantify the stakes of different choices. Suppose a company is deciding whether to launch a new product. They might estimate a 60% probability that the product succeeds and generates a large profit, and a 40% probability that it fails and results in a loss. By combining probabilities with the financial values of each outcome, they can compute an <em>expected value</em> — a probability-weighted average outcome — to guide their decision. This kind of probabilistic reasoning is used in business strategy, medicine (clinical trials and treatment decisions), engineering (reliability and risk analysis), finance (portfolio optimization), and government policy.</p>
+
+<p>Furthermore, probability is the mathematical foundation underneath virtually every advanced analytical method. <strong>Statistical inference</strong> — drawing conclusions about a population from a sample — relies on probability distributions and probabilistic reasoning about sampling variability. <strong>Predictive modeling</strong> and machine learning algorithms use probability to estimate the likelihood of different categories or outcomes. Even simple regression analysis has probabilistic assumptions built into its foundations. In short, a solid grasp of probability is the prerequisite for understanding and using essentially all of modern data science.</p>
+
+<p><strong>Theoretical vs. Experimental Probability</strong></p>
+
+<p>There are two primary ways to arrive at a probability for an event, and understanding the difference between them is fundamental to applying probability correctly in different situations.</p>
+
+<p><strong>Theoretical probability</strong> is calculated by logical reasoning about the structure of the experiment, without actually performing it. It is defined as:</p>
+
+<pre><code>P(Event) = Number of favorable outcomes / Total number of equally likely outcomes</code></pre>
+
+<p>The key requirement is that all outcomes in the sample space must be <em>equally likely</em>. For a fair coin, there are 2 equally likely outcomes and 1 favorable outcome for heads, so P(Heads) = 1/2 = 0.5. For drawing an ace from a standard deck, there are 52 equally likely outcomes and 4 favorable ones, so P(Ace) = 4/52 = 1/13 ≈ 0.077. Theoretical probability is elegant and exact, but it requires the assumption of fairness or equal likelihood, which is not always realistic.</p>
+
+<p><strong>Experimental probability</strong> (also called <em>empirical probability</em>) is calculated by actually performing the experiment multiple times and recording the results. It is defined as:</p>
+
+<pre><code>P(Event) ≈ Number of times the event occurred / Total number of trials</code></pre>
+
+<p>For example, suppose you flip a coin 1,000 times and observe 487 heads. The experimental probability of heads is 487/1000 = 0.487. Notice this is close to, but not exactly, the theoretical value of 0.5. This is expected — experimental probability fluctuates around the theoretical value due to natural random variation. As the number of trials increases, the experimental probability tends to get closer and closer to the theoretical probability. This principle is known as the <strong>Law of Large Numbers</strong> and is one of the most important theorems in probability theory.</p>
+
+<p>The two approaches complement each other in important ways:</p>
+
+<ul>
+  <li><strong>Use theoretical probability</strong> when you can fully enumerate the sample space and outcomes are equally likely (e.g., analyzing games of chance with fair dice or cards, or working through textbook problems).</li>
+  <li><strong>Use experimental probability</strong> when the theoretical structure is unknown or too complex to analyze directly (e.g., estimating the probability that a machine part fails, based on historical records of failures).</li>
+  <li>In data analysis, experimental probability is extremely common — proportions and frequencies calculated from real-world datasets are estimates of underlying probabilities that we cannot derive theoretically.</li>
+</ul>
+
+<p>Consider a concrete comparison. You want to know the probability that a randomly selected customer from a company's database is over 40 years old. You cannot calculate this theoretically without knowing the full population distribution. But if you sample 500 customers and find that 210 are over 40, your experimental probability estimate is 210/500 = 0.42. With a large enough sample, this estimate will be reliably close to the true population probability. This is precisely the logic underlying much of survey research and data-driven business analytics.</p>
+      <div class="notes"><strong>Notes</strong>Consider supplementing with a simple interactive diagram of the probability scale (0 to 1) if the learning platform supports visual elements. The Law of Large Numbers, mentioned under experimental probability, is not required knowledge at this introductory stage but is worth flagging as a concept students will encounter later in the module.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

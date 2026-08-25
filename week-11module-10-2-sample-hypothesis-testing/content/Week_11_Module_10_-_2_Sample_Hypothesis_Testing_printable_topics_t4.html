@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparing Two Means</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+  <header>
+    <h1>Comparing Two Means</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Comparing Two Means</h2>
+      <p>When researchers want to know whether two groups differ on some measured outcome, they are typically asking a question about two population means. For example: Does a new drug lower blood pressure more than a placebo? Do men and women differ in average reaction time? Does a student's test score improve after a tutoring intervention? All of these questions share a common statistical structure — they compare <strong>two means</strong> — and the family of procedures covered here provides the tools to answer them rigorously.</p>
+
+<p>Before any calculation begins, two foundational decisions must be made: (1) what the hypotheses are, and (2) whether the samples are <em>independent</em> or <em>paired</em>. Getting these right determines everything that follows — the formula for the test statistic, the degrees of freedom, and the interpretation of the result.</p>
+
+<p><strong>Setting up the hypotheses.</strong> The <em>null hypothesis</em> in a two-mean comparison almost always takes the form H₀: μ₁ − μ₂ = 0, meaning the two population means are equal. The <em>alternative hypothesis</em> expresses the direction (or lack of direction) of the expected difference:</p>
+
+<ul>
+  <li><strong>Two-tailed (≠):</strong> H₁: μ₁ − μ₂ ≠ 0 — used when the researcher has no prior reason to expect a specific direction of difference.</li>
+  <li><strong>Left-tailed (&lt;):</strong> H₁: μ₁ − μ₂ &lt; 0 — used when the researcher expects Group 1 to have a <em>smaller</em> mean than Group 2.</li>
+  <li><strong>Right-tailed (&gt;):</strong> H₁: μ₁ − μ₂ &gt; 0 — used when the researcher expects Group 1 to have a <em>larger</em> mean than Group 2.</li>
+</ul>
+
+<p>The significance level α (commonly 0.05) is chosen before data collection. The entire logic of the test is to evaluate how surprising the observed difference between sample means would be if H₀ were actually true.</p>
+
+<p><strong>Independent vs. paired: the critical first step.</strong> The single most important design question is whether observations in one group are <em>linked</em> to observations in the other group in a meaningful way. If each observation in Group 1 is matched to a specific observation in Group 2 — because they are the same person measured twice, or because subjects were deliberately paired to be similar — the data are <em>paired</em> (also called dependent or matched). If the two groups consist of entirely separate, unrelated individuals with no natural correspondence between any pair of observations, the data are <em>independent</em>. Using the wrong procedure can invalidate the entire analysis.</p>
+
+<p>The sections below develop each test in full, then address how to choose between them and how to interpret results.</p>
+
+<p><strong>The Independent Samples t-Test.</strong> When two groups are made up of different, unrelated people or units, the independent samples t-test is the appropriate tool. The core idea is straightforward: compute the difference between the two sample means (x̄₁ − x̄₂) and then scale that difference by a measure of how much sampling variability we would expect in such a difference if H₀ were true. That scaling factor is the <em>standard error of the difference</em>.</p>
+
+<p>The general form of the test statistic is:</p>
+
+<pre><code>t = (x̄₁ − x̄₂) / SE(x̄₁ − x̄₂)</code></pre>
+
+<p>The formula for SE depends on whether the two population variances can be assumed equal.</p>
+
+<p><strong>Case 1 — Equal variances assumed (pooled t-test).</strong> When it is reasonable to assume that σ₁² = σ₂², the two sample variances are combined into a single <em>pooled variance estimate</em> that borrows information from both groups:</p>
+
+<pre><code>s²_p = [(n₁ − 1)s₁² + (n₂ − 1)s₂²] / (n₁ + n₂ − 2)
+
+SE = √[s²_p × (1/n₁ + 1/n₂)]
+
+t = (x̄₁ − x̄₂) / SE
+
+Degrees of freedom: df = n₁ + n₂ − 2</code></pre>
+
+<p>The pooled variance is a weighted average of the two sample variances, with larger samples receiving more weight. For example, if Group 1 has n₁ = 10 with s₁² = 4 and Group 2 has n₂ = 15 with s₂² = 6:</p>
+
+<pre><code>s²_p = [(10 − 1)(4) + (15 − 1)(6)] / (10 + 15 − 2)
+      = [36 + 84] / 23
+      = 120 / 23
+      ≈ 5.217
+
+SE = √[5.217 × (1/10 + 1/15)]
+   = √[5.217 × 0.1667]
+   = √0.870
+   ≈ 0.933
+
+df = 10 + 15 − 2 = 23</code></pre>
+
+<p><strong>Case 2 — Unequal variances (Welch's t-test).</strong> When the two groups have notably different variances, pooling them distorts the standard error. Welch's t-test uses separate variance estimates for each group and applies a correction to the degrees of freedom:</p>
+
+<pre><code>SE = √(s₁²/n₁ + s₂²/n₂)
+
+t = (x̄₁ − x̄₂) / SE
+
+Welch–Satterthwaite degrees of freedom:
+df = (s₁²/n₁ + s₂²/n₂)²  /  [(s₁²/n₁)²/(n₁−1) + (s₂²/n₂)²/(n₂−1)]</code></pre>
+
+<p>The Welch df formula typically yields a non-integer, which is either rounded down or used directly with t-distribution tables or software. The resulting df is always less than or equal to n₁ + n₂ − 2, meaning the critical value is slightly larger, reflecting the additional uncertainty from not pooling. In practice, many statisticians recommend defaulting to Welch's test because it performs well even when variances are equal, whereas the pooled test can be misleading when they are not.</p>
+
+<p>An important practical note: <strong>sample sizes do not need to be equal</strong> for either version of the independent samples t-test. The formulas accommodate unequal n without any modification.</p>
+
+<p><strong>Assumptions of the Independent Samples t-Test.</strong> Like all parametric procedures, the independent samples t-test rests on assumptions that must be evaluated before results can be trusted.</p>
+
+<ul>
+  <li><strong>Random and independent sampling:</strong> Each sample must be drawn randomly from its population. Observations within a group must not influence one another, and the two groups must be completely separate — no overlap, no pairing, no clustering that creates dependency.</li>
+  <li><strong>Approximate normality:</strong> The data in each group should be approximately normally distributed. This assumption matters most with small samples (roughly n &lt; 30 per group). With larger samples, the Central Limit Theorem ensures that the sampling distribution of the mean is approximately normal even if the underlying data are not, making the test reasonably robust to moderate non-normality. Severe skewness or extreme outliers remain problematic at any sample size.</li>
+  <li><strong>Independence of observations between groups:</strong> No individual or unit should appear in both groups, and there should be no systematic relationship linking a person in Group 1 to a specific person in Group 2. If such a relationship exists, the paired t-test is required.</li>
+  <li><strong>Homogeneity of variance:</strong> The pooled formulation requires that σ₁² ≈ σ₂². This can be evaluated informally by comparing the two sample standard deviations (a ratio greater than 2:1 is often taken as a warning sign) or formally using Levene's test. If the assumption is not met, switch to Welch's t-test, which does not require equal variances.</li>
+</ul>
+
+<p><strong>The Paired Samples t-Test.</strong> When data are collected from matched pairs — the same subjects measured twice (before and after), or two subjects matched on relevant characteristics — the structure of the data should be exploited to gain statistical power. The key insight is that by looking at the <em>difference</em> within each pair, we remove all the variability that is due to stable between-person differences, leaving only the variability relevant to the treatment or condition.</p>
+
+<p>The procedure begins by computing a difference score for each pair:</p>
+
+<pre><code>dᵢ = x₁ᵢ − x₂ᵢ   for i = 1, 2, …, n</code></pre>
+
+<p>These n difference scores are then treated as a single sample, and a one-sample t-test is performed on them against a hypothesized mean of zero:</p>
+
+<pre><code>H₀: μ_d = 0    (the mean difference in the population is zero)
+H₁: μ_d ≠ 0   (or < 0, or > 0, depending on the research question)
+
+d̄ = (1/n) Σ dᵢ          (sample mean of the differences)
+
+s_d = √[Σ(dᵢ − d̄)² / (n − 1)]   (sample SD of the differences)
+
+SE_d = s_d / √n
+
+t = d̄ / SE_d
+
+Degrees of freedom: df = n − 1</code></pre>
+
+<p>Notice that <em>n</em> here is the number of <strong>pairs</strong>, not the total number of observations. A study with 20 matched pairs contributes df = 19, even though 40 measurements were recorded.</p>
+
+<p><strong>Worked example of a paired t-test.</strong> Suppose 8 participants have their systolic blood pressure measured before and after a relaxation intervention. The before (x₁) and after (x₂) values, and their differences d = x₁ − x₂, are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Participant</th>
+      <th>Before (x₁)</th>
+      <th>After (x₂)</th>
+      <th>d = x₁ − x₂</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>145</td><td>138</td><td>7</td></tr>
+    <tr><td>2</td><td>132</td><td>130</td><td>2</td></tr>
+    <tr><td>3</td><td>158</td><td>149</td><td>9</td></tr>
+    <tr><td>4</td><td>140</td><td>135</td><td>5</td></tr>
+    <tr><td>5</td><td>127</td><td>128</td><td>−1</td></tr>
+    <tr><td>6</td><td>152</td><td>144</td><td>8</td></tr>
+    <tr><td>7</td><td>136</td><td>133</td><td>3</td></tr>
+    <tr><td>8</td><td>148</td><td>141</td><td>7</td></tr>
+  </tbody>
+</table>
+
+<pre><code>d̄ = (7 + 2 + 9 + 5 − 1 + 8 + 3 + 7) / 8 = 40 / 8 = 5.0
+
+s_d = √[((7−5)² + (2−5)² + (9−5)² + (5−5)² + (−1−5)² + (8−5)² + (3−5)² + (7−5)²) / 7]
+    = √[(4 + 9 + 16 + 0 + 36 + 9 + 4 + 4) / 7]
+    = √[82 / 7]
+    = √11.714
+    ≈ 3.423
+
+SE_d = 3.423 / √8 = 3.423 / 2.828 ≈ 1.210
+
+t = 5.0 / 1.210 ≈ 4.13
+
+df = 8 − 1 = 7</code></pre>
+
+<p>With df = 7 and a two-tailed α = 0.05, the critical value is approximately ±2.365. Since 4.13 &gt; 2.365, we reject H₀ and conclude that the relaxation intervention significantly reduced blood pressure.</p>
+
+<p><strong>Selecting the Correct Test: Independent vs. Paired.</strong> The decision between these two tests is a design question, not a statistical one. The key is to look at how the data were collected:</p>
+
+<ul>
+  <li><strong>Use the independent samples t-test</strong> when the two groups contain entirely different individuals who were not matched or paired in any way. Examples: comparing exam scores between students taught by Method A versus students taught by Method B (different students in each group); comparing income between men and women.</li>
+  <li><strong>Use the paired samples t-test</strong> when the same individual is measured twice (pre/post design), or when subjects in Group 1 were deliberately matched to subjects in Group 2 based on characteristics such as age, baseline health, or IQ. Examples: measuring anxiety before and after therapy in the same patients; a twin study where one twin receives a treatment and the other serves as a control.</li>
+</ul>
+
+<p>The statistical advantage of pairing is substantial. When subjects differ greatly from one another — for instance, people naturally vary widely in blood pressure — much of the variability in the data reflects those stable individual differences rather than the effect of the treatment. By computing difference scores, the paired t-test removes that between-subject variability entirely. The result is a smaller standard error, a larger t-statistic, and greater <em>statistical power</em> — the ability to detect a real effect when one exists.</p>
+
+<p>Conversely, <strong>incorrectly treating paired data as independent</strong> is a serious error. The standard error for the independent test is computed assuming the two groups' measurements are unrelated. When they are actually correlated (as paired measurements typically are, since the same person tends to score similarly on both occasions), the independent-test formula overestimates the true standard error. This inflates the denominator of the t-statistic, making it smaller than it should be, which in turn reduces power and makes it harder to detect a genuine difference. In severe cases, a real and important effect can go undetected entirely.</p>
+
+<p><strong>Interpreting Results and Making Decisions.</strong> Once the test statistic and p-value are in hand, the interpretation follows a consistent logic.</p>
+
+<p><strong>The p-value decision rule:</strong> If p ≤ α, reject H₀ — the data provide sufficient evidence that the two population means differ. If p &gt; α, fail to reject H₀ — the data do not provide sufficient evidence of a difference. Crucially, failing to reject H₀ is <em>not</em> the same as proving the means are equal. It means the sample did not produce strong enough evidence to rule out chance as an explanation for the observed difference. The true means may still differ; the study simply lacked the power to detect it.</p>
+
+<p><strong>Effect size — Cohen's d.</strong> Statistical significance depends heavily on sample size: a very small and practically unimportant difference can become statistically significant with a large enough sample. Effect size measures convey the magnitude of the difference in a standardized, sample-size-independent way. For two-mean comparisons, <em>Cohen's d</em> is the most widely used:</p>
+
+<pre><code>Cohen's d = (x̄₁ − x̄₂) / s_pooled
+
+where s_pooled = √[(s₁² + s₂²) / 2]   (for equal sample sizes)
+or the square root of s²_p              (for unequal sample sizes, using the pooled variance)
+
+For paired designs:
+Cohen's d = d̄ / s_d</code></pre>
+
+<p>Standard benchmarks for interpreting Cohen's d:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cohen's d</th>
+      <th>Conventional Label</th>
+      <th>Practical Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>~0.2</td><td>Small</td><td>Difference is noticeable but modest in real-world terms</td></tr>
+    <tr><td>~0.5</td><td>Medium</td><td>Difference is visible to a careful observer</td></tr>
+    <tr><td>~0.8</td><td>Large</td><td>Difference is obvious and practically important</td></tr>
+  </tbody>
+</table>
+
+<p>These benchmarks are context-dependent. In some fields (e.g., educational interventions), a d of 0.2 may be considered meaningful; in others (e.g., pharmacology), a d of 0.8 might be the minimum of clinical interest.</p>
+
+<p><strong>Confidence intervals for the difference in means.</strong> A confidence interval (CI) for μ₁ − μ₂ complements the hypothesis test by providing a <em>range of plausible values</em> for the true difference, rather than just a yes/no significance decision. The general form is:</p>
+
+<pre><code>CI: (x̄₁ − x̄₂) ± t* × SE
+
+where t* is the critical value from the t-distribution at the chosen confidence level (e.g., t* ≈ 2.069 for 95% CI with df = 23).</code></pre>
+
+<p>For the paired t-test example above:</p>
+
+<pre><code>95% CI: 5.0 ± 2.365 × 1.210 = 5.0 ± 2.86 = (2.14, 7.86)</code></pre>
+
+<p>This means we are 95% confident that the true mean reduction in blood pressure lies between about 2.1 and 7.9 mmHg. Notice that zero is not contained in this interval — consistent with rejecting H₀ at α = 0.05. When the CI does not include zero, the result is statistically significant. When it does include zero, it is not.</p>
+
+<p>Confidence intervals are particularly useful because they communicate <em>direction</em> (both bounds positive means Group 1 is reliably higher), <em>magnitude</em> (the width of the interval reflects precision), and <em>practical significance</em> (if both bounds represent trivially small differences even though zero is excluded, practical importance may still be limited).</p>
+
+<p>Taken together — the hypothesis test result, the effect size, and the confidence interval — these three pieces of information give a complete, honest picture of what the data actually say about the comparison between two means.</p>
+      <div class="notes"><strong>Notes</strong>The worked example for the paired t-test is fully self-contained with a data table and step-by-step arithmetic, making it suitable for learners who need to see the calculations from scratch. Cohen&#39;s d benchmarks are presented as conventional guidelines (per Cohen, 1988) rather than absolute rules, which reflects current best practice in statistics education. The explanation of why treating paired data as independent is harmful is deliberately detailed, as this is a common and consequential mistake made by students.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

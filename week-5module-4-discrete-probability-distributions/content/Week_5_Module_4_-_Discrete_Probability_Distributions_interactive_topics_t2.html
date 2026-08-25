@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probability Mass Functions and Distribution Properties</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+  <header>
+    <h1>Probability Mass Functions and Distribution Properties</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Probability Mass Functions and Distribution Properties</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When we study random phenomena with countable, distinct outcomes — rolling a die, counting the number of customer complaints received in a day, or recording how many heads appear in five coin flips — we need a precise mathematical tool to describe how probability is spread across those outcomes. That tool is the <strong>probability mass function</strong>, commonly abbreviated as the <strong>PMF</strong>. The PMF is the foundational building block for all work with discrete probability distributions, and understanding it deeply is essential before moving on to expected values, variances, or any named distribution such as the binomial or Poisson.</p>
+
+<p>A <strong>probability mass function</strong> is a function that assigns a probability to each possible value of a discrete random variable. If <em>X</em> is a discrete random variable, the PMF is written as <strong>P(X = x)</strong>, which is read as "the probability that the random variable X takes on the specific value x." The lowercase <em>x</em> represents a particular outcome — a number in the domain of <em>X</em> — while the uppercase <em>X</em> represents the variable itself, which is uncertain before the outcome is observed. This distinction between <em>X</em> (the random variable) and <em>x</em> (a realized value) is subtle but important in formal probability work.</p>
+
+<p>The PMF is defined <strong>only for discrete random variables</strong>. A discrete random variable is one whose possible values form a countable set — meaning the outcomes can be listed one by one, even if the list is infinite. Examples include the number of cars passing through an intersection per hour, the outcome of a single roll of a six-sided die (1, 2, 3, 4, 5, or 6), or the number of defective items in a batch of products. In contrast, continuous random variables — such as the exact height of a person or the time until a machine fails — take values across an uncountable interval, and they require a different tool called a probability density function (PDF). The PMF cannot be applied to continuous variables, because for any single point in a continuous distribution, the probability is exactly zero.</p>
+
+<p>The PMF <strong>fully characterizes the behavior</strong> of a discrete random variable. This means that once you know the PMF, you know everything there is to know about the probabilistic behavior of <em>X</em>: which outcomes are possible, which are impossible, which are likely, and which are rare. Every summary measure — the mean, variance, and more — can be derived from the PMF alone.</p>
+
+<p>Every valid PMF must satisfy two fundamental mathematical properties. These are not suggestions or conventions — they are strict requirements that any function must meet before it can qualify as a legitimate probability mass function.</p>
+
+<p>The first requirement is the <strong>non-negativity property</strong>. For every possible value <em>x</em> in the domain of <em>X</em>, the PMF must satisfy:</p>
+
+<pre><code>P(X = x) ≥ 0   for all x</code></pre>
+
+<p>In plain terms, no outcome can be assigned a negative probability. This makes intuitive sense: probability represents a proportion of likelihood, and proportions cannot be negative. A probability of exactly zero is perfectly acceptable — it simply means that outcome is impossible and will never occur. For example, if <em>X</em> is the result of rolling a standard six-sided die, then <strong>P(X = 7) = 0</strong> because getting a seven is impossible on that die. However, assigning any outcome a probability such as −0.1 or −0.5 immediately disqualifies the function as a PMF, because it violates this foundational rule.</p>
+
+<p>The second requirement is the <strong>summation property</strong>: the probabilities assigned to all possible outcomes must sum to exactly one. Mathematically:</p>
+
+<pre><code>Σ P(X = x) = 1,   summed over all possible values x</code></pre>
+
+<p>This property reflects the certainty that <em>some</em> outcome must occur whenever the random experiment is performed. The complete list of possible outcomes forms the entire sample space, and the total probability assigned to the sample space must always equal 1. If the probabilities sum to less than 1, then some portion of the sample space has been left unaccounted for — as if some outcomes were forgotten or ignored. If the probabilities sum to more than 1, the distribution is over-assigning probability in a way that is mathematically inconsistent. Either failure invalidates the distribution entirely.</p>
+
+<p>To make these properties concrete, consider a simple example. Suppose a student randomly selects one answer on a multiple-choice question with four options labeled 1, 2, 3, and 4, each equally likely. The random variable <em>X</em> represents the answer chosen. The PMF is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x (Outcome)</th>
+      <th>P(X = x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.25</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Check the non-negativity property: every probability is 0.25, which is greater than zero. ✓<br>Check the summation property: 0.25 + 0.25 + 0.25 + 0.25 = 1.00. ✓<br>Both conditions are satisfied, so this is a valid PMF.</p>
+
+<p>Now consider <strong>constructing a discrete probability distribution</strong> from scratch. The process follows a clear sequence of steps. First, identify and list every distinct, mutually exclusive outcome the random variable <em>X</em> can take. Mutually exclusive means that only one outcome can occur at a time — rolling a 3 and rolling a 5 on the same single die roll cannot both happen simultaneously. Second, assign a probability to each outcome. This assignment might come from theoretical reasoning (symmetry arguments, like a fair die), from empirical data (observed frequencies from a large number of trials), or from a known mathematical formula (such as the formula for a binomial distribution). Third — and critically — verify both the non-negativity and summation conditions before treating the distribution as valid.</p>
+
+<p>Consider a more applied construction example. A small business tracks the number of customer service calls <em>X</em> it receives in the first hour of business each day. Based on historical records, the observed frequencies over 200 days are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Calls (x)</th>
+      <th>Days Observed</th>
+      <th>Estimated P(X = x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>40</td>
+      <td>40/200 = 0.20</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>60</td>
+      <td>60/200 = 0.30</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>70</td>
+      <td>70/200 = 0.35</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>30</td>
+      <td>30/200 = 0.15</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The probabilities are all non-negative: 0.20, 0.30, 0.35, 0.15 are all ≥ 0. ✓<br>The sum is: 0.20 + 0.30 + 0.35 + 0.15 = 1.00. ✓<br>This empirically estimated PMF is valid and can be used for further analysis.</p>
+
+<p>A <strong>probability distribution table</strong> — like the ones above — is one of the clearest ways to present a PMF. It displays each possible value alongside its corresponding probability in an organized, readable format. Another common representation is a <strong>probability histogram</strong>, a bar chart where each bar is centered at a value of <em>x</em> and its height equals P(X = x). The histogram provides an immediate visual sense of the distribution's shape — whether it is symmetric, skewed left or right, or concentrated around a single peak.</p>
+
+<p><strong>Validating a probability distribution</strong> is a step that must never be skipped, whether the distribution was constructed from theory or estimated from data. The validation process consists of two checks applied in sequence. First, inspect every individual probability and confirm that none is negative. Second, add all probabilities together and confirm the total is exactly 1 (or sufficiently close to 1 when working with rounded decimals — for example, if rounding produces a sum of 0.999 or 1.001, one should check whether the discrepancy is due to rounding and not a structural error). If either check fails, the distribution is invalid and must be corrected before any calculations — such as finding the mean or computing cumulative probabilities — are attempted. Using an invalid distribution in further calculations produces meaningless results.</p>
+
+<p>It is worth noting that validation applies equally to all types of discrete probability distributions, whether they are simple empirical distributions built from data, theoretical distributions derived from assumed conditions, or named distributions like the binomial, geometric, or Poisson. Every one of them must respect the two core properties.</p>
+
+<p>To illustrate a <strong>failed validation</strong>, suppose someone proposes the following PMF for a random variable <em>Y</em>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>y</th>
+      <th>P(Y = y)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>−0.10</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.60</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Non-negativity check: P(Y = 2) = −0.10, which is negative. ✗ This distribution is invalid immediately.<br>Summation check: 0.50 + (−0.10) + 0.60 = 1.00. Although the sum happens to equal 1, the negative probability is still a disqualifying violation. Both conditions must hold; passing one does not excuse failing the other.</p>
+
+<p>Now consider a second failing case:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>y</th>
+      <th>P(Y = y)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>0.40</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.30</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Non-negativity check: all values are positive. ✓<br>Summation check: 0.40 + 0.35 + 0.30 = 1.05 ≠ 1. ✗ This distribution is invalid because the probabilities exceed 1.</p>
+
+<p>Finally, <strong>interpreting PMF values in context</strong> is what connects abstract mathematics to real-world meaning. The numerical value of P(X = x) directly expresses how likely outcome <em>x</em> is. A PMF value close to 1 means the outcome is nearly certain; a PMF value close to 0 means the outcome is very rare. By scanning the PMF table or histogram, one can quickly identify the <strong>most probable outcome</strong> (the value with the highest probability, sometimes called the mode of the distribution) and the <strong>least probable outcome</strong> (the value with the lowest non-zero probability).</p>
+
+<p>In the customer service call example above, the most likely number of calls in the first hour is <strong>2 calls</strong>, with P(X = 2) = 0.35. Receiving zero calls is the least likely scenario among the observed outcomes, at P(X = 0) = 0.20. A manager could use this PMF to make decisions: for instance, scheduling at least one staff member capable of handling calls during the first hour is clearly justified, since the probability of receiving at least one call is P(X ≥ 1) = 0.30 + 0.35 + 0.15 = 0.80, meaning there is an 80% chance at least one call will arrive.</p>
+
+<p>This kind of contextual reasoning — using PMF values to compare outcomes, assess risk, and support decisions — is precisely why mastering the PMF is so important. Every more advanced topic in discrete probability, from computing expectations to modeling real-world processes with named distributions, rests on the solid foundation of understanding what the PMF represents and what conditions it must satisfy.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to emphasize the distinction between uppercase X (the random variable) and lowercase x (a specific realized value) early, as students frequently conflate them. The failed-validation examples are particularly useful for assessment items. A brief mention that continuous distributions use a PDF rather than a PMF helps learners situate this concept within the broader landscape of probability theory.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

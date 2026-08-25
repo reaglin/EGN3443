@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two-Sample Hypothesis Tests</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+  <header>
+    <h1>Two-Sample Hypothesis Tests</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Two-Sample Hypothesis Tests</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When researchers want to know whether two distinct populations differ on some measurable characteristic, they turn to <strong>two-sample hypothesis tests</strong>. Unlike a one-sample test — which compares a single sample mean to a known or hypothesized population value — a two-sample test compares statistics from two separate groups to determine whether any observed difference is likely real or merely the product of random sampling variation. This framework appears constantly in practice: a pharmaceutical company comparing a drug to a placebo, an educator comparing test scores from two teaching methods, or a manufacturer comparing defect rates from two production lines. Understanding the logic, assumptions, and mechanics of these tests is therefore fundamental to applied statistical reasoning.</p>
+
+<p><strong>Logic of Two-Sample Hypothesis Testing</strong></p>
+
+<p>The starting point for any hypothesis test is a pair of competing claims about the populations of interest. In a two-sample context, the <strong>null hypothesis (H₀)</strong> almost always asserts that there is no meaningful difference between the two population parameters being compared. For means, this is written as H₀: μ₁ = μ₂, or equivalently H₀: μ₁ − μ₂ = 0. The <strong>alternative hypothesis (H₁)</strong> asserts that a difference does exist. Depending on the research question, H₁ can take three forms:</p>
+
+<ul>
+  <li><strong>Two-tailed:</strong> H₁: μ₁ ≠ μ₂ — used when the researcher has no prior expectation about which group will be larger.</li>
+  <li><strong>Left-tailed:</strong> H₁: μ₁ &lt; μ₂ — used when the researcher specifically expects group 1 to have a smaller mean.</li>
+  <li><strong>Right-tailed:</strong> H₁: μ₁ &gt; μ₂ — used when the researcher specifically expects group 1 to have a larger mean.</li>
+</ul>
+
+<p>The core logic of the test is a <em>proof by contradiction</em>: assume the null hypothesis is true, then compute the probability of observing a difference between sample statistics as large as (or larger than) the one actually observed. This probability is the <strong>p-value</strong>. If the p-value is very small, the data are hard to explain under H₀, which is taken as evidence against it. If the p-value is large, the observed difference is consistent with ordinary sampling variation and does not constitute strong evidence against H₀.</p>
+
+<p>For example, suppose Group A has a sample mean of 105 and Group B has a sample mean of 100. The question is not simply "are these numbers different?" — they obviously are. The question is: <em>how surprising is a difference of 5 points if the two populations truly have the same mean?</em> The hypothesis testing procedure answers exactly that question by placing the observed difference on a standardized scale and determining where it falls relative to a known probability distribution.</p>
+
+<p><strong>Independence Assumption and Sampling</strong></p>
+
+<p>Before any calculations begin, the study design must satisfy the <strong>independence assumption</strong>. This requirement has two distinct layers, both of which must hold.</p>
+
+<ul>
+  <li><strong>Between-group independence:</strong> The two samples must be drawn independently from their respective populations. Knowing which individuals ended up in Group 1 should give no information about who ended up in Group 2. This is typically satisfied when participants are randomly assigned to conditions (as in a controlled experiment) or when two entirely separate populations are sampled (e.g., students from two different schools).</li>
+  <li><strong>Within-group independence:</strong> Observations <em>within</em> each sample must also be independent of one another. If one observation's value influences another — for instance, because participants share a classroom, are related, or are measured repeatedly — the independence assumption is violated.</li>
+</ul>
+
+<p>Violating independence has serious consequences. When observations are correlated, the effective sample size is smaller than the nominal sample size, so the standard error is underestimated. This makes the test statistic artificially large and inflates the <strong>Type I error rate</strong> (the probability of falsely rejecting a true null hypothesis) well above the nominal α level. In clustered data (e.g., students nested within classrooms), the appropriate remedy is often a mixed-effects model or a cluster-robust standard error, not a standard two-sample test.</p>
+
+<p>When independence cannot be guaranteed — for instance, when the same individuals are measured under two different conditions — the correct approach is a <strong>paired test</strong>, which accounts for the within-subject correlation. The two-sample tests described here apply strictly to <em>independent</em> groups.</p>
+
+<p><strong>Two-Sample Z-Test</strong></p>
+
+<p>The two-sample z-test is appropriate when both population standard deviations (σ₁ and σ₂) are known, or when both sample sizes are large enough (conventionally n ≥ 30 for each group) that the sample standard deviations are reliable estimates and the Central Limit Theorem ensures approximate normality of the sampling distribution of the difference in means.</p>
+
+<p>The <strong>test statistic</strong> is computed as:</p>
+
+<pre><code>z = (x̄₁ − x̄₂) − (μ₁ − μ₂)₀
+    ─────────────────────────────
+         SE(x̄₁ − x̄₂)
+</code></pre>
+
+<p>where (μ₁ − μ₂)₀ is the hypothesized difference under H₀ (usually 0), and the <strong>standard error of the difference</strong> is:</p>
+
+<pre><code>SE = √(σ₁²/n₁ + σ₂²/n₂)
+</code></pre>
+
+<p>This formula reflects an important principle: the variance of the difference between two independent random variables equals the <em>sum</em> of their individual variances. Each sample mean has variance σ²/n, so the difference in sample means has variance σ₁²/n₁ + σ₂²/n₂, and the standard error is the square root of that sum.</p>
+
+<p>The resulting z-score is compared to critical values from the <strong>standard normal distribution</strong>. For a two-tailed test at α = 0.05, the critical values are ±1.96; any |z| > 1.96 leads to rejection of H₀. For a one-tailed test at α = 0.05, the critical value is 1.645.</p>
+
+<p><em>Worked example:</em> A nutritionist measures the daily caloric intake of two independent groups. Group 1 (n₁ = 50) has x̄₁ = 2,150 kcal with known σ₁ = 300 kcal. Group 2 (n₂ = 60) has x̄₂ = 2,050 kcal with known σ₂ = 280 kcal. Testing H₀: μ₁ − μ₂ = 0 versus H₁: μ₁ ≠ μ₂ at α = 0.05:</p>
+
+<pre><code>SE = √(300²/50 + 280²/60)
+   = √(90000/50 + 78400/60)
+   = √(1800 + 1306.67)
+   = √3106.67
+   ≈ 55.74
+
+z = (2150 − 2050) / 55.74
+  = 100 / 55.74
+  ≈ 1.794
+</code></pre>
+
+<p>Since |1.794| &lt; 1.96, we fail to reject H₀ at the 5% significance level. The observed 100 kcal difference is not statistically significant.</p>
+
+<p><strong>Two-Sample T-Test</strong></p>
+
+<p>In most real-world scenarios, population standard deviations are unknown and must be estimated from the data. The <strong>two-sample t-test</strong> replaces the known σ values with sample standard deviations and uses the <em>t-distribution</em> rather than the normal distribution to account for the additional uncertainty introduced by estimation. There are two variants, and choosing between them depends on whether the population variances can be assumed equal.</p>
+
+<p><em>Pooled (Equal-Variance) T-Test</em></p>
+
+<p>When it is reasonable to assume σ₁² = σ₂², both samples' information can be combined into a single <strong>pooled variance estimate</strong>, which is a weighted average of the two sample variances weighted by their degrees of freedom:</p>
+
+<pre><code>sp² = [(n₁ − 1)s₁² + (n₂ − 1)s₂²] / (n₁ + n₂ − 2)
+</code></pre>
+
+<p>The test statistic is then:</p>
+
+<pre><code>t = (x̄₁ − x̄₂) / √(sp²(1/n₁ + 1/n₂))
+</code></pre>
+
+<p>This t-statistic follows a t-distribution with <strong>df = n₁ + n₂ − 2</strong> degrees of freedom under H₀. Pooling is advantageous because it produces a more precise (lower variance) estimate of the common population variance by using all available data.</p>
+
+<p><em>Welch's (Unequal-Variance) T-Test</em></p>
+
+<p>When the assumption of equal variances is not warranted — which is the more common situation in practice — <strong>Welch's t-test</strong> is used. It does not pool the variances and instead computes the standard error directly from each sample's own variance:</p>
+
+<pre><code>t = (x̄₁ − x̄₂) / √(s₁²/n₁ + s₂²/n₂)
+</code></pre>
+
+<p>The numerator is identical to the pooled test, but the denominator differs. More importantly, Welch's test uses an <strong>adjusted degrees of freedom</strong> computed by the Welch–Satterthwaite equation:</p>
+
+<pre><code>df = (s₁²/n₁ + s₂²/n₂)²
+     ───────────────────────────────────────────
+     (s₁²/n₁)²/(n₁−1)  +  (s₂²/n₂)²/(n₂−1)
+</code></pre>
+
+<p>This formula produces a non-integer degrees of freedom value, which is then used to look up the critical value or p-value from the t-distribution. The result is generally a more conservative test (slightly wider critical region) than the pooled test when variances truly are unequal, protecting against inflated Type I errors.</p>
+
+<p>Because Welch's test performs nearly as well as the pooled test when variances are equal, and much better when they are not, <strong>Welch's t-test is recommended as the default</strong> two-sample t-test in most modern statistical practice. Many statistical software packages (including R's <code>t.test()</code> function) use Welch's test by default.</p>
+
+<p><em>Worked example for Welch's t-test:</em> Two independent classes take the same exam. Class A (n₁ = 20): x̄₁ = 78, s₁ = 12. Class B (n₂ = 25): x̄₂ = 72, s₂ = 8. Testing H₀: μ₁ = μ₂ vs. H₁: μ₁ ≠ μ₂ at α = 0.05:</p>
+
+<pre><code>SE = √(12²/20 + 8²/25)
+   = √(144/20 + 64/25)
+   = √(7.2 + 2.56)
+   = √9.76
+   ≈ 3.124
+
+t = (78 − 72) / 3.124 = 6 / 3.124 ≈ 1.921
+
+Numerator of df: (7.2 + 2.56)² = 9.76² = 95.258
+Denominator: (7.2)²/19 + (2.56)²/24
+           = 51.84/19 + 6.5536/24
+           = 2.728 + 0.273 = 3.001
+
+df ≈ 95.258 / 3.001 ≈ 31.74  →  use df ≈ 31
+</code></pre>
+
+<p>At df = 31, the two-tailed critical value at α = 0.05 is approximately 2.040. Since |1.921| &lt; 2.040, we fail to reject H₀. The difference is not statistically significant at the 5% level (though it is close, which would be worth noting alongside the effect size).</p>
+
+<p><strong>Assumptions Underlying Two-Sample Tests</strong></p>
+
+<p>The validity of two-sample z-tests and t-tests rests on a set of assumptions. Violations of these assumptions can compromise the reliability of conclusions.</p>
+
+<ul>
+  <li><strong>Random and independent sampling:</strong> Both samples should be drawn randomly from their respective populations. Random sampling ensures that the samples are representative and that the sampling distributions behave as the theory predicts. As discussed, independence within and between groups is non-negotiable.</li>
+  <li><strong>Approximate normality:</strong> The data within each group should be approximately normally distributed. For large samples (each n ≥ 30), the Central Limit Theorem ensures that the sampling distribution of the mean is approximately normal regardless of the shape of the underlying data distribution, making this assumption less critical. For small samples, the original data should be checked for severe skewness or outliers using histograms, Q-Q plots, or formal normality tests (e.g., Shapiro-Wilk). If normality is seriously violated in small samples, non-parametric alternatives such as the Mann-Whitney U test should be considered.</li>
+  <li><strong>Equal variances (for the pooled t-test only):</strong> The pooled t-test requires that σ₁² = σ₂². This can be assessed using <strong>Levene's test</strong> (which tests for equality of variances and is robust to non-normality) or the <strong>F-test</strong> (which directly tests the ratio of the two sample variances but is sensitive to departures from normality). If there is evidence that variances are unequal, Welch's t-test should be used instead.</li>
+</ul>
+
+<p>The table below summarizes when to use each test:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Appropriate Test</th>
+      <th>Degrees of Freedom</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>σ₁ and σ₂ known (or n₁, n₂ both large)</td>
+      <td>Two-sample Z-test</td>
+      <td>Not applicable (use z-table)</td>
+    </tr>
+    <tr>
+      <td>σ₁, σ₂ unknown; equal variances reasonable</td>
+      <td>Pooled two-sample t-test</td>
+      <td>n₁ + n₂ − 2</td>
+    </tr>
+    <tr>
+      <td>σ₁, σ₂ unknown; variances differ or unknown</td>
+      <td>Welch's two-sample t-test</td>
+      <td>Welch–Satterthwaite approximation</td>
+    </tr>
+    <tr>
+      <td>Non-normal data, small samples</td>
+      <td>Mann-Whitney U (non-parametric)</td>
+      <td>Not applicable</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Interpreting Results and Making Decisions</strong></p>
+
+<p>Once the test statistic and p-value have been computed, the decision rule is straightforward: if the p-value is less than the pre-specified <strong>significance level α</strong> (commonly 0.05 or 0.01), the null hypothesis is rejected in favor of the alternative. This is described as a "statistically significant" result. If the p-value ≥ α, the null hypothesis is not rejected — note that this is <em>not</em> the same as proving H₀ is true; it simply means the data do not provide sufficient evidence to reject it.</p>
+
+<p>However, statistical significance alone tells an incomplete story. Several additional elements should always accompany the reporting of a two-sample test:</p>
+
+<ul>
+  <li><strong>Direction and magnitude of the difference:</strong> Report the actual observed difference (x̄₁ − x̄₂) and its sign. A statistically significant result that ignores whether Group 1 was higher or lower than Group 2 is poorly communicated. The effect size (e.g., Cohen's d = (x̄₁ − x̄₂) / sp) provides a standardized measure of practical importance, independent of sample size.</li>
+  <li><strong>Confidence interval for the difference:</strong> A <strong>confidence interval (CI)</strong> for μ₁ − μ₂ provides a range of plausible values for the true population difference, directly complementing the hypothesis test. For a two-sample t-test, the 95% CI is:
+    <pre><code>(x̄₁ − x̄₂) ± t* × SE</code></pre>
+    where t* is the critical value from the t-distribution at the appropriate degrees of freedom. If this interval excludes 0, the result is significant at the 5% level — completely consistent with the p-value decision. The CI also reveals whether the difference is large enough to be practically meaningful: a significant result with a CI of (0.001, 0.003) may be statistically real but practically negligible.</li>
+  <li><strong>Practical significance:</strong> A large sample size can render even tiny, unimportant differences statistically significant. Always ask whether the magnitude of the difference matters in the real-world context of the study, not just whether it exceeds a statistical threshold.</li>
+</ul>
+
+<p>Putting all these elements together, a complete and responsible reporting of a two-sample test might read: <em>"Participants in the intervention group (M = 78.0, SD = 12.0, n = 20) scored higher on average than those in the control group (M = 72.0, SD = 8.0, n = 25); however, this 6-point difference was not statistically significant using Welch's t-test, t(31.74) = 1.921, p = .064. The 95% confidence interval for the true difference ranged from −0.37 to 12.37 points, suggesting meaningful uncertainty about the population effect."</em> This kind of reporting gives readers everything they need to evaluate the finding for themselves.</p>
+        <div class="notes"><strong>Notes</strong>The worked examples use round numbers for pedagogical clarity. Instructors may wish to supplement with data-driven exercises using real datasets to reinforce the connection between formula mechanics and software output (e.g., R, Python, SPSS). The Mann-Whitney U test is mentioned as a non-parametric alternative but is not developed here; it may warrant its own topic if the module covers non-parametric methods.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

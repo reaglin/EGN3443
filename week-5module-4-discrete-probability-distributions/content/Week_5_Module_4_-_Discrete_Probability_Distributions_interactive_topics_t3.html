@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expected Value and Variance of Discrete Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+  <header>
+    <h1>Expected Value and Variance of Discrete Distributions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Expected Value and Variance of Discrete Distributions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When working with discrete random variables, two of the most fundamental and powerful descriptive measures are the <strong>expected value</strong> and the <strong>variance</strong>. Together, they summarize the entire behavior of a probability distribution in just two numbers: one describing where outcomes tend to center, and one describing how spread out those outcomes are. Understanding how to calculate and interpret these measures is essential for making sense of uncertainty in any quantitative field, from finance and healthcare to engineering and public policy.</p>
+
+<p>A <strong>discrete random variable</strong> is one that can take on a countable set of distinct values, each with an associated probability. Before computing expected value or variance, it is always necessary to verify that the probability distribution is valid — meaning every probability is between 0 and 1, and all probabilities sum exactly to 1.</p>
+
+<p><strong>Definition of Expected Value</strong></p>
+
+<p>The <strong>expected value</strong> of a discrete random variable, denoted <em>E(X)</em> or <em>μ</em> (mu), is the weighted average of all possible outcomes, where each outcome is weighted by its probability of occurring. Formally, the formula is:</p>
+
+<pre><code>E(X) = Σ [x · P(x)]</code></pre>
+
+<p>This means: for every possible value <em>x</em> that the random variable can take, multiply that value by its probability <em>P(x)</em>, then sum all of those products. The result is a single number that acts as the <em>center of gravity</em> of the distribution.</p>
+
+<p>A critical conceptual point is that the expected value <strong>does not have to be a value that can actually occur</strong>. For example, if you roll a fair six-sided die, the expected value is:</p>
+
+<pre><code>E(X) = 1·(1/6) + 2·(1/6) + 3·(1/6) + 4·(1/6) + 5·(1/6) + 6·(1/6)
+     = (1 + 2 + 3 + 4 + 5 + 6) / 6
+     = 21 / 6
+     = 3.5</code></pre>
+
+<p>No single roll of a die can produce 3.5, yet 3.5 is the expected value. It is best understood as a <strong>long-run average</strong>: if you rolled the die thousands of times and averaged the results, that average would converge to 3.5. This is guaranteed by the Law of Large Numbers.</p>
+
+<p>In practical contexts, expected value is an indispensable tool. A retailer calculating the expected daily demand for a product, an insurer computing the expected payout on a policy, or a project manager estimating expected completion time all rely on this concept to make rational, data-driven decisions.</p>
+
+<p><strong>Interpreting Expected Value in Context</strong></p>
+
+<p>The expected value provides a single summary number representing the <em>typical</em> outcome of a random process over many repetitions. However, interpreting it correctly requires awareness of context.</p>
+
+<p>Consider an example from demographics: suppose that a study of households in a city finds the following distribution for the number of children per household:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Children (x)</th>
+      <th>Probability P(x)</th>
+      <th>x · P(x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.30</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.25</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.25</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.15</td>
+      <td>0.45</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.05</td>
+      <td>0.20</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>E(X) = 0.00 + 0.25 + 0.50 + 0.45 + 0.20 = 1.40</code></pre>
+
+<p>The expected value of 1.40 children per household is a statistical average across all households in the city. It does <em>not</em> mean that any particular household has 1.40 children — no household can. It means that if you sampled many households, the average number of children across all of them would be approximately 1.40. This distinction is crucial: expected value is a population-level summary, not a prediction for a single case.</p>
+
+<p>The expected value is most meaningful and reliable when the random process is <strong>repeated many times</strong>. For a one-time event — such as a single business venture — the expected value still guides rational decision-making, but individual outcomes can deviate substantially from it.</p>
+
+<p><strong>Definition and Formula for Variance</strong></p>
+
+<p>The expected value tells us where the distribution is centered, but it says nothing about how <em>spread out</em> the outcomes are. Two distributions can have the same expected value but behave very differently. This is where <strong>variance</strong> becomes essential.</p>
+
+<p>The <strong>variance</strong> of a discrete random variable, denoted <em>Var(X)</em> or <em>σ²</em> (sigma squared), measures the average squared deviation of each outcome from the expected value. The formula is:</p>
+
+<pre><code>Var(X) = Σ [(x − μ)² · P(x)]</code></pre>
+
+<p>where <em>μ = E(X)</em>. Each term computes how far outcome <em>x</em> is from the mean, squares that distance (so that positive and negative deviations don't cancel), and weights it by the probability of that outcome occurring. A <strong>larger variance</strong> indicates that outcomes are widely dispersed around the mean; a <strong>smaller variance</strong> indicates they cluster tightly near it.</p>
+
+<p>Because variance is computed in squared units (e.g., dollars squared, children squared), it is often more convenient to work with the <strong>standard deviation</strong>, denoted <em>σ</em>, which is simply the square root of the variance:</p>
+
+<pre><code>σ = √Var(X)</code></pre>
+
+<p>The standard deviation is expressed in the <strong>same units as the original variable</strong>, making it far more directly interpretable. Both variance and standard deviation are always <strong>non-negative</strong>: they equal zero only when every outcome is exactly equal to the mean (i.e., there is no randomness at all), and they increase as outcomes become more dispersed.</p>
+
+<p>An equivalent and often computationally simpler formula for variance is:</p>
+
+<pre><code>Var(X) = E(X²) − [E(X)]²</code></pre>
+
+<p>where <em>E(X²)</em> is computed as <em>Σ [x² · P(x)]</em>. This formula avoids the need to subtract the mean from each outcome individually and is especially useful when computing by hand or in spreadsheet calculations.</p>
+
+<p><strong>Calculating Expected Value and Variance: Step-by-Step</strong></p>
+
+<p>To illustrate the full calculation process, consider a small game of chance: a player pays $3 to play and wins $10 with probability 0.20, wins $2 with probability 0.35, and wins $0 with probability 0.45. Let <em>X</em> represent the player's <em>net</em> gain (winnings minus the $3 cost).</p>
+
+<p>The distribution of net gain is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Net Gain x ($)</th>
+      <th>P(x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7 (win $10 − $3)</td>
+      <td>0.20</td>
+    </tr>
+    <tr>
+      <td>−1 (win $2 − $3)</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td>−3 (win $0 − $3)</td>
+      <td>0.45</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Step 1:</strong> Verify the probabilities sum to 1.</p>
+<pre><code>0.20 + 0.35 + 0.45 = 1.00  ✓</code></pre>
+
+<p><strong>Step 2:</strong> Compute <em>E(X)</em> by multiplying each value by its probability and summing.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>P(x)</th>
+      <th>x · P(x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7</td>
+      <td>0.20</td>
+      <td>1.40</td>
+    </tr>
+    <tr>
+      <td>−1</td>
+      <td>0.35</td>
+      <td>−0.35</td>
+    </tr>
+    <tr>
+      <td>−3</td>
+      <td>0.45</td>
+      <td>−1.35</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>1.00</strong></td>
+      <td><strong>−0.30</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>E(X) = 1.40 + (−0.35) + (−1.35) = −0.30</code></pre>
+
+<p>The expected net gain is −$0.30, meaning the player loses an average of 30 cents per game in the long run. This game is unfavorable to the player.</p>
+
+<p><strong>Step 3:</strong> Compute the variance using <em>Σ [(x − μ)² · P(x)]</em>, with <em>μ = −0.30</em>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>x − μ</th>
+      <th>(x − μ)²</th>
+      <th>P(x)</th>
+      <th>(x − μ)² · P(x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7</td>
+      <td>7 − (−0.30) = 7.30</td>
+      <td>53.29</td>
+      <td>0.20</td>
+      <td>10.658</td>
+    </tr>
+    <tr>
+      <td>−1</td>
+      <td>−1 − (−0.30) = −0.70</td>
+      <td>0.49</td>
+      <td>0.35</td>
+      <td>0.172</td>
+    </tr>
+    <tr>
+      <td>−3</td>
+      <td>−3 − (−0.30) = −2.70</td>
+      <td>7.29</td>
+      <td>0.45</td>
+      <td>3.281</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><strong>14.111</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>Var(X) = 14.111</code></pre>
+
+<p><strong>Step 4:</strong> Take the square root to find the standard deviation.</p>
+<pre><code>σ = √14.111 ≈ 3.756</code></pre>
+
+<p>The standard deviation of approximately $3.76 tells us that individual game outcomes typically deviate from the expected loss of $0.30 by about $3.76 — a wide spread relative to the mean, confirming that a single play of this game is quite unpredictable even though the long-run average is clearly negative.</p>
+
+<p>To verify using the computational formula <em>Var(X) = E(X²) − [E(X)]²</em>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>x²</th>
+      <th>P(x)</th>
+      <th>x² · P(x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7</td>
+      <td>49</td>
+      <td>0.20</td>
+      <td>9.80</td>
+    </tr>
+    <tr>
+      <td>−1</td>
+      <td>1</td>
+      <td>0.35</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td>−3</td>
+      <td>9</td>
+      <td>0.45</td>
+      <td>4.05</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td></td>
+      <td></td>
+      <td><strong>14.20</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code>Var(X) = E(X²) − [E(X)]²
+       = 14.20 − (−0.30)²
+       = 14.20 − 0.09
+       = 14.11  ✓</code></pre>
+
+<p>Both methods yield the same result, confirming the calculation.</p>
+
+<p><strong>Interpreting Variance and Standard Deviation</strong></p>
+
+<p>Once variance and standard deviation are calculated, interpreting them in context is just as important as computing them correctly.</p>
+
+<p>Consider two investment options, both with an expected return of $500:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Investment</th>
+      <th>Expected Return E(X)</th>
+      <th>Standard Deviation σ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Option A</td>
+      <td>$500</td>
+      <td>$50</td>
+    </tr>
+    <tr>
+      <td>Option B</td>
+      <td>$500</td>
+      <td>$300</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both options have the same expected value — the same long-run average return. But Option A has a standard deviation of $50, meaning most outcomes cluster within roughly $50 of $500 (i.e., between about $450 and $550). Option B has a standard deviation of $300, meaning outcomes commonly range from $200 to $800 or beyond. Option A is the <strong>lower-risk</strong> choice; Option B carries significantly more uncertainty. A risk-averse investor would prefer Option A, while someone seeking higher potential upside might tolerate Option B's variability.</p>
+
+<p>This illustrates a fundamental principle: <strong>relying on expected value alone can be deeply misleading</strong>. Two scenarios with identical expected values can differ radically in their risk profiles. The standard deviation gives the additional dimension needed for a complete picture.</p>
+
+<ul>
+  <li>A <strong>low standard deviation</strong> means outcomes are predictable and consistently near the mean — indicating lower risk or uncertainty. This is desirable in contexts like medical dosing, quality control, or reliable supply chains.</li>
+  <li>A <strong>high standard deviation</strong> signals that outcomes vary widely from the mean — indicating greater unpredictability. This might be acceptable or even desirable (e.g., high-risk, high-reward investments) depending on the decision-maker's goals and risk tolerance.</li>
+  <li>Because the standard deviation is expressed in the <strong>same units</strong> as the original variable (dollars, hours, units, etc.), it is directly interpretable in practical terms — something variance alone cannot offer.</li>
+  <li>Comparing standard deviations across options allows analysts to perform a meaningful <strong>relative risk assessment</strong>, even when the options have different expected values, using measures like the coefficient of variation (<em>CV = σ / μ</em>).</li>
+</ul>
+
+<p><strong>Practical Applications of Expected Value and Variance</strong></p>
+
+<p>The concepts of expected value and variance extend far beyond textbook exercises — they are foundational tools used across virtually every applied discipline.</p>
+
+<ul>
+  <li><strong>Finance and Investment:</strong> Portfolio managers compute the expected return of each asset and the variance of those returns. A diversified portfolio aims to achieve a desirable expected return while minimizing overall variance. The Nobel Prize–winning Modern Portfolio Theory is built directly on these two measures. An investor choosing between a bond fund with <em>E(X) = 4%</em> and <em>σ = 1%</em> versus a stock fund with <em>E(X) = 9%</em> and <em>σ = 15%</em> is making a judgment about how much variability (risk) is acceptable in exchange for higher average returns.</li>
+  <li><strong>Insurance:</strong> Insurers use expected value to set premiums. If a policy has a 2% chance of paying out $50,000 and a 98% chance of paying nothing, the expected payout is <em>E(X) = 0.02 × 50,000 + 0.98 × 0 = $1,000</em>. The premium will be set above this expected payout to ensure profitability. Variance determines how much capital reserve the insurer must hold to handle variability in claims.</li>
+  <li><strong>Healthcare:</strong> Clinical researchers use expected value to compare the average effectiveness of treatments. Variance helps assess reliability — a treatment with a high expected improvement but also high variance may help some patients greatly while harming others, which is very different from a treatment with the same expected improvement but low variance (consistently effective across patients). Expected values also inform hospital staffing models, drug dosing calculations, and health economic analyses.</li>
+  <li><strong>Operations Management and Logistics:</strong> A warehouse manager might model daily customer demand as a discrete random variable with a known distribution. The expected demand guides average inventory levels, while variance informs safety stock decisions. If demand has high variance, the manager must hold more buffer stock to avoid stockouts. Similarly, in scheduling, high variance in task completion times leads to longer project buffers to account for uncertainty.</li>
+  <li><strong>Quality Control:</strong> Manufacturing processes aim to produce items within tight tolerances. A process with low variance produces items consistently close to the target specification. A high-variance process produces more defects. Understanding the variance of output measurements directly informs decisions about whether a process is in control and what improvements are needed.</li>
+</ul>
+
+<p>In all of these applications, the paired use of expected value and variance enables <strong>more informed and balanced decisions</strong> than either measure alone. Expected value answers "What is the typical outcome?" while variance answers "How much can I expect actual outcomes to deviate from that typical outcome?" Together, they provide the foundation for rational decision-making under uncertainty.</p>
+        <div class="notes"><strong>Notes</strong>Includes a full worked example (gambling game) demonstrating all four calculation steps with tables, verification using both the definition and the computational formula, and contextual examples across finance, insurance, healthcare, and operations management. The children-per-household example is used specifically to illustrate that expected value need not be a realizable outcome.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post-Hoc Testing and Interpreting Results</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+  <header>
+    <h1>Post-Hoc Testing and Interpreting Results</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Post-Hoc Testing and Interpreting Results</h2>
+      <p>When researchers conduct a one-way ANOVA, they are asking a single broad question: do the means of these groups differ more than would be expected by chance? The F-test that ANOVA produces is what statisticians call an <strong>omnibus test</strong> — it surveys all groups simultaneously and returns a single verdict. A significant F-test tells you that <em>something</em> is going on among the group means, but it says nothing about <em>where</em> that something is. If you have four groups and obtain a significant F, you still do not know whether Group 1 differs from Group 2, whether Group 3 differs from Group 4, or whether some entirely different pattern is driving the result. This is the fundamental limitation that post-hoc testing is designed to address. Post-hoc procedures pick up exactly where the omnibus ANOVA leaves off, systematically examining every pair of group means to determine which specific comparisons are statistically meaningful.</p>
+
+<p>Understanding post-hoc testing also requires understanding a subtle but important logical constraint: <strong>post-hoc tests are only appropriate and interpretable after a statistically significant overall F-test</strong>. If the omnibus ANOVA fails to reach significance, the data have not provided sufficient evidence that any group differences exist beyond chance variation, and proceeding to pairwise comparisons would be logically incoherent and statistically misleading. The significant F-test acts as a gatekeeper, granting permission to probe the data further. Skipping the omnibus test and jumping straight to pairwise comparisons is a methodological error that many post-hoc procedures are specifically designed to prevent.</p>
+
+<p><strong>Why Post-Hoc Tests Are Necessary</strong></p>
+
+<p>The most intuitive alternative to post-hoc testing would seem to be running a series of independent-samples t-tests — one for each pair of groups you want to compare. If you have three groups, that means three t-tests; with four groups, six t-tests; with five groups, ten t-tests. The problem with this approach is statistical, not conceptual: every time you conduct a significance test at α = .05, you accept a 5% probability of incorrectly rejecting a true null hypothesis (a Type I error). When you run multiple tests, those individual error probabilities accumulate.</p>
+
+<p>The mathematics of this accumulation are straightforward. If each individual test carries a Type I error rate of α, then the probability of making <em>no</em> Type I errors across <em>k</em> independent comparisons is (1 − α)<sup>k</sup>. The probability of making <em>at least one</em> Type I error — the familywise error rate — is therefore 1 − (1 − α)<sup>k</sup>. For three comparisons at α = .05:</p>
+
+<p>Familywise error rate = 1 − (1 − .05)<sup>3</sup> = 1 − (.95)<sup>3</sup> = 1 − .857 = .143</p>
+
+<p>In other words, what you thought was a 5% chance of a false positive has ballooned to approximately a 14% chance. With six comparisons it rises to about 26%, and with ten comparisons it approaches 40%. This inflation of the Type I error rate — committing false positives at a far higher rate than the nominal alpha level implies — is precisely the problem that post-hoc procedures are engineered to solve. Rather than treating each comparison as an isolated test, post-hoc methods treat the entire <em>family</em> of comparisons as a single inferential exercise and apply mathematical corrections to keep the overall error rate at or near the chosen alpha level.</p>
+
+<p><strong>Common Post-Hoc Testing Procedures</strong></p>
+
+<p>Several post-hoc procedures exist, each with different assumptions, levels of conservatism, and ideal use cases. Choosing the right one depends on your sample sizes, whether group variances are equal, and how conservative you need to be.</p>
+
+<p><strong>Tukey's Honestly Significant Difference (HSD)</strong> is the most widely used post-hoc test and represents a strong default choice for most research situations. It controls the familywise error rate exactly at α when comparing all possible pairs of group means with equal sample sizes, and it remains very good with slightly unequal sizes. Tukey's HSD works by computing a critical value based on the <em>studentized range distribution</em> — a distribution that accounts for the fact that when you look at the largest and smallest means from a set, you are capitalizing on chance. Because it is calibrated for all pairwise comparisons, it is neither too liberal nor unnecessarily conservative when that is precisely what you are doing.</p>
+
+<p><strong>The Bonferroni correction</strong> takes a simpler but more conservative approach: it divides the alpha level by the number of comparisons being made, so that each individual comparison is tested at α/k. For three comparisons at an overall α = .05, each comparison would be evaluated at .05/3 ≈ .017. The Bonferroni method is highly flexible because it can be applied to any set of comparisons, not just pairwise ones, and it does not require special tables or software distributions. Its drawback is that it becomes increasingly conservative as the number of comparisons grows, raising the risk of Type II errors (missing real differences) when many tests are conducted. It is particularly appropriate when the number of comparisons is small or when the comparisons being made are selective and theoretically motivated rather than exhaustive.</p>
+
+<p><strong>Scheffé's test</strong> is the most conservative of the common post-hoc procedures and is distinguished by one key feature: it is valid for <em>any</em> type of contrast, not just pairwise comparisons. A contrast is a weighted linear combination of group means — for example, comparing the average of Groups 1 and 2 combined against Group 3. Because Scheffé's test controls the error rate for this much broader universe of possible comparisons, it imposes a heavier penalty than procedures designed only for pairwise tests. The practical consequence is that it requires larger mean differences to declare significance than Tukey's HSD or Bonferroni would. Scheffé's test is most appropriate when the researcher did not specify comparisons in advance, is considering complex contrasts, or needs maximum protection against Type I errors regardless of the cost to statistical power.</p>
+
+<p><strong>Games-Howell</strong> is the preferred procedure when the homogeneity of variance assumption — one of ANOVA's standard requirements — is violated. When group variances differ substantially, the pooled error term used by Tukey's HSD and Bonferroni is no longer appropriate, because it blends together different amounts of variability in a misleading way. Games-Howell avoids the pooled error term entirely, instead computing a separate standard error for each pairwise comparison using only the variances and sample sizes of the two groups being compared. It is based on the same studentized range logic as Tukey's HSD but adjusts degrees of freedom for each comparison using a Welch-Satterthwaite approximation. If Levene's test or another diagnostic indicates unequal variances, Games-Howell should be selected over the equal-variance alternatives.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Procedure</th>
+      <th>Controls Familywise Error?</th>
+      <th>Best Used When</th>
+      <th>Relative Conservatism</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tukey's HSD</td>
+      <td>Yes, exactly for all pairwise</td>
+      <td>All pairwise comparisons, equal or near-equal variances</td>
+      <td>Moderate</td>
+    </tr>
+    <tr>
+      <td>Bonferroni</td>
+      <td>Yes, by alpha division</td>
+      <td>Few selective comparisons, any contrast type</td>
+      <td>Moderate to high</td>
+    </tr>
+    <tr>
+      <td>Scheffé</td>
+      <td>Yes, for all possible contrasts</td>
+      <td>Unplanned or complex contrasts needed</td>
+      <td>Highest</td>
+    </tr>
+    <tr>
+      <td>Games-Howell</td>
+      <td>Yes, with unequal variances</td>
+      <td>Homogeneity of variance assumption violated</td>
+      <td>Moderate</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Controlling the Familywise Error Rate</strong></p>
+
+<p>The concept of the <strong>familywise error rate (FWER)</strong> is central to understanding why post-hoc procedures are built the way they are. The family, in statistical terms, is the complete set of comparisons being considered as a coherent group within a single study or analysis. The FWER is the probability of making at least one Type I error anywhere within that family — of falsely declaring at least one comparison significant when all null hypotheses in the family are in fact true.</p>
+
+<p>Without any correction, conducting three comparisons each at α = .05 raises the actual error rate to approximately .14, as shown earlier. Six comparisons raise it to approximately .26. Each post-hoc procedure addresses this in its own way. Tukey's HSD uses a mathematically derived critical value from the studentized range distribution that is specifically calibrated so that the probability of any false significant result across all pairwise comparisons remains at α. The Bonferroni correction uses the Bonferroni inequality — a mathematical theorem stating that the probability of a union of events is at most the sum of their individual probabilities — to guarantee that the FWER cannot exceed α when each comparison is tested at α/k. Scheffé's test derives its critical value from the F-distribution in a way that covers not just pairwise comparisons but the infinite space of all possible contrasts among group means.</p>
+
+<p>It is worth noting the distinction between the <em>familywise</em> error rate and the <em>false discovery rate (FDR)</em>, which is a less conservative alternative used more commonly in fields like genomics where thousands of simultaneous tests are conducted. FDR-controlling procedures (such as the Benjamini-Hochberg method) allow some proportion of significant findings to be false positives, rather than trying to eliminate all false positives entirely. For the typical social and behavioral science ANOVA context with a handful of group comparisons, FWER-controlling methods like those described above are the standard expectation.</p>
+
+<p><strong>Interpreting Post-Hoc Output</strong></p>
+
+<p>Post-hoc output from statistical software typically presents results as a matrix or table of pairwise comparisons. For each pair of groups, the output includes several key pieces of information that must be understood and interpreted correctly.</p>
+
+<p>The <strong>mean difference</strong> for each pair is simply the difference between the two group means (e.g., Mean of Group A minus Mean of Group B). Its sign indicates direction: a positive value means the first group listed has the higher mean, and a negative value means the second group has the higher mean. The absolute magnitude of the mean difference tells you how large the gap is in the original units of measurement.</p>
+
+<p>The <strong>standard error</strong> of the mean difference reflects the precision of that estimate. A smaller standard error means the estimate is more precise, all else being equal. In methods like Games-Howell, this standard error is computed separately for each pair; in Tukey's HSD, a common pooled standard error is used across all pairs.</p>
+
+<p>The <strong>adjusted p-value</strong> is the most critical piece of output for a significance decision. This p-value has already been corrected for multiple comparisons by the procedure's algorithm, so it can be compared directly to the original α level (commonly .05) without any further adjustment. A comparison is considered statistically significant when its adjusted p-value falls below α. Some software reports an unadjusted p-value alongside an adjusted one; always use the adjusted value for post-hoc interpretation.</p>
+
+<p><strong>Confidence intervals</strong> for each mean difference are also commonly reported. A 95% confidence interval for a mean difference that does <em>not</em> include zero is consistent with a statistically significant difference at α = .05, because zero (representing no difference) falls outside the plausible range. Conversely, a confidence interval that straddles zero includes the possibility of no difference, consistent with a non-significant result. Confidence intervals are particularly valuable because they communicate not just significance but the <em>size</em> and <em>precision</em> of the estimated difference.</p>
+
+<p>To illustrate: suppose a researcher studies the effect of three teaching methods (Lecture, Discussion, and Problem-Based Learning) on exam scores. After a significant ANOVA, Tukey's HSD post-hoc test produces the following simplified output:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Comparison</th>
+      <th>Mean Difference</th>
+      <th>Std. Error</th>
+      <th>Adjusted p-value</th>
+      <th>95% CI</th>
+      <th>Significant?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lecture vs. Discussion</td>
+      <td>−4.20</td>
+      <td>1.85</td>
+      <td>.072</td>
+      <td>[−8.72, 0.32]</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Lecture vs. Problem-Based</td>
+      <td>−9.60</td>
+      <td>1.85</td>
+      <td>.001</td>
+      <td>[−14.12, −5.08]</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Discussion vs. Problem-Based</td>
+      <td>−5.40</td>
+      <td>1.85</td>
+      <td>.019</td>
+      <td>[−9.92, −0.88]</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From this output, the researcher can conclude that Problem-Based Learning produced significantly higher exam scores than both the Lecture method and the Discussion method, while Lecture and Discussion did not differ significantly from each other. Notice that the confidence interval for the Lecture vs. Discussion comparison includes zero (spanning from −8.72 to +0.32), consistent with its non-significant adjusted p-value of .072. The other two intervals do not include zero, consistent with their significant p-values.</p>
+
+<p>For each significant pairwise comparison, it is good practice to also calculate an <strong>effect size</strong> such as <strong>Cohen's <em>d</em></strong> to convey the practical magnitude of the difference. Cohen's <em>d</em> is computed as the mean difference divided by a pooled standard deviation:</p>
+
+<pre><code>d = (M₁ − M₂) / SD_pooled
+
+where SD_pooled = √[(SD₁² + SD₂²) / 2]  (for equal or near-equal ns)
+</code></pre>
+
+<p>By convention, a <em>d</em> of approximately 0.2 is considered small, 0.5 medium, and 0.8 or larger is considered large. Reporting Cohen's <em>d</em> alongside the adjusted p-value gives readers a complete picture: the significance test tells them whether the difference is likely real, and the effect size tells them whether it matters in practical terms. A very large sample can yield a statistically significant but trivially small mean difference; effect sizes reveal this distinction.</p>
+
+<p><strong>Drawing Meaningful Conclusions from ANOVA Results</strong></p>
+
+<p>Statistical results only become meaningful when they are translated into substantive conclusions grounded in the research question. A sequence of interpretive steps helps ensure that conclusions are both accurate and appropriately bounded.</p>
+
+<p>The first step is always to <strong>report and interpret the overall F-test</strong>. The F-statistic, degrees of freedom, and p-value should be clearly stated. For example: <em>F</em>(2, 87) = 14.32, <em>p</em> &lt; .001. The between-groups degrees of freedom (here, 2) reflect the number of groups minus one; the within-groups degrees of freedom (here, 87) reflect the total sample size minus the number of groups. A significant result licenses the move to post-hoc comparisons.</p>
+
+<p>The second step is to <strong>report an effect size for the overall ANOVA</strong>. <strong>Eta-squared (η²)</strong> is the most commonly reported measure and represents the proportion of total variance in the outcome variable that is accounted for by group membership. It is computed as SS<sub>between</sub> / SS<sub>total</sub>. A value of η² = .25, for example, means that 25% of the variance in outcome scores is explained by which group participants belonged to. <strong>Partial eta-squared (η²<sub>p</sub>)</strong> is a closely related variant that is particularly common in software output and in designs with multiple factors; it expresses the proportion of variance explained by a factor relative to that factor's variance plus the error variance, excluding other factors. Both measures use benchmarks of approximately .01 (small), .06 (medium), and .14 (large).</p>
+
+<p>Third, <strong>summarize post-hoc results specifically and directionally</strong>. It is not enough to say "some groups differed." Effective reporting names the groups, states which had higher or lower means, and communicates the adjusted p-values and effect sizes for significant pairs. Readers should come away with a clear picture of the pattern of differences.</p>
+
+<p>Fourth, and critically, <strong>connect statistical findings back to the research question</strong>. Numbers in isolation are not a conclusion. If the study asked whether teaching method affects learning outcomes, the conclusion should explain what the pattern of group differences implies about that relationship — for instance, that active, problem-based approaches appear to produce meaningfully better learning than passive lecture-based instruction, at least within the conditions studied.</p>
+
+<p>Fifth, researchers should <strong>avoid overgeneralizing</strong>. Statistical significance does not automatically imply broad applicability. If the sample was drawn from a single university, conclusions should not be extended uncritically to all educational contexts. If group differences are modest in size despite being statistically significant, this nuance should be acknowledged. The goal is accuracy and honesty about what the data do and do not support.</p>
+
+<p><strong>Reporting ANOVA and Post-Hoc Results in APA Style</strong></p>
+
+<p>The Publication Manual of the American Psychological Association sets expectations for how statistical results should be communicated in research writing. For ANOVA, a properly formatted report includes the F-statistic, degrees of freedom in parentheses, the p-value, and an effect size measure. For example:</p>
+
+<p><em>A one-way ANOVA revealed a significant effect of teaching method on exam scores, F(2, 87) = 14.32, p &lt; .001, η² = .25.</em></p>
+
+<p>When reporting post-hoc results, APA style calls for precision about which groups differed, including their means and standard deviations, the adjusted p-values for significant comparisons, and, ideally, effect sizes. An example of appropriate post-hoc reporting might read:</p>
+
+<p><em>Tukey's HSD post-hoc tests indicated that students in the Problem-Based Learning condition (M = 84.6, SD = 8.2) scored significantly higher than students in the Lecture condition (M = 75.0, SD = 9.1), p = .001, d = 1.11, and significantly higher than students in the Discussion condition (M = 79.2, SD = 8.7), p = .019, d = 0.62. The Lecture and Discussion conditions did not differ significantly from each other (p = .072).</em></p>
+
+<p>Several language conventions are important. Use phrases like <strong>"significantly higher than,"</strong> <strong>"significantly lower than,"</strong> or <strong>"did not differ significantly from"</strong> rather than vague language like "was different" or "showed a difference." Always specify direction — which group had the higher mean. Report exact p-values (e.g., <em>p</em> = .019) rather than inequality statements like <em>p</em> &lt; .05 whenever software provides them, except when the p-value is smaller than .001, in which case <em>p</em> &lt; .001 is conventional. Include both means and standard deviations for each group involved in a significant comparison so that readers can contextualize the size of the difference.</p>
+
+<p>A complete, well-structured ANOVA write-up moves logically from the omnibus result, to the effect size for the overall model, to the specific pairwise comparisons with their own effect sizes, and finally to a substantive interpretive statement that grounds the numbers in the research question being investigated. This flow gives readers everything they need to evaluate both the statistical and practical significance of the findings.</p>
+      <div class="notes"><strong>Notes</strong>Includes a worked example (teaching methods study) with two HTML tables illustrating post-hoc output and procedure comparison. Cohen&#39;s d formula rendered in a code block. APA reporting examples given as inline prose per standard practice.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

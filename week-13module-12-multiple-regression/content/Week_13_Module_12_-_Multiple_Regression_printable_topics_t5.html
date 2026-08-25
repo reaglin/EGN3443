@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building and Evaluating Multiple Regression Models</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+  <header>
+    <h1>Building and Evaluating Multiple Regression Models</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Building and Evaluating Multiple Regression Models</h2>
+      <p>Multiple regression is one of the most powerful and widely used tools in applied statistics. Where simple linear regression models the relationship between a single predictor and an outcome, multiple regression extends this framework to accommodate several predictors simultaneously. This allows researchers to examine how a collection of variables jointly explains variation in an outcome, to control for confounding influences, and to isolate the unique contribution of each predictor. Building a multiple regression model well, however, demands careful attention at every stage — from selecting which variables to include, through estimating and interpreting the coefficients, to verifying that the model's underlying assumptions hold. The sections below walk through each of these stages in depth.</p>
+
+<p><strong>Specifying the Multiple Regression Model</strong></p>
+
+<p>The formal expression of a multiple regression model is:</p>
+
+<pre><code>Y = β₀ + β₁X₁ + β₂X₂ + ... + βₖXₖ + ε</code></pre>
+
+<p>Here, <em>Y</em> is the outcome (dependent) variable, <em>X₁</em> through <em>Xₖ</em> are the <em>k</em> predictor (independent) variables, <em>β₀</em> is the intercept, <em>β₁</em> through <em>βₖ</em> are the partial regression coefficients associated with each predictor, and <em>ε</em> is the error term capturing all variation in <em>Y</em> not explained by the predictors. The subscript <em>k</em> can be any positive integer, making the framework highly flexible.</p>
+
+<p>The first and arguably most consequential decision a researcher makes is <strong>which predictors to include</strong>. This choice should be grounded in theory, prior empirical research, or principled exploratory analysis — not arbitrary data mining. Including a predictor that has no genuine relationship with the outcome wastes degrees of freedom, can inflate the variance of coefficient estimates, and reduces model efficiency. Omitting a predictor that does have a genuine relationship is even more dangerous: it causes <em>omitted variable bias</em>, meaning that the coefficients of the variables that are included will absorb some of the effect of the missing variable and become systematically distorted. For example, if a study predicts employee salary from years of experience but omits educational attainment, the coefficient for experience will be inflated because education and experience are positively correlated and education also affects salary.</p>
+
+<p>Researchers must also think carefully about the <strong>measurement level</strong> of each candidate predictor. Continuous variables (e.g., age in years, temperature in degrees) can be entered directly. Categorical variables with more than two categories cannot be treated as if they were continuous — doing so would impose an arbitrary numeric ordering on qualitatively distinct groups. Instead, they require <strong>dummy coding</strong> (also called indicator coding): a categorical variable with <em>m</em> categories is recoded into <em>m − 1</em> binary (0/1) dummy variables, each contrasting one category against a chosen reference group. For instance, a variable recording employment sector with three levels — private, public, and nonprofit — would be recoded into two dummies: one coded 1 for public (0 otherwise) and one coded 1 for nonprofit (0 otherwise), with private serving as the reference. The coefficient on each dummy then represents the mean difference in <em>Y</em> between that category and the reference category, holding other predictors constant.</p>
+
+<p><strong>Estimating Regression Coefficients</strong></p>
+
+<p>Once the model is specified, the coefficients are estimated using <strong>ordinary least squares (OLS)</strong>, the method that finds the set of coefficient values minimizing the sum of squared differences between the observed values of <em>Y</em> and the values predicted by the model. The resulting estimates are denoted <em>b₀, b₁, …, bₖ</em> (using Roman letters to distinguish sample estimates from the population parameters <em>β</em>).</p>
+
+<p>The <strong>partial regression coefficient</strong> <em>bⱼ</em> for predictor <em>Xⱼ</em> is interpreted as: the expected change in <em>Y</em> for a one-unit increase in <em>Xⱼ</em>, <em>holding all other predictors constant</em>. The phrase "holding all other predictors constant" is the defining feature of a partial coefficient and what distinguishes multiple regression from a series of simple regressions. Consider a model predicting a student's final exam score from hours studied per week (<em>X₁</em>) and prior GPA (<em>X₂</em>). If <em>b₁ = 3.2</em>, this means that among students with the same prior GPA, each additional hour of weekly study is associated with a 3.2-point increase in the final score on average.</p>
+
+<p>The <strong>intercept</strong> <em>b₀</em> is the predicted value of <em>Y</em> when every predictor equals zero. In many practical contexts this value is not directly meaningful — a person cannot have zero age and zero income simultaneously, for example — but it is a necessary component of the model for generating predictions.</p>
+
+<p>Because predictors are often measured on very different scales, comparing the raw (unstandardized) coefficients to assess relative importance is misleading. A coefficient of 0.003 on a variable measured in thousands of dollars is not necessarily smaller in effect than a coefficient of 5 on a variable measured in single units. <strong>Standardized coefficients</strong>, often called <em>beta weights</em> (β̂), rescale every predictor to have mean zero and standard deviation one before fitting the model (or equivalently, the unstandardized coefficient is multiplied by the ratio of the predictor's standard deviation to the outcome's standard deviation). Standardized coefficients are unitless and express the expected change in <em>Y</em> in standard deviation units for a one-standard-deviation increase in <em>Xⱼ</em>, making direct comparisons across predictors legitimate within a given dataset.</p>
+
+<p>The <strong>statistical significance</strong> of each coefficient is assessed with a <em>t</em>-test:</p>
+
+<pre><code>t = bⱼ / SE(bⱼ)</code></pre>
+
+<p>where <em>SE(bⱼ)</em> is the standard error of the estimate. This <em>t</em>-statistic is compared against a <em>t</em>-distribution with <em>n − k − 1</em> degrees of freedom (where <em>n</em> is sample size and <em>k</em> is the number of predictors). A resulting <em>p</em>-value below the conventional threshold of 0.05 leads researchers to conclude that the predictor has a statistically significant partial relationship with the outcome. It is important to remember that statistical significance depends on both effect size and sample size; in large samples even trivially small effects may achieve significance, while in small samples meaningful effects may not.</p>
+
+<p><strong>Assessing Model Fit with R-Squared and Adjusted R-Squared</strong></p>
+
+<p>After estimating the model, a natural question is: how well does this model fit the data? The most commonly reported fit statistic is <strong>R²</strong> (the coefficient of determination), defined as the proportion of total variance in <em>Y</em> that is explained by the model:</p>
+
+<pre><code>R² = SS_regression / SS_total = 1 − (SS_residual / SS_total)</code></pre>
+
+<p><em>R²</em> ranges from 0 (the model explains none of the variance in <em>Y</em>) to 1 (the model explains all variance perfectly). An <em>R²</em> of 0.72, for example, means the predictors collectively account for 72% of the variability in the outcome. What counts as a "good" <em>R²</em> is highly domain-dependent: models predicting well-controlled physical measurements might routinely achieve <em>R²</em> above 0.95, while models predicting complex human behaviors may rarely exceed 0.30 and yet still be informative and theoretically important.</p>
+
+<p>A critical limitation of <em>R²</em> is that it <strong>never decreases</strong> when a predictor is added to the model, even if that predictor is completely unrelated to the outcome. Every additional predictor, by chance alone, will explain at least a tiny amount of variance in the sample, so <em>R²</em> will tick upward even for noise variables. This makes it unsuitable for comparing models with different numbers of predictors.</p>
+
+<p><strong>Adjusted R²</strong> corrects for this by applying a penalty based on the number of predictors relative to sample size:</p>
+
+<pre><code>Adjusted R² = 1 − [(1 − R²)(n − 1) / (n − k − 1)]</code></pre>
+
+<p>If a newly added predictor improves model fit by more than would be expected by chance, adjusted <em>R²</em> increases. If the predictor adds little explanatory value relative to the degree of freedom it consumes, adjusted <em>R²</em> decreases — it can even fall below zero in extreme cases. Adjusted <em>R²</em> is therefore the appropriate measure to use when comparing models with differing numbers of predictors, because it rewards genuine explanatory gain and penalizes overfitting.</p>
+
+<p>That said, neither <em>R²</em> nor adjusted <em>R²</em> alone is sufficient to declare a model adequate. A model can achieve a moderately high <em>R²</em> while violating critical assumptions, producing biased coefficient estimates, or generating predictions that are systematically wrong in certain ranges of the data. Residual analysis and significance testing are essential complements.</p>
+
+<p><strong>Testing Overall Model Significance with the F-Test</strong></p>
+
+<p>Before scrutinizing individual predictors, it is standard practice to ask whether the model as a whole explains any meaningful variation in the outcome — i.e., whether at least one of the predictors has a nonzero coefficient. This is addressed by the <strong>F-test</strong> (also called the omnibus F-test or ANOVA for regression).</p>
+
+<p>The null hypothesis is:</p>
+
+<pre><code>H₀: β₁ = β₂ = ... = βₖ = 0</code></pre>
+
+<p>In words: all partial regression slopes are zero, meaning none of the predictors contribute to explaining <em>Y</em>. The F-statistic is computed as:</p>
+
+<pre><code>F = (SS_regression / k) / (SS_residual / (n − k − 1))
+  = MS_regression / MS_residual</code></pre>
+
+<p>where <em>MS</em> denotes mean square (sum of squares divided by its degrees of freedom). Under the null hypothesis, this ratio follows an F-distribution with <em>k</em> numerator degrees of freedom and <em>n − k − 1</em> denominator degrees of freedom. A large <em>F</em>-statistic (and correspondingly small <em>p</em>-value) leads to rejection of the null hypothesis, confirming that the model explains a statistically significant portion of variance in <em>Y</em>.</p>
+
+<p>It is crucial to understand what the <em>F</em>-test does <em>not</em> tell you. Rejecting H₀ means at least one predictor is significant — but it does not identify which one(s). It is entirely possible for the overall model to be significant while several individual predictors are not. Conversely, with many predictors and a small sample, individual predictors might not reach significance even though the overall model does. The <em>F</em>-test provides a global verdict; the individual <em>t</em>-tests provide the detailed picture.</p>
+
+<p>Degrees of freedom matter greatly here because they affect statistical power. Adding more predictors (increasing <em>k</em>) uses up denominator degrees of freedom, reducing power to detect effects. With a small sample and many predictors, even genuinely important effects may go undetected.</p>
+
+<p>The key quantities from the F-test are typically arranged in an ANOVA table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Sum of Squares (SS)</th>
+      <th>Degrees of Freedom (df)</th>
+      <th>Mean Square (MS)</th>
+      <th>F-statistic</th>
+      <th>p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Regression (Model)</td>
+      <td>SS_regression</td>
+      <td>k</td>
+      <td>SS_regression / k</td>
+      <td>MS_regression / MS_residual</td>
+      <td>From F-distribution</td>
+    </tr>
+    <tr>
+      <td>Residual (Error)</td>
+      <td>SS_residual</td>
+      <td>n − k − 1</td>
+      <td>SS_residual / (n − k − 1)</td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Total</td>
+      <td>SS_total</td>
+      <td>n − 1</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Checking Regression Assumptions</strong></p>
+
+<p>The validity of OLS estimates and the reliability of all significance tests depend on several assumptions. Violating these assumptions can produce misleading coefficients, incorrect standard errors, and untrustworthy inferences. Each assumption should be actively examined rather than taken for granted.</p>
+
+<p><strong>Linearity</strong> is the assumption that the relationship between each predictor and the outcome is linear (additive and proportional). If the true relationship is curved, a linear model will systematically underfit in some regions and overfit in others. Linearity can be assessed by plotting each predictor against the outcome (scatterplots), or more powerfully, by examining plots of the residuals against predicted values or against each predictor individually. A random scatter of residuals around zero is consistent with linearity; a curved or U-shaped pattern signals a violation. Nonlinear relationships can often be accommodated by adding polynomial terms (e.g., <em>X²</em>) or transforming variables (e.g., taking the logarithm).</p>
+
+<p><strong>Independence of residuals</strong> requires that the error term for one observation is unrelated to the error term for any other. This assumption is most commonly threatened in longitudinal or time-series data (where observations close in time tend to be similar) and in clustered data (e.g., students within schools). When residuals are correlated, standard errors are typically underestimated, making results appear more precise and more statistically significant than they truly are. The Durbin–Watson statistic is a standard diagnostic for detecting serial autocorrelation in residuals.</p>
+
+<p><strong>Homoscedasticity</strong> (equal variance) requires that the variance of the residuals is constant across all levels of the predicted values. When variance increases with the predicted value (a "fan" or "funnel" shape in residual plots), the assumption of <em>heteroscedasticity</em> is violated. Consequences include biased standard errors (usually underestimates at high fitted values) and unreliable hypothesis tests. Residual-versus-fitted plots are the primary diagnostic tool; the Breusch–Pagan test provides a formal statistical test. Remedies include variable transformations (e.g., log-transforming a positively skewed outcome) or using heteroscedasticity-consistent (robust) standard errors.</p>
+
+<p><strong>Multicollinearity</strong> refers to the condition in which two or more predictors are highly correlated with each other. When multicollinearity is severe, the model struggles to separately estimate the unique contribution of each correlated predictor. Mathematically, this inflates the standard errors of the affected coefficients, making it harder to achieve statistical significance even when a genuine effect exists, and can cause coefficient estimates to become numerically unstable (small changes in the data produce large swings in the estimates). Multicollinearity does <em>not</em> bias the coefficient estimates if the model is correctly specified — it simply makes those estimates imprecise.</p>
+
+<p>The primary diagnostic for multicollinearity is the <strong>Variance Inflation Factor (VIF)</strong> for each predictor:</p>
+
+<pre><code>VIF(Xⱼ) = 1 / (1 − Rⱼ²)</code></pre>
+
+<p>where <em>Rⱼ²</em> is the <em>R²</em> from regressing <em>Xⱼ</em> on all other predictors in the model. A VIF of 1 indicates no collinearity. Values above 5 suggest moderate concern; values above 10 are generally considered severe. When multicollinearity is detected, options include removing one of the correlated predictors, combining correlated predictors into a composite score or index, or using dimensionality-reduction techniques such as principal component analysis before regression.</p>
+
+<p>A convenient summary of the main assumptions and their diagnostics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assumption</th>
+      <th>What It Requires</th>
+      <th>Diagnostic Tools</th>
+      <th>Common Remedies</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Linearity</td>
+      <td>Linear relationship between each predictor and Y</td>
+      <td>Scatterplots, residual vs. fitted plots</td>
+      <td>Polynomial terms, variable transformations</td>
+    </tr>
+    <tr>
+      <td>Independence</td>
+      <td>Uncorrelated error terms across observations</td>
+      <td>Durbin–Watson statistic, residual sequence plots</td>
+      <td>Time-series models, multilevel models</td>
+    </tr>
+    <tr>
+      <td>Homoscedasticity</td>
+      <td>Constant residual variance across fitted values</td>
+      <td>Residual vs. fitted plots, Breusch–Pagan test</td>
+      <td>Log transformation, robust standard errors</td>
+    </tr>
+    <tr>
+      <td>No multicollinearity</td>
+      <td>Predictors not highly intercorrelated</td>
+      <td>VIF, correlation matrix of predictors</td>
+      <td>Remove redundant predictors, composite scoring</td>
+    </tr>
+    <tr>
+      <td>Normality of residuals</td>
+      <td>Residuals approximately normally distributed</td>
+      <td>Q-Q plots, Shapiro–Wilk test</td>
+      <td>Transformations; large <em>n</em> mitigates concern</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(Normality of residuals is listed here as an additional assumption. It is less critical for large samples due to the Central Limit Theorem, but matters for small samples when relying on <em>t</em> and <em>F</em> distributions for inference.)</p>
+
+<p><strong>Refining the Model: Variable Selection Strategies</strong></p>
+
+<p>In many applied research settings the analyst faces a pool of candidate predictors that is larger than what belongs in the final model. Variable selection strategies provide systematic ways to identify a parsimonious model — one that explains the outcome well without unnecessary complexity.</p>
+
+<p><strong>Forward selection</strong> begins with an intercept-only model and iteratively adds the predictor that produces the largest improvement in fit (often measured by the reduction in residual sum of squares or by the improvement in an information criterion) at each step, continuing until no remaining predictor meets the entry criterion. This approach is computationally efficient with large predictor pools but can miss combinations of predictors that only become important together.</p>
+
+<p><strong>Backward elimination</strong> takes the opposite approach: begin with all candidate predictors in the model, then iteratively remove the predictor with the highest (least significant) <em>p</em>-value, re-fit the model, and repeat until all remaining predictors meet the retention criterion (e.g., <em>p</em> < 0.05). Backward elimination is generally preferred over forward selection because it starts by considering all predictors simultaneously, giving a better picture of each predictor's contribution after controlling for all others.</p>
+
+<p><strong>Stepwise selection</strong> is a hybrid: at each step, the algorithm can add or remove predictors, reconsidering whether previously entered variables remain significant after each addition. While widely used in software, stepwise procedures have important limitations: they capitalize on chance fluctuations in the data, can produce models that replicate poorly in new samples, inflate Type I error rates, and can yield different final models depending on minor variations in the data. They should never be used as a replacement for theoretical reasoning.</p>
+
+<p><strong>Information criteria</strong> provide an alternative philosophy for model comparison. The <strong>Akaike Information Criterion (AIC)</strong> is:</p>
+
+<pre><code>AIC = 2k − 2 ln(L̂)</code></pre>
+
+<p>where <em>k</em> is the number of estimated parameters (including the intercept and error variance) and <em>L̂</em> is the maximized likelihood of the model. AIC rewards good fit (high likelihood) and penalizes complexity (more parameters). The <strong>Bayesian Information Criterion (BIC)</strong> applies a heavier penalty for additional parameters and tends to favor more parsimonious models than AIC in large samples. When comparing candidate models, the model with the lowest AIC (or BIC) is preferred — but the criterion values themselves have no absolute interpretation; only their differences across models matter.</p>
+
+<p>A critical principle underlying all of these methods is that <strong>statistical procedures should serve substantive reasoning, not replace it</strong>. A predictor should be retained in a model because there is theoretical or empirical justification for its relevance, not merely because an algorithm selected it. Conversely, a theoretically central variable should usually remain in the model even if it does not achieve statistical significance in a given sample — especially if the sample is small. The best models emerge from an iterative dialogue between data-driven evidence and domain knowledge.</p>
+
+<p><strong>Interpreting and Communicating Results</strong></p>
+
+<p>Producing a well-fitting, assumption-satisfying model is only the penultimate step. The final and equally important step is communicating what the model means in clear, precise, and appropriately cautious terms.</p>
+
+<p>For each statistically significant predictor, the interpretation should specify the <strong>direction</strong> (positive or negative relationship), the <strong>magnitude</strong> (how large is the effect in the original units of <em>Y</em>?), and the <strong>context</strong> (what does this mean for the research question?). For example: <em>"Each additional year of work experience was associated with a $2,340 increase in annual salary (b = 2340, SE = 412, p < .001), after controlling for educational attainment and sector of employment."</em> This sentence conveys the coefficient, its precision, its significance, and the key caveat that other variables were held constant.</p>
+
+<p><strong>Confidence intervals</strong> around each coefficient estimate add important information about precision. The 95% confidence interval is approximately:</p>
+
+<pre><code>bⱼ ± 1.96 × SE(bⱼ)</code></pre>
+
+<p>A narrow interval indicates the estimate is precise; a wide interval indicates substantial uncertainty. Reporting confidence intervals alongside point estimates is increasingly required by journals and is encouraged by effect-size reporting guidelines (e.g., APA Publication Manual). A coefficient that is statistically significant but has a wide confidence interval should be interpreted cautiously — statistical significance does not guarantee that the effect is large enough to be practically meaningful.</p>
+
+<p>Researchers must also be transparent about <strong>limitations</strong>. Sample size affects the precision of every estimate; results from a sample of 50 should be held to a different standard of confidence than results from 5,000. If plausible important predictors were unavailable and thus excluded, any omitted variable bias should be acknowledged. Most critically in observational research (where assignment to levels of predictors was not random), causal language must be avoided unless a causal inference framework has been explicitly applied. Regression coefficients describe statistical associations; they do not by themselves establish that <em>X</em> causes <em>Y</em>.</p>
+
+<p>Finally, <strong>visual communication</strong> greatly enhances the accessibility of regression results. A <em>partial regression plot</em> (also called an added-variable plot) displays the relationship between one predictor and the outcome after both have been residualized on all other predictors — it graphically represents the unique, partial contribution of that predictor. <em>Predicted value plots</em> (sometimes called marginal effects plots) show how the model's predicted outcome changes across the range of a focal predictor while holding all other predictors at fixed values (e.g., their means). These plots make the model's implications tangible and are especially valuable when presenting to audiences who may not be comfortable reading coefficient tables. A well-constructed visualization can convey in seconds what a table of numbers requires minutes to decode.</p>
+      <div class="notes"><strong>Notes</strong>Covers all seven subtopic clusters: model specification (including dummy coding), coefficient estimation (including standardized betas and t-tests), R&#178; and adjusted R&#178;, the F-test (with ANOVA table), all four primary assumptions plus normality (with a summary table), variable selection strategies (forward, backward, stepwise, AIC/BIC), and interpretation/communication of results including confidence intervals, limitations, and visualization.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Regression Models</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+  <header>
+    <h1>Multiple Regression Models</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Multiple Regression Models</h2>
+      <p>Multiple regression is one of the most widely used statistical techniques in data analysis, science, business, and social research. Where simple linear regression examines the relationship between a single predictor variable and an outcome, multiple regression extends this framework to include two or more predictor variables simultaneously. The core motivation is straightforward: most real-world outcomes are not driven by a single cause. House prices depend on square footage, location, age of the structure, and number of bedrooms all at once. A patient's blood pressure is influenced by age, weight, diet, and stress levels together. Multiple regression lets us model this complexity, estimate each predictor's contribution, and make more accurate predictions than any single-variable model could achieve alone.</p>
+
+<p>The <strong>general form of a multiple regression model</strong> is expressed as:</p>
+
+<pre><code>Y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε</code></pre>
+
+<p>Here, <strong>Y</strong> is the outcome (dependent) variable we are trying to predict or explain. <strong>X₁, X₂, ..., Xₙ</strong> are the predictor (independent) variables — each one a separate piece of information used to explain Y. <strong>β₀</strong> is the intercept, and <strong>β₁ through βₙ</strong> are the regression coefficients, one for each predictor. Finally, <strong>ε</strong> (epsilon) is the error term, representing the portion of Y that the model cannot explain — the irreducible randomness or variability left over after accounting for all the predictors.</p>
+
+<p>Consider a concrete example. Suppose we want to predict a student's final exam score (Y) using hours studied per week (X₁), number of classes attended (X₂), and a prior GPA (X₃). A fitted model might look like:</p>
+
+<pre><code>Predicted Score = 20 + 3.5(Hours Studied) + 1.2(Classes Attended) + 8.0(Prior GPA)</code></pre>
+
+<p>Each predictor contributes <em>independently</em> to the prediction. The phrase "holding all other predictors constant" is fundamental to understanding what multiple regression coefficients mean. The coefficient 3.5 on hours studied means that for every additional hour studied per week, we expect the exam score to increase by 3.5 points — <em>assuming the number of classes attended and prior GPA do not change</em>. This conditional interpretation distinguishes multiple regression from simple regression, where no other variables are being held constant.</p>
+
+<p><strong>Adding predictors allows the model to capture more of the variability in the outcome.</strong> When we move from one predictor to several, we can explain patterns that a single predictor would miss entirely. However, simply piling in more variables is not always better. Each new predictor must genuinely contribute explanatory power, or it risks adding noise and complicating the model without real benefit. This tension — between completeness and parsimony — is central to multiple regression model building.</p>
+
+<p>The process of estimating the coefficients (β values) in multiple regression relies on <strong>Ordinary Least Squares (OLS)</strong>, the same principle used in simple regression. OLS finds the set of coefficient values that minimizes the sum of squared differences between the observed Y values and the model's predicted Y values. In matrix notation this is solved efficiently, but the conceptual goal remains: find the best-fitting plane (or hyperplane in higher dimensions) through the cloud of data points.</p>
+
+<p>Understanding how to interpret each coefficient correctly is essential. The <strong>intercept (β₀)</strong> is the predicted value of Y when every predictor variable simultaneously equals zero. In some models this is a meaningful quantity — for example, the predicted baseline score when a student has studied zero hours, attended zero classes, and has a GPA of 0. In other contexts, zero is outside the realistic range of the data and the intercept has no practical interpretation; it simply anchors the regression equation mathematically.</p>
+
+<p>The <strong>sign of a coefficient</strong> immediately tells us the direction of the relationship. A <strong>positive coefficient</strong> (like 3.5 for hours studied) means that as that predictor increases, the predicted outcome increases — a direct relationship. A <strong>negative coefficient</strong> would indicate an inverse relationship: as the predictor increases, the predicted outcome decreases. For example, if we were modeling defect rate in manufacturing, a negative coefficient on quality-control checks would suggest that more checks are associated with fewer defects.</p>
+
+<p>One critically important concept is that <strong>coefficients in multiple regression can differ substantially from those in simple regression</strong>. This happens because the predictors themselves share relationships with one another. Suppose that hours studied and classes attended are positively correlated — students who study more tend also to attend more. In a simple regression of score on hours studied alone, the coefficient for hours studied would absorb some credit that actually belongs to class attendance. In the multiple regression model, the two predictors share the explanatory work, and the coefficient for each adjusts accordingly. This phenomenon — where coefficients shift when additional predictors enter the model — is sometimes called <em>confounding</em> and is one of the primary reasons multiple regression is preferred over running a series of separate simple regressions.</p>
+
+<p><strong>Model building and variable selection</strong> is where scientific judgment and statistical rigor must work together. Including <em>irrelevant predictors</em> in a regression model is problematic for several reasons. It inflates the complexity of the model, makes coefficients harder to interpret, and can introduce multicollinearity. It also consumes degrees of freedom — the statistical "budget" that the model uses to estimate parameters — which can reduce the precision of estimates for the predictors that truly matter. A common mistake among beginners is to think that including more variables is always safe or beneficial. It is not.</p>
+
+<p><strong>Domain knowledge</strong> should be the first guide. Before examining any data, a researcher should have a theoretically motivated reason to include each predictor. In medical research, including variables that have no plausible biological mechanism connecting them to the outcome is generally considered poor practice, regardless of what the data suggest. After domain-guided initial selection, <strong>statistical criteria</strong> help refine the model. The p-value of each predictor's coefficient tests whether that predictor's relationship with Y is statistically distinguishable from zero, given all other predictors in the model. Predictors with large p-values (typically above 0.05) may be candidates for removal, but this decision should always be made alongside substantive reasoning — a predictor can be theoretically essential even if it is statistically insignificant in a particular sample.</p>
+
+<p>Several <strong>variable selection strategies</strong> exist, each with strengths and weaknesses:</p>
+
+<ul>
+  <li><strong>Forward selection:</strong> Begins with no predictors and adds them one at a time, selecting at each step the predictor that most improves the model.</li>
+  <li><strong>Backward elimination:</strong> Begins with all candidate predictors and removes them one at a time, eliminating the least statistically significant at each step.</li>
+  <li><strong>Stepwise selection:</strong> A hybrid that moves both forward and backward, adding or removing predictors at each step based on statistical criteria.</li>
+  <li><strong>All-subsets regression:</strong> Evaluates every possible combination of predictors and identifies the best-fitting model of each size, often using criteria like AIC or BIC.</li>
+</ul>
+
+<p>All automated selection methods carry risks — they can capitalize on chance patterns in the data and produce models that do not generalize well. They should be used cautiously and always validated on independent data.</p>
+
+<p>To quantify how well a multiple regression model fits the data, analysts rely on <strong>R²</strong> and <strong>Adjusted R²</strong>. <strong>R² (the coefficient of determination)</strong> measures the proportion of total variability in Y that the model explains. An R² of 0.75 means the model accounts for 75% of the variance in the outcome; the remaining 25% is unexplained. R² ranges from 0 to 1, with higher values indicating a better fit.</p>
+
+<p>However, R² has a critical flaw in the multiple regression context: <strong>it always increases or stays the same when more predictors are added</strong>, even if those predictors have no genuine relationship with Y. Adding a completely random variable as a predictor will nudge R² upward by a tiny amount purely by chance. This makes R² a misleading metric for comparing models with different numbers of predictors.</p>
+
+<p><strong>Adjusted R²</strong> corrects for this by penalizing the addition of predictors that do not contribute meaningfully. Its formula introduces a penalty based on both the number of predictors (k) and the sample size (n):</p>
+
+<pre><code>Adjusted R² = 1 - [(1 - R²)(n - 1) / (n - k - 1)]</code></pre>
+
+<p>Importantly, <strong>Adjusted R² can decrease</strong> if a newly added predictor does not improve the model's explanatory power enough to offset the complexity penalty. This makes it a far more honest measure when comparing models of different sizes. For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Predictors</th>
+      <th>R²</th>
+      <th>Adjusted R²</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Model A</td>
+      <td>2</td>
+      <td>0.72</td>
+      <td>0.71</td>
+    </tr>
+    <tr>
+      <td>Model B</td>
+      <td>5</td>
+      <td>0.74</td>
+      <td>0.70</td>
+    </tr>
+    <tr>
+      <td>Model C</td>
+      <td>8</td>
+      <td>0.75</td>
+      <td>0.67</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this example, Model C has the highest R² but the lowest Adjusted R². Adding predictors 6, 7, and 8 barely improved explanatory power while consuming degrees of freedom — a sign that those predictors are not genuinely useful. Model A would be preferred for parsimony. Additionally, a high R² does not guarantee that the model is appropriate or trustworthy. A model can fit the training data beautifully while violating regression assumptions, containing influential outliers, or failing to generalize to new data. R² is one piece of evidence, not a final verdict.</p>
+
+<p><strong>Multicollinearity</strong> is one of the most common and consequential problems in multiple regression. It occurs when two or more predictor variables are highly correlated with each other. For example, in a model predicting employee salary, both "years of education" and "years of experience" might be highly correlated — people with more education often have fewer years of work experience early in their careers, and the two variables move together in complex ways. <em>Perfect</em> multicollinearity (where one predictor is an exact linear function of another) makes the model mathematically unsolvable. <em>Near-perfect</em> multicollinearity, which is far more common, creates serious problems even if it does not break the model entirely.</p>
+
+<p>The primary damage multicollinearity causes is to the <strong>standard errors of the coefficients</strong>. When predictors are highly correlated, the model has difficulty disentangling which predictor is responsible for changes in Y. The result is that the coefficient estimates become highly sensitive to small changes in the data, and their standard errors inflate dramatically. Inflated standard errors mean wider confidence intervals and larger p-values — predictors that are genuinely important may appear statistically insignificant. This makes significance tests unreliable and undermines our ability to identify which predictors truly matter.</p>
+
+<p>The standard tool for detecting multicollinearity is the <strong>Variance Inflation Factor (VIF)</strong>. The VIF for a given predictor Xⱼ is calculated by regressing Xⱼ on all other predictors and recording that sub-model's R²:</p>
+
+<pre><code>VIF(Xⱼ) = 1 / (1 - Rⱼ²)</code></pre>
+
+<p>A VIF of 1 indicates no multicollinearity. VIF values between 1 and 5 are generally considered acceptable, values between 5 and 10 are cause for concern, and values above 10 indicate severe multicollinearity that likely requires remediation. Common remedies include:</p>
+
+<ul>
+  <li><strong>Removing one of the correlated predictors:</strong> If two predictors carry largely redundant information, dropping one (preferably the one with less theoretical importance) reduces multicollinearity without much loss of explanatory power.</li>
+  <li><strong>Combining predictors into a composite:</strong> For example, averaging two related survey items into a single scale, or using a domain-justified index score.</li>
+  <li><strong>Principal Component Analysis (PCA):</strong> Transforms the correlated predictors into a smaller set of uncorrelated components, which can then be used as predictors. The tradeoff is reduced interpretability.</li>
+  <li><strong>Regularization techniques:</strong> Methods such as Ridge Regression add a penalty to the size of coefficients, which stabilizes estimates in the presence of multicollinearity. Lasso regression similarly penalizes coefficients and can shrink some to exactly zero, effectively performing variable selection.</li>
+</ul>
+
+<p>Even a perfectly specified multiple regression model is only valid if its underlying <strong>assumptions</strong> are reasonably met. These assumptions are worth understanding deeply because violations can invalidate inference and lead to misleading conclusions:</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between each predictor and the outcome must be linear (after accounting for all other predictors). Residual plots — graphs of the errors against fitted values or individual predictors — reveal non-linear patterns as curved or systematic shapes rather than random scatter.</li>
+  <li><strong>Independence of errors:</strong> The residuals for different observations must not be correlated with one another. This assumption is violated in time-series data (where consecutive errors may be related) and in clustered data (where observations within the same group share common influences). The Durbin-Watson test is commonly used to detect autocorrelation in residuals.</li>
+  <li><strong>Homoscedasticity (constant variance of residuals):</strong> The spread of residuals should be roughly consistent across all levels of the fitted values. When residuals fan out (larger spread at higher fitted values), this is called heteroscedasticity and can distort standard errors. Scale-location plots and the Breusch-Pagan test are diagnostic tools.</li>
+  <li><strong>Normality of residuals:</strong> OLS estimates remain unbiased without this assumption, but significance tests and confidence intervals rely on the residuals being approximately normally distributed, particularly in small samples. Q-Q plots (quantile-quantile plots) visually assess this assumption; the Shapiro-Wilk test provides a formal test.</li>
+</ul>
+
+<p><strong>Outliers and influential observations</strong> deserve special attention in multiple regression. An <em>outlier</em> is an observation with an unusually large residual — its actual Y value is far from what the model predicts. An <em>influential observation</em> is one that, if removed, would substantially change the regression coefficients. These are not always the same point. A high-leverage observation sits at an extreme position in the predictor space (unusual X values) and has the potential to pull the regression line toward it even if its Y value is not unusual. <strong>Cook's Distance</strong> is a combined measure that identifies observations with high influence on the overall model, accounting for both residual size and leverage. Observations with Cook's Distance greater than 1 (or greater than 4/n as a conservative threshold) warrant individual examination — they may represent data entry errors, genuinely unusual cases, or important exceptions that a single model cannot capture.</p>
+
+<p>Finally, a critical step in evaluating any multiple regression model is assessing how well it <strong>generalizes to new data</strong>. A model that fits the training data perfectly but performs poorly on fresh observations is said to be <em>overfitted</em> — it has learned the noise and idiosyncrasies of the training sample rather than the true underlying signal. The standard approaches to detecting and guarding against overfitting include:</p>
+
+<ul>
+  <li><strong>Train/test split:</strong> The available data is divided into a training set (used to fit the model) and a test set (held back and used only to evaluate performance). Metrics like Root Mean Squared Error (RMSE) or Mean Absolute Error (MAE) on the test set give an honest estimate of predictive accuracy.</li>
+  <li><strong>k-Fold Cross-Validation:</strong> The data is divided into k equally sized subsets (folds). The model is trained on k−1 folds and tested on the remaining fold, repeating this process k times so that every observation serves as a test case exactly once. The average test-set error across all k rounds is reported. This makes efficient use of limited data and provides a reliable generalization estimate.</li>
+  <li><strong>Information criteria (AIC, BIC):</strong> The Akaike Information Criterion and Bayesian Information Criterion penalize model complexity and can be used to compare non-nested models or guide variable selection without requiring a separate test set.</li>
+</ul>
+
+<p>Together, these concepts — from the basic model equation through interpretation, model building, fit assessment, multicollinearity diagnosis, assumption checking, and validation — form a comprehensive framework for applying multiple regression responsibly. The technique is powerful precisely because it mirrors the multifactorial nature of reality, but that power comes with responsibility: each modeling decision must be justified, every assumption checked, and every conclusion tempered by an honest appraisal of the model's limitations.</p>
+      <div class="notes"><strong>Notes</strong>Key formula to highlight for students: the VIF formula and the Adjusted R&#178; formula, as these are frequently tested concepts. Emphasize the distinction between statistical significance (p-values) and practical significance (effect sizes, domain relevance) throughout — a common point of confusion. The table comparing R&#178; vs. Adjusted R&#178; across models is a useful teaching device worth reinforcing with practice exercises.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

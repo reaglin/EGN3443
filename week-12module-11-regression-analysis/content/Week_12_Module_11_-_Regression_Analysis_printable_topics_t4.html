@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluating Regression Model Performance</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+  <header>
+    <h1>Evaluating Regression Model Performance</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Evaluating Regression Model Performance</h2>
+      <p>Building a regression model is only the first step in the analytical process. Once a model has been fitted, the critical question becomes: <em>how well does it actually perform?</em> Evaluating regression model performance involves examining multiple complementary metrics and diagnostic tools, each of which illuminates a different facet of model quality. No single measure tells the whole story. A model might appear excellent by one criterion yet fail badly by another, so practitioners must develop fluency with the full toolkit: goodness-of-fit statistics, error measures, significance tests, and assumption checks. Together, these tools reveal whether a model is accurate, generalizable, statistically valid, and appropriately specified.</p>
+
+<p><strong>R-Squared (Coefficient of Determination)</strong></p>
+
+<p>R-squared, denoted R², is one of the most widely reported statistics in regression analysis. It measures the proportion of the total variation in the dependent variable that is explained by the independent variable(s) in the model. Formally, it is calculated as:</p>
+
+<pre><code>R² = 1 - (SS_res / SS_tot)
+
+where:
+  SS_res = Σ(yᵢ - ŷᵢ)²   [sum of squared residuals]
+  SS_tot = Σ(yᵢ - ȳ)²    [total sum of squares]
+  yᵢ     = actual value
+  ŷᵢ     = predicted value
+  ȳ      = mean of actual values</code></pre>
+
+<p>R² values range from 0 to 1. An R² of 0 means the model explains none of the variability in the outcome — it performs no better than simply predicting the mean for every observation. An R² of 1 means the model explains all variability perfectly, with every predicted value matching the actual value exactly. In practice, values fall somewhere between these extremes. For example, an R² of 0.82 indicates that 82% of the variation in the dependent variable is accounted for by the predictors, leaving 18% unexplained.</p>
+
+<p>R² is especially useful when <em>comparing multiple models built on the same dataset</em>. If Model A achieves an R² of 0.75 and Model B achieves 0.88 using the same response variable and training data, Model B captures more of the underlying pattern. However, R² should never be used in isolation. A high R² does not guarantee a good model — the relationship might be spurious, the model might be overfit, or the assumptions of linear regression might be violated. Additionally, R² cannot be directly compared across datasets with different dependent variables, because the total variance differs between datasets.</p>
+
+<p>A particularly important limitation of R² is that it <em>never decreases</em> when additional predictors are added to a model, regardless of whether those predictors are meaningful. Even a predictor generated from random noise will cause R² to increase slightly. This makes R² an unreliable guide when deciding whether to include additional variables, and it motivates the use of adjusted R².</p>
+
+<p><strong>Adjusted R-Squared</strong></p>
+
+<p>Adjusted R² addresses the inflation problem by penalizing the addition of predictors that do not genuinely improve the model's explanatory power. Its formula is:</p>
+
+<pre><code>Adjusted R² = 1 - [(1 - R²) × (n - 1) / (n - k - 1)]
+
+where:
+  n = number of observations
+  k = number of predictor variables</code></pre>
+
+<p>The key insight is in the denominator: as <em>k</em> increases (more predictors are added), the penalty term grows. If a new predictor does not improve the model's fit enough to offset the penalty, adjusted R² will <em>decrease</em>. This makes it a more honest and conservative measure of fit, particularly valuable when comparing models with different numbers of predictors.</p>
+
+<p>Consider an example. Suppose you have a dataset of 100 observations and you fit three models:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Predictors (k)</th>
+      <th>R²</th>
+      <th>Adjusted R²</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Model 1</td>
+      <td>2</td>
+      <td>0.780</td>
+      <td>0.774</td>
+    </tr>
+    <tr>
+      <td>Model 2</td>
+      <td>5</td>
+      <td>0.812</td>
+      <td>0.799</td>
+    </tr>
+    <tr>
+      <td>Model 3</td>
+      <td>10</td>
+      <td>0.820</td>
+      <td>0.791</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Model 3 has the highest R², but its adjusted R² is lower than Model 2's. This signals that the five additional predictors added in Model 3 (compared to Model 2) did not contribute meaningfully — they inflated R² without genuinely improving explanatory power. A higher adjusted R² indicates a better balance between model complexity and explanatory reach. When building parsimonious models, adjusted R² is the preferred comparison metric over raw R².</p>
+
+<p><strong>Residual Analysis</strong></p>
+
+<p>Residuals are the differences between the observed values and the values predicted by the model: <em>eᵢ = yᵢ − ŷᵢ</em>. Analyzing the pattern of residuals is one of the most powerful diagnostic tools in regression, because it can reveal whether the model's assumptions are met and whether the model is correctly specified.</p>
+
+<p>When a regression model is well-specified, residuals should appear <em>randomly scattered</em> around zero with no discernible pattern. This randomness supports the assumption that the linear model captures the true relationship between the variables. In contrast, systematic patterns in residuals are warning signs:</p>
+
+<ul>
+  <li><strong>A curved or U-shaped pattern</strong> in a plot of residuals versus fitted values suggests that the true relationship is nonlinear and a linear model is misspecified. A polynomial term or a transformation of the predictor might be needed.</li>
+  <li><strong>A funnel shape</strong> (residuals spreading out or narrowing as fitted values increase) indicates heteroscedasticity — the variance of the errors is not constant, violating a core regression assumption.</li>
+  <li><strong>Clusters or systematic shifts</strong> can suggest that important grouping variables have been omitted from the model.</li>
+</ul>
+
+<p>Large residuals for specific observations deserve special attention. An observation with an unusually large residual is a potential <strong>outlier</strong> — its actual value is far from what the model predicts. Separately, an observation can be <strong>influential</strong> if its position in the predictor space gives it a strong pull on the regression line (measured by statistics such as Cook's distance or leverage). Outliers and influential points can distort model coefficients significantly and warrant careful investigation: they might represent data entry errors, genuinely anomalous cases, or important phenomena that the model is not capturing.</p>
+
+<p>For example, in a model predicting house prices from square footage, a historical mansion listed at an unusually low price due to legal complications might produce a very large residual. Rather than blindly removing it, an analyst should investigate whether it represents a measurement error, a special category of property, or a legitimate exception that needs its own modeling treatment.</p>
+
+<p><strong>Mean Squared Error (MSE) and Root Mean Squared Error (RMSE)</strong></p>
+
+<p>While R² tells you about the <em>proportion</em> of variance explained, MSE and RMSE quantify the <em>magnitude</em> of prediction errors in concrete terms.</p>
+
+<p><strong>Mean Squared Error (MSE)</strong> is the average of the squared differences between actual and predicted values:</p>
+
+<pre><code>MSE = (1/n) × Σ(yᵢ - ŷᵢ)²</code></pre>
+
+<p>Squaring the residuals serves two purposes: it makes all values positive (so positive and negative errors do not cancel out) and it penalizes larger errors disproportionately more than smaller ones. A prediction that is off by 10 units contributes 100 to the MSE, whereas a prediction off by 2 units contributes only 4. This penalty structure means MSE is particularly sensitive to outliers and large deviations, which is desirable in contexts where large errors are especially costly.</p>
+
+<p><strong>Root Mean Squared Error (RMSE)</strong> is simply the square root of MSE:</p>
+
+<pre><code>RMSE = √MSE = √[(1/n) × Σ(yᵢ - ŷᵢ)²]</code></pre>
+
+<p>Taking the square root restores the error metric to the <em>same units as the original dependent variable</em>, making RMSE far more interpretable than MSE. If you are modeling house prices in dollars and your RMSE is $18,500, that means on average your model's predictions deviate from actual prices by approximately $18,500 — a directly meaningful quantity.</p>
+
+<p>Lower MSE and RMSE values indicate a more accurate model. Their primary strength lies in <em>comparing competing models</em>: given two models evaluated on the same dataset, the one with the lower RMSE produces smaller prediction errors on average. They are also central to techniques like cross-validation, where models are evaluated on held-out data to test generalizability.</p>
+
+<p>A practical comparison of evaluation metrics across models might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>R²</th>
+      <th>Adjusted R²</th>
+      <th>MSE</th>
+      <th>RMSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Linear (2 predictors)</td>
+      <td>0.780</td>
+      <td>0.774</td>
+      <td>24,500</td>
+      <td>156.5</td>
+    </tr>
+    <tr>
+      <td>Linear (5 predictors)</td>
+      <td>0.812</td>
+      <td>0.799</td>
+      <td>18,200</td>
+      <td>134.9</td>
+    </tr>
+    <tr>
+      <td>Polynomial (degree 2)</td>
+      <td>0.851</td>
+      <td>0.844</td>
+      <td>14,300</td>
+      <td>119.6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this table, the polynomial model dominates across all metrics, suggesting it captures the underlying relationship more accurately than the simpler linear alternatives.</p>
+
+<p><strong>Statistical Significance of Coefficients (p-values)</strong></p>
+
+<p>Every regression coefficient has an associated hypothesis test. The null hypothesis is that the coefficient equals zero — meaning the predictor has no linear relationship with the dependent variable, holding other predictors constant. The p-value from this test represents the probability of observing an effect as large as the estimated coefficient (or larger) if the null hypothesis were actually true.</p>
+
+<ul>
+  <li>A <strong>small p-value</strong> (conventionally below 0.05) provides strong evidence against the null hypothesis. It suggests the predictor has a statistically meaningful relationship with the outcome and should likely be retained in the model.</li>
+  <li>A <strong>large p-value</strong> (above 0.05) indicates insufficient evidence to conclude the predictor contributes to explaining the dependent variable. The observed coefficient could plausibly have arisen by chance alone.</li>
+</ul>
+
+<p>For example, in a regression model predicting salary from years of experience, education level, and zip code, suppose the p-values are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Predictor</th>
+      <th>Estimated Coefficient</th>
+      <th>p-value</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Years of Experience</td>
+      <td>3,200</td>
+      <td>0.0003</td>
+      <td>Highly significant — retain</td>
+    </tr>
+    <tr>
+      <td>Education Level</td>
+      <td>5,800</td>
+      <td>0.012</td>
+      <td>Significant — retain</td>
+    </tr>
+    <tr>
+      <td>Zip Code (numeric)</td>
+      <td>0.04</td>
+      <td>0.671</td>
+      <td>Not significant — consider removing</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The zip code predictor's large p-value suggests its inclusion does not significantly improve the model. Removing it would reduce complexity without sacrificing meaningful predictive power. Systematically evaluating p-values for all coefficients is an important step in model refinement — though decisions should also be guided by theory and domain knowledge, not statistics alone. A predictor with a large p-value might still be theoretically important, and borderline cases (p-values near 0.05) should be treated with appropriate nuance rather than mechanical cut-off rules.</p>
+
+<p><strong>Overall Model Significance (F-Statistic)</strong></p>
+
+<p>While p-values on individual coefficients test each predictor separately, the <strong>F-statistic</strong> evaluates the model as a whole. The F-test poses the question: does this regression model — with all its predictors taken together — explain a statistically significant portion of the variance in the dependent variable?</p>
+
+<p>The null hypothesis of the F-test is that <em>all</em> regression coefficients (except the intercept) are simultaneously equal to zero, meaning none of the predictors contribute to explaining the outcome. The F-statistic is computed as:</p>
+
+<pre><code>F = (SS_reg / k) / (SS_res / (n - k - 1))
+
+where:
+  SS_reg = regression sum of squares (explained variance)
+  SS_res = residual sum of squares (unexplained variance)
+  k      = number of predictors
+  n      = number of observations</code></pre>
+
+<p>A large F-statistic (and correspondingly small p-value for the F-test) leads to rejection of the null hypothesis, indicating that at least one predictor in the model has a meaningful relationship with the outcome. This is an essential sanity check: even if individual coefficient p-values appear significant, the F-test confirms that the model as a whole is doing real explanatory work rather than benefiting from random chance.</p>
+
+<p>Conversely, a non-significant F-statistic (large p-value) suggests the model provides no more predictive value than simply using the mean of the dependent variable as a prediction. This would be a serious red flag indicating the model needs fundamental revision.</p>
+
+<p>It is worth noting that a significant F-statistic does <em>not</em> tell you <em>which</em> predictors are responsible — only that at least one is meaningful. That determination comes from individual coefficient p-values. Both levels of analysis are necessary for a complete picture.</p>
+
+<p><strong>Assumptions Checking and Model Validity</strong></p>
+
+<p>Regression metrics like R² and RMSE can look impressive, but they are only meaningful if the model's underlying assumptions are satisfied. When assumptions are violated, coefficient estimates may be biased, standard errors may be incorrect, and p-values and confidence intervals become unreliable. There are four core assumptions to verify:</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between each predictor and the outcome must be linear (in the parameters). This can be assessed by examining scatter plots of each predictor against the dependent variable, and by plotting residuals against fitted values. A curved pattern in either plot signals a violation. Remedies include transforming variables (e.g., taking logarithms) or adding polynomial terms.</li>
+  <li><strong>Homoscedasticity (Constant Variance of Residuals):</strong> Residuals should have roughly equal spread across all levels of the fitted values. A <em>funnel-shaped</em> residual plot — where residuals fan out as fitted values increase — is the classic indicator of heteroscedasticity. This violation inflates or deflates standard errors, making hypothesis tests unreliable. Solutions include transforming the dependent variable or using weighted least squares or robust standard errors.</li>
+  <li><strong>Normality of Residuals:</strong> The residuals should follow an approximately normal distribution. This assumption is important because the t-tests and F-tests used to evaluate coefficients and the overall model are derived under the assumption of normally distributed errors. Normality can be assessed using a <em>histogram of residuals</em> (which should look approximately bell-shaped) or a <em>Q-Q (quantile-quantile) plot</em>, where residuals falling closely along the diagonal reference line indicate normality. Importantly, thanks to the Central Limit Theorem, this assumption matters most in small samples; with large datasets, inference is fairly robust to moderate departures from normality.</li>
+  <li><strong>Independence of Observations:</strong> Residuals must not be correlated with one another. When observations are not independent — for example, in <em>time-series data</em> where measurements are taken sequentially, or in <em>clustered data</em> where observations share a group membership — residuals from nearby or related observations may be more similar than would be expected by chance. This autocorrelation leads to underestimated standard errors and overstated significance. The Durbin-Watson statistic is commonly used to detect autocorrelation in time-series contexts. Remedies include adding lagged variables, using time-series models, or applying mixed-effects models for clustered data.</li>
+</ul>
+
+<p>A summary of the key assumptions, their diagnostic tools, and the consequences of violation is shown below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assumption</th>
+      <th>Diagnostic Tool(s)</th>
+      <th>Sign of Violation</th>
+      <th>Consequence of Violation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Linearity</td>
+      <td>Scatter plots, residuals vs. fitted plot</td>
+      <td>Curved pattern in residuals</td>
+      <td>Biased coefficient estimates</td>
+    </tr>
+    <tr>
+      <td>Homoscedasticity</td>
+      <td>Residuals vs. fitted plot</td>
+      <td>Funnel-shaped spread</td>
+      <td>Incorrect standard errors, invalid tests</td>
+    </tr>
+    <tr>
+      <td>Normality of residuals</td>
+      <td>Histogram of residuals, Q-Q plot</td>
+      <td>Skewed histogram, points off Q-Q line</td>
+      <td>Unreliable p-values and confidence intervals</td>
+    </tr>
+    <tr>
+      <td>Independence</td>
+      <td>Durbin-Watson test, residuals vs. time plot</td>
+      <td>Systematic trends in residuals over time</td>
+      <td>Underestimated standard errors, inflated significance</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these metrics and diagnostic checks form a comprehensive framework for evaluating regression models. A rigorous analyst does not simply report a high R² and call the model successful. Instead, they examine the adjusted R², inspect residual plots for assumption violations, assess individual predictor significance through p-values, confirm overall model validity with the F-statistic, and validate that the four core regression assumptions hold. Only when all these elements are considered in concert can one draw confident, defensible conclusions about a model's accuracy, reliability, and real-world applicability.</p>
+      <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: R&#178;, adjusted R&#178;, residual analysis, MSE/RMSE, coefficient p-values, F-statistic, and all four regression assumptions. Includes illustrative numeric examples, HTML tables for structured comparisons, and code blocks for formulas.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

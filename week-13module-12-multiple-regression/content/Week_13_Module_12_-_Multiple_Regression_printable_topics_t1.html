@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Simple to Multiple Regression</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+  <header>
+    <h1>From Simple to Multiple Regression</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> From Simple to Multiple Regression</h2>
+      <p>Simple linear regression is a powerful starting point for understanding relationships between variables, but it rests on an assumption that is almost never satisfied in real research: that a single predictor variable accounts for all of the meaningful, systematic variation in an outcome. In practice, human behaviour, biological processes, economic indicators, and virtually every other phenomenon social and natural scientists study are shaped by many forces acting simultaneously. When we ignore those forces and force everything through a single predictor, the model is not just incomplete — it can be actively misleading. Multiple regression is the direct, principled response to this limitation. It extends the logic of simple linear regression to accommodate any number of predictor variables within a single, unified equation, allowing researchers to model complex multivariate realities while still interpreting each predictor's contribution clearly. Understanding why this extension is necessary, how it works, and when it should be used is the foundation on which all of multiple regression rests.</p>
+
+<p><strong>Limitations of Simple Linear Regression</strong></p>
+
+<p>Simple linear regression models the relationship between one predictor <em>X</em> and one continuous outcome <em>Y</em> using the equation <em>Ŷ = b₀ + b₁X</em>. The single coefficient <em>b₁</em> carries the entire explanatory burden of the model. This works reasonably well in tightly controlled laboratory experiments where all other influences on <em>Y</em> are either held constant by design or randomised away. In observational research — which describes the vast majority of studies in psychology, medicine, education, economics, and the social sciences — those other influences are still operating, still varying across participants, and still affecting <em>Y</em>. When they are left out of the model, several serious problems arise.</p>
+
+<p>First, <strong>omitted variable bias</strong> distorts the estimated coefficient. If a variable that genuinely affects <em>Y</em> is also correlated with <em>X</em> but is excluded from the model, the simple regression coefficient for <em>X</em> absorbs some of that omitted variable's effect. The estimate is no longer a clean reflection of <em>X</em>'s relationship with <em>Y</em>; it is contaminated by the influence of the missing variable. Consider a simple example: suppose we regress students' exam scores (<em>Y</em>) on the number of hours they spent studying (<em>X₁</em>). Hours of study is positively related to scores — but so is prior academic ability (<em>X₂</em>), and students with higher prior ability also tend to study more. In the simple regression, the coefficient for study hours will be inflated because it is partly capturing the effect of ability, which we left out. The estimate is biased.</p>
+
+<p>Second, <strong>residual variance</strong> — the portion of <em>Y</em> not explained by the model — remains unnecessarily large when relevant predictors are omitted. In simple regression the residual term <em>ε</em> bundles together everything the model does not account for: measurement error, random noise, and every systematic influence on <em>Y</em> that we failed to include. When those systematic influences are large, the residuals are large, the standard errors of our estimates are inflated, and our statistical power to detect true effects is reduced. A model that explains only 15% of the variance in exam scores leaves 85% in the error term. Much of that 85% may be attributable to identifiable, measurable variables — motivation, sleep, class attendance — that a more complete model could capture.</p>
+
+<p>Third, <strong>predictive accuracy suffers</strong>. A model with one weak predictor will generate forecasts with wide confidence intervals and poor out-of-sample performance. Adding predictors that genuinely relate to <em>Y</em> tightens those intervals and makes predictions more practically useful.</p>
+
+<p>Fourth, the constraint to a single predictor is an <strong>oversimplification that rarely reflects theory</strong>. In most research domains, theory explicitly identifies multiple antecedents of an outcome. A theory of exam performance that mentions only study hours, ignoring ability, motivation, anxiety, and teaching quality, is not a serious theory. Models should reflect our best theoretical understanding of the phenomenon, and that understanding is almost always multivariate.</p>
+
+<p><strong>What Is Multiple Regression?</strong></p>
+
+<p>Multiple regression generalises simple linear regression to include <em>k</em> predictor variables. The general form of the multiple regression equation is:</p>
+
+<pre><code>Ŷ = b₀ + b₁X₁ + b₂X₂ + ... + bₖXₖ</code></pre>
+
+<p>Here, <em>Ŷ</em> is the predicted value of the continuous outcome variable; <em>b₀</em> is the intercept, the predicted value of <em>Y</em> when all predictors equal zero; and each <em>bⱼ</em> is the regression coefficient for the corresponding predictor <em>Xⱼ</em>. The subscripts simply index which predictor and which coefficient we are referring to — <em>X₁</em> and <em>b₁</em> go together, <em>X₂</em> and <em>b₂</em> go together, and so on up to <em>Xₖ</em> and <em>bₖ</em>.</p>
+
+<p>Each regression coefficient <em>bⱼ</em> represents the <strong>unique, partial relationship</strong> between <em>Xⱼ</em> and <em>Y</em> — that is, the expected change in <em>Y</em> for a one-unit increase in <em>Xⱼ</em> while holding all other predictors in the model constant. This partial interpretation is the defining feature of multiple regression and the source of most of its analytical power. The coefficients are called <em>partial regression coefficients</em> precisely because each one reflects only the part of <em>Xⱼ</em>'s relationship with <em>Y</em> that is not shared with the other predictors.</p>
+
+<p>The outcome variable in multiple regression remains continuous, consistent with the core assumptions of linear regression. Predictors can be continuous or categorical (with categorical variables typically entered as dummy-coded indicator variables), giving the framework considerable flexibility.</p>
+
+<p>To make the equation concrete, imagine we are predicting a person's systolic blood pressure (<em>Y</em>) from three predictors: age in years (<em>X₁</em>), body mass index (<em>X₂</em>), and daily sodium intake in milligrams (<em>X₃</em>). A fitted multiple regression equation might look like:</p>
+
+<pre><code>Ŷ = 60 + 0.45(X₁) + 1.20(X₂) + 0.008(X₃)</code></pre>
+
+<p>This tells us that, after accounting for BMI and sodium intake, each additional year of age is associated with a 0.45 mm Hg increase in blood pressure. After accounting for age and sodium intake, each additional unit of BMI is associated with a 1.20 mm Hg increase. And so on. Each coefficient is interpreted in the context of the others — a critical point we return to below.</p>
+
+<p><strong>Why Add More Predictor Variables?</strong></p>
+
+<p>The motivation for adding predictors is both statistical and substantive. Statistically, each additional predictor that genuinely relates to <em>Y</em> <strong>accounts for variance</strong> in the outcome that would otherwise inflate the error term. As that error term shrinks, standard errors shrink, confidence intervals narrow, and t-statistics grow — meaning we gain statistical power to detect effects that are truly present. The model's overall explanatory power, measured by R-squared, also increases with each genuinely useful predictor.</p>
+
+<p>Substantively, adding relevant predictors <strong>disentangles confounded relationships</strong>. Returning to the exam score example: if we add prior academic ability to the model alongside study hours, the coefficient for study hours is now adjusted for ability. We can ask the more precise and more interesting question: among students of the same prior ability level, does studying more lead to higher scores? The answer to that question — which is the partial coefficient for study hours — is more causally interpretable than the bivariate coefficient, which blended together the effects of study and ability.</p>
+
+<p>Including predictors that serve as <strong>confounders</strong> — variables that correlate with both <em>X</em> and <em>Y</em> and thus distort the apparent relationship between them — is especially important in observational research. Statistical control through multiple regression is the observational researcher's primary tool for approximating the kind of isolation of effects that experimenters achieve through random assignment.</p>
+
+<p>Importantly, <strong>adding predictors should be driven by theory and prior research, not by indiscriminate searching</strong>. Throwing every available variable into a regression equation is a recipe for capitalising on chance, inflating R-squared artificially, and producing a model that fits the current sample well but generalises poorly to new data. The discipline of theoretical justification — entering only predictors for which there is a reasoned basis to expect a relationship with <em>Y</em> — is essential to responsible model building.</p>
+
+<p><strong>Controlling for Other Variables</strong></p>
+
+<p>The phrase <em>controlling for other variables</em> is central to how multiple regression results are reported and interpreted, and it deserves careful unpacking. When we say that <em>b₁</em> represents the effect of <em>X₁</em> on <em>Y</em> <em>controlling for X₂, X₃, …, Xₖ</em>, we mean that the coefficient has been estimated in a way that removes the portions of both <em>X₁</em> and <em>Y</em> that are linearly associated with those other predictors. Mathematically, this is equivalent to regressing out the other predictors from both <em>X₁</em> and <em>Y</em> and then computing the simple regression of the residualised <em>Y</em> on the residualised <em>X₁</em>. The resulting coefficient reflects only the unique, independent contribution of <em>X₁</em>.</p>
+
+<p>This is powerfully illustrated when predictors are correlated with one another — a situation called <em>multicollinearity</em>. Suppose hours of study (<em>X₁</em>) and hours of tutoring (<em>X₂</em>) are both predictors of exam score (<em>Y</em>), and students who study more also tend to receive more tutoring. In simple regression, the coefficient for <em>X₁</em> will capture some of the benefit of tutoring, because study hours and tutoring hours co-vary. In multiple regression, both are entered simultaneously, and each coefficient reflects the predictor's relationship with <em>Y</em> after removing the shared variance with the other predictor. The result is a cleaner, more accurate estimate of each variable's distinct contribution.</p>
+
+<p>Statistical control in regression <strong>approximates the logic of experimental control</strong>, but only statistically and only for the variables explicitly included in the model. It cannot control for unmeasured confounders, which is why causal inference from observational multiple regression always requires additional justification beyond the statistical model itself.</p>
+
+<p>Without controlling for relevant variables, estimates from any single predictor may be biased in either direction. A confound that positively correlates with both <em>X</em> and <em>Y</em> will produce a positively biased (inflated) coefficient; a confound that correlates positively with <em>X</em> but negatively with <em>Y</em> (or vice versa) will produce a negatively biased (deflated or sign-reversed) coefficient. Either type of bias can lead to fundamentally incorrect conclusions about the direction and magnitude of effects.</p>
+
+<p><strong>When to Use Multiple Regression</strong></p>
+
+<p>Multiple regression is appropriate when several conditions are met. The following table summarises the key considerations:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Consideration</th>
+      <th>Requirement / Guideline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Outcome variable</td>
+      <td>Must be continuous (interval or ratio level)</td>
+    </tr>
+    <tr>
+      <td>Relationship form</td>
+      <td>Should be approximately linear between each predictor and the outcome</td>
+    </tr>
+    <tr>
+      <td>Theoretical basis</td>
+      <td>Predictors should be selected based on theory or prior research, not data dredging</td>
+    </tr>
+    <tr>
+      <td>Research purpose</td>
+      <td>Suitable for both explanatory research (understanding relationships) and predictive modelling</td>
+    </tr>
+    <tr>
+      <td>Sample size</td>
+      <td>At least 10–20 cases per predictor variable is a common guideline; more is better</td>
+    </tr>
+    <tr>
+      <td>Independence of errors</td>
+      <td>Observations should be independent of one another</td>
+    </tr>
+    <tr>
+      <td>Homoscedasticity</td>
+      <td>Residual variance should be approximately constant across predicted values</td>
+    </tr>
+    <tr>
+      <td>Normality of residuals</td>
+      <td>Residuals should be approximately normally distributed, especially important in smaller samples</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The sample size guideline of 10 to 20 cases per predictor is worth dwelling on. With too few cases relative to the number of predictors, coefficient estimates become unstable — small changes in the data produce large swings in the estimated values. In the extreme, a model with as many predictors as cases will fit the data perfectly but generalise to nothing; this is complete overfitting. As a practical heuristic, if you have 5 predictors you want at least 50 to 100 participants; if you have 10 predictors, you want at least 100 to 200. Power analysis software can provide more precise sample size targets based on the expected effect sizes and desired statistical power.</p>
+
+<p>Multiple regression is used in both <strong>explanatory research</strong>, where the goal is to understand which variables relate to an outcome and how strongly, and <strong>predictive modelling</strong>, where the goal is to generate accurate forecasts for new cases. The interpretive priorities differ: explanatory research emphasises individual coefficients and their significance; predictive modelling emphasises overall accuracy metrics and cross-validated performance. The same regression equation can serve both purposes, though model-building strategies may differ.</p>
+
+<p><strong>Continuity from Simple to Multiple Regression</strong></p>
+
+<p>One of the intellectually satisfying aspects of multiple regression is that it is not a departure from simple linear regression — it is a seamless generalisation of it. Every core element carries forward.</p>
+
+<p><strong>Estimation</strong> still uses ordinary least squares (OLS). The OLS algorithm finds the set of coefficients <em>b₀, b₁, …, bₖ</em> that minimises the sum of squared residuals — the sum of <em>(Yᵢ − Ŷᵢ)²</em> across all <em>n</em> observations. In simple regression this minimisation has a closed-form algebraic solution. In multiple regression the algebra extends into matrix form, but the principle — minimise squared errors — is identical. Statistical software handles the matrix computation automatically, so in practice researchers interact with multiple regression results in exactly the same way as simple regression results.</p>
+
+<p><strong>Interpretation of coefficients</strong> follows the same unit-change logic: each <em>bⱼ</em> represents the expected change in <em>Y</em> for a one-unit increase in <em>Xⱼ</em>. The only difference is that this change is now understood to be <em>holding all other predictors constant</em>. In simple regression that qualifier is vacuous because there are no other predictors; in multiple regression it is substantively important and must always be stated when reporting results.</p>
+
+<p><strong>Model fit</strong> is still assessed using R-squared, which quantifies the proportion of variance in <em>Y</em> explained by the model. However, R-squared has an important mathematical property in multiple regression: it can only increase (or stay the same) as more predictors are added, even if those predictors are entirely irrelevant noise. This means R-squared alone is a misleading criterion for comparing models with different numbers of predictors. <strong>Adjusted R-squared</strong> corrects for this by penalising model complexity:</p>
+
+<pre><code>Adjusted R² = 1 − [(1 − R²)(n − 1) / (n − k − 1)]</code></pre>
+
+<p>where <em>n</em> is the sample size and <em>k</em> is the number of predictors. Adjusted R-squared will increase only if a new predictor improves model fit more than would be expected by chance, making it the preferred metric for model comparison.</p>
+
+<p><strong>Hypothesis testing</strong> also carries forward from simple regression. Each individual coefficient is tested with a <strong>t-test</strong>: the null hypothesis is that the population coefficient equals zero (<em>H₀: βⱼ = 0</em>), and the test statistic is <em>t = bⱼ / SEbⱼ</em>, evaluated against a t-distribution with <em>n − k − 1</em> degrees of freedom. This is exactly the same structure as in simple regression. The overall model — the hypothesis that all predictors together explain significant variance in <em>Y</em> — is evaluated with an <strong>F-test</strong>, which compares the variance explained by the model to the unexplained variance. The F-test is a natural extension of the framework; in simple regression with one predictor, F equals t-squared, and the two tests are equivalent. In multiple regression the F-test provides a single omnibus evaluation of the whole model before examining individual predictors.</p>
+
+<p>The continuity between simple and multiple regression means that mastering simple regression is not just a preliminary exercise — it is genuine preparation. The concepts of predicted values, residuals, OLS estimation, R-squared, t-tests for coefficients, and F-tests for overall fit all transfer directly. What multiple regression adds is the ability to work with several predictors simultaneously, to control for confounds statistically, and to build models that more faithfully reflect the complexity of the phenomena we study.</p>
+      <div class="notes"><strong>Notes</strong>Consider pairing this topic with a worked numerical example comparing a simple regression output and a multiple regression output on the same dataset, so students can see concretely how a coefficient changes when a second predictor is added — this makes the &quot;controlling for&quot; concept immediately tangible.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

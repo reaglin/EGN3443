@@ -1,26 +1,24 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 14/Module 13 – Validating Regression | EGN3443</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background: #f4f6f9;
-      color: #2d3748;
+      color: #1e2535;
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
     /* ── Header ── */
     header {
       background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
       color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 2.5rem 2rem 2rem;
     }
 
     .header-inner {
@@ -34,113 +32,115 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #a8c8f0;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.45rem;
     }
 
     header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
       font-weight: 700;
-      margin-bottom: 0.75rem;
       line-height: 1.25;
+      margin-bottom: 0.9rem;
     }
 
     header p {
       font-size: 0.97rem;
-      color: #d6e8fb;
-      max-width: 70ch;
-      line-height: 1.65;
+      color: #cce0f7;
+      max-width: 72ch;
+      line-height: 1.7;
     }
 
-    /* ── Main layout ── */
+    /* ── Main ── */
     main {
       max-width: 1100px;
-      margin: 2rem auto 3rem;
+      margin: 2.2rem auto 3rem;
       padding: 0 1.25rem;
     }
 
-    .section-label {
-      font-size: 0.75rem;
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #6b7a99;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #dde3ef;
-      padding-bottom: 0.4rem;
+      color: #5a6a82;
+      border-bottom: 2px solid #d0d8e6;
+      padding-bottom: 0.45rem;
+      margin-bottom: 1.1rem;
+      margin-top: 2.2rem;
     }
 
     /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.1rem;
     }
 
+    /* ── Card ── */
     .card {
-      background: #ffffff;
-      border: 1px solid #dde3ef;
+      background: #fff;
+      border: 1px solid #dce3ee;
       border-radius: 8px;
-      padding: 1.25rem 1.35rem 1.15rem;
+      padding: 1.2rem 1.3rem 1.1rem;
       display: flex;
       flex-direction: column;
       gap: 0.55rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 14px rgba(30, 80, 160, 0.12);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.10);
+      border-color: #b0c4de;
     }
 
-    /* ── Card header row ── */
-    .card-header {
+    /* ── Card top row ── */
+    .card-top {
       display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem 0.75rem;
     }
 
     .card-title {
-      font-size: 1rem;
+      font-size: 0.97rem;
       font-weight: 600;
       color: #1a3a5c;
+      line-height: 1.35;
       flex: 1 1 auto;
     }
 
     .card-title a {
-      color: inherit;
+      color: #1a5fa8;
       text-decoration: none;
-      border-bottom: 2px solid #2563a8;
-      padding-bottom: 1px;
-      transition: color 0.15s;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
     }
 
     .card-title a:hover {
-      color: #2563a8;
+      border-bottom-color: #1a5fa8;
     }
 
     .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7db5;
-      text-decoration: none;
+      font-size: 0.73rem;
+      font-weight: 500;
+      color: #fff;
+      background: #5a7fa8;
+      border-radius: 3px;
+      padding: 0.18em 0.55em;
       white-space: nowrap;
-      background: #eef4fd;
-      border: 1px solid #b9d0ef;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
-      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: background 0.15s;
+      flex-shrink: 0;
     }
 
     .source-link:hover {
       background: #2563a8;
-      color: #fff;
-      border-color: #2563a8;
     }
 
-    /* ── Badges ── */
-    .badge-row {
+    /* ── Badges row ── */
+    .card-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
@@ -150,48 +150,51 @@
     .badge {
       display: inline-block;
       font-size: 0.68rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
+      padding: 0.18em 0.6em;
+      border-radius: 20px;
+      white-space: nowrap;
     }
 
-    /* type badge colours */
-    .badge-type-module-topics   { background: #e0f0e9; color: #1a6640; }
-    .badge-type-text-content    { background: #e8eeff; color: #2547a1; }
-    .badge-type-quiz            { background: #fff3e0; color: #8a4c00; }
-    .badge-type-assignment      { background: #fce8f3; color: #7a1a52; }
-    .badge-type-default         { background: #ebebeb; color: #444; }
+    /* Type badge colours */
+    .badge-type-module   { background: #e8f0fb; color: #1a4e8a; }
+    .badge-type-text     { background: #e6f4ea; color: #1e6e38; }
+    .badge-type-topic    { background: #fef3e2; color: #7a4a00; }
+    .badge-type-quiz     { background: #fde8f5; color: #7a1060; }
+    .badge-type-assign   { background: #f0ebff; color: #4a1fa8; }
+    .badge-type-default  { background: #eef0f4; color: #3a4558; }
 
-    /* file type badge */
+    /* File type badge */
     .badge-file {
-      background: #f0f2f7;
-      color: #5a6482;
-      border: 1px solid #d6daea;
+      background: #f0f2f5;
+      color: #4a5568;
+      font-family: 'Courier New', monospace;
+      font-size: 0.67rem;
     }
 
     /* ── Description ── */
     .card-desc {
-      font-size: 0.875rem;
+      font-size: 0.855rem;
       color: #4a5568;
-      line-height: 1.6;
-      flex-grow: 1;
+      line-height: 1.62;
+      flex: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
+      padding: 1.4rem 1rem;
       font-size: 0.78rem;
-      color: #8a94aa;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde3ef;
+      color: #8a96a8;
+      border-top: 1px solid #dce3ee;
       margin-top: 1rem;
     }
 
-    /* ── Responsive tweak ── */
-    @media (max-width: 480px) {
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
       .card-grid { grid-template-columns: 1fr; }
+      header { padding: 1.8rem 1rem 1.5rem; }
     }
   </style>
 </head>
@@ -201,139 +204,215 @@
 
   <header>
     <div class="header-inner">
-      <p class="course-label">EGN3443 – Probability &amp; Statistics for Engineers</p>
-      <h1>Week 14 / Module 13 &mdash; Validating Regression</h1>
+      <div class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</div>
+      <h1>Week 14 / Module 13 — Validating Regression</h1>
       <p>
-        This module focuses on the critical step of validating regression models after they are built.
-        Learners will examine model assumptions (linearity, homoscedasticity, and independence), perform
-        residual analysis, identify influential observations, and apply cross-validation techniques to
-        assess model generalizability. Use the resources below to read, practice, and demonstrate mastery.
+        This module focuses on assessing whether a fitted regression model is genuinely trustworthy.
+        Topics include verifying model assumptions (linearity, independence, homoscedasticity, normality),
+        residual analysis, cross-validation techniques, diagnosing structural weaknesses, and iterative
+        model refinement for sound engineering decision-making. Use the resources below to work through
+        readings, exercises, and assessments.
       </p>
     </div>
   </header>
 
   <main>
-    <p class="section-label">Module Artifacts &mdash; 6 items</p>
 
+    <!-- ── Module Topics & Overview ── -->
+    <div class="section-heading">Module Overview</div>
     <div class="card-grid">
 
-      <!-- Card 1: Module Topics -->
+      <!-- Module Topics -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">
+        <div class="card-top">
+          <div class="card-title">
             <a href="content/module_topics.html">Module Topics</a>
-          </span>
+          </div>
           <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type-module-topics">Module Topics</span>
+        <div class="card-meta">
+          <span class="badge badge-type-module">Module Topics</span>
           <span class="badge badge-file">.json</span>
         </div>
-        <p class="card-desc">
-          A structured outline of Module 13 topics covering regression validation foundations, model
-          assumptions (linearity, homoscedasticity, independence), residual analysis, and cross-validation
-          techniques, used to guide the organization and sequencing of the module's instruction.
-        </p>
+        <div class="card-desc">A structured outline of Module 13 topics covering regression validation foundations, model assumptions (linearity, homoscedasticity, independence), residual analysis, and cross-validation techniques, used to guide the organization and sequencing of the module's instruction.</div>
       </div>
 
-      <!-- Card 2: EGN3443 Module 13 Landing Page -->
+      <!-- EGN3443 Module 13 Landing -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">
+        <div class="card-top">
+          <div class="card-title">
             <a href="content/EGN3443_Module_13_Regression_Model_Validation.html">EGN3443 Module 13 – Regression Model Validation</a>
-          </span>
+          </div>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type-text-content">Text Content</span>
+        <div class="card-meta">
+          <span class="badge badge-type-text">Text Content</span>
           <span class="badge badge-file">.html</span>
         </div>
-        <p class="card-desc">
-          A module landing page that links learners to the Module 13 lecture presentation, supporting
-          video lecture, and a Google Colab notebook for hands-on regression validation exercises.
-        </p>
+        <div class="card-desc">A module landing page that links learners to the Module 13 lecture presentation, supporting video lecture, and a Google Colab notebook for hands-on regression validation exercises.</div>
       </div>
 
-      <!-- Card 3: Regression Model Validation Reading -->
+      <!-- Regression Model Validation reading -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">
+        <div class="card-top">
+          <div class="card-title">
             <a href="content/Regression_Model_Validation.html">Regression Model Validation</a>
-          </span>
+          </div>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type-text-content">Text Content</span>
+        <div class="card-meta">
+          <span class="badge badge-type-text">Text Content</span>
           <span class="badge badge-file">.html</span>
         </div>
-        <p class="card-desc">
-          A comprehensive reading that defines and explains residual analysis, key regression model
-          validation concepts, and supporting techniques, used by learners as a primary reference while
-          working through the module.
-        </p>
+        <div class="card-desc">A comprehensive reading that defines and explains residual analysis, key regression model validation concepts, and supporting techniques, used by learners as a primary reference while working through the module.</div>
       </div>
 
-      <!-- Card 4: Quiz Question Bank -->
+    </div><!-- /card-grid -->
+
+    <!-- ── Topic Readings ── -->
+    <div class="section-heading">Topic Readings</div>
+    <div class="card-grid">
+
+      <!-- T1 -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">
-            <a href="quiz/index.html">Quiz Question Bank (35 questions)</a>
-          </span>
-          <a class="source-link" href="source/quiz_questions.json">source file</a>
+        <div class="card-top">
+          <div class="card-title">
+            <a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t1.html">Foundations of Regression Validation</a>
+          </div>
         </div>
-        <div class="badge-row">
+        <div class="card-meta">
+          <span class="badge badge-type-topic">Topic Detail</span>
+          <span class="badge badge-file">.html</span>
+        </div>
+        <div class="card-desc">This reading introduces regression validation as a structured process for assessing whether a regression model is genuinely trustworthy beyond surface-level metrics like R-squared, and learners use it to understand why and how model checking is necessary before drawing conclusions.</div>
+      </div>
+
+      <!-- T2 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">
+            <a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t2.html">Assessing Regression Model Assumptions</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-topic">Topic Detail</span>
+          <span class="badge badge-file">.html</span>
+        </div>
+        <div class="card-desc">This reading explains the core assumptions underlying ordinary least squares linear regression (such as linearity, independence, homoscedasticity, and normality of errors) and how learners and instructors can identify when those assumptions are met or violated.</div>
+      </div>
+
+      <!-- T3 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">
+            <a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t3.html">Residual Analysis</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-topic">Topic Detail</span>
+          <span class="badge badge-file">.html</span>
+        </div>
+        <div class="card-desc">This reading covers residual analysis as a diagnostic tool for evaluating whether a fitted regression model is correct, teaching learners how to examine patterns in residuals to detect assumption violations and model misspecification.</div>
+      </div>
+
+      <!-- T4 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">
+            <a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t4.html">Cross-Validation Techniques</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-topic">Topic Detail</span>
+          <span class="badge badge-file">.html</span>
+        </div>
+        <div class="card-desc">This reading explains cross-validation techniques—including holdout sets and k-fold cross-validation—and how learners use them to assess a model's ability to generalize to new data rather than just fitting the training sample.</div>
+      </div>
+
+      <!-- T5 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">
+            <a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t5.html">Identifying and Diagnosing Model Weaknesses</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-topic">Topic Detail</span>
+          <span class="badge badge-file">.html</span>
+        </div>
+        <div class="card-desc">This reading covers three major categories of structural regression model weaknesses—such as multicollinearity, influential observations, and heteroscedasticity—and teaches learners how to identify and diagnose these problems before they corrupt model estimates.</div>
+      </div>
+
+      <!-- T6 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">
+            <a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t6.html">Model Refinement and Decision-Making</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type-topic">Topic Detail</span>
+          <span class="badge badge-file">.html</span>
+        </div>
+        <div class="card-desc">This reading covers the process of iteratively refining a regression model for trustworthiness and generalizability, guiding learners and instructors through balancing statistical fit with practical performance to support sound decision-making.</div>
+      </div>
+
+    </div><!-- /card-grid -->
+
+    <!-- ── Assessments ── -->
+    <div class="section-heading">Assessments &amp; Assignments</div>
+    <div class="card-grid">
+
+      <!-- Quiz -->
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">
+            
+          </div>
+          
+        </div>
+        <div class="card-meta">
           <span class="badge badge-type-quiz">Quiz</span>
           <span class="badge badge-file">.json</span>
         </div>
-        <p class="card-desc">
-          A 35-question quiz bank covering residual plot interpretation, Cook's Distance, variable
-          transformations, k-fold cross-validation, and prediction intervals, used by instructors to assess
-          learners' understanding of regression validation concepts.
-        </p>
+        <div class="card-desc">A 35-question quiz bank covering residual plot interpretation, Cook's Distance, variable transformations, k-fold cross-validation, and prediction intervals, used by instructors to assess learners' understanding of regression validation concepts.</div>
       </div>
 
-      <!-- Card 5: Graded Discussion -->
+      <!-- Discussion -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">
+        <div class="card-top">
+          <div class="card-title">
             <a href="assignments/index.html">Module 13 Graded Discussion</a>
-          </span>
+          </div>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type-assignment">Assignment</span>
+        <div class="card-meta">
+          <span class="badge badge-type-assign">Assignment</span>
           <span class="badge badge-file">.html</span>
         </div>
-        <p class="card-desc">
-          A graded discussion prompt asking learners to evaluate and comment on methods for detecting
-          dependency between independent and dependent variables, used to encourage reflection on regression
-          validation approaches across different data types.
-        </p>
+        <div class="card-desc">A graded discussion prompt asking learners to evaluate and comment on methods for detecting dependency between independent and dependent variables, used to encourage reflection on regression validation approaches across different data types.</div>
       </div>
 
-      <!-- Card 6: Assignment 13 -->
+      <!-- Assignment 13 -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">
+        <div class="card-top">
+          <div class="card-title">
             <a href="assignments/index.html">Assignment 13 – Validation of Regression</a>
-          </span>
+          </div>
         </div>
-        <div class="badge-row">
-          <span class="badge badge-type-assignment">Assignment</span>
+        <div class="card-meta">
+          <span class="badge badge-type-assign">Assignment</span>
           <span class="badge badge-file">.html</span>
         </div>
-        <p class="card-desc">
-          A hands-on assignment that extends the Module 12 multiple regression report by adding model fit
-          validation using a systematic approach (visualization through statistics), giving learners practice
-          applying validation techniques to their own dataset.
-        </p>
+        <div class="card-desc">A hands-on assignment that extends the Module 12 multiple regression report by adding model fit validation using a systematic approach (visualization through statistics), giving learners practice applying validation techniques to their own dataset.</div>
       </div>
 
-    </div><!-- /.card-grid -->
+    </div><!-- /card-grid -->
+
   </main>
 
   <footer>
-    EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 14 / Module 13 &bull; Course Materials Index
+    EGN3443 Probability &amp; Statistics for Engineers — Week 14 / Module 13 — Validating Regression
   </footer>
 
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
-</html>
+
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>

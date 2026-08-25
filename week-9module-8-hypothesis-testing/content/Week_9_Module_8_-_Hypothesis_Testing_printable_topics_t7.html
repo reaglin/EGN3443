@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting and Communicating Results</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>Interpreting and Communicating Results</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Interpreting and Communicating Results</h2>
+      <p>Reaching the end of a statistical analysis is not the same as finishing the work. The most technically flawless hypothesis test loses its value if its results are misread, overstated, or communicated in ways that mislead rather than inform. Interpreting and communicating results well requires a disciplined understanding of what the numbers actually say, a clear sense of their limitations, and the language skills to translate probabilistic evidence into honest, accessible conclusions. This topic explores each dimension of that challenge in depth.</p>
+
+<p><strong>Drawing Statistically Sound Conclusions</strong></p>
+
+<p>Every conclusion in hypothesis testing must be anchored to a specific, answerable question: does the evidence in the data justify rejecting the null hypothesis at the chosen significance level? Nothing more, nothing less. Before any data are collected, the analyst formulates a null hypothesis (H₀) representing the default assumption — typically that there is no effect, no difference, or no relationship — and an alternative hypothesis (H₁) representing the claim being investigated. After computing a test statistic and its corresponding p-value, the conclusion follows a simple but strict rule: if the p-value is less than or equal to the pre-specified significance level α, the null hypothesis is rejected in favour of the alternative; otherwise, the null hypothesis is not rejected.</p>
+
+<p>It is essential to use the phrase <em>not rejected</em> rather than <em>accepted</em>. Failing to reject H₀ does not establish that H₀ is true; it only means the current data do not provide sufficient evidence to overturn it. Think of a criminal trial: a verdict of "not guilty" does not declare the defendant innocent — it declares that the evidence was insufficient for conviction. Statistical conclusions carry the same logical structure.</p>
+
+<p>A statistically significant result means exactly one thing: the observed data would be unlikely to arise by chance alone if the null hypothesis were true. It does <em>not</em> mean the finding is large, important, or practically meaningful. Overstating certainty is one of the most damaging habits in applied statistics. Hypothesis testing is fundamentally probabilistic; there is always a non-zero probability that the conclusion is wrong, and communicating honestly means acknowledging that reality.</p>
+
+<p>Consider a concrete example. A pharmaceutical company tests whether a new drug lowers blood pressure more effectively than a placebo. After conducting a two-sample t-test, they obtain a test statistic of t = 2.45 with a corresponding p-value of 0.016. With α = 0.05, a sound conclusion would read: <em>"At the 5% significance level, we reject the null hypothesis that the drug has no effect on blood pressure (t = 2.45, p = 0.016). The data provide evidence to suggest the drug is associated with a reduction in blood pressure compared to the placebo."</em> Notice that this conclusion references the test statistic, the p-value, the significance level, and the direction of the finding — all without claiming absolute proof.</p>
+
+<p><strong>Interpreting P-Values in Context</strong></p>
+
+<p>The p-value is arguably the most widely cited and most widely misunderstood number in applied statistics. Formally, the p-value is the probability of observing a test statistic as extreme as, or more extreme than, the one actually obtained, <em>assuming the null hypothesis is true</em>. That conditional clause — "assuming H₀ is true" — is crucial and is routinely dropped in informal interpretation, leading to serious errors.</p>
+
+<p>A small p-value (conventionally below 0.05, though this threshold is a convention rather than a law of nature) signals that the observed data are inconsistent with the null hypothesis. The smaller the p-value, the stronger the evidence against H₀. A p-value of 0.002, for instance, says that if H₀ were true, there would be only a 0.2% chance of seeing data as extreme as what was observed — very strong grounds for skepticism about H₀. A p-value of 0.38, conversely, says the data are quite compatible with H₀; there is no particular reason to abandon it.</p>
+
+<p>The most pervasive misinterpretation is treating the p-value as the probability that the null hypothesis is true. This is categorically incorrect. The p-value is computed <em>under the assumption</em> that H₀ is true; it cannot simultaneously measure the probability of that assumption. Saying "p = 0.03, so there is a 3% chance the null hypothesis is correct" is a logical error with the same structure as saying "if I were in Paris, I would be in France; I am in France, therefore I am in Paris." The reasoning runs in the wrong direction.</p>
+
+<p>The p-value must also always be interpreted relative to the pre-specified α level, not in isolation. Whether p = 0.049 is "significant" or not depends entirely on whether α was set at 0.05 before the analysis began. Choosing α after seeing the data — sometimes called "p-hacking" — invalidates the entire inferential framework because it exploits the natural variability of random samples to manufacture the appearance of significance. The threshold must be committed to in advance.</p>
+
+<p>A useful way to appreciate the contextual nature of p-values is through a comparison table of common outcomes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>P-value Range</th>
+      <th>Interpretation (relative to α = 0.05)</th>
+      <th>Decision</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>p ≤ 0.01</td>
+      <td>Strong evidence against H₀</td>
+      <td>Reject H₀</td>
+    </tr>
+    <tr>
+      <td>0.01 &lt; p ≤ 0.05</td>
+      <td>Moderate evidence against H₀</td>
+      <td>Reject H₀</td>
+    </tr>
+    <tr>
+      <td>0.05 &lt; p ≤ 0.10</td>
+      <td>Weak evidence against H₀; below threshold</td>
+      <td>Fail to reject H₀</td>
+    </tr>
+    <tr>
+      <td>p &gt; 0.10</td>
+      <td>Little to no evidence against H₀</td>
+      <td>Fail to reject H₀</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These categories are guidelines for interpretation, not rigid rules. A p-value of 0.051 and one of 0.049 are substantively almost identical; treating them as categorically opposite conclusions because one sits above and the other below 0.05 would be scientifically misleading.</p>
+
+<p><strong>Communicating Findings Clearly and Accurately</strong></p>
+
+<p>Statistical literacy varies widely among audiences. A report submitted to a team of biostatisticians can use technical notation freely, but the same findings presented to a hospital executive board or a general readership require plain-language translation. In either case, good communication demands three non-negotiable elements: stating what hypothesis was tested, stating the chosen significance level, and stating the conclusion explicitly.</p>
+
+<p>Word choice matters enormously. The verb "proves" should never appear in a statistical conclusion. Hypothesis testing is an inductive process; it accumulates evidence, it does not deliver certainty. Similarly, "confirms," "establishes," and "demonstrates conclusively" all overstate what the method can deliver. More honest and accurate alternatives include:</p>
+
+<ul>
+  <li><em>"The data provide evidence to suggest..."</em></li>
+  <li><em>"The results are consistent with the hypothesis that..."</em></li>
+  <li><em>"We fail to find sufficient evidence against the assumption that..."</em></li>
+  <li><em>"At the 5% significance level, the data support the conclusion that..."</em></li>
+</ul>
+
+<p>A complete written conclusion for a hypothesis test should typically contain the following components in plain language: the research question, the null and alternative hypotheses in words, the significance level, the computed test statistic and p-value, and the real-world interpretation. For example:</p>
+
+<p><em>"We tested whether the average commute time for employees at Site A differs from the company-wide average of 35 minutes. Using a one-sample t-test at the 5% significance level, we obtained t = −2.87 (p = 0.005). Because p &lt; 0.05, we reject the null hypothesis and conclude that the data provide evidence that the average commute time at Site A is significantly shorter than the company-wide average. The observed sample mean was 29.4 minutes."</em></p>
+
+<p>Alongside statistical results, reporting the <strong>effect size</strong> substantially enriches the communication. Effect size measures how large or meaningful the observed difference or relationship is, independent of sample size. Reporting that a new teaching method produced a statistically significant improvement in test scores is far more informative when accompanied by the note that the average improvement was 1.2 points out of 100 — a detail that immediately signals whether the finding is practically interesting.</p>
+
+<p><strong>Distinguishing Statistical Significance from Practical Significance</strong></p>
+
+<p>Statistical significance and practical significance are related but entirely separate concepts, and conflating them is a mistake with real-world consequences. Statistical significance is a function of the p-value, which in turn depends on both the size of the true effect and the sample size. Practical significance asks a different question: is the effect large enough to matter in the real world?</p>
+
+<p>Large sample sizes expose the critical gap between these two notions. With a sample of 500,000 observations, even an effect that is negligibly small in any practical sense will produce a p-value astronomically close to zero and generate a "statistically significant" result. To illustrate: an online retailer might test two versions of a checkout button and find that the green button produces a 0.02% higher conversion rate — a result that is highly statistically significant across millions of sessions, but generates perhaps two additional sales per 10,000 visits. Whether that matters depends on business context, but calling it "significant" without clarification would mislead stakeholders.</p>
+
+<p>The antidote is to report <strong>effect sizes</strong> alongside p-values. Two of the most widely used effect size measures are:</p>
+
+<ul>
+  <li><strong>Cohen's d</strong>: Used for comparing two means. It expresses the difference between means in units of the pooled standard deviation. By convention, d ≈ 0.2 is small, d ≈ 0.5 is medium, and d ≈ 0.8 is large.</li>
+  <li><strong>Pearson's r</strong>: Used for correlations or as an effect size for t-tests. r ≈ 0.1 is small, r ≈ 0.3 is medium, and r ≈ 0.5 is large.</li>
+</ul>
+
+<p>The following table illustrates how statistical and practical significance can diverge:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Sample Size</th>
+      <th>Mean Difference</th>
+      <th>P-Value</th>
+      <th>Cohen's d</th>
+      <th>Verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Drug A vs Placebo</td>
+      <td>30</td>
+      <td>12 mmHg</td>
+      <td>0.031</td>
+      <td>0.78</td>
+      <td>Statistically and practically significant</td>
+    </tr>
+    <tr>
+      <td>Drug B vs Placebo</td>
+      <td>50,000</td>
+      <td>0.3 mmHg</td>
+      <td>0.002</td>
+      <td>0.02</td>
+      <td>Statistically significant; practically negligible</td>
+    </tr>
+    <tr>
+      <td>Drug C vs Placebo</td>
+      <td>15</td>
+      <td>8 mmHg</td>
+      <td>0.21</td>
+      <td>0.60</td>
+      <td>Not statistically significant; potentially practically meaningful</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Drug C in the table illustrates an equally important scenario: a potentially meaningful effect that fails to reach statistical significance, most likely due to an underpowered study. Dismissing this finding without noting the moderate effect size and the small sample could cause a genuinely beneficial treatment to be abandoned prematurely. Good communication captures all of this nuance.</p>
+
+<p><strong>Acknowledging and Communicating Potential Errors</strong></p>
+
+<p>No hypothesis test is infallible. Two types of error are always possible, and honest reporting acknowledges both.</p>
+
+<p>A <strong>Type I error</strong> occurs when the null hypothesis is true but is nonetheless rejected — a false positive. The probability of committing a Type I error is exactly α, the significance level. Choosing α = 0.05 means accepting a 5% chance of incorrectly rejecting a true H₀. This is a deliberate, pre-set tolerance for error. When reporting results, explicitly stating the chosen α communicates to the audience what risk of a false positive was deemed acceptable before the analysis began.</p>
+
+<p>A <strong>Type II error</strong> occurs when the null hypothesis is false but is not rejected — a false negative. The probability of a Type II error is denoted β, and statistical power is defined as 1 − β: the probability of correctly rejecting a false H₀. Power depends on the true effect size, the sample size, and the chosen α. A study with low power may genuinely miss a real effect, and results from such a study should be interpreted cautiously. When the stakes of a false negative are high — for instance, failing to detect a dangerous drug side effect — a low-powered study is not just statistically weak; it is potentially harmful.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>H₀ is Actually True</th>
+      <th>H₀ is Actually False</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Reject H₀</strong></td>
+      <td>Type I Error (probability = α)</td>
+      <td>Correct Decision (power = 1 − β)</td>
+    </tr>
+    <tr>
+      <td><strong>Fail to Reject H₀</strong></td>
+      <td>Correct Decision (probability = 1 − α)</td>
+      <td>Type II Error (probability = β)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When communicating results, noting the chosen α level transparently allows readers to assess whether the risk of a Type I error was set at an appropriate level for the context. In medical diagnostics or aviation safety, α = 0.01 or even 0.001 may be warranted. In exploratory social science research, α = 0.05 or 0.10 might be defensible. The rationale for the chosen threshold should be part of the methods narrative.</p>
+
+<p>When consequences of error are high — a new surgical procedure, a financial regulation, a public health intervention — recommending replication or further study is not a sign of weak analysis. It is responsible science. A single study, however well-designed, should rarely be treated as definitive. Flagging this limitation in the conclusion section strengthens, rather than undermines, the credibility of the report.</p>
+
+<p><strong>Presenting Results with Appropriate Confidence</strong></p>
+
+<p>A confidence interval is one of the most powerful and informative tools available for communicating statistical results, yet it is often overlooked in favour of reporting only the p-value. A 95% confidence interval, for instance, is a range of values constructed so that, if the study were repeated many times, 95% of the resulting intervals would contain the true population parameter. For a single study, the interval provides a plausible range for the true effect based on the observed data.</p>
+
+<p>Confidence intervals offer several advantages over a standalone p-value. First, they convey the <em>direction</em> of an effect: an interval entirely above zero (e.g., [2.1, 8.4]) indicates a positive effect, while one straddling zero (e.g., [−1.3, 5.7]) is consistent with either a positive or null effect. Second, they convey <em>precision</em>: a narrow interval such as [3.1, 3.9] indicates a highly precise estimate, while a wide interval such as [−5.0, 25.0] signals substantial uncertainty and should temper confidence in any conclusion. Third, they naturally communicate practical significance: an interval that lies entirely within a practically meaningless range delivers the message directly, even if the p-value happens to be small.</p>
+
+<p>Pairing a confidence interval with a p-value gives the audience a richer picture. Consider two studies both reporting p = 0.04:</p>
+
+<ul>
+  <li><strong>Study A</strong>: p = 0.04, 95% CI for mean difference = [0.1, 0.3] kg lost per week</li>
+  <li><strong>Study B</strong>: p = 0.04, 95% CI for mean difference = [0.1, 12.7] kg lost per week</li>
+</ul>
+
+<p>Both studies lead to the same binary decision (reject H₀), but Study B's extremely wide interval signals that the estimate is very imprecise, almost certainly due to a small or highly variable sample. That caveat would be invisible if only the p-value were reported.</p>
+
+<p>Wider confidence intervals are not failures to be hidden — they are honest representations of uncertainty that the audience needs to make informed decisions. A 95% CI of [−0.5, 18.3] for an estimated cost saving in a business intervention tells decision-makers that while the average estimate is positive, the data are compatible with outcomes ranging from a slight loss to a large gain. That range should directly inform how much investment the decision-maker is willing to commit before seeking more data.</p>
+
+<p>Using confidence intervals as the primary communication vehicle also subtly shifts the framing of results away from the binary "significant or not" dichotomy toward a more informative estimation framework. Instead of asking only "is there an effect?", the communication now answers "how large might the effect be, and how certain are we?" This is almost always a more useful question for real-world decision-making, and it reflects the genuine state of statistical knowledge more faithfully than a p-value alone ever can.</p>
+      <div class="notes"><strong>Notes</strong>Covers all six subtopic clusters: sound conclusions, p-value interpretation, clear communication, statistical vs. practical significance, error types, and confidence intervals. Examples are numeric and contextually varied (medical, business, education). Tables render all comparative data structurally. Language guidance on word choice (avoid &quot;proves&quot;) is embedded with specific alternatives. Cohen&#39;s d and Pearson&#39;s r conventions are included. Type I/II error table included for visual clarity.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

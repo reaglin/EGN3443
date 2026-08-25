@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting Regression Coefficients</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+  <header>
+    <h1>Interpreting Regression Coefficients</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Interpreting Regression Coefficients</h2>
+      <p>Multiple regression analysis produces a set of coefficients — one for each predictor in the model — and understanding what those coefficients actually mean is the foundation of interpreting any regression result correctly. Unlike simple linear regression, where a single predictor explains variation in an outcome, multiple regression involves several predictors working simultaneously. This creates a more complex interpretive landscape, because every coefficient is shaped not only by its own relationship with the outcome, but also by its relationships with every other predictor in the model. The concept that unifies all of these interpretive challenges is the <strong>partial regression coefficient</strong>.</p>
+
+<p>A <strong>partial regression coefficient</strong> (commonly written as <em>b</em> for unstandardized or <em>β</em> for standardized versions) represents the expected change in the outcome variable for a one-unit increase in that predictor, <em>while holding all other predictors in the model constant</em>. The word "partial" is the key: it distinguishes this coefficient from the simple bivariate slope you would obtain if you regressed the outcome on that one predictor alone, with nothing else in the equation. In simple regression, the slope absorbs everything — the direct effect of the predictor, the indirect effects that flow through its correlations with other variables, and any confounding. In multiple regression, those other influences are statistically peeled away, leaving behind only the relationship between that predictor and the outcome that cannot be attributed to anything else already in the model.</p>
+
+<p>To see why this matters, consider a concrete example. Suppose you are modeling employees' annual salaries as a function of years of experience and level of education (measured in years of schooling). A simple regression of salary on experience alone might yield a coefficient of $3,500, suggesting each additional year of experience is associated with $3,500 more in salary. But experience and education are positively correlated — people who have worked longer also tend to have completed more formal schooling in many fields. When you add education to the model, the partial coefficient for experience might drop to $2,100, because some of what the simple regression attributed to experience was actually carrying the influence of education along for the ride. The partial coefficient strips that shared influence away.</p>
+
+<p><strong>Holding Other Variables Constant</strong> is the phrase that appears in almost every textbook definition of a partial coefficient, and it deserves careful unpacking because it is often misunderstood. "Holding constant" does <em>not</em> mean that the researcher physically filters the dataset to cases where every other variable takes the same value. That would be impossible in most real datasets. Instead, it is a <em>mathematical</em> control achieved through the algebra of ordinary least squares estimation. The model simultaneously estimates the relationship between every predictor and the outcome while accounting for the shared variance among predictors. The result is that each coefficient reflects what the relationship between that predictor and the outcome looks like after removing the portion of both variables that can be explained by the other predictors.</p>
+
+<p>A helpful way to visualize this is through the concept of residualization. To estimate the partial coefficient for experience while controlling for education, you could (conceptually) regress experience on education, save the residuals — the part of experience that education cannot predict — and then regress salary on those residuals. The slope you get is identical to the partial coefficient from the full multiple regression model. Those residuals represent variation in experience that is orthogonal to, or independent of, education. The partial coefficient therefore captures the unique predictive relationship between experience and salary, the part that has nothing to do with education. This matters enormously in practice because it allows researchers to isolate the independent contribution of each predictor even when the predictors overlap substantially.</p>
+
+<p><strong>The intercept</strong> in a multiple regression equation is the predicted value of the outcome when every predictor simultaneously equals zero. In a model with two predictors, the full regression equation takes the form:</p>
+
+<pre><code>Ŷ = b₀ + b₁X₁ + b₂X₂</code></pre>
+
+<p>Here, <em>b₀</em> is the intercept, <em>b₁</em> is the partial coefficient for the first predictor, and <em>b₂</em> is the partial coefficient for the second. The intercept anchors the predicted value surface in the correct position and is mathematically necessary for computing accurate predictions for any combination of predictor values. However, its substantive interpretation depends heavily on whether zero is a plausible or meaningful value for all predictors at once. In the salary example, zero years of experience and zero years of education might be theoretically possible but practically rare, making the intercept a somewhat hollow quantity — it gives the predicted salary for someone with no schooling and no work history, a combination that may barely appear in the data.</p>
+
+<p>A widely used remedy is <strong>centering</strong> the predictors by subtracting each variable's mean from every observation before fitting the model. After centering, a value of zero on any predictor no longer means the raw variable equals zero; it means the variable equals its sample mean. The intercept then becomes the predicted outcome when all predictors are at their average values, which is usually a much more interpretable and representative quantity. Centering also reduces numerical instability in models that include interaction terms, though it does not change the partial coefficients for the predictors themselves — only the intercept is affected.</p>
+
+<p><strong>Positive and negative coefficients</strong> signal the direction of each predictor's unique relationship with the outcome. A positive partial coefficient tells you that, after statistically controlling for all other predictors, higher values of that predictor are associated with higher values of the outcome. A negative coefficient signals an inverse relationship: controlling for everything else, higher values of that predictor correspond to lower values of the outcome. The magnitude of the coefficient tells you how large that change is, expressed in the original measurement units of both the predictor and the outcome.</p>
+
+<p>For example, suppose a model predicts students' exam scores from hours of study per week (<em>b</em> = 4.2) and hours of social media use per day (<em>b</em> = −3.8). The positive coefficient for study hours means that each additional hour of studying per week is associated with a 4.2-point increase in exam scores, holding social media use constant. The negative coefficient for social media means that each additional hour of daily social media use is associated with a 3.8-point decrease in exam scores, holding study hours constant. Both interpretations include the "holding constant" qualifier, because that is always implicitly present in a partial coefficient.</p>
+
+<p>Every partial coefficient captures the <strong>unique contribution</strong> of its predictor — the portion of outcome variance that the predictor explains independently, not the variance it shares with other predictors. This distinction becomes especially salient when predictors are highly correlated. Imagine adding a third predictor, "hours of video gaming per day," to the exam score model. If video gaming and social media use are strongly correlated (because students who game a lot also tend to use social media a lot), then after controlling for social media, video gaming may have a much smaller partial coefficient than you might have expected from examining gaming's simple correlation with exam scores. Both predictors are "competing" to explain the same pool of variance in the outcome, and the partial regression framework assigns credit only for what each contributes that the other does not.</p>
+
+<p>This is why researchers sometimes find a predictor that is strongly correlated with the outcome in isolation but has a near-zero or even reversed partial coefficient in a multiple regression — a phenomenon related to <strong>suppressor effects</strong> and <strong>multicollinearity</strong>. Assessing unique contributions also helps answer the practical question: which variables add genuine predictive value beyond what the others already capture? A predictor with a large bivariate correlation but a small partial coefficient is largely redundant given the other predictors; a predictor with a modest bivariate correlation but a substantial partial coefficient is providing unique, non-redundant information.</p>
+
+<p><strong>Units of measurement</strong> create an important limitation when comparing coefficients across predictors. Because each coefficient is expressed in units of the outcome per unit of its own predictor, predictors measured on very different scales produce coefficients that are not directly comparable. A coefficient of 0.03 for income measured in dollars and a coefficient of 2.7 for age measured in years cannot be ranked to determine which predictor is "more important" — income would look trivially small simply because one dollar is a tiny unit of currency relative to meaningful income differences. To make fair comparisons of relative importance, researchers compute <strong>standardized regression coefficients</strong>, denoted <em>β</em> (beta).</p>
+
+<p>Standardized coefficients are obtained by converting all variables — both predictors and the outcome — to z-scores (subtracting the mean and dividing by the standard deviation) before running the regression, or equivalently by multiplying each unstandardized coefficient by the ratio of the predictor's standard deviation to the outcome's standard deviation. The result is a unit-free coefficient that tells you how many standard deviations the outcome changes for each one-standard-deviation increase in that predictor, holding the other standardized predictors constant. A standardized coefficient of 0.45 for study hours and 0.18 for sleep hours (hypothetically) would indicate that study hours make roughly 2.5 times the unique contribution to predicting exam scores, in standard-deviation terms.</p>
+
+<p>The following table summarizes the key properties of unstandardized versus standardized coefficients:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Unstandardized (<em>b</em>)</th>
+      <th>Standardized (<em>β</em>)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Units</td>
+      <td>Outcome units per predictor unit</td>
+      <td>Standard deviations of outcome per SD of predictor</td>
+    </tr>
+    <tr>
+      <td>Interpretability in original scale</td>
+      <td>Yes — directly meaningful</td>
+      <td>No — requires back-transformation</td>
+    </tr>
+    <tr>
+      <td>Comparability across predictors</td>
+      <td>Only if predictors share the same scale</td>
+      <td>Yes — all on the same standardized scale</td>
+    </tr>
+    <tr>
+      <td>Sensitivity to predictor variance</td>
+      <td>Yes</td>
+      <td>Adjusted for variance differences</td>
+    </tr>
+    <tr>
+      <td>Affected by centering?</td>
+      <td>Only the intercept changes</td>
+      <td>No change (all variables already centered by z-scoring)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Despite the usefulness of standardized coefficients for within-model comparisons, they should not be used to compare the relative importance of predictors across different studies or samples, because they are sensitive to the variance of the predictors in the specific sample used. A predictor with highly restricted range in one study will have an artificially small standardized coefficient even if its true effect is large.</p>
+
+<p>Several <strong>common misinterpretations</strong> undermine the conclusions that researchers draw from regression coefficients, and awareness of them is essential. The first and most pervasive is treating a partial coefficient as though it represents the <em>total</em> effect of a predictor. It does not. A partial coefficient represents only the direct, unique association between the predictor and the outcome after controlling for the other variables in the model. If a predictor also affects the outcome indirectly — for instance, by influencing one of the other predictors, which in turn influences the outcome — that indirect pathway is not captured by the partial coefficient; in fact, controlling for the mediating variable removes that pathway entirely. Path analysis and structural equation modeling are better tools when total effects matter.</p>
+
+<p>A second major concern is <strong>multicollinearity</strong> — high correlations among the predictors themselves. When predictors are strongly correlated, the model struggles to separate their unique contributions, leading to inflated standard errors for the partial coefficients. This means the coefficients can be statistically unstable: small changes in the data can produce large swings in the estimated values. A predictor that genuinely matters can appear non-significant because its standard error is too large, not because its true effect is small. Researchers should routinely compute diagnostic statistics such as the Variance Inflation Factor (VIF) or tolerance to detect problematic collinearity before interpreting individual coefficients.</p>
+
+<p>The third critical issue is <strong>omitted variable bias</strong>. If a variable that genuinely causes the outcome is correlated with one or more predictors in the model but is not included in the model itself, the coefficients of the included predictors will absorb some of the omitted variable's influence, biasing them away from their true values. For example, if you model income as a function of years of education without including cognitive ability — which is correlated with both education and income — the coefficient for education will be inflated, because part of what looks like an education effect is really a cognitive ability effect that was never controlled. Omitted variable bias cannot be corrected after the fact by statistical adjustment; it requires identifying and measuring the omitted variables and including them in the model, or using research designs (such as randomization or instrumental variables) that circumvent the problem. This is one of the strongest arguments for theory-driven model specification rather than purely data-driven predictor selection.</p>
+
+<p>Together, these considerations — the meaning of partial control, the role of the intercept, directionality and magnitude, unique versus shared variance, scale comparability, and the pitfalls of misinterpretation — form the complete interpretive toolkit for working with multiple regression coefficients. Treating each coefficient as a precisely bounded, conditionally stated estimate of a specific relationship, rather than as a simple bivariate effect, is the disciplined habit that separates careful regression analysis from superficial number-reading.</p>
+      <div class="notes"><strong>Notes</strong>Consider supplementing with a worked numerical example showing how centering changes the intercept but not the slopes, and a VIF table illustrating the impact of multicollinearity on standard errors. A diagram illustrating the residualization conceptualization of partial coefficients may aid visual learners.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

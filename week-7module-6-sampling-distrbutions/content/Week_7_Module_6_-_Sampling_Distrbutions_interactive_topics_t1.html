@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Sampling Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+  <header>
+    <h1>Introduction to Sampling Distributions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Sampling Distributions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistics is ultimately about learning something true of a large group — a <strong>population</strong> — when examining only a small piece of it, a <strong>sample</strong>. The bridge between what a sample tells us and what we can honestly say about the population is built on a single, powerful idea: the <strong>sampling distribution</strong>. Before exploring formal tools like confidence intervals or hypothesis tests, it is essential to understand what a sampling distribution is, why it exists, and what it makes possible.</p>
+
+<p>Imagine you want to know the average number of hours per week that college students in your country spend studying. Surveying every student is impractical, so you draw a random sample of 100 students and compute the average — say, 14.3 hours. That number is useful, but it raises an immediate question: if you drew a completely different random sample of 100 students, would you get 14.3 hours again? Almost certainly not. You might get 13.8, or 15.1, or 14.0. Each sample produces its own average. The <strong>sampling distribution</strong> is the full picture of all the averages you <em>could</em> get across every possible sample of the same size, and how often each value tends to appear.</p>
+
+<p><strong>What Is a Sampling Distribution?</strong></p>
+
+<p>A sampling distribution is the probability distribution of a <strong>sample statistic</strong> — a numerical summary computed from sample data, such as a mean, proportion, median, or standard deviation — obtained by imagining the process of drawing many independent random samples of the same size from the same population.</p>
+
+<p>This definition contains a crucial distinction worth emphasizing carefully. When you collect data on, say, the ages of 50 customers, you can plot those 50 ages in a histogram. That histogram shows the <strong>distribution of the raw data</strong>. The sampling distribution is entirely different: it is not about individual ages at all. It is about the <em>statistic</em> you compute from those ages — perhaps the sample mean age — and how that single number would vary if you repeated the sampling process over and over with fresh samples of 50 customers each time.</p>
+
+<p>To make this concrete, consider a tiny, well-defined population: the five values {2, 4, 6, 8, 10}, representing quiz scores. The population mean is exactly (2+4+6+8+10)/5 = 6. Now suppose you draw every possible sample of size 2 <em>without replacement</em> and compute the sample mean for each:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sample</th>
+      <th>Values</th>
+      <th>Sample Mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>2, 4</td><td>3.0</td></tr>
+    <tr><td>2</td><td>2, 6</td><td>4.0</td></tr>
+    <tr><td>3</td><td>2, 8</td><td>5.0</td></tr>
+    <tr><td>4</td><td>2, 10</td><td>6.0</td></tr>
+    <tr><td>5</td><td>4, 6</td><td>5.0</td></tr>
+    <tr><td>6</td><td>4, 8</td><td>6.0</td></tr>
+    <tr><td>7</td><td>4, 10</td><td>7.0</td></tr>
+    <tr><td>8</td><td>6, 8</td><td>7.0</td></tr>
+    <tr><td>9</td><td>6, 10</td><td>8.0</td></tr>
+    <tr><td>10</td><td>8, 10</td><td>9.0</td></tr>
+  </tbody>
+</table>
+
+<p>The collection of all ten sample means — {3, 4, 5, 5, 6, 6, 7, 7, 8, 9} — forms the sampling distribution of the sample mean for samples of size 2 drawn from this population. Notice that the average of all these sample means is (3+4+5+5+6+6+7+7+8+9)/10 = 6, which is exactly the population mean. This is not a coincidence; it reflects a deep and important property that will be revisited shortly.</p>
+
+<p><strong>Population Parameters vs. Sample Statistics</strong></p>
+
+<p>Before going further, it helps to be precise about language. A <strong>parameter</strong> is a numerical characteristic of a <em>population</em>. It is a fixed, exact value — even if we do not know what it is. The population mean is typically written as <em>μ</em> (mu), the population standard deviation as <em>σ</em> (sigma), and the population proportion as <em>p</em>.</p>
+
+<p>A <strong>statistic</strong>, by contrast, is a numerical characteristic computed from a <em>sample</em>. The sample mean is written <em>x̄</em>, the sample standard deviation as <em>s</em>, and the sample proportion as <em>p̂</em> (p-hat). Because different samples from the same population yield different data, statistics are variable — they change from sample to sample. Parameters do not change (they are fixed properties of the population), but statistics fluctuate around them.</p>
+
+<p>This distinction underpins all of statistics. We almost never have access to the entire population, so parameters like <em>μ</em> remain unknown. What we can do is use a sample statistic as an <strong>estimate</strong> of the parameter. But because that estimate comes with uncertainty — it could have been higher or lower depending on which individuals ended up in our sample — we need a way to characterize and quantify that uncertainty. The sampling distribution provides exactly that framework.</p>
+
+<p>Consider a political poll. The true proportion of voters who support a candidate, <em>p</em>, is a fixed parameter (before the election, a specific fraction of all voters truly favor that candidate). A pollster surveys 1,000 randomly chosen voters and finds that 53% support the candidate: <em>p̂</em> = 0.53. If the poll were repeated with a different 1,000 voters, the result might be 51% or 55%. Each survey produces a different <em>p̂</em>. The sampling distribution of <em>p̂</em> tells us how those estimates are distributed across all possible surveys of size 1,000.</p>
+
+<p><strong>Why Repeated Sampling Matters</strong></p>
+
+<p>In practice, researchers draw only <em>one</em> sample. So why does it matter what would happen across many hypothetical samples? The answer is that understanding the behavior of a statistic across repeated samples allows us to make <strong>probabilistic statements</strong> about the single sample we actually have.</p>
+
+<p>Think of it this way. Suppose you know that when a fair coin is flipped 100 times, the number of heads follows a distribution centered at 50, with most outcomes falling between 40 and 60. If someone flips 100 times and gets 49 heads, you feel confident saying this is a perfectly ordinary result for a fair coin. If they get 91 heads, you have strong reason to suspect the coin is not fair, because getting 91 heads is extremely rare under the fair-coin model. You are making a judgment about a single outcome by knowing what the full distribution of outcomes looks like. Statistical inference works the same way: knowing the sampling distribution of a statistic tells us what outcomes are common, what outcomes are rare, and therefore what we should or should not be surprised by.</p>
+
+<p>This is how a single, well-conducted study gains its power to make generalizable claims. The researcher does not need to repeat the study hundreds of times. The theoretical sampling distribution, derived from probability theory and mathematical statistics, already tells us what the pattern of results across repetitions would look like. The one observed result can then be evaluated in that context.</p>
+
+<p><strong>Variability of Sample Statistics</strong></p>
+
+<p>One of the most important lessons conveyed by the concept of a sampling distribution is that <strong>sample statistics are inherently variable</strong>. No matter how carefully a study is designed, a different random sample would, in general, produce a different statistic. This is not a flaw or a sign of poor methodology — it is the fundamental nature of random sampling.</p>
+
+<p>The <strong>spread</strong> of the sampling distribution quantifies this variability. A widely spread sampling distribution means that sample statistics are quite unpredictable from one sample to the next — some will be much too high, others much too low. A tightly clustered sampling distribution means statistics tend to land very close to the true parameter, making estimates reliable.</p>
+
+<p>What determines how much spread exists in a sampling distribution? Two key factors:</p>
+
+<ul>
+  <li><strong>Variability in the population:</strong> If individuals in the population are very different from one another (high population standard deviation <em>σ</em>), samples will capture those differences and produce more variable statistics. A population where nearly everyone is similar will yield statistics that cluster tightly regardless of sample size.</li>
+  <li><strong>Sample size (<em>n</em>):</strong> Larger samples average out the random high and low values they include, causing the sample mean to be more stable. Mathematically, the standard deviation of the sampling distribution of the mean — called the <strong>standard error</strong> — equals σ/√n. Doubling the sample size reduces the standard error by a factor of √2 ≈ 1.41, meaning estimates become noticeably more precise.</li>
+</ul>
+
+<p>To illustrate: suppose the population of quiz scores has a standard deviation of σ = 10 points.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sample Size (n)</th>
+      <th>Standard Error (σ/√n)</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>10</td><td>10/√10 ≈ 3.16</td><td>Sample means typically within ~3 points of μ</td></tr>
+    <tr><td>25</td><td>10/√25 = 2.00</td><td>Sample means typically within ~2 points of μ</td></tr>
+    <tr><td>100</td><td>10/√100 = 1.00</td><td>Sample means typically within ~1 point of μ</td></tr>
+    <tr><td>400</td><td>10/√400 = 0.50</td><td>Sample means typically within ~0.5 points of μ</td></tr>
+  </tbody>
+</table>
+
+<p>This table makes vivid why researchers invest resources in collecting larger samples: each increase in sample size narrows the sampling distribution, making sample statistics more reliable as estimates of their corresponding parameters.</p>
+
+<p>It is equally important to understand what variability in a sampling distribution does <em>not</em> mean. It does not mean the study was conducted poorly. A random sample of size 25 from a variable population is expected to produce some variation in the sample mean — that is simply what random sampling does. The sampling distribution gives us a principled way to account for and communicate this expected variability rather than ignoring it or treating it as an error.</p>
+
+<p><strong>The Role of Sampling Distributions in Statistical Inference</strong></p>
+
+<p>Every major tool in inferential statistics — confidence intervals, p-values, hypothesis tests, and beyond — rests directly on the concept of the sampling distribution. Understanding <em>why</em> requires tracing the logical chain.</p>
+
+<p>Suppose a drug company claims that their new medication reduces average systolic blood pressure by 10 mmHg. A clinical trial enrolls 200 patients and finds an average reduction of 7 mmHg. Is 7 meaningfully less than 10, or could this gap simply be the result of random sampling variation? To answer that question rigorously, we need to know: <em>if the true reduction really were 10 mmHg, how likely would it be to observe a sample mean as far from 10 as 7 (or farther)?</em> That probability can only be calculated by knowing the sampling distribution of the sample mean under the assumption that the true effect is 10 mmHg.</p>
+
+<p>If the sampling distribution reveals that gaps this large (or larger) occur frequently by chance — say, 30% of the time — we have little reason to doubt the company's claim on the basis of this data. If the sampling distribution shows such gaps are extraordinarily rare — say, occurring only 0.2% of the time — we have strong statistical grounds to question whether the true effect really is 10 mmHg.</p>
+
+<p>This is the logic of a <strong>p-value</strong>: the probability, computed using the sampling distribution, of observing a statistic as extreme as (or more extreme than) the one actually obtained, <em>assuming</em> a particular population condition is true. Crucially, without knowing the shape, center, and spread of the sampling distribution, the p-value cannot be computed, and no formal inference is possible.</p>
+
+<p>Similarly, a <strong>confidence interval</strong> is constructed by using the spread of the sampling distribution (specifically, the standard error) to define a range around the observed statistic that is likely to contain the true parameter. A 95% confidence interval, for example, is built so that across the long run of repeated sampling, 95% of all such intervals would capture the true population parameter — a statement only coherent in the context of the sampling distribution.</p>
+
+<p>In short, the sampling distribution is not an abstract or theoretical curiosity. It is the mathematical foundation that makes it possible to go from <em>what one sample showed</em> to <em>what is plausibly true about the population</em> — which is, ultimately, the entire point of collecting data in the first place.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to reinforce the population-vs-sample language distinction early and consistently, as confusion between parameters and statistics is one of the most persistent sources of conceptual error in introductory statistics. The small worked example with the five-element population is useful for in-class enumeration exercises. The standard error table can be extended or adapted to whatever context is most relevant to learners&#39; fields of study.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

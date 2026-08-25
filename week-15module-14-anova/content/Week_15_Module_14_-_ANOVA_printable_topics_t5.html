@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Factor ANOVA Designs</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+  <header>
+    <h1>Multi-Factor ANOVA Designs</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Multi-Factor ANOVA Designs</h2>
+      <p>Analysis of Variance does not have to be limited to a single grouping variable. In many real research scenarios, outcomes are shaped by more than one factor acting simultaneously, and those factors may even amplify or dampen each other's influence. Multi-factor ANOVA — most commonly encountered as two-way ANOVA — extends the one-way framework to handle exactly these situations. By studying multiple independent variables in a single analysis, researchers gain efficiency, statistical power, and access to a class of information that is simply invisible when variables are studied one at a time.</p>
+
+<p>Understanding multi-factor ANOVA begins with a clear picture of where it comes from and what problem it solves. From there, the key concepts — main effects, interaction effects, the structural decomposition of variance, and the rules for interpreting results — build on one another in a logical sequence.</p>
+
+<p><strong>From One-Way to Multi-Factor ANOVA</strong></p>
+
+<p>A one-way ANOVA answers a single question: do the group means differ across the levels of one independent variable? For example, a researcher might ask whether three different teaching methods produce different test scores. The analysis produces one F-statistic that tests one set of group means. This is powerful but limited. If the researcher also suspects that students' prior academic experience matters — and that teaching method might work differently for beginners versus advanced students — a one-way ANOVA on method alone cannot capture that complexity.</p>
+
+<p>One intuitive but flawed solution is to run two separate one-way ANOVAs: one for teaching method, one for experience level. This approach has serious drawbacks. First, it inflates the familywise error rate — the more separate tests you conduct, the more likely you are to obtain a significant result by chance. Second, and more fundamentally, it is <em>structurally incapable</em> of detecting whether the two variables interact. Running two one-way ANOVAs produces two independent answers; it cannot tell you whether the effect of teaching method depends on experience level.</p>
+
+<p>Multi-factor ANOVA solves both problems at once. It analyzes all factors in a single model, so the familywise error rate is controlled within that model, and it explicitly tests whether the factors operate independently or in combination. In the language of ANOVA, each independent variable is called a <strong>factor</strong>, and each distinct value or group within a factor is called a <strong>level</strong>. A study with two factors — teaching method (3 levels: lecture, discussion, online) and experience (2 levels: beginner, advanced) — is called a 3 × 2 factorial design. The product of the level counts gives the number of unique conditions, or <em>cells</em>: 3 × 2 = 6 cells in this example.</p>
+
+<p><strong>Main Effects</strong></p>
+
+<p>A <strong>main effect</strong> is the overall effect of one factor on the dependent variable, averaged across all levels of the other factor or factors. In a two-way ANOVA with factors A and B, there are two main effects: one for A and one for B. Each main effect is tested with its own F-statistic, computed as the ratio of the mean square for that factor to the mean square for error.</p>
+
+<p>Suppose the dependent variable is exam score (0–100). Factor A is teaching method (lecture, discussion, online) and Factor B is experience level (beginner, advanced). The main effect of teaching method asks: ignoring whether students are beginners or advanced, do the three methods produce different average scores? The main effect of experience asks: ignoring which teaching method was used, do beginners and advanced students score differently overall?</p>
+
+<p>A significant main effect tells you that at least one level of that factor produces a meaningfully different average outcome. It does <em>not</em> by itself tell you which levels differ — that requires post-hoc testing when there are three or more levels. It also does not tell you whether the effect is consistent across levels of the other factor. That is the job of the interaction test.</p>
+
+<p>Main effects are most cleanly interpretable when the interaction between factors is not significant. When there is no interaction, the effect of Factor A is the same (or close enough to be treated as the same) regardless of which level of Factor B you are looking at. In that case, reporting and discussing the main effect of A gives a fair and complete summary. When an interaction <em>is</em> present, the marginal means that define the main effect may be misleading averages of very different patterns, and additional caution is required.</p>
+
+<p><strong>Interaction Effects</strong></p>
+
+<p>The interaction effect is arguably the most distinctive and valuable feature of multi-factor designs. An <strong>interaction</strong> exists when the effect of one factor on the dependent variable changes depending on the level of another factor. Equivalently, the differences among the levels of Factor A are not the same at every level of Factor B.</p>
+
+<p>Consider a concrete example. Suppose lecture produces the highest scores among beginners but the lowest scores among advanced students, while online instruction produces the lowest scores for beginners but the highest for advanced students. If you averaged across experience level to compute the main effect of teaching method, those differences would wash out, and you might conclude that method does not matter. That conclusion would be dangerously wrong. The interaction reveals the true story: the best method depends entirely on who the student is.</p>
+
+<p>Interactions cannot be detected by running separate one-way ANOVAs. A one-way ANOVA on teaching method pools beginners and advanced students together; a one-way ANOVA on experience level pools all teaching methods together. Neither analysis has the structure to compare the method effect at one level of experience against the method effect at another level. Only the factorial design, and its interaction F-test, can do this.</p>
+
+<p>The standard way to visualize an interaction is with a <strong>line graph</strong> (also called an interaction plot). One factor's levels appear on the horizontal axis, the dependent variable appears on the vertical axis, and separate lines represent the levels of the other factor. When the lines are parallel (or very close to parallel), the effects of the two factors are additive — no interaction. When the lines are <em>not</em> parallel — they converge, diverge, or cross — an interaction is present. Crossing lines (a "disordinal" or "crossover" interaction) represent the most dramatic case, where the rank ordering of the levels of one factor actually reverses depending on which level of the other factor you are examining.</p>
+
+<p>A significant interaction F-test indicates that the interaction pattern is larger than would be expected by sampling error alone. When the interaction is significant, the standard interpretive advice is to set aside simple interpretations of main effects and instead conduct <strong>simple effects analyses</strong> — examining the effect of one factor separately at each level of the other factor.</p>
+
+<p><strong>When to Use Multi-Factor ANOVA</strong></p>
+
+<p>Multi-factor ANOVA is appropriate when a researcher has two or more categorical independent variables (factors) and a continuous dependent variable measured on at least an interval scale. The design is especially well-suited to situations where:</p>
+
+<ul>
+  <li>Theory or prior research suggests that two or more variables jointly influence the outcome — perhaps even in ways that depend on each other.</li>
+  <li>You want to test whether a previously established effect holds across different subgroups or conditions, which is precisely what an interaction test does.</li>
+  <li>Efficiency matters: studying two factors simultaneously in one sample is far more economical than running two separate studies.</li>
+  <li>You want to reduce error variance by statistically accounting for a second source of systematic variability, which can increase power for detecting the effects of interest.</li>
+</ul>
+
+<p>All the standard ANOVA assumptions carry over to multi-factor designs and must be satisfied for the F-tests to be valid:</p>
+
+<ul>
+  <li><strong>Independence of observations:</strong> Each participant or unit contributes data to only one cell, and observations within cells are not systematically related to each other.</li>
+  <li><strong>Normality of residuals:</strong> The residuals (deviations of individual scores from their cell means) should be approximately normally distributed. The F-test is reasonably robust to modest violations, especially with larger and balanced samples.</li>
+  <li><strong>Homogeneity of variance (homoscedasticity):</strong> The population variance within each cell should be equal. Levene's test or Bartlett's test can be used to check this assumption. Violations become more consequential as cell sizes become unequal.</li>
+</ul>
+
+<p><strong>Structure of a Two-Way ANOVA</strong></p>
+
+<p>The logical core of ANOVA is the partitioning of total variability into meaningful components. In a two-way ANOVA with factors A and B, the total sum of squares (SS<sub>Total</sub>) is decomposed as follows:</p>
+
+<p>SS<sub>Total</sub> = SS<sub>A</sub> + SS<sub>B</sub> + SS<sub>A×B</sub> + SS<sub>Error</sub></p>
+
+<p>Each component captures a distinct source of variability:</p>
+
+<ul>
+  <li><strong>SS<sub>A</sub></strong> reflects variability in the group means of Factor A (averaged across levels of B) relative to the grand mean.</li>
+  <li><strong>SS<sub>B</sub></strong> reflects variability in the group means of Factor B (averaged across levels of A) relative to the grand mean.</li>
+  <li><strong>SS<sub>A×B</sub></strong> (the interaction) captures the additional variability in cell means that cannot be accounted for by the main effects of A and B alone — it is the "leftover" pattern in cell means after removing the additive contributions of A and B.</li>
+  <li><strong>SS<sub>Error</sub></strong> (also called SS<sub>Within</sub>) captures variability among individual observations within cells — the variability that cannot be attributed to any of the systematic factors.</li>
+</ul>
+
+<p>Each sum of squares is divided by its degrees of freedom to produce a mean square (MS), and each MS is divided by MS<sub>Error</sub> to produce an F-ratio. The table below summarizes the structure of a two-way ANOVA source table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>SS</th>
+      <th>df</th>
+      <th>MS</th>
+      <th>F</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Factor A</td>
+      <td>SS<sub>A</sub></td>
+      <td>a − 1</td>
+      <td>SS<sub>A</sub> / (a − 1)</td>
+      <td>MS<sub>A</sub> / MS<sub>Error</sub></td>
+    </tr>
+    <tr>
+      <td>Factor B</td>
+      <td>SS<sub>B</sub></td>
+      <td>b − 1</td>
+      <td>SS<sub>B</sub> / (b − 1)</td>
+      <td>MS<sub>B</sub> / MS<sub>Error</sub></td>
+    </tr>
+    <tr>
+      <td>A × B Interaction</td>
+      <td>SS<sub>A×B</sub></td>
+      <td>(a − 1)(b − 1)</td>
+      <td>SS<sub>A×B</sub> / [(a−1)(b−1)]</td>
+      <td>MS<sub>A×B</sub> / MS<sub>Error</sub></td>
+    </tr>
+    <tr>
+      <td>Error (Within)</td>
+      <td>SS<sub>Error</sub></td>
+      <td>ab(n − 1)</td>
+      <td>SS<sub>Error</sub> / [ab(n−1)]</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Total</td>
+      <td>SS<sub>Total</sub></td>
+      <td>abn − 1</td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this table, <em>a</em> is the number of levels of Factor A, <em>b</em> is the number of levels of Factor B, and <em>n</em> is the number of observations per cell (assuming a balanced design). A <strong>balanced design</strong> — where every cell contains exactly the same number of participants — is strongly preferred because it simplifies calculation, makes SS components orthogonal (non-overlapping), and makes the F-tests straightforwardly interpretable. When cell sizes are unequal (an <em>unbalanced</em> design), the sums of squares are no longer independent, and more complex computational approaches (such as Type II or Type III sums of squares) are required.</p>
+
+<p><strong>Cell means</strong> are the average scores within each unique combination of factor levels. In a 3 × 2 design, there are six cell means. These means are the fundamental data for understanding interactions: an interaction is precisely a pattern of cell means that cannot be described simply as "Factor A effect plus Factor B effect." Examining cell means — often displayed in a table or plotted in an interaction graph — is an essential step in understanding what any significant interaction actually means.</p>
+
+<p><strong>Interpreting Results in Multi-Factor Designs</strong></p>
+
+<p>A principled sequence for interpreting multi-factor ANOVA results helps avoid common errors. The recommended approach is:</p>
+
+<ul>
+  <li><strong>Step 1 — Examine the interaction first.</strong> The interaction F-test should be evaluated before the main effects. If the interaction is statistically significant, the pattern of results is more complex than either main effect alone can describe. In this case, main effects are potentially misleading and should not be interpreted in isolation. Instead, conduct simple effects tests: examine the effect of Factor A at each level of Factor B (or vice versa) to unpack the nature of the interaction.</li>
+  <li><strong>Step 2 — If the interaction is not significant, interpret main effects.</strong> When the interaction F is not significant, you can proceed to examine the main effect F-tests for Factor A and Factor B independently. A significant main effect for a factor with only two levels is fully interpretable by inspection (the higher mean identifies the dominant level). A significant main effect for a factor with three or more levels requires post-hoc tests (such as Tukey's HSD or Bonferroni correction) to determine which specific pairs of means differ.</li>
+  <li><strong>Step 3 — Report effect sizes.</strong> Statistical significance alone does not convey the magnitude or practical importance of an effect. <strong>Eta-squared (η²)</strong> expresses the proportion of total variance in the dependent variable accounted for by a given source: η² = SS<sub>source</sub> / SS<sub>Total</sub>. <strong>Partial eta-squared (η²<sub>p</sub>)</strong> is more commonly reported in multi-factor designs because it expresses the proportion of variance accounted for by a source relative to that source plus error, rather than relative to the total: η²<sub>p</sub> = SS<sub>source</sub> / (SS<sub>source</sub> + SS<sub>Error</sub>). Partial eta-squared is preferred because eta-squared values from a multi-factor design are not directly comparable to those from a one-way ANOVA — they are affected by how many other factors are in the model.</li>
+</ul>
+
+<p>To make the interpretation sequence concrete, consider a study examining the effect of sleep deprivation (Factor A: 0 hours lost, 4 hours lost, 8 hours lost) and caffeine consumption (Factor B: no caffeine, caffeine) on a reaction-time task (lower scores = faster). Suppose the ANOVA yields a significant A × B interaction. This means that the benefit (or cost) of caffeine differs depending on how sleep-deprived participants are. Perhaps caffeine dramatically improves reaction time when participants have lost 8 hours of sleep, modestly helps when they have lost 4 hours, and makes no difference when they are fully rested. Reporting only the main effect of caffeine — "on average, caffeine improved reaction time" — would obscure this important dependency. The significant interaction demands a more nuanced interpretation through simple effects analysis and an interaction plot.</p>
+
+<p>By contrast, if the interaction is not significant, the researcher can say with reasonable confidence that caffeine has a consistent effect across all levels of sleep deprivation, and that sleep deprivation has a consistent effect across both caffeine conditions. The main effects can then be reported and interpreted cleanly and independently.</p>
+
+<p>Multi-factor ANOVA is a flexible and powerful tool precisely because it mirrors the complexity of the real world. Most outcomes in psychology, education, medicine, and the social sciences are shaped by more than one variable, and those variables rarely operate in perfect isolation. The factorial design — and the interaction test at its heart — gives researchers a rigorous method for modeling and understanding that complexity.</p>
+      <div class="notes"><strong>Notes</strong>The source table uses subscript tags within table cells for readability; instructors may wish to ensure their LMS renders HTML subscripts correctly. Simple effects analysis following a significant interaction is mentioned as the appropriate follow-up but is not detailed here — it may warrant its own dedicated topic if learners need procedural guidance on conducting those tests.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

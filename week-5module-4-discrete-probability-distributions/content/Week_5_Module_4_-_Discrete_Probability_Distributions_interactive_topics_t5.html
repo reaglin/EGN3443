@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Poisson Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+  <header>
+    <h1>The Poisson Distribution</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Poisson Distribution</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The <strong>Poisson distribution</strong> is one of the most important and widely applied probability distributions in statistics. It models the number of times a particular event occurs within a fixed interval — whether that interval is measured in time, distance, area, volume, or any other continuous dimension. Unlike the binomial distribution, which counts successes across a fixed number of discrete trials, the Poisson distribution applies to situations where events can happen at any point within a continuous interval, and the total number of possible occurrences is not bounded in advance. Classic examples include the number of phone calls arriving at a call centre per hour, the number of typographical errors per page of text, the number of radioactive decay events per second, or the number of potholes per kilometre of road. In each of these cases, we observe a count of events over a fixed interval, and the Poisson distribution gives us a precise mathematical tool for calculating the probability of any particular count.</p>
+
+<p>The Poisson distribution rests on three foundational conditions that must hold for the model to be appropriate. <strong>First</strong>, the events must occur <em>independently</em> of one another — the occurrence of one event gives no information about whether or when the next event will occur. A phone call arriving at 2:03 p.m. does not make another call at 2:04 p.m. more or less likely. <strong>Second</strong>, the average rate at which events occur must be <em>constant</em> throughout the interval being observed. If calls arrive at an average rate of 10 per hour, that rate must apply uniformly across the hour, not spiking during some minutes and falling during others. <strong>Third</strong>, theoretically any number of events can occur within the interval — the count can be 0, 1, 2, 3, and so on without an upper ceiling. Additionally, two events cannot occur at precisely the same instant; the probability of simultaneous events is effectively zero. When all of these conditions are satisfied, the Poisson distribution provides an accurate and elegant model.</p>
+
+<p>The foundation of the Poisson distribution is its <strong>rate parameter</strong>, denoted by the Greek letter <strong>λ</strong> (lambda). Lambda represents the average number of events expected to occur within the specified interval. It is always a positive real number — λ must be strictly greater than zero, because a rate of zero would mean events never happen and there would be nothing to model. Lambda can be a whole number (e.g., λ = 5 calls per hour) or a decimal (e.g., λ = 2.3 defects per metre), depending on the context.</p>
+
+<p>A particularly useful property of λ is that it <em>scales proportionally</em> with the size of the interval. If the average number of events in one hour is λ = 12, then the average number of events in half an hour is λ = 6, in two hours it is λ = 24, and in ten minutes (one-sixth of an hour) it is λ = 2. This scaling principle is essential: before applying the Poisson formula, you must always ensure that the value of λ you use corresponds exactly to the interval specified in the problem. For example, suppose a bakery receives an average of 30 customer orders per hour. If you want to find the probability of receiving exactly 5 orders in a 10-minute window, you must first convert: 10 minutes is one-sixth of an hour, so the appropriate λ for that window is 30 × (10/60) = 5. Failing to adjust λ to match the interval in the question is one of the most common errors when applying this distribution.</p>
+
+<p>The <strong>Poisson probability formula</strong> calculates the probability of observing exactly <em>x</em> events in an interval, given that the average rate is λ:</p>
+
+<pre><code>P(X = x) = (e^(−λ) × λ^x) / x!</code></pre>
+
+<p>Each component of this formula has a specific role:</p>
+<ul>
+  <li><strong>e</strong> is Euler's number, the base of the natural logarithm, approximately equal to 2.71828. It appears naturally in many growth and decay processes and is central to the mathematics underlying the Poisson distribution.</li>
+  <li><strong>e^(−λ)</strong> is the <em>normalising factor</em>. It ensures that when you sum P(X = x) over all possible values of x (that is, x = 0, 1, 2, 3, …), the total equals exactly 1. In other words, it guarantees that the formula produces a valid probability distribution.</li>
+  <li><strong>λ^x</strong> captures how the probability of observing x events changes with the rate — higher rates make higher counts more probable.</li>
+  <li><strong>x!</strong> (x factorial) is the product of all positive integers up to x. For example, 4! = 4 × 3 × 2 × 1 = 24. Factorials grow extremely rapidly, which is why the probability of very large counts quickly becomes very small even when λ is moderate. By convention, 0! = 1.</li>
+  <li><strong>x</strong> can take any non-negative integer value: 0, 1, 2, 3, and so on with no upper limit.</li>
+</ul>
+
+<p>To make this concrete, suppose a hospital emergency department receives an average of 4 patients per hour. What is the probability that exactly 6 patients arrive in the next hour? Here λ = 4 and x = 6:</p>
+
+<pre><code>P(X = 6) = (e^(−4) × 4^6) / 6!
+         = (0.018316 × 4096) / 720
+         = 75.02 / 720
+         ≈ 0.1042</code></pre>
+
+<p>So there is approximately a 10.4% chance of exactly 6 arrivals. Notice how each component is evaluated step by step: first compute e^(−λ), then λ^x, then x!, and finally combine them. This methodical approach minimises arithmetic errors.</p>
+
+<p>The <strong>mean and variance</strong> of the Poisson distribution share a remarkable and defining property: they are both equal to λ.</p>
+
+<ul>
+  <li><strong>Expected value (mean):</strong> E(X) = λ</li>
+  <li><strong>Variance:</strong> Var(X) = λ</li>
+  <li><strong>Standard deviation:</strong> SD(X) = √λ</li>
+</ul>
+
+<p>The fact that the mean equals the variance is unique to the Poisson distribution and is often used as a diagnostic check — if you observe a dataset where the sample mean and sample variance are approximately equal, this is evidence that a Poisson model may be appropriate. The practical implication of this property is also important: as λ increases, both the average count and the spread of the distribution grow together. A process with λ = 1 has a tight distribution concentrated near 0 and 1, while a process with λ = 20 has a much broader distribution centred around 20. The standard deviation in that case is √20 ≈ 4.47, meaning values between roughly 15 and 25 would be quite typical.</p>
+
+<p>The following table illustrates how the Poisson probabilities are distributed for λ = 3, giving a sense of the shape of the distribution:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x (number of events)</th>
+      <th>Calculation</th>
+      <th>P(X = x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>(e^(−3) × 3^0) / 0! = 0.049787 × 1 / 1</td>
+      <td>0.0498</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>(e^(−3) × 3^1) / 1! = 0.049787 × 3 / 1</td>
+      <td>0.1494</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>(e^(−3) × 3^2) / 2! = 0.049787 × 9 / 2</td>
+      <td>0.2240</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>(e^(−3) × 3^3) / 3! = 0.049787 × 27 / 6</td>
+      <td>0.2240</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>(e^(−3) × 3^4) / 4! = 0.049787 × 81 / 24</td>
+      <td>0.1680</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>(e^(−3) × 3^5) / 5! = 0.049787 × 243 / 120</td>
+      <td>0.1008</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>(e^(−3) × 3^6) / 6! = 0.049787 × 729 / 720</td>
+      <td>0.0504</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>(e^(−3) × 3^7) / 7! = 0.049787 × 2187 / 5040</td>
+      <td>0.0216</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that the probabilities peak at x = 2 and x = 3 (both equal to 0.2240 here), which is consistent with the mean of λ = 3. The probabilities taper off symmetrically for smaller and larger counts, and the sum of all probabilities across every non-negative integer value of x equals 1.</p>
+
+<p>In practice, many Poisson problems ask for <strong>cumulative probabilities</strong> — questions phrased as "at most," "fewer than," "at least," or "more than" a certain number of events. For cumulative probabilities, you simply sum the individual Poisson probabilities across the relevant range of x values.</p>
+
+<ul>
+  <li><strong>"At most k" events:</strong> P(X ≤ k) = P(X=0) + P(X=1) + … + P(X=k)</li>
+  <li><strong>"Fewer than k" events:</strong> P(X &lt; k) = P(X ≤ k−1)</li>
+  <li><strong>"At least k" events:</strong> P(X ≥ k) = 1 − P(X ≤ k−1)</li>
+  <li><strong>"More than k" events:</strong> P(X &gt; k) = 1 − P(X ≤ k)</li>
+</ul>
+
+<p>For example, returning to the hospital scenario with λ = 4, suppose we want the probability that <em>at most 2</em> patients arrive in the next hour. We compute:</p>
+
+<pre><code>P(X = 0) = (e^(−4) × 4^0) / 0! = 0.018316 × 1 / 1  = 0.018316
+P(X = 1) = (e^(−4) × 4^1) / 1! = 0.018316 × 4 / 1  = 0.073263
+P(X = 2) = (e^(−4) × 4^2) / 2! = 0.018316 × 16 / 2 = 0.146525
+
+P(X ≤ 2) = 0.018316 + 0.073263 + 0.146525 = 0.2381</code></pre>
+
+<p>There is approximately a 23.8% chance of 2 or fewer arrivals in the hour. Now suppose instead we need the probability of <em>more than 2</em> patients: P(X &gt; 2) = 1 − P(X ≤ 2) = 1 − 0.2381 = 0.7619, or about 76.2%.</p>
+
+<p>To summarise the step-by-step approach for solving any Poisson problem:</p>
+<ul>
+  <li><strong>Step 1 — Identify λ:</strong> Read the problem to find the stated average rate of events. Check whether the interval in the problem matches the interval for the given rate. If they differ, scale λ proportionally to match the interval of interest.</li>
+  <li><strong>Step 2 — Identify x:</strong> Determine the specific count (or counts) for which you need to calculate a probability. Make sure x is a non-negative integer.</li>
+  <li><strong>Step 3 — Apply the formula:</strong> Compute P(X = x) = (e^(−λ) × λ^x) / x! carefully, evaluating e^(−λ), λ^x, and x! as separate components before combining them.</li>
+  <li><strong>Step 4 — Handle cumulative questions:</strong> If the problem asks for a range of values (e.g., "at most 3"), sum the individual probabilities for each relevant value of x, or use the complement rule to simplify the calculation where appropriate.</li>
+  <li><strong>Step 5 — Interpret the result:</strong> Express your answer as a probability between 0 and 1, or as a percentage, and interpret it clearly in the context of the original problem.</li>
+</ul>
+
+<p>The Poisson distribution is a cornerstone of applied statistics precisely because it captures something very real about the natural world: many processes generate events randomly in time or space at a roughly constant rate, with each event independent of the others. Mastering the conditions, the rate parameter, the formula, and the cumulative probability technique gives you a powerful and versatile tool for analysing and predicting such processes across a vast range of fields, from engineering and medicine to ecology, finance, and telecommunications.</p>
+        <div class="notes"><strong>Notes</strong>Worked numerical examples use λ = 4 (hospital arrivals) throughout for consistency. The table for λ = 3 is included to illustrate the distributional shape separately. Instructors may wish to supplement with technology-based calculation (e.g., statistical tables, spreadsheet functions such as POISSON.DIST) for larger λ or x values.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

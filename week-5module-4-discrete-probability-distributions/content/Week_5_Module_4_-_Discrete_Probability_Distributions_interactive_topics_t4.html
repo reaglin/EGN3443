@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Binomial Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+  <header>
+    <h1>The Binomial Distribution</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Binomial Distribution</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The <strong>binomial distribution</strong> is one of the most important and widely used probability distributions in statistics. It models situations where an experiment is repeated a fixed number of times, each repetition can end in one of exactly two ways, and the chance of each outcome stays the same from one repetition to the next. Before applying the binomial model, however, it is essential to verify that the scenario genuinely satisfies all of the required conditions, because using the wrong model leads to incorrect probability calculations. This topic examines those conditions in detail, develops the probability formula from first principles, explains how to identify the key parameters, and derives the formulas for the mean, variance, and standard deviation of the distribution. Throughout, concrete examples are used to ground each concept firmly.</p>
+
+<p>The binomial distribution belongs to the broader family of <em>discrete</em> probability distributions, meaning it assigns probabilities to a countable set of outcomes — specifically, the integers 0, 1, 2, …, n — rather than to a continuous range of values. The random variable of interest, usually written <strong>X</strong>, counts the total number of successes observed across all trials of the experiment.</p>
+
+<p><strong>Conditions for a Binomial Experiment</strong></p>
+
+<p>Four conditions must all be satisfied simultaneously for the binomial model to apply. Checking each one carefully before proceeding with any calculation is a disciplined habit that prevents modeling errors.</p>
+
+<ul>
+  <li><strong>Fixed number of trials (n).</strong> The experiment must consist of a predetermined, fixed number of repetitions, denoted <em>n</em>. The experimenter decides in advance how many trials will be conducted, and that number does not change based on the outcomes observed. For example, flipping a coin exactly 20 times, inspecting exactly 50 manufactured parts, or administering a survey to exactly 200 randomly selected people all satisfy this condition. By contrast, flipping a coin until the third head appears does <em>not</em> satisfy this condition, because the number of flips is not fixed in advance — it depends on the outcomes, so a different distribution (the negative binomial) would be needed.</li>
+  <li><strong>Two possible outcomes per trial.</strong> Every individual trial must result in exactly one of two mutually exclusive outcomes. These are conventionally labeled <em>success</em> and <em>failure</em>, though the labels are arbitrary and simply indicate which outcome is being counted. "Success" need not mean something desirable — it is just the outcome the researcher is tracking. A patient either responds to treatment or does not; a component either passes inspection or fails; a randomly chosen voter either prefers Candidate A or does not. When a trial naturally has more than two outcomes, it can sometimes be re-framed to fit the binomial model by grouping outcomes into a single "success" category and everything else into "failure."</li>
+  <li><strong>Constant probability of success (p).</strong> The probability of success, denoted <em>p</em>, must remain the same on every trial. This is sometimes called the <em>stationarity</em> condition. If p changes from trial to trial — for instance, because a card is drawn without replacement from a deck, changing the composition of the remaining cards — the binomial model is technically violated. (In practice, the binomial is still used as an approximation when the population is very large relative to the sample.)</li>
+  <li><strong>Independent trials.</strong> The outcome of any one trial must have absolutely no influence on the outcome of any other trial. Independence means that knowing the result of trial 3, for example, gives no information whatsoever about the likely result of trial 7. Coin flips are independent because the coin has no memory. Drawing with replacement preserves independence; drawing without replacement from a small population destroys it.</li>
+</ul>
+
+<p>A useful mnemonic is <strong>FTIC</strong>: Fixed trials, Two outcomes, Independent trials, Constant probability. If all four are present, the binomial distribution is the appropriate model.</p>
+
+<p><strong>The Binomial Probability Formula</strong></p>
+
+<p>When X follows a binomial distribution with parameters n and p, the probability of observing exactly k successes is given by:</p>
+
+<pre><code>P(X = k) = C(n, k) × p^k × (1 − p)^(n − k)
+</code></pre>
+
+<p>where k can be any integer from 0 to n, inclusive. Each component of this formula has a clear probabilistic interpretation:</p>
+
+<ul>
+  <li><strong>C(n, k) — the binomial coefficient.</strong> This counts the number of distinct ways k successes can be arranged among n trials. It is calculated as:</li>
+</ul>
+
+<pre><code>C(n, k) = n! / (k! × (n − k)!)
+</code></pre>
+
+<p>where the exclamation mark denotes the <em>factorial</em> function (e.g., 5! = 5 × 4 × 3 × 2 × 1 = 120, and by convention 0! = 1). The binomial coefficient is necessary because there are many different orderings that all result in k successes. For instance, if n = 4 and k = 2, the sequences SSFF, SFSF, SFFS, FSSF, FSFS, and FFSS all represent exactly 2 successes among 4 trials — that is C(4, 2) = 6 arrangements.</p>
+
+<ul>
+  <li><strong>p^k — the probability of k successes.</strong> Because trials are independent and each success has probability p, the probability of any specific sequence containing exactly k successes in k designated positions is p multiplied by itself k times, i.e., p<sup>k</sup>.</li>
+  <li><strong>(1 − p)^(n − k) — the probability of the remaining failures.</strong> The remaining n − k trials must each result in failure. Since the probability of failure on any single trial is (1 − p), and trials are independent, the probability of n − k consecutive failures is (1 − p)<sup>n − k</sup>. The quantity (1 − p) is often denoted <em>q</em>, so this term is also written q<sup>n − k</sup>.</li>
+</ul>
+
+<p>Putting it together: C(n, k) counts how many sequences are possible; p<sup>k</sup> × (1 − p)<sup>n − k</sup> gives the probability of any one such sequence; their product is the total probability of exactly k successes regardless of order.</p>
+
+<p><em>Worked Example 1.</em> A quality-control engineer tests n = 5 circuit boards. Each board independently has a 10% chance of being defective, so the probability of a defect on any single board is p = 0.10. What is the probability that exactly 2 of the 5 boards are defective?</p>
+
+<pre><code>k = 2, n = 5, p = 0.10, (1 − p) = 0.90
+
+C(5, 2) = 5! / (2! × 3!) = 120 / (2 × 6) = 10
+
+P(X = 2) = 10 × (0.10)^2 × (0.90)^3
+          = 10 × 0.01 × 0.729
+          = 10 × 0.00729
+          = 0.0729
+</code></pre>
+
+<p>There is approximately a 7.3% probability that exactly 2 of the 5 boards are defective.</p>
+
+<p><em>Worked Example 2.</em> A fair coin is flipped n = 6 times. What is the probability of getting exactly 4 heads?</p>
+
+<pre><code>k = 4, n = 6, p = 0.5, (1 − p) = 0.5
+
+C(6, 4) = 6! / (4! × 2!) = 720 / (24 × 2) = 15
+
+P(X = 4) = 15 × (0.5)^4 × (0.5)^2
+          = 15 × 0.0625 × 0.25
+          = 15 × 0.015625
+          = 0.234375
+</code></pre>
+
+<p>There is approximately a 23.4% probability of exactly 4 heads in 6 flips.</p>
+
+<p><strong>Identifying the Parameters n and p</strong></p>
+
+<p>Every binomial distribution is fully characterized by exactly two parameters: <em>n</em> and <em>p</em>. Once these are known, every probability, the expected value, and the variance can be computed. Identifying them correctly from a problem description is therefore the first practical skill to develop.</p>
+
+<ul>
+  <li><strong>n (number of trials).</strong> Look for the total number of repetitions the experiment undergoes — the number of coin flips, patients treated, items sampled, questions on a test, etc. This is always a positive integer decided before the experiment begins.</li>
+  <li><strong>p (probability of success on a single trial).</strong> Identify which outcome is being counted and what its probability is on one trial. Read the problem carefully: "the probability that a randomly chosen voter supports the measure is 0.62" means p = 0.62 if supporting the measure is the defined success.</li>
+  <li><strong>q = 1 − p (probability of failure on a single trial).</strong> This is the complement of p, representing the probability of the "other" outcome. It must also be identified because it appears in the probability formula and in the variance formula. Note that p + q = 1 always.</li>
+</ul>
+
+<p>Consider this example: "A multiple-choice test has 8 questions. Each question has 5 options and a student guesses randomly on every question. What is the probability of getting exactly 3 correct?" Here n = 8 (8 questions), p = 1/5 = 0.20 (probability of guessing correctly by chance), and q = 0.80. The random variable X = number of correct answers.</p>
+
+<p><strong>Expected Value of the Binomial Distribution</strong></p>
+
+<p>The <strong>expected value</strong> (also called the mean) of a binomial random variable is the long-run average number of successes that would be observed if the n-trial experiment were repeated an extremely large number of times. It is derived from the general formula for the expected value of a discrete random variable, but simplifies to an elegant closed-form expression:</p>
+
+<pre><code>μ = E(X) = n × p
+</code></pre>
+
+<p>This result has strong intuitive appeal. If each trial independently contributes a probability p of a success, then across n trials the average total number of successes is simply n times p. For example, if a basketball player makes 70% of her free throws and shoots 20 free throws in a game, the expected number of successes is μ = 20 × 0.70 = 14. On average, she makes 14 of the 20 attempts.</p>
+
+<p>An important subtlety: the expected value does not have to be a whole number, even though X itself can only take integer values. If n = 7 and p = 0.3, then μ = 7 × 0.3 = 2.1. This simply means that across many repetitions of the 7-trial experiment, the average number of successes will converge to 2.1 — sometimes 2, sometimes 3, sometimes 1, but averaging out to 2.1 over the long run.</p>
+
+<p><strong>Variance and Standard Deviation of the Binomial Distribution</strong></p>
+
+<p>Knowing the mean tells us where the distribution is centered, but it says nothing about how spread out the probabilities are. The <strong>variance</strong> and <strong>standard deviation</strong> measure this spread.</p>
+
+<p>For a binomial distribution:</p>
+
+<pre><code>σ² = n × p × (1 − p) = n × p × q
+σ  = √(n × p × (1 − p))
+</code></pre>
+
+<p>The variance formula reflects the fact that each individual trial contributes a variance of p × (1 − p) to the total, and because the trials are independent, their variances simply add up across all n trials.</p>
+
+<ul>
+  <li><strong>Effect of p on variance.</strong> For fixed n, variance is a quadratic function of p that reaches its maximum when p = 0.5. At p = 0.5, success and failure are equally likely and the outcome of each trial is maximally uncertain. As p moves toward 0 or toward 1, the outcome of each trial becomes more predictable (almost always failure or almost always success), and the variance decreases. When p = 0 or p = 1, the variance is 0 because the result is completely determined.</li>
+  <li><strong>Effect of n on variance.</strong> For fixed p, larger n produces larger variance — there is more total variability when more trials are performed. However, note that the <em>standard deviation</em> grows as √n, which grows much more slowly than n itself. This means the average number of successes per trial becomes more predictable as n grows — a manifestation of the law of large numbers.</li>
+</ul>
+
+<p><em>Example.</em> Using the circuit board scenario (n = 5, p = 0.10):</p>
+
+<pre><code>μ   = 5 × 0.10 = 0.5
+σ²  = 5 × 0.10 × 0.90 = 0.45
+σ   = √0.45 ≈ 0.671
+</code></pre>
+
+<p>On average, half a board per batch of 5 is defective, with a standard deviation of about 0.67. Because the probability of defect is low, most batches will have 0 defective boards, and the distribution is strongly skewed to the right.</p>
+
+<p>The table below summarizes the key formulas for the binomial distribution in one place for easy reference:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Formula</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Probability of exactly k successes</td>
+      <td>P(X = k) = C(n, k) × p<sup>k</sup> × (1 − p)<sup>n − k</sup></td>
+      <td>Core binomial probability formula</td>
+    </tr>
+    <tr>
+      <td>Binomial coefficient</td>
+      <td>C(n, k) = n! / (k!(n − k)!)</td>
+      <td>Number of ways to arrange k successes in n trials</td>
+    </tr>
+    <tr>
+      <td>Expected value (mean)</td>
+      <td>μ = n × p</td>
+      <td>Long-run average number of successes</td>
+    </tr>
+    <tr>
+      <td>Variance</td>
+      <td>σ² = n × p × (1 − p)</td>
+      <td>Measure of spread; maximized at p = 0.5</td>
+    </tr>
+    <tr>
+      <td>Standard deviation</td>
+      <td>σ = √(n × p × (1 − p))</td>
+      <td>Square root of variance; same units as X</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Applying the Binomial Distribution to Real-World Scenarios</strong></p>
+
+<p>Recognizing when the binomial distribution is the right tool is as important as knowing how to use the formula. The following examples illustrate how to approach applied problems systematically.</p>
+
+<p><em>Example: Medical treatment.</em> A new drug is effective in 65% of patients. A doctor treats 10 patients with this drug. What is the probability that at least 8 of them respond successfully?</p>
+
+<ul>
+  <li>Check conditions: n = 10 (fixed); each patient either responds or does not (two outcomes); p = 0.65 (constant, assuming patients are independent cases); independence is assumed. All four conditions are met.</li>
+  <li>Parameters: n = 10, p = 0.65, q = 0.35.</li>
+  <li>"At least 8" means X ≥ 8, which is a <em>cumulative</em> probability: P(X ≥ 8) = P(X = 8) + P(X = 9) + P(X = 10).</li>
+</ul>
+
+<pre><code>P(X = 8) = C(10,8) × (0.65)^8 × (0.35)^2
+         = 45 × 0.031864 × 0.1225
+         ≈ 45 × 0.003903
+         ≈ 0.1757
+
+P(X = 9) = C(10,9) × (0.65)^9 × (0.35)^1
+         = 10 × 0.020712 × 0.35
+         ≈ 10 × 0.007249
+         ≈ 0.0725
+
+P(X = 10) = C(10,10) × (0.65)^10 × (0.35)^0
+          = 1 × 0.013463 × 1
+          ≈ 0.0135
+
+P(X ≥ 8) ≈ 0.1757 + 0.0725 + 0.0135 ≈ 0.2617
+</code></pre>
+
+<p>There is approximately a 26.2% probability that at least 8 of the 10 patients respond to treatment.</p>
+
+<p><em>Cumulative probabilities</em> of the form P(X ≤ k) — called the <em>cumulative distribution function</em> (CDF) — are computed by summing all individual probabilities from 0 through k. Statistical tables (binomial tables) list these cumulative probabilities for common values of n and p, and statistical software packages (R, Python, Excel) can compute them instantly using built-in functions such as <code>pbinom(k, n, p)</code> in R or <code>BINOM.DIST(k, n, p, TRUE)</code> in Excel. For large n, these tools are indispensable because manually summing many terms is tedious and error-prone.</p>
+
+<p>When deciding whether to apply the binomial model, it is also worth knowing when <em>not</em> to use it. Sampling without replacement from a finite population violates the independence and constant-probability conditions simultaneously. In such cases, the correct model is the <strong>hypergeometric distribution</strong>. However, a widely used rule of thumb states that if the sample size n is less than 5% of the total population size, the binomial distribution provides an excellent approximation even when sampling is done without replacement, because removing a few individuals from a large population barely changes the probability for subsequent draws.</p>
+
+<p>In summary, the binomial distribution provides a precise, mathematically elegant framework for modeling a broad class of experiments: those with a fixed number of independent trials, two outcomes per trial, and a constant probability of success. By verifying the four conditions, correctly identifying n and p, applying the probability formula, and computing the mean and standard deviation, one can fully describe and analyze any binomial random variable. Mastery of these skills forms a foundation for more advanced topics in inferential statistics, including confidence intervals and hypothesis tests for proportions.</p>
+        <div class="notes"><strong>Notes</strong>Learners should practice verifying all four FTIC conditions before computing any probability, as this disciplined approach prevents the most common modeling errors. Instructors may wish to supplement with binomial tables or guided software exercises (e.g., using Excel&#39;s BINOM.DIST or R&#39;s dbinom/pbinom) so students see how cumulative probabilities are obtained efficiently for larger n. The distinction between P(X = k), P(X ≤ k), and P(X ≥ k) should be emphasized explicitly, as confusing these is a frequent source of error in applied problems.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Type I and Type II Errors</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>Type I and Type II Errors</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Type I and Type II Errors</h2>
+      <p>Every time a researcher conducts a hypothesis test, they are making a binary decision under uncertainty: either reject the null hypothesis or fail to reject it. Because the decision is based on sample data rather than complete knowledge of the population, there is always a chance the conclusion is wrong. These mistakes fall into two distinct categories — <strong>Type I errors</strong> and <strong>Type II errors</strong> — and understanding them is fundamental to designing sound studies, interpreting results honestly, and communicating findings responsibly. The two error types are not independent; attempts to minimize one tend to inflate the other, creating a tension that researchers must navigate deliberately for every study they design.</p>
+
+<p>To ground the discussion, it helps to visualize the four possible outcomes of any hypothesis test as a simple decision matrix:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Null Hypothesis Is Actually True</th>
+      <th>Null Hypothesis Is Actually False</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Fail to Reject H₀</strong></td>
+      <td>Correct Decision (True Negative)</td>
+      <td>Type II Error (False Negative, probability = β)</td>
+    </tr>
+    <tr>
+      <td><strong>Reject H₀</strong></td>
+      <td>Type I Error (False Positive, probability = α)</td>
+      <td>Correct Decision (True Positive, probability = 1 − β = Power)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Only two of the four cells represent correct decisions. The other two are the errors at the heart of this module.</p>
+
+<p><strong>Defining Type I Error (False Positive)</strong></p>
+
+<p>A <strong>Type I error</strong> occurs when the null hypothesis is actually true but the test produces enough statistical signal — by chance — to cause the researcher to reject it. In plain language, the test declares that an effect exists when, in reality, it does not. This is why the Type I error is called a <em>false positive</em>: the result looks positive (an effect is detected) but the finding is false.</p>
+
+<p>The probability of committing a Type I error is exactly equal to the <strong>significance level</strong>, denoted by the Greek letter <strong>α (alpha)</strong>, that the researcher selects before running the test. If α is set to 0.05, there is a 5% probability that, under repeated sampling from a population where the null hypothesis is true, the test will nevertheless produce a p-value small enough to trigger rejection. This 5% is not a flaw in any individual study; it is the accepted long-run rate of false positives that the researcher is willing to tolerate.</p>
+
+<p>Common significance levels and their implications include:</p>
+
+<ul>
+  <li><strong>α = 0.10</strong> — A relatively lenient threshold, used in exploratory research where generating hypotheses matters more than certainty. Accepts a 10% false-positive rate.</li>
+  <li><strong>α = 0.05</strong> — The conventional default in most social, behavioral, and biological sciences. Accepts a 5% false-positive rate.</li>
+  <li><strong>α = 0.01</strong> — A stricter threshold used when false positives carry serious consequences. Accepts only a 1% false-positive rate.</li>
+  <li><strong>α = 0.001 or smaller</strong> — Used in particle physics and certain medical contexts where extraordinary claims demand extraordinary evidence.</li>
+</ul>
+
+<p>A concrete example illustrates how a Type I error arises naturally. Suppose a coin is perfectly fair (p = 0.50 for heads), but a researcher tests whether it is biased. If the researcher flips the coin 20 times and happens by random chance to get 15 heads, the p-value might fall below 0.05, leading to a false rejection of the null hypothesis (a fair coin). The coin did not change; the sample was simply an unlucky draw from the distribution of possible outcomes. Crucially, if α = 0.05 and the researcher repeats this experiment 100 times with 100 different fair coins, they can expect, on average, five of those experiments to produce a spurious rejection — not because the test is broken, but because that is precisely what α = 0.05 promises.</p>
+
+<p>Reducing α lowers the chance of a Type I error. Moving from α = 0.05 to α = 0.01 means the test demands stronger evidence before rejecting the null hypothesis. However, this stricter gate does not come free: the same raised bar that blocks false positives also blocks some true positives, thereby increasing the risk of missing real effects — the Type II error, discussed next.</p>
+
+<p><strong>Defining Type II Error (False Negative)</strong></p>
+
+<p>A <strong>Type II error</strong> occurs when the null hypothesis is actually false — a real effect genuinely exists in the population — but the test fails to produce sufficient evidence to reject the null hypothesis. The researcher concludes there is nothing going on when something truly is. This is the <em>false negative</em>: the result looks negative (no effect detected) but the reality is positive.</p>
+
+<p>The probability of committing a Type II error is denoted by <strong>β (beta)</strong>. Unlike α, which the researcher sets explicitly before the study, β is not directly chosen; it is an outcome of several interacting design decisions. The most important factors that increase β — making Type II errors more likely — are:</p>
+
+<ul>
+  <li><strong>Small sample size:</strong> When fewer observations are collected, there is more sampling variability. Estimates are less precise, and a genuine effect can easily be swamped by noise. A small n is the single most common cause of inflated β.</li>
+  <li><strong>High variability in the data:</strong> If the outcome measure is inherently noisy — for example, self-reported mood on a given day — the signal-to-noise ratio is poor. A true difference between groups may exist but be obscured by the scatter in scores.</li>
+  <li><strong>Small true effect size:</strong> If a drug genuinely lowers blood pressure but only by 1 mmHg on average, detecting that tiny effect requires enormous precision. The smaller the real effect, the harder it is to distinguish from zero, and the higher the probability that the test misses it.</li>
+  <li><strong>A very low α:</strong> As noted, tightening the significance threshold to reduce Type I errors simultaneously makes it harder for any result — true or false — to cross the rejection threshold, raising β.</li>
+</ul>
+
+<p>To make this tangible, imagine a clinical trial testing a new medication that genuinely reduces systolic blood pressure by an average of 3 mmHg. If the trial enrolls only 20 participants and blood pressure measurements vary considerably between individuals, the 3 mmHg signal may not be statistically detectable. The trial returns a p-value of 0.18, and the researchers — incorrectly — conclude the drug has no effect. The drug works; the study simply lacked the power to find it. Patients who might have benefited from the medication do not receive it. This is the real-world cost of a Type II error.</p>
+
+<p><strong>The Trade-off Between Type I and Type II Errors</strong></p>
+
+<p>The fundamental tension between Type I and Type II errors emerges directly from how hypothesis testing is structured. The significance level α acts as a threshold on the test statistic. Any result that crosses the threshold is declared significant; anything below it is not. When the threshold is moved:</p>
+
+<ul>
+  <li><strong>Lowering α (stricter threshold):</strong> The boundary for rejection shifts, requiring more extreme evidence. Fewer null hypotheses are rejected overall. Among those, fewer false rejections occur (lower Type I error rate), but more true effects are also missed (higher Type II error rate, higher β).</li>
+  <li><strong>Raising α (more lenient threshold):</strong> The boundary relaxes. More null hypotheses are rejected, which means more true effects are captured (lower β), but also more spurious rejections accumulate (higher Type I error rate).</li>
+</ul>
+
+<p>This trade-off is not a design flaw — it is a mathematical inevitability. Given a fixed sample and data, you cannot simultaneously reduce both α and β without additional information or resources. The only way to reduce both errors at the same time is to increase the statistical power of the test, primarily by collecting more data.</p>
+
+<p>Critically, the <em>appropriate balance</em> between these errors depends on the context and the asymmetry of consequences. Consider two contrasting scenarios:</p>
+
+<ul>
+  <li><strong>Screening for a rare, deadly disease:</strong> A false negative (Type II error) means a sick patient is told they are healthy and receives no treatment — potentially a fatal outcome. A false positive (Type I error) means a healthy person undergoes further diagnostic tests — inconvenient and costly but not deadly. Here, minimizing β (accepting a higher α) is appropriate.</li>
+  <li><strong>Testing a new drug for serious side effects:</strong> A false positive (Type I error) means a safe drug is incorrectly flagged as dangerous and withdrawn from the market — depriving patients of a beneficial treatment. A false negative (Type II error) means a dangerous drug is declared safe — potentially harming many patients. Here, minimizing α is the priority, even at the cost of higher β.</li>
+</ul>
+
+<p>Researchers must think through these asymmetries before collecting a single data point. The choice of α should not be a reflexive selection of 0.05; it should reflect a reasoned judgment about which error is more damaging in the specific context.</p>
+
+<p><strong>Statistical Power and Its Role in Minimizing Type II Errors</strong></p>
+
+<p><strong>Statistical power</strong> is defined as <em>1 − β</em>: the probability that the test will correctly reject a false null hypothesis — in other words, the probability of detecting a true effect when one exists. Power is the complement of the Type II error rate, so anything that increases power automatically decreases β.</p>
+
+<p>A power of 0.80 (80%) is the conventional minimum standard in many fields. It means that if the true effect exists and is at least as large as the one specified in the power analysis, the study has an 80% chance of producing a statistically significant result — and a 20% residual chance (β = 0.20) of missing it. Some high-stakes research settings demand 0.90 or even 0.95 power.</p>
+
+<p>The key levers researchers can use to increase power — and thus reduce Type II error risk — are:</p>
+
+<ul>
+  <li><strong>Increase sample size:</strong> This is the most direct and reliable lever. Larger samples produce more precise estimates of the population parameter, shrinking the standard error. As the standard error decreases, even small true effects generate test statistics large enough to cross the significance threshold. A formal <em>a priori</em> power analysis calculates exactly how many participants are needed to achieve a target power level given an expected effect size and chosen α.</li>
+  <li><strong>Choose a larger α:</strong> Relaxing the significance threshold raises power but at the direct cost of more Type I errors. This approach is only appropriate when the costs of false negatives clearly outweigh the costs of false positives.</li>
+  <li><strong>Use more sensitive measurement instruments:</strong> If the outcome variable is measured imprecisely — for example, using a scale that rounds to the nearest 5 kg when a precise scale rounding to 0.1 kg is available — random measurement error inflates data variability and suppresses power. Better instruments reduce noise and sharpen the signal.</li>
+  <li><strong>Reduce extraneous variability through study design:</strong> Techniques such as within-subjects (repeated-measures) designs, matched-pairs comparisons, stratified sampling, and covariate adjustment (ANCOVA) remove known sources of variability from the error term, effectively increasing the signal-to-noise ratio without requiring additional participants.</li>
+  <li><strong>Target a larger effect size:</strong> Sometimes researchers can design interventions or select populations where the expected effect is larger. Testing a drug at its maximum tolerated dose rather than a subtherapeutic dose, for instance, increases the expected effect size and thereby increases power for a given sample size.</li>
+</ul>
+
+<p>The relationship between these factors is captured formally in power analysis software and tables. For a simple two-sample t-test, the non-centrality parameter that determines power depends on the effect size (Cohen's <em>d</em>), the sample size per group, and α. As a rough illustration:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Effect Size (Cohen's d)</th>
+      <th>Sample Size per Group for 80% Power (α = 0.05, two-tailed)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Small (d = 0.20)</td>
+      <td>~197</td>
+    </tr>
+    <tr>
+      <td>Medium (d = 0.50)</td>
+      <td>~64</td>
+    </tr>
+    <tr>
+      <td>Large (d = 0.80)</td>
+      <td>~26</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This table makes vivid why underpowered studies are so common: detecting small but real and theoretically important effects demands very large samples that may be expensive or impractical to collect. Researchers who proceed with insufficient power are, in a real sense, conducting studies that are unlikely to succeed even when the hypothesis under test is correct.</p>
+
+<p><strong>Consequences of Each Error Type in Practice</strong></p>
+
+<p>The costs of Type I and Type II errors extend well beyond the statistical — they shape policy, resource allocation, scientific progress, and human welfare.</p>
+
+<p><strong>Consequences of Type I errors</strong> include:</p>
+
+<ul>
+  <li><strong>Wasted resources:</strong> A falsely positive finding in a preliminary drug trial may prompt a large, expensive Phase III trial for a compound that has no real therapeutic effect. Millions of dollars and years of research time are consumed chasing a phantom.</li>
+  <li><strong>Misguided policy:</strong> A government agency that incorrectly concludes a public health intervention is effective may roll it out nationally, displacing alternative programs that might actually work. The opportunity cost is enormous.</li>
+  <li><strong>Harmful interventions:</strong> If a surgical procedure is falsely validated by a Type I error, patients may undergo unnecessary operations, exposing them to surgical risks without genuine benefit.</li>
+  <li><strong>Replication failure:</strong> Much of the widely-discussed "replication crisis" in psychology and medicine is partly attributable to false positives published in the original literature. When other researchers attempt to reproduce the findings under similar conditions, the original "effect" disappears because it never existed — it was statistical noise that crossed the α threshold by chance.</li>
+</ul>
+
+<p><strong>Consequences of Type II errors</strong> include:</p>
+
+<ul>
+  <li><strong>Missed treatments:</strong> A beneficial therapy declared ineffective may never reach patients. In oncology, where treatment windows can be narrow, this can directly cost lives.</li>
+  <li><strong>Stalled scientific progress:</strong> If a genuine mechanism — say, a link between a biomarker and a disease — is missed by an underpowered study, researchers may abandon a fruitful line of inquiry and redirect effort elsewhere, slowing the accumulation of knowledge.</li>
+  <li><strong>Failure to detect hazards:</strong> Environmental or occupational safety research that lacks power may fail to identify toxic exposures, leaving workers or communities at continued risk.</li>
+  <li><strong>Publication bias amplification:</strong> Because journals historically preferred to publish significant results, underpowered studies that correctly return null results (true negatives) and those that incorrectly return null results (Type II errors) are similarly invisible. This makes it difficult for the field to distinguish the two.</li>
+</ul>
+
+<p>In <strong>high-stakes regulatory contexts</strong> — pharmaceutical approval by the FDA, airworthiness certification by the FAA, nuclear plant safety assessments — regulators do not leave the balance of error types to individual researcher judgment. They specify required significance levels (often α = 0.05 for efficacy but much stricter for safety signals) and minimum power thresholds (typically 80–90%) as conditions for approval. These standards represent the collective judgment of how to distribute the social costs of the two error types across a population of decisions made over time.</p>
+
+<p><strong>Communicating Error Risk in Statistical Findings</strong></p>
+
+<p>Sound statistical practice demands not only controlling error rates but also communicating them clearly so that readers — other researchers, policymakers, practitioners, and the public — can evaluate findings critically and place them in proper context.</p>
+
+<p>Best practices for transparent error-risk communication include:</p>
+
+<ul>
+  <li><strong>Always report α explicitly:</strong> State the significance level before presenting results. Readers should not have to infer it. Saying "we used α = 0.05 for all tests" sets clear expectations about the Type I error rate the authors accepted. This is especially important when a non-standard α was chosen, as that choice itself is informative.</li>
+  <li><strong>Report exact p-values rather than just "significant" or "not significant":</strong> Writing <em>p</em> = 0.032 communicates far more than <em>p</em> &lt; 0.05. It allows readers to see how far the result is from the threshold and to apply their own judgment about whether the evidence is compelling.</li>
+  <li><strong>Accompany p-values with confidence intervals:</strong> A 95% confidence interval conveys both the direction and the precision of an estimated effect. A drug that reduces blood pressure with an estimated effect of −5 mmHg (95% CI: −4.8 to −5.2 mmHg) tells a very different story than one with an effect of −5 mmHg (95% CI: −12 to +2 mmHg). The latter includes zero, indicating that the true effect could be negligible or even a slight increase — critical information that a bare p-value would obscure.</li>
+  <li><strong>Report effect sizes alongside significance:</strong> Statistical significance depends on sample size; practical significance depends on effect size. A study with 100,000 participants can achieve <em>p</em> &lt; 0.001 for an effect so small it has no real-world relevance. Reporting Cohen's <em>d</em>, odds ratios, correlation coefficients, or other effect size metrics helps readers distinguish statistical artifacts from meaningful findings.</li>
+  <li><strong>Discuss power when reporting non-significant results:</strong> A null result (<em>p</em> &gt; α) is ambiguous: it could mean the null hypothesis is genuinely true, or it could mean the study was too underpowered to detect the effect. A responsible report of a non-significant finding includes a statement such as: "The study achieved 65% power to detect an effect of the magnitude expected based on prior literature. The non-significant result cannot rule out the possibility of a Type II error." Alternatively, a post-hoc power analysis or a Bayesian analysis quantifying evidence for the null hypothesis can help readers calibrate their interpretation.</li>
+  <li><strong>Acknowledge limitations and potential errors openly:</strong> A results section that notes "given our sample size and the observed effect size, there remains a non-trivial probability of a Type II error" is more scientifically credible than one that treats a single non-significant result as definitive proof of no effect. Similarly, authors should acknowledge that any significant result, even one with <em>p</em> = 0.04, carries a non-zero probability of being a false positive — particularly in fields with many simultaneously tested hypotheses (the multiple comparisons problem).</li>
+  <li><strong>Support replicability:</strong> Transparent reporting of methods, raw data availability, pre-registration of hypotheses and analysis plans, and honest discussion of error risks all contribute to a scientific record that other researchers can scrutinize, challenge, and build upon. This openness is the practical bulwark against the cumulative distortions caused by unacknowledged Type I and Type II errors in the literature.</li>
+</ul>
+
+<p>Ultimately, Type I and Type II errors are not merely technical inconveniences. They represent the two ways in which imperfect knowledge, expressed through statistical inference, can lead intelligent, careful people to wrong conclusions. A researcher who understands these errors deeply — who chooses α deliberately, designs for adequate power, reports findings with appropriate uncertainty, and communicates the possibility of error honestly — contributes to a scientific enterprise that is not just productive but trustworthy.</p>
+      <div class="notes"><strong>Notes</strong>The decision matrix table at the opening provides a visual anchor for the entire topic. The power table uses approximate values derived from standard power analysis for a two-sample independent t-test (two-tailed). Instructors may wish to supplement with hands-on power analysis exercises using G*Power or R to make the sample-size calculations concrete.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

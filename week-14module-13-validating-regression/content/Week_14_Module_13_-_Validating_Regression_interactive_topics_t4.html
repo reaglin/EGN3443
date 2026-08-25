@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Validation Techniques</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+  <header>
+    <h1>Cross-Validation Techniques</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Cross-Validation Techniques</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When building a regression model, it is tempting to evaluate how well the model performs by measuring its accuracy on the very data used to train it. This approach is deeply flawed. A model can be tuned — deliberately or inadvertently — to fit the idiosyncrasies of the training sample so precisely that its apparent accuracy becomes misleading. When that same model encounters new, unseen data, its predictions may be far less accurate than the training metrics suggested. Cross-validation is the family of techniques statisticians and data scientists use to guard against this trap. Rather than measuring performance on the data used for fitting, cross-validation systematically evaluates the model on data it has not seen during training, yielding a more honest and realistic picture of predictive power. Understanding the logic, mechanics, and interpretation of cross-validation is essential for anyone who wants to build regression models that are genuinely useful in practice.</p>
+
+<p><strong>Why Cross-Validation Is Needed</strong></p>
+
+<p><strong>Overfitting</strong> is the central problem that cross-validation addresses. Overfitting occurs when a model learns not only the true underlying relationships in the data but also the noise — the random, sample-specific fluctuations that carry no generalizable information. A highly flexible model, such as one with many predictors or high-degree polynomial terms, can trace the training data almost perfectly, producing an R-squared near 1.0 and a very small training error. Yet when the same model is applied to a fresh dataset drawn from the same population, its performance collapses. The model has essentially memorized the training sample rather than learning the process that generated it.</p>
+
+<p>Consider a concrete example. Suppose you are predicting house prices using 50 predictor variables on a dataset of only 60 observations. With nearly as many predictors as observations, the regression equation can contort itself to fit the training data almost exactly. Training R-squared might be 0.97. But on a new batch of houses, the predictions could be wildly inaccurate because many of those predictor coefficients were shaped by noise rather than real relationships. If you had only looked at training-set metrics, you would have concluded — incorrectly — that you had an excellent model.</p>
+
+<p>The deeper issue is that <strong>using the same data for both fitting and evaluating a model produces overly optimistic performance metrics</strong>. The model has, in a sense, already seen the answers. Every coefficient was chosen specifically to minimize error on that dataset. Asking the model how well it performs on that dataset is like giving a student an exam using the exact questions they studied — the score reflects memorization, not understanding. Cross-validation corrects this by always measuring performance on data the model has not been allowed to learn from, producing estimates that more faithfully reflect what will happen in real-world deployment. For regression models intended to support business decisions, scientific conclusions, or policy recommendations, this honesty about generalizability is not optional — it is essential.</p>
+
+<p><strong>The Holdout Method (Train/Test Split)</strong></p>
+
+<p>The simplest cross-validation approach is the <strong>holdout method</strong>, also called a train/test split. The available dataset is partitioned into two non-overlapping subsets. A common convention is to allocate 70–80% of the observations to the <em>training set</em> and the remaining 20–30% to the <em>test set</em>, though the exact proportions depend on dataset size and context.</p>
+
+<p>The <strong>training set</strong> is used exclusively to estimate model coefficients and fit the regression equation. The model sees these observations, adjusts its parameters to minimize training error, and learns whatever relationships — real or spurious — exist in this subset. The <strong>test set</strong>, meanwhile, is kept entirely separate. It plays no role in fitting and is used only after the model has been fully specified, purely to evaluate how well the model predicts outcomes it was not trained on. Performance metrics such as Mean Squared Error (MSE) or R-squared are then computed on the test set predictions.</p>
+
+<p>For example, imagine a dataset of 500 patients where you want to predict blood pressure from lifestyle factors. You randomly assign 375 patients to the training set and 125 to the test set. You fit the regression on the 375 training patients, generate predicted blood pressure values for the 125 test patients, and compute:</p>
+
+<pre><code>MSE = (1/n_test) * Σ(y_i - ŷ_i)²
+
+where y_i is the observed blood pressure and ŷ_i is the model's prediction
+for each of the n_test = 125 test observations.</code></pre>
+
+<p>This test-set MSE is a far more trustworthy measure of the model's predictive accuracy than anything computed on the training data alone.</p>
+
+<p>The holdout method's chief limitation is its <strong>sensitivity to the random split chosen</strong>. If, by chance, the training set overrepresents certain patient profiles, or the test set happens to contain an unusual cluster of observations, the resulting performance estimate can be misleadingly high or low. Two analysts who split the same dataset differently may arrive at noticeably different MSE values, leading to conflicting conclusions about the same model. This variability is especially pronounced with smaller datasets, where a single unlucky partition can dramatically skew results. The holdout method is a reasonable starting point and works well with large datasets, but more robust alternatives exist.</p>
+
+<p><strong>K-Fold Cross-Validation</strong></p>
+
+<p><strong>K-fold cross-validation</strong> addresses the instability of the single holdout split by repeating the evaluation process multiple times across different partitions of the data. The procedure works as follows. The full dataset is divided into <em>k</em> roughly equal-sized subgroups, called <em>folds</em>. The model is then trained and tested <em>k</em> separate times. In each iteration, one fold is designated as the test set and the remaining <em>k − 1</em> folds together form the training set. After all <em>k</em> iterations are complete, every single observation has served as a test point exactly once.</p>
+
+<p>The most common choice is <strong>k = 10</strong> (10-fold cross-validation), though k = 5 is also widely used. To make the process concrete, consider a dataset of 300 observations and k = 5:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Iteration</th>
+      <th>Test Fold</th>
+      <th>Training Folds</th>
+      <th>Test Observations</th>
+      <th>Training Observations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Fold 1</td>
+      <td>Folds 2, 3, 4, 5</td>
+      <td>60</td>
+      <td>240</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Fold 2</td>
+      <td>Folds 1, 3, 4, 5</td>
+      <td>60</td>
+      <td>240</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Fold 3</td>
+      <td>Folds 1, 2, 4, 5</td>
+      <td>60</td>
+      <td>240</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Fold 4</td>
+      <td>Folds 1, 2, 3, 5</td>
+      <td>60</td>
+      <td>240</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Fold 5</td>
+      <td>Folds 1, 2, 3, 4</td>
+      <td>60</td>
+      <td>240</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>After all five iterations, the analyst has five separate test-set MSE values — one from each fold. The overall cross-validated MSE is the average of these five values:</p>
+
+<pre><code>CV_MSE = (1/k) * Σ MSE_i   for i = 1 to k</code></pre>
+
+<p>This average is a much more stable and reliable performance estimate than any single train/test split could provide, because it averages out the luck of any particular partition. A model that performs well consistently across all k folds is demonstrating genuine generalizability, not just fortunate data arrangement.</p>
+
+<p>K-fold cross-validation also makes <strong>better use of available data</strong>. In a single holdout split, the test observations are entirely withheld from model training — they contribute nothing to fitting. In k-fold cross-validation, every observation contributes to training in k − 1 of the k iterations. For a dataset of 300 observations with k = 5, each observation is used for training 80% of the time. This is especially valuable when data is scarce, where wasting 20–30% of the sample purely for a one-time evaluation would represent a significant loss of learning opportunity.</p>
+
+<p><strong>Leave-One-Out Cross-Validation (LOOCV)</strong></p>
+
+<p><strong>Leave-One-Out Cross-Validation</strong>, or LOOCV, represents the extreme limit of the k-fold framework: it is equivalent to k-fold cross-validation where k equals the total number of observations n. In each iteration, the model is trained on all observations except exactly one, and that single observation serves as the entire test set. This process is repeated n times — once for every observation in the dataset — so that each observation eventually plays the role of the lone test point.</p>
+
+<p>Suppose a dataset contains 80 observations. LOOCV fits the regression model 80 separate times. In the first iteration, observation 1 is withheld; the model trains on observations 2 through 80 and predicts observation 1's outcome. In the second iteration, observation 2 is withheld; the model trains on all others and predicts observation 2. This continues until the final iteration withholds observation 80. The performance estimate is then:</p>
+
+<pre><code>LOOCV_MSE = (1/n) * Σ (y_i - ŷ_{-i})²
+
+where ŷ_{-i} is the predicted value for observation i
+from the model trained on all observations except i.</code></pre>
+
+<p>Because nearly all the data (n − 1 observations) is used for training in each iteration, LOOCV produces models with very <strong>low bias in performance estimation</strong>. The training set in each fold is almost as large as the full dataset, meaning the model being evaluated is nearly identical to the model you would ultimately deploy. This is a meaningful advantage: there is little concern that performance estimates are artificially deflated because too little training data was used.</p>
+
+<p>However, LOOCV comes with significant drawbacks. First, it is <strong>computationally intensive</strong>: fitting the model n times can be prohibitively slow for large datasets or complex models. A dataset with 10,000 observations requires 10,000 model fits. Second, LOOCV estimates often have <strong>higher variance</strong> than k-fold estimates. Because each training set differs from the next by only a single observation, the n model fits are highly correlated with one another. Averaging correlated estimates does not reduce variance as effectively as averaging less-correlated estimates from more diverse training/test splits. The result is a performance estimate that, while nearly unbiased, can fluctuate more than a well-executed 10-fold cross-validation. For these reasons, LOOCV is most appropriate for <strong>small datasets</strong> — typically those with only a few dozen to a few hundred observations — where the data simply cannot afford the luxury of a separate holdout set or even a reasonable k-fold partition.</p>
+
+<p><strong>Interpreting Cross-Validation Results</strong></p>
+
+<p>Once cross-validation has been executed, the analyst must interpret the resulting metrics thoughtfully. The most commonly reported outputs are the <strong>average MSE or RMSE across folds</strong> and the <strong>cross-validated R-squared</strong>. The RMSE (Root Mean Squared Error) is simply the square root of the MSE and has the advantage of being expressed in the same units as the response variable, making it more intuitively interpretable.</p>
+
+<p>The most important diagnostic comparison is between <strong>training performance and cross-validation performance</strong>. A well-generalizing model will show similar accuracy on both. The table below illustrates three scenarios:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Training R²</th>
+      <th>CV R²</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>0.85</td>
+      <td>0.82</td>
+      <td>Good generalization; small gap suggests minimal overfitting</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>0.94</td>
+      <td>0.61</td>
+      <td>Severe overfitting; model learned training noise, not real relationships</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>0.52</td>
+      <td>0.49</td>
+      <td>Underfitting; model is too simple but at least consistently weak</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Scenario B is the overfitting warning sign: a large discrepancy between training and cross-validation performance is a red flag. The model performs impressively on data it has seen but fails to carry that performance to new observations. Scenario A represents the ideal outcome — strong performance that holds up under independent evaluation. Scenario C indicates underfitting, where the model is not flexible enough to capture the true relationships; additional predictors or transformations may be needed, but at least the cross-validation result is honest rather than inflated.</p>
+
+<p>Beyond comparing training versus CV performance, analysts should also examine the <strong>consistency of error across folds</strong>. If k-fold cross-validation yields MSE values of, say, 120, 118, 125, 122, and 119 across five folds, the model is performing uniformly well — a reassuring sign of stability. If instead the values are 90, 95, 310, 88, 102, the spike in fold 3 signals that the model struggles with whatever types of observations happen to cluster in that fold, perhaps a subgroup the model does not handle well. This kind of fold-by-fold inspection can reveal structure that a single average statistic would obscure.</p>
+
+<p>Cross-validation results also serve as a <strong>principled basis for comparing competing models</strong>. Suppose one regression model uses five predictors and achieves a cross-validated RMSE of 14.3, while a simpler three-predictor model achieves a cross-validated RMSE of 14.7. The simpler model is slightly less accurate, but its parsimony — fewer predictors, lower complexity — may make it preferable depending on the context, interpretability requirements, and the magnitude of the accuracy trade-off. When the CV metrics are close, parsimony is often favored. When the more complex model offers substantially better CV performance, the added predictors are likely earning their keep.</p>
+
+<p><strong>Cross-Validation and Model Refinement</strong></p>
+
+<p>Cross-validation is not only a diagnostic tool — it is an engine for model improvement. When CV results reveal poor generalizability, the analyst has several avenues to pursue. If the model contains many predictors, some may be irrelevant noise. <strong>Removing irrelevant predictors</strong> reduces complexity and can dramatically improve CV performance. If predictors are highly correlated with one another — a condition known as <strong>multicollinearity</strong> — the model's coefficients become unstable and unreliable, leading to poor performance on new data. Addressing multicollinearity, perhaps by removing redundant variables or combining them through techniques like principal components, can stabilize the model and improve its cross-validated accuracy.</p>
+
+<p><strong>Regularization techniques</strong> such as Ridge regression or Lasso regression represent another powerful response to CV-identified overfitting. These methods add a penalty term to the fitting criterion that discourages large coefficients, effectively shrinking the model toward simplicity. The strength of the penalty is itself a tuning parameter that can be selected using cross-validation: you run CV across multiple candidate penalty values and choose the one that produces the best average out-of-sample performance. Cross-validation is thus not just evaluating models — it is actively guiding the process of making them better.</p>
+
+<p>Cross-validation can also be used to compare models built with <strong>different predictor sets</strong> — for instance, comparing a model with only main effects against one that includes interaction terms, or a linear model against one with quadratic terms. By evaluating each candidate model's CV performance, analysts can identify the most <strong>parsimonious model</strong> that still generalizes well: the simplest model that captures the essential signal without fitting the noise.</p>
+
+<p>One important caution deserves emphasis: <strong>repeated use of cross-validation during model building must be managed carefully</strong>. If an analyst fits dozens of different model specifications and selects the one with the best CV performance, the selected model's CV metric is no longer an unbiased estimate of true generalizability. The analyst has, in effect, used the CV scores as a target to optimize — which reintroduces the same bias cross-validation was designed to eliminate, now at the level of model selection rather than model fitting. This phenomenon is sometimes called "overfitting to the validation procedure." The most rigorous solution is to maintain a completely separate <em>holdout</em> test set that is never used during model selection, reserving it for a single final evaluation once all modeling decisions have been made. In practice, this requires discipline and sufficient data, but it is the gold standard for trustworthy performance estimation.</p>
+
+<p>Ultimately, cross-validation is about making <strong>informed, evidence-based decisions</strong> about whether a regression model is ready for real-world application. A model that performs well in cross-validation has demonstrated, under controlled and honest conditions, that it can predict outcomes for observations it has never encountered. That is the fundamental requirement for any model intended to be deployed beyond the dataset that created it. Cross-validation transforms model evaluation from an exercise in optimism into a rigorous, reproducible test of genuine predictive value.</p>
+        <div class="notes"><strong>Notes</strong>Covers all subtopics including overfitting motivation, holdout method, k-fold, LOOCV, result interpretation, and model refinement guidance. Includes illustrative tables and code-style formulas for clarity.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

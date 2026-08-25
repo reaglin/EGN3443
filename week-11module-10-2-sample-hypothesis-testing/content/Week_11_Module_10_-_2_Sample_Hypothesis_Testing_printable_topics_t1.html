@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Two-Sample Hypothesis Testing</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+  <header>
+    <h1>Foundations of Two-Sample Hypothesis Testing</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Foundations of Two-Sample Hypothesis Testing</h2>
+      <p>Statistical inference rarely stops at describing a single group. In the real world, the most compelling questions are almost always comparative: Does the new drug outperform the placebo? Does the redesigned webpage produce higher click-through rates than the original? Do students taught with one curriculum score better than those taught with another? These questions cannot be answered with a one-sample test alone. They demand a framework built specifically for comparing two groups — a framework known as <strong>two-sample hypothesis testing</strong>.</p>
+
+<p>Understanding two-sample testing requires first appreciating what distinguishes it from its one-sample counterpart, then mastering the logical structure that governs every test in this family, and finally recognizing the key design and measurement choices that determine which specific procedure to apply. Each of these dimensions is developed in full below.</p>
+
+<p><strong>Why Two-Sample Testing?</strong></p>
+
+<p>A one-sample hypothesis test evaluates a single group by comparing an observed statistic — most often a sample mean or proportion — against a fixed, externally specified value. For example, a manufacturer might test whether the mean fill volume of its bottles equals the legally required 500 mL. The reference value (500 mL) is known in advance and does not come from the data itself. This is a perfectly valid procedure when such a reference exists.</p>
+
+<p>Two-sample testing becomes necessary when no such external reference exists and the question of interest is inherently relational — that is, when the goal is to decide whether <em>two groups differ from each other</em>. Consider a clinical trial in which neither the treatment effect nor the placebo response is known ahead of time. The researcher cannot pin down a single reference value for comparison; instead, both groups must be measured simultaneously and their outcomes compared directly. The same logic applies across an enormous variety of domains:</p>
+
+<ul>
+  <li><strong>Business:</strong> An e-commerce company runs an A/B test where visitors are randomly assigned to either the current checkout page or a redesigned version. The company wants to know whether conversion rates differ between the two designs.</li>
+  <li><strong>Medicine:</strong> A hospital compares post-operative recovery times for patients receiving two different pain management protocols.</li>
+  <li><strong>Education:</strong> A school district evaluates whether students in schools using a new reading program achieve higher literacy scores than students in control schools using the standard curriculum.</li>
+  <li><strong>Engineering:</strong> A materials scientist tests whether a modified alloy has a higher mean tensile strength than the standard alloy.</li>
+</ul>
+
+<p>In every case, the driving question is about a <em>difference</em>. Because both group-level values are estimated from sample data — and therefore both carry sampling uncertainty — the analysis must account for variability in both groups simultaneously. A two-sample test does exactly this, providing a principled way to assess whether an observed difference between sample statistics reflects a true population-level difference or is simply the product of random sampling variation.</p>
+
+<p><strong>The Null Hypothesis in a Two-Sample Context</strong></p>
+
+<p>Every hypothesis test begins with a <strong>null hypothesis (H₀)</strong>, the default claim that the test is designed to challenge. In the two-sample setting, H₀ always asserts that the two groups are equivalent with respect to the parameter under study. When comparing means, the null hypothesis is written as:</p>
+
+<pre><code>H₀: μ₁ = μ₂   (equivalently, μ₁ − μ₂ = 0)</code></pre>
+
+<p>When comparing proportions:</p>
+
+<pre><code>H₀: p₁ = p₂   (equivalently, p₁ − p₂ = 0)</code></pre>
+
+<p>The null hypothesis embodies the skeptical position: any difference observed between the two sample statistics is explained entirely by random sampling variability, not by any genuine difference in the underlying populations. This framing is deliberate. Rather than trying to prove that a difference exists — something that is logically impossible to do with certainty from finite data — the researcher instead attempts to accumulate evidence strong enough to make the null hypothesis implausible.</p>
+
+<p>A critical subtlety is that <strong>failing to reject H₀ is not the same as proving H₀ is true</strong>. If a study concludes that the data do not provide sufficient evidence of a difference, this could mean any of several things: the groups truly are equivalent; the sample sizes were too small to detect a real but modest difference; the measurement instrument was imprecise; or random chance produced an unrepresentative sample. The null hypothesis is a benchmark for decision-making, not a statement of absolute truth. Researchers and practitioners who conflate "we failed to reject H₀" with "the groups are identical" commit a fundamental logical error with potentially serious consequences — for example, concluding that an ineffective drug is safe to deploy simply because a small underpowered trial detected no significant difference.</p>
+
+<p><strong>The Alternative Hypothesis in a Two-Sample Context</strong></p>
+
+<p>The <strong>alternative hypothesis (H₁ or Hₐ)</strong> specifies what the researcher believes may be true if H₀ is wrong. In a two-sample context there are three possible forms, and choosing correctly among them is not a minor detail — it directly determines how the test statistic is evaluated and what constitutes "extreme" evidence.</p>
+
+<ul>
+  <li><strong>Two-tailed alternative:</strong> The researcher suspects a difference exists but has no prior basis for predicting which group will have the larger value.
+    <pre><code>H₁: μ₁ ≠ μ₂</code></pre>
+    Evidence against H₀ can come from either direction — the observed difference could be positive or negative. The rejection region is split equally between both tails of the sampling distribution. This is the most conservative and most commonly appropriate choice when genuine uncertainty about direction exists.</li>
+  <li><strong>Right-tailed (upper-tailed) alternative:</strong> Prior theory or evidence suggests that group 1 will have a larger parameter value than group 2.
+    <pre><code>H₁: μ₁ > μ₂</code></pre>
+    The entire rejection region sits in the upper tail. If the observed difference runs in the opposite direction (μ̂₁ &lt; μ̂₂), no matter how extreme, it cannot lead to rejection of H₀ under this formulation.</li>
+  <li><strong>Left-tailed (lower-tailed) alternative:</strong> Theory suggests group 1 will have a smaller value.
+    <pre><code>H₁: μ₁ &lt; μ₂</code></pre>
+    The entire rejection region sits in the lower tail.</li>
+</ul>
+
+<p>The choice of alternative hypothesis must be made <em>before</em> the data are collected and examined. This rule is not bureaucratic formality — it is a safeguard against a subtle but serious form of bias called <strong>HARKing</strong> (Hypothesizing After Results are Known). If a researcher observes data first and then selects the alternative hypothesis that makes the result look significant, the stated significance level (say, α = 0.05) no longer accurately describes the true probability of a false rejection. The test appears rigorous but is in fact data-dredging. Scientific integrity demands that the direction of the alternative, if one-tailed, be grounded in prior evidence or theoretical reasoning that predates data collection.</p>
+
+<p>As a practical illustration: a pharmaceutical company testing whether Drug A reduces systolic blood pressure more than Drug B — based on a mechanistic hypothesis about Drug A's receptor action — would be justified in using a one-tailed test. A company that simply wants to know whether any difference exists between two new formulations would use a two-tailed test.</p>
+
+<p><strong>The Logical Framework of Two-Sample Testing</strong></p>
+
+<p>All two-sample hypothesis tests, regardless of the specific statistic involved, follow the same sequence of logical steps. Internalizing this framework provides a stable scaffold for navigating any specific test encountered later.</p>
+
+<ul>
+  <li><strong>Step 1 — State hypotheses:</strong> Before touching the data, write out H₀ and H₁ in terms of the population parameters of interest. Specify whether the test is one-tailed or two-tailed, and at what significance level α the decision will be made. Common choices are α = 0.05, 0.01, or 0.10, selected based on the cost of Type I errors in the specific context.</li>
+  <li><strong>Step 2 — Check assumptions and collect data:</strong> Verify that the sampling conditions required for the chosen test are met (e.g., independence of observations, approximate normality, adequate sample sizes). Collect or obtain the sample data from both groups.</li>
+  <li><strong>Step 3 — Compute the test statistic:</strong> Calculate the numerical value that summarizes how far the observed difference between the two sample statistics lies from the null hypothesis value of zero, measured in units of standard error. The general structure for most two-sample test statistics is:
+    <pre><code>Test statistic = (Observed difference − Null hypothesis value) / Standard error of the difference</code></pre>
+    For means this typically produces a <em>t</em>-statistic or <em>z</em>-statistic; for proportions it produces a <em>z</em>-statistic.</li>
+  <li><strong>Step 4 — Determine the p-value or critical value:</strong> Using the appropriate sampling distribution (t, z, F, etc.), find either the p-value — the probability of observing a test statistic at least as extreme as the one computed, assuming H₀ is true — or identify the critical value that demarcates the rejection region at significance level α.</li>
+  <li><strong>Step 5 — Make a decision:</strong> If p ≤ α (or equivalently, if the test statistic falls in the rejection region), reject H₀ and conclude that the data provide statistically significant evidence of a difference. If p &gt; α, fail to reject H₀.</li>
+  <li><strong>Step 6 — Interpret in context:</strong> State the conclusion in plain language tied to the original research question. Report an effect size and, where appropriate, a confidence interval for the difference, so that the practical significance of the finding can be assessed alongside statistical significance.</li>
+</ul>
+
+<p>This framework enforces objectivity: because the decision rule is fixed before the data are seen (Steps 1 and 4), the outcome of the test is determined by the evidence rather than by the researcher's hopes or expectations.</p>
+
+<p><strong>Independent vs. Paired Groups</strong></p>
+
+<p>One of the most consequential decisions in designing a two-sample analysis is determining whether the two groups are <strong>independent</strong> or <strong>paired (dependent)</strong>. This is not merely a technical classification — it fundamentally changes the test statistic, the degrees of freedom, and the power of the test.</p>
+
+<p><strong>Independent samples</strong> consist of two distinct groups where there is no meaningful relationship between any individual observation in group 1 and any individual observation in group 2. Membership in one group tells you nothing about any specific member of the other group. Classic examples include:</p>
+
+<ul>
+  <li>Randomly assigning 50 patients to Drug A and a separate 50 patients to Drug B (no patient appears in both groups).</li>
+  <li>Comparing the annual salaries of engineers at two different companies, where the workforces have no overlap.</li>
+  <li>Measuring crop yields in fields treated with fertilizer A versus fields treated with fertilizer B, where different fields are used for each treatment.</li>
+</ul>
+
+<p><strong>Paired (dependent) samples</strong> involve observations that are matched or inherently linked across the two groups. The pairing creates a one-to-one correspondence between observations. The key insight is that by analyzing differences <em>within</em> each pair rather than between group-level averages, the researcher eliminates a source of variability — natural between-subject heterogeneity — that would otherwise inflate the standard error and make it harder to detect a real treatment effect. Examples include:</p>
+
+<ul>
+  <li><strong>Before-after measurements on the same subject:</strong> A runner's 5K time is recorded before and after a 12-week training program. Each runner contributes one "before" and one "after" time; the pair is linked by the individual.</li>
+  <li><strong>Matched pairs design:</strong> Patients are matched on age, sex, and baseline severity before being assigned (one from each pair) to treatment or control. The matching absorbs individual-level variability.</li>
+  <li><strong>Self-controlled experiments:</strong> Each participant evaluates both products, with order randomized. Because the same person rates both items, person-to-person differences cancel out when analyzing the difference in ratings.</li>
+</ul>
+
+<p>Misclassifying a paired study as an independent-samples study results in an overly conservative test (larger standard error, reduced power), potentially causing a researcher to miss a genuine difference. Conversely, treating truly independent samples as if they were paired is simply inapplicable — you cannot form meaningful pairs when no natural correspondence exists between observations. The structure of the data collection design — not a post-hoc preference — determines which analysis is correct.</p>
+
+<p><strong>Parameters Being Compared</strong></p>
+
+<p>The final foundational choice concerns <em>what is being measured</em>, because the nature of the outcome variable determines which population parameter is relevant and, by extension, which test to apply.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outcome Variable Type</th>
+      <th>Parameter of Interest</th>
+      <th>Null Hypothesis Form</th>
+      <th>Typical Test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Continuous (e.g., blood pressure, salary, exam score)</td>
+      <td>Population means μ₁ and μ₂</td>
+      <td>H₀: μ₁ − μ₂ = 0</td>
+      <td>Two-sample t-test or z-test</td>
+    </tr>
+    <tr>
+      <td>Binary / Categorical (e.g., success/failure, yes/no, clicked/did not click)</td>
+      <td>Population proportions p₁ and p₂</td>
+      <td>H₀: p₁ − p₂ = 0</td>
+      <td>Two-proportion z-test</td>
+    </tr>
+    <tr>
+      <td>Continuous, paired observations</td>
+      <td>Mean of paired differences μ_d</td>
+      <td>H₀: μ_d = 0</td>
+      <td>Paired t-test</td>
+    </tr>
+    <tr>
+      <td>Continuous, comparing variability</td>
+      <td>Population variances σ₁² and σ₂²</td>
+      <td>H₀: σ₁² = σ₂²</td>
+      <td>F-test (Levene's test)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When the outcome is a <strong>continuous variable</strong> — one that can take any value along a numerical scale — the natural parameter to compare is the population mean. A researcher studying whether a new fertilizer increases crop yield (measured in kilograms per hectare) wants to know whether μ₁ (mean yield under new fertilizer) differs from μ₂ (mean yield under standard fertilizer). The sample means X̄₁ and X̄₂ estimate these population means, and the two-sample t-test provides the inferential machinery to compare them.</p>
+
+<p>When the outcome is <strong>binary</strong> — each observation falls into one of exactly two categories, such as "recovered / did not recover" or "purchased / did not purchase" — the relevant parameter for each group is the population proportion. The observed sample proportions p̂₁ and p̂₂ serve as estimators, and the two-proportion z-test is the standard inferential tool. For example, if a marketing team finds that 12% of visitors to webpage version A clicked a call-to-action button versus 17% of visitors to version B, the question is whether this 5-percentage-point difference reflects a true difference in underlying conversion rates p₁ and p₂ or is within the range of sampling noise.</p>
+
+<p>This connection between the measurement scale of the outcome variable and the appropriate parameter and test is not merely a matter of convention — it reflects the underlying mathematics of the sampling distributions involved. The central limit theorem guarantees that sample means follow an approximately normal distribution for sufficiently large samples regardless of the population's shape, which justifies the use of t- or z-based tests for means. Sample proportions also follow an approximately normal distribution under appropriate conditions (typically np ≥ 10 and n(1−p) ≥ 10 for both groups), enabling the z-test for proportions. Applying the wrong test — for example, using a means-based t-test on binary (0/1) data — would not be catastrophically wrong in large samples (since X̄ = p̂ in that case), but it obscures the logic of the analysis and can produce confusion about interpretation.</p>
+
+<p>Together, these foundational concepts — the rationale for comparing two groups, the structure of the null and alternative hypotheses, the step-by-step logical framework, the distinction between independent and paired designs, and the link between outcome type and parameter choice — constitute the complete conceptual foundation on which every specific two-sample test is built. Mastery of these ideas makes the mechanics of individual tests far easier to learn, apply correctly, and interpret meaningfully.</p>
+      <div class="notes"><strong>Notes</strong>Covers all six subtopic areas in depth: rationale for two-sample testing, null hypothesis logic, alternative hypothesis forms and HARKing, the six-step framework, independent vs. paired distinction, and parameter/test selection. Includes an HTML table mapping outcome types to parameters and tests. No headings used per instructions; topic flow is managed through bold lead-ins and paragraph breaks.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

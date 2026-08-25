@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theoretical vs. Experimental Probability</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+  <header>
+    <h1>Theoretical vs. Experimental Probability</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Theoretical vs. Experimental Probability</h2>
+      <p>Probability is the branch of mathematics that quantifies how likely an event is to occur. At its heart, probability gives us a language for talking about uncertainty — whether we are rolling a die, predicting rain, testing a new drug, or assessing the risk of a bridge failing. Two fundamentally different approaches exist for assigning probabilities to events: the <strong>theoretical approach</strong>, which reasons from mathematical models and assumed structure, and the <strong>experimental approach</strong>, which draws conclusions from observed data collected through actual trials. Understanding both, knowing when to use each, and being able to compare their results are essential skills in mathematics, science, and everyday decision-making.</p>
+
+<p><strong>Defining Theoretical Probability</strong></p>
+
+<p>Theoretical probability is grounded in logic and mathematical reasoning. It is used when we can clearly identify all possible outcomes of a situation and when every outcome is equally likely to occur. Rather than running any experiment, we calculate the probability purely by thinking about the structure of the problem.</p>
+
+<p>The formula for theoretical probability is:</p>
+
+<pre><code>P(Event) = Number of favorable outcomes / Total number of possible outcomes</code></pre>
+
+<p>The collection of all possible outcomes is called the <strong>sample space</strong>. For theoretical probability to apply cleanly, the sample space must be well-defined and every outcome within it must be equally likely. Consider a standard six-sided die. The sample space is {1, 2, 3, 4, 5, 6} — six outcomes, each equally likely. The theoretical probability of rolling a 4 is:</p>
+
+<pre><code>P(rolling a 4) = 1 / 6 ≈ 0.1667 or about 16.67%</code></pre>
+
+<p>Similarly, the probability of rolling an even number (2, 4, or 6) is:</p>
+
+<pre><code>P(even) = 3 / 6 = 1 / 2 = 0.5 or 50%</code></pre>
+
+<p>Notice that we never had to physically roll the die. We reasoned about it. This is the defining character of theoretical probability: it is calculated <em>in advance</em>, based on what we know or assume about the system.</p>
+
+<p>Theoretical probability is especially powerful when the sample space is symmetric and outcomes are truly equally likely — as with fair coins, well-shuffled decks of cards, and unbiased dice. It also applies to more complex combinatorial settings. For example, if you draw two cards from a standard 52-card deck, you can calculate the theoretical probability of drawing two aces by counting favorable combinations and dividing by total combinations, all without ever touching a card.</p>
+
+<p><strong>Defining Experimental Probability</strong></p>
+
+<p>Experimental probability, sometimes called <em>empirical probability</em>, takes a completely different approach. Instead of reasoning about what <em>should</em> happen, it measures what <em>does</em> happen. You perform an experiment or observe a process repeatedly, record the outcomes, and use those recorded results to estimate probability.</p>
+
+<p>The formula for experimental probability is:</p>
+
+<pre><code>P(Event) = Number of times the event occurs / Total number of trials</code></pre>
+
+<p>Suppose you flip a coin 20 times and get heads 9 times. The experimental probability of heads from that experiment is:</p>
+
+<pre><code>P(heads) = 9 / 20 = 0.45 or 45%</code></pre>
+
+<p>Notice this does not equal the theoretical probability of 0.5. That is completely normal and expected, especially with a small number of trials. Experimental probability is <em>observed</em>, not derived, so it reflects the randomness inherent in actual outcomes.</p>
+
+<p>A critical feature of experimental probability is that it can vary from one experiment to the next. If you flip that same coin another 20 times, you might get 11 heads, giving an experimental probability of 0.55. Both results are valid experimental probabilities for their respective trials. Neither is "wrong" — they simply reflect the natural variability of random processes.</p>
+
+<p>Experimental probability is the tool of choice when the theoretical probability is unknown, difficult to calculate, or when real-world conditions may differ from idealized assumptions. In medicine, for instance, researchers cannot derive from pure mathematics the probability that a new drug will cure a disease — they must run clinical trials and observe what actually happens.</p>
+
+<p><strong>Key Differences Between the Two Approaches</strong></p>
+
+<p>The distinction between theoretical and experimental probability goes beyond just their formulas. They reflect two different philosophies about how we come to know the likelihood of events.</p>
+
+<ul>
+  <li><strong>Source of knowledge:</strong> Theoretical probability comes from mathematical reasoning about the structure of a problem. Experimental probability comes from observation and data collection in the real world.</li>
+  <li><strong>Stability:</strong> Theoretical probability is fixed for a given, well-defined scenario. The probability of rolling a 3 on a fair die is always 1/6, no matter when or how many times you calculate it. Experimental probability fluctuates with each new set of trials.</li>
+  <li><strong>Requirements:</strong> Theoretical probability requires that you can enumerate the sample space and that outcomes are equally likely. Experimental probability only requires that you can conduct trials and observe outcomes — no assumptions about equal likelihood are necessary.</li>
+  <li><strong>Applicability:</strong> Theoretical probability works beautifully for games of chance with known structure. Experimental probability is indispensable when dealing with complex real-world phenomena where assumptions of equal likelihood break down.</li>
+</ul>
+
+<p>Neither approach is universally superior. A card player benefits from theoretical probability to calculate the odds of drawing a flush. A pharmaceutical company must rely on experimental probability to determine a drug's efficacy. The appropriate choice is always governed by the context and the information available.</p>
+
+<p><strong>The Law of Large Numbers</strong></p>
+
+<p>One of the most important and elegant results in probability theory is the <strong>Law of Large Numbers</strong>. It provides the mathematical bridge between experimental and theoretical probability, and it explains why we can trust large-scale experimental data.</p>
+
+<p>The Law of Large Numbers states that as the number of trials in an experiment increases indefinitely, the experimental probability of an event will get closer and closer to its theoretical probability. In informal terms: the more times you repeat an experiment, the more reliable your estimate of the true probability becomes.</p>
+
+<p>Consider flipping a fair coin repeatedly. With only 10 flips, you might get 7 heads — an experimental probability of 0.70, quite far from the theoretical 0.50. With 100 flips, you might get 53 heads — an experimental probability of 0.53, much closer. With 10,000 flips, you would expect the experimental probability to hover very near 0.50, perhaps 0.498 or 0.503.</p>
+
+<p>The table below illustrates how experimental probability tends to converge toward the theoretical probability as the number of coin flips increases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Flips</th>
+      <th>Heads Observed</th>
+      <th>Experimental P(Heads)</th>
+      <th>Theoretical P(Heads)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10</td>
+      <td>7</td>
+      <td>0.700</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>22</td>
+      <td>0.440</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>53</td>
+      <td>0.530</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <td>500</td>
+      <td>247</td>
+      <td>0.494</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <td>1,000</td>
+      <td>503</td>
+      <td>0.503</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <td>10,000</td>
+      <td>4,986</td>
+      <td>0.4986</td>
+      <td>0.500</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Law of Large Numbers does <em>not</em> mean that if you have flipped more tails than heads so far, the coin will "remember" this and produce more heads to balance things out. That misconception is called the <em>Gambler's Fallacy</em>. Each flip is independent. What the law says is subtler: over a very large number of trials, the <em>proportion</em> of heads will stabilize near 0.5 simply because the accumulated effect of randomness evens out mathematically.</p>
+
+<p>This law has enormous practical consequences. It is why insurance companies can reliably set premiums using large actuarial datasets, why casinos can guarantee long-term profit despite short-term variation, and why large-scale medical trials are considered more trustworthy than small ones.</p>
+
+<p><strong>Practical Applications of Each Type</strong></p>
+
+<p>Both theoretical and experimental probability are indispensable tools across a wide variety of fields. Knowing which to apply — and how to use each effectively — is a hallmark of quantitative reasoning.</p>
+
+<p><em>Applications of Theoretical Probability:</em></p>
+<ul>
+  <li><strong>Games of chance:</strong> Card games, dice games, lotteries, and roulette all have well-defined sample spaces. Casinos use theoretical probability to design games with predictable house edges. For example, in a standard lottery where you choose 6 numbers from 1 to 49, the theoretical probability of winning the jackpot can be calculated precisely using combinations.</li>
+  <li><strong>Quality control models:</strong> In manufacturing, engineers may model the probability of a defect occurring based on known process parameters, enabling them to set inspection thresholds without running extensive real-world tests.</li>
+  <li><strong>Risk assessment and finance:</strong> Actuaries and financial analysts use theoretical models (such as the binomial distribution or normal distribution) to calculate the probability of events like loan defaults or equipment failures, based on mathematically established assumptions.</li>
+</ul>
+
+<p><em>Applications of Experimental Probability:</em></p>
+<ul>
+  <li><strong>Medicine and clinical research:</strong> The probability that a vaccine prevents infection cannot be derived theoretically. Clinical trials are conducted, outcomes are measured, and experimental probability informs decisions about drug approval and public health policy.</li>
+  <li><strong>Social science and polling:</strong> Survey researchers estimate the probability that a population holds certain beliefs or will vote a certain way by observing actual responses from representative samples.</li>
+  <li><strong>Engineering and reliability testing:</strong> Engineers stress-test materials and components, recording how often failures occur under various conditions. These experimental probabilities are used to set safety margins and maintenance schedules.</li>
+  <li><strong>Sports analytics:</strong> A baseball player's probability of getting a hit is almost always expressed as an experimental probability — their batting average — calculated from actual at-bats over a season or career.</li>
+</ul>
+
+<p>The most powerful analyses often combine both approaches. A theorist might build a mathematical model predicting how a disease will spread through a population; epidemiologists then collect real outbreak data and compare it to the model's predictions. Where they match, confidence in the model increases. Where they diverge, the model is revised and refined.</p>
+
+<p><strong>Comparing Results and Identifying Discrepancies</strong></p>
+
+<p>Comparing theoretical and experimental probabilities is not just an academic exercise — it is a foundational technique in scientific reasoning and data analysis. When the two agree, we gain confidence in both our model and our data. When they disagree, we have a responsibility to investigate why.</p>
+
+<p><em>When agreement is found:</em> Suppose a teacher gives students a spinner divided into four equal sections (red, blue, green, yellow) and asks them to spin it 200 times. If red appears 51 times — an experimental probability of 51/200 = 0.255, very close to the theoretical 0.25 — this supports the conclusion that the spinner is fair and the theoretical model is accurate.</p>
+
+<p><em>When discrepancies appear:</em> Imagine instead that red appears 80 times out of 200 — an experimental probability of 0.40, far above the theoretical 0.25. This significant discrepancy demands explanation. Possible causes include:</p>
+
+<ul>
+  <li><strong>Bias in the physical device:</strong> The spinner may be unevenly weighted, or the red section may be physically larger than the others, violating the assumption of equal likelihood.</li>
+  <li><strong>Experimental error:</strong> The person conducting the trial may have introduced unconscious bias in how they spun the spinner, or recording errors may have occurred.</li>
+  <li><strong>Insufficient trials:</strong> A large discrepancy from a small number of trials (say, 20 instead of 200) could simply be due to chance variation, not a flaw in the model.</li>
+  <li><strong>Flawed theoretical model:</strong> The assumptions underlying the theoretical probability may not hold in the real world. A model assuming equal likelihood may be simply wrong for the physical object being used.</li>
+</ul>
+
+<p>Skilled analysts use statistical tools — such as chi-square goodness-of-fit tests — to determine whether observed discrepancies are likely due to chance or indicate a genuine problem with the theoretical model. The ability to detect, question, and explain discrepancies is at the core of scientific thinking.</p>
+
+<p>Consider a quality control scenario: a factory's theoretical model predicts that 2% of its products will be defective based on the manufacturing process design. An inspector samples 500 items and finds 25 defective — an experimental probability of 5%. This substantial gap would trigger an investigation into whether machine calibration has drifted, whether materials have changed, or whether the theoretical model's assumptions were ever valid.</p>
+
+<p>In summary, theoretical probability provides the ideal benchmark derived from mathematical reasoning, while experimental probability grounds our understanding in reality. Used together — with an eye toward explaining their differences — they form the backbone of probabilistic thinking in science, mathematics, and all fields that grapple with uncertainty.</p>
+      <div class="notes"><strong>Notes</strong>This topic distinguishes between theoretical probability derived from logical reasoning and experimental probability obtained through real-world trials and observation.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

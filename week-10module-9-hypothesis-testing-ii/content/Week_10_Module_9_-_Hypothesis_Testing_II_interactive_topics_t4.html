@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assumptions and Conditions for Validity</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+  <header>
+    <h1>Assumptions and Conditions for Validity</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Assumptions and Conditions for Validity</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every inferential test rests on a set of assumptions about the data and the process that generated them. These assumptions are not bureaucratic formalities — they are the mathematical foundation upon which the test's probability statements are built. When you report that a result is significant at α = 0.05, you are implicitly claiming that, if the null hypothesis were true, there would be only a 5% chance of obtaining a test statistic as extreme as the one you observed. That claim is only accurate when the assumptions of the test are satisfied. If they are violated, the actual false-positive rate may be 12%, or 2%, or something else entirely — and you would have no way of knowing without checking. Understanding what each assumption means, why it matters, and how to verify it is therefore an inseparable part of doing inferential statistics correctly.</p>
+
+<p><strong>Why Assumptions Matter in Inferential Testing</strong></p>
+
+<p>The connection between assumptions and error rates is direct. Every parametric test derives its sampling distribution — the theoretical distribution of the test statistic under the null hypothesis — from a set of mathematical conditions. The t-distribution used in t-tests, for example, is derived under the assumption that the data are normally distributed (or that the sample is large enough for the Central Limit Theorem to apply) and that observations are independent. When you compare your computed t-statistic to that theoretical distribution to obtain a p-value, you are trusting that your data meet those conditions. If they do not, the reference distribution is wrong, and so is the p-value.</p>
+
+<p>The consequences are asymmetric in unpredictable ways. Violated assumptions can <em>inflate</em> the Type I error rate (false positives become more common than α suggests), <em>deflate</em> it (the test becomes overly conservative), or <em>inflate the Type II error rate</em> (the test loses power and misses real effects). Which direction the distortion goes depends on which assumption is violated, in what way, and how severely — which is precisely why checking assumptions beforehand is necessary rather than trusting that errors will cancel out.</p>
+
+<p>Importantly, different tests carry different assumptions, so the checking process cannot be applied generically. A one-sample t-test, a two-sample t-test, a paired t-test, and a chi-squared test of independence each require you to verify a distinct set of conditions. Applying a single checklist to every test is a mistake. The discipline required is to ask, for each specific technique: <em>What does this test assume, and does my data meet those conditions?</em></p>
+
+<ul>
+  <li><strong>Nominal α vs. actual α:</strong> Stating α = 0.05 only guarantees a 5% false-positive rate when all assumptions hold. Violated assumptions mean the stated α is a fiction.</li>
+  <li><strong>Both error types are at risk:</strong> Assumption violations do not uniformly inflate or deflate error; the direction and magnitude depend on the specific violation.</li>
+  <li><strong>Test-specific checking:</strong> Each inferential procedure has its own assumption profile; condition checking must match the technique being used.</li>
+</ul>
+
+<p><strong>Independence of Observations</strong></p>
+
+<p>Independence is arguably the most important and most frequently overlooked assumption. Observations are independent when knowing the value of one observation gives you no information about any other observation. In a two-sample setting — comparing, say, the mean blood pressure of patients on Drug A versus Drug B — independence must hold in two distinct senses: <em>within</em> each group (patients within the Drug A group did not influence one another) and <em>between</em> groups (the Drug A measurements are unrelated to the Drug B measurements).</p>
+
+<p>Independence is often guaranteed by study design. Random assignment of participants to groups, for example, is designed precisely to create independent groups. Where independence breaks down is when the design introduces linkages: measurements taken on the same person at multiple time points, students nested within the same classroom, lab samples processed in the same batch, or family members enrolled in the same study. These structures create correlation that violates independence.</p>
+
+<p>The statistical consequence of undetected dependence is almost always an <em>underestimation of standard errors</em>. Correlated observations contain less unique information than independent observations of the same number, so the true variability in an estimate is larger than the formula assumes. A smaller denominator in the test statistic formula means an inflated t or z value, which in turn produces an artificially small p-value. In other words, dependence makes results look more significant than they really are — a systematic bias toward false positives.</p>
+
+<p><strong>Paired designs</strong> are an important special case. When pairs of observations are intentionally linked — pre-test and post-test scores on the same individual, left-eye and right-eye measurements, matched controls — the observations between groups are explicitly <em>not</em> independent. The correct response is not to avoid dependence but to use a test designed for it: the paired t-test. By computing the within-pair differences and treating those differences as the data, the paired t-test converts a problem of dependence into one of single-sample inference on the differences, fully accounting for the pairing structure. Using an independent-samples t-test on paired data discards the pairing information, inflates the standard error unnecessarily, and reduces statistical power.</p>
+
+<ul>
+  <li><strong>Within-group independence:</strong> Observations in the same group must not influence one another (no clustering, repeated measures, or batch effects).</li>
+  <li><strong>Between-group independence:</strong> The two groups must be unrelated — no matched pairs, no same individuals appearing in both groups.</li>
+  <li><strong>Paired designs require paired tests:</strong> Deliberate pairing is not a violation to be corrected; it is a design feature to be exploited with the correct analysis.</li>
+  <li><strong>Effect of violation:</strong> Positive correlation within groups typically underestimates standard errors, inflating test statistics and p-values downward — increasing the false-positive rate.</li>
+</ul>
+
+<p><strong>Normality Assumption and How to Verify It</strong></p>
+
+<p>Many parametric tests assume that the data (or in the case of the paired t-test, the <em>differences</em>) come from a normally distributed population. In practice, perfect normality never occurs — no real dataset follows the bell curve exactly. What matters is whether departures from normality are severe enough to distort the test's operating characteristics. The goal of normality checking is therefore not to confirm perfection but to identify <em>serious violations</em>: heavy tails, pronounced skewness, multimodality, or outliers that suggest the normal model is deeply inappropriate.</p>
+
+<p><strong>Visual tools</strong> are the primary method for assessing normality and should always be the first step:</p>
+
+<ul>
+  <li><strong>Histogram:</strong> Plots the frequency distribution of the data. Look for approximate bell shape, rough symmetry, and a single peak. Pronounced skewness (a long tail to one side) or multiple modes are warning signs. Histograms are sensitive to bin width, so try several.</li>
+  <li><strong>Boxplot:</strong> Shows the median, interquartile range, and outliers. A symmetric box with whiskers of roughly equal length is consistent with normality. Asymmetric boxes or many outlier points suggest skewness or heavy tails.</li>
+  <li><strong>Quantile-Quantile (Q-Q) plot:</strong> The most sensitive graphical tool for normality. Sample quantiles are plotted against theoretical quantiles of a normal distribution. If the data are normal, the points fall approximately on a straight diagonal line. S-shaped curves indicate heavy or light tails; consistent curvature indicates skewness. Isolated points at the extremes indicate outliers.</li>
+</ul>
+
+<p><strong>Formal normality tests</strong> such as the Shapiro-Wilk test can supplement visual tools. The Shapiro-Wilk test computes a statistic W that measures how closely the sample resembles a normal distribution; a small p-value leads to rejection of the normality hypothesis. However, these tests have well-known limitations that make them unreliable as standalone tools:</p>
+
+<ul>
+  <li><strong>With small samples</strong>, formal tests have low power and will fail to detect even fairly severe non-normality, giving false reassurance.</li>
+  <li><strong>With large samples</strong>, formal tests become hypersensitive and will reject normality for trivial, practically irrelevant deviations that have no real effect on the validity of the parametric test.</li>
+</ul>
+
+<p>The recommended practice is to use formal tests <em>alongside</em> visual inspection, weighting the visual evidence heavily. A non-significant Shapiro-Wilk result in a small sample is not strong evidence of normality; a significant result in a large sample is not strong evidence of meaningful non-normality.</p>
+
+<p>When data from a clearly non-normal population are analyzed with a small sample, parametric tests can produce misleading results. In those cases, <strong>non-parametric alternatives</strong> — which make no distributional assumption beyond order — should be considered. These are discussed in detail below.</p>
+
+<p><strong>Homogeneity of Variance (Equal Variances)</strong></p>
+
+<p>The pooled two-sample t-test assumes that the two populations being compared have equal variances (σ₁² = σ₂²). This assumption is needed because the pooled standard error is computed by combining (pooling) the variance estimates from both groups into a single number. If the true variances differ substantially, the pooled estimate is a poor representation of either, and the resulting t-statistic does not follow the t-distribution as closely as required.</p>
+
+<p>The consequences are most severe when unequal variances are combined with <em>unequal sample sizes</em>. If the group with the larger sample also has the larger variance, the test tends to be anti-conservative (p-values too small, false positives inflated). If the group with the larger sample has the smaller variance, the test becomes overly conservative (p-values too large, true effects missed). When sample sizes are equal, the pooled t-test is relatively robust to moderate variance heterogeneity — but equal sample sizes are often not achieved in practice.</p>
+
+<p><strong>Welch's t-test</strong> is the solution. Rather than pooling variance estimates, Welch's test uses a separate variance estimate for each group and adjusts the degrees of freedom downward using the Welch-Satterthwaite approximation. This correction makes the test valid whether or not the variances are equal. Because it performs well in both equal-variance and unequal-variance situations — losing only a trivial amount of power when variances happen to be equal — most modern statistical software (R, Python's scipy, SPSS, Minitab) defaults to Welch's t-test rather than the pooled version. It is generally the safer default choice.</p>
+
+<p>To illustrate the difference in degrees of freedom, consider two groups with the following summary statistics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Sample Size (n)</th>
+      <th>Sample Variance (s²)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Group A</td>
+      <td>12</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <td>Group B</td>
+      <td>18</td>
+      <td>25.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The pooled t-test would use df = 12 + 18 − 2 = 28 and a pooled variance heavily influenced by the larger group's higher variance. Welch's formula would yield a fractional df considerably less than 28 (the exact value depends on the formula), reflecting the fact that less information is available because the variances are so different. Using the correct, reduced degrees of freedom produces a wider critical region and a more honest p-value.</p>
+
+<ul>
+  <li><strong>Equal-variance assumption matters most</strong> when group sizes differ substantially — unequal n amplifies the distortion from unequal variances.</li>
+  <li><strong>Welch's t-test is preferred</strong> in virtually all practical settings because it is robust to variance heterogeneity at minimal cost to power.</li>
+  <li><strong>Software defaults:</strong> Most modern packages default to Welch's t-test; be aware of which version your software is using when reporting results.</li>
+</ul>
+
+<p><strong>Sample Size and the Conditions for Each Test</strong></p>
+
+<p>Sample size interacts with assumptions in a fundamental way. The <strong>Central Limit Theorem (CLT)</strong> states that the sampling distribution of the sample mean approaches normality as sample size increases, regardless of the shape of the underlying population distribution. This is why parametric tests based on normal theory can remain valid even when the raw data are not perfectly normal — provided the sample is large enough for the CLT to have taken effect.</p>
+
+<p>The practical question is: how large is large enough? There is no single answer, because it depends on how far the population distribution departs from normality. As a widely used rule of thumb:</p>
+
+<ul>
+  <li><strong>n ≥ 30 per group</strong> is often cited as sufficient for the CLT to produce approximately normal sampling distributions, even for moderately skewed data.</li>
+  <li><strong>n ≥ 40–50 per group</strong> may be needed for heavily skewed distributions or distributions with pronounced outliers.</li>
+  <li><strong>Small samples (n &lt; 15–20)</strong> leave the test highly sensitive to non-normality; if the population is clearly non-normal, parametric tests may be unreliable.</li>
+</ul>
+
+<p>For chi-squared tests and other categorical data methods, the relevant sample-size condition concerns <strong>expected cell counts</strong> rather than total n. The standard rule requires all expected frequencies to be at least 5 (some authorities relax this to "most cells ≥ 5, none below 1"). When this condition fails — typically in sparse contingency tables or when the sample is simply too small relative to the number of categories — options include:</p>
+
+<ul>
+  <li><strong>Collapsing categories:</strong> Combine sparsely populated cells with adjacent categories to increase expected counts, provided the combination is theoretically defensible.</li>
+  <li><strong>Collecting more data:</strong> The cleanest solution when feasible, as it addresses the root cause.</li>
+  <li><strong>Fisher's Exact Test:</strong> Computes exact probabilities for the observed table without relying on the chi-squared approximation; valid for any sample size, particularly useful for 2×2 tables.</li>
+  <li><strong>Non-parametric or exact methods:</strong> More broadly, switching to exact or permutation-based tests avoids distributional approximations entirely.</li>
+</ul>
+
+<p>The general principle is that small samples amplify the impact of every assumption violation, making thorough condition checking even more important when n is modest. With large samples, minor violations are typically inconsequential; with small samples, even moderate violations can meaningfully distort results.</p>
+
+<p><strong>Conditions Specific to Paired Comparisons</strong></p>
+
+<p>The paired t-test does not analyze the original two groups of measurements separately. Instead, it computes the <em>difference score</em> for each pair — subtracting one measurement from the other — and then performs a one-sample t-test on those differences against the null hypothesis that the population mean difference equals zero. This means the normality assumption applies specifically to the <strong>distribution of the differences</strong>, not to the raw measurements in either group.</p>
+
+<p>This distinction is important because the raw measurements in each group might individually be non-normal, yet the differences could be approximately normal — or vice versa. You must always check the differences themselves, not the original variables. The standard tools apply:</p>
+
+<ul>
+  <li>Plot a <strong>histogram of the differences</strong> to check for symmetry and the absence of heavy tails or extreme outliers.</li>
+  <li>Construct a <strong>Q-Q plot of the differences</strong> to assess linearity against theoretical normal quantiles.</li>
+  <li>Supplement with a Shapiro-Wilk test on the differences if desired, keeping in mind the sample-size caveats discussed above.</li>
+</ul>
+
+<p>The paired design has a major practical advantage: by removing between-subject variability (the fact that different people have different baseline levels), it reduces the standard error of the mean difference, which in turn increases statistical power. Two people who both improved by 5 units tell a cleaner story in a paired design than in an independent-samples design, where their individual baseline differences add noise. This power advantage is why paired designs are preferred whenever meaningful pairing is possible — but the pairing must be <em>genuinely meaningful</em>. Arbitrarily pairing unrelated subjects does not reduce variability; it only removes degrees of freedom, reducing power.</p>
+
+<p>When the differences are severely non-normal and the sample is small — making it unrealistic to invoke the CLT — the appropriate non-parametric alternative is the <strong>Wilcoxon signed-rank test</strong>. This test ranks the absolute values of the differences, assigns the original signs back, and tests whether the distribution of differences is symmetric around zero. It is more powerful than simply ignoring the magnitude of differences (as the sign test does) while still avoiding the normality assumption.</p>
+
+<p><strong>Using Non-Parametric Methods When Assumptions Fail</strong></p>
+
+<p>Non-parametric tests are sometimes described as "assumption-free," but this is an oversimplification. They make fewer and weaker assumptions than their parametric counterparts — typically requiring only that data are at least ordinal in scale and that observations are independent — but they are not without requirements. The critical point is that <strong>independence must still be verified</strong> even when switching to a non-parametric method.</p>
+
+<p>The two most important non-parametric alternatives in the context of two-group comparisons are:</p>
+
+<ul>
+  <li><strong>Mann-Whitney U test</strong> (also called the Wilcoxon rank-sum test): The non-parametric counterpart to the independent two-sample t-test. It works by ranking all observations from both groups combined, then assessing whether one group's ranks tend to be higher than the other's. It requires only that the data are at least ordinal and that observations within and between groups are independent. It does not require normality or equal variances. When the distributional shapes of the two groups are similar, the Mann-Whitney U test is interpretable as a test of median differences; more generally, it is a test of stochastic dominance (whether one group tends to produce larger values than the other).</li>
+  <li><strong>Wilcoxon signed-rank test</strong>: The non-parametric counterpart to the paired t-test. It ranks the absolute values of the pair differences, restores the signs, and tests whether positive and negative ranks are symmetrically distributed around zero. It requires that the differences be independently and symmetrically distributed (symmetry, not normality), which is a much weaker condition than the paired t-test's normality requirement.</li>
+</ul>
+
+<p>The trade-off is statistical power. When the normality assumption <em>is</em> met, parametric tests are generally more powerful than non-parametric alternatives — they extract more information from the data by using actual values rather than only ranks. The efficiency loss is usually modest (the Mann-Whitney U test has approximately 95.5% of the power of the t-test under normality), but in small samples even modest differences matter. When normality is badly violated, however, non-parametric tests can actually be <em>more</em> powerful than parametric tests, because the parametric test's operating characteristics have been distorted.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Parametric Test</th>
+      <th>Non-Parametric Alternative</th>
+      <th>Key Remaining Requirement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Two independent groups, normality holds</td>
+      <td>Welch's t-test</td>
+      <td>Mann-Whitney U test</td>
+      <td>Independence within and between groups</td>
+    </tr>
+    <tr>
+      <td>Two independent groups, normality fails</td>
+      <td>Consider non-parametric</td>
+      <td>Mann-Whitney U test</td>
+      <td>Independence within and between groups</td>
+    </tr>
+    <tr>
+      <td>Paired observations, differences normal</td>
+      <td>Paired t-test</td>
+      <td>Wilcoxon signed-rank test</td>
+      <td>Meaningful pairing; differences symmetric</td>
+    </tr>
+    <tr>
+      <td>Paired observations, differences non-normal</td>
+      <td>Avoid or use with caution</td>
+      <td>Wilcoxon signed-rank test</td>
+      <td>Meaningful pairing; differences symmetric</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The broader lesson is that assumption checking is not a step that stands apart from analysis — it is part of the analysis itself. Choosing the right test, verifying its conditions, and selecting a valid alternative when conditions fail are all part of the same coherent process of drawing defensible inferences from data. A result reported without evidence that its underlying assumptions were checked is a result whose validity is unknown, and an unknown validity is no validity at all.</p>
+        <div class="notes"><strong>Notes</strong>The content covers all listed subtopics in depth. The Welch-Satterthwaite degrees of freedom formula is referenced conceptually rather than written out algebraically, which is appropriate for this level. The comparison table at the end synthesizes the parametric/non-parametric decision logic and reinforces the independence-always-required theme. Instructors may wish to supplement with worked numerical examples (computing differences for paired data, reading a Q-Q plot) in accompanying exercises.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

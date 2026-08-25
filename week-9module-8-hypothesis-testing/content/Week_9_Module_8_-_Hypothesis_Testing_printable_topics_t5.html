@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Common Hypothesis Tests</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>Applying Common Hypothesis Tests</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Applying Common Hypothesis Tests</h2>
+      <p>Hypothesis testing is one of the most powerful tools in a data analyst's or researcher's toolkit. Rather than simply describing data, hypothesis tests allow us to make principled, probabilistic decisions about whether observed patterns reflect genuine phenomena or are plausibly explained by random chance. This topic walks through the most commonly applied hypothesis tests — the one-sample t-test, the two-sample t-test, the paired t-test, the chi-square test, and ANOVA — and then addresses the practical questions of how to choose the right test and how to communicate results clearly and honestly. Throughout, the emphasis is on applying these methods to real data situations rather than merely rehearsing formulas.</p>
+
+<p>Each test rests on a shared logical framework: you state a null hypothesis (the "nothing interesting is happening" claim), choose a significance level that defines your tolerance for false positives, collect data, compute a test statistic that summarizes how far the data depart from what the null hypothesis predicts, and then compare that statistic to a reference distribution to obtain a p-value. If the p-value is below your pre-chosen threshold, you reject the null hypothesis and conclude the data are inconsistent with it. What differs across tests is the type of data involved, the structure of the comparison, and the reference distribution used.</p>
+
+<p><strong>One-Sample t-Test in Practice</strong></p>
+
+<p>The one-sample t-test answers a focused question: does the mean of a single population equal some specified value? This hypothesized value is not arbitrary — it comes from theory, a regulatory standard, a historical benchmark, or a business target. For example, a coffee shop claims its large cups contain 16 ounces on average. A quality-control analyst fills 25 cups and measures each one. The question is whether the sample mean is far enough from 16 ounces to constitute evidence of a systematic underfill or overfill.</p>
+
+<p>The test statistic is computed as follows:</p>
+
+<pre><code>t = (x̄ - μ₀) / (s / √n)
+</code></pre>
+
+<p>where <em>x̄</em> is the sample mean, <em>μ₀</em> is the hypothesized population mean, <em>s</em> is the sample standard deviation, and <em>n</em> is the sample size. The denominator <em>s / √n</em> is the standard error of the mean — it captures how much random variability we expect in a sample mean of this size. The resulting t-statistic follows a t-distribution with <em>n − 1</em> degrees of freedom under the null hypothesis.</p>
+
+<p>Suppose the analyst finds: <em>x̄</em> = 15.7 oz, <em>s</em> = 0.6 oz, <em>n</em> = 25. Then:</p>
+
+<pre><code>t = (15.7 - 16.0) / (0.6 / √25)
+  = -0.3 / (0.6 / 5)
+  = -0.3 / 0.12
+  = -2.5
+</code></pre>
+
+<p>With 24 degrees of freedom and a two-tailed significance level of 0.05, the critical value is approximately ±2.064. Because |−2.5| > 2.064, the result falls in the rejection region. The corresponding p-value is roughly 0.020, which is below 0.05. The analyst rejects the null hypothesis and concludes there is statistically significant evidence that the average fill differs from 16 ounces.</p>
+
+<p>Before trusting this conclusion, the analyst must check the key assumption: that the data are approximately normally distributed. For small samples (roughly n < 30), this matters considerably. A histogram or a normal probability plot (Q-Q plot) of the 25 measurements can reveal gross departures from normality. If the distribution is heavily skewed or contains extreme outliers, a non-parametric alternative such as the Wilcoxon signed-rank test is more appropriate. For large samples, the Central Limit Theorem ensures that the sampling distribution of the mean is approximately normal even if the raw data are not, making the t-test robust to moderate non-normality.</p>
+
+<p><strong>Two-Sample t-Test for Comparing Groups</strong></p>
+
+<p>When the research question involves comparing the means of two independent groups, the two-sample t-test is the natural tool. "Independent" means the observations in one group carry no systematic relationship to observations in the other — for instance, comparing test scores of students taught by two different methods, or comparing blood pressure between a treatment group and a control group in a randomized experiment.</p>
+
+<p>The null hypothesis is H₀: μ₁ = μ₂ (the two population means are equal). The alternative can be two-tailed (H₁: μ₁ ≠ μ₂), or one-tailed (H₁: μ₁ > μ₂ or μ₁ < μ₂) depending on whether theory specifies a direction.</p>
+
+<p>A critical decision before computing the statistic is whether to assume equal variances in the two populations. The standard approach is to use <strong>Levene's test</strong> or examine the ratio of sample variances. If the variances appear roughly equal, the <strong>pooled two-sample t-test</strong> is used:</p>
+
+<pre><code>t = (x̄₁ - x̄₂) / (sp × √(1/n₁ + 1/n₂))
+
+where sp = √[((n₁-1)s₁² + (n₂-1)s₂²) / (n₁ + n₂ - 2)]
+</code></pre>
+
+<p>The pooled standard deviation <em>sp</em> combines variance estimates from both groups, weighted by their sample sizes. Degrees of freedom equal <em>n₁ + n₂ − 2</em>.</p>
+
+<p>If variances differ substantially (a common situation in practice), <strong>Welch's t-test</strong> is preferred. It does not assume equal variances and uses a modified degrees-of-freedom formula (the Welch–Satterthwaite equation) that can produce a non-integer value. Many statisticians recommend using Welch's test by default because it is valid whether or not variances are equal, whereas the pooled test is invalid when they differ.</p>
+
+<p>Consider an example: a company tests a new training program. Group A (n₁ = 30) receives standard training; Group B (n₂ = 28) receives the new program. Post-training assessment scores yield x̄₁ = 72, s₁ = 10, x̄₂ = 78, s₂ = 9. Using the pooled test:</p>
+
+<pre><code>sp = √[((29)(100) + (27)(81)) / (30 + 28 - 2)]
+   = √[(2900 + 2187) / 56]
+   = √[5087 / 56]
+   = √90.84
+   ≈ 9.53
+
+t = (72 - 78) / (9.53 × √(1/30 + 1/28))
+  = -6 / (9.53 × √(0.0333 + 0.0357))
+  = -6 / (9.53 × √0.0690)
+  = -6 / (9.53 × 0.2627)
+  = -6 / 2.504
+  ≈ -2.40
+</code></pre>
+
+<p>With 56 degrees of freedom at α = 0.05 (two-tailed), the critical value is approximately ±2.003. Since |−2.40| > 2.003, the null is rejected. The new program is associated with significantly higher scores.</p>
+
+<p>However, statistical significance alone does not tell us whether the 6-point difference matters in practice. This is where <strong>effect size</strong> becomes essential. <strong>Cohen's d</strong> standardizes the mean difference:</p>
+
+<pre><code>d = (x̄₁ - x̄₂) / sp = 6 / 9.53 ≈ 0.63
+</code></pre>
+
+<p>Cohen's conventional benchmarks classify d ≈ 0.2 as small, d ≈ 0.5 as medium, and d ≈ 0.8 as large. A d of 0.63 suggests a moderate-to-large effect — the difference is not only statistically significant but also practically meaningful. Reporting effect sizes alongside p-values gives decision-makers a much richer picture.</p>
+
+<p><strong>Paired t-Test for Before-and-After Data</strong></p>
+
+<p>The paired t-test applies when observations come in natural pairs — the same individual measured twice (before and after an intervention), matched subjects in two conditions, or twin studies. The pairing is not incidental; it is designed to control for individual-level variability that would otherwise inflate the error term and reduce statistical power.</p>
+
+<p>The key insight is that the paired test converts a two-sample problem into a one-sample problem. For each pair <em>i</em>, compute the difference:</p>
+
+<pre><code>dᵢ = x₂ᵢ - x₁ᵢ
+</code></pre>
+
+<p>Then test whether the mean of these differences, <em>d̄</em>, is significantly different from zero:</p>
+
+<pre><code>t = d̄ / (sd / √n)
+</code></pre>
+
+<p>where <em>sd</em> is the standard deviation of the difference scores and <em>n</em> is the number of pairs. Degrees of freedom equal <em>n − 1</em>.</p>
+
+<p>Consider a wellness study measuring systolic blood pressure (mmHg) in 10 patients before and after an 8-week diet intervention:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>Before</th>
+      <th>After</th>
+      <th>Difference (After − Before)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>145</td><td>138</td><td>−7</td></tr>
+    <tr><td>2</td><td>160</td><td>150</td><td>−10</td></tr>
+    <tr><td>3</td><td>132</td><td>130</td><td>−2</td></tr>
+    <tr><td>4</td><td>155</td><td>144</td><td>−11</td></tr>
+    <tr><td>5</td><td>148</td><td>141</td><td>−7</td></tr>
+    <tr><td>6</td><td>162</td><td>158</td><td>−4</td></tr>
+    <tr><td>7</td><td>138</td><td>136</td><td>−2</td></tr>
+    <tr><td>8</td><td>150</td><td>139</td><td>−11</td></tr>
+    <tr><td>9</td><td>144</td><td>140</td><td>−4</td></tr>
+    <tr><td>10</td><td>157</td><td>149</td><td>−8</td></tr>
+  </tbody>
+</table>
+
+<p>The differences sum to −66, so <em>d̄</em> = −6.6 mmHg. The standard deviation of the differences is approximately 3.27 mmHg. The test statistic is:</p>
+
+<pre><code>t = -6.6 / (3.27 / √10)
+  = -6.6 / 1.034
+  ≈ -6.38
+</code></pre>
+
+<p>With 9 degrees of freedom, the critical value at α = 0.05 (two-tailed) is ±2.262. Since |−6.38| ≫ 2.262, the result is highly significant (p < 0.001). The diet intervention produced a statistically significant reduction in blood pressure.</p>
+
+<p>Why is the paired test more powerful here? If we had treated these as two independent groups, the high variability <em>between</em> patients (some naturally have higher blood pressure) would have inflated the denominator of the t-statistic. By working with differences, we eliminate that between-subject noise and isolate the within-subject change due to the intervention.</p>
+
+<p>Before applying the paired t-test, verify that the <em>differences</em> are approximately normally distributed — not necessarily the raw measurements. For n = 10 this matters; a Shapiro-Wilk test or a Q-Q plot of the differences is appropriate. Additionally, when reporting results, pair the significance test with a confidence interval for the mean difference. Here, the 95% CI for <em>d̄</em> is approximately (−6.6 ± 2.262 × 1.034), or roughly (−8.94, −4.26) mmHg. This tells stakeholders that the intervention likely reduces blood pressure by somewhere between about 4 and 9 mmHg — a clinically meaningful range.</p>
+
+<p><strong>Chi-Square Test for Categorical Data</strong></p>
+
+<p>The t-tests and ANOVA described above apply to continuous (numeric) outcomes. When the variable of interest is categorical — political affiliation, product preference, disease status, survey response — the chi-square (χ²) test is the workhorse. It comes in two main flavors: the <strong>goodness-of-fit test</strong> and the <strong>test of independence</strong>.</p>
+
+<p><em>Goodness-of-Fit Test:</em> This variant asks whether an observed frequency distribution matches a theoretically expected distribution. For instance, a genetics researcher expects offspring to follow a 3:1 ratio of dominant to recessive phenotypes (Mendelian inheritance). After observing 90 dominant and 30 recessive plants (n = 120), the expected counts under the 3:1 ratio are 90 and 30 respectively — which happen to match perfectly here. More interesting is when they do not match. Suppose instead we observe 100 dominant and 20 recessive:</p>
+
+<pre><code>Expected: dominant = 90, recessive = 30
+
+χ² = Σ [(O - E)² / E]
+   = [(100 - 90)² / 90] + [(20 - 30)² / 30]
+   = [100/90] + [100/30]
+   = 1.11 + 3.33
+   = 4.44
+</code></pre>
+
+<p>With 1 degree of freedom (number of categories minus 1), the critical value at α = 0.05 is 3.841. Since 4.44 > 3.841, the null hypothesis of a perfect 3:1 ratio is rejected. The observed distribution departs significantly from Mendelian expectation.</p>
+
+<p><em>Test of Independence:</em> This variant determines whether two categorical variables are associated. The data are arranged in a <strong>contingency table</strong>. For example, a marketer surveys 200 customers on whether they saw an advertisement and whether they purchased a product:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Purchased</th>
+      <th>Did Not Purchase</th>
+      <th>Row Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Saw Ad</strong></td><td>50</td><td>70</td><td>120</td></tr>
+    <tr><td><strong>Did Not See Ad</strong></td><td>20</td><td>60</td><td>80</td></tr>
+    <tr><td><strong>Column Total</strong></td><td>70</td><td>130</td><td>200</td></tr>
+  </tbody>
+</table>
+
+<p>Under the null hypothesis of independence, the expected count for each cell is:</p>
+
+<pre><code>E = (Row Total × Column Total) / Grand Total
+</code></pre>
+
+<p>Computing expected values:</p>
+
+<pre><code>E(Saw Ad, Purchased)         = (120 × 70) / 200 = 42
+E(Saw Ad, Not Purchased)     = (120 × 130) / 200 = 78
+E(Did Not See, Purchased)    = (80 × 70) / 200 = 28
+E(Did Not See, Not Purchased)= (80 × 130) / 200 = 52
+</code></pre>
+
+<pre><code>χ² = [(50-42)²/42] + [(70-78)²/78] + [(20-28)²/28] + [(60-52)²/52]
+   = [64/42] + [64/78] + [64/28] + [64/52]
+   = 1.52 + 0.82 + 2.29 + 1.23
+   = 5.86
+</code></pre>
+
+<p>Degrees of freedom = (rows − 1) × (columns − 1) = 1 × 1 = 1. Critical value at α = 0.05 is 3.841. Since 5.86 > 3.841, we reject independence and conclude that exposure to the advertisement is significantly associated with purchase behavior.</p>
+
+<p>A critical assumption for the chi-square test is that <strong>expected cell counts should be at least 5</strong> in every cell. When this is violated — common with small samples or rare categories — the chi-square approximation becomes inaccurate. Alternatives include collapsing categories (if conceptually defensible) or using <strong>Fisher's exact test</strong>, which computes exact probabilities without relying on the chi-square approximation and is especially appropriate for 2×2 tables with small counts.</p>
+
+<p><strong>ANOVA for Comparing Multiple Group Means</strong></p>
+
+<p>When comparing means across three or more groups, performing multiple t-tests is tempting but statistically dangerous. Running three t-tests to compare groups A, B, and C inflates the family-wise error rate: if each test has a 5% chance of a false positive, the probability of at least one false positive across three tests is about 14%. ANOVA (Analysis of Variance) solves this by testing all groups simultaneously in a single test while maintaining the chosen significance level.</p>
+
+<p>The null hypothesis is H₀: μ₁ = μ₂ = μ₃ = … = μₖ (all group population means are equal). The alternative is simply that at least one mean differs. ANOVA works by partitioning total variability in the data into two sources:</p>
+
+<ul>
+  <li><strong>Between-group variance (MSB):</strong> How much do the group means vary around the overall mean? If groups differ, this will be large.</li>
+  <li><strong>Within-group variance (MSW):</strong> How much do individual observations vary within each group around their group mean? This represents random noise.</li>
+</ul>
+
+<p>The F-statistic is the ratio of these two:</p>
+
+<pre><code>F = MSB / MSW
+</code></pre>
+
+<p>Under the null hypothesis, both numerator and denominator estimate the same population variance, so F should be close to 1. A large F suggests the between-group spread exceeds what random noise alone would produce, providing evidence against H₀.</p>
+
+<p>Consider a study testing three fertilizers (A, B, C) on plant growth (cm over 4 weeks), with 5 plants per group:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fertilizer A</th>
+      <th>Fertilizer B</th>
+      <th>Fertilizer C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>22</td><td>28</td><td>18</td></tr>
+    <tr><td>24</td><td>30</td><td>20</td></tr>
+    <tr><td>20</td><td>27</td><td>19</td></tr>
+    <tr><td>23</td><td>29</td><td>21</td></tr>
+    <tr><td>21</td><td>26</td><td>17</td></tr>
+  </tbody>
+</table>
+
+<p>Group means: x̄_A = 22, x̄_B = 28, x̄_C = 19. Grand mean = (22 + 28 + 19)/3 = 23. The ANOVA results in an F-statistic that, when compared to the F-distribution with (k−1) = 2 numerator degrees of freedom and (N−k) = 12 denominator degrees of freedom, yields a p-value well below 0.05. We reject H₀ and conclude that the fertilizers do not all produce equal growth.</p>
+
+<p>But ANOVA only tells us <em>that</em> at least one group differs — not <em>which</em> groups differ from which others. For that, we need <strong>post-hoc tests</strong>. <strong>Tukey's Honest Significant Difference (HSD)</strong> test is the most widely used: it tests all possible pairwise comparisons while controlling the family-wise error rate. In this example, Tukey's test would likely reveal that Fertilizer B produces significantly more growth than both A and C, while A and C may or may not differ significantly.</p>
+
+<p>ANOVA rests on three assumptions:</p>
+<ul>
+  <li><strong>Normality:</strong> Observations within each group should be approximately normally distributed.</li>
+  <li><strong>Homogeneity of variances (homoscedasticity):</strong> The population variance should be approximately equal across groups. Levene's test formally checks this. If violated, <strong>Welch's ANOVA</strong> (an extension of Welch's t-test to multiple groups) is the appropriate alternative.</li>
+  <li><strong>Independence:</strong> Observations must be independent of each other, both within and across groups.</li>
+</ul>
+
+<p>When normality is severely violated, the <strong>Kruskal-Wallis test</strong> — a non-parametric alternative — can be used. It tests whether the groups have the same distribution using ranks rather than raw values.</p>
+
+<p><strong>Selecting the Right Test for Real-World Data</strong></p>
+
+<p>One of the most practically important skills is choosing the correct test before analyzing data. The wrong test can lead to invalid conclusions, wasted effort, and — in high-stakes settings like medicine or policy — genuine harm. A systematic decision process helps:</p>
+
+<p><em>Step 1 — Identify the scale of measurement of the outcome variable.</em> Continuous or interval-scale data (height, income, reaction time, blood pressure) calls for tests based on means: t-tests or ANOVA. Categorical data (yes/no, color preference, disease category) calls for the chi-square test or related methods. Ordinal data (satisfaction ratings, ranks) may call for non-parametric tests.</p>
+
+<p><em>Step 2 — Count the number of groups and their relationship.</em> The following table summarizes the standard mapping:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Comparison Structure</th>
+      <th>Continuous Outcome</th>
+      <th>Categorical Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>One group vs. a known value</td><td>One-sample t-test</td><td>Chi-square goodness-of-fit</td></tr>
+    <tr><td>Two independent groups</td><td>Two-sample t-test (pooled or Welch's)</td><td>Chi-square test of independence</td></tr>
+    <tr><td>Two paired/matched groups</td><td>Paired t-test</td><td>McNemar's test</td></tr>
+    <tr><td>Three or more independent groups</td><td>One-way ANOVA</td><td>Chi-square test of independence</td></tr>
+  </tbody>
+</table>
+
+<p><em>Step 3 — Check assumptions.</em> Every test has conditions for validity. Skipping this step is one of the most common errors in applied statistics. Run normality checks (Shapiro-Wilk test, Q-Q plots) for t-tests and ANOVA. Check expected cell counts for chi-square. Test for homogeneity of variances before choosing pooled vs. Welch's t-test. If key assumptions are violated, consider:</p>
+
+<ul>
+  <li><strong>Transforming the data</strong> (e.g., log transformation to reduce skewness) and then applying the parametric test to the transformed values.</li>
+  <li><strong>Non-parametric alternatives:</strong> Wilcoxon signed-rank test (instead of one-sample or paired t-test), Mann-Whitney U test (instead of two-sample t-test), Kruskal-Wallis test (instead of ANOVA).</li>
+</ul>
+
+<p><em>Step 4 — Document your reasoning.</em> Transparent, reproducible research requires explaining why a particular test was chosen, what assumption checks were performed, and how violations were handled. This documentation is as important as the analysis itself, especially in peer-reviewed science, regulatory filings, and audit-ready business analytics.</p>
+
+<p><strong>Interpreting and Communicating Test Results</strong></p>
+
+<p>Generating a p-value is only the beginning of the analytical work. Communicating what the result actually means — to fellow analysts, to managers, to the public — demands careful translation from statistical language to actionable insight.</p>
+
+<p><em>State the conclusion in plain language.</em> Rather than writing "t(24) = −2.5, p = 0.020, therefore we reject H₀ at α = 0.05," a more useful statement for a business report is: "On average, our large coffee cups are being filled at 15.7 ounces, which is statistically significantly less than the advertised 16 ounces (p = 0.020). This underfill is unlikely to be due to chance alone and warrants adjustment of the filling equipment."</p>
+
+<p><em>Report a complete statistical summary.</em> Best practice, as codified in guidelines from the American Statistical Association and the APA Publication Manual, includes reporting:</p>
+
+<ul>
+  <li>The test statistic and its direction (e.g., t = −2.5)</li>
+  <li>Degrees of freedom (e.g., df = 24)</li>
+  <li>The exact p-value (e.g., p = 0.020), not just "p < 0.05"</li>
+  <li>A confidence interval for the parameter of interest (e.g., 95% CI for the mean: [15.45, 15.95])</li>
+  <li>An effect size measure (e.g., Cohen's d, η², Cramér's V for chi-square)</li>
+</ul>
+
+<p><em>Distinguish statistical significance from practical significance.</em> This is perhaps the most important interpretive lesson in modern statistics. A study with n = 10,000 may detect a 0.1-point improvement on a 100-point test as statistically significant (p < 0.001), but a 0.1-point improvement almost certainly has no meaningful real-world impact. Conversely, a small pilot study with n = 15 may fail to detect a genuinely important effect simply because it is underpowered. The p-value answers one narrow question — "Is there evidence against the null?" — but does not answer "Should we care?" or "Is this worth acting on?" Effect sizes and confidence intervals speak directly to those practical questions.</p>
+
+<p><em>Acknowledge limitations honestly.</em> Every study has constraints that bound the conclusions. Common limitations worth addressing include:</p>
+
+<ul>
+  <li><strong>Sample size:</strong> A small sample provides limited power and wide confidence intervals. A very large sample can detect trivially small effects.</li>
+  <li><strong>Sampling method:</strong> Results from a convenience sample may not generalize to the broader population of interest.</li>
+  <li><strong>Potential confounders:</strong> In observational (non-experimental) studies, a statistically significant association between two variables may reflect a third variable that influences both. Hypothesis tests do not establish causation.</li>
+  <li><strong>Assumption violations:</strong> If normality or equal variance assumptions were questionable and non-parametric alternatives were not used, the p-value may be unreliable.</li>
+  <li><strong>Multiple testing:</strong> If many tests were run on the same dataset without correction, some significant results may be false positives.</li>
+</ul>
+
+<p>Together, these principles — choosing the right test, verifying assumptions, computing a complete set of statistics, and communicating with clarity and humility — form the foundation of rigorous, trustworthy statistical practice. The goal is not to "get a significant result" but to extract honest, defensible insight from data.</p>
+      <div class="notes"><strong>Notes</strong>Comprehensive coverage of all listed subtopics including worked numerical examples, decision tables, and emphasis on effect size and assumption checking. The contingency table and test selection table are rendered as proper HTML tables. Non-parametric alternatives are mentioned where appropriate as extensions beyond the listed bullet points to improve practical utility.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

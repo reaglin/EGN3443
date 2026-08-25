@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Discrete Probability Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+  <header>
+    <h1>Introduction to Discrete Probability Distributions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Discrete Probability Distributions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Probability is the mathematical language we use to describe uncertainty, and a <strong>probability distribution</strong> is the complete rulebook that tells us exactly how that uncertainty is spread across every possible outcome of a random experiment. When the outcomes are <em>countable</em> — whole numbers like 0, 1, 2, 3, and so on — we call the resulting structure a <strong>discrete probability distribution</strong>. Understanding this concept is the gateway to a wide range of statistical tools used in business, science, engineering, medicine, and everyday decision-making. This topic builds the foundation: what discrete distributions are, how they differ from their continuous counterparts, what mathematical rules they must obey, and where they appear in the real world.</p>
+
+<p>A <strong>random variable</strong> is a variable whose value is determined by the outcome of a random experiment. We use capital letters — most commonly <em>X</em> — to name a random variable, and lowercase letters — such as <em>x</em> — to refer to the specific values it can take. For example, if you roll a single six-sided die, the random variable <em>X</em> might represent the number showing on the top face. The specific outcomes <em>x</em> can be 1, 2, 3, 4, 5, or 6.</p>
+
+<p>A <strong>discrete random variable</strong> can only take on a finite number of values, or at most a <em>countably infinite</em> set of values — meaning you could, in principle, list them in a sequence: 0, 1, 2, 3, … even if the list never ends. The key idea is that there are no values in between; you cannot have 2.7 customers arriving or 1.5 defective items. Each distinct, separable outcome is assigned a <strong>probability</strong> — a number between 0 and 1 — that tells us how likely that particular outcome is. Together, all the outcomes and their probabilities form the discrete probability distribution, painting a complete picture of the random behavior of <em>X</em>.</p>
+
+<p><strong>Discrete vs. Continuous Random Variables</strong></p>
+
+<p>The distinction between discrete and continuous random variables is fundamental. A <strong>discrete variable</strong> takes on countable, isolated values. Classic examples include:</p>
+<ul>
+  <li>The number of heads in 10 coin flips (possible values: 0, 1, 2, …, 10)</li>
+  <li>The number of customers who arrive at a bank in one hour (0, 1, 2, 3, …)</li>
+  <li>The number of defective items found in a batch of 50 products (0, 1, 2, …, 50)</li>
+  <li>The outcome of rolling a die (1, 2, 3, 4, 5, or 6)</li>
+</ul>
+
+<p>A <strong>continuous variable</strong>, by contrast, can take any value within an interval — there are infinitely many possible values between any two points. Examples include:</p>
+<ul>
+  <li>The exact weight of a cereal box (could be 499.1 g, 499.13 g, 499.137 g, …)</li>
+  <li>The time in seconds it takes for a web page to load</li>
+  <li>The temperature recorded at a weather station at noon</li>
+</ul>
+
+<p>This distinction has a profound mathematical consequence. For discrete distributions, we find the probability of an event by <strong>summing</strong> the probabilities of the relevant individual outcomes: for example, P(X ≤ 3) = P(X=0) + P(X=1) + P(X=2) + P(X=3). For continuous distributions, no single point has a non-zero probability; instead, we compute probabilities over <em>intervals</em> using <strong>integration</strong> of a probability density function. In this module, our focus is entirely on the discrete case, where summation is our primary tool.</p>
+
+<p><strong>Properties of a Valid Discrete Probability Distribution</strong></p>
+
+<p>Not every assignment of numbers to outcomes qualifies as a legitimate probability distribution. Two non-negotiable rules must be satisfied:</p>
+<ul>
+  <li><strong>Rule 1 — Non-negativity:</strong> Every individual probability must be between 0 and 1, inclusive. Formally, <code>0 ≤ P(X = x) ≤ 1</code> for every possible value <em>x</em>. A probability of 0 means the outcome <em>cannot</em> happen; a probability of 1 means the outcome is <em>certain</em> to happen. Negative probabilities and probabilities greater than 1 are mathematically meaningless.</li>
+  <li><strong>Rule 2 — Total probability equals 1:</strong> When you add up the probabilities for every possible outcome, the sum must equal exactly 1. Formally, <code>ΣP(X = x) = 1</code> (summed over all possible values of x). This reflects the certainty that <em>some</em> outcome must occur.</li>
+</ul>
+
+<p>Consider a simple example. Suppose a small game involves spinning a wheel that can land on 1, 2, 3, or 4. A proposed distribution is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outcome x</th>
+      <th>P(X = x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>0.10</td></tr>
+    <tr><td>2</td><td>0.30</td></tr>
+    <tr><td>3</td><td>0.40</td></tr>
+    <tr><td>4</td><td>0.20</td></tr>
+  </tbody>
+</table>
+
+<p>Check: every probability is between 0 and 1 ✓. Sum: 0.10 + 0.30 + 0.40 + 0.20 = 1.00 ✓. This is a valid discrete probability distribution. Now suppose someone proposed P(X=4) = 0.25 instead. The sum would be 1.05, violating Rule 2 — that distribution is invalid.</p>
+
+<p>Here is a counter-example showing an <em>invalid</em> distribution and why it fails:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outcome x</th>
+      <th>Proposed P(X = x)</th>
+      <th>Valid?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>−0.10</td><td>No — negative probability</td></tr>
+    <tr><td>1</td><td>0.60</td><td>OK individually</td></tr>
+    <tr><td>2</td><td>0.70</td><td>OK individually, but sum = 1.20 ≠ 1</td></tr>
+  </tbody>
+</table>
+
+<p>Both rules are violated here: a negative value appears, and the probabilities do not sum to 1.</p>
+
+<p><strong>Probability Distribution Tables and Notation</strong></p>
+
+<p>The standard way to present a discrete probability distribution is in a <strong>probability distribution table</strong>, with one column for the possible values of <em>X</em> and one column for the corresponding probabilities P(X = x). The notation <code>P(X = x)</code> is read as "the probability that the random variable <em>X</em> takes the specific value <em>x</em>." This is sometimes abbreviated as <code>P(x)</code> when the context is clear.</p>
+
+<p>For example, let <em>X</em> be the number of siblings a randomly selected student has, based on survey data from a class of 200 students:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Siblings x</th>
+      <th>Frequency</th>
+      <th>P(X = x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>40</td><td>0.20</td></tr>
+    <tr><td>1</td><td>80</td><td>0.40</td></tr>
+    <tr><td>2</td><td>60</td><td>0.30</td></tr>
+    <tr><td>3</td><td>16</td><td>0.08</td></tr>
+    <tr><td>4</td><td>4</td><td>0.02</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>200</strong></td><td><strong>1.00</strong></td></tr>
+  </tbody>
+</table>
+
+<p>Each probability was computed by dividing frequency by the total: for example, P(X = 0) = 40/200 = 0.20. The sum of all probabilities equals 1, confirming this is valid.</p>
+
+<p>Distributions can also be represented <strong>graphically</strong>. A bar chart (sometimes called a probability histogram) is drawn with the possible values of <em>X</em> on the horizontal axis and the probability P(X = x) on the vertical axis. Each outcome gets a vertical bar whose height equals its probability. The bars do <em>not</em> touch each other — this visual gap reinforces the discrete, separated nature of the outcomes, distinguishing the chart from a histogram used for continuous data. A quick visual check: if the bars all look roughly the same height, the distribution is roughly uniform; if one bar towers above the rest, that outcome is far more likely.</p>
+
+<p><strong>Real-World Contexts for Discrete Distributions</strong></p>
+
+<p>Discrete probability distributions are not abstract curiosities — they model a vast range of real phenomena:</p>
+<ul>
+  <li><strong>Quality control:</strong> A factory inspects batches of 100 light bulbs. The number of defective bulbs found is a discrete random variable. Knowing its distribution helps managers decide whether a batch passes inspection.</li>
+  <li><strong>Customer service:</strong> A call center records the number of calls arriving in each 5-minute window. This count is discrete and helps determine staffing levels.</li>
+  <li><strong>Healthcare:</strong> The number of patients who experience a side effect in a clinical trial is discrete. Pharmaceutical companies use distributions to estimate risk.</li>
+  <li><strong>Finance and insurance:</strong> The number of insurance claims filed per month is discrete. Actuaries use historical frequencies to model future liabilities.</li>
+  <li><strong>Survey research:</strong> The number of people in a sample who answer "yes" to a question is discrete, and understanding its distribution enables accurate inference about the broader population.</li>
+  <li><strong>Sports and games:</strong> The number of goals scored in a soccer match, the number of free-throw attempts made out of 10 — both are discrete random variables with well-studied distributions.</li>
+</ul>
+
+<p>Identifying which specific discrete distribution best fits a situation depends on the <em>structure</em> of the scenario. Key questions to ask include: Is there a fixed number of trials? Are outcomes simply success or failure? Are events occurring independently over time or space at a constant average rate? Answering these questions guides the selection of distributions such as the <strong>binomial distribution</strong> (fixed number of independent trials, each with two outcomes) or the <strong>Poisson distribution</strong> (counting occurrences of events in a fixed interval of time or space). Both of these will be explored in depth in later topics, but the concepts introduced here — the table, the notation, the two validity rules — apply universally across all discrete distributions.</p>
+
+<p>To summarize the foundational ideas in one place:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Definition / Rule</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Discrete random variable</td>
+      <td>Takes countable, isolated values</td>
+      <td>Number of heads in 5 coin flips: 0, 1, 2, 3, 4, or 5</td>
+    </tr>
+    <tr>
+      <td>Probability P(X = x)</td>
+      <td>Likelihood of a specific outcome; 0 ≤ P(x) ≤ 1</td>
+      <td>P(X = 3) = 0.25 means a 25% chance of 3 heads</td>
+    </tr>
+    <tr>
+      <td>Sum rule</td>
+      <td>ΣP(X = x) = 1 over all possible x</td>
+      <td>All bar heights in the probability histogram sum to 1</td>
+    </tr>
+    <tr>
+      <td>Discrete vs. continuous</td>
+      <td>Discrete: summation; Continuous: integration</td>
+      <td>Heads counted (discrete) vs. time elapsed (continuous)</td>
+    </tr>
+    <tr>
+      <td>Distribution table</td>
+      <td>Lists every outcome and its probability</td>
+      <td>x = 0,1,2,3,4 paired with probabilities in a table</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With these building blocks firmly in place — the definition of a discrete random variable, the two validity rules, the table and graphical representations, and an appreciation of real-world contexts — you are ready to explore the specific families of discrete distributions and the powerful summary measures (mean, variance, and standard deviation) that characterize them.</p>
+        <div class="notes"><strong>Notes</strong>Emphasize the two validity rules early and repeatedly — students commonly confuse distributions where probabilities are close to 1 but do not sum exactly to 1, and need practice checking both conditions. The table comparing discrete vs. continuous is a useful reference to revisit when introducing binomial and Poisson distributions later in the module.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

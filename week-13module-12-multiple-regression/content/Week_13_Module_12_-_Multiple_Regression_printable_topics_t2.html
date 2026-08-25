@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Specification and Structure</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+  <header>
+    <h1>Model Specification and Structure</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Model Specification and Structure</h2>
+      <p>Multiple regression is one of the most widely used statistical techniques in the social, behavioral, and natural sciences. It extends the logic of simple linear regression to situations where more than one variable is expected to influence an outcome, allowing researchers to examine the joint and independent contributions of several predictors simultaneously. Understanding how to specify a multiple regression model correctly — choosing the right predictors, interpreting coefficients properly, and recognizing the assumptions the technique rests upon — is foundational to conducting and evaluating quantitative research.</p>
+
+<p><strong>From Simple to Multiple Regression</strong></p>
+
+<p>Simple linear regression models the relationship between a single predictor variable (X) and a continuous outcome variable (Y). The core idea is that Y can be predicted, at least partially, from knowing the value of X. For example, a researcher might use hours of study (X) to predict exam scores (Y). The model captures how much Y changes, on average, for each additional unit of X, and it summarizes this relationship with a straight line through the data.</p>
+
+<p>While simple regression is instructive and sometimes sufficient, most real-world phenomena are influenced by more than one factor. Exam performance, for instance, is likely shaped not only by study time but also by prior academic ability, test anxiety, sleep quality, and other variables. Restricting the model to a single predictor ignores these additional sources of variation, which can both limit explanatory power and distort the estimated relationship between X and Y.</p>
+
+<p>Multiple regression addresses this limitation by including two or more predictor variables (X₁, X₂, … Xₖ) in the same model. Each predictor is given its own coefficient, and together they account for variation in Y from multiple angles simultaneously. Adding relevant predictors typically increases the proportion of variance in Y that the model explains, and — crucially — it allows researchers to isolate the contribution of each predictor while statistically controlling for the others.</p>
+
+<p>Multiple regression is the appropriate analytic choice whenever theory, prior empirical work, or subject-matter knowledge suggests that several variables jointly shape the outcome of interest. It is not simply a more complex version of simple regression for its own sake; it is a tool for modeling the multivariate reality that characterizes most interesting research questions.</p>
+
+<p><strong>The Multiple Regression Equation</strong></p>
+
+<p>The population form of the multiple regression equation is written as:</p>
+
+<pre><code>Y = β₀ + β₁X₁ + β₂X₂ + ... + βₖXₖ + ε</code></pre>
+
+<p>In practice, we estimate this equation from sample data, producing:</p>
+
+<pre><code>Ŷ = b₀ + b₁X₁ + b₂X₂ + ... + bₖXₖ</code></pre>
+
+<p>Each component plays a specific and important role:</p>
+
+<ul>
+  <li><strong>The intercept (b₀)</strong> is the predicted value of Y when every predictor in the model is simultaneously equal to zero. In some research contexts this is a meaningful and interpretable value — for instance, when zero is a plausible and real value for all predictors. In other contexts (e.g., when a predictor like age is centered far from zero), the intercept is a mathematical anchor rather than a substantively meaningful quantity. Researchers should always consider whether the zero-point of each predictor is realistic before placing heavy interpretive weight on b₀.</li>
+  <li><strong>Each regression coefficient (bᵢ)</strong> represents the expected change in Y for a one-unit increase in Xᵢ, <em>holding all other predictor variables constant</em>. This "holding constant" or "controlling for" language is the defining feature of partial regression coefficients and distinguishes them from the raw bivariate correlations that simple regression produces. For example, if b₁ = 3.5 in a model predicting exam scores from study hours (X₁) and prior GPA (X₂), this means that each additional hour of studying is associated with a 3.5-point increase in the exam score, <em>among students with the same prior GPA</em>.</li>
+  <li><strong>The predicted value (Ŷ)</strong> is the model's estimate of Y for a given combination of predictor values. It is computed by plugging observed predictor scores into the fitted equation. Predicted values lie on the regression surface (a hyperplane in multidimensional space), just as predicted values in simple regression lie on a line.</li>
+  <li><strong>The residual (eᵢ = Yᵢ − Ŷᵢ)</strong> is the difference between the observed outcome for a given case and the model's prediction for that case. Residuals represent everything that the model does not explain — measurement error, unmeasured variables, random fluctuation, and any systematic patterns the model has missed. Examining residuals is a primary diagnostic tool for evaluating whether the model is well specified.</li>
+</ul>
+
+<p>The model assumes that the relationship between each predictor and the outcome is <em>linear</em>, conditional on the other predictors. This means the slope relating Xᵢ to Y is constant across all values of Xᵢ and across all combinations of the remaining predictors. When this linearity assumption is violated — for example, when the effect of a predictor bends or accelerates — the model can be misspecified even if all the relevant predictors have been included.</p>
+
+<p><strong>Selecting Predictor Variables</strong></p>
+
+<p>One of the most consequential decisions a researcher makes when building a multiple regression model is which variables to include as predictors. This decision should be driven primarily by theoretical reasoning and prior empirical evidence, not by automated statistical procedures that screen variables for significance.</p>
+
+<ul>
+  <li><strong>Theory and prior research</strong> should anchor variable selection. If an established body of literature identifies several determinants of an outcome, those variables are strong candidates for inclusion regardless of whether they achieve statistical significance in a particular sample. Including them reflects what is known about the phenomenon and produces estimates that are defensible scientifically.</li>
+  <li><strong>Omitted variable bias</strong> is one of the most serious threats to valid regression inference. If a variable (W) is related to both the outcome (Y) and one or more included predictors (Xᵢ), and W is left out of the model, then the coefficient for Xᵢ will absorb some of W's effect and will be biased — that is, systematically too large or too small. For example, suppose a researcher models salary (Y) as a function of years of education (X₁) but omits years of work experience (W). Because education and experience are correlated, and both influence salary, the coefficient on education will be inflated, capturing not just the education effect but part of the experience effect as well. Including W in the model removes this bias.</li>
+  <li><strong>Overfitting</strong> is the opposite danger: including too many predictors relative to the number of observations. When a model has many predictors and a small sample, it can fit the noise in the sample data almost perfectly while failing to generalize to new data. A common guideline suggests having at least 10–20 observations per predictor, though the severity of overfitting also depends on effect sizes and the degree of multicollinearity among predictors. Overfitted models tend to produce inflated R² values and unstable coefficient estimates that vary dramatically across samples.</li>
+  <li><strong>Exploratory tools</strong> can help identify candidate predictors before formal model building. A <em>correlation matrix</em> displays the bivariate correlations among all variables under consideration, making it easy to see which predictors are substantially correlated with the outcome. A <em>scatterplot matrix</em> (also called a pairs plot) visualizes each pairwise relationship graphically, helping the researcher detect nonlinearity, outliers, and other patterns that a correlation coefficient alone might obscure.</li>
+</ul>
+
+<p>Consider the following illustrative correlation matrix for a study predicting employee job performance (Y) from three candidate predictors:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Performance (Y)</th>
+      <th>Cognitive Ability (X₁)</th>
+      <th>Conscientiousness (X₂)</th>
+      <th>Job Tenure (X₃)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Performance (Y)</td>
+      <td>1.00</td>
+      <td>0.45</td>
+      <td>0.38</td>
+      <td>0.12</td>
+    </tr>
+    <tr>
+      <td>Cognitive Ability (X₁)</td>
+      <td>0.45</td>
+      <td>1.00</td>
+      <td>0.10</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <td>Conscientiousness (X₂)</td>
+      <td>0.38</td>
+      <td>0.10</td>
+      <td>1.00</td>
+      <td>0.15</td>
+    </tr>
+    <tr>
+      <td>Job Tenure (X₃)</td>
+      <td>0.12</td>
+      <td>0.07</td>
+      <td>0.15</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From this matrix, a researcher can see that cognitive ability and conscientiousness are meaningfully correlated with performance and are relatively independent of each other — both are strong candidates for inclusion. Job tenure shows only a weak correlation with performance; whether to include it would depend on theoretical grounds and sample size considerations.</p>
+
+<p><strong>Interpreting Regression Coefficients in Context</strong></p>
+
+<p>The defining interpretive feature of multiple regression coefficients is that each one reflects the <em>unique</em> contribution of a predictor, controlling for all other predictors simultaneously. This is fundamentally different from the simple bivariate correlation or the coefficient one would obtain by regressing Y on each X separately.</p>
+
+<ul>
+  <li><strong>Partial control</strong> means that when b₁ is estimated, the model has already accounted for everything that X₂, X₃, and any other predictors can explain about both Y and X₁. The coefficient b₁ therefore captures the relationship between X₁ and Y that is unique to X₁ — the part of Y's variance that X₁ explains <em>above and beyond</em> what the other predictors explain. This is why a predictor that shows a strong simple correlation with Y can have a small or even negligible partial coefficient: its apparent bivariate relationship may have been largely shared with other predictors.</li>
+  <li><strong>Direction of the relationship</strong> is indicated by the sign of the coefficient. A positive coefficient means the predictor and outcome increase together; a negative coefficient means that as the predictor increases, the outcome decreases. For example, a coefficient of −2.1 for test anxiety in a model predicting exam performance means that each one-unit increase in anxiety is associated with a 2.1-point decrease in exam scores, holding other predictors constant.</li>
+  <li><strong>Magnitude and scale</strong> must always be interpreted in relation to the measurement scale of the predictor. A coefficient of 0.3 is not inherently small or large — it means a one-unit change in X is associated with a 0.3-unit change in Y. If X is measured in years, this means each additional year corresponds to a 0.3-unit change in Y. If X is measured in months, the same underlying relationship would yield a coefficient of 0.025, appearing far smaller numerically while conveying the same substantive effect. This is why comparing raw (unstandardized) coefficients across predictors measured on different scales can be misleading.</li>
+  <li><strong>Standardized coefficients (beta weights)</strong> are often reported alongside or instead of raw coefficients precisely to enable within-model comparisons of relative importance. A standardized coefficient expresses the change in Y (in standard deviation units) for a one standard deviation increase in the predictor, holding other variables constant. This places all predictors on a common scale and allows a researcher to say, for example, that cognitive ability has a stronger unique association with performance than conscientiousness does in a given sample.</li>
+</ul>
+
+<p>To illustrate, suppose the fitted equation from the job performance study is:</p>
+
+<pre><code>Ŷ(Performance) = 12.4 + 0.52·CognitiveAbility + 0.41·Conscientiousness + 0.08·Tenure</code></pre>
+
+<p>The coefficient for cognitive ability (0.52) means that among employees with the same level of conscientiousness and the same job tenure, each one-point increase in cognitive ability is associated with a 0.52-point increase in performance ratings. The small coefficient for tenure (0.08) — and the fact that it was only weakly correlated with performance to begin with — suggests that once cognitive ability and conscientiousness are accounted for, tenure adds minimal predictive value.</p>
+
+<p><strong>Assumptions Underlying Model Specification</strong></p>
+
+<p>Multiple regression rests on a set of assumptions that, when met, ensure that coefficient estimates are unbiased, efficient, and amenable to valid significance testing. Violations of these assumptions can range from trivially inconsequential to severely distorting depending on their nature and magnitude.</p>
+
+<ul>
+  <li><strong>Linearity</strong> requires that the relationship between each predictor and the outcome is linear, conditional on the other predictors. If the true relationship is curved — for example, if the effect of stress on performance first increases and then decreases — a linear model will produce biased coefficients and poor fit. Linearity can be assessed visually by plotting residuals against each predictor; a systematic curve in such a plot suggests that a linear term is insufficient. Remedies include adding polynomial terms (e.g., X²) or applying transformations to the predictor or outcome.</li>
+  <li><strong>Correct model specification</strong> means the model includes all relevant predictors and excludes irrelevant ones, and that the functional form (linear, quadratic, interaction terms, etc.) is appropriate. This is the assumption most directly under the researcher's control and, arguably, the one most frequently violated through inadvertent omission of confounders or failure to model nonlinearity.</li>
+  <li><strong>Independence of observations</strong> requires that the value of Y for one case does not influence, and is not influenced by, the value of Y for any other case. This assumption is typically met in simple random samples of individuals. It can be violated in clustered data (e.g., students nested within classrooms), longitudinal data (repeated measurements on the same person), or time-series data (where observations close in time tend to be correlated). Violations of independence can cause standard errors to be too small, making results appear more precise than they actually are.</li>
+  <li><strong>No measurement error in predictors</strong> is a formal assumption of OLS regression. In practice, predictors are often measured with some degree of error (e.g., self-reported hours of study as an imperfect proxy for actual study time). When predictors are measured with error, OLS coefficients are typically attenuated — biased toward zero — a phenomenon called <em>attenuation bias</em>. In severe cases this can substantially understate the true strength of a relationship.</li>
+  <li><strong>No severe multicollinearity</strong> is required for stable coefficient estimation. Multicollinearity refers to high correlations among the predictor variables. When predictors are highly intercorrelated, the model has difficulty distinguishing their separate contributions, and individual coefficients can become extremely sensitive to small changes in the data, yielding large standard errors and unreliable estimates. The <em>Variance Inflation Factor</em> (VIF) is the standard diagnostic; values above 5 or 10 are commonly taken as warning signs of problematic multicollinearity.</li>
+  <li><strong>Homoscedasticity</strong> requires that the variance of the residuals is constant across all levels of the predictors. When residual variance increases or decreases systematically with predicted values (a condition called <em>heteroscedasticity</em>), OLS standard errors are incorrect — typically underestimated — leading to inflated test statistics and false positives. Plotting residuals against fitted values is the most direct way to check for heteroscedasticity; fan-shaped patterns in such plots are a telltale sign.</li>
+  <li><strong>Approximate normality of residuals</strong> is needed for the t-tests and F-tests used in significance testing to be valid in small samples. In large samples, the Central Limit Theorem provides some protection against moderate departures from normality. Normal probability plots (Q-Q plots) of residuals are the standard visual check; severe skewness or heavy tails are the patterns of most concern.</li>
+</ul>
+
+<p><strong>The Role of the Error Term</strong></p>
+
+<p>The error term (ε) in the population regression model plays a conceptually important role that goes beyond simply representing "what is left over." It formally captures all sources of variation in Y that are not accounted for by the predictors in the model, including unmeasured causal variables, inherently random fluctuation in human behavior and measurement, and any mismatch between the model's functional form and the true underlying process.</p>
+
+<p>Ordinary Least Squares (OLS) estimation is the standard method for fitting multiple regression models. OLS finds the set of coefficients (b₀, b₁, … bₖ) that minimizes the sum of squared residuals:</p>
+
+<pre><code>Minimize: Σ(Yᵢ − Ŷᵢ)² = Σeᵢ²</code></pre>
+
+<p>This criterion produces estimates that are unbiased (on average equal to the true population parameters), have minimum variance among all linear unbiased estimators, and are consistent — properties collectively known as the Gauss-Markov theorem, which holds when the core OLS assumptions are satisfied. When assumptions are violated, OLS estimators may still be computed mechanically but may no longer be unbiased or efficient.</p>
+
+<p>Residual analysis is the primary tool for checking whether the error term behaves as the model assumes. Key residual plots and what to look for include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Plot Type</th>
+      <th>What It Shows</th>
+      <th>Red Flags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Residuals vs. Fitted Values</td>
+      <td>Whether residual variance is constant and whether any systematic curvature remains</td>
+      <td>Fan shape (heteroscedasticity), curved pattern (nonlinearity)</td>
+    </tr>
+    <tr>
+      <td>Residuals vs. Each Predictor</td>
+      <td>Whether the relationship between each predictor and Y has been adequately captured</td>
+      <td>Systematic curve or trend suggesting a missing polynomial or interaction term</td>
+    </tr>
+    <tr>
+      <td>Normal Q-Q Plot of Residuals</td>
+      <td>Whether the distribution of residuals approximates normality</td>
+      <td>Heavy tails, severe skewness, or S-shaped departures from the diagonal</td>
+    </tr>
+    <tr>
+      <td>Scale-Location Plot</td>
+      <td>Spread of standardized residuals across fitted values</td>
+      <td>Upward or downward trend indicating non-constant variance</td>
+    </tr>
+    <tr>
+      <td>Residuals vs. Leverage</td>
+      <td>Identifies observations with high influence on coefficient estimates</td>
+      <td>Points with high leverage <em>and</em> large residuals (high Cook's distance)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A well-specified model produces residuals that look essentially like random noise: no systematic trends when plotted against fitted values or predictors, approximately symmetric and bell-shaped in their distribution, and no extreme outliers or influential points that are driving the results. When residual plots reveal systematic patterns, the researcher has diagnostic evidence that the model is misspecified in some way — perhaps a predictor is missing, the functional form is wrong, or a different estimation strategy is needed.</p>
+
+<p>In summary, building a well-specified multiple regression model requires thoughtful decisions at every stage: selecting predictors on theoretical and empirical grounds, understanding the mathematical structure of the equation and what each component represents, interpreting coefficients carefully in light of their scale and the "holding constant" logic that defines them, and verifying that the assumptions undergirding the method are sufficiently satisfied to trust the inferences the model produces.</p>
+      <div class="notes"><strong>Notes</strong>The Gauss-Markov theorem and VIF are mentioned as accurate, well-established supplementary material to deepen understanding. Standardized (beta) coefficients are introduced as a natural extension of the magnitude/scale interpretation point. All tables use real HTML table markup as required.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

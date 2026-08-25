@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Population Parameters vs. Sample Statistics</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+  <header>
+    <h1>Population Parameters vs. Sample Statistics</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Population Parameters vs. Sample Statistics</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most foundational distinctions in all of statistics is the difference between a <strong>population parameter</strong> and a <strong>sample statistic</strong>. Every quantitative study ultimately wants to say something true about a large group — a population — but measuring every single member of that group is rarely practical. Instead, researchers collect data from a smaller, manageable subset called a <em>sample</em> and use what they learn from that subset to draw conclusions about the whole. Understanding exactly what gets measured, what gets estimated, and why those two things are never quite the same is the essential first step toward sound statistical reasoning.</p>
+
+<p>Before diving into either concept, it helps to fix the vocabulary precisely. A <strong>population</strong> is the complete collection of all individuals, objects, events, or measurements that a researcher is interested in. A <strong>sample</strong> is any subset of that population, selected so that analysis is feasible. The numerical summaries computed from each of these two groups have different names, different symbols, and different roles in analysis.</p>
+
+<p><strong>Defining Population Parameters</strong></p>
+
+<p>A <strong>parameter</strong> is a numerical value that describes some characteristic of an <em>entire</em> population. Because it refers to every member of the group of interest, a parameter reflects the true, complete state of that population — there is no guesswork involved in its definition, only in its measurement. In practice, most populations are so large, so dispersed, or so expensive to examine fully that the exact value of any parameter remains permanently unknown. Nevertheless, parameters are treated as <em>fixed constants</em>. They do not change from one study to the next; only our estimates of them change.</p>
+
+<p>The most commonly encountered population parameters are:</p>
+
+<ul>
+  <li><strong>Population mean (μ)</strong> — the arithmetic average of every value in the population. For example, if a parameter of interest is the average systolic blood pressure of all adults in a country, that single true average is μ, even if no study has ever computed it exactly.</li>
+  <li><strong>Population proportion (p)</strong> — the fraction of the population that possesses a particular attribute. The true proportion of registered voters who support a specific ballot measure is a population proportion.</li>
+  <li><strong>Population variance (σ²) and standard deviation (σ)</strong> — measures of how spread out values are across the entire population. A small σ² means most individuals cluster tightly around μ; a large σ² signals wide variability.</li>
+</ul>
+
+<p>The convention of using <em>Greek letters</em> for parameters (μ, σ, σ², p when referring to the population) is universal in statistics and serves as a constant visual reminder that these quantities belong to the population level.</p>
+
+<p><strong>Defining Sample Statistics</strong></p>
+
+<p>A <strong>statistic</strong> is a numerical value computed entirely from the data in a particular sample. Unlike parameters, statistics are <em>observable</em> — you can calculate them directly from collected data — but they come with an important caveat: because different samples drawn from the same population will contain different individuals, a statistic will produce a different numerical result each time a new sample is drawn. This sample-to-sample variability is an intrinsic feature of working with subsets, not a sign that something has gone wrong.</p>
+
+<p>The most commonly used sample statistics, along with their parameter counterparts, are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Population Parameter</th>
+      <th>Symbol</th>
+      <th>Sample Statistic</th>
+      <th>Symbol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Average value</td>
+      <td>Population mean</td>
+      <td>μ</td>
+      <td>Sample mean</td>
+      <td>x̄</td>
+    </tr>
+    <tr>
+      <td>Fraction with a trait</td>
+      <td>Population proportion</td>
+      <td>p</td>
+      <td>Sample proportion</td>
+      <td>p̂</td>
+    </tr>
+    <tr>
+      <td>Spread of values</td>
+      <td>Population variance</td>
+      <td>σ²</td>
+      <td>Sample variance</td>
+      <td>s²</td>
+    </tr>
+    <tr>
+      <td>Spread of values</td>
+      <td>Population std. deviation</td>
+      <td>σ</td>
+      <td>Sample std. deviation</td>
+      <td>s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that <em>Roman (Latin) letters</em> are used for statistics. This typographic convention is enormously useful: as soon as you see x̄ in a formula, you know it comes from a sample; as soon as you see μ, you know it refers to the population.</p>
+
+<p>Consider a concrete example. Suppose a university wants to know the average number of hours per week its 20,000 students spend studying. Surveying all 20,000 is impractical, so researchers randomly select 400 students and record their study hours. The average computed from those 400 responses — say, 14.2 hours — is the <strong>sample mean x̄</strong>. The true average across all 20,000 students, whatever it happens to be, is the <strong>population mean μ</strong>. The researchers use 14.2 as their best estimate of μ, but they acknowledge it is an estimate, not the exact truth.</p>
+
+<p><strong>The Parameter–Statistic Relationship</strong></p>
+
+<p>Every population parameter has a corresponding sample statistic whose purpose is to <em>estimate</em> it. This relationship is the engine of statistical inference. Inference is the process of drawing conclusions about a population based on information from a sample, and it works precisely because statistics are systematically connected to the parameters they estimate. A well-chosen sample statistic is said to be an <strong>estimator</strong> of its corresponding parameter, and the specific numerical value it takes in a given sample is called an <strong>estimate</strong>.</p>
+
+<p>The notation conventions described above are not merely cosmetic; they actively prevent confusion in reports and formulas. When reading a research paper that states "μ = unknown, x̄ = 52.3," a statistically literate reader instantly understands that 52.3 is an observed sample result being used to approximate an unknown population truth.</p>
+
+<p>The ultimate goal of the parameter–statistic relationship is to make reliable, defensible claims about populations without needing to measure everyone. This is why most of modern statistics — hypothesis testing, confidence intervals, regression analysis — is built on the foundation of using sample statistics to reason about population parameters.</p>
+
+<p><strong>Why Parameters and Statistics Differ</strong></p>
+
+<p>If a statistic is supposed to estimate a parameter, why aren't they simply equal? The answer lies in the mathematics of sampling. When you draw a sample, you capture only part of the information present in the population. No matter how carefully the sample is constructed, some individuals are included and others are not, and the individuals who happen to be selected will have a slightly different collective profile than the population as a whole.</p>
+
+<p>This inherent variability has two important consequences:</p>
+
+<ul>
+  <li><strong>Statistics fluctuate.</strong> Draw a second random sample of 400 students and you might get x̄ = 13.8 hours instead of 14.2 hours. Draw a third sample and you might get 14.5 hours. None of these results is "wrong" — they are all legitimate estimates that reflect the natural randomness of sampling.</li>
+  <li><strong>No single sample perfectly mirrors the population.</strong> By chance, a sample might overrepresent heavy studiers or underrepresent students who work part-time jobs. The resulting statistic will deviate from the true parameter not because of any error in methodology, but because of the randomness inherent in which individuals were selected.</li>
+</ul>
+
+<p>This deviation of a statistic from its corresponding parameter is given a precise name: <strong>sampling error</strong>.</p>
+
+<p><strong>Sampling Error and Its Implications</strong></p>
+
+<p><strong>Sampling error</strong> is defined as the difference between the value of a sample statistic and the value of the corresponding population parameter. Mathematically, for the mean:</p>
+
+<pre><code>Sampling error = x̄ − μ</code></pre>
+
+<p>A critical insight is that sampling error is <em>expected</em>. It is not a mistake or a flaw in the study design; it is a mathematical inevitability whenever data come from a subset rather than from every member of a population. If you conducted a census — collecting data from every member of the population — there would be no sampling error, because the statistic and the parameter would be computed from the same complete set of values and would therefore be identical.</p>
+
+<p>Sampling error must not be confused with <strong>non-sampling errors</strong>, which arise from problems in how data are collected or recorded. Non-sampling errors include:</p>
+
+<ul>
+  <li><strong>Measurement error</strong> — a respondent misremembers how many hours they studied, or a scale is mis-calibrated.</li>
+  <li><strong>Response bias</strong> — survey questions are worded in ways that nudge respondents toward certain answers.</li>
+  <li><strong>Non-response bias</strong> — certain types of people systematically refuse to participate, making the sample unrepresentative.</li>
+  <li><strong>Data entry errors</strong> — values are recorded incorrectly during processing.</li>
+</ul>
+
+<p>Non-sampling errors can be reduced — sometimes eliminated — through better study design, clearer questionnaires, and rigorous data management. Sampling error, on the other hand, cannot be eliminated while still using a sample, but it <em>can</em> be reduced and quantified. The two primary tools for managing sampling error are:</p>
+
+<ul>
+  <li><strong>Increasing sample size.</strong> Larger samples tend to produce statistics that are closer, on average, to the true parameter. A sample of 4,000 students will generally yield an x̄ much closer to μ than a sample of 40 students will.</li>
+  <li><strong>Using probability sampling methods.</strong> Simple random sampling, stratified sampling, and other probability-based methods ensure that every member of the population has a known, nonzero chance of being selected, which prevents systematic over- or under-representation of subgroups.</li>
+</ul>
+
+<p>To make sampling error concrete, imagine polling 50 people from a city of 500,000 about their support for a new transit system. Suppose the true population proportion p = 0.62 (62% support). Your sample of 50 might yield p̂ = 0.58 or p̂ = 0.67 — both differ from 0.62, and that gap is sampling error. If you polled 5,000 people instead, your p̂ would almost certainly land much closer to 0.62, because with more data points, the random fluctuations tend to cancel each other out.</p>
+
+<p><strong>Practical Implications for Data Analysis</strong></p>
+
+<p>Recognizing the parameter–statistic distinction has direct, practical consequences for how data should be reported and interpreted:</p>
+
+<ul>
+  <li><strong>Sample results are estimates, not facts about the population.</strong> A report that says "the average salary in our survey was $58,400" is describing a statistic. It should be understood as an estimate of the population mean salary, not as proof that every person in the population earns exactly $58,400 on average. Responsible analysis always acknowledges this distinction.</li>
+  <li><strong>Uncertainty must be communicated.</strong> Because statistics vary from sample to sample, any report of a sample statistic should ideally be accompanied by a measure of its precision — typically a <em>confidence interval</em> or a <em>margin of error</em>. These tools, built on the concepts introduced here, translate raw sampling variability into an honest statement about how far off the estimate might be from the true parameter.</li>
+  <li><strong>Context shapes how seriously sampling error matters.</strong> In a quick internal survey of a small team, the distinction between parameter and statistic may be trivial. In a clinical drug trial or a national election poll, the gap between x̄ and μ (or p̂ and p) can have enormous real-world consequences, making rigorous sampling design and honest reporting of uncertainty essential.</li>
+  <li><strong>The groundwork for deeper concepts.</strong> Mastering the parameter–statistic distinction prepares learners for the concept of a <em>sampling distribution</em> — the distribution of a statistic across all possible samples of a given size — and for the <em>Central Limit Theorem</em>, which explains why sample means tend to follow a predictable pattern even when the underlying population is not normally distributed. Both of those ideas rely entirely on understanding that statistics are <em>random variables</em> that hover around their corresponding parameters in systematic, mathematically describable ways.</li>
+</ul>
+
+<p>In summary, population parameters represent fixed, true characteristics of an entire group, while sample statistics are variable, observable estimates computed from a subset. The gap between them — sampling error — is natural and expected, can be minimized with good design, and must be honestly communicated in any data-driven analysis. Every major tool in inferential statistics exists, at its core, to bridge this gap as rigorously and transparently as possible.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to emphasize the Greek vs. Roman letter convention early and repeatedly, as students consistently confuse the two symbol sets in later topics. A short exercise asking students to label given symbols as parameter or statistic (e.g., σ vs. s, p vs. p̂) can solidify the distinction before moving to sampling distributions.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

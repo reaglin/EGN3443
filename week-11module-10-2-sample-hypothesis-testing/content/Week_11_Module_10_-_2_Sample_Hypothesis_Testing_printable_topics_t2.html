@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Independent vs. Paired Samples</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+  <header>
+    <h1>Independent vs. Paired Samples</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Independent vs. Paired Samples</h2>
+      <p>When planning or analyzing a study that compares two groups, one of the most fundamental questions a researcher must answer before choosing any statistical test is: <em>are the two samples independent of each other, or are they somehow linked?</em> This distinction is not a minor technicality — it directly governs which test statistic is appropriate, how variability is accounted for, and ultimately whether the conclusions drawn from the data are valid. Misidentifying the sample structure is a serious methodological error that can invalidate an entire analysis. Understanding independent and paired (dependent) samples in depth is therefore the essential foundation for all two-sample hypothesis testing.</p>
+
+<p><strong>Defining Independent Samples</strong></p>
+
+<p>Two samples are considered <em>independent</em> when the selection of participants into one group has absolutely no bearing on who is selected into the other group. There is no subject-level connection, no matching, and no overlap between the groups. Each group is drawn separately from its respective population, and membership in one group neither influences nor determines membership in the other.</p>
+
+<p>A critical practical feature of independent samples is that <strong>the two groups do not need to have the same number of observations</strong>. Group A could have 30 participants and Group B could have 45, and the independent-samples framework handles this without difficulty. The two groups simply represent two distinct populations whose means (or other parameters) are being compared.</p>
+
+<p>To ensure that the groups are truly separate and that any difference detected between them can be attributed to the factor of interest rather than systematic bias, researchers typically rely on <strong>random assignment</strong> (in experiments) or <strong>random selection</strong> (in observational studies). Random assignment, for example, means each recruited participant is randomly placed into either the treatment or the control group — the composition of one group tells you nothing about who ended up in the other.</p>
+
+<p>Because each group represents a distinct population, the <strong>statistical conclusions</strong> drawn from independent samples speak to <em>differences between two populations</em>. For example, a researcher comparing the mean blood pressure of patients receiving a new drug versus a placebo is asking: do these two populations — drug users and placebo users — have different mean blood pressures?</p>
+
+<p><strong>Defining Paired (Dependent) Samples</strong></p>
+
+<p>Paired samples, also called dependent samples, arise whenever there is a meaningful, deliberate, or natural <em>one-to-one link</em> between an observation in one group and a specific observation in the other group. This linkage can come from several sources:</p>
+
+<ul>
+  <li><strong>Repeated measures on the same subject:</strong> The same individual is measured twice — once under each condition or at two different time points. Because both measurements belong to the same person, they are inherently related.</li>
+  <li><strong>Matched participants:</strong> Two different individuals are deliberately paired based on shared characteristics (e.g., age, weight, baseline health score), and one member of the pair is assigned to each group. The matching is done to make the two individuals as similar as possible on variables that could otherwise confound the results.</li>
+  <li><strong>Naturally occurring pairs:</strong> Twins are the classic example. Because identical twins share nearly all of their genetic material, studying one twin in a treatment group and the other in a control group creates a natural pairing that controls for genetics.</li>
+</ul>
+
+<p>Because observations are explicitly linked, a fundamental structural requirement follows: <strong>both groups must always have exactly the same number of data points</strong>. Every observation in Group 1 has a corresponding partner in Group 2. You cannot have an unpaired observation in a paired design — if a data point is missing for one member of a pair, that entire pair must typically be excluded from the analysis.</p>
+
+<p>One of the most important statistical consequences of pairing is that it <strong>reduces extraneous variability</strong>. When the same person is measured twice, the variation due to individual differences (personality, baseline health, prior experience, etc.) is effectively removed from the error term, because both measurements carry that individual's characteristics equally. This reduction in variability <strong>increases statistical power</strong> — the probability of detecting a true effect if one exists — making paired designs especially valuable when individual differences are large relative to the effect being studied.</p>
+
+<p>Paired designs are especially common in <strong>before-and-after studies</strong> (measuring an outcome before and after an intervention on the same subjects) and in <strong>matched case-control studies</strong> (where each case is paired with a control who shares key demographic or clinical characteristics).</p>
+
+<p><strong>Key Characteristics That Distinguish the Two Designs</strong></p>
+
+<p>The table below summarizes the defining characteristics of each design side by side, making it easier to identify which applies in a given situation:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Independent Samples</th>
+      <th>Paired (Dependent) Samples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Subject-level correspondence</td>
+      <td>None — data points are not matched across groups</td>
+      <td>One-to-one link between every observation in each group</td>
+    </tr>
+    <tr>
+      <td>Equal sample sizes required?</td>
+      <td>No — groups can differ in size</td>
+      <td>Yes — both groups must have the same number of observations</td>
+    </tr>
+    <tr>
+      <td>Unit of analysis</td>
+      <td>Individual observations within each group</td>
+      <td>Difference scores (each pair's value in Group 2 minus Group 1)</td>
+    </tr>
+    <tr>
+      <td>Sources of variability</td>
+      <td>Both between-group and within-group (individual) variability</td>
+      <td>Between-group variability; individual variability is controlled</td>
+    </tr>
+    <tr>
+      <td>Typical study types</td>
+      <td>Experiments with separate treatment/control groups, surveys of two distinct populations</td>
+      <td>Before-after studies, matched pairs, twin studies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A particularly important point in the table above is the <strong>unit of analysis</strong>. In an independent design, you compare the means of the two raw data sets directly. In a paired design, you compute a <em>difference score</em> for each pair (e.g., Score<sub>After</sub> − Score<sub>Before</sub> for each participant), and you then analyze those difference scores as a single sample. This shift in what is being analyzed is what distinguishes the paired t-test from the independent-samples t-test at a mechanical level.</p>
+
+<p>It cannot be overstated how consequential <strong>misidentifying the design type</strong> is. If a researcher treats paired data as independent, the error term in the test statistic will be artificially inflated (because individual-level variability that the pairing was meant to remove is now included), leading to a test that is less powerful and potentially fails to detect a real effect. Conversely, treating independent data as paired would be logically nonsensical — there is no valid basis for forming pairs — and the resulting analysis would be meaningless.</p>
+
+<p><strong>How the Relationship Between Samples Determines the Testing Approach</strong></p>
+
+<p>Once the design type is correctly identified, the choice of test follows logically.</p>
+
+<p>For <strong>independent samples</strong>, the appropriate test is the <em>two-sample (independent) t-test</em> (or a z-test when population standard deviations are known and sample sizes are large). This test compares the means of the two separate group distributions and uses a pooled or separate estimate of variability that incorporates the spread within each group independently. The test statistic takes the general form:</p>
+
+<pre><code>t = (x̄₁ − x̄₂) / √(s₁²/n₁ + s₂²/n₂)</code></pre>
+
+<p>Here, <code>x̄₁</code> and <code>x̄₂</code> are the two sample means, <code>s₁²</code> and <code>s₂²</code> are the sample variances, and <code>n₁</code> and <code>n₂</code> are the sample sizes. The denominator — the standard error of the difference — reflects the variability present in <em>both</em> groups, including all individual-level variation within each group.</p>
+
+<p>For <strong>paired samples</strong>, the appropriate test is the <em>paired t-test</em>. Rather than comparing the two groups' raw means, the paired t-test computes a difference score <code>d_i = x_{2i} − x_{1i}</code> for each pair <em>i</em>, and then performs a one-sample t-test on those difference scores against the null hypothesis that the population mean difference is zero:</p>
+
+<pre><code>t = d̄ / (s_d / √n)</code></pre>
+
+<p>Here, <code>d̄</code> is the mean of the difference scores, <code>s_d</code> is the standard deviation of the difference scores, and <code>n</code> is the number of pairs. Because individual-level variation cancels out when differences are computed (if a participant scores high on both measurements, their high baseline and high follow-up both contribute to <code>d_i</code> in an offsetting way), <code>s_d</code> is typically <em>much smaller</em> than what you would compute from the raw data in an independent-samples framework. A smaller denominator means a larger t-statistic for the same raw difference in means — which is why the paired approach is <strong>more sensitive</strong> (more powerful) when the pairing is meaningful.</p>
+
+<p>The key insight is that <strong>recognizing the sample structure is a prerequisite to selecting any two-sample hypothesis test</strong>. The mathematics of both tests are well-established, but applying the right formula to the wrong data structure produces results that are statistically and scientifically invalid.</p>
+
+<p><strong>Real-World Design Examples</strong></p>
+
+<p>Concrete examples anchor these abstract distinctions in practical reality. Consider the following scenarios:</p>
+
+<ul>
+  <li><strong>Independent design — salary comparison:</strong> A labor economist wants to compare the average annual salaries of employees at Company A versus Company B. She randomly samples 60 employees from Company A and 75 employees from Company B. There is no individual-level connection between any employee at one company and any employee at the other; the sample sizes differ; and the groups represent two separate populations. This is clearly an independent-samples situation, and the appropriate test is the two-sample independent t-test.</li>
+
+  <li><strong>Paired (repeated measures) design — training program evaluation:</strong> An HR department records productivity scores for the same group of 40 workers before they undergo a new training program, and then records scores for the same 40 workers after the program is complete. Each worker provides two measurements, and each pre-training score is naturally paired with the same worker's post-training score. The analysis focuses on the 40 difference scores (post minus pre), and the paired t-test is the appropriate tool. Using an independent-samples t-test here would incorrectly treat the pre- and post-measurements as unrelated, throwing away the powerful individual-level control the repeated-measures design provides.</li>
+
+  <li><strong>Matched-pair design — clinical trial with matching:</strong> Researchers recruit participants for a drug trial and, before random assignment, pair each participant with another participant of the same age, sex, and baseline disease severity. Within each pair, one person is randomly assigned to the drug and one to the placebo. This deliberate matching on potential confounders creates a paired structure: even though the two members of each pair are different people, the pairing makes them as comparable as possible on key variables. The analysis again uses difference scores — drug outcome minus placebo outcome within each matched pair — and the paired t-test. The matched design is specifically chosen to eliminate the confounding influence of age, sex, and baseline severity, amplifying the ability to detect the drug's true effect.</li>
+</ul>
+
+<p>In every paired example above, notice that the <strong>within-pair difference is the fundamental quantity of interest</strong>, not the raw group means considered in isolation. A participant who had a productivity score of 90 before training and 95 after has a difference of +5; one who scored 60 before and 65 after also has a difference of +5. Even though their absolute scores are very different, their improvement is identical, and it is that improvement — the difference score — that the paired t-test uses. This is the statistical embodiment of the paired design's core logic: strip away the individual's baseline level and focus purely on the change or contrast that the study is designed to measure.</p>
+      <div class="notes"><strong>Notes</strong>The topic establishes the conceptual and practical foundation for all two-sample hypothesis testing covered in the module. Emphasize to learners that the design-identification step (independent vs. paired) must come before any formula selection. The salary and training-program examples are highly accessible and work well for classroom discussion. The formula snippets are intentionally kept in plain pre/code blocks rather than rendered MathML to maintain compatibility with the specified tag set.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

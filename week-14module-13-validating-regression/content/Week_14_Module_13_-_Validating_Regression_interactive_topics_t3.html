@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Residual Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+  <header>
+    <h1>Residual Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Residual Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Residual analysis is one of the most powerful diagnostic tools available to anyone building or evaluating a regression model. Once a model has been fitted, the immediate question is not simply "how well does it fit?" but rather "does it fit <em>correctly</em>?" A model can appear to explain a reasonable proportion of variance while still violating fundamental assumptions in ways that make its predictions unreliable and its inferences invalid. Residuals — the signed differences between what the model predicted and what was actually observed — provide a direct, granular record of the model's failures. Studying their behavior, patterns, and distribution reveals whether the model's assumptions are tenable and whether any remedial action is needed.</p>
+
+<p><strong>What Are Residuals?</strong></p>
+
+<p>At its most fundamental level, a residual is defined as:</p>
+
+<pre><code>e_i = y_i − ŷ_i</code></pre>
+
+<p>where <code>y_i</code> is the <em>observed</em> value of the outcome for observation <em>i</em>, and <code>ŷ_i</code> is the <em>predicted</em> (fitted) value produced by the regression model for that same observation. This simple subtraction carries considerable meaning:</p>
+
+<ul>
+  <li>A <strong>positive residual</strong> means the observed value was <em>higher</em> than what the model predicted — the model <em>underestimated</em> that observation.</li>
+  <li>A <strong>negative residual</strong> means the observed value was <em>lower</em> than what the model predicted — the model <em>overestimated</em> that observation.</li>
+  <li>A residual of exactly zero means the model's prediction was perfect for that case, though this is rarely expected in practice.</li>
+</ul>
+
+<p>Collectively, residuals capture <em>everything the model failed to explain</em>. In a well-specified model with valid assumptions, the residuals should look like pure random noise — they should contain no systematic information, no patterns, and no structure. The moment residuals begin to show structure (curves, trends, clusters, changing spread), that structure is evidence that the model has missed something important about the underlying data-generating process. This is why residuals serve as such a direct window into model performance and assumption validity.</p>
+
+<p>In <strong>ordinary least squares (OLS) regression</strong>, the model is fit by the specific criterion of <em>minimizing the sum of squared residuals</em>:</p>
+
+<pre><code>Minimize Σ e_i² = Σ (y_i − ŷ_i)²</code></pre>
+
+<p>This means OLS is not just using residuals as a diagnostic afterthought — residuals are the very quantity the estimation procedure is built around. The fitted regression coefficients are exactly those values that make the squared residuals as small as collectively possible. Understanding what the residuals look like after fitting therefore tells us how successful (and how appropriate) that optimization was.</p>
+
+<p><strong>Computing Residuals</strong></p>
+
+<p>The practical steps for computing residuals are straightforward but important to execute carefully:</p>
+
+<ul>
+  <li><strong>Step 1 — Fit the regression equation.</strong> Using your sample data, estimate the regression coefficients (intercept and slopes) through OLS or another estimation method. For a simple linear regression this produces an equation of the form <code>ŷ = b₀ + b₁x</code>; for multiple regression, <code>ŷ = b₀ + b₁x₁ + b₂x₂ + … + bₖxₖ</code>.</li>
+  <li><strong>Step 2 — Generate predicted (fitted) values.</strong> Apply the estimated equation to each observation's predictor values. Every observation in the dataset receives its own predicted value based on its specific combination of predictors.</li>
+  <li><strong>Step 3 — Subtract predicted from observed.</strong> For each observation, compute <code>e_i = y_i − ŷ_i</code>. The result is a vector of residuals with one value per observation.</li>
+</ul>
+
+<p>Consider a simple numeric example. Suppose we fit a regression of exam score (<em>y</em>) on hours studied (<em>x</em>) and obtain the equation <code>ŷ = 40 + 5x</code>. For a student who studied 6 hours and scored 74:</p>
+
+<pre><code>ŷ = 40 + 5(6) = 70
+e = 74 − 70 = +4</code></pre>
+
+<p>The model predicted 70 but the student scored 74, so the residual is +4 (an underestimate). For another student who studied 4 hours and scored 56:</p>
+
+<pre><code>ŷ = 40 + 5(4) = 60
+e = 56 − 60 = −4</code></pre>
+
+<p>The model predicted 60 but the student scored 56, giving a residual of −4 (an overestimate).</p>
+
+<p><strong>Standardized residuals</strong> are a particularly useful variant computed alongside raw residuals. Because the raw residual's scale depends on the units and variance of the outcome variable, direct comparison across observations or across different models is difficult. Standardizing removes this scale dependency:</p>
+
+<pre><code>e_i (standardized) = e_i / s_e</code></pre>
+
+<p>where <code>s_e</code> is the standard deviation of the residuals (also called the <em>residual standard error</em> or root mean square error). Standardized residuals are expressed in units of standard deviations, making them directly interpretable: a standardized residual of +2.5 means that observation's raw residual is 2.5 standard deviations above the mean residual. This standardization is essential for outlier detection, as discussed later.</p>
+
+<p><strong>Residual Plots: Residuals vs. Fitted Values</strong></p>
+
+<p>The most universally used diagnostic display in regression analysis is the <strong>residuals-vs-fitted-values plot</strong>, in which the fitted (predicted) values <code>ŷ_i</code> are plotted on the horizontal axis and the corresponding residuals <code>e_i</code> are plotted on the vertical axis. A horizontal reference line at zero is typically included.</p>
+
+<p>When all of OLS regression's key assumptions are satisfied — linearity, independence, constant variance, and normality — this plot should display a <strong>random, structureless cloud of points</strong> centered near zero across the entire horizontal range. No systematic patterns should be visible; the points should scatter randomly above and below the zero line with roughly equal density and spread throughout.</p>
+
+<p>Departures from this ideal pattern each diagnose a different type of problem:</p>
+
+<ul>
+  <li><strong>A curved or arched pattern</strong> (e.g., residuals that are mostly positive at low and high fitted values, but mostly negative in the middle, or vice versa) indicates that the relationship between predictors and outcome is not linear. The model is systematically wrong in a structured way — it underestimates in some regions and overestimates in others.</li>
+  <li><strong>A fan-shaped or funnel-shaped pattern</strong> — where the spread of residuals increases (or decreases) as fitted values increase — is the classic signature of <em>heteroscedasticity</em>, meaning the variance of the errors is not constant across the range of fitted values. This is one of the most important violations to detect because it directly undermines the reliability of standard errors.</li>
+  <li><strong>Isolated points far from the zero line</strong> can indicate outliers — observations that the model fits very poorly regardless of where they fall on the fitted-value axis.</li>
+</ul>
+
+<p>Below is an illustrative summary of what different residual plot patterns indicate:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pattern in Residual Plot</th>
+      <th>What It Suggests</th>
+      <th>Possible Remedy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Random scatter around zero</td>
+      <td>Assumptions appear satisfied</td>
+      <td>No action needed</td>
+    </tr>
+    <tr>
+      <td>Curved or arch-shaped pattern</td>
+      <td>Non-linearity in the relationship</td>
+      <td>Add polynomial terms or transform variables</td>
+    </tr>
+    <tr>
+      <td>Fan or funnel shape (spread increases with fitted values)</td>
+      <td>Heteroscedasticity (non-constant variance)</td>
+      <td>Log/square-root transform outcome; use weighted least squares</td>
+    </tr>
+    <tr>
+      <td>Fan or funnel shape (spread decreases with fitted values)</td>
+      <td>Heteroscedasticity (variance decreases)</td>
+      <td>Variance-stabilizing transformation</td>
+    </tr>
+    <tr>
+      <td>A few extreme points far from zero</td>
+      <td>Potential outliers</td>
+      <td>Investigate individual cases; consider robust regression</td>
+    </tr>
+    <tr>
+      <td>Cyclical or wave-like pattern</td>
+      <td>Autocorrelation (often in time series data)</td>
+      <td>Use time-series models; add lag terms</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Detecting Non-Linearity Through Residuals</strong></p>
+
+<p>One of the clearest uses of residual plots is to detect violations of the <em>linearity assumption</em>. OLS regression assumes that the true relationship between each predictor and the outcome is linear (after accounting for all other predictors). If this assumption is violated, the model is misspecified — it is fitting the wrong functional form to the data.</p>
+
+<p>A non-random, curved pattern in the residuals-vs-fitted plot is direct evidence of non-linearity. Imagine fitting a simple linear regression to data where the true relationship is quadratic (a U-shaped curve). The linear model will overestimate values in the middle range and underestimate at the extremes, producing a characteristic U-shaped or inverted-U-shaped pattern in the residuals. The residuals are not randomly scattered — they are <em>systematically positive in some regions and systematically negative in others</em>, which means the model is making predictable errors that a better-specified model would not make.</p>
+
+<p>When there are multiple predictors, the aggregate residuals-vs-fitted plot may not reveal which specific variable is causing the non-linearity. In this case, <strong>partial residual plots</strong> (also called component-plus-residual plots) are valuable: these plot residuals against each individual predictor separately, allowing the analyst to identify exactly which predictor is exhibiting a non-linear relationship with the outcome after accounting for the others.</p>
+
+<p>For example, if a multiple regression model includes age, income, and education as predictors, and residuals plotted against age show a clear curve while residuals plotted against income and education appear random, this points to age being the variable with a non-linear effect. The analyst can then:</p>
+
+<ul>
+  <li>Add a <strong>quadratic term</strong> (e.g., age²) to capture the curved relationship.</li>
+  <li>Apply a <strong>variable transformation</strong> such as taking the logarithm or square root of the predictor.</li>
+  <li>Switch to a <strong>non-linear modeling approach</strong> such as generalized additive models (GAMs) or spline regression, which can fit flexible, smooth curves to the data without assuming a specific parametric form.</li>
+</ul>
+
+<p>The key insight is that non-linearity detected through residuals is not a minor cosmetic issue — a misspecified functional form leads to systematically biased predictions and coefficients that cannot be meaningfully interpreted as the true marginal effect of the predictor.</p>
+
+<p><strong>Assessing Homoscedasticity with Residuals</strong></p>
+
+<p>The OLS assumption of <strong>homoscedasticity</strong> states that the variance of the error terms is constant across all values of the predictors (or equivalently, across all fitted values). When this assumption holds, the spread of residuals in the residuals-vs-fitted plot is roughly uniform from left to right — the vertical "width" of the cloud of points stays approximately the same throughout.</p>
+
+<p>When residual variance is not constant — a condition called <strong>heteroscedasticity</strong> — several important consequences follow:</p>
+
+<ul>
+  <li>OLS coefficient estimates remain <em>unbiased</em> (they are still centered on the true values on average), but they are no longer <em>efficient</em> — they are no longer the minimum-variance unbiased estimators.</li>
+  <li>The standard errors computed by standard OLS formulas become incorrect — they may be inflated or deflated depending on the pattern of heteroscedasticity. This directly compromises the validity of <em>t</em>-tests and <em>F</em>-tests for the regression coefficients.</li>
+  <li>Confidence intervals for coefficients will be too wide or too narrow, leading to over-confident or under-confident inferences.</li>
+</ul>
+
+<p>A typical real-world example of heteroscedasticity arises in income data: models predicting income often show that the variability of income is much larger for high-income individuals than for low-income individuals. A fan-shaped residual plot (narrow at low fitted values, wide at high fitted values) would clearly reveal this. Another common context is modeling physical measurements: the error in measuring a large object tends to be larger in absolute terms than the error in measuring a small object.</p>
+
+<p>Corrective approaches for heteroscedasticity include:</p>
+
+<ul>
+  <li><strong>Variance-stabilizing transformations:</strong> Taking the natural logarithm of the outcome variable is the most common remedy when variance increases with the level of the outcome. The square-root transformation is another option, particularly useful for count data. After transformation, re-examining the residual plot usually reveals a more uniform spread.</li>
+  <li><strong>Weighted least squares (WLS):</strong> Instead of minimizing the unweighted sum of squared residuals, WLS assigns each observation a weight inversely proportional to its variance. Observations with higher variance contribute less to the objective function, correcting the efficiency problem directly.</li>
+  <li><strong>Heteroscedasticity-consistent (robust) standard errors:</strong> Also known as "sandwich" standard errors or HC standard errors, these adjust the estimated standard errors to be valid even in the presence of heteroscedasticity, without changing the coefficient estimates themselves.</li>
+</ul>
+
+<p><strong>Identifying Outliers and Influential Points via Residuals</strong></p>
+
+<p>Residuals also serve as the primary instrument for identifying <em>outliers</em> — observations that are unusually poorly fit by the model — and <em>influential observations</em> — cases that, by virtue of their position in the data, exert a disproportionate effect on the estimated regression equation.</p>
+
+<p>Using <strong>standardized residuals</strong> for outlier detection is preferable to using raw residuals because standardization accounts for the natural variation in the data. Common thresholds used in practice are:</p>
+
+<ul>
+  <li>|standardized residual| > <strong>2</strong>: A commonly used threshold for initially flagging potential outliers. Under normality, roughly 5% of observations are expected to exceed this threshold by chance, so some false flags are expected in large samples.</li>
+  <li>|standardized residual| > <strong>3</strong>: A stricter threshold that flags more extreme cases. Under normality, fewer than 0.3% of observations would be expected to exceed this threshold by chance, making it a stronger signal.</li>
+</ul>
+
+<p>It is important to distinguish between two different types of unusual observations:</p>
+
+<ul>
+  <li><strong>Outliers in the outcome (Y-direction):</strong> These are observations where the residual is very large in absolute value — the model fits them poorly regardless of where they fall on the predictor axis. They have high standardized residuals.</li>
+  <li><strong>High-leverage points:</strong> These are observations with extreme values of the predictor(s) — they are far from the center of the predictor space. High-leverage points have the <em>potential</em> to pull the regression line toward them because the regression line, by construction, is more sensitive to observations at the extremes of the predictor range. Leverage is measured by a statistic called the <em>hat value</em> (<code>h_ii</code>), with higher hat values indicating greater leverage. A common rule of thumb flags observations with <code>h_ii > 2(k+1)/n</code>, where <em>k</em> is the number of predictors and <em>n</em> is sample size.</li>
+  <li><strong>Influential observations:</strong> An observation is truly <em>influential</em> if removing it substantially changes the estimated regression coefficients. Influential points typically combine high leverage with a large residual. <em>Cook's Distance</em> is a widely used single statistic that quantifies overall influence by measuring how much all fitted values change if observation <em>i</em> is removed. A Cook's Distance greater than 1 (or greater than <code>4/n</code> by a more conservative guideline) is often used as a flag.</li>
+</ul>
+
+<p>The appropriate response to an identified outlier or influential observation requires careful judgment — <em>never automatic removal</em>. The analyst should investigate:</p>
+
+<ul>
+  <li>Is the unusual value the result of a <strong>data entry error or measurement error</strong>? If so, correcting or removing it is clearly justified.</li>
+  <li>Does the observation represent a <strong>genuinely different population</strong> from the rest of the data? If so, the model may need to be fit separately for different subgroups, or a more flexible model may be needed.</li>
+  <li>Is the observation <strong>legitimately extreme but real</strong>? In that case, removing it would distort the model — the correct approach is to acknowledge its influence, potentially report results both with and without it, and consider whether a robust regression method is more appropriate.</li>
+</ul>
+
+<p>Automatically discarding outliers simply because they are unusual is a form of data manipulation that can introduce serious bias into the analysis.</p>
+
+<p><strong>Normality of Residuals</strong></p>
+
+<p>The OLS regression framework assumes that the error terms (and therefore the residuals) are approximately <em>normally distributed</em>. This assumption is required for the <em>t</em>-statistics and <em>F</em>-statistics computed from the regression output to follow their theoretical distributions under the null hypothesis, which in turn determines the validity of p-values and confidence intervals in small samples. (In large samples, the central limit theorem provides some protection against moderate departures from normality.)</p>
+
+<p>The normality assumption applies specifically to the <em>residuals</em>, not to the outcome or predictor variables themselves — a common point of confusion. The predictors can be highly skewed or non-normal without violating regression assumptions; what matters is the distribution of the errors <em>around the regression line</em>.</p>
+
+<p>Several tools are used to evaluate normality of residuals:</p>
+
+<ul>
+  <li><strong>Q-Q (Quantile-Quantile) Plot:</strong> This is the most commonly used and most informative graphical diagnostic for normality. The quantiles of the standardized residuals are plotted on the vertical axis against the corresponding quantiles of a standard normal distribution on the horizontal axis. If the residuals are perfectly normally distributed, all points will fall exactly on the 45-degree diagonal reference line. In practice, perfect alignment is never expected, but close alignment along the diagonal is reassuring. Systematic departures reveal specific types of non-normality:
+    <ul>
+      <li>An <em>S-shaped</em> curve (points below the line at the left tail and above it at the right tail) indicates a distribution with <em>heavier tails</em> than the normal (leptokurtic), suggesting more extreme values than expected.</li>
+      <li>An <em>inverted S-shape</em> suggests <em>lighter tails</em> than the normal (platykurtic).</li>
+      <li>Points deviating only at one end suggest <em>skewness</em> — a long tail in one direction.</li>
+    </ul>
+  </li>
+  <li><strong>Histogram of Residuals:</strong> A histogram provides an accessible and intuitive visual check. Under normality, the histogram should display a roughly symmetric, bell-shaped distribution centered at zero. This is less precise than the Q-Q plot for detecting subtle departures but is more immediately interpretable and useful for communicating results to a non-technical audience.</li>
+  <li><strong>Formal normality tests:</strong> The <em>Shapiro-Wilk test</em> is the most widely used formal hypothesis test for normality in the regression context. The null hypothesis is that the residuals are normally distributed, and a small p-value leads to rejection of normality. Other formal tests include the Kolmogorov-Smirnov test and the Anderson-Darling test. However, these formal tests have an important limitation: in <em>large samples</em>, they become extremely sensitive and will detect even trivially small, practically inconsequential departures from normality as statistically significant. In <em>small samples</em>, they have low power and may fail to detect important departures. For these reasons, formal normality tests should always be interpreted alongside visual diagnostics rather than used in isolation.</li>
+</ul>
+
+<p>When serious non-normality is detected in the residuals, possible remedies include transforming the outcome variable (a log transformation often helps with right-skewed outcomes), identifying and addressing outliers that may be distorting the distribution, or considering a generalized linear model (GLM) that makes a different distributional assumption better suited to the data (for example, a Poisson model for count outcomes or a logistic model for binary outcomes).</p>
+
+<p>In summary, residual analysis is not a single check but a comprehensive diagnostic process that examines the full character of the errors the model makes. Together, the residuals-vs-fitted plot, partial residual plots, Q-Q plots, histograms, and standardized residual diagnostics form an integrated toolkit for assessing whether a regression model is correctly specified, whether its assumptions are met, and where it may need improvement. No regression analysis is complete without a thorough examination of its residuals.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers all listed subtopics: definition and interpretation of residuals, OLS connection, computation steps (including standardized residuals), residuals-vs-fitted plots and their patterns, non-linearity detection and remedies, homoscedasticity assessment and consequences of heteroscedasticity, outlier/influential point identification (standardized residuals, leverage, Cook&#39;s Distance), and normality assessment (Q-Q plot, histogram, Shapiro-Wilk). A reference table for residual plot patterns is included as an HTML table.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

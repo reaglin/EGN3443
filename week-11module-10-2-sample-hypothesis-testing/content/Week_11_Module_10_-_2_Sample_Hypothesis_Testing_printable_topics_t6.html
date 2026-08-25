@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting Results and Making Data-Driven Decisions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+  <header>
+    <h1>Interpreting Results and Making Data-Driven Decisions</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Interpreting Results and Making Data-Driven Decisions</h2>
+      <p>Running a statistical test is only the beginning of the analytical journey. The real value of hypothesis testing emerges when you translate numerical outputs — p-values, test statistics, confidence intervals — into clear, actionable understanding. This requires connecting abstract results back to the original business or research question, communicating findings with precision and honesty, and making decisions that weigh statistical evidence alongside practical realities. This topic walks through each layer of that interpretive process in depth.</p>
+
+<p><strong>Connecting Statistical Results to Real-World Context</strong></p>
+
+<p>Before presenting any result, it is essential to restate the original question or hypothesis. This anchors the audience and prevents the common mistake of reporting numbers without explaining what they mean. For example, if a company tested whether a new customer onboarding process reduces support ticket volume compared to the old process, the result summary should begin by restating that question explicitly: <em>"We tested whether customers who completed the new onboarding process submitted fewer support tickets in their first 30 days than customers who used the old process."</em> Only then should the numerical finding be introduced.</p>
+
+<p>One of the most important distinctions in applied statistics is the difference between <strong>statistical significance</strong> and <strong>practical relevance</strong>. A result that clears the threshold of statistical significance (typically p &lt; 0.05) tells you that the observed difference is unlikely to have arisen by chance alone — it does not tell you whether that difference is large enough to matter in the real world. Consider a retailer that tests a new product layout and finds average revenue per customer increases by $0.07 per visit. With millions of transactions in the dataset, this difference might be highly statistically significant, yet the cost of redesigning the store layout would far exceed the projected revenue gain. Significance without practical relevance can lead to misguided decisions.</p>
+
+<p>When communicating results to non-technical stakeholders, units and scale matter enormously. Saying "the treatment group scored 3.2 points higher" means very little without context. Is the scale 0–10 or 0–1000? Is a 3.2-point difference considered large or negligible by domain experts? Always translate the magnitude of a difference into terms the audience can reason about — percentage change, dollar amounts, time saved, or comparison to a known benchmark.</p>
+
+<p><strong>Interpreting the P-Value and Test Statistic</strong></p>
+
+<p>The p-value is one of the most frequently misunderstood quantities in statistics. Its correct interpretation is specific: it is the probability of observing a test statistic as extreme as (or more extreme than) the one calculated from the data, <em>assuming the null hypothesis is true</em>. A small p-value therefore indicates that the observed data would be very unusual if the null hypothesis were correct — which constitutes evidence against it.</p>
+
+<p>The most dangerous misinterpretation is treating the p-value as the probability that the null hypothesis is true. This is incorrect. A p-value of 0.03 does not mean there is a 3% chance that the null hypothesis is true and a 97% chance the alternative is true. It means that, under the assumption the null is true, there is only a 3% probability of observing a result as extreme as the one obtained. The distinction matters enormously when communicating results to decision-makers who may otherwise overstate the certainty of conclusions.</p>
+
+<p>Consider a two-sample t-test comparing mean delivery times between two courier services. Suppose the test yields t = 2.84 and p = 0.006. The correct statement is: <em>"If there were truly no difference in mean delivery times between the two couriers, there would be only a 0.6% chance of observing a difference as large as the one we measured."</em> The test statistic t = 2.84 tells us the observed difference is 2.84 standard errors away from zero — a substantial departure from what the null hypothesis predicts.</p>
+
+<p>Best practice is to report the <strong>exact p-value</strong> rather than a binary declaration of "significant" or "not significant." Reporting p = 0.048 communicates something different from p = 0.002, even though both fall below the conventional 0.05 threshold. The former sits barely inside the rejection region, while the latter represents much stronger evidence against the null. Reporting p = 0.14 is also more useful than saying "not significant," because it leaves the door open for someone to recognize this as borderline evidence worthy of further investigation with a larger sample.</p>
+
+<p>The magnitude of the test statistic also carries meaning. A larger absolute value of t or z indicates that the observed difference is farther from what the null hypothesis predicts in terms of sampling variability. When comparing results across studies, the test statistic gives a sense of the relative strength of evidence even when sample sizes differ.</p>
+
+<p><strong>Using Confidence Intervals to Quantify Differences</strong></p>
+
+<p>A confidence interval (CI) for the difference between two group means provides far richer information than a p-value alone. While a p-value tells you only whether an effect is detectable, a confidence interval tells you <em>how large</em> the effect plausibly is and how precisely it has been estimated.</p>
+
+<p>The connection between confidence intervals and hypothesis testing is direct: if a 95% confidence interval for the difference between two group means does not contain zero, the corresponding two-sample test will reject the null hypothesis at the α = 0.05 level. This equivalence holds for any confidence level paired with its complementary significance level. However, the CI communicates far more — it gives the range of plausible values for the true difference.</p>
+
+<p>For example, suppose a clinical trial comparing two pain medications finds a mean pain score reduction of 1.8 points (on a 0–10 scale) in favor of the new drug, with a 95% CI of [0.2, 3.4]. The interval excludes zero, confirming statistical significance. But more usefully, it tells clinicians that the true benefit could be as small as 0.2 points (clinically negligible) or as large as 3.4 points (meaningful). This uncertainty is critical information for a prescribing decision. Compare this to a study with the same mean difference but a CI of [1.4, 2.2] — the narrower interval reflects a more precise estimate and gives much stronger grounds for confidence in the practical importance of the finding.</p>
+
+<p><strong>Wider confidence intervals</strong> indicate greater uncertainty, typically resulting from smaller sample sizes, higher variability in the outcome measure, or both. When an interval is very wide, a statistically significant result may still leave the practical significance genuinely ambiguous — the true effect could be large or it could be trivially small. In such cases, the appropriate response is often to gather more data before committing to a course of action.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Mean Difference</th>
+      <th>95% Confidence Interval</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Large sample, low variability</td>
+      <td>1.8 points</td>
+      <td>[1.4, 2.2]</td>
+      <td>Precise estimate; effect is reliably moderate</td>
+    </tr>
+    <tr>
+      <td>Small sample, high variability</td>
+      <td>1.8 points</td>
+      <td>[0.2, 3.4]</td>
+      <td>Wide interval; effect could be trivial or large</td>
+    </tr>
+    <tr>
+      <td>Very large sample, tiny effect</td>
+      <td>0.05 points</td>
+      <td>[0.01, 0.09]</td>
+      <td>Statistically significant; practically negligible</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Distinguishing Statistical Significance from Practical Significance</strong></p>
+
+<p>As datasets grow larger, hypothesis tests become increasingly sensitive. With a sample of 500,000 observations, a two-sample t-test can detect a difference of fractions of a percentage point with overwhelming statistical significance. This is mathematically appropriate — large samples provide very precise estimates — but it creates a trap for unwary analysts. Every real-world dataset contains some degree of difference between groups; with enough data, virtually any difference becomes detectable. The question that actually matters is not <em>whether</em> a difference exists, but <em>whether it is large enough to act on</em>.</p>
+
+<p><strong>Effect size metrics</strong> are the standard tool for answering that question. The most commonly used measure for comparing two means is <strong>Cohen's d</strong>, defined as the difference between two means divided by the pooled standard deviation:</p>
+
+<pre><code>Cohen's d = (Mean₁ - Mean₂) / Pooled Standard Deviation</code></pre>
+
+<p>Cohen proposed widely adopted benchmarks for interpreting d in the absence of domain-specific guidance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cohen's d Value</th>
+      <th>Conventional Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>~0.2</td>
+      <td>Small effect</td>
+    </tr>
+    <tr>
+      <td>~0.5</td>
+      <td>Medium effect</td>
+    </tr>
+    <tr>
+      <td>~0.8 or greater</td>
+      <td>Large effect</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>It is important to note that these benchmarks are discipline-dependent conventions, not universal laws. In education research, a d of 0.2 might be considered educationally meaningful given the difficulty of moving the needle on standardized test scores. In pharmaceutical trials, domain experts may define their own minimum clinically important difference (MCID) — the smallest change in outcome that a patient would perceive as beneficial. The MCID then serves as the practical significance threshold, independent of statistical significance.</p>
+
+<p>Decision-makers should always weigh <strong>cost against benefit</strong> relative to effect size. Even a medium-sized, statistically significant effect may not justify action if implementation costs are prohibitive or if the intervention carries side effects or risks. Conversely, a small effect that is inexpensive to implement across a very large population can still be worth pursuing. The statistical test informs; domain judgment decides.</p>
+
+<p><strong>Communicating Findings to Diverse Audiences</strong></p>
+
+<p>Effective communication of statistical results is a skill distinct from the analysis itself. The same finding must be framed differently depending on whether the audience is a data science team, a business executive, a regulatory body, or the general public.</p>
+
+<p>Regardless of audience, the best practice is to <strong>lead with the plain-language conclusion</strong>. State clearly whether a meaningful difference was found, in which direction, and what it implies. For example: <em>"Customers who received the personalized email campaign made their second purchase significantly sooner than those who received the standard email — on average, about 4 days sooner."</em> This statement is immediately understandable without any statistical background. The supporting statistics (test statistic, p-value, confidence interval) follow as evidence.</p>
+
+<p><strong>Context and benchmarks</strong> are critical for helping audiences assess magnitude. Raw numbers rarely speak for themselves. If you report that a new process reduces average handling time by 12 seconds, a manager needs to know: Is this out of a 60-second call (a 20% reduction, highly significant operationally) or a 30-minute call (less than 1%, probably negligible)? Comparing findings to a prior period, a competitor benchmark, or an industry standard gives the number meaning.</p>
+
+<p><strong>Visualizations</strong> are powerful allies in communicating differences intuitively. A side-by-side box plot showing the distribution of outcomes in each group allows viewers to immediately perceive overlap, spread, and central tendency. An error bar chart showing group means with 95% confidence intervals makes the uncertainty explicit and visual. A well-chosen chart can accomplish in seconds what paragraphs of text cannot. When building visualizations, ensure that the scale does not exaggerate or minimize differences — axis manipulation is one of the most common ways statistical results are unintentionally (or intentionally) distorted.</p>
+
+<p><strong>Tailoring technical depth to the audience</strong> is essential. A presentation to a C-suite audience should foreground business impact and present statistics as supporting evidence in an appendix or footnote. A report to a statistical review committee requires full disclosure of methodology, assumptions tested, software used, and exact outputs. Providing inappropriate levels of detail — too much for a general audience, too little for a technical one — undermines trust and usability of the findings.</p>
+
+<p><strong>Making Data-Driven Decisions Based on Test Outcomes</strong></p>
+
+<p>A common error after hypothesis testing is treating a failure to reject the null hypothesis as proof that no difference exists. This is a fundamental logical mistake. Failing to reject the null means only that the data did not provide sufficient evidence to conclude a difference exists — not that the groups are identical. The result could reflect a genuine absence of difference, or it could reflect inadequate statistical power due to a small sample size, high variability, or a poorly chosen significance level. Before concluding that two groups are equivalent, analysts should examine the achieved power of the test and consider whether a larger study might reveal a meaningful effect.</p>
+
+<p>Statistical evidence should never be the sole driver of a decision. <strong>Domain knowledge</strong> tells you whether the measured outcome is the right outcome to measure and whether the context of the study is representative of the deployment environment. <strong>Ethical considerations</strong> may constrain which actions are acceptable even if the data supports them. <strong>Resource constraints</strong> determine feasibility. A statistically supported recommendation that ignores implementation reality is not a useful recommendation.</p>
+
+<p>The decision-making process should be <strong>documented transparently</strong> from start to finish: the hypothesis stated in advance, the significance level chosen before seeing data, the test selected and why, assumptions checked and how, results reported completely, and the rationale for the final decision. This documentation serves multiple purposes — it enables others to reproduce the analysis, supports organizational learning, and provides an audit trail if results are later questioned.</p>
+
+<p>Before committing to a course of action, explicitly consider <strong>the risks of Type I and Type II errors</strong>. A Type I error (false positive) means concluding a difference exists when it does not — the cost might be implementing an expensive change that provides no real benefit. A Type II error (false negative) means failing to detect a real difference — the cost might be forgoing a treatment that actually works or missing a quality issue in production. The appropriate balance between these risks depends entirely on the stakes: a drug trial for a life-threatening disease may tolerate a higher Type I error rate (using α = 0.10 rather than 0.05) to avoid missing a genuine treatment benefit, while a financial fraud detection system might tolerate many false positives to avoid missing any true cases of fraud.</p>
+
+<p><strong>Recognizing Limitations and Assumptions in Conclusions</strong></p>
+
+<p>Every statistical test rests on a set of assumptions. The two-sample t-test, for instance, assumes that the outcome variable is approximately normally distributed within each group (or that samples are large enough for the central limit theorem to apply), that observations are independent, and — in the equal-variance version — that population variances are equal across groups. When these assumptions are satisfied, the test controls the Type I error rate at the stated α level and provides reliable inference. When they are violated, the stated p-values and confidence intervals may be inaccurate.</p>
+
+<ul>
+  <li><strong>Normality violations:</strong> With small samples and heavily skewed data, the t-test may not control the Type I error rate accurately. Non-parametric alternatives such as the Mann-Whitney U test or bootstrap methods offer greater robustness.</li>
+  <li><strong>Independence violations:</strong> If observations are clustered (e.g., multiple measurements from the same person, or students within classrooms), treating them as independent inflates the effective sample size and can dramatically increase the Type I error rate. Mixed models or cluster-robust standard errors are appropriate remedies.</li>
+  <li><strong>Unequal variances:</strong> When group variances differ substantially, Welch's t-test (which does not assume equal variances) should be used in place of the standard pooled-variance t-test.</li>
+</ul>
+
+<p>Beyond statistical assumptions, the validity of conclusions depends on the quality of the data and the design of the study. <strong>Sample representativeness</strong> is critical — a result from a convenience sample of college students may not generalize to a broader population. <strong>Data collection methods</strong> introduce potential biases: self-reported outcomes are subject to social desirability effects; administrative records may have systematic missingness. <strong>Confounding variables</strong> — factors correlated with both group membership and the outcome — can masquerade as treatment effects in observational data.</p>
+
+<p>When reporting findings, a responsible analyst explicitly states the limitations of the analysis. This is not a sign of weakness; it is a sign of scientific integrity. Limitations sections help readers calibrate their confidence in the results and identify what additional evidence would be needed to strengthen conclusions. When key assumptions are uncertain — for example, when you are unsure whether observations are truly independent — <strong>sensitivity analyses</strong> are valuable. A sensitivity analysis reruns the analysis under different assumptions or with different analytical choices to check whether the conclusion holds up or changes materially. If results are robust across plausible variations, confidence in the conclusion increases. If results flip depending on assumptions, that instability itself is an important finding that should be communicated.</p>
+
+<p>Finally, it is appropriate and often necessary to recommend <strong>follow-up studies</strong>. A single hypothesis test, no matter how well executed, rarely settles a question definitively. Replication across different samples, contexts, or time periods provides the accumulated evidence base that supports durable, trustworthy decision-making. Framing findings as contributions to an ongoing process of learning — rather than final verdicts — is both epistemically sound and practically wise.</p>
+      <div class="notes"><strong>Notes</strong>Covers the full interpretive lifecycle of hypothesis testing: from contextualizing results and correctly reading p-values and test statistics, to using confidence intervals, quantifying practical significance with effect sizes, communicating to varied audiences, making defensible decisions, and acknowledging limitations. Suitable for learners who have already conducted a two-sample test and now need guidance on what to do with the output.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

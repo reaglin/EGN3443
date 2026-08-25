@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Continuous Probability Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+  <header>
+    <h1>Introduction to Continuous Probability Distributions</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Introduction to Continuous Probability Distributions</h2>
+      <p>Probability theory is broadly divided into two major branches depending on the nature of the random variable being studied: discrete and continuous. While many introductory statistics courses begin with discrete distributions — counting heads in coin flips, tallying defective products on an assembly line, or recording the number of customers arriving at a bank — a vast range of real-world phenomena cannot be adequately described by counting. Measurements of time, weight, temperature, distance, and voltage all share a common feature: they exist on a continuous scale, where values flow seamlessly from one to the next without gaps. Understanding continuous probability distributions requires a fundamental shift in perspective, moving from assigning probabilities to individual outcomes to reasoning about probabilities over intervals. This topic builds that foundation carefully, explaining why the tools developed for discrete variables must be reimagined for the continuous case.</p>
+
+<p><strong>Discrete vs. Continuous Random Variables</strong></p>
+
+<p>A <em>random variable</em> is a function that assigns a numerical value to each outcome of a random experiment. The critical distinction between discrete and continuous random variables lies in the set of values they can take.</p>
+
+<p>A <em>discrete random variable</em> takes on a countable number of distinct values. "Countable" here means you could, in principle, list every possible outcome: 0, 1, 2, 3, and so on. Examples include the number of cars passing through an intersection in an hour, the number of defective items in a batch of 100, or the result of rolling a six-sided die. For discrete variables, it is entirely meaningful — and often straightforward — to assign a specific, nonzero probability to each individual outcome. The probability distribution is described by a <em>probability mass function</em> (PMF), which maps each possible value to its probability, and the probabilities across all outcomes sum to exactly 1.</p>
+
+<p>A <em>continuous random variable</em>, by contrast, can take on any value within a given interval or range. The possible outcomes form an uncountably infinite set. Consider measuring the exact time it takes for a chemical reaction to complete, or the precise weight of a newborn baby, or the temperature of a furnace at a randomly selected moment. Between any two values — say 2.5 seconds and 2.6 seconds — there are infinitely many possible measurements: 2.51, 2.507, 2.5071, and so on without end. No finite list can exhaust them.</p>
+
+<p>This distinction has profound implications. Common continuous measurements include:</p>
+<ul>
+  <li><strong>Time:</strong> The lifespan of a light bulb, the time between arrivals of buses, the duration of a phone call.</li>
+  <li><strong>Physical measurements:</strong> The height or weight of individuals in a population, the diameter of a manufactured part.</li>
+  <li><strong>Environmental data:</strong> Daily rainfall totals, wind speed, air temperature.</li>
+  <li><strong>Financial data:</strong> Daily percentage changes in stock prices, loan repayment amounts.</li>
+</ul>
+
+<p>For all of these, the strategy used to compute probabilities for discrete variables — summing up probabilities at individual points — completely breaks down, and a new mathematical framework is required.</p>
+
+<p><strong>Why Individual Point Probabilities Are Zero</strong></p>
+
+<p>This is one of the most conceptually important and initially surprising results in continuous probability theory: for any continuous random variable X, the probability of X taking on any single, exact value is zero. Formally, <em>P(X = a) = 0</em> for every specific value <em>a</em>.</p>
+
+<p>To understand why, consider what it would mean if this were not the case. Suppose the probability of landing exactly on any specific value were some tiny but positive number, say 0.0001. Since there are infinitely many values in any interval — an uncountably infinite number — the sum of all these individual probabilities would be infinite, not 1. The only way probabilities can remain consistent (summing to 1 over the entire range) when spread across infinitely many values is if each individual point carries zero probability.</p>
+
+<p>Think of it this way: if you randomly select a real number from the interval [0, 1], asking "what is the probability that I selected exactly 0.37291847...?" is like asking what fraction of the interval a single geometric point occupies. A point has no width, so it contributes zero area — and zero probability.</p>
+
+<p>This has a critically useful practical consequence: for continuous distributions, strict and non-strict inequalities are interchangeable.</p>
+
+<ul>
+  <li><em>P(X &lt; a) = P(X ≤ a)</em>, because adding the single point <em>a</em> contributes zero additional probability.</li>
+  <li>Similarly, <em>P(a &lt; X &lt; b) = P(a ≤ X ≤ b) = P(a ≤ X &lt; b) = P(a &lt; X ≤ b)</em>.</li>
+</ul>
+
+<p>This is in sharp contrast to discrete distributions. For a discrete variable, the distinction between P(X &lt; 3) and P(X ≤ 3) is critical — P(X = 3) may be substantial, say 0.25, and omitting or including that point changes the probability significantly. In the continuous world, this concern disappears entirely because boundary points carry no weight.</p>
+
+<p><strong>The Probability Density Function (PDF)</strong></p>
+
+<p>Since we cannot meaningfully talk about the probability of landing at a single point, continuous distributions are instead described by a <em>probability density function</em>, typically denoted <em>f(x)</em>. The PDF is the central mathematical object for characterizing a continuous distribution, and understanding it correctly is essential.</p>
+
+<p>The PDF describes the <em>density</em> of probability at each point — that is, how concentrated or spread out the probability is in different regions. A higher value of f(x) at some point x means that values near x are more likely to be observed than values near a point where f(x) is lower. However, f(x) itself is <em>not</em> a probability. This distinction is crucial:</p>
+
+<ul>
+  <li>For a discrete variable, the PMF gives P(X = x), which must lie between 0 and 1.</li>
+  <li>For a continuous variable, f(x) gives probability <em>density</em> — the rate at which probability accumulates per unit of x. The value of f(x) can exceed 1, and this is perfectly valid. For instance, the PDF of a uniform distribution on the interval [0, 0.5] equals 2 everywhere on that interval — well above 1 — and this is entirely legitimate.</li>
+</ul>
+
+<p>Every valid PDF must satisfy exactly two conditions:</p>
+<ul>
+  <li><strong>Non-negativity:</strong> f(x) ≥ 0 for all x. Density cannot be negative.</li>
+  <li><strong>Total area equals 1:</strong> The integral of f(x) over its entire domain equals 1, reflecting the certainty that the variable will take some value.</li>
+</ul>
+
+<p>Different families of continuous distributions are defined by the specific mathematical form of their PDF. For example:</p>
+<ul>
+  <li>The <strong>uniform distribution</strong> on [a, b] has PDF f(x) = 1/(b−a) for a ≤ x ≤ b, and 0 elsewhere — a flat, rectangular shape.</li>
+  <li>The <strong>normal distribution</strong> with mean μ and standard deviation σ has the familiar bell-shaped PDF: f(x) = (1/(σ√(2π))) × e^(−(x−μ)²/(2σ²)).</li>
+  <li>The <strong>exponential distribution</strong> with rate parameter λ has PDF f(x) = λe^(−λx) for x ≥ 0, a curve that starts high and decays rapidly.</li>
+</ul>
+
+<p>Each of these formulas defines a uniquely shaped curve, but all satisfy the two fundamental requirements: non-negativity and total area of 1.</p>
+
+<p><strong>Probability as Area Under the Curve</strong></p>
+
+<p>The mechanism for computing probabilities from a PDF is geometric: <em>probability equals area under the PDF curve</em>. Specifically, the probability that a continuous random variable X falls between two values a and b is the area under the PDF curve between x = a and x = b.</p>
+
+<p>Mathematically, this is expressed using the definite integral:</p>
+
+<pre><code>P(a ≤ X ≤ b) = ∫[a to b] f(x) dx</code></pre>
+
+<p>This formula is the cornerstone of continuous probability calculations. Let's unpack it with a concrete example. Suppose X follows a uniform distribution on the interval [0, 10], so f(x) = 1/10 = 0.1 for all x in [0, 10]. What is the probability that X falls between 3 and 7?</p>
+
+<pre><code>P(3 ≤ X ≤ 7) = ∫[3 to 7] 0.1 dx = 0.1 × (7 − 3) = 0.1 × 4 = 0.4</code></pre>
+
+<p>Intuitively, the interval [3, 7] covers 40% of the total range [0, 10], so there is a 40% chance of falling there. The area under the flat PDF curve between 3 and 7 is simply a rectangle of width 4 and height 0.1, giving area 0.4.</p>
+
+<p>For more complex PDFs like the normal distribution, the integral does not have a simple closed form, and probabilities are typically obtained from tables or software. But the conceptual principle remains the same: shade the region under the curve between two values, and the area of that shaded region is the probability.</p>
+
+<p>A few key properties follow directly from this area-based interpretation:</p>
+<ul>
+  <li>The total area under the entire PDF curve, from the lowest to highest possible value of X, always equals exactly 1. This ensures all probabilities account for every possible outcome.</li>
+  <li>The probability of X being less than some value a equals the area under the curve to the left of a.</li>
+  <li>The probability of X exceeding some value b equals the area under the curve to the right of b, which equals 1 minus the area to the left of b.</li>
+  <li>Adding or removing a single point from an interval changes the area by zero, which is why strict and non-strict inequalities give the same result.</li>
+</ul>
+
+<p><strong>The Cumulative Distribution Function (CDF)</strong></p>
+
+<p>Working directly with integrals each time you need a probability can be cumbersome. The <em>cumulative distribution function</em> (CDF), denoted <em>F(x)</em>, is a related function that packages the work of integration into a convenient tool for probability calculations.</p>
+
+<p>The CDF is defined as the probability that the random variable X takes a value less than or equal to x:</p>
+
+<pre><code>F(x) = P(X ≤ x) = ∫[−∞ to x] f(t) dt</code></pre>
+
+<p>In other words, F(x) accumulates probability from the far left of the distribution up to the point x. Because it represents a probability, F(x) always satisfies 0 ≤ F(x) ≤ 1.</p>
+
+<p>The CDF has several essential properties:</p>
+<ul>
+  <li><strong>Non-decreasing:</strong> As x increases, probability only accumulates — it never decreases. So F is a non-decreasing (monotonically increasing) function.</li>
+  <li><strong>Boundary behavior:</strong> As x approaches the lower limit of the distribution, F(x) approaches 0. As x approaches the upper limit (or positive infinity), F(x) approaches 1.</li>
+  <li><strong>Interval probabilities from the CDF:</strong> The probability that X falls between a and b is simply the difference of CDF values: P(a ≤ X ≤ b) = F(b) − F(a). This avoids re-integrating and makes the CDF especially practical.</li>
+</ul>
+
+<p>For example, suppose the CDF for some distribution gives F(7) = 0.70 and F(3) = 0.30. Then:</p>
+
+<pre><code>P(3 ≤ X ≤ 7) = F(7) − F(3) = 0.70 − 0.30 = 0.40</code></pre>
+
+<p>This matches what we computed directly via integration in the previous section. The CDF approach is particularly valuable for the normal distribution, where direct integration is impossible without numerical methods. Standard normal tables are nothing more than tabulations of the normal CDF — they give F(z) for various values of z, and virtually all normal distribution problems reduce to computing differences of these CDF values.</p>
+
+<p>The relationship between the PDF and CDF is the fundamental theorem of calculus: the PDF is the derivative of the CDF, and the CDF is the integral of the PDF. If you know one, you can find the other.</p>
+
+<pre><code>f(x) = d/dx F(x)     (PDF is the derivative of the CDF)
+F(x) = ∫[−∞ to x] f(t) dt     (CDF is the integral of the PDF)</code></pre>
+
+<p><strong>Key Parameters of Continuous Distributions</strong></p>
+
+<p>Just as a discrete distribution can be characterized by summary numbers, continuous distributions are described by <em>parameters</em> — numerical constants that appear in the PDF formula and determine the distribution's location, shape, and spread.</p>
+
+<p>The two most fundamental parameters are:</p>
+
+<ul>
+  <li><strong>Mean (μ):</strong> Also called the expected value, the mean describes the center or balance point of the distribution. For a continuous variable, it is computed as the integral of x weighted by the PDF: μ = ∫ x · f(x) dx. It indicates where the distribution is located on the number line.</li>
+  <li><strong>Variance (σ²):</strong> The variance measures the spread or dispersion of the distribution around the mean. It is computed as σ² = ∫ (x − μ)² · f(x) dx. The square root of the variance, σ, is the <em>standard deviation</em>, which is expressed in the same units as X and is more intuitively interpretable.</li>
+</ul>
+
+<p>Different families of distributions use different parameters. The table below summarizes the key parameters for three common continuous distributions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distribution</th>
+      <th>Parameters</th>
+      <th>Mean (μ)</th>
+      <th>Variance (σ²)</th>
+      <th>Typical Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Uniform</td>
+      <td>a (lower bound), b (upper bound)</td>
+      <td>(a + b) / 2</td>
+      <td>(b − a)² / 12</td>
+      <td>Equal likelihood over an interval</td>
+    </tr>
+    <tr>
+      <td>Normal</td>
+      <td>μ (mean), σ (standard deviation)</td>
+      <td>μ</td>
+      <td>σ²</td>
+      <td>Heights, test scores, measurement errors</td>
+    </tr>
+    <tr>
+      <td>Exponential</td>
+      <td>λ (rate)</td>
+      <td>1 / λ</td>
+      <td>1 / λ²</td>
+      <td>Time between random events, waiting times</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An important insight about parameters is that changing them transforms the PDF curve in predictable ways <em>without</em> violating the fundamental rules of a valid PDF. For example:</p>
+<ul>
+  <li>Changing μ in a normal distribution shifts the bell curve left or right along the x-axis, changing where it is centered but not its shape.</li>
+  <li>Increasing σ in a normal distribution flattens and widens the bell curve, while decreasing σ makes it taller and narrower. In both cases, the total area under the curve remains exactly 1.</li>
+  <li>For the exponential distribution, a larger rate λ produces a steeper drop-off, meaning shorter waiting times are far more likely.</li>
+</ul>
+
+<p>In applied statistics, the true parameters of a population distribution are almost never known exactly. Instead, they are <em>estimated</em> from sample data — the sample mean x̄ estimates μ, and the sample variance s² estimates σ². These estimates allow practitioners to fit a continuous distribution to real-world data and use it to make predictions, set tolerances, or calculate probabilities relevant to their specific problem. For instance, a manufacturer might measure the diameters of 200 machined parts, estimate μ and σ from this sample, fit a normal distribution, and then compute the probability that a randomly produced part falls outside acceptable tolerances.</p>
+
+<p>Mastering these foundational concepts — the distinction between discrete and continuous variables, the meaning of zero point probability, the role of the PDF and CDF, and the significance of distribution parameters — forms the bedrock upon which all more advanced work with continuous distributions rests.</p>
+      <div class="notes"><strong>Notes</strong>This topic establishes foundational vocabulary and conceptual frameworks. Emphasize repeatedly that f(x) is density, not probability, and that area equals probability. The zero point-probability result should be demonstrated carefully as it contradicts students&#39; intuition from discrete settings. The CDF subtopic naturally previews how standard normal tables work, which is valuable foreshadowing.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Linear Regression</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+  <header>
+    <h1>Simple Linear Regression</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Simple Linear Regression</h2>
+      <p>Simple linear regression is one of the most foundational and widely used techniques in statistics and data analysis. It provides a formal, mathematically grounded method for examining the relationship between two continuous variables — one that plays the role of the predictor and one that represents the outcome we are trying to understand or forecast. Before diving into equations and procedures, it helps to understand what the method is actually doing conceptually: it is asking, "if I know the value of one variable, how well can I predict the value of another, and what does the pattern of that prediction look like?"</p>
+
+<p>The variable used to make the prediction is called the <strong>predictor variable</strong>, commonly denoted <em>X</em>. It is also referred to as the <strong>independent variable</strong>, the explanatory variable, or the regressor. The variable being predicted is called the <strong>outcome variable</strong>, commonly denoted <em>Y</em>, and is also known as the <strong>dependent variable</strong> or the response variable. The terminology "independent" and "dependent" reflects the idea that Y's value is modeled as depending on X, though it is important to remember that regression describes association, not causation, unless the data come from a carefully controlled experiment.</p>
+
+<p>The central goal of simple linear regression is to find the <strong>best-fitting straight line</strong> through a scatter of data points — a line that summarizes how changes in X are systematically associated with changes in Y. The word "simple" distinguishes this case from <em>multiple</em> linear regression, which involves two or more predictor variables. Here, we work with exactly one predictor and one outcome. The method assumes that the relationship between X and Y follows a straight-line (linear) pattern. This is an important assumption: if the true relationship is curved or otherwise non-linear, a straight line will give a poor and potentially misleading summary of the data.</p>
+
+<p><strong>The Regression Equation</strong></p>
+
+<p>The mathematical form of a simple linear regression model is written as:</p>
+
+<pre><code>Ŷ = b₀ + b₁X</code></pre>
+
+<p>Each element of this equation has a specific and important meaning. <strong>Ŷ</strong> (read "Y-hat") is the <em>predicted</em> value of Y for a given value of X. The hat symbol is a standard statistical convention indicating that this is an estimate or prediction rather than an observed, exact value. Real data points will not all fall perfectly on the line — the line represents the average predicted value of Y at each level of X.</p>
+
+<p><strong>b₀</strong> is the <strong>intercept</strong> of the regression line. Geometrically, it is the point where the line crosses the vertical Y-axis — in other words, it is the predicted value of Y when X equals zero. For example, if a regression model predicts a person's weight (Y) from their height in inches (X), the intercept would be the predicted weight when height is zero inches. In many real-world situations, X = 0 is outside the range of the data or is physically impossible, so the intercept may lack a meaningful practical interpretation. It still plays a critical mathematical role in anchoring the position of the line.</p>
+
+<p><strong>b₁</strong> is the <strong>slope</strong> of the regression line. It represents the average change in Y for each one-unit increase in X. If the slope is 3.5, it means that for every additional one unit of X, the predicted value of Y increases by 3.5 units, on average. The slope is the most substantively interesting coefficient because it directly quantifies the direction and strength of the linear relationship between the two variables.</p>
+
+<p>To make this concrete, consider a researcher studying the relationship between hours of study (X) and exam score (Y). Suppose the estimated regression equation is:</p>
+
+<pre><code>Ŷ = 45 + 5X</code></pre>
+
+<p>Here, b₀ = 45 means that a student who studies zero hours is predicted to score 45 points. b₁ = 5 means that each additional hour of study is associated with a predicted increase of 5 points on the exam. A student who studies 4 hours would be predicted to score Ŷ = 45 + 5(4) = 65 points.</p>
+
+<p><strong>Estimating the Regression Line: The Least Squares Method</strong></p>
+
+<p>Given a dataset with observed pairs of (X, Y) values, there are infinitely many possible straight lines one could draw through the scatter plot. The question is: which line is the <em>best</em>? The standard answer in classical statistics is to use the <strong>ordinary least squares (OLS)</strong> method, which defines "best" in a very precise and mathematically tractable way.</p>
+
+<p>For any candidate line, we can compute a <strong>residual</strong> for each data point. A residual is the vertical distance between the observed Y value and the Y value predicted by the line for that same X value:</p>
+
+<pre><code>eᵢ = Yᵢ - Ŷᵢ</code></pre>
+
+<p>A positive residual means the line underestimated that observation; a negative residual means it overestimated. Residuals are the "errors" the model makes on the observed data. The least squares method finds the unique line that <strong>minimizes the sum of the squared residuals</strong>:</p>
+
+<pre><code>Minimize: Σ(Yᵢ - Ŷᵢ)² = Σeᵢ²</code></pre>
+
+<p>Why square the residuals rather than simply summing them? Because positive and negative residuals would otherwise cancel each other out, making a line with large errors appear to have none. Squaring ensures all contributions are positive, and it also penalizes large errors more heavily than small ones — a property that often aligns with our intuitions about what a good fit means.</p>
+
+<p>Using calculus, it can be shown that the OLS estimates of the slope and intercept are given by the formulas:</p>
+
+<pre><code>b₁ = Σ[(Xᵢ - X̄)(Yᵢ - Ȳ)] / Σ[(Xᵢ - X̄)²]
+
+b₀ = Ȳ - b₁X̄</code></pre>
+
+<p>Here, X̄ and Ȳ are the sample means of X and Y, respectively. Notice that b₀ is calculated after b₁, using the fact that the least squares line always passes through the point (X̄, Ȳ) — the means of the two variables. This is a useful property to remember: the regression line is anchored at the centroid of the data.</p>
+
+<p>The OLS method has several attractive properties. Under standard regression assumptions (linearity, constant variance of errors, independence of observations, and normally distributed errors), OLS estimates are <strong>unbiased</strong> — meaning that on average across many samples they will equal the true population values — and they are also the <strong>most efficient</strong> among all linear unbiased estimators, a result known as the Gauss-Markov theorem.</p>
+
+<p><strong>Interpreting the Slope and Intercept</strong></p>
+
+<p>Interpreting regression coefficients carefully and in context is one of the most important skills in applied statistics. The <strong>slope b₁</strong> carries the primary inferential message of the model. It tells us both the <em>direction</em> and the <em>magnitude</em> of the linear relationship:</p>
+
+<ul>
+  <li>A <strong>positive slope</strong> (b₁ &gt; 0) indicates a positive association: as X increases, predicted Y also increases. For instance, more fertilizer applied to crops might be associated with higher yield.</li>
+  <li>A <strong>negative slope</strong> (b₁ &lt; 0) indicates an inverse or negative association: as X increases, predicted Y decreases. For instance, increasing distance from a city center might be associated with lower property values.</li>
+  <li>A slope of <strong>zero</strong> would indicate no linear relationship between X and Y — the regression line would be perfectly horizontal.</li>
+</ul>
+
+<p>Crucially, the slope must always be interpreted with reference to the units of measurement. If X is measured in years and Y in thousands of dollars, then a slope of 2.3 means that each additional year is associated with an average increase of $2,300 in Y. Changing the units of X or Y (e.g., converting years to months) will change the numerical value of the slope, even though the underlying relationship is unchanged.</p>
+
+<p>The <strong>intercept b₀</strong> anchors the line but requires careful thought about interpretability. Consider a regression predicting annual salary (Y, in thousands of dollars) from years of work experience (X). If b₀ = 38, this says that a person with zero years of experience is predicted to earn $38,000. Here, X = 0 is plausible (a new hire), so the intercept has a sensible meaning. But in other contexts — for instance, predicting a person's blood pressure from their body weight where a weight of zero is impossible — the intercept is mathematically necessary but practically uninterpretable. Analysts should be cautious and explicit about this distinction.</p>
+
+<p><strong>Assessing Model Fit with R-Squared</strong></p>
+
+<p>Knowing that a regression line exists is not enough — we want to know how well it actually fits the data. The primary measure of model fit in simple linear regression is the <strong>coefficient of determination, R²</strong>.</p>
+
+<p>R² is defined as the proportion of the total variation in Y that is explained by the linear regression on X. It is computed as:</p>
+
+<pre><code>R² = 1 - (SSResidual / SSTotal)
+
+where:
+  SSTotal    = Σ(Yᵢ - Ȳ)²       (total variation in Y)
+  SSResidual = Σ(Yᵢ - Ŷᵢ)²      (unexplained variation after fitting the model)
+  SSRegression = SSTotal - SSResidual  (variation explained by the model)</code></pre>
+
+<p>R² ranges from 0 to 1. An R² of 0 means the predictor X explains none of the variation in Y — the regression line is no better than simply predicting the mean of Y for every observation. An R² of 1 means the predictor explains all variation in Y — every data point falls exactly on the regression line, which is essentially never observed in real data.</p>
+
+<p>For example, if R² = 0.72, this means that 72% of the variability in Y is accounted for by the linear relationship with X, and the remaining 28% is due to other factors not captured by the model.</p>
+
+<p>An important mathematical relationship exists in simple linear regression: <strong>R² equals the square of the Pearson correlation coefficient r</strong>. If the correlation between X and Y is r = 0.85, then R² = 0.85² = 0.7225, meaning the model explains approximately 72.25% of the variance in Y. This connection makes intuitive sense: the stronger the linear correlation, the better the regression line fits the data.</p>
+
+<p>However, R² should not be used in isolation. A high R² does not guarantee that the model is correctly specified, that the assumptions of linear regression are met, or that the model will generalize well to new data. Conversely, a modest R² may still be highly meaningful in fields like social science or medicine where human behavior is inherently variable and hard to predict. R² must always be interpreted alongside other diagnostics and in the context of the subject matter.</p>
+
+<p><strong>Testing the Significance of the Regression Relationship</strong></p>
+
+<p>Even if OLS produces a non-zero slope estimate, we need to ask: could this apparent relationship simply be due to random chance in the sample? Hypothesis testing provides the formal framework for answering this question.</p>
+
+<p>The standard null and alternative hypotheses are:</p>
+
+<ul>
+  <li><strong>H₀: β₁ = 0</strong> — The population slope is zero; X has no linear relationship with Y.</li>
+  <li><strong>H₁: β₁ ≠ 0</strong> — The population slope is not zero; there is a linear relationship between X and Y.</li>
+</ul>
+
+<p>Note the use of β₁ (the Greek letter beta) to denote the true, unknown population parameter, as opposed to b₁, which is the estimate computed from our sample. To test this hypothesis, we calculate a <strong>t-statistic</strong>:</p>
+
+<pre><code>t = b₁ / SE(b₁)</code></pre>
+
+<p>where SE(b₁) is the standard error of the slope estimate — a measure of how much b₁ would vary across different random samples from the same population. This t-statistic follows a t-distribution with n − 2 degrees of freedom (we lose two degrees of freedom for estimating b₀ and b₁).</p>
+
+<p>Equivalently, an <strong>F-test</strong> can be used, and in simple linear regression the F-statistic equals the square of the t-statistic: F = t². Both tests produce the same p-value and conclusion. The F-test framework becomes more natural when extending to multiple regression.</p>
+
+<p>The <strong>p-value</strong> from the test tells us the probability of observing a slope as large as (or larger than) what we observed, assuming the null hypothesis is true. If p &lt; 0.05 (using the conventional significance threshold), we reject H₀ and conclude that the slope is statistically significantly different from zero. This means the data provide sufficient evidence that X and Y are linearly related in the population.</p>
+
+<p>Consider a practical example: a study examines whether advertising expenditure (X, in thousands of dollars) predicts monthly sales revenue (Y, in thousands of dollars). The OLS estimate yields b₁ = 4.2 with a standard error of 0.6, giving t = 4.2 / 0.6 = 7.0. With a large sample, this would correspond to an extremely small p-value (far below 0.05), providing strong evidence that advertising expenditure is a significant predictor of sales.</p>
+
+<p>It is important not to conflate <em>statistical significance</em> with <em>practical significance</em>. A very large sample can make even a tiny slope statistically significant. Always assess whether the size of the slope is meaningful in practical terms, not just whether it is different from zero.</p>
+
+<p><strong>Using the Model for Prediction</strong></p>
+
+<p>One of the most useful applications of a fitted regression model is making predictions for new observations. Once b₀ and b₁ have been estimated and the model has been validated, predicting a Y value for a given X is straightforward: simply substitute the desired X value into the regression equation.</p>
+
+<p>Returning to the study-hours example (Ŷ = 45 + 5X), if a new student plans to study 7 hours, the predicted exam score would be:</p>
+
+<pre><code>Ŷ = 45 + 5(7) = 45 + 35 = 80 points</code></pre>
+
+<p>However, this single predicted value — called a <strong>point estimate</strong> — does not convey any information about the uncertainty surrounding the prediction. There are two important types of intervals used to express this uncertainty:</p>
+
+<ul>
+  <li>A <strong>confidence interval for the mean response</strong> gives a range of plausible values for the <em>average</em> Y at a given X. It reflects uncertainty in estimating the true regression line.</li>
+  <li>A <strong>prediction interval</strong> gives a range within which we expect a <em>single new individual observation</em> to fall. It is always wider than a confidence interval because it must account for both the uncertainty in the line's position and the natural variability of individual data points around the line.</li>
+</ul>
+
+<p>Both intervals are narrowest near X̄ (the mean of X) and widen as X moves farther from the center of the data, reflecting the fact that predictions become less reliable as we move away from the region where we have observed data.</p>
+
+<p>A critical warning applies to prediction: <strong>extrapolation</strong> — using the model to predict Y for values of X far outside the range of the observed data — is dangerous. The linear relationship that holds within the observed range may not continue beyond it. For instance, a model showing that crop yield increases linearly with fertilizer application in the range of 0–100 kg/hectare may break down completely at 500 kg/hectare, where over-fertilization could reduce yield. Predictions should only be made within (or very close to) the range of X values used to build the model.</p>
+
+<p>The following table summarizes the key components of a simple linear regression analysis and their roles:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Symbol</th>
+      <th>Role in the Model</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Predictor variable</td>
+      <td>X</td>
+      <td>Input used to generate predictions</td>
+      <td>The independent / explanatory variable</td>
+    </tr>
+    <tr>
+      <td>Outcome variable</td>
+      <td>Y</td>
+      <td>The quantity being predicted or explained</td>
+      <td>The dependent / response variable</td>
+    </tr>
+    <tr>
+      <td>Predicted value</td>
+      <td>Ŷ</td>
+      <td>Output of the regression equation</td>
+      <td>Estimated average Y at a given X</td>
+    </tr>
+    <tr>
+      <td>Intercept</td>
+      <td>b₀</td>
+      <td>Anchors the line on the Y-axis</td>
+      <td>Predicted Y when X = 0</td>
+    </tr>
+    <tr>
+      <td>Slope</td>
+      <td>b₁</td>
+      <td>Describes the direction and rate of change</td>
+      <td>Average change in Y per one-unit increase in X</td>
+    </tr>
+    <tr>
+      <td>Residual</td>
+      <td>eᵢ</td>
+      <td>Measures individual prediction error</td>
+      <td>Observed Y minus predicted Y for each point</td>
+    </tr>
+    <tr>
+      <td>R-squared</td>
+      <td>R²</td>
+      <td>Overall measure of model fit</td>
+      <td>Proportion of Y variance explained by X</td>
+    </tr>
+    <tr>
+      <td>p-value (slope)</td>
+      <td>p</td>
+      <td>Tests significance of the relationship</td>
+      <td>Evidence against the null hypothesis β₁ = 0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In summary, simple linear regression offers a coherent and powerful framework — from data to equation to interpretation to prediction — for exploring and quantifying linear relationships between two variables. Its value lies not just in the formulas themselves, but in the disciplined thinking it requires: clearly defining what is being modeled, honestly assessing how well the model fits, rigorously testing whether observed patterns are real, and exercising caution when using the model to make predictions.</p>
+      <div class="notes"><strong>Notes</strong>Covers the full arc of simple linear regression: conceptual foundation, the regression equation and its components, OLS estimation, coefficient interpretation, R&#178;, significance testing (t and F), and prediction with intervals. Practical examples (study hours/exam scores, advertising/sales) are used throughout to ground abstract concepts. The summary table consolidates all key components for reference.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

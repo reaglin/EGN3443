@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Discrete Distributions to Real-World Problems</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+  <header>
+    <h1>Applying Discrete Distributions to Real-World Problems</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applying Discrete Distributions to Real-World Problems</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Discrete probability distributions are not merely abstract mathematical constructs — they are powerful analytical tools that, when applied correctly, allow us to quantify uncertainty, forecast outcomes, and make better decisions in virtually every professional domain. The skill of applying discrete distributions to real-world problems requires more than memorizing formulas. It demands the ability to read a scenario carefully, recognize its underlying probabilistic structure, select the right distribution, set up parameters accurately, execute calculations systematically, and — critically — translate numerical results back into language that drives real decisions. This section integrates all of those skills into a unified problem-solving framework.</p>
+
+<p><strong>Identifying the Right Distribution for a Scenario</strong></p>
+
+<p>The first and most consequential step in any applied probability problem is choosing the correct distribution. Using the wrong model, even with perfect arithmetic, produces answers that are mathematically precise but contextually meaningless. The two workhorse discrete distributions in applied settings are the <strong>Binomial</strong> and the <strong>Poisson</strong>, and each has a distinct signature in the language of a problem.</p>
+
+<p>Use the <strong>Binomial distribution</strong> when a scenario has all of the following characteristics:</p>
+<ul>
+  <li>There is a <strong>fixed number of trials</strong>, <em>n</em>, known in advance.</li>
+  <li>Each trial results in exactly <strong>one of two outcomes</strong> — conventionally called "success" and "failure."</li>
+  <li>The trials are <strong>independent</strong> of one another — the outcome of one trial does not influence any other.</li>
+  <li>The <strong>probability of success, <em>p</em></strong>, remains constant across every trial.</li>
+</ul>
+
+<p>Typical language that signals a Binomial setting includes phrases like: <em>"out of 10 patients, how many recover?"</em>, <em>"a quality inspector examines 20 units and records the number of defectives"</em>, or <em>"a survey of 50 voters asks whether each supports a particular policy."</em> The key cue is a defined group size paired with a binary outcome question.</p>
+
+<p>Use the <strong>Poisson distribution</strong> when:</p>
+<ul>
+  <li>You are <strong>counting the number of events</strong> that occur in a fixed interval of time, space, area, or volume.</li>
+  <li>Events occur <strong>independently</strong> of one another.</li>
+  <li>The <strong>average rate of occurrence, λ (lambda)</strong>, is known and constant over the interval.</li>
+  <li>Two events cannot occur at exactly the same instant (events are rare relative to the interval).</li>
+</ul>
+
+<p>Language that signals a Poisson setting includes: <em>"on average, 3 customers arrive per hour"</em>, <em>"a server receives an average of 12 requests per minute"</em>, or <em>"a stretch of highway sees an average of 2 accidents per week."</em> The absence of a fixed "number of trials" and the presence of an average rate per interval are the defining cues.</p>
+
+<p>Misidentifying the distribution is a foundational error that cascades through the entire solution. Before writing a single formula, always ask: <em>Is there a fixed number of attempts with a binary outcome and constant probability? → Binomial. Am I counting independent events arriving at a known average rate in a fixed interval? → Poisson.</em> When in doubt, verify each assumption explicitly.</p>
+
+<p><strong>Setting Up the Problem Parameters</strong></p>
+
+<p>Once the correct distribution is identified, the next step is carefully extracting the numerical parameters from the problem statement. This sounds straightforward, but parameter errors are among the most common sources of wrong answers in applied probability.</p>
+
+<p>For the <strong>Binomial distribution</strong>, identify three values:</p>
+<ul>
+  <li><strong><em>n</em></strong> — the total number of trials. This is always a specific, finite integer stated or clearly implied by the problem.</li>
+  <li><strong><em>p</em></strong> — the probability of success on a single trial. This should be a value between 0 and 1. If given as a percentage, convert it (e.g., 15% → 0.15).</li>
+  <li><strong><em>k</em></strong> — the target number of successes for which you are computing a probability. This is what the question is asking about.</li>
+</ul>
+
+<p>For the <strong>Poisson distribution</strong>, identify two values:</p>
+<ul>
+  <li><strong>λ (lambda)</strong> — the average number of events per interval. This must be expressed in the same units as the interval in question.</li>
+  <li><strong><em>k</em></strong> — the specific number of events you are computing a probability for.</li>
+</ul>
+
+<p>A particularly important nuance with Poisson problems is <strong>unit consistency for λ</strong>. Suppose a problem states that a call center receives an average of 8 calls per hour, but asks for the probability of receiving exactly 3 calls in a 15-minute window. The rate λ = 8 applies to a full hour. For a 15-minute window (which is 15/60 = 0.25 of an hour), the adjusted rate is λ = 8 × 0.25 = 2. Always rescale λ to match the interval specified in the question before computing anything.</p>
+
+<p>Consider this example to see parameter extraction in action:</p>
+
+<p><em>Problem: A factory produces light bulbs. Historical data show that 5% of bulbs are defective. A quality inspector randomly selects 12 bulbs. What is the probability that exactly 2 are defective?</em></p>
+
+<p>Parameter extraction:</p>
+<ul>
+  <li>Distribution: Binomial — fixed number of bulbs (trials), each is either defective or not, constant 5% defect rate, independent inspection.</li>
+  <li><em>n</em> = 12 (bulbs selected)</li>
+  <li><em>p</em> = 0.05 (probability a single bulb is defective)</li>
+  <li><em>k</em> = 2 (the number we are asking about)</li>
+</ul>
+
+<p><em>Problem: A hospital emergency room receives an average of 4 patients per hour. What is the probability that exactly 6 patients arrive in a given hour?</em></p>
+
+<p>Parameter extraction:</p>
+<ul>
+  <li>Distribution: Poisson — counting arrivals in a fixed time interval, with a known average rate, independently.</li>
+  <li>λ = 4 (average arrivals per hour)</li>
+  <li><em>k</em> = 6 (the count of interest)</li>
+</ul>
+
+<p><strong>Executing Probability Calculations</strong></p>
+
+<p>With parameters in hand, the calculation phase follows a structured process: write the formula, substitute the values, and simplify carefully.</p>
+
+<p>The <strong>Binomial Probability Mass Function (PMF)</strong> is:</p>
+
+<pre><code>P(X = k) = C(n, k) · p^k · (1 − p)^(n − k)</code></pre>
+
+<p>where <code>C(n, k) = n! / (k! · (n − k)!)</code> is the binomial coefficient, representing the number of ways to choose <em>k</em> successes from <em>n</em> trials.</p>
+
+<p>Applying this to the light bulb example (n = 12, p = 0.05, k = 2):</p>
+
+<pre><code>C(12, 2) = 12! / (2! · 10!) = (12 × 11) / (2 × 1) = 66
+
+P(X = 2) = 66 · (0.05)^2 · (0.95)^10
+         = 66 · 0.0025 · 0.5987
+         ≈ 66 · 0.001497
+         ≈ 0.0988</code></pre>
+
+<p>There is approximately a <strong>9.9% probability</strong> that exactly 2 of the 12 sampled bulbs are defective.</p>
+
+<p>The <strong>Poisson Probability Mass Function (PMF)</strong> is:</p>
+
+<pre><code>P(X = k) = (e^(−λ) · λ^k) / k!</code></pre>
+
+<p>where <em>e</em> ≈ 2.71828 is Euler's number.</p>
+
+<p>Applying this to the emergency room example (λ = 4, k = 6):</p>
+
+<pre><code>P(X = 6) = (e^(−4) · 4^6) / 6!
+         = (0.01832 · 4096) / 720
+         = 75.02 / 720
+         ≈ 0.1042</code></pre>
+
+<p>There is approximately a <strong>10.4% probability</strong> of exactly 6 arrivals in a given hour.</p>
+
+<p>Many real-world questions ask about <strong>ranges of outcomes</strong> rather than a single exact value. Key cumulative probability formulations include:</p>
+
+<ul>
+  <li><strong>"At most k" (P(X ≤ k)):</strong> Sum P(X = 0) + P(X = 1) + … + P(X = k).</li>
+  <li><strong>"At least k" (P(X ≥ k)):</strong> Use the complement — P(X ≥ k) = 1 − P(X ≤ k − 1).</li>
+  <li><strong>"More than k" (P(X > k)):</strong> P(X > k) = 1 − P(X ≤ k).</li>
+  <li><strong>"Between j and k inclusive" (P(j ≤ X ≤ k)):</strong> P(X ≤ k) − P(X ≤ j − 1).</li>
+</ul>
+
+<p>For example, if the emergency room problem asked for the probability of <em>fewer than 3 patients</em> arriving:</p>
+
+<pre><code>P(X &lt; 3) = P(X = 0) + P(X = 1) + P(X = 2)
+
+P(X = 0) = e^(−4) · 1 / 1    = 0.01832
+P(X = 1) = e^(−4) · 4 / 1    = 0.07326
+P(X = 2) = e^(−4) · 16 / 2   = 0.14653
+
+P(X &lt; 3) ≈ 0.01832 + 0.07326 + 0.14653 ≈ 0.2381</code></pre>
+
+<p>There is roughly a <strong>23.8% probability</strong> that fewer than 3 patients arrive in a given hour.</p>
+
+<p>Maintaining organized, step-by-step work — listing parameters, writing the full formula before substituting, showing intermediate arithmetic — dramatically reduces errors and makes solutions easier to verify and communicate.</p>
+
+<p><strong>Computing Expected Value and Variance in Context</strong></p>
+
+<p>Beyond point probabilities, two summary statistics of a distribution are invaluable in applied work: the <strong>expected value (mean)</strong> and the <strong>variance</strong>.</p>
+
+<p>For the <strong>Binomial distribution</strong>:</p>
+<ul>
+  <li>Expected value: <code>E[X] = n · p</code></li>
+  <li>Variance: <code>Var(X) = n · p · (1 − p)</code></li>
+  <li>Standard deviation: <code>SD(X) = √(n · p · (1 − p))</code></li>
+</ul>
+
+<p>For the <strong>Poisson distribution</strong>:</p>
+<ul>
+  <li>Expected value: <code>E[X] = λ</code></li>
+  <li>Variance: <code>Var(X) = λ</code></li>
+  <li>Standard deviation: <code>SD(X) = √λ</code></li>
+</ul>
+
+<p>The fact that the Poisson distribution's mean and variance are both equal to λ is a defining and practically useful property. If you observe real data where the sample mean and sample variance are approximately equal, that is evidence supporting a Poisson model.</p>
+
+<p>To illustrate the practical value of these statistics, consider a manufacturing context. A plant produces 500 circuit boards per day, and the probability that any individual board is defective is 0.02. The expected number of defective boards per day is:</p>
+
+<pre><code>E[X] = 500 × 0.02 = 10 defective boards per day</code></pre>
+
+<p>The variance is:</p>
+
+<pre><code>Var(X) = 500 × 0.02 × 0.98 = 9.8
+SD(X) = √9.8 ≈ 3.13</code></pre>
+
+<p>This tells a production manager that on a typical day, about 10 boards will fail inspection, with the actual count typically varying by roughly ±3 boards. If the daily defect count regularly exceeds 13 or 14 (i.e., more than one standard deviation above the mean), that may signal a process problem worth investigating — a direct operational use of variance information.</p>
+
+<p>In a Poisson context, a hospital that averages λ = 7 emergency surgeries per day can plan staffing knowing that the expected daily workload is 7 surgeries, and the standard deviation is √7 ≈ 2.65. A staffing plan that accommodates 7 + 2 × 2.65 ≈ 12 surgeries would handle about 97.5% of days — a data-driven capacity decision rooted directly in the distribution's variance.</p>
+
+<p><strong>Interpreting Results in the Applied Context</strong></p>
+
+<p>A probability value like 0.0988 is not the end of the analysis — it is the beginning of a contextual interpretation. In applied probability, the numerical answer must always be restated in plain language that connects directly to the scenario and informs a decision.</p>
+
+<p>Good contextual interpretation follows a consistent pattern:</p>
+<ul>
+  <li><strong>Restate the result in plain language:</strong> "There is approximately a 9.9% probability that exactly 2 out of the 12 sampled light bulbs are defective."</li>
+  <li><strong>Compare to practical thresholds:</strong> In many quality control contexts, a 5% threshold is used to define "unlikely." A probability of 9.9% is above that threshold, suggesting this outcome is plausible, not rare.</li>
+  <li><strong>Use expected values to make recommendations:</strong> "On average, 0.6 bulbs per sample of 12 will be defective (E[X] = 12 × 0.05). If the inspector consistently finds 2 or more defectives per batch, the defect rate may have risen above the expected 5%."</li>
+  <li><strong>Acknowledge uncertainty through variance:</strong> "The standard deviation of defectives per batch is approximately 0.75, so finding 0 to 2 defectives is within the normal range of variation."</li>
+</ul>
+
+<p>Comparing computed probabilities to operational thresholds is particularly important in practice. A logistics company might decide that if the probability of more than 5 shipment delays in a day exceeds 10%, they need to deploy additional resources. Computing that probability using the Poisson model and comparing it to the 10% threshold turns a mathematical exercise into a concrete operational trigger.</p>
+
+<p><strong>Applying Distributions Across Diverse Fields</strong></p>
+
+<p>One of the most important metacognitive skills in applied probability is the ability to strip away domain-specific language and recognize the underlying mathematical structure of a problem. The same Binomial or Poisson model appears across wildly different industries under different vocabulary.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Scenario</th>
+      <th>Distribution</th>
+      <th>Key Parameters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Healthcare</td>
+      <td>In a clinical trial, 30 patients receive a drug. Each has a 70% response rate. How many respond?</td>
+      <td>Binomial</td>
+      <td>n = 30, p = 0.70</td>
+    </tr>
+    <tr>
+      <td>Operations &amp; Logistics</td>
+      <td>A warehouse receives an average of 5 shipments per hour. What is the probability of exactly 8 arriving in an hour?</td>
+      <td>Poisson</td>
+      <td>λ = 5, k = 8</td>
+    </tr>
+    <tr>
+      <td>Finance &amp; Insurance</td>
+      <td>A portfolio of 200 loans has a 2% annual default probability per loan. How many defaults are expected?</td>
+      <td>Binomial</td>
+      <td>n = 200, p = 0.02</td>
+    </tr>
+    <tr>
+      <td>Insurance Claims</td>
+      <td>A branch office averages 3 claims per week. Find the probability of receiving more than 5 claims next week.</td>
+      <td>Poisson</td>
+      <td>λ = 3</td>
+    </tr>
+    <tr>
+      <td>Quality Control</td>
+      <td>A batch of 100 items has a 3% defect rate. What is the probability that fewer than 2 are defective?</td>
+      <td>Binomial</td>
+      <td>n = 100, p = 0.03</td>
+    </tr>
+    <tr>
+      <td>Telecommunications</td>
+      <td>A network node averages 10 dropped packets per minute. Find the probability of exactly 7 dropped packets in a minute.</td>
+      <td>Poisson</td>
+      <td>λ = 10, k = 7</td>
+    </tr>
+    <tr>
+      <td>Retail</td>
+      <td>15% of online shoppers complete a purchase. If 40 shoppers visit a page, how many are expected to buy?</td>
+      <td>Binomial</td>
+      <td>n = 40, p = 0.15, E[X] = 6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Across each of these scenarios, the mathematics is the same. What changes is the labeling of "success," the units of the interval, and the practical meaning of the result. Practicing across multiple fields builds the flexible pattern recognition needed to handle unfamiliar problems confidently.</p>
+
+<p><strong>Common Pitfalls and Problem-Solving Strategies</strong></p>
+
+<p>Even experienced analysts make systematic errors when applying discrete distributions under time pressure or with complex problem statements. Understanding the most common pitfalls — and having deliberate strategies to avoid them — is as important as knowing the formulas.</p>
+
+<p><strong>Pitfall 1: Applying Binomial when independence or constant probability is violated.</strong> The Binomial model requires that trials be independent and that <em>p</em> remain the same for every trial. In practice, this can fail. For example, if a manufacturing machine degrades over a production run, the defect probability on the 100th unit may be higher than on the 1st — violating the constant <em>p</em> assumption. Similarly, sampling without replacement from a small population means each draw changes the composition of the pool, violating independence (in such cases, the Hypergeometric distribution is more appropriate). Always check: <em>Are the trials truly independent? Does p stay constant?</em></p>
+
+<p><strong>Pitfall 2: Failing to adjust λ for the interval.</strong> This is the most frequent Poisson error. If a problem gives λ in one time unit (e.g., per hour) and asks about a different interval (e.g., 20 minutes), you must rescale. A systematic check: <em>Does the unit of λ match the unit of the interval in the question?</em> If not, multiply λ by the ratio of the intervals before computing.</p>
+
+<pre><code>Example: λ = 6 per hour, question asks about 20 minutes.
+20 minutes = 20/60 = 1/3 of an hour.
+Adjusted λ = 6 × (1/3) = 2 for the 20-minute window.</code></pre>
+
+<p><strong>Pitfall 3: Computing cumulative probabilities the hard way when the complement is simpler.</strong> Computing P(X ≥ 3) for a Binomial with n = 20 by summing 18 individual PMF values is tedious and error-prone. Recognizing that P(X ≥ 3) = 1 − P(X ≤ 2) = 1 − [P(X=0) + P(X=1) + P(X=2)] reduces the computation to just three terms. Train yourself to look for the complement whenever the "direct" sum involves many terms.</p>
+
+<p><strong>Pitfall 4: Not verifying that a full distribution sums to 1.</strong> If you construct a complete probability table for all possible values of X, the probabilities must sum to exactly 1 (or very close to 1 allowing for rounding). If they do not, there is a calculation error somewhere. This is a built-in, automatic check that every analyst should perform when building a full distribution.</p>
+
+<p><strong>Pitfall 5: Misreading "at least k" vs. "more than k."</strong> "At least 3" means k ≥ 3, which includes k = 3. "More than 3" means k > 3, which excludes k = 3 and starts at k = 4. Swapping these off-by-one errors leads to incorrect probability computations. Always parse the inequality carefully.</p>
+
+<p>A general <strong>problem-solving protocol</strong> that prevents most of these errors:</p>
+<ul>
+  <li><strong>Step 1 — Read and classify:</strong> Identify whether the scenario is Binomial or Poisson based on the structural cues described above.</li>
+  <li><strong>Step 2 — Extract and check parameters:</strong> Write down <em>n</em>, <em>p</em>, λ, and <em>k</em> explicitly. Check units for λ and adjust if necessary. Verify independence and constant probability for Binomial.</li>
+  <li><strong>Step 3 — Write the formula:</strong> Write the PMF or cumulative formula before substituting any numbers. This forces you to engage with the structure of the calculation rather than jumping to arithmetic.</li>
+  <li><strong>Step 4 — Substitute and compute:</strong> Replace symbols with numbers in the written formula. Show intermediate steps. Use the complement rule where it simplifies cumulative calculations.</li>
+  <li><strong>Step 5 — Sanity check:</strong> Does the answer make intuitive sense? Is it between 0 and 1? If you computed a full distribution, does it sum to 1?</li>
+  <li><strong>Step 6 — Interpret in context:</strong> Translate the number into a sentence that connects to the real-world scenario and, where relevant, to a decision or recommendation.</li>
+</ul>
+
+<p>This systematic approach transforms applied probability from a collection of formulas to be memorized into a coherent analytical discipline. The formulas provide precision; the framework provides reliability and meaning. Together, they make discrete distributions genuinely useful tools for navigating uncertainty in any professional domain.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth with illustrative worked examples throughout. A summary comparison table across six applied fields is included as a proper HTML table. The problem-solving protocol at the end synthesizes all subtopics into a reusable analytical workflow.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

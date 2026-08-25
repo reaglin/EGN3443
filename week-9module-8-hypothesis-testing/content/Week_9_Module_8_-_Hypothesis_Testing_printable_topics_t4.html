@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P-Values and Significance Levels</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>P-Values and Significance Levels</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> P-Values and Significance Levels</h2>
+      <p>Statistical hypothesis testing gives researchers a structured way to decide whether the patterns they observe in sample data are strong enough to draw broader conclusions about a population. At the center of this process sit two interconnected ideas: the <strong>p-value</strong> and the <strong>significance level (α)</strong>. Together they form a decision rule that keeps conclusions objective, reproducible, and resistant to wishful thinking. Understanding both concepts deeply — including their limitations and common misuses — is essential for anyone who works with data.</p>
+
+<p>A hypothesis test always begins with two competing claims. The <strong>null hypothesis (H₀)</strong> is a conservative baseline statement, typically asserting that nothing interesting is happening — no difference, no relationship, no effect. The <strong>alternative hypothesis (H₁ or Hₐ)</strong> is what the researcher actually suspects or hopes to demonstrate. The entire machinery of p-values and significance levels exists to decide, using real data, how much evidence speaks against H₀.</p>
+
+<p><strong>What Is a P-Value?</strong></p>
+
+<p>A p-value is a probability. Specifically, it is the probability of obtaining a test statistic at least as extreme as the one computed from your sample data, <em>assuming the null hypothesis is true</em>. This definition is precise but easy to misread, so it deserves careful unpacking.</p>
+
+<p>Imagine you are testing whether a coin is fair. Your H₀ is that the probability of heads is 0.5. You flip the coin 100 times and observe 63 heads. You then calculate a test statistic (in this case you might use a z-score or a binomial test) that summarizes how far 63 heads is from the expected 50. The p-value answers this question: <em>If the coin truly were fair, how often would we expect results this extreme or more extreme just by random chance?</em> A small p-value — say 0.02 — tells you that only 2% of fair-coin experiments of this size would produce results this unusual. That is notable. A large p-value — say 0.35 — tells you that results at least this unusual happen 35% of the time with a fair coin, so your observed 63 heads is perfectly unremarkable.</p>
+
+<p>The p-value is computed <em>after</em> you choose an appropriate test statistic and run it on your sample. Common test statistics include the t-statistic for comparing means, the z-statistic for proportions, the F-statistic in analysis of variance, and the chi-square statistic for categorical data. Each has its own sampling distribution under H₀, and the p-value is the area in the tail(s) of that distribution beyond your observed statistic.</p>
+
+<p>One critical clarification: <strong>the p-value does not measure the probability that H₀ is true or false.</strong> This is the single most common and most damaging misinterpretation in applied statistics. A p-value of 0.03 does <em>not</em> mean "there is a 3% chance the null hypothesis is correct." It means that, <em>given</em> H₀ is correct, there is a 3% chance of seeing data this extreme. These are very different statements. The probability that H₀ is true lives in the domain of Bayesian inference and requires prior probabilities that the standard (frequentist) p-value framework does not supply.</p>
+
+<p>Directionally, though, the relationship is intuitive: <strong>smaller p-values represent stronger statistical evidence against H₀.</strong> A p-value of 0.0001 is far more compelling than one of 0.049, even if both cross the same arbitrary significance threshold. Reporting the actual p-value, not just whether it crossed a line, communicates the strength of evidence more honestly.</p>
+
+<p><strong>Setting the Significance Level (α)</strong></p>
+
+<p>The significance level, denoted α (alpha), is a threshold you set in advance. It represents the maximum probability of a <strong>Type I error</strong> — rejecting H₀ when it is actually true — that you are willing to tolerate. Because α controls this error rate directly, choosing it is a judgment call that must happen <em>before</em> you collect or analyze data.</p>
+
+<p>Why before? Because if you look at your results first and then pick a threshold that makes your result "significant," you are reverse-engineering a conclusion. This practice, sometimes called p-hacking or significance chasing, undermines the entire logic of the framework. The threshold must be decided in advance to ensure the stated error rate is honest.</p>
+
+<p>By far the most widely used significance level is <strong>α = 0.05</strong>, meaning a 5% Type I error rate. This convention traces back to the statistician Ronald Fisher, who described 1-in-20 as a convenient benchmark, not a universal law. Other common choices include:</p>
+
+<ul>
+  <li><strong>α = 0.10</strong> — used in exploratory research or social sciences where effects are hard to detect and the cost of missing a real effect (Type II error) is high.</li>
+  <li><strong>α = 0.05</strong> — the broad default in biology, psychology, and medicine for general research.</li>
+  <li><strong>α = 0.01</strong> — used when false positives carry serious consequences, such as approving an ineffective drug or publishing a high-profile claim.</li>
+  <li><strong>α = 0.001 or lower</strong> — required in fields like particle physics, where the famous "5-sigma" standard corresponds to roughly α = 0.0000003.</li>
+</ul>
+
+<p>A <strong>lower α makes the test more conservative</strong>. It demands stronger evidence — a more extreme test statistic — before H₀ is rejected. This reduces the risk of false positives but increases the risk of false negatives (failing to detect a real effect). There is always a trade-off, and the right α depends on the stakes involved in each type of error.</p>
+
+<p><strong>Comparing the P-Value to α</strong></p>
+
+<p>Once you have your p-value and your pre-specified α, the decision rule is simple:</p>
+
+<ul>
+  <li>If <strong>p ≤ α</strong>, reject H₀. The result is called <em>statistically significant</em>. The observed data are sufficiently unlikely under the null hypothesis to warrant concluding that something other than chance is at work.</li>
+  <li>If <strong>p &gt; α</strong>, fail to reject H₀. The evidence is not strong enough to rule out chance as an explanation.</li>
+</ul>
+
+<p>Consider a concrete example. A pharmaceutical company tests whether a new drug reduces blood pressure more than a placebo. They set α = 0.05 before the trial. After the trial, they compute a two-sample t-test and obtain p = 0.03. Since 0.03 ≤ 0.05, they reject H₀ and conclude there is statistically significant evidence that the drug reduces blood pressure more than the placebo.</p>
+
+<p>Now suppose instead they obtained p = 0.12. Since 0.12 &gt; 0.05, they fail to reject H₀. <strong>This does not prove the drug has no effect.</strong> It only means the data collected were not sufficient to distinguish any drug effect from random variation. The drug might still work; the study might simply have lacked enough statistical power — perhaps because the sample was too small.</p>
+
+<p>This binary framework keeps decision-making consistent and comparable across studies. If everyone follows pre-registered protocols with the same α, results can be meaningfully aggregated and reproduced. The moment thresholds are adjusted after seeing results, the stated error rates no longer hold and comparisons across studies break down.</p>
+
+<p><strong>Interpreting P-Values in Context</strong></p>
+
+<p>Statistical significance and practical significance are not the same thing, and confusing them causes real harm in applied research and policy.</p>
+
+<p>With a very large sample, even a trivially small effect can produce a very small p-value. Suppose a retail company analyzes 500,000 customer transactions and finds that customers who see a redesigned webpage spend on average $0.12 more than those who see the original. With half a million observations, this difference might yield p = 0.0001 — highly statistically significant. But is a 12-cent average increase worth the engineering cost of deploying the redesign? That is a business judgment, not a statistical one. The p-value tells you the effect is real; it says nothing about whether it matters.</p>
+
+<p>Conversely, a small sample might produce p = 0.08 for an effect that is actually large and clinically meaningful. Here, failing to reject H₀ is more a statement about insufficient data than about the absence of an effect.</p>
+
+<p>The factors that inform practical significance include:</p>
+
+<ul>
+  <li><strong>Effect size</strong> — standardized measures like Cohen's d for means, r for correlations, or odds ratios for binary outcomes quantify how large the observed effect actually is, independent of sample size.</li>
+  <li><strong>Sample size</strong> — large samples yield precise estimates; small samples yield uncertain ones. Always ask whether the study was adequately powered to detect effects that would genuinely matter.</li>
+  <li><strong>Domain standards</strong> — in clinical medicine, a drug must reduce mortality by a meaningful margin to justify its side-effect profile. In particle physics, a new particle must clear an astronomically high evidence bar. In educational research, a half-standard-deviation improvement in test scores is considered large. Every field has calibrated notions of importance.</li>
+</ul>
+
+<p>This is why leading statistical organizations now strongly recommend <strong>reporting confidence intervals alongside p-values</strong>. A 95% confidence interval for the mean difference tells you not just whether the effect is statistically detectable but also the plausible range of its magnitude. A confidence interval of [0.1, 0.2] percentage points and one of [5, 15] percentage points might both be statistically significant, but they communicate radically different practical realities.</p>
+
+<p><strong>Common Misinterpretations of P-Values</strong></p>
+
+<p>Despite being taught in virtually every introductory statistics course, p-values are routinely misunderstood — even by professional scientists. The following table summarizes the most important misconceptions and their corrections:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Misconception</th>
+      <th>Why It Is Wrong</th>
+      <th>Correct Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P-value = probability that H₀ is true</td>
+      <td>The p-value is computed <em>assuming</em> H₀ is true; it cannot simultaneously measure the probability that H₀ is true.</td>
+      <td>P-value = probability of data this extreme or more extreme, given H₀ is true.</td>
+    </tr>
+    <tr>
+      <td>Failing to reject H₀ proves H₀ is true</td>
+      <td>Absence of evidence is not evidence of absence. Low power, small samples, or high variability can all prevent detection of real effects.</td>
+      <td>Failing to reject H₀ means the data did not provide sufficient evidence against it — H₀ remains a possibility, not a proven fact.</td>
+    </tr>
+    <tr>
+      <td>A small p-value means a large or important effect</td>
+      <td>Sample size drives p-values independently of effect size. Huge samples make tiny effects statistically significant.</td>
+      <td>P-values measure evidence strength against H₀, not effect magnitude. Use effect sizes and confidence intervals for magnitude.</td>
+    </tr>
+    <tr>
+      <td>p = 0.05 is a magic threshold separating true from false findings</td>
+      <td>The 0.05 threshold is a convention, not a law of nature. A result with p = 0.049 is not categorically different from one with p = 0.051.</td>
+      <td>Treat α as a decision aid in a system, not a binary truth detector. Report actual p-values and contextualize them.</td>
+    </tr>
+    <tr>
+      <td>Running many tests at α = 0.05 controls the error rate at 5%</td>
+      <td>Each test at α = 0.05 has a 5% false positive rate independently. Running 20 tests yields roughly one false positive on average even if all nulls are true.</td>
+      <td>Multiple testing inflates the family-wise error rate. Apply corrections such as Bonferroni, Benjamini-Hochberg, or pre-register specific hypotheses.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>multiple testing problem</strong> deserves special emphasis. Suppose a genomics researcher tests 10,000 genes for association with a disease, using α = 0.05 for each test. Even if no gene is truly associated, the researcher expects roughly 500 false positives by chance alone (5% of 10,000). Without a correction such as the Bonferroni adjustment — which would require p ≤ 0.05/10,000 = 0.000005 for any single test — the results are meaningless noise dressed up as discovery. Multiple testing corrections are not optional when many hypotheses are tested simultaneously.</p>
+
+<p><strong>Using P-Values to Make Statistically Grounded Decisions</strong></p>
+
+<p>When used correctly, p-values and significance levels provide a disciplined framework for drawing conclusions from noisy data. The following principles translate statistical theory into sound practice.</p>
+
+<p><em>Define the question and α before data collection.</em> Write down your hypotheses, your chosen test, and your significance level before you touch the data. Many journals and funding agencies now require pre-registration of studies for exactly this reason. Pre-specification prevents unconscious manipulation of the analysis to reach a desired conclusion.</p>
+
+<p><em>Choose α based on the costs of each type of error.</em> A Type I error (false positive) means concluding an effect exists when it does not. A Type II error (false negative) means missing a real effect. These have very different costs depending on context:</p>
+
+<ul>
+  <li>In drug safety testing, a false positive could expose patients to a harmful or ineffective treatment — justify a stringent α = 0.01 or lower.</li>
+  <li>In early-stage drug discovery or exploratory psychology research, missing a promising signal is costly — a more lenient α = 0.10 may be appropriate to keep the pipeline of ideas open.</li>
+  <li>In quality control on a production line, the costs of stopping the line unnecessarily (Type I) versus shipping defective products (Type II) determine the threshold.</li>
+</ul>
+
+<p><em>Use the p-value as one piece of evidence, not the sole arbiter.</em> A rigorous conclusion integrates the p-value with effect sizes, confidence intervals, prior research, theoretical plausibility, and the quality of the study design. A single p-value below 0.05 in an unreplicated, poorly controlled study should not overturn established knowledge. A p-value of 0.06 in a well-powered, pre-registered, high-quality trial might deserve serious attention despite not crossing the traditional threshold.</p>
+
+<p><em>Communicate findings transparently.</em> Report the exact p-value (e.g., p = 0.03, not merely "p &lt; 0.05"), the significance level used and why, the effect size and its confidence interval, and a plain-language statement of what the result means in context. Consider the following example of a complete, honest report:</p>
+
+<pre><code>We tested whether the new teaching method improved exam scores compared 
+to the standard method (H₀: no difference in mean scores; α = 0.05, 
+set prior to data collection). Students taught with the new method scored 
+an average of 4.2 points higher (95% CI: 1.8 to 6.6 points; t(198) = 3.41, 
+p = 0.0008). This result is statistically significant. The effect size was 
+d = 0.48, a moderate practical difference. Given this magnitude and the 
+low cost of implementing the new method, the result appears educationally 
+meaningful as well as statistically significant.</code></pre>
+
+<p>This report gives readers everything they need: the hypothesis, the pre-specified threshold, the observed effect with uncertainty, the test statistic, the p-value, an effect size, and a practical interpretation. Contrast this with the uninformative "the result was significant (p &lt; 0.05)" that appears far too often in published literature.</p>
+
+<p><em>Acknowledge what non-significance does and does not mean.</em> If your result is p = 0.18, you might write: "We found no statistically significant difference between groups (p = 0.18). However, with our sample size of n = 40, the study had only 52% power to detect an effect of the size considered clinically meaningful (d = 0.5). A larger study is needed before concluding that no meaningful effect exists." This is honest, actionable, and scientifically responsible.</p>
+
+<p>P-values and significance levels are powerful tools when understood clearly and used with discipline. They are easily abused when treated as mechanical truth machines or misread as probabilities about hypotheses rather than about data. Mastering the distinction — and communicating it clearly — is a hallmark of genuine statistical literacy.</p>
+      <div class="notes"><strong>Notes</strong>Emphasis on the distinction between statistical and practical significance, the multiple testing problem, and the importance of pre-registration aligns well with current best practices from the American Statistical Association&#39;s 2016 and 2019 statements on p-values. The coin-flip and drug examples are useful anchors for classroom discussion.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

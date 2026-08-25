@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assumptions and Conditions for Two-Sample Tests</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+  <header>
+    <h1>Assumptions and Conditions for Two-Sample Tests</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Assumptions and Conditions for Two-Sample Tests</h2>
+      <p>Before applying any two-sample statistical test, it is essential to verify that the data meet the underlying assumptions on which the test's validity depends. Two-sample tests — most commonly the pooled two-sample t-test, Welch's t-test, or non-parametric alternatives like the Mann-Whitney U test — each rest on a set of conditions. When those conditions are met, the test produces reliable p-values and confidence intervals. When they are violated, the results can be misleading, either flagging differences that do not exist (false positives) or missing real differences (false negatives). Understanding each assumption, knowing how to check it, and knowing what to do when it fails is therefore a foundational skill in applied statistics.</p>
+
+<p><strong>Random Sampling Requirement</strong></p>
+
+<p>The most fundamental requirement for any inferential procedure is that the data represent the population of interest in an unbiased way. In a two-sample context this breaks into two related demands: each sample must be collected randomly and independently from its own population, <em>and</em> the two samples must be independent of each other.</p>
+
+<p><strong>Within-study independence and random selection</strong> mean that no participant or observation influences the selection or measurement of another. A classic example: if you want to compare the mean blood pressure of patients on Drug A versus Drug B, you should randomly select or randomly assign patients to groups. If you let physicians choose who gets which drug, the selection process may introduce systematic bias — sicker patients might be assigned to one drug, healthier ones to the other — and the two groups are no longer comparable random draws from their populations.</p>
+
+<p><strong>Between-group independence</strong> means that the two samples have no structural connection. Paired data — for instance, measuring the same subject before and after a treatment — violates this condition. Such data require a paired t-test, not a two-sample t-test. A subtler violation arises when samples share subjects in disguise: for example, using siblings from two different schools to compare school performance creates a familial link between the groups.</p>
+
+<p><strong>Random assignment as a substitute for random sampling</strong> is especially important in experimental research. In a randomised controlled trial, participants are not necessarily a random sample from a well-defined population (they may all be volunteers at one clinic), but random assignment to treatment and control groups creates the probabilistic basis needed for inference about the causal effect of treatment. However, the scope of inference differs: random sampling supports generalisation to a population, while random assignment supports causal conclusions but generalisation remains limited to similar groups.</p>
+
+<p>Practically, verifying this assumption means reviewing the study protocol rather than the data themselves. Ask: Was selection or assignment governed by a chance mechanism? Is there any reason why a value in one group could directly affect or predict a value in the other group?</p>
+
+<p><strong>Normality Assumption</strong></p>
+
+<p>The standard two-sample t-test assumes that the outcome variable is normally distributed within each population, or equivalently that the sampling distribution of the difference in sample means is approximately normal. Fortunately, the <em>Central Limit Theorem (CLT)</em> provides a safety net: even when individual observations are not perfectly normal, the sampling distribution of the mean becomes increasingly normal as sample size grows. This is why normality matters most when sample sizes are small.</p>
+
+<p><strong>Visual assessment</strong> is the most practical first step. Three common plots serve this purpose:</p>
+
+<ul>
+  <li><strong>Histogram:</strong> A roughly bell-shaped, symmetric histogram is reassuring. Heavy skew, multiple modes, or extreme outliers are warning signs.</li>
+  <li><strong>Q-Q (Quantile-Quantile) plot:</strong> Observed quantiles of the sample are plotted against the quantiles expected from a normal distribution. If the data are approximately normal, the points fall close to a straight diagonal line. Systematic S-curves indicate skewness; heavy tails appear as points curving away from the line at both ends.</li>
+  <li><strong>Boxplot:</strong> A symmetric box with whiskers of similar length and no extreme outliers is consistent with normality. A long whisker on one side or multiple outlier points flags skewness or heavy tails.</li>
+</ul>
+
+<p><strong>Formal normality tests</strong> add statistical rigour. The two most commonly used are:</p>
+
+<ul>
+  <li><strong>Shapiro-Wilk test:</strong> Generally regarded as the most powerful test for normality, especially with small to moderate samples (roughly n &lt; 2000). A non-significant result (p &gt; 0.05) provides no evidence against normality; a significant result (p ≤ 0.05) suggests the data are unlikely to come from a normal distribution.</li>
+  <li><strong>Kolmogorov-Smirnov (K-S) test:</strong> Compares the empirical cumulative distribution function of the sample to the theoretical normal CDF. It is less powerful than Shapiro-Wilk for detecting non-normality, but is widely available in software and applicable to larger samples. The Lilliefors correction should be applied when population parameters are estimated from the data.</li>
+</ul>
+
+<p>A critical caveat: with very large samples, formal tests detect trivially small, practically unimportant departures from normality and will almost always reject; with very small samples they have low power and may miss genuine non-normality. This is why visual and formal assessments are best used together.</p>
+
+<p><strong>When normality is seriously violated</strong> — particularly with small samples where the CLT has not yet kicked in — a non-parametric alternative should be considered. The <strong>Mann-Whitney U test</strong> (also known as the Wilcoxon rank-sum test) tests whether one population tends to produce larger values than the other, without requiring normality. It works by ranking all observations from both groups combined and comparing the sum of ranks for each group. It loses some statistical power relative to the t-test when normality does hold, but is substantially more reliable when it does not.</p>
+
+<p><strong>Equal Variances (Homogeneity of Variance)</strong></p>
+
+<p>The <em>pooled</em> two-sample t-test requires not just normality but also that the two populations have the same variance (σ₁² = σ₂²). This allows the two sample variances to be combined into a single, more precise estimate of the common variance. When this assumption is violated and the pooled test is used regardless, the resulting test statistic follows a distribution that is not quite t, and the p-value becomes untrustworthy — particularly when sample sizes are also unequal.</p>
+
+<p><strong>Formal tests of equal variances</strong> provide objective evidence:</p>
+
+<ul>
+  <li><strong>Levene's Test:</strong> Tests whether the absolute deviations from the group mean (or median, in a more robust variant) differ significantly between groups. It is less sensitive to non-normality than the F-test and is generally preferred in practice. A non-significant result supports the equal-variance assumption.</li>
+  <li><strong>F-test (Variance Ratio Test):</strong> Directly computes the ratio F = s₁²/s₂² and compares it to an F-distribution. It is simple to compute but sensitive to departures from normality, which can cause it to reject equal variances spuriously. For this reason, Levene's test is often considered more robust.</li>
+</ul>
+
+<p><strong>A practical rule of thumb</strong> that does not require a formal test: if the ratio of the larger sample variance to the smaller sample variance exceeds 2 or 3, the variances are likely meaningfully different and equal variance should not be assumed. For example, if Group A has s² = 50 and Group B has s² = 160, the ratio is 160/50 = 3.2, which exceeds the threshold and warrants concern.</p>
+
+<p><strong>Welch's t-test</strong> is the recommended solution when equal variances cannot be assumed. It does not pool the variances; instead it uses each group's own sample variance separately in the standard error calculation and adjusts the degrees of freedom downward using the Welch-Satterthwaite approximation. The degrees of freedom become a non-integer value smaller than n₁ + n₂ − 2, which produces a slightly wider, more conservative reference distribution. Many statisticians and software packages now recommend using Welch's t-test by default, since it performs nearly as well as the pooled test when variances are equal and substantially better when they are not.</p>
+
+<p>The formulas highlight the distinction clearly:</p>
+
+<pre><code>Pooled t-test standard error:
+  SE = sp * sqrt(1/n1 + 1/n2)
+  where sp² = [(n1-1)*s1² + (n2-1)*s2²] / (n1 + n2 - 2)
+
+Welch's t-test standard error:
+  SE = sqrt(s1²/n1 + s2²/n2)
+
+Welch-Satterthwaite degrees of freedom:
+  df = (s1²/n1 + s2²/n2)²
+       / [(s1²/n1)²/(n1-1) + (s2²/n2)²/(n2-1)]
+</code></pre>
+
+<p><strong>Sample Size Considerations</strong></p>
+
+<p>Sample size affects two-sample tests in several interconnected ways: it determines whether the CLT justifies approximate normality, it governs statistical power, and it interacts with unequal variances to affect robustness.</p>
+
+<p><strong>The CLT and the n ≥ 30 guideline:</strong> A frequently cited rule of thumb is that samples of 30 or more observations per group provide enough data for the CLT to ensure the sampling distribution of the mean is approximately normal, regardless of the shape of the underlying population distribution. This threshold is not a hard law — heavily skewed or leptokurtic distributions may require larger samples — but it serves as a useful starting point. With n &lt; 30 per group, normality within the raw data matters more, and deviations from it carry greater risk.</p>
+
+<p><strong>Power analysis and minimum detectable effect:</strong> Statistical power is the probability of correctly rejecting the null hypothesis when the alternative is true. A two-sample t-test's power depends on four quantities: the significance level (α), the true difference between group means (the effect size), the within-group standard deviation, and the sample size. Power analysis — conducted <em>before</em> data collection — determines the minimum sample size needed to achieve a desired power level (commonly 0.80 or 0.90) for a given effect size and α. Skipping this step risks an <em>underpowered</em> study that cannot detect a real effect, wasting resources and potentially leading to a falsely negative conclusion. Common tools for power analysis include G*Power software and built-in functions in R (<code>power.t.test()</code>) and Python (<code>statsmodels.stats.power</code>).</p>
+
+<p><strong>Unequal sample sizes:</strong> Two-sample tests do not require equal group sizes, and unequal n is common in practice. However, unequal sample sizes interact with unequal variances in a way that can distort the pooled t-test's type I error rate substantially. Specifically, when the group with larger variance also has the smaller sample size, the pooled test becomes anti-conservative (too many false positives). When the larger-variance group has the larger sample size, it becomes conservative (too few rejections). Welch's t-test is far more robust in both scenarios. Balanced designs (equal n) are preferred when practical because they maximise power for a given total sample size and reduce sensitivity to variance heterogeneity.</p>
+
+<p><strong>Independence of Observations Within Groups</strong></p>
+
+<p>Beyond between-group independence (discussed under random sampling), each observation within a group must also be independent of all other observations in that group. This within-group independence is what justifies the standard formulas for standard error and variance.</p>
+
+<p><strong>How it is achieved:</strong> The primary mechanism is proper study design — drawing a simple random sample without replacement from a population that is large relative to the sample. When participants are chosen randomly and their outcomes are measured under conditions that do not allow one person's response to influence another's (e.g., individuals are tested in separate sessions), independence within groups is a reasonable assumption.</p>
+
+<p><strong>The 10% condition:</strong> Sampling without replacement introduces a degree of dependence among observations because, once a unit is selected, it cannot be selected again. This dependence is negligible when the sample represents a small fraction of the population. The conventional guideline is that the sample size should not exceed 10% of the population size. If n₁ = 80 and the population from which Group 1 is drawn has only 600 members, then 80/600 ≈ 13.3%, which violates the 10% condition and introduces non-trivial dependence. A finite population correction factor can adjust for this, but re-examining the study design is often preferable.</p>
+
+<p><strong>Consequences of violations:</strong> When observations within a group are positively correlated — as happens with cluster sampling, repeated measures on the same subject, or observations from members of the same household — the standard error formula underestimates the true variability. The observed variance reflects both individual differences and shared group characteristics, but the formula attributes all variance to individuals. The result is an artificially small standard error, an inflated t-statistic, and a p-value that is too small, leading to an excess of false positives. This problem is addressed through multilevel models, generalised estimating equations (GEEs), or by treating the cluster as the unit of analysis.</p>
+
+<p><strong>Verifying Conditions Before Selecting a Test</strong></p>
+
+<p>Good statistical practice requires that each assumption be actively evaluated — not simply assumed — before a test is selected. The decision process can be organised as a structured checklist that maps observed data characteristics to the appropriate test.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Normality holds?</th>
+      <th>Equal variances hold?</th>
+      <th>Recommended test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Yes (or n ≥ 30 per group)</td>
+      <td>Yes (Levene's p &gt; 0.05; ratio &lt; 2–3)</td>
+      <td>Pooled two-sample t-test</td>
+    </tr>
+    <tr>
+      <td>Yes (or n ≥ 30 per group)</td>
+      <td>No (Levene's p ≤ 0.05; ratio ≥ 2–3)</td>
+      <td>Welch's t-test</td>
+    </tr>
+    <tr>
+      <td>No and n is small</td>
+      <td>Either</td>
+      <td>Mann-Whitney U test (non-parametric)</td>
+    </tr>
+    <tr>
+      <td>No but n ≥ 30 per group</td>
+      <td>Yes</td>
+      <td>Pooled t-test (CLT justifies use; monitor outliers)</td>
+    </tr>
+    <tr>
+      <td>No but n ≥ 30 per group</td>
+      <td>No</td>
+      <td>Welch's t-test (CLT justifies use)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The workflow in practice looks like this: first, confirm that the study design satisfies random sampling or assignment and independence. Next, examine normality using histograms and Q-Q plots, supported by a Shapiro-Wilk test when n is small. Then apply Levene's test or compute the variance ratio to assess homogeneity of variance. Finally, use the outcome of these checks to select the appropriate test. Each step should be documented.</p>
+
+<p><strong>Documenting assumption verification</strong> is not a formality — it is scientifically necessary. A research report or analysis write-up should state which assumptions were checked, what methods were used, what the results indicated, and how those results informed the choice of test. This transparency allows readers and reviewers to evaluate whether the analysis was appropriate and to identify potential threats to validity. For example: <em>"Normality was assessed visually using Q-Q plots and formally with the Shapiro-Wilk test (Group A: W = 0.97, p = 0.43; Group B: W = 0.95, p = 0.28). Homogeneity of variance was evaluated with Levene's test (F(1, 58) = 0.82, p = 0.37). Both assumptions were met; therefore, the pooled two-sample t-test was applied."</em></p>
+
+<p>Skipping assumption checks — or worse, running multiple tests and reporting only the most favourable — inflates the risk of incorrect conclusions and undermines the integrity of the analysis. Taking the time to verify conditions systematically ensures that the inferential machinery of the test is working as intended, and that the conclusions drawn from the data are as trustworthy as the data themselves.</p>
+      <div class="notes"><strong>Notes</strong>The decision table provides a concise reference for selecting the correct test based on assumption checks. Instructors may wish to supplement with a worked example stepping through each check on a real dataset, and to note that many modern statistical software defaults (e.g., R&#39;s t.test() defaults to Welch&#39;s) reflect the practical preference for robustness over the pooled test.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

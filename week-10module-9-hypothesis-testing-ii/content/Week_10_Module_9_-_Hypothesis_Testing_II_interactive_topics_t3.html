@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selecting the Appropriate Statistical Test</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+  <header>
+    <h1>Selecting the Appropriate Statistical Test</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Selecting the Appropriate Statistical Test</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Choosing the right statistical test is one of the most consequential decisions in any quantitative study. Apply the wrong test and even perfectly collected data can produce p-values that mislead, conclusions that fail peer review, or — more dangerously — real-world decisions grounded in faulty inference. A structured decision-making framework removes much of the guesswork by turning test selection into a reproducible, step-by-step reasoning process rather than an ad hoc judgment call. This topic walks through every layer of that framework in depth: how data type, sample size, distributional assumptions, sample independence, number of groups, and the precise form of the research question all combine to point toward one defensible test choice.</p>
+
+<p><strong>The Decision-Making Framework Overview</strong></p>
+
+<p>The framework begins well before any data are examined. The first task is to articulate the research question as precisely as possible, because the wording of that question already constrains the universe of appropriate tests. "Is the average resting heart rate different between runners and non-runners?" is a question about a <em>mean difference between two groups</em>. "Is there an association between smoking status and lung cancer diagnosis?" is a question about the <em>relationship between two categorical variables</em>. "Does the distribution of blood types in this city match the known national distribution?" is a <em>goodness-of-fit</em> question. Each phrasing points in a different statistical direction before a single data point is inspected.</p>
+
+<p>Three master decision points run through the entire framework:</p>
+<ul>
+  <li><strong>Nature of the data</strong> — what kind of variable is being measured and at what level of measurement?</li>
+  <li><strong>Structure of the samples</strong> — how many groups are involved, and are observations across groups independent of one another or systematically linked?</li>
+  <li><strong>Distributional assumptions</strong> — does the data satisfy the conditions required by parametric tests, or do those conditions fail, requiring a non-parametric alternative?</li>
+</ul>
+
+<p>Skipping any of these decision points is risky. A researcher who jumps straight to a t-test without verifying distributional assumptions may produce a p-value that is either too liberal (declaring significance when none exists) or too conservative (missing a real effect). A well-documented framework also functions as an audit trail: when reporting results, being able to show <em>why</em> a particular test was chosen — citing measurement level, sample structure, and assumption checks — substantially strengthens the credibility of the analysis.</p>
+
+<p><strong>Identifying Data Type and Measurement Level</strong></p>
+
+<p>Every variable lives at one of four levels of measurement, and that level is the single most important factor in narrowing the candidate tests. The four levels — nominal, ordinal, interval, and ratio — are not interchangeable, and treating a lower-level variable as though it were higher-level is one of the field's most common analytic errors.</p>
+
+<ul>
+  <li><strong>Nominal (categorical) variables</strong> classify observations into named groups with no implied order: blood type (A, B, AB, O), country of birth, treatment arm (drug vs. placebo). The only arithmetic meaningful here is counting frequencies. Tests designed for nominal data include the chi-square test of independence, the chi-square goodness-of-fit test, and Fisher's exact test.</li>
+  <li><strong>Ordinal variables</strong> have a meaningful rank order, but the gaps between ranks are not guaranteed to be equal. Pain rated on a 1–10 scale, educational attainment (high school / bachelor's / graduate), and Likert-scale responses ("strongly disagree" to "strongly agree") are ordinal. You can say rank 7 pain is worse than rank 4, but you cannot say the difference from 4 to 7 equals the difference from 1 to 4. Treating ordinal data as if it were continuous (e.g., computing a mean and running a t-test) risks distorting the test statistic because the assumed equal-interval structure does not hold. Non-parametric tests — Mann-Whitney U, Wilcoxon signed-rank, Kruskal-Wallis — use ranks rather than raw values and are therefore appropriate for ordinal outcomes.</li>
+  <li><strong>Interval and ratio variables</strong> are both continuous in the sense that equal numerical differences represent equal real-world differences. Ratio variables additionally have a true zero (e.g., body weight in kilograms, reaction time in milliseconds), while interval variables do not (e.g., temperature in Celsius, where 0°C does not mean "no temperature"). For practical test-selection purposes, interval and ratio variables are treated identically: they support parametric tests such as independent-samples t-tests, paired t-tests, ANOVA, Pearson correlation, and linear regression, provided distributional assumptions are satisfied.</li>
+</ul>
+
+<p>A concrete example of the misclassification error: a researcher records patient satisfaction on a 5-point Likert scale (1 = very dissatisfied, 5 = very satisfied), computes a group mean of 3.4 vs. 2.9, and runs an independent-samples t-test. The t-test assumes the difference between adjacent scale points is constant — but is the psychological distance from "neutral" to "somewhat satisfied" the same as from "somewhat dissatisfied" to "neutral"? Almost certainly not. A Mann-Whitney U test comparing the rank-ordered satisfaction scores would be a more defensible choice.</p>
+
+<p><strong>Assessing Sample Size and Distributional Assumptions</strong></p>
+
+<p>Parametric tests such as the t-test and ANOVA rest on specific assumptions about the shape of the underlying population distribution — most critically, that the data (or the sampling distribution of the mean) follows a normal distribution. The good news is that the <em>Central Limit Theorem</em> (CLT) provides a practical safety net: as sample sizes grow, the sampling distribution of the mean approaches normality regardless of the population's shape. As a widely used rule of thumb, samples of <em>n</em> ≥ 30 per group usually satisfy normality requirements through the CLT, making parametric tests appropriate even when the raw data are modestly skewed.</p>
+
+<p>With small samples — say, <em>n</em> &lt; 15 to 20 per group — the CLT offers little protection, and the true shape of the population distribution matters directly. Before committing to a parametric test in this situation, the analyst should:</p>
+<ul>
+  <li>Plot a <strong>histogram</strong> to visualize the empirical distribution's shape.</li>
+  <li>Inspect a <strong>Q-Q (quantile-quantile) plot</strong>, which maps the observed quantiles against the quantiles expected from a theoretical normal distribution. Points following the diagonal reference line suggest normality; pronounced S-curves or heavy deviations signal departures.</li>
+  <li>Consider a <strong>formal normality test</strong> such as the Shapiro-Wilk test (preferred for small samples) or the Kolmogorov-Smirnov test. Caution: with very small samples these tests have low power and may fail to detect non-normality; with very large samples they may flag trivial departures as significant. Formal tests should complement, not replace, visual inspection.</li>
+</ul>
+
+<p>If strong evidence of non-normality exists — heavy skewness, extreme outliers, or a distribution with markedly heavier tails than the normal — a <strong>non-parametric test</strong> is safer because it makes no assumption about the population's distribution. Non-parametric procedures work by converting raw values to <em>ranks</em> and testing based on those ranks, sidestepping the normality requirement entirely.</p>
+
+<p>Beyond normality, independent-samples t-tests and one-way ANOVA carry an assumption of <strong>homogeneity of variance</strong> (also called homoscedasticity): the variances within each group should be approximately equal. <strong>Levene's test</strong> formally evaluates this. If it is violated:</p>
+<ul>
+  <li>For two groups, use <strong>Welch's t-test</strong>, which adjusts the degrees of freedom to account for unequal variances and is now recommended as the default by many statisticians even when variances look similar.</li>
+  <li>For three or more groups, <strong>Welch's ANOVA</strong> or the Brown-Forsythe test are robust alternatives to standard one-way ANOVA.</li>
+</ul>
+
+<p><strong>Determining Independence vs. Dependence of Samples</strong></p>
+
+<p>The structural relationship <em>between</em> observations across groups is just as important as the measurement level of the outcome variable. The fundamental distinction is between <strong>independent samples</strong> and <strong>dependent (paired) samples</strong>.</p>
+
+<p><strong>Independent samples</strong> exist when each observation belongs exclusively to one group, and knowing the value of one observation gives no information about observations in the other group. Classic examples: randomly assigning 40 patients to Drug A and another 40 to Drug B (different people in each group); comparing exam scores between students taught by two different teachers. The appropriate tests are the <em>independent-samples t-test</em> (parametric) or the <em>Mann-Whitney U test</em> (non-parametric).</p>
+
+<p><strong>Dependent (paired) samples</strong> arise when each data point in Group 1 has a natural, one-to-one partner in Group 2. The pairing can come from:</p>
+<ul>
+  <li><strong>Repeated measures on the same subject</strong> — measuring the same patient's blood pressure before and after treatment. The same person appears in both groups, so the two measurements are correlated.</li>
+  <li><strong>Matching</strong> — deliberately pairing each participant in the treatment group with a control group participant who is identical (or very similar) on key variables like age and sex.</li>
+  <li><strong>Natural pairs</strong> — studying left- vs. right-eye visual acuity in the same individuals; comparing twins.</li>
+</ul>
+
+<p>For dependent samples, use the <em>paired t-test</em> (parametric) or the <em>Wilcoxon signed-rank test</em> (non-parametric). These tests analyze the <em>within-pair differences</em> rather than the raw group values, which is critical because the pairing removes between-subject variability from the error term, making the test more sensitive.</p>
+
+<p>Treating paired data as if it were independent is a serious error. Suppose 20 participants each provide a before-measurement and an after-measurement. A paired t-test works with 20 difference scores. An independent-samples t-test mistakenly treats this as 40 separate data points from two unrelated groups, ignoring the correlation within pairs. The result is a larger standard error and a less powerful test — meaning real effects are more likely to be missed. The reverse error (treating independent data as paired) is less common but distorts degrees of freedom and can produce overconfident results.</p>
+
+<p><strong>Considering the Number of Groups or Samples</strong></p>
+
+<p>Once data type and sample structure are established, the number of groups being compared determines which specific test applies. The table below summarizes the most common mapping:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Outcome Variable</th>
+      <th>Number of Groups</th>
+      <th>Sample Structure</th>
+      <th>Parametric Test</th>
+      <th>Non-Parametric Alternative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Continuous</td>
+      <td>2</td>
+      <td>Independent</td>
+      <td>Independent-samples t-test</td>
+      <td>Mann-Whitney U</td>
+    </tr>
+    <tr>
+      <td>Continuous</td>
+      <td>2</td>
+      <td>Dependent (paired)</td>
+      <td>Paired t-test</td>
+      <td>Wilcoxon signed-rank</td>
+    </tr>
+    <tr>
+      <td>Continuous</td>
+      <td>3 or more</td>
+      <td>Independent</td>
+      <td>One-way ANOVA</td>
+      <td>Kruskal-Wallis</td>
+    </tr>
+    <tr>
+      <td>Continuous</td>
+      <td>3 or more</td>
+      <td>Dependent (repeated measures)</td>
+      <td>Repeated-measures ANOVA</td>
+      <td>Friedman test</td>
+    </tr>
+    <tr>
+      <td>Categorical (nominal)</td>
+      <td>2 (2×2 table)</td>
+      <td>Independent</td>
+      <td>Chi-square or Fisher's exact</td>
+      <td>Fisher's exact (small <em>n</em>)</td>
+    </tr>
+    <tr>
+      <td>Categorical (nominal)</td>
+      <td>2+ (larger table)</td>
+      <td>Independent</td>
+      <td>Chi-square test of independence</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Continuous (two variables)</td>
+      <td>—</td>
+      <td>Same subjects</td>
+      <td>Pearson correlation / linear regression</td>
+      <td>Spearman correlation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two aspects of this table deserve elaboration. First, when comparing <em>three or more group means</em> with a continuous outcome, running multiple independent t-tests (one for each pair of groups) is tempting but incorrect. Each t-test carries its own Type I error rate (typically α = 0.05), and conducting many tests on the same dataset inflates the <em>familywise</em> error rate — the probability that at least one comparison will be falsely declared significant purely by chance. One-way ANOVA tests all groups simultaneously in a single omnibus test, controlling the Type I error rate at α. If ANOVA signals a significant overall difference, <em>post-hoc tests</em> (Tukey's HSD, Bonferroni correction, Scheffé's method) then identify which specific pairs differ, with appropriate correction for multiple comparisons.</p>
+
+<p>Second, for categorical outcomes in a 2×2 table, the chi-square test requires that expected cell frequencies are sufficiently large (a common guideline is all expected counts ≥ 5). When this condition fails — which happens routinely with small samples or rare outcomes — <strong>Fisher's exact test</strong> is preferred because it computes the exact probability of observing a table as extreme as (or more extreme than) the one obtained, without relying on a large-sample approximation.</p>
+
+<p><strong>Aligning Test Choice with the Research Question</strong></p>
+
+<p>Even after data type, sample size, and group structure have been determined, the precise inferential goal embedded in the research question provides a final check. There are three broad inferential goals:</p>
+
+<ul>
+  <li><strong>Comparing group differences</strong> — the researcher wants to know whether a central tendency (usually the mean or median) differs across groups. This is where t-tests, ANOVA, Mann-Whitney U, and Kruskal-Wallis live.</li>
+  <li><strong>Assessing relationships or associations</strong> — the researcher wants to know whether two variables co-vary. For two continuous variables, Pearson correlation (or Spearman if ordinal or non-normal) quantifies the direction and strength of the linear relationship. For two categorical variables, the chi-square test of independence assesses association. When the goal is to <em>predict</em> one variable from another (or several others), regression analysis is appropriate.</li>
+  <li><strong>Testing goodness-of-fit</strong> — the researcher wants to know whether an observed frequency distribution matches a theoretically expected one. The <strong>chi-square goodness-of-fit test</strong> compares the observed count in each category to the expected count under the null hypothesis. Example: a geneticist predicting a 3:1 ratio of dominant to recessive phenotypes would use this test to evaluate whether observed offspring counts deviate significantly from that ratio.</li>
+</ul>
+
+<p>The directionality of the hypothesis also matters. A <strong>two-tailed test</strong> evaluates whether the parameter differs from the null in <em>either</em> direction, splitting α equally across both tails of the distribution. A <strong>one-tailed test</strong> concentrates the entire α in one tail, testing for a difference in a specified direction only. One-tailed tests are appropriate only when a directional prediction is firmly grounded in theory or prior evidence <em>before</em> data collection — using them opportunistically after seeing the data constitutes p-hacking. For most research situations, the two-tailed test is the standard and safer choice.</p>
+
+<p>Formulating the research hypothesis explicitly before any analysis also guards against confirmatory bias: if the hypothesis is written in advance, the researcher cannot unconsciously select a test simply because it produces a smaller p-value.</p>
+
+<p><strong>Practical Checklist for Final Test Selection</strong></p>
+
+<p>Bringing all the framework components together, the following five-step checklist provides a practical sequence for reaching a defensible test choice on any new dataset:</p>
+
+<ul>
+  <li><strong>Step 1 — Identify the outcome variable's measurement level.</strong> Is the primary outcome nominal, ordinal, or continuous (interval/ratio)? This immediately rules out large classes of tests. A nominal outcome points to chi-square or Fisher's exact; an ordinal outcome suggests non-parametric rank-based tests; a continuous outcome opens the door to t-tests, ANOVA, or their non-parametric equivalents, pending further checks.</li>
+  <li><strong>Step 2 — Determine the number of groups or samples.</strong> Are you comparing two groups or three or more? For two-group continuous comparisons, the choice is between variants of the t-test. For three or more, ANOVA (or its non-parametric equivalent) is needed. For categorical data, the size and structure of the contingency table guides the choice between chi-square and Fisher's exact.</li>
+  <li><strong>Step 3 — Establish whether samples are independent or paired/matched.</strong> If the same subjects appear in both (or all) conditions, or if observations are deliberately matched across groups, the samples are dependent and paired/matched designs must be used. Independent subjects in each group call for the independent-samples family of tests.</li>
+  <li><strong>Step 4 — Check sample size and distributional assumptions.</strong> Compute the sample size per group. Inspect Q-Q plots and histograms; consider Shapiro-Wilk if samples are small. Check variance homogeneity with Levene's test for multi-group comparisons. If normality is clearly violated and the sample is small, shift to the non-parametric equivalent of the intended parametric test.</li>
+  <li><strong>Step 5 — Confirm the test matches the specific inferential goal.</strong> Re-read the research question. Does the test chosen directly address whether there is a <em>difference</em>, a <em>relationship</em>, or a <em>goodness-of-fit</em>? Is the hypothesis one-tailed or two-tailed? If everything aligns, proceed. If not, revisit earlier steps.</li>
+</ul>
+
+<p>To see the checklist in action, consider a study comparing anxiety scores (measured on a validated continuous scale) between a mindfulness intervention group (<em>n</em> = 18) and a waitlist control group (<em>n</em> = 16), where each participant appears in only one group. Step 1: continuous outcome — t-tests or non-parametric alternative are candidates. Step 2: two groups. Step 3: different participants in each group — independent samples. Step 4: <em>n</em> = 18 and 16 are small, so normality must be checked. Suppose Q-Q plots reveal modest right skewness in the intervention group with one notable outlier. This tips the decision toward the non-parametric option. Step 5: the research question asks whether the intervention <em>reduces</em> anxiety — a directional question with prior theoretical justification — so a one-tailed Mann-Whitney U test is selected. Every choice is documented, every assumption addressed.</p>
+
+<p>The value of this framework is not just accuracy — it is transparency. Statistical analysis is a form of scientific argumentation, and every choice in that argument should be traceable to a principled reason. When reviewers, collaborators, or readers can follow the decision path from research question to test selection, the entire analysis becomes easier to evaluate, replicate, and trust.</p>
+        <div class="notes"><strong>Notes</strong>The decision-tree table in the &quot;Considering the Number of Groups or Samples&quot; section consolidates parametric and non-parametric pairings and may serve well as a quick-reference resource for learners. Instructors may wish to supplement with hands-on exercises in which learners apply the five-step checklist to real or simulated datasets across a variety of research scenarios.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

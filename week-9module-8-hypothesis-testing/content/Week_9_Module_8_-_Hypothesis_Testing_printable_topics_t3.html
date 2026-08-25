@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Statistics and Sampling Distributions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>Test Statistics and Sampling Distributions</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Test Statistics and Sampling Distributions</h2>
+      <p>Hypothesis testing is the engine of statistical inference, and at its heart lies a single computed number called the <strong>test statistic</strong>. Every time a researcher wants to decide whether an observed pattern in data is real or merely a product of chance, they compress all of the relevant sample information into this one value, then ask: "If the null hypothesis were true, how likely would it be to see a test statistic this extreme or more extreme?" Answering that question requires understanding not just how to calculate the test statistic, but also how it behaves under repeated sampling — which is precisely what a <strong>sampling distribution</strong> describes. Together, test statistics and their associated sampling distributions form the theoretical backbone of virtually every formal hypothesis test used in science, medicine, economics, psychology, and engineering.</p>
+
+<p>A <strong>test statistic</strong> is a numerical summary computed from sample data that is designed to measure how far the observed data deviate from what the null hypothesis predicts. Because it is derived from a random sample, the test statistic is itself a random variable, and its behavior across all possible samples of the same size follows a predictable probability distribution — the sampling distribution. The key insight is that we do not need to actually draw millions of samples; mathematical theory tells us exactly what that distribution looks like, provided certain assumptions are met.</p>
+
+<p><strong>What Is a Test Statistic?</strong></p>
+
+<p>In the simplest terms, a test statistic converts raw sample evidence into a standardized score that can be evaluated against a known reference distribution. Rather than asking "Is our sample mean of 52 large or small?", we ask "How many standard errors away from the hypothesized mean is 52?" That reframing produces a number that lives on a universal scale, making it possible to attach a precise probability to the outcome.</p>
+
+<p>Consider a concrete illustration. Suppose a manufacturer claims that the mean fill volume of soda bottles is 500 mL. You sample 40 bottles and find a mean of 497 mL with a known population standard deviation of 8 mL. The question is not simply "Is 497 less than 500?" — of course it is. The real question is whether the gap of 3 mL is large <em>relative to the variability expected from random sampling</em>. The test statistic answers exactly that.</p>
+
+<p>Three key principles govern all test statistics:</p>
+<ul>
+  <li><strong>Summarization:</strong> The entire sample is compressed into one number. All relevant information about the comparison of interest — mean, proportion, variance — is captured in the statistic.</li>
+  <li><strong>Standardization:</strong> The raw difference between the observed value and the null-hypothesized value is scaled by a measure of sampling variability (the standard error). This makes the statistic unitless and comparable across different problems.</li>
+  <li><strong>Directional sensitivity:</strong> A <em>larger absolute value</em> of the test statistic signals stronger evidence against the null hypothesis. A statistic of 0.3 is consistent with the null; a statistic of 4.7 is very difficult to explain under the null.</li>
+</ul>
+
+<p>Different research questions call for different formulas. Testing a mean requires one approach; testing a proportion, a variance, or a relationship between categorical variables requires others. The choice of formula determines which reference distribution is used for evaluation.</p>
+
+<p><strong>Sampling Distributions and Their Role</strong></p>
+
+<p>A <strong>sampling distribution</strong> is the probability distribution of a statistic — such as the sample mean, sample proportion, or sample variance — computed over all possible samples of a fixed size drawn from the same population. It is a theoretical construct, but an extraordinarily powerful one. It tells us not what one particular sample will look like, but what the full landscape of possible sample outcomes looks like.</p>
+
+<p>In hypothesis testing, the sampling distribution is evaluated <em>under the assumption that the null hypothesis is true</em>. If that assumption holds, we know the center, spread, and shape of the distribution of the test statistic. When we observe a test statistic that falls far in the tail of that distribution — in a region with very little probability mass — we have grounds to doubt the null hypothesis.</p>
+
+<p>The four sampling distributions most commonly encountered in hypothesis testing are:</p>
+
+<ul>
+  <li><strong>Standard normal (Z) distribution:</strong> Symmetric, bell-shaped, with mean 0 and standard deviation 1. Used when population standard deviations are known or when sample sizes are large enough to invoke the Central Limit Theorem.</li>
+  <li><strong>t distribution:</strong> Also symmetric and bell-shaped, but with heavier tails than the normal. Indexed by degrees of freedom; used when population standard deviations are unknown and must be estimated from the sample.</li>
+  <li><strong>Chi-square (χ²) distribution:</strong> Right-skewed, non-negative. Used for tests involving categorical data (goodness-of-fit and tests of independence) and for tests about a single population variance.</li>
+  <li><strong>F distribution:</strong> Right-skewed, non-negative, indexed by two sets of degrees of freedom. Used when comparing variances or when testing equality of means across multiple groups (as in ANOVA).</li>
+</ul>
+
+<p>The shape and parameters of these distributions depend critically on assumptions: sample size, whether the population variance is known, the underlying data type, and whether observations are independent. Violating assumptions changes the true sampling distribution, potentially invalidating p-values and conclusions.</p>
+
+<p><strong>The Z-Test Statistic</strong></p>
+
+<p>The Z-test statistic is used when the goal is to compare a sample mean (or proportion) to a hypothesized value and the population standard deviation σ is <em>known</em>, or when the sample is large enough (conventionally n ≥ 30) that the sample standard deviation provides a reliable estimate and the Central Limit Theorem guarantees approximate normality.</p>
+
+<p>The formula for the one-sample Z-test for a mean is:</p>
+
+<pre><code>Z = (x̄ − μ₀) / (σ / √n)
+</code></pre>
+
+<p>where <strong>x̄</strong> is the sample mean, <strong>μ₀</strong> is the hypothesized population mean under H₀, <strong>σ</strong> is the known population standard deviation, and <strong>n</strong> is the sample size. The denominator σ/√n is the <em>standard error of the mean</em> — how much sample means vary from sample to sample due to chance alone.</p>
+
+<p>Returning to the soda bottle example: x̄ = 497, μ₀ = 500, σ = 8, n = 40.</p>
+
+<pre><code>Z = (497 − 500) / (8 / √40)
+  = −3 / (8 / 6.324)
+  = −3 / 1.265
+  ≈ −2.37
+</code></pre>
+
+<p>A Z-value of −2.37 means the sample mean is 2.37 standard errors below the hypothesized mean. On the standard normal distribution, this is quite far from center. The Z-value is then compared to a critical value — for a two-tailed test at α = 0.05, the critical values are ±1.96. Since −2.37 < −1.96, we reject the null hypothesis and conclude the true mean fill volume is likely less than 500 mL.</p>
+
+<p>The <strong>Central Limit Theorem (CLT)</strong> is the mathematical justification for the Z-test's broad applicability. It states that for any population with finite mean and variance, the sampling distribution of the sample mean approaches a normal distribution as n increases, regardless of the shape of the original population. This means a Z-test can be validly applied even to data from skewed or non-normal populations, as long as n is sufficiently large.</p>
+
+<p><strong>The t-Test Statistic</strong></p>
+
+<p>In most real-world situations, the population standard deviation σ is unknown. When we substitute the sample standard deviation <em>s</em> into the standard error formula, the resulting statistic no longer follows a standard normal distribution — it follows a <strong>t-distribution</strong> with n − 1 degrees of freedom. The t-distribution is similar in shape to the normal but has heavier tails, reflecting the additional uncertainty introduced by estimating σ from the data.</p>
+
+<p>The one-sample t-test statistic is:</p>
+
+<pre><code>t = (x̄ − μ₀) / (s / √n)
+</code></pre>
+
+<p>where <strong>s</strong> is the sample standard deviation. Suppose a nutritionist claims a new diet reduces daily caloric intake to 1,800 kcal. A sample of 15 participants shows x̄ = 1,750 kcal and s = 120 kcal. The t-statistic is:</p>
+
+<pre><code>t = (1750 − 1800) / (120 / √15)
+  = −50 / (120 / 3.873)
+  = −50 / 30.98
+  ≈ −1.61
+</code></pre>
+
+<p>With df = 15 − 1 = 14, the critical value for a two-tailed test at α = 0.05 is approximately ±2.145. Since |−1.61| < 2.145, we fail to reject H₀.</p>
+
+<p>Notice that the critical value from the t-distribution (2.145) is larger than its normal counterpart (1.96) for the same α. This reflects greater uncertainty — with small samples and unknown σ, we require more extreme evidence to declare a result statistically significant.</p>
+
+<p><strong>Two-sample t-tests</strong> extend this logic to compare the means of two independent groups. The test statistic measures how different the two sample means are relative to the combined sampling variability. If groups 1 and 2 have means x̄₁ and x̄₂, sample standard deviations s₁ and s₂, and sizes n₁ and n₂, the (unpooled) two-sample t-statistic is:</p>
+
+<pre><code>t = (x̄₁ − x̄₂) / √(s₁²/n₁ + s₂²/n₂)
+</code></pre>
+
+<p>The <strong>paired t-test</strong> applies when two measurements are linked — for instance, blood pressure measured before and after treatment on the same patients. Rather than treating the two groups as independent, we compute the difference dᵢ = x₁ᵢ − x₂ᵢ for each pair and then perform a one-sample t-test on those differences against a null hypothesis that the mean difference equals zero:</p>
+
+<pre><code>t = (d̄ − 0) / (s_d / √n)
+</code></pre>
+
+<p>By working with differences, the paired design eliminates between-subject variability that would otherwise inflate the standard error, making the test more powerful than an independent two-sample t-test when pairing is natural and appropriate.</p>
+
+<p><strong>Choosing the Right Test Statistic</strong></p>
+
+<p>Selecting the correct test statistic is not arbitrary — it depends on (1) what is being measured (means, proportions, variances, counts), (2) what is known about the population (σ known or unknown), and (3) the design of the study (one sample, two independent samples, paired, multiple groups). Applying the wrong test statistic produces a test statistic that does not follow the assumed reference distribution, leading to incorrect p-values and potentially false conclusions.</p>
+
+<p>The table below provides a structured guide to common scenarios:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Research Question</th>
+      <th>Conditions</th>
+      <th>Test Statistic Formula</th>
+      <th>Reference Distribution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Compare one sample mean to hypothesized value</td>
+      <td>σ known; any n (or large n)</td>
+      <td>Z = (x̄ − μ₀) / (σ/√n)</td>
+      <td>Standard normal (Z)</td>
+    </tr>
+    <tr>
+      <td>Compare one sample mean to hypothesized value</td>
+      <td>σ unknown; small or large n</td>
+      <td>t = (x̄ − μ₀) / (s/√n)</td>
+      <td>t with df = n − 1</td>
+    </tr>
+    <tr>
+      <td>Compare two independent group means</td>
+      <td>σ unknown</td>
+      <td>t = (x̄₁ − x̄₂) / √(s₁²/n₁ + s₂²/n₂)</td>
+      <td>t with Welch's df</td>
+    </tr>
+    <tr>
+      <td>Compare paired/matched measurements</td>
+      <td>Differences approximately normal</td>
+      <td>t = d̄ / (s_d/√n)</td>
+      <td>t with df = n − 1</td>
+    </tr>
+    <tr>
+      <td>Test a single population proportion</td>
+      <td>Large sample (np₀ ≥ 5, n(1−p₀) ≥ 5)</td>
+      <td>Z = (p̂ − p₀) / √(p₀(1−p₀)/n)</td>
+      <td>Standard normal (Z)</td>
+    </tr>
+    <tr>
+      <td>Test goodness-of-fit or independence of categorical variables</td>
+      <td>Expected counts ≥ 5 per cell</td>
+      <td>χ² = Σ (O − E)² / E</td>
+      <td>Chi-square with appropriate df</td>
+    </tr>
+    <tr>
+      <td>Compare means across 3 or more groups simultaneously</td>
+      <td>Normal populations, equal variances</td>
+      <td>F = MS_between / MS_within</td>
+      <td>F with df₁ = k−1, df₂ = N−k</td>
+    </tr>
+    <tr>
+      <td>Compare two population variances</td>
+      <td>Normal populations</td>
+      <td>F = s₁² / s₂²</td>
+      <td>F with df₁ = n₁−1, df₂ = n₂−1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For <strong>testing proportions</strong>, the logic mirrors the Z-test for means. Suppose a political candidate claims 60% of voters support them. A poll of 200 voters finds 108 supporters (p̂ = 0.54). Under H₀: p = 0.60, the standard error is √(0.60 × 0.40 / 200) ≈ 0.0346, and:</p>
+
+<pre><code>Z = (0.54 − 0.60) / 0.0346 ≈ −1.73
+</code></pre>
+
+<p>This Z-value is then evaluated against the standard normal distribution, just like a Z-test for means.</p>
+
+<p>For <strong>chi-square tests</strong>, observed cell counts (O) are compared to expected counts (E) calculated under the null hypothesis. Each discrepancy is squared (to remove sign), divided by the expected count (to standardize), and summed. Larger χ² values indicate greater discrepancy from the null model.</p>
+
+<p>For <strong>ANOVA F-tests</strong>, the ratio of between-group variance to within-group variance captures whether groups differ more than chance would predict. An F-ratio near 1 is consistent with no group differences; a large F-ratio suggests at least one group mean differs.</p>
+
+<p><strong>Degrees of Freedom</strong></p>
+
+<p>Degrees of freedom (df) represent the number of independent pieces of information in a statistic — roughly, how many values are free to vary once certain constraints (like a known mean) are imposed. They are not merely a technical formality; they determine the exact shape of the t, chi-square, or F distribution used for the test.</p>
+
+<p>For a <strong>one-sample t-test</strong>, df = n − 1. Why n − 1 rather than n? Because the sample mean x̄ is already computed from the data and is used when calculating s. Once x̄ is fixed and n − 1 of the data values are known, the last value is completely determined — it has no freedom to vary. Thus, effectively only n − 1 observations contribute independent information to the variance estimate.</p>
+
+<p>The practical consequences of degrees of freedom are illustrated below. As df increases, the t-distribution narrows toward the standard normal:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Degrees of Freedom</th>
+      <th>Critical t-value (two-tailed, α = 0.05)</th>
+      <th>Compared to Z critical value (1.96)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>12.706</td>
+      <td>Much larger — very heavy tails</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>2.571</td>
+      <td>Noticeably larger</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>2.228</td>
+      <td>Somewhat larger</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>2.086</td>
+      <td>Close to normal</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>2.042</td>
+      <td>Very close</td>
+    </tr>
+    <tr>
+      <td>120</td>
+      <td>1.980</td>
+      <td>Nearly identical</td>
+    </tr>
+    <tr>
+      <td>∞</td>
+      <td>1.960</td>
+      <td>Equal to Z</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For chi-square goodness-of-fit tests, df = k − 1 where k is the number of categories. For a chi-square test of independence in an r × c contingency table, df = (r − 1)(c − 1). For ANOVA, between-group df = k − 1 (where k is the number of groups) and within-group df = N − k (where N is the total number of observations). Using the wrong degrees of freedom means consulting the wrong row or column in a statistical table, producing incorrect critical values and invalid conclusions.</p>
+
+<p><strong>Connecting the Test Statistic to a P-Value</strong></p>
+
+<p>Once the test statistic is computed, the final inferential step is to quantify how unusual it is under the null hypothesis. This is the role of the <strong>p-value</strong>: the probability of obtaining a test statistic as extreme as or more extreme than the one observed, <em>assuming the null hypothesis is true</em>.</p>
+
+<p>Geometrically, the p-value is an area under the sampling distribution curve. The test statistic marks a point on the horizontal axis, and the p-value is the area of the tail (or tails) beyond that point.</p>
+
+<ul>
+  <li><strong>Two-tailed test:</strong> Used when the alternative hypothesis is non-directional (H₁: μ ≠ μ₀). Both tails contribute to the p-value. If Z = 2.37, the p-value is the area beyond +2.37 plus the area beyond −2.37. By symmetry of the normal distribution, this equals 2 × P(Z > 2.37) ≈ 2 × 0.0089 = 0.0178.</li>
+  <li><strong>One-tailed test (upper):</strong> Used when H₁: μ > μ₀. Only the upper tail contributes: p = P(Z > observed Z).</li>
+  <li><strong>One-tailed test (lower):</strong> Used when H₁: μ &lt; μ₀. Only the lower tail: p = P(Z &lt; observed Z).</li>
+</ul>
+
+<p>For the soda bottle example with Z = −2.37 and a one-tailed lower alternative (H₁: μ &lt; 500), the p-value = P(Z &lt; −2.37) ≈ 0.0089. This means there is approximately a 0.89% chance of observing a sample mean as low as 497 mL or lower if the true mean were actually 500 mL. Such a small probability provides strong evidence against the null hypothesis.</p>
+
+<p>The decision rule is then straightforward:</p>
+
+<ul>
+  <li>If p-value ≤ α (the significance level, commonly 0.05), <strong>reject H₀</strong>. The result is statistically significant.</li>
+  <li>If p-value > α, <strong>fail to reject H₀</strong>. The data do not provide sufficient evidence against the null hypothesis.</li>
+</ul>
+
+<p>It is essential to appreciate what the p-value is <em>not</em>. It is not the probability that the null hypothesis is true. It is not the probability that the result occurred by chance. It is solely a conditional probability: how likely is this test statistic (or one more extreme) <em>given that H₀ is true</em>? Misinterpreting the p-value is one of the most common errors in applied statistics.</p>
+
+<p>The relationship between test statistic magnitude and p-value is monotone and inverse: as |test statistic| increases, the p-value decreases. A test statistic of 1.2 (Z-test, two-tailed) corresponds to p ≈ 0.23 — not significant at α = 0.05. A test statistic of 3.5 corresponds to p ≈ 0.0005 — extremely significant. This relationship is what allows us to say that a larger absolute test statistic provides stronger evidence against H₀.</p>
+
+<p>The entire process — from research question to test statistic formula, through the appropriate sampling distribution, to a p-value, and finally to a reject/fail-to-reject decision — forms a unified logical chain. Each link depends on the ones before it: the choice of test statistic determines the sampling distribution; the sampling distribution and the observed test statistic together determine the p-value; and the p-value, compared to α, determines the conclusion. Understanding each link deeply, rather than mechanically applying formulas, is what separates skilled statistical reasoning from rote calculation.</p>
+      <div class="notes"><strong>Notes</strong>The topic integrates all six subtopic clusters (definition of test statistics, sampling distributions, Z-test, t-test, choosing the right statistic, degrees of freedom, and p-value connection) into a single cohesive narrative. Two summary tables are included to aid comprehension without breaking the flow of explanation.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

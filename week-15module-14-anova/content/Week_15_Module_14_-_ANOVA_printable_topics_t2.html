@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assumptions Underlying ANOVA</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+  <header>
+    <h1>Assumptions Underlying ANOVA</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Assumptions Underlying ANOVA</h2>
+      <p>Analysis of Variance (ANOVA) is one of the most widely used inferential statistical techniques in the behavioral, social, and biological sciences. It allows researchers to simultaneously compare means across three or more groups to determine whether at least one group differs significantly from the others. However, ANOVA is a <em>parametric</em> procedure, which means its validity rests on a set of underlying statistical assumptions about the data. When these assumptions are satisfied, ANOVA produces accurate p-values and reliable conclusions. When they are seriously violated, the test can become misleading — either flagging differences that do not truly exist (inflated Type I error) or missing real differences (reduced statistical power). Understanding, checking, and responding to these assumptions is therefore not a bureaucratic formality but a core part of responsible data analysis.</p>
+
+<p>The three foundational assumptions of ANOVA are: (1) the dependent variable is normally distributed within each group, (2) the variances of the dependent variable are equal across groups (homoscedasticity), and (3) the observations are independent of one another. Each assumption has its own diagnostic tools, formal tests, and remedies. The sections below examine each assumption in depth before turning to a practical workflow for checking all assumptions together and the consequences and solutions that arise when assumptions are violated.</p>
+
+<p><strong>Normality of the Dependent Variable</strong></p>
+
+<p>The normality assumption states that the dependent variable follows a normal (Gaussian) distribution within each group being compared. Strictly speaking, what matters most is that the <em>residuals</em> — the differences between each observed value and its group mean — are normally distributed, but in a balanced one-way ANOVA this is equivalent to normality within groups. The normal distribution assumption underpins the F-distribution that ANOVA uses to compute p-values: if the data are wildly non-normal, the resulting F-statistic may no longer follow the theoretical F-distribution, making the p-value unreliable.</p>
+
+<p>Normality can be assessed in two complementary ways: visual inspection and formal statistical testing.</p>
+
+<p><strong>Visual methods</strong> are often the preferred first step because they convey the shape, spread, and potential outliers in the data simultaneously. Three plots are especially useful:</p>
+
+<ul>
+  <li><strong>Histograms:</strong> A histogram of the dependent variable constructed separately for each group reveals the overall shape of the distribution. A roughly bell-shaped, symmetric histogram is consistent with normality. Marked skewness (a long tail on one side), bimodality (two humps), or heavy-tailed distributions all suggest departures from normality. For example, if a researcher is comparing exam scores across three teaching methods, three separate histograms — one per method — should each look approximately bell-shaped.</li>
+  <li><strong>Q-Q plots (Quantile-Quantile plots):</strong> A Q-Q plot graphs the quantiles of the observed data against the quantiles expected under a normal distribution. If the data are perfectly normal, all points fall exactly on a 45-degree diagonal reference line. Systematic S-curves indicate skewness; heavy-tailed departures appear as points curving away from the line at both ends. Q-Q plots are more sensitive to distributional shape than histograms, especially in the tails, making them the preferred visual tool for normality assessment.</li>
+  <li><strong>Box plots:</strong> A box plot displays the median, interquartile range (IQR), and potential outliers for each group. While a box plot does not directly reveal normality, a roughly symmetric box (median near the center) and whiskers of approximately equal length are consistent with a symmetric, approximately normal distribution. Outliers — plotted as individual points beyond the whiskers — can also be identified, and extreme outliers are a common cause of normality violations.</li>
+</ul>
+
+<p><strong>Formal statistical tests</strong> provide an objective, quantifiable assessment of departures from normality:</p>
+
+<ul>
+  <li><strong>Shapiro-Wilk test:</strong> The Shapiro-Wilk test is generally considered the most powerful formal test of normality for small to moderate sample sizes (roughly n ≤ 2000 per group). It computes a test statistic W that compares the observed data to a perfectly normal distribution; a significant result (p &lt; .05) indicates a departure from normality. For example, if a group of 30 participants yields W = 0.91, p = .018, the researcher would conclude that normality is violated for that group.</li>
+  <li><strong>Kolmogorov-Smirnov test (with Lilliefors correction):</strong> The K-S test compares the empirical cumulative distribution function of the data to the theoretical normal CDF. It tends to be less powerful than the Shapiro-Wilk test for detecting departures from normality, particularly in small samples, but it is sometimes reported in software output (for example, SPSS reports both). When the K-S test is used to test normality with estimated parameters, the Lilliefors correction should be applied.</li>
+</ul>
+
+<p>An important practical nuance: formal normality tests are sensitive to sample size in a way that can be misleading. With very large samples (e.g., n > 200 per group), even trivial, practically irrelevant departures from normality will produce significant p-values, suggesting a "violation" that has no real impact on ANOVA results. Conversely, with very small samples (e.g., n = 8 per group), serious departures from normality may not produce a significant result simply because the test lacks power. For these reasons, <em>visual methods and formal tests should be used together</em>, with the researcher exercising informed judgment rather than mechanically following a single criterion.</p>
+
+<p>Fortunately, ANOVA is fairly <strong>robust</strong> to moderate departures from normality, particularly when group sizes are roughly equal and sufficiently large. This robustness follows from the Central Limit Theorem: as group sizes increase, the sampling distribution of the group means approaches normality regardless of the shape of the underlying distribution. As a general guideline, moderate non-normality with group sizes of 20–30 or more is unlikely to seriously distort ANOVA results. When normality is severely violated — especially with small, unequal group sizes — a non-parametric alternative such as the <strong>Kruskal-Wallis H test</strong> should be considered.</p>
+
+<p><strong>Homogeneity of Variance (Homoscedasticity)</strong></p>
+
+<p>The homogeneity of variance assumption, also called homoscedasticity, requires that the population variances of the dependent variable are equal across all groups. Formally, for k groups: σ₁² = σ₂² = … = σₖ². This assumption matters because the ANOVA F-test pools the within-group variance estimates from all groups into a single error term (the Mean Square Within). If the groups actually have very different variances, this pooled estimate is inaccurate, which distorts the F-ratio and its associated p-value.</p>
+
+<p>Like normality, homogeneity of variance can be assessed both visually and formally.</p>
+
+<p><strong>Visual inspection:</strong> Side-by-side box plots for all groups provide an informal but informative check. If the boxes (representing the IQR) and whiskers are of roughly similar length across groups, the variances are approximately equal. If one group's box is dramatically larger or smaller than another's, heteroscedasticity is likely. For instance, if a control group has an IQR of 4 points and a treatment group has an IQR of 20 points on the same measure, this is a clear visual warning sign.</p>
+
+<p><strong>Formal tests for homogeneity of variance:</strong></p>
+
+<ul>
+  <li><strong>Levene's Test:</strong> Levene's test is the most widely recommended formal test for homogeneity of variance and is the default in most statistical software. It works by computing the absolute deviations of each score from its group mean (or median, in the more robust version) and then performing a one-way ANOVA on those absolute deviations. A non-significant result (p > .05) suggests that the variances do not differ significantly across groups, and the assumption is considered met. Levene's test is preferred because it is relatively robust to non-normality — an important property, since the data may already be suspected of non-normality when homogeneity is being checked.</li>
+  <li><strong>Bartlett's Test:</strong> Bartlett's test is another formal test for equality of variances. It is based on the chi-square distribution and is more statistically powerful than Levene's test when the data are truly normal. However, Bartlett's test is also considerably more sensitive to departures from normality — it can falsely reject the equal-variance assumption simply because the data are not normal, not because variances genuinely differ. For this reason, Levene's test is preferred in practice when normality cannot be guaranteed.</li>
+</ul>
+
+<p>When the homogeneity of variance assumption is violated — particularly when group sizes are unequal — the standard ANOVA F-test can produce seriously distorted results. The most widely recommended remedy is <strong>Welch's ANOVA</strong>, which adjusts both the F-statistic and the degrees of freedom to account for unequal variances. Welch's ANOVA does not assume equal variances and performs well even when variances differ substantially across groups. Most statistical software packages offer Welch's ANOVA as a straightforward alternative (for example, the <code>oneway.test()</code> function in R uses Welch's correction by default). A practical rule of thumb: if the ratio of the largest to smallest group variance exceeds 4:1, heteroscedasticity is likely meaningful enough to warrant switching to Welch's ANOVA.</p>
+
+<p><strong>Independence of Observations</strong></p>
+
+<p>The independence assumption is arguably the most critical of the three: it requires that each observation in the dataset is unrelated to every other observation. In statistical terms, the error terms (residuals) associated with different participants must be uncorrelated. This assumption is fundamentally about study design rather than the data itself — it cannot be tested with a statistical formula the way normality or homogeneity of variance can. Instead, it must be evaluated by carefully examining how the data were collected.</p>
+
+<p>Independence is typically ensured through two key design features:</p>
+
+<ul>
+  <li><strong>Random sampling:</strong> Participants should be randomly selected from the population(s) of interest, ensuring that no participant's score influences another's selection.</li>
+  <li><strong>Random assignment:</strong> In experimental designs, participants should be randomly assigned to groups so that no systematic relationship exists between group membership and individual characteristics that might affect the outcome.</li>
+</ul>
+
+<p>Several common data collection scenarios violate independence:</p>
+
+<ul>
+  <li><strong>Repeated measures or matched designs:</strong> When the same participant is measured under multiple conditions, or when participants are matched into pairs or blocks, the measurements within a person or matched set are correlated by design. These designs require <strong>repeated-measures ANOVA</strong> (also called within-subjects ANOVA), which explicitly models the correlations among repeated measurements. Using a standard between-subjects ANOVA in such cases ignores this correlation and produces incorrect standard errors.</li>
+  <li><strong>Clustered or nested data:</strong> When participants are naturally grouped into clusters — students nested within classrooms, patients nested within hospitals, employees nested within companies — observations within the same cluster tend to be more similar to each other than to observations from different clusters. This intracluster correlation violates the independence assumption. Analyzing such data with standard ANOVA underestimates standard errors, making results appear more statistically significant than they truly are. The appropriate approach is <strong>multilevel modeling</strong> (also called hierarchical linear modeling), which explicitly accounts for the nested structure.</li>
+  <li><strong>Social contagion and shared environments:</strong> Even in designs intended to be independent, participants who interact with each other (e.g., roommates, team members) or share a common environment may produce correlated responses. Researchers should be alert to such possibilities when designing studies.</li>
+</ul>
+
+<p>Because independence cannot be tested statistically, researchers should <strong>document their data collection procedures</strong> thoroughly — describing how participants were recruited, sampled, assigned to conditions, and whether they had any opportunity to interact or influence one another. This documentation is essential for reviewers and readers to evaluate whether the independence assumption is justified.</p>
+
+<p><strong>Verifying Assumptions Before Conducting ANOVA: A Practical Workflow</strong></p>
+
+<p>Rather than checking assumptions as an afterthought, experienced researchers build assumption verification into their analysis plan from the outset. A systematic workflow ensures that no assumption is overlooked and that the analysis is both valid and transparent.</p>
+
+<ul>
+  <li><strong>Step 1 — Examine descriptive statistics and visual plots for each group separately.</strong> Before running any formal tests, compute means, standard deviations, and ranges for each group. Plot histograms and Q-Q plots to visually assess normality within each group, and generate side-by-side box plots to compare the spread of scores across groups. These visuals provide an intuitive, holistic picture of the data that formal tests alone cannot convey.</li>
+  <li><strong>Step 2 — Test for normality.</strong> Run the Shapiro-Wilk test for each group. Interpret the results in light of the visual inspection and the sample size. Remember that large samples may flag trivial departures as significant, while small samples may miss genuine non-normality.</li>
+  <li><strong>Step 3 — Test for homogeneity of variance.</strong> Run Levene's test across all groups. If the result is non-significant (p > .05), the assumption is considered met. If the result is significant, consider Welch's ANOVA as an alternative.</li>
+  <li><strong>Step 4 — Confirm independence through design review.</strong> Review the data collection protocol. Confirm that participants were independently sampled and that no known clustering or repeated measurement structure exists that would require a different analytical model.</li>
+  <li><strong>Step 5 — Document and report all assumption checks.</strong> In the methods or results section of any report or paper, explicitly state the results of assumption checks: which tests were used, what the results were, and what conclusions were drawn. This transparency supports reproducibility and allows readers to evaluate the validity of the analysis independently.</li>
+</ul>
+
+<p><strong>Consequences of Violating ANOVA Assumptions</strong></p>
+
+<p>Understanding the practical consequences of assumption violations helps researchers make informed decisions about how seriously to treat a given violation and what action to take.</p>
+
+<ul>
+  <li><strong>Violating normality:</strong> With small and unequal group sizes, marked non-normality can distort the sampling distribution of the F-statistic, making p-values inaccurate. For example, if the data are strongly right-skewed, the actual Type I error rate may be higher or lower than the nominal α = .05. With larger, roughly equal group sizes, the Central Limit Theorem provides protection, and moderate non-normality has minimal practical impact on ANOVA results.</li>
+  <li><strong>Violating homogeneity of variance:</strong> Heteroscedasticity is most problematic when paired with <em>unequal group sizes</em>. When the group with the largest sample also has the largest variance, the F-test becomes conservative (too many false negatives). When the group with the largest sample has the smallest variance, the F-test becomes liberal (inflated false positive rate). With equal group sizes, ANOVA is relatively robust to moderate heteroscedasticity. As a concrete example, if Group A (n=10) has a variance of 5 and Group B (n=40) has a variance of 50, the pooled error term will be heavily influenced by Group B's large variance, distorting the F-test.</li>
+  <li><strong>Violating independence:</strong> Non-independence — whether from repeated measures, clustering, or social influence — typically leads to an <em>underestimation of standard errors</em>. Smaller standard errors produce larger test statistics and smaller p-values, making results appear more statistically significant than they truly are. This is a particularly serious violation because it inflates the false positive rate and can lead to spurious conclusions that are difficult to replicate. Unlike normality violations, independence violations are not mitigated by large sample sizes; if anything, larger samples may compound the problem.</li>
+  <li><strong>Combined violations:</strong> When multiple assumptions are violated simultaneously — for example, non-normal data with unequal variances and unequal group sizes — the cumulative distortion to the F-test can be substantial. In such cases, robust alternatives or non-parametric methods are strongly advisable.</li>
+</ul>
+
+<p>The table below summarizes the severity and impact of each assumption violation under different conditions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assumption</th>
+      <th>Violation Severity</th>
+      <th>Conditions That Amplify Impact</th>
+      <th>Primary Consequence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Normality</td>
+      <td>Usually mild to moderate</td>
+      <td>Small n, unequal group sizes, extreme skewness or outliers</td>
+      <td>Distorted p-values; reduced reliability of conclusions</td>
+    </tr>
+    <tr>
+      <td>Homogeneity of Variance</td>
+      <td>Mild with equal n; serious with unequal n</td>
+      <td>Unequal group sizes; large variance ratios (&gt;4:1)</td>
+      <td>Inflated or deflated Type I error rate depending on pattern of inequality</td>
+    </tr>
+    <tr>
+      <td>Independence</td>
+      <td>Always serious</td>
+      <td>Repeated measures, clustering, social interaction among participants</td>
+      <td>Underestimated standard errors; inflated Type I error rate</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Alternatives and Remedies When Assumptions Are Violated</strong></p>
+
+<p>When assumption checks reveal meaningful violations, researchers have several well-established options, ranging from transforming the data to switching to an entirely different statistical model.</p>
+
+<ul>
+  <li><strong>Data transformations for non-normality:</strong> Applying a mathematical transformation to the dependent variable can reduce skewness and bring the distribution closer to normal. Common transformations include:
+    <ul>
+      <li><strong>Log transformation</strong> (<code>log(Y)</code> or <code>log(Y + 1)</code> if zeros are present): Effective for right-skewed, positively skewed distributions such as reaction times, income, or concentration measurements. For example, if raw exam scores are right-skewed, taking the natural log of each score often produces a more symmetric distribution.</li>
+      <li><strong>Square root transformation</strong> (<code>√Y</code>): A milder transformation useful for moderately right-skewed data, often used with count data.</li>
+      <li><strong>Reciprocal transformation</strong> (<code>1/Y</code>): A stronger transformation for heavily skewed data, though it reverses the direction of the scale and can complicate interpretation.</li>
+    </ul>
+    After transforming the data, assumption checks should be repeated to confirm improvement. Importantly, all statistical analyses are then conducted on the transformed scale, and conclusions must be interpreted accordingly.
+  </li>
+  <li><strong>Welch's ANOVA for heteroscedasticity:</strong> When Levene's test reveals significant heterogeneity of variance — particularly with unequal group sizes — <strong>Welch's ANOVA</strong> is the recommended remedy. Unlike the standard ANOVA F-test, Welch's procedure adjusts the degrees of freedom (using the Welch-Satterthwaite approximation) to account for differing group variances. It maintains good control of Type I error and is nearly as powerful as standard ANOVA when variances are in fact equal. In R, Welch's ANOVA can be computed as:
+    <pre><code>oneway.test(outcome ~ group, data = mydata, var.equal = FALSE)</code></pre>
+    Post-hoc comparisons following Welch's ANOVA typically use the Games-Howell procedure, which also does not assume equal variances.
+  </li>
+  <li><strong>Kruskal-Wallis H test for severe non-normality:</strong> The <strong>Kruskal-Wallis test</strong> is the non-parametric counterpart to the one-way ANOVA. Instead of comparing group means directly, it ranks all observations across groups and tests whether the rank distributions differ significantly. It does not assume normality of the dependent variable, making it appropriate when normality is severely violated and transformations have not been successful. The Kruskal-Wallis test is less powerful than ANOVA when normality holds (because it discards information by converting scores to ranks), but it provides a valid and meaningful test when the normality assumption cannot be met. In R: <code>kruskal.test(outcome ~ group, data = mydata)</code>. Post-hoc pairwise comparisons following a significant Kruskal-Wallis result can be performed using Dunn's test with a Bonferroni or Holm correction.</li>
+  <li><strong>Repeated-measures ANOVA or mixed models for non-independence:</strong> When the independence assumption is violated because the same participants are measured multiple times or because data are clustered, the appropriate solution is to use a model that explicitly accounts for the dependence structure:
+    <ul>
+      <li><strong>Repeated-measures ANOVA</strong> is used when the same participants are measured under all conditions (within-subjects design). It partitions out the variability attributable to individual differences, reducing error variance and increasing statistical power compared to between-subjects ANOVA.</li>
+      <li><strong>Mixed-effects models</strong> (also called linear mixed models or hierarchical linear models) are more flexible and can handle complex dependency structures, including unbalanced designs, missing data, and multilevel clustering. For example, a mixed model can simultaneously account for students being nested within classrooms and classrooms being nested within schools, modeling the variance at each level of the hierarchy.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In summary, the assumptions of ANOVA — normality, homogeneity of variance, and independence — are not abstract mathematical niceties but practical requirements that determine whether the ANOVA F-test produces trustworthy results. A rigorous researcher approaches these assumptions proactively: visualizing the data, running appropriate diagnostic tests, critically reviewing the study design, and selecting the most appropriate statistical procedure given what the data reveal. When assumptions are violated, a well-equipped researcher can draw on a range of established remedies — from data transformations and Welch's ANOVA to non-parametric tests and multilevel models — to ensure that conclusions remain valid and defensible.</p>
+      <div class="notes"><strong>Notes</strong>Consider supplementing with worked examples in R or SPSS showing full assumption-checking output (Shapiro-Wilk, Levene&#39;s test) alongside Q-Q plots and box plots to give learners hands-on familiarity with the diagnostic workflow.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

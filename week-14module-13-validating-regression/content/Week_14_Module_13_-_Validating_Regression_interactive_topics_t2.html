@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessing Regression Model Assumptions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+  <header>
+    <h1>Assessing Regression Model Assumptions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Assessing Regression Model Assumptions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Linear regression is one of the most widely used statistical modeling techniques, but its validity depends critically on a set of underlying assumptions. When these assumptions hold, ordinary least squares (OLS) estimation produces the <em>best linear unbiased estimates</em> (BLUE) of the regression coefficients—a property guaranteed by the Gauss-Markov theorem. When they are violated, the consequences range from inefficient estimates to severely biased coefficients, rendering the model's predictions, hypothesis tests, and confidence intervals untrustworthy. A rigorous analyst does not simply fit a regression model and report results; they systematically diagnose whether the model's assumptions are satisfied and take corrective action when they are not. The four core assumptions are <strong>linearity</strong>, <strong>homoscedasticity</strong>, <strong>independence of errors</strong>, and <strong>normality of residuals</strong>. Each assumption addresses a different facet of the relationship between predictors, outcomes, and error terms, and each has its own diagnostic tools and remedies.</p>
+
+<p><strong>Linearity Assumption</strong></p>
+
+<p>The linearity assumption states that the expected value of the outcome variable is a linear function of the predictors. In practical terms, this means that a one-unit change in a predictor produces a constant change in the outcome regardless of where along the predictor's range you are. This assumption is foundational: the entire mathematical machinery of OLS—minimizing the sum of squared residuals to find a straight-line fit—only makes sense if the underlying relationship actually is linear.</p>
+
+<p>When the linearity assumption is violated, the regression coefficients become <strong>biased</strong>. Bias means the estimated coefficients do not converge to the true population parameters even with infinitely large samples. More concretely, the model will systematically overpredict in some regions of the predictor space and underpredict in others. For example, if the true relationship between hours of study and exam score follows a diminishing-returns curve (each additional hour yields smaller gains than the last), a straight-line model will underestimate scores at moderate study hours and overestimate them at very high hours. This pattern of systematic inaccuracy across the range of the predictor is the hallmark of a violated linearity assumption.</p>
+
+<p>Before fitting a model, a straightforward first step is to examine <strong>scatterplots</strong> of each predictor against the outcome variable. A roughly elliptical cloud of points suggests linearity; a curved band, a fan shape, or a cluster pattern suggests otherwise. These pre-modeling plots cost nothing and can save significant effort by identifying transformations needed before estimation begins. For example, a scatterplot of income versus spending might reveal a curved relationship that becomes approximately linear after taking the logarithm of income.</p>
+
+<p><strong>Transformations</strong> are the primary remedy for nonlinearity. Common approaches include:</p>
+<ul>
+  <li><strong>Logarithmic transformation:</strong> Appropriate when the outcome or predictor spans several orders of magnitude, or when the relationship shows rapid growth that levels off. For instance, modeling log(salary) as a function of years of experience often yields a more linear relationship than modeling salary directly.</li>
+  <li><strong>Square-root transformation:</strong> Useful for count data or variables with right skew, where the curvature is less extreme than a log relationship would imply.</li>
+  <li><strong>Polynomial terms:</strong> Adding a squared or cubic term for a predictor (e.g., including both <em>x</em> and <em>x²</em>) allows the regression line to bend, capturing quadratic or cubic curvature while remaining within the linear regression framework.</li>
+  <li><strong>Splines and piecewise regression:</strong> For more complex nonlinear patterns, spline models fit separate polynomial segments across ranges of the predictor, joined smoothly at knot points.</li>
+</ul>
+<p>It is worth noting that "linear regression" refers to linearity in the <em>parameters</em>, not necessarily in the predictors themselves. A model like <em>Y = β₀ + β₁x + β₂x²</em> is still a linear regression model because it is linear in the β coefficients, even though it models a curved relationship in <em>x</em>.</p>
+
+<p><strong>Homoscedasticity Assumption</strong></p>
+
+<p>Homoscedasticity (from Greek: <em>homos</em> = same, <em>skedasis</em> = dispersion) requires that the variance of the residuals is constant across all levels of the fitted values and predictors. In other words, the spread of the errors around the regression line should be roughly the same whether the predicted value is small, medium, or large. When this assumption is satisfied, every observation contributes equally reliable information to the estimation of the regression coefficients.</p>
+
+<p><strong>Heteroscedasticity</strong>—the violation of this assumption—occurs when the error variance systematically changes. A classic real-world example: modeling household expenditure as a function of income typically reveals that wealthier households show much more variability in spending than lower-income households. The errors are small and tightly clustered at low income levels, then fan out dramatically at high income levels. This "fan" or "cone" shape is the most common visual signature of heteroscedasticity.</p>
+
+<p>The consequences of heteroscedasticity are important to understand precisely. OLS coefficient estimates remain <em>unbiased</em> under heteroscedasticity—the estimates still point in the right direction on average—but they are no longer <em>efficient</em>. Efficiency means having the smallest possible variance among unbiased estimators, and OLS loses this property when error variances differ. More critically, the standard errors computed by standard OLS software are <strong>incorrect</strong> under heteroscedasticity. They may be too small or too large depending on the pattern of variance, which means that t-statistics, p-values, and confidence intervals are all distorted. A predictor might appear statistically significant when it is not (false positive) or fail to reach significance when it truly matters (false negative).</p>
+
+<p>The most common remedies include:</p>
+<ul>
+  <li><strong>Weighted least squares (WLS):</strong> Rather than treating all observations equally, WLS assigns weights inversely proportional to the estimated error variance of each observation. Observations with high variance (less reliable) receive lower weight, and those with low variance (more reliable) receive higher weight. This restores efficiency and produces correct standard errors.</li>
+  <li><strong>Heteroscedasticity-consistent (HC) standard errors:</strong> Also called "robust standard errors" or "sandwich estimators," these adjust the standard error calculations to account for non-constant variance without changing the coefficient estimates. They are widely used in econometrics and available in most statistical packages.</li>
+  <li><strong>Variance-stabilizing transformations:</strong> Applying a transformation to the outcome variable can sometimes equalize the variance. The log transformation is particularly effective when variance increases proportionally with the mean. The Box-Cox procedure provides a systematic way to identify the optimal power transformation.</li>
+</ul>
+
+<p>Visually, heteroscedasticity is detected in a <strong>residuals vs. fitted values plot</strong> by looking for a systematic change in the spread of residuals as fitted values increase. To formally confirm suspicions raised by visual inspection, the <strong>Breusch-Pagan test</strong> provides a statistical hypothesis test. It works by regressing the squared residuals from the original model on the predictors; if the predictors significantly explain the variation in squared residuals, the null hypothesis of homoscedasticity is rejected. The <strong>White test</strong> is a related but more general alternative that also detects nonlinear forms of heteroscedasticity.</p>
+
+<p><strong>Independence of Errors Assumption</strong></p>
+
+<p>The independence assumption requires that the residuals (errors) from the regression model are uncorrelated with each other. Each observation's error should carry no information about any other observation's error. This assumption is most naturally satisfied when data are collected through random sampling from a large population, where there is no reason to expect one person's error to be related to another's.</p>
+
+<p>The assumption is most commonly violated in two settings. First, in <strong>time-series data</strong>, observations are collected sequentially over time, and adjacent observations often share common influences—economic conditions, seasonal effects, or carry-over from previous periods—that induce correlation in the errors. Second, in <strong>clustered or hierarchical data</strong> (students within schools, patients within hospitals), observations within the same cluster tend to be more similar to each other than to observations from other clusters, which creates within-cluster correlation in the errors.</p>
+
+<p>When errors are correlated—a condition called <strong>autocorrelation</strong> in time series or <strong>intraclass correlation</strong> in clustered data—the standard errors computed by OLS are <em>underestimated</em>. This happens because correlated observations contain less independent information than the sample size suggests: 100 highly correlated observations do not provide 100 independent pieces of information. The artificially small standard errors make coefficients look more statistically significant than they truly are, inflating the Type I error rate. In practice, this means a researcher might conclude that a predictor significantly explains variation in the outcome when, after properly accounting for error dependence, the evidence is far weaker.</p>
+
+<p>The <strong>Durbin-Watson statistic</strong> is the classic diagnostic for detecting first-order autocorrelation (correlation between adjacent errors) in time-series regression. The statistic ranges from 0 to 4, with a value of 2 indicating no autocorrelation. Values substantially below 2 suggest positive autocorrelation (common in economic time series), while values substantially above 2 suggest negative autocorrelation. Critical values depend on the sample size and number of predictors, and tables or software provide the thresholds. For more complex autocorrelation structures (e.g., seasonal patterns), the <strong>Ljung-Box test</strong> on the residuals is more appropriate.</p>
+
+<p>Remedies for violated independence depend on the source of the problem:</p>
+<ul>
+  <li><strong>Time-series models:</strong> Autoregressive integrated moving average (ARIMA) models or generalized least squares with an autocorrelated error structure explicitly model the dependence between observations.</li>
+  <li><strong>Mixed-effects (multilevel) models:</strong> For clustered data, mixed-effects models include random effects for clusters, which absorbs the within-cluster correlation and produces correct standard errors.</li>
+  <li><strong>Lagged variables:</strong> In time-series contexts, adding lagged values of the outcome or predictors as regressors can capture the temporal dependency and reduce residual autocorrelation.</li>
+  <li><strong>Cluster-robust standard errors:</strong> Analogous to heteroscedasticity-robust standard errors, these correct standard errors for within-cluster correlation without changing the model structure.</li>
+</ul>
+
+<p><strong>Normality of Residuals</strong></p>
+
+<p>The normality assumption states that the residuals of the regression model are normally distributed. It is important to clarify what this assumption does—and does not—require. It does <em>not</em> require that the outcome variable or the predictors themselves be normally distributed. It requires only that the <em>errors</em> (residuals) around the regression line follow a normal distribution. Furthermore, this assumption is primarily needed for <strong>inference</strong>—that is, for the validity of p-values, t-tests, F-tests, and confidence intervals—not for the point estimates of the coefficients themselves, which remain unbiased regardless of the error distribution.</p>
+
+<p>In large samples, the <strong>central limit theorem</strong> provides some protection: even if individual residuals are not perfectly normal, the sampling distributions of the coefficient estimates will be approximately normal for large <em>n</em>, making inference approximately valid. This is why normality violations are generally more concerning in small samples, where the central limit theorem has not yet kicked in, and less critical in large datasets.</p>
+
+<p>Departures from normality can take several forms, each with different implications:</p>
+<ul>
+  <li><strong>Heavy tails (leptokurtosis):</strong> More extreme values than a normal distribution predicts, inflating the apparent variance of residuals and making standard errors too large.</li>
+  <li><strong>Skewness:</strong> Asymmetry in the residual distribution, often caused by a skewed outcome variable or the presence of influential outliers.</li>
+  <li><strong>Multimodality:</strong> Two or more peaks in the residual distribution, which may suggest that important group differences or categorical variables have not been accounted for in the model.</li>
+</ul>
+
+<p>The standard visual tools for assessing normality are the <strong>Q-Q plot</strong> (quantile-quantile plot) and the <strong>histogram of residuals</strong>. In a Q-Q plot, the quantiles of the observed residuals are plotted against the theoretical quantiles of a standard normal distribution. If residuals are normally distributed, the points fall along a straight diagonal line. Systematic deviations reveal the nature of the departure: an S-shaped curve indicates skewness, while points curving upward at both ends indicate heavy tails. Histograms are more intuitive but less sensitive for detecting subtle deviations, particularly in the tails.</p>
+
+<p>For formal testing, the <strong>Shapiro-Wilk test</strong> is widely regarded as one of the most powerful tests for normality in small to moderate samples. It tests the null hypothesis that the residuals are drawn from a normal distribution; a significant p-value (typically p < 0.05) provides evidence against normality. The <strong>Kolmogorov-Smirnov test</strong> and the <strong>Anderson-Darling test</strong> are alternatives, with Anderson-Darling placing greater weight on the tails. A practical caution: in very large samples, these formal tests will detect even trivially small departures from normality as statistically significant, even when the deviation has no practical effect on inference. Conversely, in very small samples, they may lack the power to detect meaningful non-normality. This is why experienced analysts typically rely primarily on visual methods and use formal tests as supplementary confirmation.</p>
+
+<p><strong>Consequences of Assumption Violations on Model Integrity</strong></p>
+
+<p>It is useful to synthesize how each assumption violation specifically damages a model's integrity, distinguishing between effects on coefficient estimates versus effects on inference.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assumption Violated</th>
+      <th>Effect on Coefficients</th>
+      <th>Effect on Standard Errors</th>
+      <th>Effect on Hypothesis Tests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Linearity</td>
+      <td>Biased (wrong direction or magnitude)</td>
+      <td>Unreliable</td>
+      <td>Systematically misleading</td>
+    </tr>
+    <tr>
+      <td>Homoscedasticity</td>
+      <td>Unbiased but inefficient</td>
+      <td>Incorrect (too large or too small)</td>
+      <td>False positives or false negatives</td>
+    </tr>
+    <tr>
+      <td>Independence of Errors</td>
+      <td>Unbiased but inefficient</td>
+      <td>Typically underestimated</td>
+      <td>Inflated Type I error rate</td>
+    </tr>
+    <tr>
+      <td>Normality of Residuals</td>
+      <td>Unbiased</td>
+      <td>Correct asymptotically</td>
+      <td>Unreliable in small samples</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This table makes clear that linearity violations are the most damaging because they bias the coefficient estimates themselves—the model is learning the wrong relationships. The other three violations primarily damage inference rather than the coefficients, but this is still serious: a model with unbiased coefficients but unreliable p-values and confidence intervals cannot support trustworthy conclusions about which predictors matter and by how much. Biased coefficients from violated linearity also directly harm <strong>predictive performance</strong>: the model will make systematically wrong predictions in identifiable regions of the predictor space, which is detectable through cross-validation on held-out data.</p>
+
+<p><strong>Diagnosing Assumptions Through Residual Analysis</strong></p>
+
+<p>The residuals of a fitted model—the differences between observed and predicted values—are the primary diagnostic evidence for assumption assessment. A well-specified model with satisfied assumptions should produce residuals that are random noise: no patterns, no trends, no systematic structure. Any detectable pattern in the residuals is a signal that something about the model or its assumptions needs attention.</p>
+
+<p>The <strong>residuals vs. fitted values plot</strong> is arguably the single most informative diagnostic plot available. It displays the raw residuals on the vertical axis against the fitted (predicted) values on the horizontal axis. Under ideal conditions, the points scatter randomly around the horizontal zero line with no discernible pattern and roughly constant spread. Specific patterns to watch for include:</p>
+<ul>
+  <li><strong>Curved or nonlinear pattern:</strong> A U-shaped or arc-shaped band of residuals indicates that the linearity assumption is violated—the model is missing a nonlinear component.</li>
+  <li><strong>Fan or cone shape:</strong> Residuals that spread out as fitted values increase (or decrease) signal heteroscedasticity.</li>
+  <li><strong>Alternating positive and negative residuals in sequence:</strong> In time-ordered data, this suggests autocorrelation.</li>
+</ul>
+
+<p>The <strong>scale-location plot</strong> (also called the spread-location plot) is a refinement specifically for assessing homoscedasticity. It plots the <em>square root of the absolute standardized residuals</em> against the fitted values. Because the square root compresses the scale and absolute values eliminate sign, this plot makes it easier to see whether the average magnitude of the residuals is constant across the fitted range. A flat, horizontal smoother line through the points indicates homoscedasticity; an upward or downward trend indicates that variance changes systematically with the level of the fitted values.</p>
+
+<p>The <strong>Q-Q plot of residuals</strong>, as described above, is the standard tool for assessing normality. In the context of a full diagnostic suite, it complements the residuals vs. fitted plot by examining the distributional shape of residuals rather than their relationship to fitted values.</p>
+
+<p>In practice, a comprehensive regression diagnostic workflow combines all three plots—residuals vs. fitted, scale-location, and Q-Q—along with a fourth plot showing <strong>residuals vs. leverage</strong> to identify influential observations. Together, these plots give a complete picture of linearity, homoscedasticity, normality, and the influence of individual data points. Statistical software such as R's <code>plot(model)</code> function, Python's <code>statsmodels</code> diagnostic plots, or SPSS's regression diagnostics output all these plots with a single command, making systematic assumption checking a routine rather than a laborious addition to analysis.</p>
+
+<p>The discipline of assumption checking is not merely a statistical formality. It is the mechanism by which an analyst ensures that the numbers produced by a regression model can be defended, communicated, and acted upon with confidence. A regression model whose assumptions have not been examined is a model whose results cannot be fully trusted, regardless of how large the dataset or how sophisticated the software used to estimate it.</p>
+        <div class="notes"><strong>Notes</strong>The table summarizing consequences of each assumption violation provides a useful comparative reference. Emphasis is placed on distinguishing between bias in coefficients (a linearity issue) versus distorted inference (primarily an issue with homoscedasticity, independence, and normality violations), which is a conceptually important distinction that students often conflate.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

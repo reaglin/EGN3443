@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Hypothesis Testing</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>Foundations of Hypothesis Testing</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Foundations of Hypothesis Testing</h2>
+      <p>Hypothesis testing is one of the most fundamental tools in the practice of statistics. At its heart, it is a structured, disciplined method for using data collected from a <em>sample</em> to make decisions about a broader <em>population</em>. The central challenge in virtually every empirical field — medicine, engineering, economics, psychology, quality control, public health — is that we almost never have access to every member of the population we care about. We must therefore draw conclusions from incomplete information, and hypothesis testing gives us a principled way to do that without fooling ourselves into seeing patterns that aren't really there.</p>
+
+<p>Before diving into the mechanics, it is worth appreciating what hypothesis testing actually accomplishes. It does <strong>not</strong> prove anything with absolute certainty. Instead, it answers a more modest but enormously useful question: <em>Given the data I collected, how plausible is it that the pattern I observe arose purely by chance, assuming some baseline condition is true?</em> If the answer is "very implausible," we have grounds to doubt that baseline condition. If the answer is "quite plausible," the data do not give us enough reason to abandon it. This logic — sometimes called proof by contradiction in a probabilistic setting — runs through every hypothesis test ever conducted, from a clinical drug trial to a marketing A/B experiment.</p>
+
+<p>The process is also deliberate and sequential. Hypotheses must be stated <em>before</em> data are collected, a test procedure must be chosen in advance, and a threshold for decision-making must be set ahead of time. When researchers deviate from this sequence — for example, by peeking at the data and then deciding what to test — the entire inferential structure breaks down. This is why understanding the conceptual foundations is just as important as knowing the formulas.</p>
+
+<p><strong>Statistical hypotheses as precise, testable statements.</strong> Every hypothesis test begins by translating a real-world question into the language of mathematics. Suppose a pharmaceutical company claims its new drug lowers average systolic blood pressure by more than 10 mmHg. That is a verbal claim. To test it statistically, we must express it in terms of a <em>population parameter</em> — in this case, the true mean reduction in blood pressure, denoted μ. Only then can we design a test, collect a sample, and apply a formal decision rule.</p>
+
+<p>This distinction between <em>population parameters</em> and <em>sample statistics</em> is crucial. A parameter is a fixed (though usually unknown) numerical characteristic of the entire population — for example, the true mean μ or the true proportion p. A sample statistic, such as the sample mean x̄ or sample proportion p̂, is calculated from the data we actually observe and serves as our best estimate of the corresponding parameter. Statistical hypotheses are always claims about parameters, never about statistics. Saying "the sample mean equals 50" is a statement of fact about data you have already seen; saying "the population mean equals 50" is a claim about reality that can be subjected to a test.</p>
+
+<p>Formulating hypotheses before data collection is essential for two interconnected reasons. First, it prevents <em>confirmation bias</em>: if a researcher looks at data first and then crafts a hypothesis that matches what they see, the test provides no real check on wishful thinking. Second, the mathematical validity of many testing procedures depends on the hypothesis being fixed prior to the experiment. Changing the hypothesis after seeing the data — a practice colloquially known as "HARKing" (Hypothesizing After Results are Known) — inflates the probability of false discoveries.</p>
+
+<p><strong>The null hypothesis (H₀).</strong> In every hypothesis test there are exactly two competing statements. The first is called the <em>null hypothesis</em>, written H₀. It represents the default, skeptical, or "nothing unusual is happening" position. Historically, the word "null" signals the idea of nullifying a claim — it is what we assume to be true in the absence of convincing evidence to the contrary, much like the presumption of innocence in a legal trial.</p>
+
+<p>The null hypothesis is <strong>always stated as an equality</strong>. Even when the problem involves inequalities in the alternative hypothesis, H₀ pins the parameter to a single value. For example:</p>
+
+<ul>
+  <li><strong>H₀: μ = 120</strong> — the population mean blood pressure equals 120 mmHg.</li>
+  <li><strong>H₀: p = 0.50</strong> — the true proportion of voters favoring a candidate is exactly 50%.</li>
+  <li><strong>H₀: μ₁ − μ₂ = 0</strong> — there is no difference in mean scores between two teaching methods.</li>
+</ul>
+
+<p>Why insist on an equality? Because it is the equality that allows us to construct a precise probability model. If we assume H₀ is true, we know exactly what distribution the test statistic should follow, and we can calculate how surprising our observed data would be under that assumption. Without a specific value to anchor the distribution, no such calculation is possible.</p>
+
+<p>The null hypothesis represents the <em>status quo</em> — the existing belief, the manufacturer's claimed specification, the historical average, or simply the assumption that two groups are the same. The entire logic of hypothesis testing is set up to challenge this assumption: we collect evidence and ask whether it is damaging enough to justify abandoning H₀.</p>
+
+<p><strong>The alternative hypothesis (H₁ or Hₐ).</strong> The second statement is called the <em>alternative hypothesis</em>, written H₁ or Hₐ. It represents the researcher's conjecture — the departure from the baseline that the study is designed to detect. If H₀ is the presumption of innocence, H₁ is the prosecution's claim.</p>
+
+<p>Alternative hypotheses come in two flavors, and the choice between them matters enormously for how the test is conducted:</p>
+
+<ul>
+  <li><strong>Two-sided (non-directional):</strong> H₁: μ ≠ 120. The researcher suspects the true mean differs from 120, but is not committed to a direction. This is appropriate when a deviation in either direction would be scientifically interesting or practically important.</li>
+  <li><strong>One-sided (directional):</strong> H₁: μ &gt; 120 or H₁: μ &lt; 120. The researcher has a specific directional expectation based on theory or prior evidence. A one-sided test concentrates all the evidence on one side and is therefore more sensitive to a departure in that specific direction — but it provides no evidence against a departure in the opposite direction.</li>
+</ul>
+
+<p>Consider a concrete example. A quality engineer believes that a new manufacturing process <em>reduces</em> the defect rate below the historical level of 5%. The hypotheses would be:</p>
+
+<ul>
+  <li><strong>H₀: p = 0.05</strong> (the defect rate is unchanged)</li>
+  <li><strong>H₁: p &lt; 0.05</strong> (the defect rate has decreased)</li>
+</ul>
+
+<p>If instead the engineer simply wanted to know whether the new process <em>changed</em> the defect rate in any direction, the alternative would be H₁: p ≠ 0.05. The research question determines which form is appropriate.</p>
+
+<p>A critical structural requirement is that H₀ and H₁ must be <strong>mutually exclusive</strong> (they cannot both be true at the same time) and <strong>collectively exhaustive</strong> (together they cover every possible value the parameter could take). This guarantees that the decision rule is complete: whatever the true value of the parameter, it falls in exactly one of the two hypothesized regions.</p>
+
+<p><strong>The logic of evidence and decision-making.</strong> With hypotheses in hand, the decision-making process follows a specific probabilistic logic. We begin by <em>assuming H₀ is true</em> and then asking: if the null hypothesis really were true, how likely would it be to observe data at least as extreme as what we actually got?</p>
+
+<p>This probability is called the <strong>p-value</strong>. A small p-value tells us that our data would be very unusual in a world where H₀ is true — which is indirect evidence against H₀. A large p-value tells us that our data are quite consistent with H₀, giving us no compelling reason to reject it.</p>
+
+<p>The strength of evidence is typically summarized through a <strong>test statistic</strong> — a single number computed from the sample that measures how far the observed data fall from what H₀ predicts, measured in standardized units. For example, if we are testing a claim about a population mean and the population standard deviation is known, the test statistic is:</p>
+
+<pre><code>z = (x̄ − μ₀) / (σ / √n)</code></pre>
+
+<p>where x̄ is the sample mean, μ₀ is the value specified by H₀, σ is the population standard deviation, and n is the sample size. The larger the absolute value of z, the more the data deviate from what H₀ predicts, and the stronger the evidence against H₀.</p>
+
+<p>The decision rule has two possible outcomes:</p>
+
+<ul>
+  <li><strong>Reject H₀:</strong> The evidence is strong enough (the p-value is sufficiently small) to conclude that the data are inconsistent with H₀. We act as though H₁ is supported.</li>
+  <li><strong>Fail to reject H₀:</strong> The evidence is not strong enough. We do not have sufficient grounds to discard the null hypothesis. Crucially, this is <em>not</em> the same as concluding H₀ is true — absence of evidence is not evidence of absence.</li>
+</ul>
+
+<p>The phrase "fail to reject H₀" is deliberate and important. We never say "accept H₀" because the test only evaluates whether the data are inconsistent with H₀. A small sample might simply lack the statistical power to detect a real departure, so retaining H₀ could reflect limited data rather than truth. The analogy to a courtroom verdict is instructive: a jury that returns "not guilty" is not declaring the defendant innocent; it is declaring that the evidence was insufficient to convict beyond a reasonable doubt.</p>
+
+<p><strong>Connecting real-world claims to statistical hypotheses.</strong> One of the most practically challenging steps in hypothesis testing is determining which claim belongs in H₀ and which belongs in H₁. The following guidelines help navigate this process:</p>
+
+<ul>
+  <li>The <strong>claim you are trying to find evidence for</strong> — the researcher's conjecture, the suspected improvement, the suspected difference — typically belongs in H₁. This is because the only way to "support" a claim statistically is to reject H₀ in favor of H₁; you cannot accumulate positive evidence for H₀ in the same way.</li>
+  <li>The <strong>status quo, the assumed baseline, or the claimed specification</strong> belongs in H₀. It is what we believe unless the data persuade us otherwise.</li>
+  <li>When a claim involves the phrase "at least," "no more than," or "equals," it usually maps to H₀. When it involves "greater than," "less than," or "different from," it usually maps to H₁.</li>
+</ul>
+
+<p>The following table illustrates how several real-world scenarios map onto formal statistical hypotheses:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Real-World Claim or Question</th>
+      <th>H₀</th>
+      <th>H₁</th>
+      <th>Test Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A drug lowers mean blood pressure below 130 mmHg</td>
+      <td>μ = 130</td>
+      <td>μ &lt; 130</td>
+      <td>One-sided (left)</td>
+    </tr>
+    <tr>
+      <td>A coin is fair (not biased toward heads or tails)</td>
+      <td>p = 0.50</td>
+      <td>p ≠ 0.50</td>
+      <td>Two-sided</td>
+    </tr>
+    <tr>
+      <td>A new training program increases mean sales above $5,000</td>
+      <td>μ = 5000</td>
+      <td>μ &gt; 5000</td>
+      <td>One-sided (right)</td>
+    </tr>
+    <tr>
+      <td>Two production lines produce equal mean part lengths</td>
+      <td>μ₁ − μ₂ = 0</td>
+      <td>μ₁ − μ₂ ≠ 0</td>
+      <td>Two-sided</td>
+    </tr>
+    <tr>
+      <td>Customer complaint rate has risen above 2%</td>
+      <td>p = 0.02</td>
+      <td>p &gt; 0.02</td>
+      <td>One-sided (right)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Misidentifying the hypotheses is not a minor bookkeeping error — it can lead to a fundamentally wrong analysis. For instance, if a researcher places the "no effect" claim in H₁ rather than H₀, failing to reject H₀ would be interpreted as evidence of an effect, which completely inverts the logic of the test. Precise formulation is therefore the indispensable first step in any statistical analysis, and it requires careful reading of the research question before a single data point is collected.</p>
+
+<p>To summarize the complete conceptual framework: hypothesis testing provides a systematic, probabilistic method for evaluating claims about population parameters using sample data. It begins with two mutually exclusive and exhaustive hypotheses — the conservative null (H₀) and the research-driven alternative (H₁). It proceeds by assuming H₀ is true, computing how surprising the observed data would be under that assumption, and deciding whether that surprise is great enough to warrant rejecting the null. The result is never certainty, but it is disciplined, transparent, and reproducible reasoning from evidence — which is the cornerstone of scientific inference.</p>
+      <div class="notes"><strong>Notes</strong>Instructors may wish to emphasize the courtroom analogy (presumption of innocence ↔ H₀; verdict of &quot;not guilty&quot; ↔ fail to reject) as a memorable bridge for students encountering the logic for the first time. The table of real-world scenarios can be used as a classroom activity by presenting the &quot;Real-World Claim&quot; column and asking students to derive the hypotheses before revealing the answers.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

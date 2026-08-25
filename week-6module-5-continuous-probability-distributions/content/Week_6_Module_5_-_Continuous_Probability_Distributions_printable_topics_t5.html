@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculating and Interpreting Probabilities</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+  <header>
+    <h1>Calculating and Interpreting Probabilities</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Calculating and Interpreting Probabilities</h2>
+      <p>Probability calculation is the bridge between a theoretical distribution and a real-world answer. Once you have identified the correct distribution for a random variable — uniform, normal, or exponential — you need a reliable, systematic method to extract numerical probabilities from that distribution. This topic develops those methods in depth, working through the formulas, the logic behind them, the tools required, and the pitfalls that most commonly derail learners. Every technique is illustrated with fully worked examples so that the process becomes automatic rather than mysterious.</p>
+
+<p>It is worth pausing first to recall what a probability calculation actually means geometrically. For any continuous distribution, the probability that a random variable <em>X</em> falls in an interval is the <strong>area under the probability density curve</strong> over that interval. The total area under the entire curve is always exactly 1, representing certainty. Every formula below is simply a precise way of measuring a slice of that total area.</p>
+
+<p><strong>Calculating Probabilities for the Uniform Distribution</strong></p>
+
+<p>The continuous uniform distribution is the simplest of all continuous distributions. It models a situation in which every value between a lower boundary <em>a</em> and an upper boundary <em>b</em> is equally likely. Because the density is constant — a flat, horizontal line — the probability of landing in any sub-interval is determined purely by <em>how wide</em> that sub-interval is relative to the total width.</p>
+
+<p>The probability density function is:</p>
+
+<pre><code>f(x) = 1 / (b - a)   for a ≤ x ≤ b, and 0 elsewhere.</code></pre>
+
+<p>Because the height of the density is constant at <code>1/(b − a)</code>, the area over any sub-interval <code>[c, d]</code> within <code>[a, b]</code> is simply height × width:</p>
+
+<pre><code>P(c ≤ X ≤ d) = (d - c) / (b - a)</code></pre>
+
+<p>This formula contains only arithmetic, so no statistical table or software is needed. The steps are: (1) clearly identify <em>a</em> and <em>b</em> from the problem, (2) identify the interval of interest <em>c</em> and <em>d</em>, and (3) substitute. Identifying <em>a</em> and <em>b</em> correctly is critical — if you confuse which endpoint is which, every subsequent calculation will be wrong.</p>
+
+<p>Notice that the formula confirms the total probability is 1: setting <code>c = a</code> and <code>d = b</code> gives <code>(b − a)/(b − a) = 1</code>. The distribution is therefore mathematically valid.</p>
+
+<p><em>Worked example:</em> A bus arrives at a stop at a uniformly distributed time between 8:00 am and 8:20 am. What is the probability that the bus arrives between 8:05 am and 8:12 am?</p>
+
+<p>Here <code>a = 0</code> minutes and <code>b = 20</code> minutes (measuring time past 8:00 am). The interval of interest runs from <code>c = 5</code> to <code>d = 12</code>.</p>
+
+<pre><code>P(5 ≤ X ≤ 12) = (12 - 5) / (20 - 0) = 7 / 20 = 0.35</code></pre>
+
+<p>There is a 35% chance the bus arrives in that seven-minute window. Notice the proportionality: a 7-minute window out of a 20-minute total always gives 35%, regardless of where in the 20-minute range the window is placed — that is the hallmark of the uniform distribution.</p>
+
+<p>Because probabilities are directly proportional to interval width, comparing two uniform probabilities is straightforward: a wider interval always has a higher probability. This also means that for a single point, <code>P(X = c) = (c − c)/(b − a) = 0</code>, confirming that continuous distributions assign zero probability to exact values.</p>
+
+<p><strong>Calculating Probabilities for the Normal Distribution</strong></p>
+
+<p>The normal distribution is the most widely used distribution in statistics. Its bell-shaped, symmetric curve is fully determined by two parameters: the mean <em>μ</em> (centre of the bell) and the standard deviation <em>σ</em> (spread of the bell). Because every combination of <em>μ</em> and <em>σ</em> would require its own table, the strategy is to convert any normal variable to the <strong>standard normal distribution</strong>, which has <em>μ = 0</em> and <em>σ = 1</em>. This conversion is done with the Z-score formula:</p>
+
+<pre><code>Z = (X - μ) / σ</code></pre>
+
+<p>The Z-score tells you how many standard deviations a value is above (<strong>positive Z</strong>) or below (<strong>negative Z</strong>) the mean. After converting, you look up the resulting Z-value in a standard normal table to obtain a cumulative probability.</p>
+
+<p><em>Reading a Z-table.</em> Standard Z-tables give <code>P(Z ≤ z)</code> — the probability of the standard normal variable being <em>at most z</em>. The table is arranged so that the <strong>row</strong> gives the Z-score to one decimal place and the <strong>column</strong> gives the second decimal place. For example, to find <code>P(Z ≤ 1.47)</code>, locate row <code>1.4</code> and column <code>0.07</code>. Always read both headings; misreading a column shifts the answer to the wrong hundredths digit.</p>
+
+<p>Three situations arise repeatedly:</p>
+
+<ul>
+  <li><strong>Lower-tail probability</strong> (<code>P(X ≤ x)</code>): Convert to Z, look up directly. <code>P(X ≤ x) = P(Z ≤ z)</code>.</li>
+  <li><strong>Upper-tail probability</strong> (<code>P(X > x)</code>): Use the complement rule: <code>P(Z > z) = 1 − P(Z ≤ z)</code>.</li>
+  <li><strong>Between-value probability</strong> (<code>P(a ≤ X ≤ b)</code>): Convert both endpoints to Z-scores <code>z₁</code> and <code>z₂</code> (with <code>z₁ < z₂</code>), then subtract: <code>P(z₁ ≤ Z ≤ z₂) = P(Z ≤ z₂) − P(Z ≤ z₁)</code>.</li>
+</ul>
+
+<p><em>Symmetry shortcut.</em> Because the standard normal curve is symmetric about 0:</p>
+
+<pre><code>P(Z ≤ -z) = 1 - P(Z ≤ z)</code></pre>
+
+<p>This means you never need negative-Z table entries if your table only lists positive Z values — simply reflect. For instance, <code>P(Z ≤ −1.25) = 1 − P(Z ≤ 1.25)</code>.</p>
+
+<p><em>Worked example 1 — lower tail:</em> The weights of adult males are normally distributed with <em>μ = 80 kg</em> and <em>σ = 10 kg</em>. What is the probability that a randomly chosen man weighs less than 95 kg?</p>
+
+<pre><code>Z = (95 - 80) / 10 = 1.50
+P(X < 95) = P(Z ≤ 1.50) = 0.9332   (from Z-table)</code></pre>
+
+<p>There is a 93.32% chance a randomly selected man weighs under 95 kg.</p>
+
+<p><em>Worked example 2 — upper tail:</em> Using the same distribution, what is the probability of a man weighing more than 92 kg?</p>
+
+<pre><code>Z = (92 - 80) / 10 = 1.20
+P(X > 92) = 1 - P(Z ≤ 1.20) = 1 - 0.8849 = 0.1151</code></pre>
+
+<p>There is an 11.51% chance a randomly selected man weighs over 92 kg.</p>
+
+<p><em>Worked example 3 — between two values:</em> What proportion of men weigh between 70 kg and 90 kg?</p>
+
+<pre><code>z₁ = (70 - 80) / 10 = -1.00
+z₂ = (90 - 80) / 10 =  1.00
+
+P(Z ≤ 1.00) = 0.8413
+P(Z ≤ -1.00) = 1 - 0.8413 = 0.1587
+
+P(70 ≤ X ≤ 90) = 0.8413 - 0.1587 = 0.6826</code></pre>
+
+<p>Approximately 68.26% of men weigh between 70 and 90 kg — this is the familiar "68% within one standard deviation" result from the empirical rule, now confirmed algebraically.</p>
+
+<p><strong>Calculating Probabilities for the Exponential Distribution</strong></p>
+
+<p>The exponential distribution models the time (or distance, or cost) until the next occurrence of an event in a Poisson process — for example, the time until the next customer arrives, the time until a machine fails, or the lifetime of a light bulb. Its key parameter is the <strong>rate</strong> <em>λ</em> (lambda), which equals the average number of events per unit of time.</p>
+
+<p>The relationship between the rate <em>λ</em> and the mean <em>μ</em> is:</p>
+
+<pre><code>λ = 1 / μ    equivalently    μ = 1 / λ</code></pre>
+
+<p>This reciprocal relationship is the source of the most common error with this distribution, so always determine explicitly from the problem whether you are given the rate or the mean before substituting.</p>
+
+<p>The cumulative distribution function (CDF) — which directly gives probabilities — is:</p>
+
+<pre><code>P(X ≤ x) = 1 - e^(-λx)    for x ≥ 0</code></pre>
+
+<p>For an upper-tail probability:</p>
+
+<pre><code>P(X > x) = e^(-λx)</code></pre>
+
+<p>For an interval probability:</p>
+
+<pre><code>P(a ≤ X ≤ b) = P(X ≤ b) - P(X ≤ a)
+             = [1 - e^(-λb)] - [1 - e^(-λa)]
+             = e^(-λa) - e^(-λb)</code></pre>
+
+<p>No statistical table is required. A scientific calculator with an <code>e^x</code> key (or any spreadsheet using <code>=EXP()</code>) is sufficient.</p>
+
+<p><em>Worked example 1 — lower tail:</em> Customers arrive at a service desk at an average rate of 4 per hour. The time between arrivals follows an exponential distribution. What is the probability that the next customer arrives within 10 minutes?</p>
+
+<p>The mean interarrival time is <code>μ = 1/4</code> hour = 15 minutes. Working in minutes: <code>λ = 1/15</code> per minute. Find <code>P(X ≤ 10)</code>:</p>
+
+<pre><code>P(X ≤ 10) = 1 - e^(-(1/15)(10))
+           = 1 - e^(-10/15)
+           = 1 - e^(-0.6667)
+           = 1 - 0.5134
+           = 0.4866</code></pre>
+
+<p>There is approximately a 48.7% chance the next customer arrives within 10 minutes.</p>
+
+<p><em>Worked example 2 — interval:</em> Using the same distribution, what is the probability the next customer arrives between 5 and 20 minutes from now?</p>
+
+<pre><code>P(5 ≤ X ≤ 20) = e^(-λ·5) - e^(-λ·20)
+              = e^(-(1/15)·5) - e^(-(1/15)·20)
+              = e^(-0.3333) - e^(-1.3333)
+              = 0.7165 - 0.2636
+              = 0.4529</code></pre>
+
+<p>There is roughly a 45.3% probability of the next arrival falling in that 15-minute window.</p>
+
+<p><strong>Interpreting Calculated Probabilities in Context</strong></p>
+
+<p>Obtaining a decimal from a formula is only half the job. The other half is translating that decimal into a meaningful statement that actually answers the question posed. Several principles guide good interpretation.</p>
+
+<ul>
+  <li><strong>Scale of likelihood:</strong> A probability near 1 (say, 0.95 or higher) means the event is very likely to occur; near 0 (say, 0.05 or lower) means it is very unlikely. Values near 0.5 indicate genuine uncertainty.</li>
+  <li><strong>Match the verbal phrasing:</strong> Before reporting an answer, re-read the problem. "At most 10" means <code>P(X ≤ 10)</code>. "At least 10" means <code>P(X ≥ 10) = 1 − P(X < 10)</code>. "More than 10" means <code>P(X > 10)</code>. "Between 5 and 10" means <code>P(5 ≤ X ≤ 10)</code> — but check whether the endpoints are included or excluded (for continuous distributions this makes no numerical difference, but it matters for communication).</li>
+  <li><strong>Precision and presentation:</strong> Probabilities should typically be reported to four decimal places when computed from tables, or rounded to two to three significant figures for general audiences. Converting to a percentage (e.g., <code>0.7165 → 71.65%</code>) often communicates meaning more clearly to non-technical stakeholders.</li>
+  <li><strong>Comparative insight:</strong> Comparing probabilities across scenarios reveals information about spread and risk. For example, if <code>P(X < 10) = 0.30</code> but <code>P(X < 20) = 0.80</code>, the probability nearly triples over the second interval — suggesting a concentration of the distribution in the 10–20 range. Such comparisons are powerful in business, medicine, and engineering risk assessment.</li>
+</ul>
+
+<p><em>Interpretation example:</em> A manager asks: "Is there more than a 50% chance that a machine failure occurs within the first 100 hours?" If the exponential calculation gives <code>P(X ≤ 100) = 0.632</code>, the answer is: "Yes — there is approximately a 63.2% probability of failure within the first 100 hours, meaning failure before 100 hours is more likely than not." That sentence is far more useful than simply reporting "0.6321."</p>
+
+<p><strong>Using Tables and Technology to Compute Probabilities</strong></p>
+
+<p>Each distribution has its own preferred computation method, and using the wrong tool wastes time or introduces errors.</p>
+
+<p>For the <strong>uniform distribution</strong>, the formula <code>(d − c)/(b − a)</code> is entirely algebraic. No table and no software are required — a basic calculator or even pencil and paper suffice.</p>
+
+<p>For the <strong>normal distribution</strong>, the standard Z-table remains the most widely taught tool. The table below summarises how to read it:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Situation</th>
+      <th>Steps with Z-table</th>
+      <th>Steps with technology (e.g., Excel / Python)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P(X ≤ x)</td>
+      <td>Compute Z; look up P(Z ≤ z) directly.</td>
+      <td><code>=NORM.DIST(x, μ, σ, TRUE)</code> or <code>scipy.stats.norm.cdf(x, μ, σ)</code></td>
+    </tr>
+    <tr>
+      <td>P(X > x)</td>
+      <td>Compute Z; find 1 − P(Z ≤ z).</td>
+      <td><code>=1 - NORM.DIST(x, μ, σ, TRUE)</code></td>
+    </tr>
+    <tr>
+      <td>P(a ≤ X ≤ b)</td>
+      <td>Compute z₁ and z₂; find P(Z ≤ z₂) − P(Z ≤ z₁).</td>
+      <td><code>=NORM.DIST(b,μ,σ,TRUE) - NORM.DIST(a,μ,σ,TRUE)</code></td>
+    </tr>
+    <tr>
+      <td>P(Z ≤ negative z)</td>
+      <td>Use symmetry: P(Z ≤ −z) = 1 − P(Z ≤ z).</td>
+      <td>Function handles negative z automatically.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When using technology, always verify that the function is returning a <strong>cumulative (left-tail) probability</strong> unless another mode is explicitly selected. In Excel, the fourth argument of <code>NORM.DIST</code> must be <code>TRUE</code> for cumulative; <code>FALSE</code> returns the density (height of the curve), which is not a probability.</p>
+
+<p>For the <strong>exponential distribution</strong>, the CDF formula is self-contained. In Excel, <code>=EXPON.DIST(x, λ, TRUE)</code> returns <code>P(X ≤ x)</code> directly; in Python, <code>scipy.stats.expon.cdf(x, scale=1/λ)</code> does the same (note that SciPy uses the scale parameter <code>1/λ</code> rather than <code>λ</code> itself — another source of potential error).</p>
+
+<p>A critical habit when using technology is <strong>cross-checking</strong> against a known benchmark. For the normal distribution, the 68–95–99.7 empirical rule provides instant sanity checks: <code>P(μ − σ ≤ X ≤ μ + σ) ≈ 0.6827</code>, <code>P(μ − 2σ ≤ X ≤ μ + 2σ) ≈ 0.9545</code>, and <code>P(μ − 3σ ≤ X ≤ μ + 3σ) ≈ 0.9973</code>. If your technology output for a one-standard-deviation interval gives 0.38 instead of 0.68, you have almost certainly made a parameter entry error.</p>
+
+<p><strong>Common Errors and How to Avoid Them</strong></p>
+
+<p>Even students who understand the theory make consistent procedural mistakes. The table below catalogues the most frequent errors alongside their remedies:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Error</th>
+      <th>Distribution</th>
+      <th>Example of the mistake</th>
+      <th>How to avoid it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Confusing λ (rate) with μ (mean)</td>
+      <td>Exponential</td>
+      <td>Problem states "mean = 5"; student uses λ = 5 in the formula instead of λ = 1/5 = 0.2.</td>
+      <td>Write "λ = ?" and "μ = ?" as a checklist before substituting. Compute λ = 1/μ explicitly.</td>
+    </tr>
+    <tr>
+      <td>Dividing by variance instead of standard deviation in Z-score</td>
+      <td>Normal</td>
+      <td>σ = 4, so σ² = 16; student calculates Z = (X − μ)/16 instead of Z = (X − μ)/4.</td>
+      <td>Always square-root the variance to get σ before computing Z. Label σ and σ² separately in working.</td>
+    </tr>
+    <tr>
+      <td>Subtracting Z-table values in the wrong order</td>
+      <td>Normal</td>
+      <td>P(1 ≤ Z ≤ 2) computed as P(Z ≤ 1) − P(Z ≤ 2), yielding a negative number.</td>
+      <td>Always subtract the smaller Z's cumulative probability from the larger: P(Z ≤ z₂) − P(Z ≤ z₁) with z₂ > z₁. A negative answer always signals a reversal.</td>
+    </tr>
+    <tr>
+      <td>Applying a discrete formula to a continuous variable (or vice versa)</td>
+      <td>All</td>
+      <td>Using the binomial formula for a variable described as "time until an event" (exponential) or "normally distributed weight."</td>
+      <td>Identify whether the variable is discrete (countable outcomes) or continuous (measured on a scale) before selecting a distribution. Continuous time → exponential or normal, not binomial.</td>
+    </tr>
+    <tr>
+      <td>Forgetting to use the complement for upper-tail probabilities</td>
+      <td>Normal, Exponential</td>
+      <td>Asked for P(X > 15); student looks up P(X ≤ 15) and reports that value directly.</td>
+      <td>Underline the inequality direction in the question. If it is "greater than," apply 1 − (table value) as an automatic step.</td>
+    </tr>
+    <tr>
+      <td>Using a and b boundaries outside [a, b] for the uniform</td>
+      <td>Uniform</td>
+      <td>X ~ U(2, 8); student calculates P(X ≤ 10), not realising x = 10 lies outside the distribution's support.</td>
+      <td>Any value ≥ b has probability 1; any value ≤ a has probability 0. Clip c and d to [a, b] before applying the formula.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One overarching strategy prevents many of these errors: <strong>write down every known quantity before touching a formula</strong>. State the distribution, identify all parameters by name, restate the target probability in mathematical notation, and only then substitute. This disciplined approach forces you to confront ambiguities in the problem rather than rushing past them into calculation.</p>
+      <div class="notes"><strong>Notes</strong>Worked examples cover all three distributions (uniform, normal, exponential) across lower-tail, upper-tail, and between-value scenarios. Tables included for Z-table reading guidance and common errors. The empirical rule (68-95-99.7) is incorporated as a cross-check heuristic for technology use.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

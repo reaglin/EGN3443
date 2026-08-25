@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting Regression Results</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+  <header>
+    <h1>Interpreting Regression Results</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Interpreting Regression Results</h2>
+      <p>Regression analysis is one of the most widely used tools in statistics and data science, but running a regression model is only half the work. The real value lies in correctly reading and interpreting the output — understanding what the numbers mean, what they imply about the real world, and where they can mislead you. A regression output table contains a great deal of information packed into a compact form: coefficient estimates, standard errors, test statistics, p-values, and model fit metrics. Each piece tells a distinct part of the story, and together they allow you to draw substantive conclusions about the relationships between variables. This section walks through every major component of regression output in depth, from individual coefficients to model-wide diagnostics, and concludes with practical guidance on translating results into decisions and recognizing where interpretation can go wrong.</p>
+
+<p><strong>Understanding Regression Coefficients</strong></p>
+
+<p>The foundation of any regression output is the set of estimated coefficients. In a multiple linear regression model of the form <em>Ŷ = β₀ + β₁X₁ + β₂X₂ + … + βₖXₖ</em>, each coefficient carries a specific and precise meaning that must be interpreted carefully.</p>
+
+<p>The <strong>intercept (β₀)</strong> is the predicted value of the outcome variable when every predictor in the model equals zero simultaneously. In some contexts this is a meaningful and realistic scenario — for instance, if you are modeling exam scores and all predictors are naturally centered — but in many practical situations, zero is not a plausible value for one or more predictors. Imagine a model predicting annual salary based on years of experience and age. The intercept would represent the predicted salary for someone with zero years of experience and zero years of age, which is nonsensical. In such cases, the intercept is a mathematical anchor for the regression line rather than a substantively interpretable quantity. You should always ask whether zero falls within or near the observed range of your predictors before attaching real-world meaning to the intercept.</p>
+
+<p>Each <strong>slope coefficient (β₁, β₂, etc.)</strong> tells you the expected change in the outcome variable for a one-unit increase in that specific predictor, <em>holding all other predictors constant</em>. This "holding all else equal" (ceteris paribus) condition is crucial and is what distinguishes a partial regression coefficient from a simple bivariate correlation. For example, suppose a model predicts monthly revenue (in thousands of dollars) using advertising spend (in thousands of dollars) and number of sales staff:</p>
+
+<pre><code>Revenue = 5.2 + 3.8 × (Ad Spend) + 1.1 × (Sales Staff)</code></pre>
+
+<p>The coefficient 3.8 means that for every additional $1,000 spent on advertising, monthly revenue is expected to increase by $3,800, assuming the number of sales staff stays the same. The coefficient 1.1 means that each additional sales staff member is associated with $1,100 more in monthly revenue, holding advertising spend constant. The intercept of 5.2 suggests that a firm spending nothing on advertising and employing no sales staff would still be predicted to earn $5,200 per month — a value that may or may not be meaningful depending on whether such a scenario is realistic.</p>
+
+<p>The <strong>sign of a coefficient</strong> immediately communicates the direction of the relationship. A positive coefficient means that as the predictor increases, the predicted outcome increases. A negative coefficient means the opposite — as the predictor increases, the predicted outcome decreases. For example, in a model predicting product defect rate, a negative coefficient on "quality control hours" would indicate that more quality control time is associated with fewer defects, which aligns with intuition. A sign that contradicts domain knowledge is often a signal to investigate multicollinearity or omitted variable problems, discussed later.</p>
+
+<p>When you want to compare the <strong>relative importance</strong> of different predictors within the same model, raw (unstandardized) coefficients are not directly comparable because they are scaled to their respective variables' units. A coefficient of 0.003 on income measured in dollars and a coefficient of 2.5 on a 1-to-5 attitude scale cannot be compared at face value. <strong>Standardized coefficients</strong> (also called beta weights) solve this problem by re-expressing each coefficient in terms of standard deviation units. A standardized coefficient of 0.45 on predictor X₁ and 0.22 on predictor X₂ tells you that a one standard deviation increase in X₁ is associated with nearly twice the change in the outcome (in standard deviation units) as the same relative change in X₂. This makes standardized coefficients a useful tool for ranking predictors by their relative contribution to the model.</p>
+
+<p><strong>Assessing Statistical Significance</strong></p>
+
+<p>Even if a coefficient estimate is large, it might simply reflect random noise in the sample rather than a true population relationship. Statistical significance testing addresses this concern by asking: how likely is it that we would observe a coefficient this large (or larger) purely by chance if the true population coefficient were actually zero?</p>
+
+<p>This question is answered by a <strong>hypothesis test</strong> for each coefficient. The null hypothesis is H₀: βᵢ = 0 (no linear relationship between predictor Xᵢ and the outcome, controlling for other predictors). The alternative hypothesis is H₁: βᵢ ≠ 0. The test statistic used is the <strong>t-statistic</strong>, calculated as:</p>
+
+<pre><code>t = Coefficient Estimate / Standard Error of Estimate</code></pre>
+
+<p>The standard error reflects how much the coefficient estimate would vary across repeated samples. A large t-statistic (in absolute value) means the estimate is many standard errors away from zero, making it unlikely to be a chance result. For instance, a coefficient of 3.8 with a standard error of 0.9 yields <em>t = 3.8 / 0.9 ≈ 4.22</em>. This is a large t-value, strongly suggesting the relationship is real. Conversely, a coefficient of 0.4 with a standard error of 0.6 yields <em>t ≈ 0.67</em>, a small value indicating the estimate is not reliably distinguishable from zero.</p>
+
+<p>The <strong>p-value</strong> converts the t-statistic into a probability: the likelihood of observing a t-statistic at least as extreme as the one calculated, assuming the null hypothesis is true. When the p-value falls below the predetermined significance level — most commonly <strong>α = 0.05</strong> — the null hypothesis is rejected and the predictor is declared statistically significant. A p-value of 0.003 provides strong evidence against the null; a p-value of 0.48 provides essentially no evidence against it.</p>
+
+<p><strong>Confidence intervals</strong> (CIs) for each coefficient complement p-values by providing a range of plausible values for the true population coefficient. A 95% confidence interval is constructed as:</p>
+
+<pre><code>CI = Estimate ± (t* × Standard Error)</code></pre>
+
+<p>where t* is the critical t-value for the chosen confidence level and degrees of freedom. If the 95% CI for a coefficient is [1.2, 6.4], you can be 95% confident the true value lies somewhere in that range — and because the interval excludes zero, the predictor is statistically significant at α = 0.05. If the CI were [−0.3, 6.9], it includes zero, indicating that a true effect of zero is plausible, and the predictor would not be statistically significant. Confidence intervals add important information that bare p-values omit: they tell you not just whether an effect exists, but how large (or small) it plausibly is.</p>
+
+<p>A typical regression output table might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Predictor</th>
+      <th>Coefficient</th>
+      <th>Std. Error</th>
+      <th>t-Statistic</th>
+      <th>p-Value</th>
+      <th>95% CI Lower</th>
+      <th>95% CI Upper</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Intercept</td>
+      <td>5.20</td>
+      <td>1.80</td>
+      <td>2.89</td>
+      <td>0.005</td>
+      <td>1.63</td>
+      <td>8.77</td>
+    </tr>
+    <tr>
+      <td>Ad Spend</td>
+      <td>3.80</td>
+      <td>0.90</td>
+      <td>4.22</td>
+      <td>&lt;0.001</td>
+      <td>2.01</td>
+      <td>5.59</td>
+    </tr>
+    <tr>
+      <td>Sales Staff</td>
+      <td>1.10</td>
+      <td>0.60</td>
+      <td>1.83</td>
+      <td>0.071</td>
+      <td>−0.09</td>
+      <td>2.29</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this output, advertising spend is statistically significant (p &lt; 0.001, CI excludes zero), while sales staff falls just short of significance at the 0.05 level (p = 0.071, CI barely includes zero). You might choose to retain sales staff in the model on theoretical grounds but acknowledge its borderline status, or you might test a slightly relaxed threshold if the study is exploratory in nature.</p>
+
+<p><strong>Evaluating Model Fit with R-Squared</strong></p>
+
+<p>Individual coefficient tests tell you about each predictor in isolation, but you also need a way to assess how well the model as a whole explains variation in the outcome. The primary metric for this is <strong>R² (R-squared)</strong>, also called the coefficient of determination.</p>
+
+<p>R² is defined as the proportion of the total variability in the outcome that is explained by the model's predictors:</p>
+
+<pre><code>R² = 1 − (Sum of Squared Residuals / Total Sum of Squares)
+   = Explained Variation / Total Variation</code></pre>
+
+<p>R² ranges from 0 to 1. An R² of 0 means the model explains none of the variability in the outcome — the predictors are useless. An R² of 1 means the model explains all the variability — a perfect fit (which almost never occurs with real-world data and may actually signal overfitting or data errors). In practice, what constitutes a "good" R² is heavily context-dependent. In the physical sciences, R² values above 0.95 may be expected. In social science or business research, R² values of 0.30 to 0.50 are often considered respectable because human behavior is influenced by countless unmeasured factors.</p>
+
+<p>A critical issue with R² is that it <strong>mechanically increases</strong> every time you add a predictor to the model, even if that predictor has no real relationship with the outcome. Adding ten random noise variables to a model will always increase R² to some degree. This makes raw R² a misleading guide for model selection in multiple regression. The solution is <strong>Adjusted R²</strong>, which applies a penalty for each additional predictor:</p>
+
+<pre><code>Adjusted R² = 1 − [(1 − R²) × (n − 1) / (n − k − 1)]</code></pre>
+
+<p>where <em>n</em> is the sample size and <em>k</em> is the number of predictors. If a new predictor improves the model's explanatory power more than would be expected by chance, Adjusted R² increases. If the predictor adds little genuine explanatory value, Adjusted R² stays flat or even decreases, penalizing you for the unnecessary complexity. When comparing nested models (models with different subsets of the same predictors), Adjusted R² is a more honest measure of fit than R².</p>
+
+<p>A critical warning: <strong>a high R² does not guarantee a valid model</strong>. A model can have R² = 0.92 and still be seriously flawed if, for example, the residuals display a clear curved pattern (suggesting a nonlinear relationship that the model misses), or if key regression assumptions are violated. Model fit metrics must always be evaluated alongside residual plots and other diagnostic checks.</p>
+
+<p><strong>Interpreting the Overall Model: The F-Test</strong></p>
+
+<p>Before diving into individual predictors, it is good practice to ask a more basic question: does this model explain the outcome at all? The <strong>F-test</strong> (reported as the overall or omnibus F-statistic) addresses exactly this. It tests the null hypothesis that <em>all</em> slope coefficients in the model simultaneously equal zero — in other words, that none of the predictors have any linear relationship with the outcome:</p>
+
+<pre><code>H₀: β₁ = β₂ = … = βₖ = 0</code></pre>
+
+<p>The F-statistic is calculated as the ratio of explained variance to unexplained variance, adjusted for degrees of freedom:</p>
+
+<pre><code>F = (R² / k) / [(1 − R²) / (n − k − 1)]</code></pre>
+
+<p>A large F-statistic and its associated small p-value (typically p &lt; 0.05) tells you to reject H₀ — at least one predictor is meaningfully related to the outcome. A non-significant F-test (large p-value) is a red flag: if the overall model cannot be distinguished from the null model (which simply predicts the mean of Y for everyone), there is no point in interpreting individual coefficients.</p>
+
+<p>Consider this analogy: before asking which players on a sports team contributed most to a win, you first need to confirm that the team actually won. The F-test is that confirmation. For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>df</th>
+      <th>Sum of Squares</th>
+      <th>Mean Square</th>
+      <th>F-Statistic</th>
+      <th>p-Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Regression</td>
+      <td>2</td>
+      <td>412.50</td>
+      <td>206.25</td>
+      <td>18.74</td>
+      <td>&lt;0.001</td>
+    </tr>
+    <tr>
+      <td>Residual</td>
+      <td>47</td>
+      <td>517.10</td>
+      <td>11.00</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Total</td>
+      <td>49</td>
+      <td>929.60</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The F-statistic of 18.74 with p &lt; 0.001 confirms the model is viable. You may now proceed confidently to examine individual coefficients. Had p been 0.38, interpreting individual coefficients would be premature and potentially misleading.</p>
+
+<p><strong>Translating Results into Practical Implications</strong></p>
+
+<p>Statistical output is a means to an end. The ultimate goal is to translate numbers into actionable understanding. This requires bridging the gap between statistical language and real-world meaning.</p>
+
+<p>The first step is to distinguish between <strong>statistical significance and practical significance</strong>. A finding can be statistically significant — reliably different from zero — while being practically trivial. With a large enough sample (say, n = 50,000), even a coefficient of 0.001 might be statistically significant. But if that coefficient represents a predicted $1 increase in revenue for every $1,000 increase in marketing spend, a manager would rightly conclude the finding has no actionable value. Conversely, a small sample might miss a genuinely large and important effect simply due to low statistical power. Always pair a p-value with the coefficient's magnitude and ask: "Is this effect large enough to matter in this context?"</p>
+
+<p>When <strong>communicating results to non-technical stakeholders</strong>, avoid jargon. Instead of saying "the coefficient for training hours is 0.73 with p = 0.012," try: "Our analysis found that each additional hour of training is associated with an employee producing roughly 0.73 more units per day, and this finding is statistically reliable." Focus on what the numbers mean for the specific problem, not on the mechanics of how they were derived.</p>
+
+<p>When the model is used for <strong>prediction</strong>, point estimates alone are insufficient. A prediction interval should accompany any forecast. A prediction interval for a new observation accounts for both the uncertainty in the regression line itself and the natural scatter of individual observations around that line. It is always wider than a confidence interval for the mean response. For example:</p>
+
+<ul>
+  <li><strong>Point prediction:</strong> "Based on the model, a store with $5,000 in monthly ad spend and 10 staff is predicted to generate $45,300 in revenue."</li>
+  <li><strong>With uncertainty:</strong> "The 95% prediction interval is [$38,100, $52,500], meaning we expect actual revenue to fall within this range for 95% of stores with these characteristics."</li>
+</ul>
+
+<p>Communicating uncertainty honestly is not a sign of weakness — it demonstrates analytical rigor and helps decision-makers understand the range of realistic outcomes rather than treating a single number as a certainty.</p>
+
+<p><strong>Recognizing Limitations and Avoiding Misinterpretation</strong></p>
+
+<p>Even a well-fitted, statistically significant regression model comes with important caveats that must be understood to avoid misusing the results.</p>
+
+<p>The most fundamental limitation is that <strong>regression establishes association, not causation</strong>. A statistically significant coefficient tells you that X and Y are linearly related in the data, not that X causes Y. Ice cream sales and drowning rates are positively correlated (both increase in summer), but eating ice cream does not cause drowning. In the regression context, a firm might find that higher advertising spend is associated with more revenue, but this association could partially reflect that profitable firms have more money to spend on advertising — a reverse causation. Establishing causality requires randomized controlled experiments, natural experiments, instrumental variables, or other causal inference frameworks backed by strong theoretical reasoning.</p>
+
+<p><strong>Extrapolation</strong> — predicting outcomes for values of the predictors that lie outside the range of the observed data — is another common pitfall. The regression line is a local approximation to the true relationship in the region where data were collected. Beyond that region, the relationship may behave very differently. A model trained on firms with 1 to 50 employees should not be used to predict outcomes for a 500-employee firm without strong theoretical justification. When you extrapolate, you are no longer interpreting your data; you are speculating.</p>
+
+<p>Several <strong>violations of regression assumptions</strong> can corrupt coefficient estimates and significance tests:</p>
+
+<ul>
+  <li><strong>Non-linearity:</strong> If the true relationship between a predictor and the outcome is curved, a linear model will misfit the data systematically. Residual plots (plotting residuals against fitted values or individual predictors) will often reveal this as a curved or patterned scatter rather than a random cloud. Polynomial terms or transformations can address this.</li>
+  <li><strong>Heteroscedasticity:</strong> If the variance of the residuals is not constant across levels of the predictors (e.g., residuals fan out for larger predicted values), standard errors are biased, making p-values and confidence intervals unreliable. Robust standard errors or variance-stabilizing transformations are remedies.</li>
+  <li><strong>Multicollinearity:</strong> When two or more predictors are highly correlated with each other, it becomes difficult to isolate each one's individual effect. Coefficient estimates become unstable (large standard errors), signs may flip unexpectedly, and the model's interpretation becomes murky. The Variance Inflation Factor (VIF) is a common diagnostic; VIF values above 5 or 10 are often cited as warning thresholds.</li>
+  <li><strong>Influential outliers:</strong> A small number of extreme observations can exert disproportionate influence on the regression line, distorting coefficients. Leverage statistics and Cook's distance help identify such points.</li>
+</ul>
+
+<p><strong>Omitted variable bias</strong> is perhaps the most insidious problem because it is invisible in the output itself. If an important predictor that is correlated with both the included predictors and the outcome is left out of the model, the coefficients for the included predictors will absorb some of its effect and become incorrectly estimated. For example, suppose you model employee productivity using years of experience but omit education level. If more educated employees tend to have more experience <em>and</em> higher productivity, the coefficient on experience will be inflated — it is partly picking up the effect of education. The only defenses against omitted variable bias are subject-matter knowledge, careful model specification, and where possible, collecting and including the relevant variables.</p>
+
+<p>In summary, interpreting regression output well means reading every component of the output table with purpose, contextualizing numerical findings within the real-world problem, and maintaining honest awareness of what the analysis can and cannot tell you. A regression model is not a black box that delivers truth — it is a structured tool for summarizing patterns in data, and its conclusions are only as trustworthy as the quality of the data, the thoughtfulness of the model specification, and the rigor of the interpretation applied to it.</p>
+      <div class="notes"><strong>Notes</strong>Covers all subtopics in depth: coefficient interpretation (intercept, slopes, sign, standardized), significance testing (p-values, t-statistics, CIs), R&#178; and Adjusted R&#178;, F-test, practical vs. statistical significance, communication to stakeholders, prediction intervals, causation vs. association, extrapolation, assumption violations (non-linearity, heteroscedasticity, multicollinearity), and omitted variable bias. Includes worked numeric examples and two HTML tables illustrating regression output and ANOVA summary.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

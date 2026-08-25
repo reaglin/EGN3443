@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Regression Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+  <header>
+    <h1>Foundations of Regression Analysis</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Foundations of Regression Analysis</h2>
+      <p>Regression analysis is one of the most powerful and widely used techniques in statistics and data science. At its heart, it is a systematic method for examining how variables relate to one another — and more specifically, how changes in one or more input variables are associated with changes in an outcome of interest. Whether a hospital administrator wants to understand which patient characteristics predict recovery time, a retailer wants to forecast next quarter's sales, or a public health researcher wants to identify the social determinants of disease, regression provides the mathematical framework to move from raw data to actionable insight. Unlike simple observation or correlation, regression goes further by quantifying the <em>direction</em>, <em>magnitude</em>, and <em>statistical reliability</em> of those relationships, producing an equation that summarizes the data in a form that can be stored, communicated, and reused.</p>
+
+<p>Understanding regression begins with recognizing what it actually does at a fundamental level. Given a collection of data points, the technique finds the best-fitting mathematical equation — typically a straight line in simple cases — that describes how one variable changes as another variable changes. That equation is not merely descriptive; it can be used to generate predictions for observations not yet seen. This dual role — explanation and prediction — is what makes regression indispensable across so many disciplines.</p>
+
+<p><strong>What Is Regression Analysis?</strong></p>
+
+<p>Regression analysis identifies and measures the direction and strength of relationships between variables. <em>Direction</em> refers to whether the relationship is positive (both variables move together) or negative (they move in opposite directions). <em>Strength</em> refers to how consistently and tightly the data follow that pattern. A regression of advertising spend on weekly sales, for instance, might reveal a strong positive relationship: as advertising spend increases, weekly sales tend to increase as well, and the relationship holds fairly consistently across the data.</p>
+
+<p>The output of a regression analysis is a mathematical equation. In the simplest case — one input and one outcome — this equation takes the form of a straight line:</p>
+
+<pre><code>Ŷ = b₀ + b₁X</code></pre>
+
+<p>Here, <code>Ŷ</code> (pronounced "Y-hat") is the predicted value of the outcome, <code>X</code> is the value of the input variable, <code>b₀</code> is the intercept (the predicted value of Y when X equals zero), and <code>b₁</code> is the slope (how much Ŷ changes for each one-unit increase in X). This equation is not just an abstract formula — it encodes everything the model has learned from the data about the relationship between the two variables.</p>
+
+<p>Because regression produces a concrete, interpretable equation, it has found applications in virtually every field that collects numerical data. Economists use regression to study how interest rates affect consumer spending. Healthcare researchers use it to identify which clinical variables predict patient outcomes. Marketing analysts use it to determine which channels drive conversions. Social scientists use it to understand how education, income, and geography interact to shape life outcomes. In each case, the core logic is the same: gather data, fit an equation, and use that equation to understand and predict the world.</p>
+
+<p><strong>Dependent and Independent Variables</strong></p>
+
+<p>Every regression model involves at least two types of variables, and correctly distinguishing between them is not merely a matter of terminology — it fundamentally shapes how the model is built and interpreted.</p>
+
+<p>The <strong>dependent variable</strong>, often written as <em>Y</em>, is the outcome the analyst is trying to explain or forecast. It is called "dependent" because its value is assumed to depend on — or be influenced by — the other variables in the model. In a study of employee productivity, the number of units produced per day might be the dependent variable. In a study of house prices, the sale price would be the dependent variable. The dependent variable is always plotted on the vertical axis in a scatterplot and always sits on the left side of the regression equation.</p>
+
+<p>The <strong>independent variables</strong>, written as <em>X</em> (or <em>X₁, X₂, …, Xₖ</em> when there are several), are the inputs or predictors believed to influence the dependent variable. They are called "independent" because they are treated as given — the analyst does not attempt to explain what determines them within the same model. In the house price example, independent variables might include square footage, number of bedrooms, lot size, and neighborhood crime rate. Each of these is hypothesized to have some effect on the sale price.</p>
+
+<p>A common pitfall is confusing correlation with causation when interpreting regression results. Regression, by itself, establishes statistical association, not causation. Just because X is a statistically significant predictor of Y in a regression model does not necessarily mean that X <em>causes</em> Y. Establishing causation requires additional evidence — often from experimental design, longitudinal data, or domain expertise. Nonetheless, correctly assigning variables to their dependent or independent roles, based on theory and logic, is the first step toward building a model whose results can be meaningfully interpreted.</p>
+
+<p>Consider a concrete example. Suppose a company collects data on the number of sales calls made per week by its sales representatives (<em>X</em>) and the number of deals closed per month (<em>Y</em>). It would be logical to treat calls as the independent variable and deals closed as the dependent variable — the analyst believes that making more calls leads to closing more deals, not the other way around. Reversing the assignment would produce a mathematically valid equation but would lead to nonsensical interpretations.</p>
+
+<p><strong>Purpose of Regression in Decision-Making</strong></p>
+
+<p>One of the most important contributions of regression analysis to organizational practice is its ability to replace gut-feel decisions with decisions grounded in quantifiable evidence. Before regression models were widely accessible, managers often relied on experience, intuition, and anecdotal reasoning to allocate resources and set strategy. Regression provides a disciplined alternative: let the data reveal the relationships, quantify them precisely, and use that quantification to guide action.</p>
+
+<p>Regression serves two broad decision-making purposes. The first is <strong>explanation</strong> — understanding which factors drive an outcome and by how much. A regression of customer churn on account age, number of support tickets, and average monthly spend, for instance, might reveal that the number of support tickets is the strongest predictor of churn, even after controlling for the other factors. That finding directs management attention toward improving customer support, rather than offering blanket discounts or focusing on account age.</p>
+
+<p>The second purpose is <strong>prediction</strong>. Once a regression model has been estimated from historical data, it can be applied to new data to generate forecasts. A lender might use a regression model estimated from past loan performance data to predict the probability that a new applicant will default. A retailer might use a regression model to predict next month's demand for a product based on planned promotions, seasonal indicators, and economic conditions. In both cases, the model takes new input values (<em>X</em>), plugs them into the estimated equation, and produces a predicted output (<em>Ŷ</em>).</p>
+
+<p>An important nuance is that predictive accuracy depends heavily on the quality and relevance of the data used to build the model, the degree to which the future resembles the past, and the appropriateness of the model's assumptions. Regression is a powerful tool, but it is not infallible. Its value in decision-making comes from combining its outputs with domain knowledge and critical thinking — not from treating predicted values as certainties.</p>
+
+<p><strong>Simple vs. Multiple Regression</strong></p>
+
+<p><strong>Simple linear regression</strong> models the relationship between exactly one independent variable and one dependent variable. It is the most transparent form of regression and serves as the conceptual foundation for more complex methods. The equation is:</p>
+
+<pre><code>Ŷ = b₀ + b₁X₁</code></pre>
+
+<p>Simple regression is most appropriate when theory or prior evidence suggests that a single variable is the primary driver of the outcome, or when the analyst needs a quick first look at a bivariate relationship. For example, an analyst might first examine the simple regression of revenue on advertising spend before considering other factors.</p>
+
+<p><strong>Multiple regression</strong> extends this framework by including two or more independent variables simultaneously. The general form is:</p>
+
+<pre><code>Ŷ = b₀ + b₁X₁ + b₂X₂ + … + bₖXₖ</code></pre>
+
+<p>Each coefficient <code>bᵢ</code> now represents the estimated change in Y for a one-unit increase in <code>Xᵢ</code>, <em>holding all other independent variables constant</em>. This "holding constant" feature is one of multiple regression's most powerful properties. It allows analysts to isolate the unique contribution of each predictor after accounting for the influence of all others — something simple regression cannot do.</p>
+
+<p>To illustrate, consider a study of employee salaries. A simple regression of salary on years of experience would estimate how salary changes with experience. But salary also depends on education level, job function, and geographic location. A multiple regression that includes all of these variables simultaneously would give a more complete and accurate picture of what drives salary — and it would tell us, for instance, how much additional salary is associated with one extra year of experience <em>among employees with the same education, job function, and location</em>.</p>
+
+<p>Choosing between simple and multiple regression is ultimately a question of fit between the model and the phenomenon being studied. If the real-world outcome genuinely depends on multiple factors — which is almost always the case — then multiple regression is more appropriate. However, adding variables indiscriminately can introduce problems of its own (such as overfitting and multicollinearity), so the choice of which variables to include should always be guided by theory, logic, and evidence.</p>
+
+<p><strong>The Concept of Model Fit</strong></p>
+
+<p>Once a regression equation has been estimated, a critical question arises: how well does it actually describe the data? This is the question of <strong>model fit</strong>. A regression line is always calculated using an optimization criterion — most commonly, <em>ordinary least squares</em> (OLS), which finds the line that minimizes the sum of squared differences between the observed values of Y and the values predicted by the equation. But even the best-fitting line may not fit the data very well if the relationship between X and Y is inherently weak, noisy, or nonlinear.</p>
+
+<p><strong>Residuals</strong> are the raw material of model fit assessment. A residual for any given observation is simply the difference between the actual observed value of Y and the value predicted by the model:</p>
+
+<pre><code>eᵢ = Yᵢ − Ŷᵢ</code></pre>
+
+<p>If the model fits well, residuals will be small and randomly scattered around zero. If the model fits poorly, residuals will be large, and they may exhibit systematic patterns — clustering above the line in one region and below it in another — suggesting that the model is missing something important.</p>
+
+<p>The most commonly reported measure of overall model fit is the <strong>coefficient of determination, R²</strong>. R² represents the proportion of total variability in Y that is explained by the regression model. It ranges from 0 to 1 (or equivalently, 0% to 100%). An R² of 0.85, for instance, means that 85% of the variation in the dependent variable is accounted for by the independent variables in the model; the remaining 15% is unexplained variance (captured in the residuals).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>R² Value</th>
+      <th>Interpretation</th>
+      <th>Typical Context</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.00 – 0.20</td>
+      <td>Very weak fit; model explains very little variation</td>
+      <td>Complex social phenomena with many unmeasured factors</td>
+    </tr>
+    <tr>
+      <td>0.20 – 0.50</td>
+      <td>Moderate fit; some explanatory power</td>
+      <td>Cross-sectional studies in social sciences, marketing</td>
+    </tr>
+    <tr>
+      <td>0.50 – 0.80</td>
+      <td>Good fit; model captures a substantial portion of variation</td>
+      <td>Business analytics, demand forecasting</td>
+    </tr>
+    <tr>
+      <td>0.80 – 1.00</td>
+      <td>Strong fit; model explains most of the variation</td>
+      <td>Physical sciences, highly controlled experimental settings</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>It is important to note that a high R² does not automatically mean the model is a good one. A model can achieve a high R² by including many irrelevant variables (a phenomenon addressed by the <em>adjusted R²</em>, which penalizes for unnecessary complexity), or by overfitting the training data in a way that does not generalize to new data. Model fit must always be evaluated alongside other criteria, including the logical soundness of the model and the behavior of the residuals.</p>
+
+<p><strong>Assumptions Underlying Regression Analysis</strong></p>
+
+<p>Regression analysis is not assumption-free. Its estimates and inferences are valid only to the extent that certain conditions hold in the data. Violating these assumptions does not always make the regression entirely useless, but it can distort coefficients, inflate or deflate standard errors, and produce misleading statistical tests. Being aware of these assumptions — and checking whether they are plausibly met — is a core responsibility of anyone building or interpreting a regression model.</p>
+
+<ul>
+  <li><strong>Linearity:</strong> The relationship between the independent variable(s) and the dependent variable is assumed to be linear — that is, a straight-line equation adequately captures the relationship. If the true relationship is curved or follows a more complex pattern, the linear model will systematically misfit the data. Analysts typically check this assumption by plotting the data and examining residual plots. When linearity is violated, transformations (such as taking the logarithm of a variable) or nonlinear model specifications can help.</li>
+  <li><strong>Normality of residuals:</strong> The residuals — the errors between observed and predicted values — are assumed to be approximately normally distributed. This assumption is particularly important for small samples, where the accuracy of hypothesis tests and confidence intervals depends on it. In large samples, the Central Limit Theorem provides some protection. Normality can be assessed using histograms of residuals or more formal tests such as the Shapiro-Wilk test.</li>
+  <li><strong>Homoscedasticity (constant variance):</strong> The variance of the residuals is assumed to be constant across all levels of the independent variables. When the spread of residuals increases (or decreases) systematically as X increases, the condition is called <em>heteroscedasticity</em>. Heteroscedasticity does not bias the regression coefficients themselves, but it does make the standard errors unreliable, which in turn makes hypothesis tests and confidence intervals inaccurate. A common visual check is a plot of residuals against fitted values — a funnel-shaped pattern suggests heteroscedasticity.</li>
+  <li><strong>Independence of observations:</strong> Each data point is assumed to be independent of every other — the value observed for one case does not influence, or depend on, the value observed for another. This assumption is frequently violated in time-series data (where today's value depends on yesterday's), in clustered data (where students within the same school share unmeasured similarities), or in spatial data (where geographically close observations tend to be more similar than distant ones). Violations of independence require special modeling approaches such as time-series methods, mixed-effects models, or spatial regression.</li>
+  <li><strong>No perfect multicollinearity (in multiple regression):</strong> When multiple independent variables are included, they should not be perfectly linearly related to one another. Perfect multicollinearity — where one predictor can be expressed as an exact linear combination of others — makes it mathematically impossible to estimate the regression coefficients uniquely. High (but not perfect) multicollinearity does not prevent estimation but makes individual coefficient estimates unstable and difficult to interpret. Variance Inflation Factors (VIFs) are a standard diagnostic tool for detecting multicollinearity.</li>
+</ul>
+
+<p>Together, these assumptions define the conditions under which ordinary least squares regression produces estimates that are unbiased, efficient, and amenable to valid statistical inference. In practice, no dataset perfectly satisfies all of them, and experienced analysts develop judgment about which violations are serious enough to require remediation and which can be tolerated given the purpose of the analysis. The goal is not perfect compliance with every assumption, but sufficient compliance that the model's outputs are trustworthy and interpretable.</p>
+      <div class="notes"><strong>Notes</strong>Introduces the core concepts and purpose of regression analysis, including how it models relationships between variables to support data-driven decision-making. The R&#178; interpretation table provides a practical reference that contextualizes what different values mean across different types of research settings.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

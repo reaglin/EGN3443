@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Non-Parametric Methods</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+  <header>
+    <h1>Introduction to Non-Parametric Methods</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Non-Parametric Methods</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Statistical inference has traditionally been built on parametric methods — techniques that assume data are drawn from a population following a specific probability distribution, most commonly the normal distribution. These assumptions underpin familiar tests such as the t-test, ANOVA, and Pearson's correlation. However, real-world data frequently violate these assumptions: sample sizes may be too small to verify distributional shape, measurements may only be ordinal, or the data may contain extreme values that distort results. <strong>Non-parametric methods</strong> provide a powerful and flexible family of statistical tools designed precisely for these situations. Rather than relying on distributional assumptions, they exploit the order and rank structure of data, making them broadly applicable and remarkably robust. Understanding when and why to use them — and how they compare to their parametric counterparts — is a foundational skill for any rigorous data analyst.</p>
+
+<p><strong>What Are Non-Parametric Methods?</strong></p>
+
+<p>Non-parametric methods are statistical techniques that do not require the data to conform to a specific parametric form of distribution. The term <em>distribution-free</em> is often used interchangeably, capturing the essential idea: the validity of these tests does not depend on the population having a particular shape (such as the bell curve of the normal distribution). Instead of working with the raw numerical values of observations, most non-parametric tests convert data into <strong>ranks</strong> — replacing each value with its position in the ordered sequence of all values — and then perform inference on those ranks.</p>
+
+<p>For example, suppose you measure the recovery times (in days) of five patients: 3, 7, 2, 15, 6. A parametric test would use the actual values 3, 7, 2, 15, and 6, and would be sensitive to the unusually large value of 15. A non-parametric test would instead work with the ranks 2, 4, 1, 5, 3 (where 2 is the second-smallest, 4 is the fourth-smallest, and so on), making the extreme value of 15 no more influential than if it had been 9 or 10 — it simply occupies rank 5 either way. This rank-based approach is what makes non-parametric tests robust and distribution-free.</p>
+
+<p>Non-parametric tests can be applied to a wide variety of data types and research scenarios. They are not restricted to a narrow set of conditions; as long as the data have a meaningful order, a non-parametric test can generally be applied. Some non-parametric tests (such as the chi-square goodness-of-fit or Fisher's exact test) do not even require ordered data and instead work with categorical frequencies, broadening the family further.</p>
+
+<p><strong>When to Use Non-Parametric Tests</strong></p>
+
+<p>Choosing between a parametric and non-parametric test requires a careful assessment of the data and the research context. There are four key situations in which non-parametric methods are particularly appropriate:</p>
+
+<ul>
+  <li><strong>Small sample sizes:</strong> Parametric tests rely on the Central Limit Theorem (CLT) to justify normality of sampling distributions. The CLT generally kicks in reliably when sample sizes are roughly 30 or more per group, but with very small samples (say, <em>n</em> = 5 or <em>n</em> = 10), there is simply not enough data to verify that the CLT applies or to confirm that the population is normal. In these cases, non-parametric tests, which make no such assumption, provide safer and more defensible inference.</li>
+  <li><strong>Ordinal scale data:</strong> When data are recorded on an ordinal scale — such as satisfaction ratings (poor, fair, good, excellent), pain scores (1–10), or Likert-scale responses — the distances between categories are not necessarily equal or meaningful. Calculating a mean of such data and treating it as if it were a precise numerical quantity can be misleading. Non-parametric tests, which work with ranks, are inherently suited to ordinal data because ranks are exactly what ordinal measurements represent.</li>
+  <li><strong>Significant outliers:</strong> Parametric tests, particularly those based on means, are highly sensitive to outliers. A single extreme value can dramatically shift the sample mean and inflate or deflate the test statistic, leading to incorrect conclusions. Because non-parametric methods replace raw values with ranks, an outlier only affects the analysis to the extent that it changes the rank order — which is often minimal. This makes non-parametric tests far more robust in the presence of skewed distributions or data entry errors that produce extreme values.</li>
+  <li><strong>Known non-normal populations:</strong> In some fields, it is well established that the underlying population distribution is heavily skewed or follows a non-normal form (e.g., reaction times in psychology are typically right-skewed; income distributions are typically log-normal or Pareto). When the population is known to deviate substantially from normality and the sample is not large enough for the CLT to compensate, non-parametric methods provide more reliable inference.</li>
+</ul>
+
+<p><strong>Advantages of Non-Parametric Methods</strong></p>
+
+<p>Non-parametric methods offer several compelling advantages that explain their widespread use across disciplines ranging from medicine and psychology to economics and ecology:</p>
+
+<ul>
+  <li><strong>Robustness to outliers and extreme values:</strong> As explained above, by converting data to ranks, non-parametric tests are insulated from the distorting influence of extreme observations. This robustness is not merely a convenience — in many applied settings, outliers are a genuine feature of the data (not errors to be removed), and a method that handles them gracefully produces more trustworthy results.</li>
+  <li><strong>Applicability across data types:</strong> Non-parametric tests can be applied to ordinal, interval, and ratio data. This flexibility means a researcher does not need to worry about whether their measurement scale fully satisfies the requirements of a parametric test. The same family of methods can be used across a variety of study designs and variable types, simplifying the analytical toolkit.</li>
+  <li><strong>Fewer assumptions, lower risk of invalid conclusions:</strong> Every statistical test rests on assumptions, and violated assumptions lead to inflated Type I error rates (false positives) or deflated power (missed true effects). Non-parametric tests require far fewer assumptions — typically only that observations are independent and the data are at least ordinal — so the risk of drawing invalid conclusions from assumption violations is substantially reduced. This is especially important in exploratory research or in areas where population distributions are poorly understood.</li>
+</ul>
+
+<p><strong>Limitations and Trade-offs</strong></p>
+
+<p>Non-parametric methods are not a universally superior choice. They come with meaningful trade-offs that must be weighed against their advantages:</p>
+
+<ul>
+  <li><strong>Lower statistical power when parametric assumptions hold:</strong> Statistical power is the probability of correctly detecting a true effect. When the data genuinely follow a normal distribution (or the sample is large enough for the CLT), parametric tests extract more information from the data and therefore have higher power than their non-parametric equivalents. Using a non-parametric test unnecessarily in this situation means a greater chance of missing a real effect — a Type II error. For example, the Mann-Whitney U test has an asymptotic efficiency of about 95.5% relative to the independent samples t-test under normality, meaning you would need a somewhat larger sample with the non-parametric test to achieve the same power as the parametric one.</li>
+  <li><strong>Loss of information through ranking:</strong> Replacing raw values with ranks discards precise numerical information. The difference between 2 and 7 days of recovery is treated identically to the difference between 2 and 3 days — both are simply adjacent ranks. This compression of information is the price of robustness. In datasets where the exact magnitudes carry important meaning and the distributional assumptions are met, this loss of information translates directly into reduced sensitivity.</li>
+  <li><strong>Less straightforward interpretation:</strong> Parametric tests naturally produce estimates of effect size (such as Cohen's <em>d</em> or <em>R²</em>) and confidence intervals in the original measurement units, which are intuitive to interpret and communicate. Non-parametric tests often report their results in terms of rank sums or rank-based statistics that are less immediately interpretable to non-technical audiences. While rank-based effect sizes (such as the rank-biserial correlation) and confidence intervals do exist for some non-parametric tests, they are less commonly taught and less frequently reported in practice.</li>
+</ul>
+
+<p><strong>Common Non-Parametric Alternatives to Parametric Tests</strong></p>
+
+<p>Every major parametric test has a non-parametric counterpart. The following table summarizes the most frequently used pairings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parametric Test</th>
+      <th>Non-Parametric Alternative</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Independent samples t-test</td>
+      <td>Mann-Whitney U test</td>
+      <td>Comparing two unrelated (independent) groups on a continuous or ordinal outcome</td>
+    </tr>
+    <tr>
+      <td>Paired samples t-test</td>
+      <td>Wilcoxon Signed-Rank test</td>
+      <td>Comparing two related groups or repeated measures on the same subjects</td>
+    </tr>
+    <tr>
+      <td>One-way ANOVA</td>
+      <td>Kruskal-Wallis test</td>
+      <td>Comparing three or more independent groups on a continuous or ordinal outcome</td>
+    </tr>
+    <tr>
+      <td>Repeated measures ANOVA</td>
+      <td>Friedman test</td>
+      <td>Comparing three or more related groups or repeated measures on the same subjects</td>
+    </tr>
+    <tr>
+      <td>Pearson's correlation</td>
+      <td>Spearman's rank correlation</td>
+      <td>Assessing the monotonic relationship between two variables when linearity cannot be assumed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>Mann-Whitney U test</strong> ranks all observations from both groups together and evaluates whether the ranks are systematically higher in one group than the other. It tests whether the distributions of the two groups are identical (or, more practically, whether one group tends to produce higher values than the other), making no assumption about the shape of those distributions.</p>
+
+<p>The <strong>Wilcoxon Signed-Rank test</strong> is the paired-data equivalent. It computes the differences between each pair of observations, ranks those differences by their absolute magnitude, and then examines whether positive or negative differences predominate. It only assumes that the differences are symmetrically distributed around the median, a much weaker condition than the normality of paired differences required by the paired t-test.</p>
+
+<p>The <strong>Kruskal-Wallis test</strong> extends the Mann-Whitney logic to three or more independent groups. All observations are pooled and ranked, and the test evaluates whether the average ranks differ significantly across groups. Like one-way ANOVA, finding a significant Kruskal-Wallis result prompts post-hoc pairwise comparisons (using, for example, Dunn's test with a Bonferroni correction) to identify which specific groups differ.</p>
+
+<p><strong>Spearman's rank correlation</strong> (<em>r<sub>s</sub></em>) measures the strength and direction of the monotonic association between two variables. A monotonic relationship is one where as one variable increases, the other tends to increase (or decrease) — not necessarily at a constant rate. Spearman's correlation converts both variables to ranks and then applies the Pearson formula to those ranks, making it appropriate when the relationship is nonlinear but consistently directional, or when the data are ordinal.</p>
+
+<p><strong>Selecting the Right Test: Parametric vs. Non-Parametric</strong></p>
+
+<p>The decision between a parametric and non-parametric test should follow a systematic process rooted in the characteristics of the data and the study design. A practical decision framework proceeds through four key considerations:</p>
+
+<ul>
+  <li><strong>Step 1 — Examine the scale of measurement:</strong> If the outcome variable is nominal (unordered categories) or ordinal (ordered categories with unequal or unknown intervals), non-parametric or categorical methods are required. Parametric tests are designed for interval or ratio data, where arithmetic operations on the values are meaningful. If your data are Likert-scale responses or ranked preferences, begin with non-parametric methods by default.</li>
+  <li><strong>Step 2 — Assess the distribution:</strong> For interval or ratio data, examine whether the data approximately follow a normal distribution. Visual tools such as histograms and <strong>Q-Q plots</strong> (quantile-quantile plots, which compare the observed quantiles of the data to those expected from a normal distribution) provide a first-pass assessment. Formal statistical tests of normality — most notably the <strong>Shapiro-Wilk test</strong> for small to moderate samples — can provide an objective decision criterion, though they should be interpreted cautiously: with very small samples they have low power to detect non-normality, and with very large samples they may flag trivial departures as significant.</li>
+  <li><strong>Step 3 — Consider sample size:</strong> With large samples (generally <em>n</em> ≥ 30 per group), the Central Limit Theorem ensures that sample means are approximately normally distributed regardless of the population distribution, making parametric tests more defensible even with moderately non-normal data. With small samples, this protection disappears, and non-parametric tests become the safer choice. Outliers also deserve special attention at this stage: even a large sample can be problematic if extreme values are present and influential.</li>
+  <li><strong>Step 4 — Balance power and robustness:</strong> If the data satisfy parametric assumptions (approximately normal, no severe outliers, interval or ratio scale, adequate sample size), prefer parametric tests because they have greater statistical power — they are more likely to detect true effects with the same sample size. If any critical assumption is violated and cannot be corrected through transformation, use the appropriate non-parametric alternative to maintain the validity of inference, accepting the modest reduction in power as the price of methodological rigor.</li>
+</ul>
+
+<p>To make this framework concrete, consider a researcher studying whether a new teaching intervention improves exam scores. If they have 50 students per group and the scores follow an approximately normal distribution, an independent samples t-test is the right choice. But if there are only 8 students per group, scores are recorded on a 10-point rubric with ordinal categories, or a few students received unusually extreme scores, the Mann-Whitney U test is the more appropriate tool. The goal in either case is the same — valid, reliable inference — but the path to that goal depends on the honest characteristics of the data at hand.</p>
+        <div class="notes"><strong>Notes</strong>Introduces non-parametric alternatives to traditional hypothesis tests, explaining when and why they are used when parametric assumptions cannot be satisfied.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

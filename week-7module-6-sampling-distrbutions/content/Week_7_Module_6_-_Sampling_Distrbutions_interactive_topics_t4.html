@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Effect of Sample Size on Variability</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+  <header>
+    <h1>The Effect of Sample Size on Variability</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Effect of Sample Size on Variability</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>One of the most fundamental ideas in statistics is that the size of your sample profoundly shapes how trustworthy your conclusions can be. When researchers collect data, they almost never measure every member of a population — instead, they work with a sample, and from that sample they try to infer something true about the wider group. The critical question is: how closely does the sample's behavior reflect the population's reality? The answer depends heavily on how many observations are included. Understanding the relationship between sample size and variability is not merely a technical exercise; it is the foundation for interpreting nearly every statistical result you will ever encounter.</p>
+
+<p>At the heart of this relationship is a quantity called the <strong>standard error</strong>. While the standard deviation describes how spread out individual observations are within a dataset, the standard error describes how spread out <em>sample means</em> are across many repeated samples drawn from the same population. In other words, if you imagined drawing hundreds of different samples from a population and computing the mean of each one, those means would themselves form a distribution — called the <strong>sampling distribution of the mean</strong> — and the standard deviation of that distribution is the standard error.</p>
+
+<p>The formula for standard error (SE) is elegantly simple:</p>
+
+<pre><code>SE = σ / √n</code></pre>
+
+<p>Here, <strong>σ</strong> is the population standard deviation and <strong>n</strong> is the sample size. This single equation encodes a powerful truth: as sample size grows, standard error shrinks, and our estimates become more precise. The population standard deviation is a fixed property of the population itself — you cannot change it by design. But the sample size is entirely within the researcher's control, making it the primary lever for improving precision.</p>
+
+<p>To make this concrete, suppose a population has a standard deviation of 20. Consider how the standard error changes across different sample sizes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sample Size (n)</th>
+      <th>√n</th>
+      <th>Standard Error (SE = 20 / √n)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>2.00</td>
+      <td>10.00</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>4.00</td>
+      <td>5.00</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>5.00</td>
+      <td>4.00</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>10.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>20.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <td>1600</td>
+      <td>40.00</td>
+      <td>0.50</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that moving from n = 4 to n = 16 — a fourfold increase — cuts the standard error in half, from 10 to 5. This illustrates one of the most important and often misunderstood features of the relationship: <strong>you must quadruple the sample size to halve the standard error</strong>. Simply doubling the sample size is not enough. Because the sample size appears under a square root sign, the returns on investment in larger samples diminish as n grows. Going from n = 400 to n = 1600 — adding 1,200 more observations — reduces SE by only 0.50. That same reduction would require far fewer participants early in the process. This is the <strong>inverse square root relationship</strong> between sample size and standard error, and it has major practical consequences for research design.</p>
+
+<p><strong>Small sample sizes</strong> are particularly vulnerable to a phenomenon called <strong>sampling error</strong> — not an error in the sense of a mistake, but a natural consequence of chance variation. When a sample is small, a single unusual observation can dramatically shift the sample mean away from the population mean. Imagine estimating the average income of a city by interviewing only five residents. If one of those five happens to be exceptionally wealthy, your estimate will be badly skewed. A wide sampling distribution — which is what small n produces — means there is considerable uncertainty about where the true population parameter lies. Conclusions drawn from small samples should always be accompanied by appropriate caution. The wide spread of the sampling distribution means that any given sample mean might be quite far from the population mean purely by chance, making precise inference difficult and confidence intervals necessarily wide.</p>
+
+<p>Consider a practical example: a psychologist wants to estimate the average reaction time (in milliseconds) of adults. The population standard deviation is known to be 50 ms. If the researcher collects a sample of only n = 10 participants, the standard error is 50 / √10 ≈ 15.81 ms. This means that across repeated samples, the typical sample mean will deviate from the true population mean by about 16 ms — a substantial margin. If instead the researcher collects n = 100 participants, SE = 50 / √100 = 5 ms. The sample means now cluster far more tightly around the true value, enabling much more confident and precise conclusions.</p>
+
+<p><strong>Large sample sizes</strong> confer several interlocking benefits. First, and most directly, they shrink the standard error, producing a narrow sampling distribution. When sample means cluster tightly around the population mean, the researcher can construct <strong>confidence intervals</strong> that are narrow and informative. A 95% confidence interval for a mean, for instance, is approximately ±1.96 × SE wide. Halving the standard error halves the width of that interval, dramatically sharpening the estimate. Second, large samples make <strong>hypothesis tests more sensitive</strong>. The test statistic in most common procedures (such as a t-test or z-test) involves dividing an observed difference by the standard error. When SE is small, even modest true differences produce large test statistics that exceed critical thresholds, making it easier to detect real effects. This property is formally called <strong>statistical power</strong> — the probability of correctly rejecting a false null hypothesis — and power rises with sample size. Third, large samples help fulfill the conditions needed for the <strong>Central Limit Theorem (CLT)</strong> to apply. The CLT guarantees that, regardless of the shape of the population distribution, the sampling distribution of the mean will approximate a normal distribution provided n is sufficiently large (commonly cited as n ≥ 30, though the required size depends on how non-normal the population is). This normality justifies the use of standard inferential tools and makes results more interpretable and generalizable.</p>
+
+<p>Despite the clear advantages of larger samples, researchers face real <strong>practical trade-offs</strong> in choosing sample size. Collecting data costs time, money, and — in many fields — places burdens on participants. In clinical trials, for example, exposing more patients to an experimental treatment purely to gain statistical precision may not be ethically justifiable if a smaller sample would already provide sufficiently reliable evidence. In wildlife ecology, capturing and tagging animals carries costs and risks that limit the feasible sample size. These constraints do not make smaller samples wrong; they simply mean that the resulting uncertainty must be explicitly acknowledged. The key discipline is to determine the acceptable level of standard error <em>before</em> data collection begins, and then to calculate the minimum sample size required to achieve it. This process — called a <strong>power analysis</strong> or sample size calculation — prevents the twin pitfalls of under-powered studies (too small to detect real effects) and wastefully over-powered studies (far larger than necessary).</p>
+
+<p>For example, if a marketing analyst needs to estimate average customer spending with a standard error no greater than $2, and the population standard deviation is $30, she can solve for n directly:</p>
+
+<pre><code>SE = σ / √n
+2 = 30 / √n
+√n = 30 / 2 = 15
+n = 15² = 225</code></pre>
+
+<p>A minimum of 225 customers must be surveyed. Collecting fewer would produce an estimate with unacceptably wide uncertainty; collecting far more would be an unnecessary use of resources.</p>
+
+<p>Ultimately, understanding how sample size affects variability transforms how you read and evaluate research. When you see a study reporting a statistically significant effect, it is worth asking: how large was the sample? A very large sample can detect trivially small differences that are statistically significant but practically meaningless, because the standard error is so tiny that even negligible effects clear the significance threshold. Conversely, a study that fails to find a significant result with a small sample may simply be under-powered — the effect may be real but the sampling distribution too wide to detect it reliably. Recognizing these dynamics equips you to look past p-values and confidence intervals as isolated numbers, and instead assess the precision, power, and credibility of the evidence as a whole.</p>
+
+<ul>
+  <li><strong>Standard error (SE = σ / √n)</strong> measures the spread of the sampling distribution of the mean and decreases as sample size increases.</li>
+  <li><strong>The inverse square root relationship</strong> means you must quadruple — not merely double — sample size to halve the standard error.</li>
+  <li><strong>Small samples</strong> produce wide sampling distributions, greater susceptibility to sampling error, and less reliable estimates.</li>
+  <li><strong>Large samples</strong> narrow the sampling distribution, sharpen confidence intervals, increase statistical power, and support the applicability of the Central Limit Theorem.</li>
+  <li><strong>Practical constraints</strong> — including cost, ethics, and logistics — require researchers to define acceptable precision levels before data collection and to transparently report the limitations of their sample size.</li>
+  <li><strong>Critical evaluation of research</strong> requires considering sample size alongside reported statistics, since both over-powered and under-powered studies can mislead if sample size is ignored.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>The table comparing sample sizes and standard errors is an effective anchor for classroom discussion. Instructors may wish to have learners compute SE for additional values of n to reinforce the square root relationship hands-on. The reaction time and marketing analyst worked examples can be adapted to domain-specific contexts (e.g., healthcare, education, finance) depending on the audience.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One-Way ANOVA</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+  <header>
+    <h1>One-Way ANOVA</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> One-Way ANOVA</h2>
+      <p>Analysis of Variance, universally abbreviated as ANOVA, is a family of statistical procedures used to compare means across multiple groups simultaneously. The <strong>one-way ANOVA</strong> is the simplest and most foundational member of this family. It is called "one-way" because it involves exactly <em>one</em> independent variable — also called a <em>factor</em> — that sorts participants into the groups being compared. Rather than asking whether two specific groups differ (as a t-test does), one-way ANOVA asks a broader question: across all the groups defined by this single factor, is there evidence that at least one group mean is meaningfully different from the others? Understanding this procedure thoroughly requires examining its definition and purpose, the structure of its design, the assumptions it rests on, the mechanics of the F-statistic it produces, the step-by-step process of conducting the analysis, the logic of interpreting its results, and the post-hoc tests that follow when the omnibus result is significant.</p>
+
+<p><strong>Definition and Purpose of One-Way ANOVA</strong></p>
+
+<p>At its core, one-way ANOVA is an inferential statistical technique designed to evaluate whether the means of three or more groups differ more than would be expected by chance alone. The "one-way" designation is not merely a label — it carries substantive meaning. There is precisely one independent variable (the factor), and that variable has two or more distinct values called <em>levels</em>. For example, if a researcher wants to compare the effectiveness of three different teaching methods on student exam scores, the independent variable is "teaching method" and it has three levels: Method A, Method B, and Method C. The dependent variable — exam scores — is what is being compared across those levels.</p>
+
+<p>The fundamental purpose of one-way ANOVA is to make a single, omnibus test of whether <em>any</em> group mean differs significantly from the others. This is critically important because if a researcher simply ran multiple independent t-tests to compare every pair of groups, the probability of making at least one Type I error (falsely rejecting a true null hypothesis) would inflate dramatically with each additional comparison. With three groups there are three possible pairwise comparisons; with five groups there are ten. ANOVA sidesteps this problem by testing all groups at once with a single F-statistic, keeping the experiment-wide Type I error rate under control at the chosen significance level (usually α = .05).</p>
+
+<p>One-way ANOVA is also the foundational design from which more complex multi-factor designs are built. Two-way ANOVA, factorial ANOVA, repeated-measures ANOVA, and MANOVA all extend the logic of the one-way case by adding more factors, within-subjects dimensions, or multiple dependent variables. Mastering the one-way design is therefore an essential prerequisite for understanding the entire ANOVA family.</p>
+
+<p><strong>Structure of the One-Way ANOVA Design</strong></p>
+
+<p>In a well-designed one-way ANOVA study, several structural features must be in place. First, the independent variable divides participants into groups called <em>levels</em> or <em>conditions</em>, and these groups must be <em>mutually exclusive</em> — each participant belongs to one and only one group. In a between-subjects design, different people appear in each group; there is no overlap. This mutual exclusivity is what makes each group's data independent of the others in the standard one-way design.</p>
+
+<p>Second, the dependent variable must be measured on an <strong>interval or ratio scale</strong>. This is a non-negotiable requirement because ANOVA compares means, and a meaningful mean requires that the distances between values on the scale are consistent. Interval scales (such as temperature in Celsius or scores on a standardized test) and ratio scales (such as reaction time in milliseconds or weight in kilograms) satisfy this requirement. Ordinal or nominal data generally do not, and a non-parametric alternative such as the Kruskal-Wallis test would be more appropriate in those cases.</p>
+
+<p>Third, while the procedure can technically be applied when there are only two groups, this would be redundant — an independent-samples t-test yields identical results for two groups and is simpler to compute and communicate. One-way ANOVA truly comes into its own with <strong>three or more levels</strong> of the independent variable. The number of levels is often denoted <em>k</em>, so k ≥ 3 is the typical context in which one-way ANOVA is chosen.</p>
+
+<p>To illustrate the design clearly, consider the following example: A clinical psychologist tests three types of therapy (Cognitive-Behavioral Therapy, Mindfulness-Based Therapy, and a Control/Waitlist condition) on reducing depression scores. Here, k = 3 levels of the factor "therapy type." Forty-five patients are randomly assigned to one of the three groups (15 per group), and each patient's depression score (measured on the Beck Depression Inventory, a ratio-like scale) is the dependent variable. This is the classic one-way between-subjects ANOVA design.</p>
+
+<p><strong>Assumptions of One-Way ANOVA</strong></p>
+
+<p>Like all parametric tests, one-way ANOVA rests on a set of assumptions. Violating these assumptions can compromise the validity of the F-test. The four key assumptions are normality, homogeneity of variance, independence of observations, and random sampling.</p>
+
+<p><em>Normality:</em> The dependent variable should be approximately normally distributed within each group. Formally, the errors (residuals) — the deviations of individual scores from their group mean — should follow a normal distribution. In practice, ANOVA is considered <em>robust</em> to moderate violations of normality, especially when sample sizes are equal and reasonably large (n ≥ 30 per group is a common rule of thumb), thanks to the Central Limit Theorem. Normality can be assessed visually using Q-Q plots or histograms, or formally with the Shapiro-Wilk test (preferred for small samples) or the Kolmogorov-Smirnov test. When normality is severely violated and sample sizes are small, the Kruskal-Wallis non-parametric test is a better alternative.</p>
+
+<p><em>Homogeneity of Variance (Homoscedasticity):</em> One-way ANOVA assumes that the population variances of the dependent variable are approximately equal across all groups. Symbolically: σ₁² = σ₂² = … = σₖ². This assumption is most commonly tested with <strong>Levene's test</strong>, which evaluates the null hypothesis that all group variances are equal. A non-significant Levene's test (p > .05) supports the assumption. If variances are substantially unequal (heteroscedastic), Welch's ANOVA is a robust alternative that does not require equal variances and is increasingly recommended as a default in many statistical guidelines. As a rough heuristic, if the largest group variance is more than four times the smallest, the assumption is likely violated enough to warrant concern.</p>
+
+<p><em>Independence of Observations:</em> Each participant's score must be independent of every other participant's score. This means the measurement of one individual should not influence, predict, or be related to the measurement of another. Independence is primarily a feature of good research design rather than something that can be statistically "fixed" after the fact. It is violated when participants are nested within clusters (e.g., students in classrooms), when repeated measurements are taken from the same individual in a between-subjects design, or when participants can communicate with or influence one another during data collection. Violations of independence are among the most serious because they can severely distort the F-test, often leading to inflated Type I error rates.</p>
+
+<p><em>Random Sampling:</em> Data should ideally come from a random sample that is representative of the population to which the researcher wishes to generalize. Without random sampling, the statistical inferences produced by ANOVA may not be validly extended beyond the specific sample studied. In experimental contexts, random <em>assignment</em> to conditions (not random sampling from the population) is also essential for causal inference — it controls for confounding variables and ensures that pre-existing differences between groups are due to chance rather than systematic bias.</p>
+
+<p><strong>The F-Statistic in One-Way ANOVA</strong></p>
+
+<p>The engine of one-way ANOVA is the <strong>F-statistic</strong>, a ratio that compares two independent estimates of population variance. The logic is elegant: if the null hypothesis is true (all group means are equal), both estimates should be roughly the same, and their ratio (F) should be close to 1. If the null hypothesis is false (at least one mean differs), one estimate will be inflated relative to the other, and F will be substantially larger than 1.</p>
+
+<p>The two variance estimates are derived from partitioning the total variability in the data into two components:</p>
+
+<ul>
+  <li><strong>Between-group variance (Mean Square Between, MS<sub>B</sub>):</strong> This reflects how much the group means differ from the overall grand mean. It is calculated by taking the sum of squares between groups (SS<sub>B</sub>) — which measures the weighted squared deviations of each group mean from the grand mean — and dividing by the between-group degrees of freedom (df<sub>B</sub> = k − 1, where k is the number of groups). A large MS<sub>B</sub> indicates that the group means are spread far apart.</li>
+  <li><strong>Within-group variance (Mean Square Within, MS<sub>W</sub>, also called Mean Square Error, MS<sub>E</sub>):</strong> This reflects the natural, unexplained variability among individuals within the same group — variation that cannot be attributed to the independent variable. It is calculated by taking the sum of squares within groups (SS<sub>W</sub>) — the sum of squared deviations of individual scores from their own group mean — and dividing by the within-group degrees of freedom (df<sub>W</sub> = N − k, where N is the total number of observations). MS<sub>W</sub> is the baseline noise level against which the between-group signal is measured.</li>
+</ul>
+
+<p>The F-ratio is then simply:</p>
+
+<pre><code>F = MS_B / MS_W</code></pre>
+
+<p>When the independent variable has a real effect, the group means diverge, making MS<sub>B</sub> large relative to MS<sub>W</sub>, which produces a large F. When the independent variable has no effect, the group means stay close together, MS<sub>B</sub> is small relative to MS<sub>W</sub>, and F hovers near 1. The F-statistic always takes a value ≥ 0 because it is a ratio of two variances (which are always non-negative).</p>
+
+<p>The obtained F is then evaluated against a theoretical <strong>F-distribution</strong> that is defined by two parameters: the numerator degrees of freedom (df<sub>B</sub> = k − 1) and the denominator degrees of freedom (df<sub>W</sub> = N − k). The critical value of F at a given significance level (e.g., α = .05) is the value beyond which only 5% of F-values would fall if the null hypothesis were true. If the obtained F exceeds the critical F, the result is statistically significant and the null hypothesis is rejected.</p>
+
+<p>For example, suppose k = 3 groups, N = 45 participants total (15 per group). Then df<sub>B</sub> = 3 − 1 = 2 and df<sub>W</sub> = 45 − 3 = 42. The critical F at α = .05 with (2, 42) degrees of freedom is approximately 3.22. If the computed F = 5.87, then 5.87 > 3.22, and the result is significant at the .05 level.</p>
+
+<p><strong>Conducting a One-Way ANOVA</strong></p>
+
+<p>Performing a one-way ANOVA involves a systematic series of computational steps. Working through these steps by hand deepens conceptual understanding even when software is used in practice.</p>
+
+<p><em>Step 1 — Define the variables and examine the data.</em> Clearly articulate the independent variable (factor) and its levels, the dependent variable, the sample sizes per group (n₁, n₂, …, nₖ), and the total sample size N = Σnᵢ. Compute the mean for each group (Ȳᵢ) and the overall grand mean (Ȳ_grand = ΣΣYᵢⱼ / N, i.e., the mean of all observations regardless of group).</p>
+
+<p><em>Step 2 — Calculate the Sums of Squares.</em></p>
+
+<ul>
+  <li><strong>SS<sub>B</sub> (Between Groups):</strong> For each group, compute the squared deviation of the group mean from the grand mean, multiply by the group's sample size, and sum across all groups: SS<sub>B</sub> = Σ nᵢ(Ȳᵢ − Ȳ_grand)²</li>
+  <li><strong>SS<sub>W</sub> (Within Groups):</strong> For every individual score, compute the squared deviation from that individual's own group mean, and sum across all observations: SS<sub>W</sub> = ΣΣ(Yᵢⱼ − Ȳᵢ)²</li>
+  <li><strong>SS<sub>T</sub> (Total):</strong> For every individual score, compute the squared deviation from the grand mean: SS<sub>T</sub> = ΣΣ(Yᵢⱼ − Ȳ_grand)². As a check: SS<sub>T</sub> = SS<sub>B</sub> + SS<sub>W</sub>.</li>
+</ul>
+
+<p><em>Step 3 — Compute Degrees of Freedom, Mean Squares, and the F-ratio.</em></p>
+
+<ul>
+  <li>df<sub>B</sub> = k − 1</li>
+  <li>df<sub>W</sub> = N − k</li>
+  <li>MS<sub>B</sub> = SS<sub>B</sub> / df<sub>B</sub></li>
+  <li>MS<sub>W</sub> = SS<sub>W</sub> / df<sub>W</sub></li>
+  <li>F = MS<sub>B</sub> / MS<sub>W</sub></li>
+</ul>
+
+<p><em>Step 4 — Compare to the critical value and make a decision.</em> Using an F-distribution table or software output, find the critical F for df<sub>B</sub> and df<sub>W</sub> at the chosen α. If F_obtained > F_critical, reject H₀. The p-value reported by software gives the exact probability of obtaining an F this large or larger if H₀ were true.</p>
+
+<p>All of these results are conventionally organized in an <strong>ANOVA source table</strong>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Sum of Squares (SS)</th>
+      <th>Degrees of Freedom (df)</th>
+      <th>Mean Square (MS)</th>
+      <th>F</th>
+      <th>p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Between Groups</td>
+      <td>SS<sub>B</sub></td>
+      <td>k − 1</td>
+      <td>MS<sub>B</sub></td>
+      <td>MS<sub>B</sub> / MS<sub>W</sub></td>
+      <td>From F-distribution</td>
+    </tr>
+    <tr>
+      <td>Within Groups (Error)</td>
+      <td>SS<sub>W</sub></td>
+      <td>N − k</td>
+      <td>MS<sub>W</sub></td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Total</td>
+      <td>SS<sub>T</sub></td>
+      <td>N − 1</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To make this concrete, consider a worked example. A researcher measures anxiety scores (0–100 scale, higher = more anxious) in three groups: a Yoga group (n = 5), a Meditation group (n = 5), and a Control group (n = 5). The scores are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Yoga</th>
+      <th>Meditation</th>
+      <th>Control</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>30</td><td>25</td><td>50</td></tr>
+    <tr><td>35</td><td>30</td><td>55</td></tr>
+    <tr><td>28</td><td>22</td><td>48</td></tr>
+    <tr><td>32</td><td>28</td><td>52</td></tr>
+    <tr><td>25</td><td>20</td><td>45</td></tr>
+  </tbody>
+</table>
+
+<p>Group means: Ȳ_Yoga = 30, Ȳ_Meditation = 25, Ȳ_Control = 50. Grand mean: Ȳ_grand = (150 + 125 + 250) / 15 = 525 / 15 = 35.</p>
+
+<p>SS<sub>B</sub> = 5(30−35)² + 5(25−35)² + 5(50−35)² = 5(25) + 5(100) + 5(225) = 125 + 500 + 1125 = 1750.</p>
+
+<p>SS<sub>W</sub>: Within Yoga: (30−30)²+(35−30)²+(28−30)²+(32−30)²+(25−30)² = 0+25+4+4+25 = 58. Within Meditation: (25−25)²+(30−25)²+(22−25)²+(28−25)²+(20−25)² = 0+25+9+9+25 = 68. Within Control: (50−50)²+(55−50)²+(48−50)²+(52−50)²+(45−50)² = 0+25+4+4+25 = 58. SS<sub>W</sub> = 58 + 68 + 58 = 184.</p>
+
+<p>df<sub>B</sub> = 3−1 = 2, df<sub>W</sub> = 15−3 = 12. MS<sub>B</sub> = 1750/2 = 875. MS<sub>W</sub> = 184/12 ≈ 15.33. F = 875/15.33 ≈ 57.08. The critical F(2, 12) at α = .05 is approximately 3.89. Since 57.08 >> 3.89, the result is highly significant (p < .001).</p>
+
+<p><strong>Interpreting One-Way ANOVA Results</strong></p>
+
+<p>When the F-test is statistically significant (p < α), the conclusion is that <em>at least one</em> group mean differs significantly from at least one other. This is sometimes called the <strong>omnibus</strong> result because it is a blanket test across all groups simultaneously. Crucially, a significant F does not tell us <em>which</em> groups differ — only that the pattern of means is unlikely under the null hypothesis that all population means are equal. Identifying the specific pairs of groups that differ requires post-hoc testing (discussed below).</p>
+
+<p>A non-significant F (p ≥ α) means the data do not provide sufficient evidence to conclude that any group means differ. This is <em>not</em> proof that all means are exactly equal — absence of evidence is not evidence of absence. A non-significant result might reflect a true null effect, or it might reflect insufficient statistical power (too small a sample, too much within-group variability, or too small a true effect to detect). Reporting observed power or conducting an a priori power analysis can help distinguish these possibilities.</p>
+
+<p>Beyond statistical significance, results should always be accompanied by a measure of <strong>effect size</strong>. The most common effect size for one-way ANOVA is <strong>eta-squared (η²)</strong>:</p>
+
+<pre><code>η² = SS_B / SS_T</code></pre>
+
+<p>Eta-squared represents the proportion of total variance in the dependent variable that is explained by (attributable to) the independent variable. In the anxiety example above: η² = 1750 / (1750 + 184) = 1750 / 1934 ≈ .905. This is an extremely large effect — about 90.5% of the variance in anxiety scores is accounted for by the type of intervention.</p>
+
+<p>General benchmarks for η² (Cohen's conventions): small ≈ .01, medium ≈ .06, large ≈ .14. Note that η² is a biased estimator (it tends to overestimate the population effect), particularly with small samples. <strong>Omega-squared (ω²)</strong> is a less biased alternative:</p>
+
+<pre><code>ω² = (SS_B − (k−1)·MS_W) / (SS_T + MS_W)</code></pre>
+
+<p>Results should always be interpreted within the context of the research question, theory, and practical significance. A statistically significant F with a tiny η² (e.g., .01) may be statistically detectable with a large enough sample but trivially small in practical terms. Conversely, a large η² that falls just short of statistical significance may warrant further investigation with a larger sample. Communicating both the significance test result and the effect size gives readers the most complete picture.</p>
+
+<p>A complete APA-style reporting of a one-way ANOVA result typically takes the form: <em>F(df_B, df_W) = value, p = value, η² = value</em>. For the anxiety example: <em>F</em>(2, 12) = 57.08, <em>p</em> < .001, η² = .91.</p>
+
+<p><strong>Post-Hoc Testing Following a Significant One-Way ANOVA</strong></p>
+
+<p>Because the omnibus F only tells us that <em>some</em> difference exists, post-hoc ("after the fact") tests are used to identify exactly <em>which pairs</em> of groups are significantly different from each other. These tests are only legitimate and interpretable after a significant omnibus F-test. Running pairwise post-hoc comparisons without first obtaining a significant ANOVA is not appropriate — it defeats the Type I error control that motivated using ANOVA in the first place and inflates the risk of false positives.</p>
+
+<p>The core challenge that post-hoc tests address is the <strong>familywise error rate</strong>. When k groups are compared, there are k(k−1)/2 possible pairwise comparisons. Each comparison, if conducted as a simple t-test at α = .05, carries a 5% chance of a Type I error. Across multiple independent tests, the probability of making at least one Type I error rises quickly: with 3 comparisons it reaches approximately 14%; with 10 comparisons it exceeds 40%. Post-hoc procedures apply various corrections to keep the overall error rate at or near α = .05 while still allowing meaningful pairwise comparisons.</p>
+
+<p>Several post-hoc tests are commonly used, each with different trade-offs between Type I error control and statistical power:</p>
+
+<ul>
+  <li><strong>Tukey's Honestly Significant Difference (HSD):</strong> The most widely used and recommended post-hoc test when group sizes are equal (or approximately equal). It controls the familywise error rate exactly at α for all pairwise comparisons and offers a good balance between Type I and Type II error rates. It uses the <em>studentized range distribution</em> (q) rather than the t-distribution.</li>
+  <li><strong>Bonferroni correction:</strong> Divides α by the number of comparisons (α_adjusted = α / number of comparisons) and uses this stricter threshold for each individual test. It is conceptually simple and very conservative — it controls the familywise error rate but sacrifices power, especially when there are many comparisons. For example, with 3 pairwise comparisons and α = .05, each comparison is evaluated at α_adjusted = .05/3 ≈ .0167.</li>
+  <li><strong>Scheffé's test:</strong> Extremely conservative; it can be used for any linear contrast, not just pairwise comparisons. It is most appropriate when a researcher wants to test complex contrasts (e.g., comparing the mean of two groups combined against a third group). For simple pairwise comparisons, it has less power than Tukey's HSD.</li>
+  <li><strong>Games-Howell test:</strong> Recommended when the assumption of homogeneity of variance has been violated. It does not assume equal variances or equal sample sizes, making it the preferred choice when Levene's test is significant.</li>
+  <li><strong>Newman-Keuls (Student-Newman-Keuls, SNK):</strong> A stepwise procedure that is more powerful than Tukey's HSD but does not control the familywise error rate as strictly, making it more prone to Type I errors. It is less commonly recommended in modern practice.</li>
+</ul>
+
+<p>Each post-hoc comparison produces its own test statistic, <strong>p-value</strong>, and often a <strong>confidence interval</strong> for the mean difference between the two groups being compared. These allow the researcher to not only determine whether a pair of means differs significantly, but also to estimate the magnitude and direction of that difference.</p>
+
+<p>Returning to the anxiety example: a significant F indicated that therapy type affected anxiety. Post-hoc Tukey's HSD comparisons would then test: (1) Yoga vs. Meditation, (2) Yoga vs. Control, and (3) Meditation vs. Control. Based on the group means (30, 25, 50 respectively), we would expect all three pairwise comparisons to be significant, with the largest difference between Meditation and Control (mean difference = 25 points) and the smallest between Yoga and Meditation (mean difference = 5 points). Each comparison's statistical significance would be confirmed by the post-hoc test, and the confidence intervals would quantify the plausible range of the true mean difference in the population.</p>
+
+<p>It is important to note the distinction between post-hoc tests and <strong>planned contrasts</strong> (also called a priori comparisons). Planned contrasts are specified before the data are collected, based on theoretical predictions, and do not require a significant omnibus F as a prerequisite. They are more powerful than post-hoc tests because they target specific hypotheses rather than exploring all possible pairs. However, they require genuine a priori justification — they cannot simply be relabeled post-hoc comparisons.</p>
+
+<p>In summary, the complete workflow for a one-way ANOVA analysis proceeds from careful design and assumption checking, through the computation and evaluation of the F-statistic, to thoughtful interpretation of both the omnibus result and the effect size, and — when the omnibus test is significant — the application of appropriate post-hoc tests to identify the specific group differences that drove the significant finding. This integrated approach ensures that conclusions are both statistically valid and scientifically meaningful.</p>
+      <div class="notes"><strong>Notes</strong>Worked numerical example included for the full ANOVA computation. Post-hoc tests section covers Tukey HSD, Bonferroni, Scheff&#233;, Games-Howell, and Newman-Keuls with rationale for choosing among them. Effect size coverage includes both η&#178; and ω&#178; with Cohen&#39;s benchmarks. APA reporting format illustrated.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

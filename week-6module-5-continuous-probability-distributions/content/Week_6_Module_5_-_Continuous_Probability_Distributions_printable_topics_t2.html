@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Uniform Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+  <header>
+    <h1>The Uniform Distribution</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> The Uniform Distribution</h2>
+      <p>The <strong>uniform distribution</strong> is one of the simplest and most intuitive continuous probability distributions in statistics. Where many distributions — such as the normal or exponential — concentrate probability mass around particular values, the uniform distribution does the opposite: it spreads probability <em>perfectly evenly</em> across a defined interval. Every sub-interval of equal width within the range is equally likely to contain the outcome. This property makes the uniform distribution the natural mathematical model for situations where you genuinely have no reason to prefer one value over another within a given range.</p>
+
+<p>To appreciate why this matters, consider spinning a perfectly balanced prize wheel divided into a continuous arc, or imagine a software random number generator producing a decimal between 0 and 1. In both cases, no particular output value is favoured — the mechanism is deliberately designed to be indifferent across its full range. The uniform distribution gives us the precise mathematical language to describe and calculate probabilities in exactly these kinds of scenarios.</p>
+
+<p>The uniform distribution is a <em>continuous</em> distribution, meaning outcomes can take any real value within its range, not just isolated integers. This distinguishes it from the discrete uniform distribution (where outcomes are, for example, the six faces of a fair die). Everything discussed below refers to the continuous version, which is the form most commonly encountered in statistics and applied probability.</p>
+
+<p><strong>What Is the Uniform Distribution?</strong></p>
+
+<p>A continuous random variable <em>X</em> follows a uniform distribution when its probability density is the same at every point within a fixed interval and zero everywhere outside that interval. The core idea is <em>equal likelihood across a continuous range</em>. There is no peak, no skew, no clustering — just a flat, constant level of probability from one end of the interval to the other.</p>
+
+<p>This distinguishes the uniform distribution sharply from, say, the normal distribution, which piles most probability near its mean and tapers off toward the tails, or the exponential distribution, which places high probability near zero and decays rapidly. The uniform distribution has no preferred centre and no tails — it simply occupies its interval with perfectly constant density.</p>
+
+<p>Common real-world situations that the uniform distribution models well include:</p>
+<ul>
+  <li>The exact arrival time of a commuter who shows up at a bus stop at a completely random moment within a 30-minute window between departures.</li>
+  <li>A digital random number generator producing values between 0 and 1, where every decimal in that range is equally likely.</li>
+  <li>The position at which a dart lands on a uniformly marked target, assuming the thrower hits the board at a random location with no systematic aim.</li>
+  <li>Rounding errors in numerical computation, which are often modelled as uniformly distributed within ±0.5 of the last recorded digit.</li>
+</ul>
+
+<p>In each case, the key judgment is the same: <em>there is no reason, given available information, to believe any value in the interval is more probable than any other</em>. When that judgment holds, the uniform distribution is the appropriate and principled choice.</p>
+
+<p><strong>Parameters of the Uniform Distribution</strong></p>
+
+<p>The uniform distribution is fully described by just two parameters:</p>
+<ul>
+  <li><strong>a</strong> — the <em>minimum</em> possible value (the lower bound of the interval).</li>
+  <li><strong>b</strong> — the <em>maximum</em> possible value (the upper bound of the interval).</li>
+</ul>
+
+<p>We write <em>X ~ U(a, b)</em> to denote that the random variable <em>X</em> follows a uniform distribution on the interval [a, b]. All values strictly below <em>a</em> or strictly above <em>b</em> have zero probability of occurring — they are simply impossible outcomes under this model.</p>
+
+<p>The quantity <strong>(b − a)</strong> is the <em>width</em> of the interval, and it plays a central role in every formula associated with the distribution. A wide interval means outcomes are spread over a large range, producing greater uncertainty; a narrow interval concentrates outcomes more tightly, reducing uncertainty. For instance, <em>U(0, 100)</em> represents far greater variability than <em>U(48, 52)</em>, even though both are uniform distributions.</p>
+
+<p>Consider two examples that clarify the role of parameters:</p>
+<ul>
+  <li><em>X ~ U(0, 1)</em>: The standard uniform distribution. Outcomes fall anywhere between 0 and 1 with equal probability. This is the foundational distribution used in computer simulation and probability theory.</li>
+  <li><em>X ~ U(10, 30)</em>: Outcomes fall anywhere between 10 and 30. The interval width is 20. A value such as 15 is just as likely as a value of 25 or any other specific point in [10, 30].</li>
+</ul>
+
+<p><strong>Probability Density Function (PDF)</strong></p>
+
+<p>The <strong>probability density function (PDF)</strong> mathematically describes the relative likelihood of outcomes for a continuous random variable. For the uniform distribution <em>U(a, b)</em>, the PDF is:</p>
+
+<pre><code>f(x) = 1 / (b − a)    for a ≤ x ≤ b
+f(x) = 0              otherwise</code></pre>
+
+<p>The value <em>1/(b − a)</em> is a constant — it does not depend on <em>x</em> at all. This is precisely what makes the distribution "uniform": the density function is flat across the entire interval. Graphically, the PDF traces a horizontal rectangle: it rises vertically from 0 to the height <em>1/(b − a)</em> at <em>x = a</em>, remains flat until <em>x = b</em>, and drops back to 0.</p>
+
+<p>A valid PDF must satisfy the requirement that the total area under its curve equals exactly 1 (since the total probability of all outcomes must be 100%). For the uniform distribution, this is easy to verify:</p>
+
+<pre><code>Total area = height × width = [1 / (b − a)] × (b − a) = 1  ✓</code></pre>
+
+<p>No matter what values <em>a</em> and <em>b</em> take (as long as <em>b > a</em>), the area is always 1. This confirms the uniform distribution is always a valid probability model.</p>
+
+<p>The flat rectangular shape of the PDF is also a <em>visual confirmation</em> of equal likelihood: because the height is constant, every sub-interval of the same width contains exactly the same area under the curve — and area under a PDF corresponds to probability. So no sub-interval of a given width is ever favoured over another.</p>
+
+<p>For <em>X ~ U(10, 30)</em>, the PDF height is <em>1/(30 − 10) = 1/20 = 0.05</em>. This is a small height because the distribution is spread across a wide interval. For <em>X ~ U(0, 1)</em>, the height is <em>1/(1 − 0) = 1</em>, a taller rectangle because the interval is narrower. In both cases, area = 1.</p>
+
+<p><strong>Calculating Probabilities</strong></p>
+
+<p>For continuous distributions, probability is calculated as the <em>area under the PDF curve</em> over the interval of interest. Because the uniform PDF is a constant height, computing the area reduces to the simple formula for the area of a rectangle:</p>
+
+<pre><code>P(c ≤ X ≤ d) = (d − c) / (b − a)    where a ≤ c &lt; d ≤ b</code></pre>
+
+<p>This is nothing more than the <em>width of the sub-interval of interest</em> divided by the <em>total width of the distribution's range</em>. The result is the proportion of the total interval occupied by [c, d].</p>
+
+<p>An important conceptual point: because <em>X</em> is a continuous random variable, the probability of <em>X</em> taking any single exact value is <strong>zero</strong>. Mathematically, a single point has zero width and therefore zero area under the curve. This means:</p>
+
+<pre><code>P(X = c) = 0    for any specific value c</code></pre>
+
+<p>Consequently, <em>P(c ≤ X ≤ d) = P(c &lt; X &lt; d) = P(c ≤ X &lt; d)</em> — whether endpoints are included or excluded makes no difference for continuous distributions.</p>
+
+<p>Let's walk through several worked examples to make this concrete.</p>
+
+<p><em>Example 1:</em> A train departs exactly every 20 minutes. A passenger arrives at the station at a completely random time. Let <em>X</em> be the waiting time in minutes. Then <em>X ~ U(0, 20)</em>. What is the probability the passenger waits more than 14 minutes?</p>
+
+<pre><code>P(X > 14) = (20 − 14) / (20 − 0) = 6 / 20 = 0.30</code></pre>
+
+<p>There is a 30% chance the passenger waits more than 14 minutes.</p>
+
+<p><em>Example 2:</em> Using the same train scenario, what is the probability the passenger waits between 5 and 12 minutes?</p>
+
+<pre><code>P(5 ≤ X ≤ 12) = (12 − 5) / (20 − 0) = 7 / 20 = 0.35</code></pre>
+
+<p><em>Example 3:</em> For <em>X ~ U(0, 1)</em>, what is the probability <em>X</em> falls between 0.25 and 0.75?</p>
+
+<pre><code>P(0.25 ≤ X ≤ 0.75) = (0.75 − 0.25) / (1 − 0) = 0.50 / 1 = 0.50</code></pre>
+
+<p>Exactly half the probability lies in the middle half of the interval — a result that perfectly reflects the uniform distribution's symmetry.</p>
+
+<p>The simplicity of the formula <em>(d − c)/(b − a)</em> is one of the uniform distribution's most practical virtues. Unlike the normal distribution, which requires tables or software to evaluate probabilities, the uniform distribution's probabilities are always just a ratio of lengths — arithmetic that can be done by hand in seconds.</p>
+
+<p><strong>Mean and Variance of the Uniform Distribution</strong></p>
+
+<p>The <strong>mean</strong> (expected value) of a uniform distribution is simply the midpoint of the interval:</p>
+
+<pre><code>μ = (a + b) / 2</code></pre>
+
+<p>This makes intuitive sense. Because the distribution is perfectly symmetric and flat, there is no reason for the average to fall anywhere other than the exact centre of [a, b]. For <em>X ~ U(10, 30)</em>, the mean is <em>(10 + 30)/2 = 20</em>. For <em>X ~ U(0, 1)</em>, the mean is <em>0.5</em>.</p>
+
+<p>The <strong>variance</strong> measures how spread out the values are around the mean. For the uniform distribution:</p>
+
+<pre><code>σ² = (b − a)² / 12</code></pre>
+
+<p>The <strong>standard deviation</strong> is the square root of the variance:</p>
+
+<pre><code>σ = (b − a) / √12 = (b − a) / (2√3)</code></pre>
+
+<p>Notice that both the variance and standard deviation depend <em>only</em> on the width of the interval <em>(b − a)</em>, not on where the interval is located on the number line. Shifting the entire distribution left or right (changing both <em>a</em> and <em>b</em> by the same amount) changes the mean but leaves the variance unchanged.</p>
+
+<p>A wider interval produces larger variance — reflecting the greater uncertainty about where in the range an outcome will fall. Consider this comparison:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Distribution</th>
+      <th>a</th>
+      <th>b</th>
+      <th>Width (b − a)</th>
+      <th>Mean μ</th>
+      <th>Variance σ²</th>
+      <th>Std Dev σ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>U(0, 1)</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.5</td>
+      <td>0.0833</td>
+      <td>0.2887</td>
+    </tr>
+    <tr>
+      <td>U(0, 10)</td>
+      <td>0</td>
+      <td>10</td>
+      <td>10</td>
+      <td>5.0</td>
+      <td>8.333</td>
+      <td>2.887</td>
+    </tr>
+    <tr>
+      <td>U(10, 30)</td>
+      <td>10</td>
+      <td>30</td>
+      <td>20</td>
+      <td>20.0</td>
+      <td>33.333</td>
+      <td>5.774</td>
+    </tr>
+    <tr>
+      <td>U(0, 60)</td>
+      <td>0</td>
+      <td>60</td>
+      <td>60</td>
+      <td>30.0</td>
+      <td>300.0</td>
+      <td>17.321</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The divisor of 12 in the variance formula is not arbitrary — it arises from the integration of <em>(x − μ)²</em> multiplied by the constant PDF over the interval, and it is a fixed characteristic of the uniform distribution's shape. A useful way to remember it: the uniform distribution's variance is always <em>one-twelfth</em> of the square of the interval's width.</p>
+
+<p><strong>Cumulative Distribution Function (CDF)</strong></p>
+
+<p>The <strong>cumulative distribution function (CDF)</strong>, written <em>F(x)</em>, gives the probability that the random variable <em>X</em> takes a value <em>less than or equal to x</em>. It is defined for all real numbers:</p>
+
+<pre><code>F(x) = 0                    for x &lt; a
+F(x) = (x − a) / (b − a)   for a ≤ x ≤ b
+F(x) = 1                    for x > b</code></pre>
+
+<p>Because the PDF is constant, the CDF accumulates probability at a constant rate, producing a <em>linear</em> (straight-line) increase from 0 to 1 across the interval [a, b]. This is another visual hallmark of the uniform distribution: its CDF is a straight diagonal line between the points <em>(a, 0)</em> and <em>(b, 1)</em>.</p>
+
+<p>The CDF is especially useful for computing probabilities of the form <em>P(X ≤ x)</em> without needing to integrate the PDF:</p>
+
+<pre><code>P(X ≤ x) = F(x) = (x − a) / (b − a)</code></pre>
+
+<p>And for interval probabilities, we can use the CDF directly:</p>
+
+<pre><code>P(c ≤ X ≤ d) = F(d) − F(c) = (d − a)/(b − a) − (c − a)/(b − a) = (d − c)/(b − a)</code></pre>
+
+<p>This confirms consistency with the direct probability formula given earlier.</p>
+
+<p><em>Example:</em> For the train waiting time <em>X ~ U(0, 20)</em>, find <em>P(X ≤ 8)</em>.</p>
+
+<pre><code>F(8) = (8 − 0) / (20 − 0) = 8/20 = 0.40</code></pre>
+
+<p>There is a 40% chance the passenger waits 8 minutes or less. Geometrically, this is because <em>x = 8</em> is 40% of the way through the interval [0, 20], and the CDF at that point reflects exactly that fraction.</p>
+
+<p>The linearity of the CDF is also a useful sanity check: the midpoint of the interval <em>(a + b)/2</em> should always give <em>F = 0.5</em>, since exactly half the distribution lies below the mean. Verify: <em>F(10) = (10 − 0)/(20 − 0) = 0.5</em>. ✓</p>
+
+<p><strong>Practical Applications of the Uniform Distribution</strong></p>
+
+<p>Despite its simplicity, the uniform distribution appears in a surprisingly wide range of applied settings.</p>
+
+<ul>
+  <li><strong>Waiting time modelling:</strong> When a bus or train runs on a fixed schedule and a person arrives at a stop at an arbitrary time, the waiting time until the next vehicle is well modelled by a uniform distribution over the interval [0, headway], where headway is the time between services. This is a clean, tractable model that yields quick probability estimates for operational planning.</li>
+
+  <li><strong>Quality control and measurement error:</strong> In manufacturing and metrology, small rounding or measurement errors are often modelled as <em>U(−δ, δ)</em> for some tolerance <em>δ</em>. This reflects the assumption that errors are equally likely to fall anywhere within the instrument's precision limits, with no systematic bias in any direction.</li>
+
+  <li><strong>Random number generation and simulation:</strong> The <em>U(0, 1)</em> distribution is the <em>foundation</em> of computational simulation. Virtually every software random number generator produces values that approximate <em>U(0, 1)</em>. These values are then transformed to simulate outcomes from other distributions using a powerful technique called <strong>inverse transform sampling</strong>: if <em>U ~ U(0, 1)</em> and <em>F</em> is the CDF of any target distribution, then <em>F⁻¹(U)</em> produces a value with that target distribution. This makes the uniform distribution a universal building block for Monte Carlo methods, statistical simulation, and probabilistic modelling.</li>
+
+  <li><strong>Bayesian inference:</strong> In Bayesian statistics, the uniform distribution is used as a <em>non-informative prior</em> — a prior probability distribution chosen to express complete ignorance about a parameter's value before observing data. Using <em>U(a, b)</em> as a prior says: "Before seeing data, I believe every value in [a, b] is equally plausible."</li>
+
+  <li><strong>Cryptography and security:</strong> Random key generation in cryptographic systems relies on uniform distributions to ensure that no key value is more guessable than any other — equal probability across all possible keys is essential to security.</li>
+</ul>
+
+<p>To bring together all the key properties in one place, the following table summarises the uniform distribution's characteristics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Formula / Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Notation</td>
+      <td>X ~ U(a, b)</td>
+    </tr>
+    <tr>
+      <td>Parameters</td>
+      <td>a (minimum), b (maximum), with b &gt; a</td>
+    </tr>
+    <tr>
+      <td>PDF</td>
+      <td>f(x) = 1/(b − a) for a ≤ x ≤ b; 0 otherwise</td>
+    </tr>
+    <tr>
+      <td>CDF</td>
+      <td>F(x) = (x − a)/(b − a) for a ≤ x ≤ b; 0 for x &lt; a; 1 for x &gt; b</td>
+    </tr>
+    <tr>
+      <td>Mean (μ)</td>
+      <td>(a + b) / 2</td>
+    </tr>
+    <tr>
+      <td>Variance (σ²)</td>
+      <td>(b − a)² / 12</td>
+    </tr>
+    <tr>
+      <td>Standard Deviation (σ)</td>
+      <td>(b − a) / √12</td>
+    </tr>
+    <tr>
+      <td>Interval Probability</td>
+      <td>P(c ≤ X ≤ d) = (d − c) / (b − a)</td>
+    </tr>
+    <tr>
+      <td>Probability at a point</td>
+      <td>P(X = c) = 0 for any specific value c</td>
+    </tr>
+    <tr>
+      <td>Shape of PDF</td>
+      <td>Flat rectangle (constant height)</td>
+    </tr>
+    <tr>
+      <td>Shape of CDF</td>
+      <td>Straight line from (a, 0) to (b, 1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The uniform distribution's elegance lies in its complete transparency: every formula follows directly and obviously from the single defining property of equal likelihood across an interval. Mastering it provides not only a useful probability model in its own right but also a conceptual foundation for understanding more complex distributions and the simulation techniques that underpin modern statistics and data science.</p>
+      <div class="notes"><strong>Notes</strong>Learners should be comfortable substituting values of a and b into each formula and interpreting results in context. Emphasis on the CDF&#39;s linearity and the zero probability of point values helps bridge intuition from discrete to continuous distributions. The inverse transform sampling application is worth highlighting for learners who will encounter simulation or computational statistics.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

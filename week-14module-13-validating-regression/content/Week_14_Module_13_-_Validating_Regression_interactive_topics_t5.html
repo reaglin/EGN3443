@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identifying and Diagnosing Model Weaknesses</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+  <header>
+    <h1>Identifying and Diagnosing Model Weaknesses</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Identifying and Diagnosing Model Weaknesses</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building a regression model is only half the work. The other half — arguably the more critical half — involves scrutinizing that model for structural weaknesses that can silently corrupt its estimates, mislead its interpretations, and undermine its usefulness in practice. Three categories of problems are especially common and consequential: <strong>multicollinearity</strong> among predictors, <strong>outliers</strong> in the response, and <strong>influential observations</strong> that exert outsized control over the model's fitted coefficients. Each of these problems has its own diagnostic toolkit, and each demands a thoughtful, evidence-based response. A disciplined analyst does not merely fit a model and report its output — they subject that output to a systematic battery of checks before drawing any substantive conclusions.</p>
+
+<p><strong>Understanding Multicollinearity</strong></p>
+
+<p>Multicollinearity occurs when two or more predictor variables in a regression model are highly correlated with one another. This is not a violation of any formal assumption in the sense that it prevents a model from being estimated, but it creates serious practical problems for interpreting and trusting the estimates that emerge. The core issue is this: if two predictors move together almost perfectly, the model cannot reliably determine how much of the change in the outcome is attributable to one versus the other. The coefficient estimates become extremely sensitive to small changes in the data — adding or removing a single observation, or slightly rescaling a variable, can cause the estimated coefficients to swing dramatically in magnitude or even reverse in sign.</p>
+
+<p>The mathematical reason for this instability is that multicollinearity inflates the <strong>standard errors</strong> of the affected regression coefficients. In ordinary least squares, the variance of a coefficient estimate is proportional to the inverse of the amount of unique variance that predictor contributes beyond what the other predictors already explain. When predictors are highly redundant, that unique variance shrinks toward zero, driving standard errors upward. Large standard errors mean wide confidence intervals and weak t-statistics, so predictors that genuinely matter may appear statistically insignificant — not because they are unimportant, but because the model cannot disentangle their individual contributions.</p>
+
+<p>The primary formal diagnostic is the <strong>Variance Inflation Factor (VIF)</strong>. The VIF for a given predictor <em>X<sub>j</sub></em> is computed by regressing <em>X<sub>j</sub></em> on all other predictors and recording the resulting R². The VIF is then:</p>
+
+<pre><code>VIF(X_j) = 1 / (1 - R²_j)</code></pre>
+
+<p>A VIF of 1 means the predictor shares no linear relationship with any other predictor — perfect orthogonality. A VIF of 5 means 80% of the variance in that predictor is explained by the others, while a VIF of 10 means 90% redundancy. By convention, <strong>VIF values above 5 are a warning flag</strong> and <strong>VIF values above 10 indicate serious multicollinearity</strong> that almost certainly requires action. Some fields apply stricter thresholds (VIF &gt; 4), while others tolerate higher values when predictors are inherently correlated by the nature of the subject matter.</p>
+
+<p>Before computing VIF values, a useful and faster first step is to inspect a <strong>correlation matrix</strong> among all predictors. Pairwise correlations above 0.80 or 0.90 in absolute value are a strong signal of potential collinearity. However, the correlation matrix only captures pairwise relationships; multicollinearity can also arise from combinations of three or more predictors even when no single pair is highly correlated — a situation the VIF captures but a pairwise correlation matrix may miss entirely.</p>
+
+<p>Consider a concrete example. Suppose a researcher models house prices using square footage, number of rooms, and number of bathrooms as predictors. Square footage and number of rooms are naturally correlated — larger houses tend to have more rooms. The VIF for each might be 8 or 9, signaling that their individual coefficients are unreliable even if the model's overall fit (R²) looks strong. A model with severe multicollinearity can predict well in aggregate while offering essentially no trustworthy information about which specific predictor matters more.</p>
+
+<p>Remedies for multicollinearity fall into several categories. The most straightforward is to <strong>remove one of the correlated predictors</strong>, retaining the one with stronger theoretical justification or better measurement quality. A second option is to <strong>combine the correlated variables into a composite</strong> — for instance, averaging them or creating a sum score — which collapses redundant information into a single dimension. A third approach is <strong>dimensionality reduction</strong> via Principal Component Analysis (PCA), which transforms the original correlated predictors into a smaller set of uncorrelated components. Ridge regression, a form of regularization, is also widely used because it tolerates multicollinearity by adding a small bias to coefficient estimates in exchange for greatly reduced variance.</p>
+
+<p><strong>Detecting Outliers in Regression</strong></p>
+
+<p>An outlier in regression is an observation whose response value is far from what the model predicts — that is, an observation with a large residual. Unlike multicollinearity, which is a property of the predictor space, outliers are defined in terms of how poorly the model fits a particular data point in the outcome dimension. They matter because large residuals increase the estimated error variance, reduce statistical power, and can distort coefficient estimates if the model tries to partially accommodate them.</p>
+
+<p>Raw residuals are not ideal for detecting outliers because their scale depends on the units of the response variable and their variance is not constant across observations (even under ideal model assumptions). Two better alternatives are <strong>standardized residuals</strong> and <strong>studentized residuals</strong>. A standardized residual divides the raw residual by the model's estimated standard error of the residuals. A studentized residual (also called an externally studentized residual) goes further: it refits the model with the observation in question removed and computes the residual relative to that leave-one-out standard error, making it more sensitive to individual outlying points. Both are approximately normally distributed under ideal conditions, so <strong>absolute values greater than 2 attract attention</strong> and <strong>absolute values greater than 3 are strong evidence of a genuine outlier</strong>.</p>
+
+<p>Visually, the most important diagnostic is the <strong>residuals vs. fitted values plot</strong>. In this plot, each observation appears as a point whose horizontal position represents its fitted (predicted) value and whose vertical position represents its residual. Under a well-specified model, these points should scatter randomly in a horizontal band around zero with roughly constant spread. An observation that sits far above or below the band — especially one that does so consistently as fitted values change — is a candidate outlier. The plot also reveals broader problems like nonlinearity and heteroscedasticity, which makes it indispensable as a first diagnostic step.</p>
+
+<p>When outliers are detected, the analysis does not end with identification. Each flagged observation should be <strong>investigated</strong> before any decision is made. Common explanations include data entry errors (a decimal point in the wrong place, a unit conversion mistake), measurement instrument failure, or a genuine extreme event in the population. If the outlier is traceable to a recording error, correction or removal is clearly justified and should be documented. If the observation appears to be a legitimate but extreme case, removing it without justification risks introducing selection bias and misrepresenting the true population. In such cases, it may be more defensible to report results both with and without the observation, transparently noting the difference.</p>
+
+<p><strong>Identifying Influential Observations</strong></p>
+
+<p>An influential observation is one whose removal from the dataset would substantially change the fitted model — its coefficients, its predictions, or both. Importantly, an observation does not need to be an outlier in the response to be influential. It may be influential simply because its predictor values are far from the bulk of the data, giving it a large amount of <strong>leverage</strong>.</p>
+
+<p>Leverage quantifies how far an observation's predictor values are from the centroid (mean) of all predictors. Formally, the leverage of observation <em>i</em> is the <em>i</em>th diagonal element of the hat matrix <em>H = X(X'X)⁻¹X'</em>, often written <em>h<sub>ii</sub></em>. Leverage values range from 1/<em>n</em> to 1. A common rule of thumb flags observations where <em>h<sub>ii</sub> &gt; 2p/n</em>, where <em>p</em> is the number of predictors including the intercept and <em>n</em> is the sample size. A high-leverage point has the <em>potential</em> to distort the model, but whether it actually does so depends on whether its response value is consistent with the rest of the data. A high-leverage point with a small residual is not particularly harmful; a high-leverage point with a large residual is a high-influence observation that demands close scrutiny.</p>
+
+<p><strong>Cook's Distance</strong> is the most widely used influence metric precisely because it combines both leverage and residual size into a single number. Cook's D for observation <em>i</em> measures how much the entire vector of fitted values changes when that observation is removed:</p>
+
+<pre><code>Cook's D_i = (e_i² / (p * MSE)) * (h_ii / (1 - h_ii)²)</code></pre>
+
+<p>where <em>e<sub>i</sub></em> is the residual, <em>p</em> is the number of estimated parameters, <em>MSE</em> is the mean squared error, and <em>h<sub>ii</sub></em> is the leverage. A Cook's Distance greater than <strong>1</strong> is traditionally considered large, though in smaller samples a stricter threshold of <strong>4/n</strong> is often preferred because it scales with sample size. An observation with Cook's D above these thresholds warrants close examination — removing it and rerunning the model will likely produce meaningfully different coefficient estimates.</p>
+
+<p>Two additional diagnostics provide complementary granularity. <strong>DFFITS</strong> measures the change in the fitted value for observation <em>i</em> when that observation is removed, expressed in standard deviation units — a scaled version of Cook's D focused on fitted values rather than the full coefficient vector. <strong>DFBETAS</strong> decomposes influence at the level of individual coefficients: DFBETAS for predictor <em>j</em> and observation <em>i</em> measures how much the estimated coefficient for <em>X<sub>j</sub></em> changes (in standard error units) when observation <em>i</em> is excluded. This is especially useful when a researcher wants to know whether a specific observation is driving the conclusion about one particular predictor.</p>
+
+<p>The appropriate response to an influential observation depends on context. An influential point may represent a <strong>genuine edge case</strong> that belongs in the data and reveals something important about the real population. Alternatively, it may signal <strong>model misspecification</strong> — perhaps the true relationship is nonlinear in a region where the influential observation sits, and a transformed or more flexible model would handle it gracefully. In either case, deleting the observation without investigation and documentation is scientifically indefensible.</p>
+
+<p><strong>Systematic Diagnostic Workflow</strong></p>
+
+<p>Diagnostic checks are most effective when applied in a structured sequence rather than haphazardly. A coherent workflow moves from broad visual checks to targeted numerical diagnostics, ensuring that gross problems are identified before subtle ones, and that each finding informs the next step.</p>
+
+<ul>
+  <li><strong>Step 1 — Visual residual inspection:</strong> Begin with the residuals vs. fitted values plot and the scale-location plot. Look for broad patterns: systematic curves (nonlinearity), funnel shapes (heteroscedasticity), or clustering that might indicate omitted group structure. These visual checks are fast and can immediately reveal whether the model's fundamental assumptions are satisfied.</li>
+  <li><strong>Step 2 — Normality assessment:</strong> Examine the Normal Q-Q plot of residuals. While regression is relatively robust to mild departures from normality in large samples, severe skewness or heavy tails can affect hypothesis tests and confidence intervals, particularly in small samples.</li>
+  <li><strong>Step 3 — Multicollinearity diagnostics:</strong> Compute the pairwise correlation matrix among predictors as a quick screen, then calculate VIF values for all predictors. If VIF values exceed the chosen threshold, investigate which predictors are involved and consider the remedies discussed above.</li>
+  <li><strong>Step 4 — Outlier screening:</strong> Compute standardized or studentized residuals and flag observations exceeding the chosen threshold (typically ±2 or ±3). Cross-reference flagged observations with the raw data to check for recording errors or unusual circumstances.</li>
+  <li><strong>Step 5 — Influence diagnostics:</strong> Compute Cook's Distance for all observations and flag those exceeding 1 or 4/<em>n</em>. For a deeper analysis, examine DFFITS and DFBETAS for flagged observations to understand which coefficients they are distorting.</li>
+  <li><strong>Step 6 — Document and decide:</strong> Record every finding, its magnitude, and the rationale for any corrective action taken. Decisions about removing variables, transforming predictors, excluding observations, or re-specifying the model should be transparent and theoretically grounded, not driven solely by which choice produces the most convenient p-values.</li>
+</ul>
+
+<p><strong>Interpreting Diagnostic Plots</strong></p>
+
+<p>The four standard regression diagnostic plots — available as a default output in R's <code>plot(lm_object)</code> and reproducible in Python, Stata, and other platforms — each communicate something distinct about model quality.</p>
+
+<p>The <strong>residuals vs. fitted values plot</strong> is the most fundamental. Ideally, points scatter randomly around the horizontal line at zero with no discernible pattern and approximately constant vertical spread across the range of fitted values. A curved or U-shaped pattern signals that the linear specification is inadequate and that a transformation of a predictor or the response (e.g., log, square root) may be needed. Wedge-shaped spreading (a fan pattern) signals heteroscedasticity — the variance of residuals grows as fitted values increase — which violates OLS assumptions and compromises standard error estimates.</p>
+
+<p>The <strong>Normal Q-Q plot</strong> plots the quantiles of standardized residuals against the theoretical quantiles of a standard normal distribution. If residuals are normally distributed, the points fall along a straight diagonal line. <strong>Heavy tails</strong> (points curving away from the line at both ends) indicate a leptokurtic distribution with more extreme values than normality predicts. An <strong>S-shaped curve</strong> suggests skewness. Mild departures are often acceptable in large samples, but severe departures — especially in small samples — may warrant robust regression methods or response transformation.</p>
+
+<p>The <strong>scale-location plot</strong> (sometimes called the spread-location plot) plots the square root of the absolute value of standardized residuals against fitted values. This transformation makes it easier to see whether residual spread is constant (homoscedastic) or varies systematically. A flat, roughly horizontal smoother line with randomly scattered points indicates homoscedasticity. An upward or downward trend in the smoother indicates heteroscedasticity.</p>
+
+<p>The <strong>residuals vs. leverage plot</strong> is perhaps the most information-dense of the four. It places observations in a two-dimensional space defined by their leverage (x-axis) and their standardized residual (y-axis). Contours of Cook's Distance are typically overlaid as dashed curves. Observations in the upper-right or lower-right corners — high leverage and large residuals — are high-influence points. An observation in the upper-left (large residual but low leverage) is an outlier but may not strongly influence the model. An observation in the lower-right (high leverage but small residual) is a high-leverage point that happens to fall close to the regression surface and may therefore reinforce rather than distort it.</p>
+
+<p>The table below summarizes the diagnostic tools discussed, what each measures, and the typical thresholds used to flag problems:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Diagnostic Tool</th>
+      <th>What It Measures</th>
+      <th>Common Flag Threshold</th>
+      <th>Primary Problem Detected</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Correlation matrix</td>
+      <td>Pairwise linear association between predictors</td>
+      <td>|r| &gt; 0.80 or 0.90</td>
+      <td>Multicollinearity (pairwise)</td>
+    </tr>
+    <tr>
+      <td>Variance Inflation Factor (VIF)</td>
+      <td>Redundancy of each predictor given all others</td>
+      <td>VIF &gt; 5 (warning) or &gt; 10 (serious)</td>
+      <td>Multicollinearity (all predictors)</td>
+    </tr>
+    <tr>
+      <td>Standardized residual</td>
+      <td>Residual scaled by model standard error</td>
+      <td>|value| &gt; 2 or 3</td>
+      <td>Outliers in response</td>
+    </tr>
+    <tr>
+      <td>Studentized residual</td>
+      <td>Residual scaled by leave-one-out standard error</td>
+      <td>|value| &gt; 2 or 3</td>
+      <td>Outliers in response (more sensitive)</td>
+    </tr>
+    <tr>
+      <td>Leverage (h<sub>ii</sub>)</td>
+      <td>Distance of predictor values from centroid</td>
+      <td>h<sub>ii</sub> &gt; 2p/n</td>
+      <td>High-leverage observations</td>
+    </tr>
+    <tr>
+      <td>Cook's Distance</td>
+      <td>Combined leverage and residual influence</td>
+      <td>&gt; 1 or &gt; 4/n</td>
+      <td>Influential observations (overall)</td>
+    </tr>
+    <tr>
+      <td>DFFITS</td>
+      <td>Change in fitted value when observation removed</td>
+      <td>|value| &gt; 2√(p/n)</td>
+      <td>Influential observations (fitted values)</td>
+    </tr>
+    <tr>
+      <td>DFBETAS</td>
+      <td>Change in each coefficient when observation removed</td>
+      <td>|value| &gt; 2/√n</td>
+      <td>Influential observations (per coefficient)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Consequences of Ignoring Model Weaknesses</strong></p>
+
+<p>It is tempting to skip the diagnostic phase, especially under time pressure or when a model's summary statistics look appealing. But the consequences of presenting an unvalidated model as trustworthy can be serious and far-reaching.</p>
+
+<p>When <strong>multicollinearity is ignored</strong>, coefficients become unreliable in the most literal sense. Their signs can reverse from one dataset to another, or from one slightly different model specification to another, even when the same population is being studied. A predictor may appear to be negatively associated with an outcome when the true relationship is positive, simply because a correlated predictor is partially absorbing its effect. Researchers who do not recognize this will draw substantively wrong conclusions and potentially advocate for policies or interventions based on those conclusions.</p>
+
+<p>When <strong>influential observations are left unexamined</strong>, the model may achieve excellent fit on a small cluster of data points that are driving the regression surface while fitting the majority of the data poorly. This is particularly dangerous in small samples, where a single observation can shift a coefficient estimate enough to cross a significance threshold. A model that performs well on training data but whose fit is anchored by two or three extreme cases will generalize poorly to new data.</p>
+
+<p>When <strong>outliers are ignored</strong>, they inflate the residual variance estimate, which enlarges all standard errors and reduces the sensitivity of hypothesis tests. Predictors that genuinely matter may fail to reach statistical significance not because the effect is absent, but because excessive residual noise is masking it. Conversely, if outliers cluster in a direction that happens to be consistent with a predictor, they can artificially strengthen apparent associations.</p>
+
+<p>Finally, there is a credibility dimension. Rigorous analysis requires not just fitting a model but validating it. Peer reviewers, collaborators, and decision-makers who are aware of best practices will rightly question any regression analysis that presents no diagnostic evidence. Documenting the diagnostic process — what was checked, what was found, and what was done in response — is an essential part of transparent, reproducible research. It transforms the model from a black box into an auditable scientific product.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing with worked code examples in R (using the built-in plot.lm function and car::vif) or Python (using statsmodels and seaborn) to make the diagnostics concrete for learners with programming backgrounds. The table of diagnostic thresholds is particularly useful as a quick-reference summary during applied work.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

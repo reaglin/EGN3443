@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Exponential Distribution</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+  <header>
+    <h1>The Exponential Distribution</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> The Exponential Distribution</h2>
+      <p>The exponential distribution is one of the most important and widely used continuous probability distributions in statistics, probability theory, and applied sciences. Unlike distributions such as the normal distribution that describe measurements symmetric around a mean, the exponential distribution is specifically designed to model the time — or distance — between successive random events. It answers questions like: <em>How long will I wait for the next bus? How soon will this machine fail? How much time passes before the next customer arrives?</em> Its elegant mathematical form, combined with a unique and powerful property called memorylessness, makes it a cornerstone of reliability engineering, queuing theory, telecommunications, and physics.</p>
+
+<p>The exponential distribution is defined only for non-negative values, that is, for <strong>x ≥ 0</strong>. This restriction makes intuitive sense: waiting times and durations cannot be negative. The distribution is governed by a single parameter, the rate parameter <strong>λ (lambda)</strong>, and everything about the distribution — its shape, its mean, its spread — flows from this one number.</p>
+
+<p><strong>Definition and Shape of the Exponential Distribution</strong></p>
+
+<p>The exponential distribution is characterised by its <strong>probability density function (PDF)</strong>, which gives the relative likelihood of observing a particular waiting time x. The PDF is defined as:</p>
+
+<pre><code>f(x) = λ · e^(−λx),    for x ≥ 0</code></pre>
+
+<p>Here, <strong>λ</strong> is the rate parameter (a positive real number), and <strong>e</strong> is Euler's number, the base of the natural logarithm, approximately equal to 2.71828. The function equals zero for any x less than zero, confirming the distribution is entirely right-sided.</p>
+
+<p>The shape of this curve is always a <strong>declining exponential</strong>. At x = 0, the PDF reaches its maximum value of λ (since e⁰ = 1, so f(0) = λ). As x increases, the function decays smoothly and rapidly toward zero, never actually touching the x-axis but approaching it asymptotically. This shape captures a fundamental reality about many waiting-time processes: short waits are more probable than long waits, and very long waits, while possible, become increasingly unlikely.</p>
+
+<p>The steepness of this decline is controlled by λ. Consider two scenarios: a call centre that receives, on average, 5 calls per minute (λ = 5) versus one that receives 1 call per minute (λ = 1). With λ = 5, the PDF drops very steeply — most waiting times are very short. With λ = 1, the curve is more gradual — the distribution is more spread out, with a longer average wait. A larger λ always produces a steeper curve and a more concentrated distribution near zero.</p>
+
+<p>An important consequence of this shape is that the exponential distribution is always <strong>right-skewed</strong>. The long tail extends to the right, meaning that while most observations cluster near zero, occasional very large values do occur. This right skew is why the mean always exceeds the median for this distribution.</p>
+
+<p><strong>The Rate Parameter Lambda (λ)</strong></p>
+
+<p>Lambda is the engine of the exponential distribution. It is defined as the <strong>average number of events per unit of time</strong>, and is therefore called the <em>rate parameter</em>. Understanding λ is the key to applying the exponential distribution correctly.</p>
+
+<p>Suppose a server processes requests at an average rate of 3 requests per second. Then λ = 3, and the time between consecutive requests follows an Exponential(λ = 3) distribution. If a radioactive isotope has, on average, 0.5 decay events per second, then λ = 0.5 for the inter-decay times.</p>
+
+<p>From λ, the core summary statistics of the distribution follow directly:</p>
+
+<ul>
+  <li><strong>Mean (expected value):</strong> E(X) = 1/λ. This is the average waiting time between events. If λ = 3 events per second, the mean wait is 1/3 of a second. If λ = 0.5, the mean wait is 2 seconds.</li>
+  <li><strong>Standard deviation:</strong> σ = 1/λ. Remarkably, the standard deviation equals the mean. This is a unique feature of the exponential distribution and has important practical implications — it means the variability in waiting times is always as large as the average waiting time itself.</li>
+  <li><strong>Variance:</strong> Var(X) = 1/λ². Since σ = 1/λ, squaring gives the variance.</li>
+</ul>
+
+<p>The equality of the mean and standard deviation is a distinctive signature of the exponential distribution. If you observe waiting-time data and find the sample mean and sample standard deviation are approximately equal, this is evidence that an exponential model may be appropriate.</p>
+
+<p>It is also common to parameterise the exponential distribution using the <strong>mean directly</strong>, denoted μ = 1/λ, so that the PDF is written f(x) = (1/μ)e^(−x/μ). Both parameterisations are in widespread use, so it is important to check which convention a textbook or software package is using.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rate Parameter (λ)</th>
+      <th>Mean Waiting Time (1/λ)</th>
+      <th>Standard Deviation (1/λ)</th>
+      <th>Curve Shape</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>Gentle decline, wide spread</td>
+    </tr>
+    <tr>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>Moderate decline</td>
+    </tr>
+    <tr>
+      <td>2.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>Steep decline, concentrated near zero</td>
+    </tr>
+    <tr>
+      <td>5.0</td>
+      <td>0.2</td>
+      <td>0.2</td>
+      <td>Very steep decline</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Relationship to Waiting Times and Decay Processes</strong></p>
+
+<p>The exponential distribution arises naturally in two broad classes of real-world phenomena: <em>waiting time problems</em> and <em>decay processes</em>.</p>
+
+<p>In <strong>waiting time applications</strong>, the distribution models the time until a random event occurs, given that events happen continuously and independently at a constant average rate. Classic examples include:</p>
+
+<ul>
+  <li>The time until the next phone call arrives at a customer service centre</li>
+  <li>The time between successive bus arrivals at a stop</li>
+  <li>The time until a machine or electronic component fails (when the failure rate is constant)</li>
+  <li>The time between successive goals scored in a football match</li>
+  <li>The time a patient waits before being seen in an emergency department</li>
+</ul>
+
+<p>In all these cases, the key assumption is that events occur at a <em>constant average rate</em> and that each event occurs <em>independently</em> of the others — neither clustering together nor spacing out in a regular pattern.</p>
+
+<p>In <strong>decay processes</strong>, the exponential distribution models the lifetime of unstable physical entities. Radioactive decay is the textbook example: the time for a single unstable nucleus to decay is exponentially distributed. The rate parameter λ in this context is called the <em>decay constant</em>, and the mean lifetime of the nucleus is 1/λ. The familiar concept of <em>half-life</em> — the time for half of a sample to decay — is directly related: half-life = ln(2)/λ ≈ 0.693/λ.</p>
+
+<p>The exponential distribution has a deep and important connection to the <strong>Poisson distribution</strong>. The Poisson distribution is a discrete distribution that models the <em>number of events</em> occurring in a fixed time interval, given a constant average rate λ. The exponential distribution models the <em>time between consecutive events</em> from the same process. These two distributions are two sides of the same coin — the Poisson process.</p>
+
+<p>Formally: if events arrive according to a <strong>Poisson process</strong> with rate λ (meaning the number of events in any interval of length t follows a Poisson distribution with mean λt), then the inter-arrival times — the times between consecutive events — are independent and identically distributed Exponential(λ) random variables. This duality is enormously useful: understanding one distribution immediately gives you insight into the other.</p>
+
+<p>For example, if a hospital records an average of 4 emergency admissions per hour (a Poisson process with λ = 4 per hour), then the time between successive admissions follows an exponential distribution with λ = 4, giving a mean inter-arrival time of 1/4 hour = 15 minutes.</p>
+
+<p><strong>Calculating Probabilities Using the Exponential Distribution</strong></p>
+
+<p>While the PDF describes the shape of the distribution, probability calculations are performed using the <strong>cumulative distribution function (CDF)</strong> and the <strong>survival function</strong>.</p>
+
+<p>The <strong>CDF</strong> gives the probability that the waiting time X is <em>at most</em> some value x:</p>
+
+<pre><code>P(X ≤ x) = 1 − e^(−λx),    for x ≥ 0</code></pre>
+
+<p>This is the area under the PDF from 0 to x. At x = 0, the CDF equals 0 (we haven't waited at all, so no event can have occurred yet). As x → ∞, the CDF approaches 1.</p>
+
+<p>The <strong>survival function</strong> (also called the complementary CDF) gives the probability that the waiting time <em>exceeds</em> x:</p>
+
+<pre><code>P(X > x) = e^(−λx)</code></pre>
+
+<p>This is one of the most useful formulas in reliability and queuing applications. It tells us the probability that a system survives beyond time x, or that we still haven't received a call after x minutes.</p>
+
+<p>To find the probability that the waiting time falls <strong>between two values a and b</strong> (where 0 ≤ a < b):</p>
+
+<pre><code>P(a ≤ X ≤ b) = P(X ≤ b) − P(X ≤ a)
+             = (1 − e^(−λb)) − (1 − e^(−λa))
+             = e^(−λa) − e^(−λb)</code></pre>
+
+<p>These formulas are straightforward to apply. Let's work through a concrete example.</p>
+
+<p><em>Example 1:</em> A helpdesk receives calls at an average rate of λ = 2 calls per minute. What is the probability that the next call arrives within 30 seconds (i.e., within 0.5 minutes)?</p>
+
+<pre><code>P(X ≤ 0.5) = 1 − e^(−2 × 0.5)
+           = 1 − e^(−1)
+           = 1 − 0.3679
+           ≈ 0.632</code></pre>
+
+<p>There is approximately a 63.2% chance the next call arrives within 30 seconds.</p>
+
+<p><em>Example 2:</em> Using the same helpdesk (λ = 2), what is the probability the next call takes more than 1 minute to arrive?</p>
+
+<pre><code>P(X > 1) = e^(−2 × 1) = e^(−2) ≈ 0.1353</code></pre>
+
+<p>There is approximately a 13.5% chance of waiting more than 1 minute.</p>
+
+<p><em>Example 3:</em> What is the probability the next call arrives between 1 and 2 minutes from now?</p>
+
+<pre><code>P(1 ≤ X ≤ 2) = e^(−2×1) − e^(−2×2)
+             = e^(−2) − e^(−4)
+             ≈ 0.1353 − 0.0183
+             ≈ 0.1170</code></pre>
+
+<p>About 11.7% probability. Notice how all three calculations required only knowing λ and the time boundaries — no tables of complex distributions or numerical integration needed.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Formula</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PDF</td>
+      <td>f(x) = λ · e^(−λx)</td>
+      <td>Density at a specific value x</td>
+    </tr>
+    <tr>
+      <td>CDF</td>
+      <td>P(X ≤ x) = 1 − e^(−λx)</td>
+      <td>Probability of waiting at most x</td>
+    </tr>
+    <tr>
+      <td>Survival Function</td>
+      <td>P(X > x) = e^(−λx)</td>
+      <td>Probability of waiting more than x</td>
+    </tr>
+    <tr>
+      <td>Between a and b</td>
+      <td>P(a ≤ X ≤ b) = e^(−λa) − e^(−λb)</td>
+      <td>Probability of waiting between a and b</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The Memoryless Property</strong></p>
+
+<p>The exponential distribution possesses one of the most remarkable and philosophically striking properties in all of probability theory: the <strong>memoryless property</strong>. Formally, it states that for any s, t ≥ 0:</p>
+
+<pre><code>P(X > s + t | X > s) = P(X > t)</code></pre>
+
+<p>In plain language: <em>given that an event has not yet occurred by time s, the probability that it will take at least an additional time t to occur is exactly the same as the probability that it takes time t from the very beginning.</em> The system has no memory of the time already elapsed.</p>
+
+<p>This is a striking property because it means the age of a process is irrelevant to its future behaviour. Consider a machine whose failure time is exponentially distributed with λ = 0.1 failures per hour (mean life of 10 hours). If the machine has already been running for 20 hours without failure, the probability it will last at least another 5 hours is <em>exactly</em> the same as if it had just been switched on. The machine does not "wear out" in the probabilistic sense — its remaining life has the same distribution regardless of its current age.</p>
+
+<p>We can verify this property using the formulas:</p>
+
+<pre><code>P(X > s + t | X > s) = P(X > s + t) / P(X > s)
+                     = e^(−λ(s+t)) / e^(−λs)
+                     = e^(−λs − λt) / e^(−λs)
+                     = e^(−λt)
+                     = P(X > t)  ✓</code></pre>
+
+<p>The memoryless property is the <em>defining characteristic</em> of the exponential distribution — it is the only continuous distribution with this property (the geometric distribution is its discrete counterpart and shares this property).</p>
+
+<p>The practical implications of memorylessness are significant in both directions:</p>
+
+<ul>
+  <li><strong>When it is advantageous:</strong> In queuing theory, memorylessness allows analysts to build tractable mathematical models of complex systems. If service times and inter-arrival times are exponentially distributed, the system's future state depends only on its current state, not its entire history — this is the Markov property, which enables a rich set of mathematical tools.</li>
+  <li><strong>When it is a limitation:</strong> Many real-world systems do <em>not</em> have a constant failure rate. Mechanical components often exhibit an increasing failure rate as they age (wear-out failure), or even a decreasing failure rate early in their life (infant mortality failures). For such systems, the exponential distribution is inappropriate, and distributions such as the Weibull distribution — which can model increasing or decreasing hazard rates — are used instead. If a component is more likely to fail after heavy use or extended time, modelling it with an exponential distribution would underestimate late-life failure risks.</li>
+</ul>
+
+<p><strong>Mean, Variance, and Key Summary Statistics</strong></p>
+
+<p>The exponential distribution is fully described by the single parameter λ, and all its summary statistics are simple functions of λ:</p>
+
+<ul>
+  <li><strong>Mean (Expected Value):</strong> E(X) = 1/λ. This is the average time between events. For λ = 2 calls per minute, the mean waiting time is 0.5 minutes.</li>
+  <li><strong>Variance:</strong> Var(X) = 1/λ². For λ = 2, the variance is 0.25 (minutes²).</li>
+  <li><strong>Standard Deviation:</strong> σ = 1/λ. Crucially, σ = E(X), so the coefficient of variation (ratio of standard deviation to mean) is always exactly 1. This is a useful diagnostic: real waiting-time data with a sample coefficient of variation close to 1 is consistent with an exponential model.</li>
+  <li><strong>Median:</strong> The value m such that P(X ≤ m) = 0.5. Setting 1 − e^(−λm) = 0.5 gives e^(−λm) = 0.5, so m = ln(2)/λ ≈ 0.6931/λ. For λ = 2, the median is approximately 0.347 minutes. Because ln(2) ≈ 0.693 < 1, the median is always less than the mean (which is 1/λ). This confirms the distribution's right skew: most waiting times are shorter than the average, but a long right tail pulls the mean above the median.</li>
+  <li><strong>Mode:</strong> The mode (the most likely single value) is 0, since the PDF is maximised at x = 0 for all positive λ. Instantaneous events are always the most probable for the exponential distribution.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Statistic</th>
+      <th>Formula</th>
+      <th>Example (λ = 2)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mean</td>
+      <td>1/λ</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <td>Variance</td>
+      <td>1/λ²</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <td>Standard Deviation</td>
+      <td>1/λ</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <td>Median</td>
+      <td>ln(2)/λ ≈ 0.6931/λ</td>
+      <td>≈ 0.347</td>
+    </tr>
+    <tr>
+      <td>Mode</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Coefficient of Variation</td>
+      <td>1 (always)</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These summary statistics provide a compact characterisation of the exponential distribution and are particularly useful when fitting models to data. If you have a dataset of observed waiting times, you can estimate λ as the reciprocal of the sample mean (since E(X) = 1/λ, the maximum likelihood estimator of λ is λ̂ = 1/x̄). You can then check model fit by comparing the sample standard deviation to the sample mean — if they are approximately equal, the exponential assumption is plausible.</p>
+
+<p>Taken together, the simplicity of the exponential distribution — one parameter, closed-form expressions for all probabilities and statistics, and the elegant memoryless property — explains why it remains a fundamental tool for anyone working with time-to-event data, reliability analysis, or stochastic modelling.</p>
+      <div class="notes"><strong>Notes</strong>The worked numerical examples in the probability calculation section use λ = 2 throughout for consistency. Instructors may wish to pair this content with a visualisation tool showing how the PDF curve changes shape as λ varies, and with a spreadsheet exercise computing CDF probabilities using the formula 1 − e^(−λx). The connection between the Poisson process and the exponential distribution is highlighted as it reinforces learning from any prior Poisson distribution module.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

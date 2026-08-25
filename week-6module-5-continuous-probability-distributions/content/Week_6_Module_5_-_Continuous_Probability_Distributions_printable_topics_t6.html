@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Continuous Distributions to Real-World Scenarios</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+  <header>
+    <h1>Applying Continuous Distributions to Real-World Scenarios</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Applying Continuous Distributions to Real-World Scenarios</h2>
+      <p>Continuous probability distributions are among the most powerful tools in applied statistics, allowing analysts, researchers, and professionals to model the behaviour of real-world phenomena with mathematical precision. Unlike discrete distributions, which count occurrences of distinct outcomes, continuous distributions describe variables that can take any value within a range — such as height, time, temperature, or financial return. The practical challenge is not simply knowing these distributions exist, but developing the judgement to choose the right one, fit it to observed data, compute meaningful probabilities, and communicate findings in a way that drives sound decisions. This topic covers the full workflow: from selecting a distribution through to professional reporting, drawing on the normal, exponential, and uniform distributions as the primary modelling tools.</p>
+
+<p><strong>Selecting the Right Continuous Distribution</strong></p>
+
+<p>The foundation of any rigorous probability analysis is choosing a distribution whose mathematical assumptions match the real-world process being studied. Selecting the wrong distribution can produce probabilities that are systematically misleading, leading to poor decisions no matter how carefully the subsequent calculations are performed. The selection process involves examining the shape of observed data, understanding the underlying mechanism generating the data, and considering the range of possible values.</p>
+
+<p>The <strong>normal distribution</strong> is the natural starting point when data is expected to be symmetric and cluster around a central value. It arises whenever many small, independent influences combine to produce an outcome — a condition described by the Central Limit Theorem. Classic examples include measurement errors in laboratory instruments, biological traits such as adult height or birth weight, standardised academic test scores, and manufactured component dimensions. If a histogram of the data shows a roughly symmetric, bell-shaped curve with most values near the centre and progressively fewer toward the tails, the normal distribution is a strong candidate.</p>
+
+<p>The <strong>exponential distribution</strong> is the appropriate choice when modelling the time or distance between successive independent random events. It is intimately connected to the Poisson process: if events occur at a constant average rate, the gaps between them follow an exponential distribution. Equipment failure intervals, the time between incoming calls at a call centre, and the waiting time before a customer is served are all canonical exponential scenarios. A key diagnostic feature is that the data should be strictly non-negative and right-skewed, with many short intervals and progressively fewer long ones.</p>
+
+<p>The <strong>uniform distribution</strong> applies when every value in a defined interval is equally likely — there is no concentration, peak, or pattern within the range. Random number generation, the arrival time of a bus within a scheduled window, and the random assignment of a participant to a time slot in an experiment are situations where the uniform distribution is appropriate. If a histogram shows an approximately flat, rectangular shape across a bounded interval, uniform modelling is justified.</p>
+
+<p>In practice, the selection process is iterative. A thoughtful analyst will:</p>
+<ul>
+  <li>Plot the raw data as a histogram or density estimate to assess shape visually.</li>
+  <li>Consider the domain: is the variable bounded, non-negative, or unbounded? Can it be negative?</li>
+  <li>Think about the generative process: does a physical or behavioural mechanism suggest a particular distribution?</li>
+  <li>Test candidate distributions formally before committing to one for inference.</li>
+</ul>
+
+<p><strong>Modelling Real-World Data with the Normal Distribution</strong></p>
+
+<p>The normal distribution, also called the Gaussian distribution, is parameterised entirely by two values: the mean <strong>μ</strong> (which sets the centre of the distribution) and the standard deviation <strong>σ</strong> (which controls how spread out the distribution is). In practice, these parameters are estimated from sample data using the sample mean <em>x̄</em> and sample standard deviation <em>s</em> as estimators of the true population values.</p>
+
+<p>Consider a quality control scenario in a manufacturing plant that produces steel bolts. Engineers measure the diameter of a random sample of 200 bolts and find a sample mean of 10.02 mm and a sample standard deviation of 0.05 mm. Assuming diameters are normally distributed — justified by the symmetric histogram and the known physics of precision machining — the plant models bolt diameters as X ~ N(10.02, 0.05²).</p>
+
+<p>To find the probability that a bolt has a diameter less than 9.95 mm (below the lower tolerance limit), the analyst standardises to obtain a z-score:</p>
+
+<pre><code>z = (x − μ) / σ = (9.95 − 10.02) / 0.05 = −1.40</code></pre>
+
+<p>Using a standard normal table or software, P(Z &lt; −1.40) ≈ 0.0808. So approximately 8.1% of bolts fall below the lower tolerance — potentially a quality issue worth investigating.</p>
+
+<p>The <strong>empirical rule</strong> provides a rapid interpretive shortcut for any normal distribution:</p>
+<ul>
+  <li>Approximately <strong>68%</strong> of values lie within 1 standard deviation of the mean (μ ± σ).</li>
+  <li>Approximately <strong>95%</strong> of values lie within 2 standard deviations (μ ± 2σ).</li>
+  <li>Approximately <strong>99.7%</strong> of values lie within 3 standard deviations (μ ± 3σ).</li>
+</ul>
+
+<p>In the bolt example, this means that 99.7% of diameters should fall between 10.02 − 3(0.05) = 9.87 mm and 10.02 + 3(0.05) = 10.17 mm. A bolt measured at 9.84 mm would lie more than 3σ below the mean — an extreme outlier that might indicate a machine calibration error or a measurement mistake.</p>
+
+<p>Further real-world applications of the normal distribution span a wide range of disciplines:</p>
+<ul>
+  <li><strong>Finance:</strong> Daily stock returns over short intervals are often modelled as approximately normal, allowing risk measures such as Value at Risk to be computed.</li>
+  <li><strong>Medicine:</strong> Clinical measurements such as blood pressure, cholesterol levels, and infant birth weights are compared to population norms defined by normal distributions.</li>
+  <li><strong>Education:</strong> Large-scale standardised tests such as the SAT or IQ assessments are designed so that scores are normally distributed with a specified mean and standard deviation.</li>
+  <li><strong>Engineering:</strong> Tolerances for machined parts, signal noise in electronics, and structural load variations are all analysed using normal probability calculations.</li>
+</ul>
+
+<p><strong>Applying the Exponential Distribution in Professional Contexts</strong></p>
+
+<p>The exponential distribution is governed by a single parameter: the <strong>rate parameter λ (lambda)</strong>, which represents the average number of events occurring per unit of time. The mean of the distribution — that is, the average time between events — is 1/λ. If a server processes on average 4 customers per hour, then λ = 4 and the mean service interval is 1/4 hour = 15 minutes.</p>
+
+<p>The probability density function of the exponential distribution is:</p>
+
+<pre><code>f(x) = λ · e^(−λx),  for x ≥ 0</code></pre>
+
+<p>The cumulative distribution function, which gives the probability that the next event occurs within <em>t</em> units of time, is:</p>
+
+<pre><code>P(X ≤ t) = 1 − e^(−λt)</code></pre>
+
+<p>Consider a hospital's emergency department where patients arrive at a rate of λ = 6 per hour. The time between arrivals X follows an exponential distribution with λ = 6 (and mean = 10 minutes). What is the probability that the next patient arrives within 5 minutes (i.e., within 5/60 = 0.0833 hours)?</p>
+
+<pre><code>P(X ≤ 0.0833) = 1 − e^(−6 × 0.0833) = 1 − e^(−0.5) ≈ 1 − 0.6065 = 0.3935</code></pre>
+
+<p>There is approximately a 39.4% chance the next patient arrives within 5 minutes. Complementarily, P(X > 0.0833) = 1 − 0.3935 = 0.6065, meaning a 60.7% chance the gap exceeds 5 minutes.</p>
+
+<p>The most distinctive and professionally significant property of the exponential distribution is its <strong>memoryless property</strong>. This means that the probability of the next event occurring within a given time interval is entirely unaffected by how long one has already been waiting. Formally:</p>
+
+<pre><code>P(X > s + t | X > s) = P(X > t)  for all s, t ≥ 0</code></pre>
+
+<p>In practical terms: if a machine has already been running for 100 hours without failure, the probability that it continues to run for another 50 hours is identical to the probability that a brand-new machine runs for 50 hours. This property is realistic for truly random, constant-rate failure modes (such as electronic component failures caused by random voltage spikes), but may be inappropriate when wear and degradation accumulate over time — in those cases, a Weibull distribution may be more appropriate.</p>
+
+<p>Professional applications of the exponential distribution include:</p>
+<ul>
+  <li><strong>Telecommunications:</strong> Modelling the time between incoming calls to a customer service centre to plan staffing levels.</li>
+  <li><strong>Reliability engineering:</strong> Estimating the mean time between failures (MTBF) for electronic components.</li>
+  <li><strong>Logistics:</strong> Analysing inter-arrival times of trucks at a warehouse loading dock to optimise scheduling.</li>
+  <li><strong>Healthcare:</strong> Modelling patient inter-arrival times in emergency departments to assess bed availability and resource allocation.</li>
+</ul>
+
+<p><strong>Using the Uniform Distribution in Practical Scenarios</strong></p>
+
+<p>The continuous uniform distribution over an interval [a, b] asserts that every value in the interval is equally likely. Its probability density function is constant:</p>
+
+<pre><code>f(x) = 1 / (b − a),  for a ≤ x ≤ b</code></pre>
+
+<p>The mean and variance are determined entirely by the endpoints:</p>
+
+<pre><code>Mean:     μ = (a + b) / 2
+Variance: σ² = (b − a)² / 12</code></pre>
+
+<p>To find the probability that an outcome falls within any sub-interval [c, d] where a ≤ c &lt; d ≤ b:</p>
+
+<pre><code>P(c ≤ X ≤ d) = (d − c) / (b − a)</code></pre>
+
+<p>Consider a practical scheduling scenario: a delivery is guaranteed to arrive at some point between 9:00 AM and 1:00 PM (a 4-hour window). The arrival time X is uniformly distributed over [9, 13] (in hours). What is the probability the delivery arrives before 10:30 AM?</p>
+
+<pre><code>P(X ≤ 10.5) = (10.5 − 9) / (13 − 9) = 1.5 / 4 = 0.375</code></pre>
+
+<p>There is a 37.5% chance the delivery arrives before 10:30 AM. This is a direct and intuitive result of the equal-probability assumption.</p>
+
+<p>The uniform distribution is also foundational in computational work. Pseudo-random number generators produce values uniformly distributed over [0, 1], and these uniform values are then transformed — using techniques such as inverse transform sampling — to generate random variates from other distributions. This makes the uniform distribution a building block for simulation and Monte Carlo methods.</p>
+
+<p>Additional practical applications include:</p>
+<ul>
+  <li><strong>Random sampling:</strong> Assigning random numbers to items in a population for random selection.</li>
+  <li><strong>Simulation initialisation:</strong> When no prior information about a variable is available, the uniform distribution embodies the principle of maximum ignorance over a bounded range.</li>
+  <li><strong>Appointment scheduling analysis:</strong> Modelling the gap between when an appointment is scheduled and when a client actually arrives within an acceptable window.</li>
+  <li><strong>Rounding errors:</strong> The error introduced by rounding a continuous measurement to the nearest integer is approximately uniformly distributed over [−0.5, 0.5].</li>
+</ul>
+
+<p><strong>Calculating and Interpreting Probabilities for Decision-Making</strong></p>
+
+<p>The primary tool for probability calculation with continuous distributions is the <strong>cumulative distribution function (CDF)</strong>, denoted F(x) = P(X ≤ x). The CDF gives the probability that the random variable X takes a value less than or equal to some threshold x. From the CDF, a full range of probability questions can be answered:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question Type</th>
+      <th>Formula</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Less than or equal to a threshold</td>
+      <td>P(X ≤ x) = F(x)</td>
+      <td>Direct CDF lookup</td>
+    </tr>
+    <tr>
+      <td>Greater than a threshold</td>
+      <td>P(X > x) = 1 − F(x)</td>
+      <td>Complement rule</td>
+    </tr>
+    <tr>
+      <td>Between two values</td>
+      <td>P(a ≤ X ≤ b) = F(b) − F(a)</td>
+      <td>Difference of CDF values</td>
+    </tr>
+    <tr>
+      <td>Outside an interval</td>
+      <td>P(X &lt; a or X > b) = 1 − [F(b) − F(a)]</td>
+      <td>Complement of interval probability</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The complement rule — P(X > x) = 1 − P(X ≤ x) — is especially important because standard tables and software primarily return left-tail (cumulative) probabilities. Converting to right-tail or two-tail probabilities via the complement rule expands the range of answerable questions significantly.</p>
+
+<p>Critically, probability values must always be interpreted in context. Consider two scenarios involving a 5% probability:</p>
+<ul>
+  <li>In a consumer electronics company, a 5% probability that a component fails within its warranty period might be financially tolerable, covered by warranty reserves.</li>
+  <li>In an aircraft safety system, a 5% probability of failure during a flight would be catastrophically unacceptable — regulatory standards may require failure probabilities below 1 in 10⁹.</li>
+</ul>
+
+<p>The same numerical probability can represent anything from a minor operational footnote to a critical safety crisis depending on the domain, the stakes involved, and the cost of error. This is why statistical outputs must always be accompanied by domain expert interpretation before they are used to drive decisions.</p>
+
+<p>Combining probability calculations with domain knowledge also involves recognising when thresholds matter. A manufacturer might set a process capability target such that fewer than 0.27% of items fall outside specification limits (corresponding to ±3σ under the normal distribution). Computing the actual probability with the current process parameters and comparing it to this target directly informs whether corrective action is needed.</p>
+
+<p><strong>Evaluating Distribution Fit and Validating Assumptions</strong></p>
+
+<p>Choosing a distribution is a hypothesis, not a certainty. Before relying on a model for decisions, analysts must validate that the chosen distribution is a reasonable representation of the data. This validation process proceeds through visual and formal methods.</p>
+
+<p><strong>Visual methods</strong> include:</p>
+<ul>
+  <li><strong>Histograms:</strong> Compare the shape of observed data to the expected shape of the candidate distribution. A normal distribution should produce a roughly symmetric, bell-shaped histogram; an exponential distribution should show a right-skewed, monotonically decreasing histogram.</li>
+  <li><strong>Density plots (kernel density estimates):</strong> Smoother than histograms and better at revealing the overall shape without sensitivity to bin width choices.</li>
+  <li><strong>Q-Q plots (quantile-quantile plots):</strong> Plot the quantiles of the observed data against the theoretical quantiles of the candidate distribution. If the data follows the distribution, the points fall approximately on a straight diagonal line. Systematic curvature indicates departure from the assumed distribution.</li>
+  <li><strong>Probability plots:</strong> Similar in concept to Q-Q plots and commonly used in engineering reliability analysis.</li>
+</ul>
+
+<p><strong>Formal goodness-of-fit tests</strong> provide an objective, quantified assessment:</p>
+<ul>
+  <li>The <strong>Kolmogorov-Smirnov (K-S) test</strong> measures the maximum absolute difference between the empirical CDF and the theoretical CDF, producing a p-value that indicates whether the data is consistent with the assumed distribution.</li>
+  <li>The <strong>Shapiro-Wilk test</strong> is specifically designed to test normality and is considered particularly powerful for smaller samples.</li>
+  <li>The <strong>chi-squared goodness-of-fit test</strong> compares observed frequency counts in bins to the expected counts under the theoretical distribution.</li>
+  <li>The <strong>Anderson-Darling test</strong> is a variant of the K-S test that gives more weight to the tails of the distribution, making it sensitive to tail behaviour — important when extreme values drive decisions.</li>
+</ul>
+
+<p>When assumptions are violated, the analyst should not simply force the data into an ill-fitting distribution. Common remediation strategies include:</p>
+<ul>
+  <li><strong>Data transformation:</strong> Applying a logarithmic transformation to right-skewed data often produces approximate normality, enabling normal-distribution methods to be applied to the transformed variable.</li>
+  <li><strong>Switching distributions:</strong> If exponential modelling is inadequate because the failure rate is not constant (e.g., it increases with age), the Weibull distribution offers a more flexible alternative.</li>
+  <li><strong>Mixture models:</strong> When data appears to come from multiple subpopulations (e.g., a bimodal histogram), a mixture of distributions may be required.</li>
+  <li><strong>Non-parametric methods:</strong> When no theoretical distribution fits well, non-parametric approaches that make minimal distributional assumptions can be applied.</li>
+</ul>
+
+<p>This iterative cycle — model, validate, refine — is the hallmark of rigorous applied statistical practice. Treating distribution selection as a one-time, final decision is a common error that leads to unreliable conclusions.</p>
+
+<p><strong>Communicating Results in Research and Professional Reports</strong></p>
+
+<p>Technically correct probability calculations are only as useful as the clarity with which they are communicated. In professional and research contexts, the audience often includes managers, policy-makers, clients, or colleagues without deep statistical training. The analyst's responsibility is to translate mathematical results into accessible, actionable insights without sacrificing accuracy.</p>
+
+<p>Effective communication of distributional results should include the following elements:</p>
+<ul>
+  <li><strong>Specification of the model:</strong> Clearly state which distribution was used and its parameters. For example: "Customer waiting times were modelled using an exponential distribution with a rate parameter λ = 3 customers per minute, implying a mean waiting time of approximately 20 seconds."</li>
+  <li><strong>Statement of the business or research question:</strong> Make explicit what probability or quantity was being calculated and why it matters. "We computed the probability that a customer waits longer than 2 minutes, as this threshold is associated with customer dissatisfaction in internal surveys."</li>
+  <li><strong>Graphical representation:</strong> Probability density curves with shaded regions corresponding to the probability of interest are highly effective. A shaded area under the right tail of a normal curve, for example, immediately conveys the concept of an extreme outcome to a non-specialist audience.</li>
+  <li><strong>Transparent acknowledgement of limitations:</strong> Every model has assumptions. If the sample size was small, if the data showed some deviation from the assumed distribution, or if the model was an approximation, these caveats should be stated clearly. This builds credibility and helps the audience calibrate their confidence in the results.</li>
+  <li><strong>Actionable recommendations:</strong> The ultimate purpose of probability analysis in professional contexts is to inform decisions. Results should conclude with concrete recommendations: "Given the 12% probability that production yield falls below the target threshold in any given shift, we recommend increasing the inspection frequency from once per hour to once per 30 minutes as a short-term quality control measure while the root cause is investigated."</li>
+</ul>
+
+<p>A well-structured summary table can be an effective way to present distributional analyses across multiple scenarios or parameters, making comparisons clear:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Distribution Used</th>
+      <th>Parameters</th>
+      <th>Key Probability Computed</th>
+      <th>Result</th>
+      <th>Decision Implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bolt diameter QC</td>
+      <td>Normal</td>
+      <td>μ = 10.02 mm, σ = 0.05 mm</td>
+      <td>P(diameter &lt; 9.95 mm)</td>
+      <td>8.1%</td>
+      <td>Review machining calibration</td>
+    </tr>
+    <tr>
+      <td>ER patient arrivals</td>
+      <td>Exponential</td>
+      <td>λ = 6 per hour</td>
+      <td>P(wait &gt; 15 min)</td>
+      <td>22.3%</td>
+      <td>Maintain current triage staffing</td>
+    </tr>
+    <tr>
+      <td>Delivery window</td>
+      <td>Uniform</td>
+      <td>a = 9 AM, b = 1 PM</td>
+      <td>P(arrive before 10:30 AM)</td>
+      <td>37.5%</td>
+      <td>Advise recipient to be available all morning</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bringing together careful distribution selection, parameter estimation, probability computation, assumption validation, and clear communication creates a complete analytical pipeline. Each stage reinforces the others: a well-chosen distribution produces meaningful probabilities; validated assumptions ensure those probabilities are trustworthy; and clear communication ensures they translate into informed, defensible decisions. This integrated approach is what distinguishes applied statistical analysis from mechanical calculation.</p>
+      <div class="notes"><strong>Notes</strong>Covers all seven subtopic clusters in depth: distribution selection criteria, normal distribution modelling with z-scores and the empirical rule, exponential distribution with λ interpretation and memoryless property, uniform distribution with probability and parameterisation, CDF-based probability calculation and contextual interpretation, goodness-of-fit validation methods and remediation strategies, and professional reporting standards. Includes worked numerical examples for all three distributions and summary tables for both probability rules and a multi-scenario reporting example.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

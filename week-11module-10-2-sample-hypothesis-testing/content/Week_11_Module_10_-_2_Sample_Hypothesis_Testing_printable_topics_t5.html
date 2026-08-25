@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparing Two Proportions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+  <header>
+    <h1>Comparing Two Proportions</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Comparing Two Proportions</h2>
+      <p>When researchers want to know whether two groups differ in the rate at which some outcome occurs, they turn to the two-proportion z-test. This procedure extends the single-proportion z-test to a comparative setting: instead of asking whether one population proportion equals some fixed value, we ask whether two population proportions are equal to each other — or whether one is larger or smaller than the other. Examples appear everywhere in practice: Does a new drug produce fewer side effects than the old one? Do men and women differ in their rate of smartphone ownership? Is the defect rate lower at Factory A than at Factory B? In each case, we have two independent groups, each producing a binary outcome (success or failure), and we want to draw an inference about the true population proportions p₁ and p₂.</p>
+
+<p>The test relies on the fact that, under appropriate conditions, the sampling distribution of the difference between two sample proportions (p̂₁ − p̂₂) is approximately normal. This allows us to build a z-statistic, compare it to the standard normal distribution, and obtain a p-value. Understanding exactly how to set up the hypotheses, verify the required conditions, compute the pooled proportion and z-statistic, and then interpret the result in plain language is the core skill developed in this topic.</p>
+
+<p><strong>Setting Up Hypotheses for Two Proportions</strong></p>
+
+<p>Before any calculation begins, the researcher must translate the research question into a pair of formal statistical hypotheses. This step is more consequential than it might seem, because the choice of null and alternative hypothesis determines which tail(s) of the normal distribution are used for the p-value and therefore whether the conclusion is correct.</p>
+
+<p>The <strong>null hypothesis (H₀)</strong> almost always states that there is no difference between the two population proportions. Written symbolically:</p>
+
+<pre><code>H₀: p₁ − p₂ = 0   (equivalently, p₁ = p₂)</code></pre>
+
+<p>This is not merely a formality. The null hypothesis embodies a skeptical starting position: absent evidence to the contrary, we assume the two populations behave identically with respect to the outcome of interest. The entire machinery of the test — including the pooled proportion discussed later — is built on this assumption.</p>
+
+<p>The <strong>alternative hypothesis (H₁ or Hₐ)</strong> captures what the researcher suspects or hopes to demonstrate. There are three possible forms:</p>
+
+<ul>
+  <li><strong>Two-tailed (≠):</strong> H₁: p₁ − p₂ ≠ 0. Use this when the research question asks simply whether the proportions differ, without specifying a direction. For example: "Is the approval rate different between Democrats and Republicans?" We do not predict which is higher.</li>
+  <li><strong>Left-tailed (&lt;):</strong> H₁: p₁ − p₂ &lt; 0, meaning p₁ &lt; p₂. Use this when theory or prior knowledge leads you to predict that Group 1 has a lower proportion. For example: "Is the relapse rate for patients on the new therapy lower than for those on the standard therapy?" If Group 1 is the new therapy, you expect a smaller proportion.</li>
+  <li><strong>Right-tailed (&gt;):</strong> H₁: p₁ − p₂ &gt; 0, meaning p₁ &gt; p₂. Use this when you predict Group 1 has a higher proportion. For example: "Do online students have a higher pass rate than in-person students?" With Group 1 = online, you expect the difference to be positive.</li>
+</ul>
+
+<p>A critical bookkeeping step is to <strong>clearly define which group is labeled p₁ and which is p₂ before beginning the test</strong>. The labeling is arbitrary — either group can be called Group 1 — but once the choice is made it must remain consistent throughout the problem. Swapping labels mid-calculation will reverse the sign of the z-statistic, which can flip a left-tailed conclusion into a right-tailed one and produce a completely wrong interpretation.</p>
+
+<p>For example, suppose a study investigates whether smokers have a higher five-year mortality rate than non-smokers. If you define p₁ = proportion of smokers who die within five years and p₂ = proportion of non-smokers who die within five years, the appropriate alternative is H₁: p₁ − p₂ &gt; 0 (right-tailed). If you had chosen the labeling in the opposite order, the alternative would be left-tailed. Neither choice is wrong, but you must be consistent.</p>
+
+<p><strong>Assumptions and Conditions for the Two-Proportion Z-Test</strong></p>
+
+<p>The z-test for two proportions rests on an approximation: we treat the sampling distribution of p̂₁ − p̂₂ as normal. For this approximation to be trustworthy, four conditions must be met.</p>
+
+<ul>
+  <li><strong>Independence between groups:</strong> The two samples must be drawn independently of each other. The outcome of an individual in Group 1 must have no bearing on the outcome of any individual in Group 2. This condition is violated if, for example, the same person appears in both groups, or if group membership is determined by some shared factor that also influences the outcome.</li>
+  <li><strong>Random sampling within each group:</strong> Each sample should be a random sample from its respective population, or the participants should be randomly assigned to groups (as in a randomized experiment). Without randomness, systematic bias can make sample proportions unrepresentative of population proportions.</li>
+  <li><strong>The success-failure condition:</strong> The normal approximation to the binomial distribution works well only when the expected numbers of both successes and failures are large. Specifically, using the pooled proportion p̂ (defined below), we require:<br>
+    <em>n₁p̂ ≥ 10, n₁(1 − p̂) ≥ 10, n₂p̂ ≥ 10, n₂(1 − p̂) ≥ 10.</em><br>
+    Some textbooks use 5 as the threshold rather than 10; using 10 is the more conservative and widely recommended standard. If these counts are too small, exact methods (such as Fisher's Exact Test) should be used instead.</li>
+  <li><strong>Non-overlapping groups:</strong> The individuals in the two groups must be distinct. If some people could belong to both groups — for example, if the same employees are measured under two different managers — the independence condition is violated and a paired approach (McNemar's test) would be more appropriate.</li>
+</ul>
+
+<p>Checking these conditions explicitly before proceeding is not optional busywork. If the conditions are not satisfied, the p-value computed from the z-statistic may be seriously misleading.</p>
+
+<p><strong>Calculating the Pooled Proportion</strong></p>
+
+<p>When the null hypothesis states that p₁ = p₂, it implies that both groups share a single common population proportion p. Since we do not know what that common proportion is, we estimate it from the data by combining all successes and all observations across both samples. This combined estimate is called the <strong>pooled proportion</strong>, denoted p̂ (p-hat pooled):</p>
+
+<pre><code>p̂ = (x₁ + x₂) / (n₁ + n₂)</code></pre>
+
+<p>where x₁ and x₂ are the observed number of successes in each sample and n₁ and n₂ are the respective sample sizes. Equivalently, this can be written as a weighted average of the two sample proportions:</p>
+
+<pre><code>p̂ = (n₁p̂₁ + n₂p̂₂) / (n₁ + n₂)</code></pre>
+
+<p><strong>Why pool?</strong> Under H₀, there is only one population proportion to estimate. Pooling all the data gives us more information — a larger combined sample size — than either group alone, producing a more stable and accurate estimate. This is the best available estimate of the true common proportion when we are proceeding under the assumption that H₀ is true.</p>
+
+<p><strong>When not to pool:</strong> If the null hypothesis had specified a non-zero difference, for example H₀: p₁ − p₂ = 0.10, then the two populations are explicitly assumed to have different proportions and there is no single shared value to estimate. In that case, we would use the individual sample proportions p̂₁ and p̂₂ separately in the standard error formula. In practice, however, the vast majority of two-proportion tests use H₀: p₁ = p₂, so pooling is the standard approach.</p>
+
+<p><em>Example:</em> Suppose 45 out of 150 patients in Group 1 experienced nausea, and 30 out of 120 patients in Group 2 experienced nausea. Then:</p>
+
+<pre><code>p̂₁ = 45/150 = 0.300
+p̂₂ = 30/120 = 0.250
+p̂  = (45 + 30) / (150 + 120) = 75 / 270 ≈ 0.2778</code></pre>
+
+<p>Notice that the pooled proportion (0.2778) lies between the two individual sample proportions and is pulled toward the larger sample (Group 1, n = 150), as expected from a weighted average.</p>
+
+<p><strong>Computing the Z-Test Statistic</strong></p>
+
+<p>With the pooled proportion in hand, we can compute the z-test statistic. The general logic of any z-statistic is: (observed value − hypothesized value) / standard error. Here, the "observed value" is the difference in sample proportions, and the "hypothesized value" under H₀ is zero.</p>
+
+<pre><code>z = (p̂₁ − p̂₂) / √[ p̂(1 − p̂)(1/n₁ + 1/n₂) ]</code></pre>
+
+<p>Breaking this formula down:</p>
+
+<ul>
+  <li><strong>Numerator (p̂₁ − p̂₂):</strong> This is the observed difference between the two sample proportions. It measures how far apart the two groups are in our data. A difference close to zero means the two groups look similar; a large positive or negative difference means they look quite different.</li>
+  <li><strong>Denominator — the standard error:</strong> The expression √[ p̂(1 − p̂)(1/n₁ + 1/n₂) ] estimates how much sampling variability we would expect in the difference p̂₁ − p̂₂ if H₀ were true. It uses the pooled proportion p̂ because we are assuming the two populations have the same proportion. Larger sample sizes produce a smaller standard error (more precision), and a proportion near 0.5 produces the largest standard error (most variability).</li>
+  <li><strong>Interpretation of z:</strong> A z-value close to zero says the observed difference is well within the range of ordinary sampling fluctuation when H₀ is true — little evidence against H₀. A z-value far from zero (in absolute value) says the observed difference would be very unusual if H₀ were true — strong evidence against H₀.</li>
+</ul>
+
+<p><em>Continuing the example:</em></p>
+
+<pre><code>p̂  = 0.2778
+1 − p̂ = 0.7222
+SE = √[ 0.2778 × 0.7222 × (1/150 + 1/120) ]
+   = √[ 0.2006 × (0.00667 + 0.00833) ]
+   = √[ 0.2006 × 0.01500 ]
+   = √[ 0.003009 ]
+   ≈ 0.05486
+
+z = (0.300 − 0.250) / 0.05486
+  = 0.050 / 0.05486
+  ≈ 0.91</code></pre>
+
+<p>A z-value of approximately 0.91 means the observed difference of 5 percentage points is less than one standard error away from zero — quite modest.</p>
+
+<p><strong>Determining and Interpreting the P-Value</strong></p>
+
+<p>The <strong>p-value</strong> answers the question: If H₀ were true (the two population proportions are equal), what is the probability of observing a difference in sample proportions at least as extreme as the one we actually observed? A small p-value means the observed data would be very unlikely under H₀, which constitutes evidence against it.</p>
+
+<p>The p-value is computed from the standard normal distribution using the z-statistic:</p>
+
+<ul>
+  <li><strong>Two-tailed test (H₁: p₁ ≠ p₂):</strong> p-value = 2 × P(Z &gt; |z|). We double the tail area to account for the fact that an equally extreme difference in either direction would count as evidence against H₀.</li>
+  <li><strong>Right-tailed test (H₁: p₁ &gt; p₂):</strong> p-value = P(Z &gt; z). Only large positive z-values count as evidence.</li>
+  <li><strong>Left-tailed test (H₁: p₁ &lt; p₂):</strong> p-value = P(Z &lt; z). Only large negative z-values count as evidence.</li>
+</ul>
+
+<p><em>Continuing the example with a two-tailed test:</em></p>
+
+<pre><code>z ≈ 0.91
+p-value = 2 × P(Z > 0.91) = 2 × (1 − 0.8186) = 2 × 0.1814 ≈ 0.363</code></pre>
+
+<p>A p-value of 0.363 is far above any common significance level (α = 0.05 or α = 0.01). There is no meaningful evidence against H₀.</p>
+
+<p>Several important cautions about p-values:</p>
+
+<ul>
+  <li>The p-value is <strong>not</strong> the probability that H₀ is true. It is a conditional probability: the probability of results this extreme or more extreme, <em>given</em> H₀ is true.</li>
+  <li>A small p-value does not tell you <em>how large</em> the difference is — only that the evidence against H₀ is strong. With very large sample sizes, even a trivial difference (say, 0.1 percentage points) can yield a tiny p-value. This is why effect sizes and confidence intervals should accompany hypothesis tests.</li>
+  <li>For a two-tailed test, it is essential to double the tail area. A common error is to compute only one tail and forget to multiply by 2.</li>
+</ul>
+
+<p>The following table summarizes the p-value calculation rules for each alternative hypothesis:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Alternative Hypothesis</th>
+      <th>Test Type</th>
+      <th>P-Value Formula</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>H₁: p₁ − p₂ ≠ 0</td>
+      <td>Two-tailed</td>
+      <td>2 × P(Z &gt; |z|)</td>
+    </tr>
+    <tr>
+      <td>H₁: p₁ − p₂ &gt; 0</td>
+      <td>Right-tailed</td>
+      <td>P(Z &gt; z)</td>
+    </tr>
+    <tr>
+      <td>H₁: p₁ − p₂ &lt; 0</td>
+      <td>Left-tailed</td>
+      <td>P(Z &lt; z)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Drawing Conclusions and Contextual Interpretation</strong></p>
+
+<p>The final step is to compare the p-value to the chosen significance level α (typically 0.05, though 0.01 or 0.10 are also used depending on the field) and then translate the statistical outcome into a real-world conclusion.</p>
+
+<ul>
+  <li><strong>If p-value ≤ α:</strong> Reject H₀. The data provide sufficient evidence to conclude that the two population proportions are not equal (or that one is greater/less than the other, depending on the alternative). The result is said to be <em>statistically significant</em> at the α level.</li>
+  <li><strong>If p-value &gt; α:</strong> Fail to reject H₀. The data do not provide sufficient evidence to conclude that the proportions differ. The result is <em>not statistically significant</em> at the α level.</li>
+</ul>
+
+<p>The phrase "fail to reject H₀" is chosen deliberately rather than "accept H₀." Failing to find evidence of a difference is not the same as proving the two proportions are equal. It might simply mean the sample sizes were too small to detect a real but modest difference, or that random chance produced data that looked similar even though the populations differ.</p>
+
+<p><em>Completing the example conclusion:</em> With a p-value of 0.363 and α = 0.05, we fail to reject H₀. There is insufficient evidence to conclude that the nausea rates differ between the two treatment groups. In context: "Based on this sample, we cannot conclude that Group 1 and Group 2 experience nausea at different rates. The 5 percentage point difference observed could plausibly be due to sampling variability alone."</p>
+
+<p>Compare this to a scenario where a different study found z = 2.87 and a two-tailed p-value of 0.004. The conclusion would be: "We reject H₀ at the 0.05 significance level. There is strong statistical evidence that the two population proportions are different. In context, the data suggest that the rate of the outcome is significantly higher in Group 1 than in Group 2."</p>
+
+<p>Good statistical practice requires that conclusions always be expressed in terms of the original real-world question, not merely as "reject" or "fail to reject" statements. It also requires acknowledging the limitations: a statistically significant result is not automatically practically important, and a non-significant result does not establish equivalence.</p>
+
+<p>For reference, here is a full summary of the two-proportion z-test procedure in a structured format:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Action</th>
+      <th>Key Formula or Criterion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1. Define groups</td>
+      <td>Label p₁ and p₂ clearly and consistently</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>2. State hypotheses</td>
+      <td>Write H₀ and H₁ symbolically and in words</td>
+      <td>H₀: p₁ − p₂ = 0; H₁: ≠, &lt;, or &gt;</td>
+    </tr>
+    <tr>
+      <td>3. Check conditions</td>
+      <td>Verify independence, randomness, success-failure</td>
+      <td>n₁p̂ ≥ 10, n₁(1−p̂) ≥ 10, n₂p̂ ≥ 10, n₂(1−p̂) ≥ 10</td>
+    </tr>
+    <tr>
+      <td>4. Compute p̂</td>
+      <td>Pool successes from both groups</td>
+      <td>p̂ = (x₁ + x₂)/(n₁ + n₂)</td>
+    </tr>
+    <tr>
+      <td>5. Compute z</td>
+      <td>Divide observed difference by standard error</td>
+      <td>z = (p̂₁ − p̂₂) / √[p̂(1−p̂)(1/n₁ + 1/n₂)]</td>
+    </tr>
+    <tr>
+      <td>6. Find p-value</td>
+      <td>Use standard normal distribution</td>
+      <td>Two-tailed: 2P(Z &gt; |z|); one-tailed: one tail area</td>
+    </tr>
+    <tr>
+      <td>7. Conclude</td>
+      <td>Compare p-value to α; state conclusion in context</td>
+      <td>p ≤ α → reject H₀; p &gt; α → fail to reject H₀</td>
+    </tr>
+  </tbody>
+</table>
+      <div class="notes"><strong>Notes</strong>Consider pairing this topic with confidence intervals for the difference of two proportions (using unpooled standard error) so students see how the two inferential approaches complement each other. Emphasize that pooling is tied specifically to the equal-proportions null hypothesis.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

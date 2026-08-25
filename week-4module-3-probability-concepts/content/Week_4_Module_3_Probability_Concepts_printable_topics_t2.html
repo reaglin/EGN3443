@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Spaces and Events</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+  <header>
+    <h1>Sample Spaces and Events</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Sample Spaces and Events</h2>
+      <p>Probability is a precise, mathematical discipline, and like any mathematical structure it demands a solid foundation before any calculation can begin. That foundation is the <strong>sample space</strong>. Before you can assign a number to the likelihood of some outcome — before you can even speak meaningfully about what it means for something to be "likely" — you must first define the complete universe of things that could happen. This topic builds that foundation from the ground up: what a sample space is, how to construct one carefully, what an event is, how events relate to one another, and under what conditions the simplest probability formula is valid.</p>
+
+<p>Everything in classical probability theory flows from these definitions. Skipping over them or treating them casually leads to subtle errors that compound as problems grow more complex. Learners who invest the time to understand sample spaces and events rigorously will find every subsequent topic in probability far easier to navigate.</p>
+
+<p><strong>Defining a Sample Space</strong></p>
+
+<p>A <strong>sample space</strong> is the set of <em>all</em> possible outcomes of a probability experiment. It is conventionally denoted by the capital letter <strong>S</strong> or the uppercase Greek letter <strong>Ω</strong> (omega). The word "all" is non-negotiable: the sample space must be <em>collectively exhaustive</em>, meaning every outcome that could conceivably occur when the experiment is run must appear somewhere in it. If even one possible outcome is left out, the sample space is incomplete and any probability computed from it is potentially wrong.</p>
+
+<p>Equally important is the requirement that the sample space be <em>mutually exclusive</em>: no outcome should appear more than once. Each element of S represents a distinct, non-overlapping possibility. These two conditions together — collectively exhaustive and mutually exclusive — are the defining requirements of a valid sample space.</p>
+
+<p>Consider the experiment of flipping a single fair coin. The sample space is:</p>
+
+<pre><code>S = { H, T }</code></pre>
+
+<p>Here H represents Heads and T represents Tails. Every possible result of flipping the coin appears exactly once. Nothing is missing, and nothing is repeated. This is a valid sample space.</p>
+
+<p>Now consider rolling a standard six-sided die. Every face shows a different integer from 1 to 6, so:</p>
+
+<pre><code>S = { 1, 2, 3, 4, 5, 6 }</code></pre>
+
+<p>Again, every outcome appears once and nothing is omitted. If a student wrote <code>S = { 1, 2, 3, 4, 5 }</code> by accident, the sample space would be wrong — the outcome "6" exists and must be included. Any probability calculated from the incomplete set would be distorted.</p>
+
+<p>Identifying the correct sample space is always the <strong>first step</strong> before any probability can be calculated. This is not a formality; it is the act of precisely defining what experiment is being performed and what results it can produce.</p>
+
+<p><strong>Types of Sample Spaces</strong></p>
+
+<p>Sample spaces are broadly classified into two types based on the nature of the outcomes they contain.</p>
+
+<p>A <strong>finite sample space</strong> contains a limited, countable number of outcomes. The coin flip (<code>S = { H, T }</code>) has exactly 2 outcomes. The die roll has exactly 6. Drawing a card from a standard deck has exactly 52. You can list every element individually. Finite sample spaces are the most common starting point in introductory probability, and they lend themselves to direct counting methods.</p>
+
+<p>A <strong>continuous sample space</strong> contains an uncountably infinite range of outcomes, typically because the experiment involves measurement rather than selection from a discrete set. For example, if you measure the exact amount of rainfall at a weather station over one hour, the outcome could be any non-negative real number — 0.0 mm, 2.37 mm, 14.008 mm, and so on. There are infinitely many possible values and you cannot list them all. The sample space might be described as:</p>
+
+<pre><code>S = { x : x ≥ 0 }   (all non-negative real numbers)</code></pre>
+
+<p>The distinction matters because the tools used to compute probability differ. In finite sample spaces, you count outcomes. In continuous sample spaces, you work with probability <em>density</em> and integration. Recognizing which type of sample space applies to an experiment is therefore the very next judgment a practitioner must make after defining S.</p>
+
+<p>There is also an intermediate case sometimes called a <strong>countably infinite sample space</strong> — for example, the number of times you flip a coin until you first get Heads. You could flip once, twice, three times, or theoretically any number of times without limit. The outcomes are integers and are countable in principle, but there is no upper bound.</p>
+
+<p><strong>Constructing Sample Spaces Systematically</strong></p>
+
+<p>For experiments with very few outcomes, a simple list is sufficient. But as experiments become more complex — involving multiple steps or multiple simultaneous components — a structured approach is essential to avoid accidentally leaving out outcomes.</p>
+
+<p><em>Tree Diagrams</em></p>
+
+<p>A <strong>tree diagram</strong> is a visual tool that works outward from a starting point, branching at each stage of the experiment to represent every possible result of that stage. Each path from the root to a leaf of the tree represents one complete outcome.</p>
+
+<p>Consider flipping a coin <em>twice</em>. The first flip can result in H or T. For each of those results, the second flip can also result in H or T. The tree looks like this:</p>
+
+<pre><code>Start
+  ├── H (first flip)
+  │     ├── H (second flip) → outcome: HH
+  │     └── T (second flip) → outcome: HT
+  └── T (first flip)
+        ├── H (second flip) → outcome: TH
+        └── T (second flip) → outcome: TT</code></pre>
+
+<p>Reading off all the leaf nodes gives the complete sample space:</p>
+
+<pre><code>S = { HH, HT, TH, TT }</code></pre>
+
+<p>The tree makes it visually obvious that there are exactly 4 outcomes and ensures none are missed. This is especially valuable when the stages of the experiment have different numbers of branches, or when the branches at a later stage depend on what happened at an earlier stage.</p>
+
+<p><em>Organized Tables and Grids</em></p>
+
+<p>When two <em>independent</em> experiments are run simultaneously, a two-dimensional grid or table elegantly displays all combinations. Suppose you roll two distinguishable dice — one red and one blue — each with faces 1 through 6. The red die's outcomes label the rows and the blue die's outcomes label the columns. Each cell of the table contains one combined outcome:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Red \ Blue</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1</strong></td>
+      <td>(1,1)</td>
+      <td>(1,2)</td>
+      <td>(1,3)</td>
+      <td>(1,4)</td>
+      <td>(1,5)</td>
+      <td>(1,6)</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td>(2,1)</td>
+      <td>(2,2)</td>
+      <td>(2,3)</td>
+      <td>(2,4)</td>
+      <td>(2,5)</td>
+      <td>(2,6)</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td>(3,1)</td>
+      <td>(3,2)</td>
+      <td>(3,3)</td>
+      <td>(3,4)</td>
+      <td>(3,5)</td>
+      <td>(3,6)</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td>(4,1)</td>
+      <td>(4,2)</td>
+      <td>(4,3)</td>
+      <td>(4,4)</td>
+      <td>(4,5)</td>
+      <td>(4,6)</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td>(5,1)</td>
+      <td>(5,2)</td>
+      <td>(5,3)</td>
+      <td>(5,4)</td>
+      <td>(5,5)</td>
+      <td>(5,6)</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td>
+      <td>(6,1)</td>
+      <td>(6,2)</td>
+      <td>(6,3)</td>
+      <td>(6,4)</td>
+      <td>(6,5)</td>
+      <td>(6,6)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table shows all 36 outcomes at a glance. This is far more reliable than trying to list them mentally and hoping nothing is skipped. The table also makes it easy to identify subsets of outcomes — for instance, all cells where the two numbers sum to 7 can be spotted immediately: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1).</p>
+
+<p>The general principle behind both tools is the <strong>Fundamental Counting Principle</strong>: if one experiment has <em>m</em> outcomes and a second independent experiment has <em>n</em> outcomes, then together they have <em>m × n</em> combined outcomes. Two coin flips: 2 × 2 = 4. Two dice: 6 × 6 = 36. This principle extends to any number of stages.</p>
+
+<p>Systematic construction is not merely convenient — it is <em>necessary</em>. An accidentally omitted outcome means the sample space is incomplete, every probability computed from it is wrong, and conclusions drawn from those probabilities are unreliable.</p>
+
+<p><strong>Defining an Event</strong></p>
+
+<p>Once the sample space is established, we can define <strong>events</strong>. An event is any <em>subset</em> of the sample space — a collection of zero or more outcomes from S that share some characteristic of interest.</p>
+
+<p>This definition has an immediate and important implication: <strong>an event can only contain outcomes that already belong to S</strong>. If an outcome is not in the sample space, it cannot be in any event. Events describe things that could happen within this experiment; outcomes outside S are by definition impossible in this experiment.</p>
+
+<p>Events come in two basic varieties:</p>
+
+<ul>
+  <li><strong>Simple event:</strong> An event containing exactly one outcome. When you roll a die, the event "rolling a 4" is a simple event: <code>E = { 4 }</code>.</li>
+  <li><strong>Compound event:</strong> An event containing two or more outcomes. The event "rolling an even number" on a die is compound: <code>E = { 2, 4, 6 }</code>.</li>
+</ul>
+
+<p>There are also two special events. The <strong>impossible event</strong>, denoted <strong>∅</strong> (the empty set), contains no outcomes at all and has probability 0 — it can never occur. The <strong>certain event</strong> is S itself; it contains every outcome and has probability 1 — it always occurs (since <em>some</em> outcome must result from the experiment).</p>
+
+<p>In practice, events are first described in plain language — "the sum of two dice is at least 10" — and then translated into set notation by listing the qualifying outcomes from S. For the two-dice experiment above:</p>
+
+<pre><code>Event A = "sum is at least 10"
+A = { (4,6), (5,5), (5,6), (6,4), (6,5), (6,6) }</code></pre>
+
+<p>This translation step — from words to set — is what makes probability calculations possible, because we can now count elements precisely.</p>
+
+<p><strong>Relationships Between Events</strong></p>
+
+<p>Events can be combined or compared using set operations. These operations have direct counterparts in everyday language and in the probability rules built upon them.</p>
+
+<p><em>Union (A ∪ B)</em></p>
+
+<p>The <strong>union</strong> of events A and B, written <strong>A ∪ B</strong>, is the event containing all outcomes that belong to A, to B, or to both. In plain language, A ∪ B occurs whenever A occurs <em>or</em> B occurs (or both). This corresponds to the logical "or."</p>
+
+<p>Using the two-dice sample space, define:</p>
+<ul>
+  <li><code>A = { (1,1), (2,2), (3,3), (4,4), (5,5), (6,6) }</code> — doubles</li>
+  <li><code>B = { (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) }</code> — sum equals 7</li>
+</ul>
+
+<pre><code>A ∪ B = { (1,1), (2,2), (3,3), (4,4), (5,5), (6,6),
+           (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) }</code></pre>
+
+<p>Since no outcome belongs to both A and B in this case, the union simply combines all 12 elements.</p>
+
+<p><em>Intersection (A ∩ B)</em></p>
+
+<p>The <strong>intersection</strong> of events A and B, written <strong>A ∩ B</strong>, contains only the outcomes that belong to <em>both</em> A and B simultaneously. In plain language, A ∩ B occurs when A and B both occur on the same trial. This corresponds to the logical "and."</p>
+
+<p>Using the same A and B above, A ∩ B = ∅ because no outcome is simultaneously a double and sums to 7 (a double would sum to 2, 4, 6, 8, 10, or 12). When two events share no outcomes, they are called <strong>mutually exclusive</strong> (or disjoint).</p>
+
+<p>Now define a new event:</p>
+<ul>
+  <li><code>C = { (2,2), (3,3), (4,4) }</code> — doubles where each die shows 2, 3, or 4</li>
+</ul>
+
+<pre><code>A ∩ C = { (2,2), (3,3), (4,4) }</code></pre>
+
+<p>Here the intersection is non-empty because C is actually a subset of A.</p>
+
+<p><em>Complement (A′ or Aᶜ)</em></p>
+
+<p>The <strong>complement</strong> of event A, written <strong>A′</strong> or <strong>Aᶜ</strong>, contains all outcomes in S that do <em>not</em> belong to A. It represents "everything except A." Together, A and A′ always cover the entire sample space without overlap:</p>
+
+<pre><code>A ∪ A′ = S    (the union is the whole sample space)
+A ∩ A′ = ∅    (they share no outcomes)</code></pre>
+
+<p>This gives rise to one of the most useful shortcuts in probability:</p>
+
+<pre><code>P(A′) = 1 − P(A)</code></pre>
+
+<p>If you know the probability of A, you immediately know the probability of its complement. For example, if the probability that it rains tomorrow is 0.35, then the probability that it does <em>not</em> rain is 1 − 0.35 = 0.65.</p>
+
+<p>A Venn diagram — a rectangle (representing S) containing overlapping circles (representing events) — is the standard visual aid for picturing these relationships. The union fills both circles; the intersection fills only the overlap; the complement fills everything in the rectangle outside the circle for A.</p>
+
+<p>Understanding union, intersection, and complement is <em>essential</em> before studying the <strong>Addition Rule</strong> (which involves unions) and the <strong>Multiplication Rule</strong> (which involves intersections and conditional probability), as those rules are direct consequences of these set relationships.</p>
+
+<p><strong>Equally Likely Outcomes and Their Importance</strong></p>
+
+<p>The simplest and most widely taught probability formula is the <strong>classical probability formula</strong>:</p>
+
+<pre><code>P(Event) = (Number of outcomes favorable to the event) ÷ (Total number of outcomes in S)</code></pre>
+
+<p>For example, the probability of rolling an even number on a fair six-sided die:</p>
+
+<pre><code>Favorable outcomes: { 2, 4, 6 } → 3 outcomes
+Total outcomes in S: { 1, 2, 3, 4, 5, 6 } → 6 outcomes
+
+P(even) = 3 / 6 = 0.5</code></pre>
+
+<p>This formula is elegant and easy to apply — but it comes with a critical condition: it is <strong>only valid when every outcome in the sample space is equally likely to occur</strong>.</p>
+
+<p>A fair die satisfies this condition. Each of the six faces has exactly a 1-in-6 chance of landing face up. A fair coin satisfies it too. But many real-world situations do not. Suppose a thumbtack is tossed and can land either point-up or point-down. There are two outcomes, but they are <em>not</em> equally likely — the physical shape of the thumbtack makes one outcome more probable than the other. Writing <code>P(point-up) = 1/2</code> using the classical formula would be incorrect.</p>
+
+<p>Similarly, suppose a weather report says the probability of rain tomorrow is 0.70. The two outcomes "rain" and "no rain" are not equally likely, so the classical formula does not apply. Probability here must come from historical data or a model, not from counting outcomes.</p>
+
+<p>The process of verifying the equally-likely assumption can be summarized as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Experiment</th>
+      <th>Outcomes</th>
+      <th>Equally Likely?</th>
+      <th>Classical Formula Valid?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flip a fair coin</td>
+      <td>H, T</td>
+      <td>Yes — symmetric design</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Roll a fair die</td>
+      <td>1, 2, 3, 4, 5, 6</td>
+      <td>Yes — symmetric design</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Toss a thumbtack</td>
+      <td>Point-up, Point-down</td>
+      <td>No — asymmetric shape</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Draw a card from a shuffled deck</td>
+      <td>52 distinct cards</td>
+      <td>Yes — random shuffle</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Tomorrow's weather (rain/no rain)</td>
+      <td>Rain, No Rain</td>
+      <td>No — depends on conditions</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Randomly select a student from a class</td>
+      <td>Each student in the class</td>
+      <td>Yes — if selection is truly random</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The assumption of equally likely outcomes is so common in textbook problems that students sometimes apply the classical formula automatically without checking. Developing the habit of pausing to verify this assumption is one of the most important critical-thinking skills in introductory probability. When the assumption does not hold, the appropriate approach is to use empirical (relative frequency) probability — based on observed data — or theoretical models that account for the actual probabilities of each outcome.</p>
+
+<p>To bring all the ideas in this topic together, consider one complete worked example. A bag contains 3 red marbles and 2 blue marbles. One marble is drawn at random. Define the sample space and key events, then compute relevant probabilities.</p>
+
+<p><em>Step 1 — Define the sample space.</em> To distinguish the marbles, label them R1, R2, R3, B1, B2. Then:</p>
+
+<pre><code>S = { R1, R2, R3, B1, B2 }</code></pre>
+
+<p><em>Step 2 — Verify equal likelihood.</em> The draw is random, so each marble is equally likely. The classical formula applies.</p>
+
+<p><em>Step 3 — Define events.</em></p>
+<pre><code>A = "drawing a red marble" = { R1, R2, R3 }
+B = "drawing a blue marble" = { B1, B2 }
+</code></pre>
+
+<p><em>Step 4 — Compute probabilities.</em></p>
+<pre><code>P(A) = 3/5 = 0.6
+P(B) = 2/5 = 0.4
+</code></pre>
+
+<p><em>Step 5 — Check relationships.</em></p>
+<pre><code>A ∪ B = S     → P(A ∪ B) = 1         (one of the two must occur)
+A ∩ B = ∅     → P(A ∩ B) = 0         (cannot draw red and blue simultaneously)
+A′ = B        → P(A′) = 1 − 0.6 = 0.4  ✓ (matches P(B))
+</code></pre>
+
+<p>Every concept from this topic — the sample space, event types, set operations, the equally-likely check, and the classical formula — converges in this one small example. These are the building blocks upon which every more advanced probability topic is constructed.</p>
+      <div class="notes"><strong>Notes</strong>The two-dice grid table renders all 36 outcomes and supports event identification visually. The assumption-check table contrasts valid and invalid uses of the classical formula concretely. The complete marble worked example at the end ties together every subtopic in sequence and is especially useful for learners consolidating understanding before moving to probability rules.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

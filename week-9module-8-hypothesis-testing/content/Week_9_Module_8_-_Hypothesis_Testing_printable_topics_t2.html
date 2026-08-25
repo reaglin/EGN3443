@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulating Null and Alternative Hypotheses</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+  <header>
+    <h1>Formulating Null and Alternative Hypotheses</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Formulating Null and Alternative Hypotheses</h2>
+      <p>Hypothesis testing is one of the most fundamental procedures in inferential statistics. Before any data are collected or any test statistic is computed, a researcher must clearly articulate what claim is being evaluated and what would constitute evidence against that claim. This process — formulating the null and alternative hypotheses — is not a mere formality. Done correctly, it defines the entire structure of the statistical test: which distribution is used, how the critical region is determined, what kind of error is possible, and how conclusions are worded. Done poorly, it introduces ambiguity, bias, and results that cannot be meaningfully interpreted or reproduced.</p>
+
+<p>A <strong>hypothesis</strong>, in the statistical sense, is a precise, testable statement about one or more <em>population parameters</em>. This is a critical distinction: hypotheses are never written about sample statistics, because sample statistics are directly observed — there is nothing to test about them. Instead, a hypothesis makes a claim about an unknown quantity in the population, such as the true population mean <em>μ</em>, the population proportion <em>p</em>, or the population standard deviation <em>σ</em>. The sample data are then used as evidence either for or against that claim.</p>
+
+<p>Proper formulation ensures three things. First, the test is <strong>focused</strong>: there is one specific claim under evaluation, not a vague assertion. Second, the test is <strong>reproducible</strong>: another researcher with the same hypotheses and the same data should reach the same statistical conclusion. Third, the test is <strong>statistically interpretable</strong>: the hypotheses translate directly into a probability model that allows the computation of a test statistic and a p-value.</p>
+
+<p>Every hypothesis test involves two competing statements: the <strong>null hypothesis</strong> and the <strong>alternative hypothesis</strong>. Together they must be mutually exclusive (they cannot both be true at the same time) and collectively exhaustive (every possible value of the parameter must fall under one of the two hypotheses). Understanding the role and construction of each is essential.</p>
+
+<p>The <strong>null hypothesis</strong>, written as <strong>H₀</strong>, represents the default position — the status quo, the assumption of no effect, no difference, or no change. It is the hypothesis that is directly subjected to the test. A defining characteristic of the null hypothesis is that it <em>always contains an equality component</em>. This means H₀ will use one of three relational symbols: <strong>=</strong>, <strong>≤</strong>, or <strong>≥</strong>. The reason for this requirement is mathematical: in order to compute a test statistic and locate it on a probability distribution, the null hypothesis must specify a single reference value (or a boundary value) for the parameter. Without equality, there is no fixed point from which to measure deviation.</p>
+
+<p>For example, suppose a company claims its customer service calls last, on average, no more than 5 minutes. The null hypothesis would be:</p>
+
+<pre><code>H₀: μ ≤ 5</code></pre>
+
+<p>Or suppose a researcher assumes, as a starting point, that a new drug produces the same average reduction in blood pressure as the existing standard:</p>
+
+<pre><code>H₀: μ = 10 (mmHg reduction)</code></pre>
+
+<p>An important and frequently misunderstood point is that the null hypothesis is <em>never proven true</em>. Statistical testing can only ever lead to one of two conclusions: <strong>reject H₀</strong> or <strong>fail to reject H₀</strong>. Failing to reject H₀ does not confirm it. It simply means the sample data did not provide sufficient evidence to overturn it — much like a court verdict of "not guilty" is not the same as a declaration of innocence. The absence of evidence against H₀ is not evidence for H₀.</p>
+
+<p>The <strong>alternative hypothesis</strong>, written as <strong>H₁</strong> or <strong>Hₐ</strong>, is the statement that directly contradicts the null hypothesis. It represents the effect, difference, or relationship that the researcher expects or hopes to detect. Whereas H₀ is the conservative default, H₁ is the claim that requires evidence. The alternative hypothesis always uses one of three strict inequality symbols: <strong>&lt;</strong>, <strong>&gt;</strong>, or <strong>≠</strong>. It never contains an equality sign.</p>
+
+<p>The formulation of H₁ is not arbitrary — it should be driven by the research question, prior theory, or domain knowledge. And critically, the choice of symbol in H₁ determines whether the test will be <strong>one-tailed</strong> (directional) or <strong>two-tailed</strong> (non-directional), which in turn affects how the critical region is defined and how the p-value is computed.</p>
+
+<p>A <strong>non-directional</strong> (two-tailed) test uses the <strong>≠</strong> symbol in H₁. This means the researcher is interested in detecting a difference in either direction — the parameter could be either larger or smaller than the null value, and either outcome would be considered meaningful. For example:</p>
+
+<pre><code>H₀: μ = 50
+H₁: μ ≠ 50</code></pre>
+
+<p>In a two-tailed test, the significance level <em>α</em> is split equally between the two tails of the sampling distribution. If <em>α</em> = 0.05, then 0.025 is placed in the left tail and 0.025 in the right tail. This means the critical values are more extreme (further from the center) than in a one-tailed test, requiring a larger observed effect to achieve statistical significance. Two-tailed tests are considered more <em>conservative</em>, and they are appropriate whenever the research question asks simply whether there is any difference, with no prior expectation about direction. They protect against the scenario where the effect turns out to be in the opposite direction from what was guessed.</p>
+
+<p>A <strong>directional</strong> (one-tailed) test places the entire significance level in one tail. There are two forms:</p>
+
+<ul>
+  <li><strong>Right-tailed test</strong>: Used when the researcher predicts the parameter is <em>greater than</em> the null value. H₁ uses the <strong>&gt;</strong> symbol. Example: A manufacturer claims a new process <em>increases</em> average output beyond 200 units per hour.
+    <pre><code>H₀: μ ≤ 200
+H₁: μ > 200</code></pre>
+    The entire critical region lies in the right tail of the distribution.
+  </li>
+  <li><strong>Left-tailed test</strong>: Used when the researcher predicts the parameter is <em>less than</em> the null value. H₁ uses the <strong>&lt;</strong> symbol. Example: A consumer group believes a product's actual weight is <em>less than</em> the labeled 500 grams.
+    <pre><code>H₀: μ ≥ 500
+H₁: μ < 500</code></pre>
+    The entire critical region lies in the left tail.
+  </li>
+</ul>
+
+<p>Because a one-tailed test concentrates the full <em>α</em> in one tail, it is <strong>more powerful</strong> at detecting an effect in the predicted direction — meaning it is more likely to correctly reject H₀ when the true population parameter is on that side. However, this comes at a cost: if the true effect is actually in the opposite direction, a one-tailed test will completely fail to detect it, no matter how large that opposite effect may be.</p>
+
+<p>The choice between a one-tailed and two-tailed test is therefore a substantive decision, not a statistical convenience. The following table summarizes when each is appropriate:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Test Type</th>
+      <th>Symbol in H₁</th>
+      <th>Critical Region</th>
+      <th>When to Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Two-tailed (non-directional)</td>
+      <td>≠</td>
+      <td>Both tails (α/2 each)</td>
+      <td>No prior expectation about direction; testing for any difference</td>
+    </tr>
+    <tr>
+      <td>Right-tailed (directional)</td>
+      <td>&gt;</td>
+      <td>Right tail only (full α)</td>
+      <td>Theory or prior evidence strongly predicts an increase</td>
+    </tr>
+    <tr>
+      <td>Left-tailed (directional)</td>
+      <td>&lt;</td>
+      <td>Left tail only (full α)</td>
+      <td>Theory or prior evidence strongly predicts a decrease</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The guideline is straightforward: use a two-tailed test when the research question is open-ended ("Is there a difference?"), and use a one-tailed test only when theory, prior research, or domain expertise provides a strong, specific directional prediction before the data are examined. The directionality of a test affects the <strong>critical value</strong> against which the test statistic is compared, the <strong>p-value</strong> (a one-tailed p-value is exactly half the two-tailed p-value for the same test statistic in a symmetric distribution), and the overall <strong>statistical power</strong> of the test.</p>
+
+<p>Several common errors arise in hypothesis formulation, and being aware of them helps avoid mistakes that can invalidate an entire analysis.</p>
+
+<ul>
+  <li><strong>Placing equality in H₁</strong>: The equality sign must always reside in H₀, never in H₁. Writing H₁: μ = 50 is incorrect and meaningless within the hypothesis-testing framework. H₁ must be a strict inequality.</li>
+  <li><strong>Hypotheses that are not mutually exclusive or exhaustive</strong>: H₀ and H₁ together must cover every possible value of the parameter. For instance, stating H₀: μ = 50 and H₁: μ = 60 leaves all other parameter values unaccounted for and is logically incomplete.</li>
+  <li><strong>Writing hypotheses in terms of sample statistics</strong>: Writing H₀: x̄ = 50 is incorrect. The sample mean x̄ is known from the data and does not require hypothesis testing. Hypotheses must be about the unknown population parameter <em>μ</em>.</li>
+  <li><strong>Formulating hypotheses after examining the data (HARKing)</strong>: "Hypothesizing After Results are Known" is a serious methodological error. If a researcher looks at the data first and then constructs hypotheses to match the observed pattern, the stated significance level is no longer valid and the results are subject to confirmation bias. Hypotheses must be specified <em>before</em> data collection or analysis.</li>
+  <li><strong>Choosing a one-tailed test opportunistically</strong>: Switching from a planned two-tailed test to a one-tailed test after seeing the data trend — because the one-tailed p-value will be smaller — is a form of p-hacking. The direction of a one-tailed test must be justified on theoretical or prior-empirical grounds, not on the data at hand.</li>
+</ul>
+
+<p>To consolidate these ideas, consider a complete worked example. A pharmaceutical company develops a new cholesterol-lowering drug. Previous research establishes that the standard drug reduces LDL cholesterol by an average of 30 mg/dL. The company believes its new drug is <em>more effective</em>, meaning it produces a greater average reduction.</p>
+
+<pre><code>H₀: μ ≤ 30   (the new drug is no more effective than the standard)
+H₁: μ > 30   (the new drug produces a greater average reduction)</code></pre>
+
+<p>This is a <strong>right-tailed test</strong>. The parameter of interest is <em>μ</em>, the true population mean reduction in LDL cholesterol for patients taking the new drug. Notice the hypotheses are stated in terms of this population parameter, they are mutually exclusive and exhaustive, the equality is in H₀, and the direction in H₁ is justified by the company's prior belief. A random sample of patients would be drawn, a test statistic computed, and the result compared against the critical value in the right tail at the chosen significance level.</p>
+
+<p>Now suppose instead the company simply wants to know whether the new drug produces <em>any different</em> result from the standard — it might be better or it might be worse:</p>
+
+<pre><code>H₀: μ = 30
+H₁: μ ≠ 30</code></pre>
+
+<p>This is a <strong>two-tailed test</strong>, appropriate because no specific directional claim is being made. The critical region is split between both tails, and evidence of either a significantly larger or significantly smaller mean reduction would lead to rejecting H₀.</p>
+
+<p>Mastering hypothesis formulation is not merely an academic exercise. Every downstream decision in a hypothesis test — the choice of test statistic, the interpretation of the p-value, the wording of the conclusion — flows directly from how H₀ and H₁ are constructed. A well-formulated pair of hypotheses keeps the analysis honest, focused, and scientifically defensible.</p>
+      <div class="notes"><strong>Notes</strong>Covers the full arc of hypothesis formulation: purpose, structure of H₀ and H₁, non-directional vs. directional forms (two-tailed, right-tailed, left-tailed), decision criteria for choosing test direction, and a detailed treatment of common formulation errors with corrective guidance. Includes a worked example and a summary comparison table.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

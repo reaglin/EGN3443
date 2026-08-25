@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to ANOVA</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+  <header>
+    <h1>Introduction to ANOVA</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Introduction to ANOVA</h2>
+      <p>Analysis of Variance, universally abbreviated as ANOVA, is one of the most widely used inferential statistical techniques in the social, behavioral, biological, and health sciences. At its core, ANOVA is a method for comparing the means of three or more groups simultaneously using a single, unified analysis. To appreciate why this matters, consider a researcher who wants to know whether three different teaching methods — lecture-based, problem-based, and flipped-classroom — produce different average exam scores in a large undergraduate course. ANOVA allows the researcher to address that question rigorously, without the complications that arise from piecemeal comparisons.</p>
+
+<p><strong>What is ANOVA?</strong></p>
+
+<p>ANOVA tests a specific null hypothesis: that all group population means are equal. Written formally for <em>k</em> groups, the null hypothesis is H₀: μ₁ = μ₂ = μ₃ = … = μₖ. The alternative hypothesis, H₁, simply states that <em>at least one</em> group mean differs from the others — it does not specify which group or groups differ, only that equality does not hold everywhere. This distinction is important: a significant ANOVA result tells you that the pattern of means is unlikely under the null hypothesis, but it does not, by itself, identify exactly where the differences lie. Post-hoc tests (such as Tukey's HSD or Bonferroni correction) are used afterward to pinpoint the specific pairs of groups that differ.</p>
+
+<p>The logical engine behind ANOVA is the <strong>partitioning of total variability</strong> in the data. Every score in a dataset deviates from the overall grand mean. ANOVA decomposes those deviations into two distinct sources:</p>
+
+<ul>
+  <li><strong>Between-group variability (SS<sub>Between</sub>):</strong> This reflects how much each group's mean differs from the grand mean. If the teaching methods genuinely produce different outcomes, the group means will spread far apart, and between-group variability will be large.</li>
+  <li><strong>Within-group variability (SS<sub>Within</sub>):</strong> This reflects how much individual scores within each group scatter around their own group mean. It captures random measurement error and natural individual differences — variability that has nothing to do with the treatment or grouping factor.</li>
+</ul>
+
+<p>These two components sum to total variability: SS<sub>Total</sub> = SS<sub>Between</sub> + SS<sub>Within</sub>. By isolating the two sources, ANOVA can ask a precise question: is the spread <em>between</em> groups large relative to the natural noise <em>within</em> groups?</p>
+
+<p>That question is answered by the <strong>F-statistic</strong>, which is the ratio of the mean square between groups (MS<sub>Between</sub>) to the mean square within groups (MS<sub>Within</sub>):</p>
+
+<pre><code>F = MS_Between / MS_Within
+
+where:
+  MS_Between = SS_Between / df_Between   (df_Between = k − 1)
+  MS_Within  = SS_Within  / df_Within    (df_Within  = N − k)
+
+k = number of groups, N = total number of observations</code></pre>
+
+<p>When the null hypothesis is true and all group means are equal, the between-group variance is driven only by chance fluctuations, just like within-group variance. In that case, F hovers around 1. When the null hypothesis is false and real group differences exist, MS<sub>Between</sub> inflates because it captures both chance and genuine group effects, pushing F well above 1. The obtained F value is compared against a theoretical F-distribution with (k−1) and (N−k) degrees of freedom to produce a p-value. If p falls below the chosen significance level (commonly α = 0.05), the null hypothesis is rejected.</p>
+
+<p>To make this concrete, suppose a researcher tests three diets (Diet A, Diet B, Diet C) on weight loss (in kg) over eight weeks, with five participants per diet group. If the grand mean weight loss is 4.0 kg, Diet A averages 3.0 kg, Diet B averages 4.5 kg, and Diet C averages 4.5 kg, the group means spread noticeably around the grand mean, contributing to a sizeable SS<sub>Between</sub>. If individual scores within each diet group cluster tightly around their group mean, SS<sub>Within</sub> will be small. The resulting F-ratio will be large, yielding a small p-value and grounds to reject H₀.</p>
+
+<p><strong>Why Not Just Use Multiple t-Tests?</strong></p>
+
+<p>A natural first instinct when comparing three groups might be to run a series of independent-samples t-tests: Diet A vs. Diet B, Diet A vs. Diet C, and Diet B vs. Diet C. With only three groups that is three comparisons; with six groups it balloons to fifteen. This strategy is statistically dangerous for a fundamental reason rooted in probability.</p>
+
+<p>Every time a t-test is conducted at α = 0.05, there is a 5% chance of incorrectly rejecting a true null hypothesis — a <strong>Type I error</strong>, or false positive. That probability is tolerable for a single test. But when multiple tests are run on the same dataset, the individual error rates accumulate. The <strong>familywise error rate (FWER)</strong> — the probability of making <em>at least one</em> Type I error across the entire family of comparisons — rises sharply:</p>
+
+<pre><code>FWER = 1 − (1 − α)^c
+
+where c = number of comparisons
+
+For 3 comparisons at α = 0.05:
+  FWER = 1 − (1 − 0.05)^3 = 1 − 0.95^3 ≈ 1 − 0.857 = 0.143
+
+For 10 comparisons at α = 0.05:
+  FWER = 1 − 0.95^10 ≈ 1 − 0.599 = 0.401</code></pre>
+
+<p>With just three pairwise t-tests, the actual probability of making at least one false positive nearly triples from 5% to approximately 14.3%. With ten comparisons, it exceeds 40%. This dramatic inflation means a researcher is highly likely to find a "significant" difference simply by chance, not because a real effect exists. The conclusions drawn from such an analysis could be entirely spurious.</p>
+
+<p>ANOVA solves this problem by testing all group means simultaneously within a <strong>single omnibus test</strong>. No matter how many groups are involved, ANOVA maintains the significance level at the chosen α for the overall analysis. The familywise error rate is controlled at α = 0.05 because there is only one test being performed. This is precisely why ANOVA is the appropriate tool when three or more groups are being compared: it is not merely a convenience but a statistical necessity for maintaining the integrity of the analysis.</p>
+
+<p>It is worth noting that even ANOVA does not entirely eliminate the need for caution. When a significant F is found and post-hoc tests are conducted to identify specific group differences, those multiple comparisons again require error-rate corrections. Methods like Tukey's HSD, the Bonferroni adjustment, or the Holm-Bonferroni procedure are used specifically for this reason. But ANOVA's omnibus test itself remains protected.</p>
+
+<p><strong>When is ANOVA the Appropriate Choice?</strong></p>
+
+<p>ANOVA is a powerful technique, but it is appropriate only under specific research conditions. Three key criteria determine whether ANOVA is the right tool:</p>
+
+<ul>
+  <li><strong>Level of measurement:</strong> The dependent variable (the outcome being measured) must be continuous and measured at the <em>interval</em> or <em>ratio</em> level. Interval-level data have meaningful, equal-sized gaps between values (e.g., temperature in Celsius, exam scores). Ratio-level data additionally have a true zero point (e.g., reaction time in milliseconds, weight in kilograms). ANOVA is not appropriate for nominal or ordinal dependent variables. For ordinal outcomes, nonparametric alternatives like the Kruskal-Wallis test are preferred.</li>
+  <li><strong>Number of groups:</strong> ANOVA is designed for comparisons involving <em>three or more</em> groups or conditions. Technically, ANOVA applied to just two groups produces a result mathematically equivalent to an independent-samples t-test (in fact, F = t² in that case), but for two groups, a t-test is simpler and equally valid. ANOVA's advantage is most apparent when k ≥ 3.</li>
+  <li><strong>Research question:</strong> The analysis is appropriate when the research question asks whether group means differ, not merely whether distributions differ in shape or spread. ANOVA is a <em>means-comparison</em> procedure. If the research interest is in medians, proportions, or distributional shape, other tests (such as chi-square, Mann-Whitney, or Levene's test) are more fitting.</li>
+</ul>
+
+<p>A practical example helps clarify the appropriateness criteria. A clinical researcher studying anxiety reduction randomly assigns participants to one of four conditions: cognitive-behavioral therapy (CBT), mindfulness training, medication, and a waitlist control. After eight weeks, anxiety is measured using a validated continuous scale (interval level). There are four groups, and the question is whether mean anxiety scores differ across conditions. ANOVA is clearly appropriate here. In contrast, if the researcher instead categorized outcome as "improved" or "not improved" (a binary nominal outcome), a chi-square test of independence would be more suitable.</p>
+
+<p><strong>Core Assumptions of ANOVA</strong></p>
+
+<p>Like all parametric tests, ANOVA rests on a set of assumptions. When these assumptions are met, the F-test produces accurate p-values and the conclusions drawn from it are trustworthy. When they are violated, the results can be misleading. The three core assumptions are:</p>
+
+<ul>
+  <li><strong>Independence of observations:</strong> Each participant's score must be independent of every other participant's score. This means a participant's outcome should not influence or be influenced by another's. Independence is primarily a function of sound research design — random assignment, no cross-contamination between groups, and no repeated measurements on the same individuals (the last point is addressed by repeated-measures ANOVA). Violating independence is the most serious assumption breach because it cannot be easily corrected through data transformation; it must be prevented in the design phase.</li>
+  <li><strong>Normality:</strong> Within each group, the dependent variable should be approximately normally distributed. It is critical to understand that this refers to the distribution <em>within groups</em>, not the overall dataset. ANOVA is reasonably robust to moderate departures from normality, particularly when group sizes are large (invoking the central limit theorem) and roughly equal. Normality can be assessed using Q-Q plots, histograms, or formal tests such as the Shapiro-Wilk test. When normality is severely violated — especially with small and unequal sample sizes — the nonparametric Kruskal-Wallis H test is a suitable alternative.</li>
+  <li><strong>Homogeneity of variance (homoscedasticity):</strong> The population variances within each group should be approximately equal. Formally, σ₁² = σ₂² = … = σₖ². Intuitively, this means each group's scores should have similar spread around their group mean. This assumption can be tested with Levene's test or Bartlett's test. ANOVA is moderately robust to mild variance inequality, especially when group sizes are equal — a good reason to design studies with balanced samples. When variance heterogeneity is severe, Welch's ANOVA is a widely recommended correction that does not assume equal variances.</li>
+</ul>
+
+<p>The table below summarizes these assumptions alongside their implications and common remedies:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assumption</th>
+      <th>What It Requires</th>
+      <th>How to Check</th>
+      <th>Remedy if Violated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Independence</td>
+      <td>Each observation is unrelated to others</td>
+      <td>Review study design</td>
+      <td>Redesign study; use repeated-measures ANOVA if within-subject</td>
+    </tr>
+    <tr>
+      <td>Normality</td>
+      <td>DV is approximately normal within each group</td>
+      <td>Q-Q plots, Shapiro-Wilk test, histograms</td>
+      <td>Transform data (e.g., log); use Kruskal-Wallis test</td>
+    </tr>
+    <tr>
+      <td>Homogeneity of Variance</td>
+      <td>Group variances are approximately equal</td>
+      <td>Levene's test, Bartlett's test</td>
+      <td>Use Welch's ANOVA; transform data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>One-Way vs. Multi-Factor ANOVA Designs</strong></p>
+
+<p>ANOVA is not a single rigid procedure but a family of related designs. The simplest and most foundational form is the <strong>one-way ANOVA</strong>, which involves exactly one categorical independent variable (called a <em>factor</em>) with three or more levels (groups). The factor is the variable that defines the groups. In the teaching-methods example, the factor is "teaching method" with three levels: lecture-based, problem-based, and flipped-classroom. One-way ANOVA asks whether mean exam scores differ across those three levels.</p>
+
+<p>Real research questions, however, often involve more than one factor simultaneously. <strong>Multi-factor ANOVA</strong> (also called factorial ANOVA) extends the framework to accommodate two or more independent variables at once. A two-way ANOVA, for example, might examine the effects of both teaching method (three levels) and class size (small vs. large — two levels) on exam scores. This creates a 3 × 2 factorial design with six cells.</p>
+
+<p>Multi-factor ANOVA offers two major analytical advantages over running separate one-way ANOVAs for each factor:</p>
+
+<ul>
+  <li><strong>Main effects:</strong> The analysis estimates the independent effect of each factor on the dependent variable, averaged across the levels of the other factor(s). In the example, the main effect of teaching method answers: "Overall, ignoring class size, do the three teaching methods produce different mean scores?" Similarly, the main effect of class size answers: "Overall, ignoring teaching method, does class size affect scores?"</li>
+  <li><strong>Interaction effects:</strong> Crucially, factorial ANOVA reveals whether the effect of one factor <em>depends on</em> the level of another factor. This is an <strong>interaction effect</strong>. For instance, it is possible that the flipped-classroom method works extremely well in small classes but no better than lecture in large classes, while problem-based learning is equally effective regardless of class size. Neither a one-way ANOVA on teaching method nor a separate one on class size would detect this pattern. Only a factorial design can reveal it. Interaction effects are often the most theoretically interesting findings in research, because they capture the nuanced, context-dependent nature of real-world phenomena.</li>
+</ul>
+
+<p>An interaction effect can be visualized by plotting group means: if the lines connecting means across levels of one factor are not parallel when broken out by the levels of the other factor, an interaction is present. Parallel lines signal no interaction; converging, diverging, or crossing lines signal an interaction.</p>
+
+<p>Beyond two-way designs, researchers can construct three-way, four-way, and higher-order factorial ANOVAs, though interpretation becomes increasingly complex with each additional factor. Other extensions of the ANOVA framework include repeated-measures ANOVA (when the same participants are measured under multiple conditions), mixed ANOVA (combining between-subjects and within-subjects factors), and ANCOVA (Analysis of Covariance, which statistically controls for a continuous covariate). Together, these variants make ANOVA one of the most versatile and indispensable tools in quantitative research.</p>
+      <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: the definition and logic of ANOVA, the F-statistic and variance partitioning, the familywise error rate problem with multiple t-tests, appropriate use conditions, the three core assumptions with a summary table, and one-way vs. multi-factor (factorial) ANOVA designs including main effects and interactions.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

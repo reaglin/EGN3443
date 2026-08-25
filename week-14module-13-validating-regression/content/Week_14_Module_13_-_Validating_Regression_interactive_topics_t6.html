@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Refinement and Decision-Making</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+  <header>
+    <h1>Model Refinement and Decision-Making</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Model Refinement and Decision-Making</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Model refinement is the disciplined process of taking a regression model from a first working draft to something genuinely trustworthy and useful. It sits at the intersection of statistical reasoning and practical judgment: you are simultaneously asking <em>does the model fit the data well?</em> and <em>will it perform reliably on data it has never seen?</em> Neither question can be answered in isolation, and neither answer is binary. Refinement is therefore not a single step but a principled cycle of diagnosis, adjustment, and re-evaluation that continues until the model meets pre-defined criteria for accuracy, interpretability, and assumption compliance. The sections below develop each major dimension of that cycle in depth.</p>
+
+<p><strong>Interpreting Validation Results to Guide Refinement</strong></p>
+
+<p>Validation results — residual plots, fit statistics, cross-validation metrics — are not pass/fail grades. They are diagnostic instruments that point toward specific problems and, by extension, toward specific remedies. Learning to read them carefully is the foundation of effective refinement.</p>
+
+<p><strong>Residual analysis</strong> is the first and most revealing lens. After fitting a model, the residuals (observed minus predicted values) should behave like white noise: they should be centered at zero, show no systematic pattern across fitted values or any predictor, and be approximately normally distributed. When they do not, the pattern of violation tells you what is wrong.</p>
+
+<ul>
+  <li>A <strong>funnel shape</strong> in a plot of residuals against fitted values — where spread increases as predicted values grow — indicates heteroscedasticity. Variance is not constant, which violates a core OLS assumption and makes standard errors unreliable.</li>
+  <li>A <strong>curved or wave-like pattern</strong> in the same plot suggests the functional form is misspecified. The model is treating a non-linear relationship as if it were linear, and the residuals are absorbing the curvature the model cannot capture.</li>
+  <li><strong>Clusters of large residuals</strong> associated with a particular range of a predictor suggest a missing interaction term, a threshold effect, or an entirely omitted variable that matters in that subgroup.</li>
+  <li><strong>A handful of extreme residuals</strong> far from zero identify potential outliers or high-leverage points. These may reflect data entry errors, genuinely unusual cases, or legitimately important observations that the model handles poorly.</li>
+</ul>
+
+<p>Consider a concrete example. Suppose you are modeling house prices using square footage and neighborhood rating. A residual plot reveals that the model consistently under-predicts very large houses and over-predicts very small ones — a pattern that curves upward, then downward, across fitted values. This is a textbook signal of a non-linear relationship between size and price: perhaps price grows faster than linearly with size, or there is a diminishing-returns effect. The remedy is not to discard the model but to add a squared term for square footage or to log-transform the outcome, then re-check whether the curved pattern disappears.</p>
+
+<p><strong>Cross-validation metrics</strong> reveal a different but equally important dimension: generalization. Root Mean Squared Error (RMSE) and Mean Absolute Error (MAE) computed on the <em>training</em> set describe how well the model fits the data used to estimate it. The same metrics computed on a held-out <em>test</em> set describe how well it is likely to perform on genuinely new observations. When these two numbers are close, the model generalizes reasonably. When the test-set error is substantially larger than the training-set error, the model has memorized noise rather than learned signal — a condition called <strong>overfitting</strong>.</p>
+
+<p>As a rule of thumb, if test RMSE is more than 20–30% larger than training RMSE, the model is probably too complex for the amount of data available. The corrective response is simplification: removing predictors, reducing polynomial degree, or regularizing coefficients (e.g., via ridge or lasso regression). Conversely, if both training and test errors are large and similar, the model is <em>underfitting</em> — it lacks the complexity to capture real structure — and the response is to add predictors or allow non-linear terms.</p>
+
+<p><strong>Violated assumptions are not automatic disqualifiers.</strong> A finding that, say, residuals are mildly heteroscedastic does not mean the model must be abandoned. It means a targeted intervention is needed. Mild heteroscedasticity can often be addressed by transforming the outcome; severe heteroscedasticity may warrant weighted least squares or robust standard errors. Each violation should be mapped to a specific corrective strategy, evaluated, and then re-checked. The goal is systematic triage, not panic.</p>
+
+<p><strong>Variable Selection and Model Simplification</strong></p>
+
+<p>A model with too many predictors is fragile. It overfits training data, produces inflated standard errors when predictors are correlated, and becomes difficult to explain to anyone who will act on its outputs. Variable selection is therefore not a statistical afterthought — it is a core modeling decision.</p>
+
+<p>The primary signals that a predictor is a candidate for removal or consolidation are:</p>
+
+<ul>
+  <li><strong>High p-values</strong> (typically p > 0.05 or p > 0.10 depending on context), indicating the coefficient is not reliably distinguishable from zero given the data. Note that a high p-value is a weak signal in isolation; it must be considered alongside effect size and theoretical relevance.</li>
+  <li><strong>Small effect sizes</strong>, meaning the coefficient is statistically detectable but practically negligible. A predictor might reach significance in a large dataset while explaining a trivially small fraction of variance in the outcome.</li>
+  <li><strong>High Variance Inflation Factors (VIF)</strong>. VIF measures how much the variance of a coefficient estimate is inflated by multicollinearity with other predictors. A VIF above 10 (some practitioners use 5 as a conservative threshold) signals that two or more predictors are so correlated that their individual coefficients are unreliable — the model cannot apportion credit between them with any stability.</li>
+</ul>
+
+<p>When multicollinearity is the problem, the remedies include removing one of the collinear predictors, combining them into a composite (e.g., an index score or a principal component), or centering and standardizing before forming interaction terms. Which remedy is best depends on domain knowledge about which predictor is theoretically more important.</p>
+
+<p>Critically, <strong>variable removal should be iterative</strong>, not wholesale. Removing several predictors simultaneously is dangerous because predictors interact: dropping variable A may change the coefficient and significance of variable B in ways that would not have occurred if B had been removed first, or if neither had been removed. The standard iterative approach is:</p>
+
+<ul>
+  <li>Identify the weakest predictor by whatever criterion is in use (p-value, VIF, AIC contribution).</li>
+  <li>Remove it and refit the model.</li>
+  <li>Re-examine all remaining predictors. Some may become more or less significant now that the removed variable no longer absorbs part of their variance.</li>
+  <li>Repeat until all remaining predictors satisfy the inclusion criteria.</li>
+</ul>
+
+<p>This procedure — sometimes called <em>backward elimination</em> — is one of several automated search strategies. Forward selection starts with no predictors and adds them one at a time. Stepwise selection combines both directions. All automated approaches have limitations: they capitalize on chance in the data and can produce models that replicate poorly, so they should be used as one source of evidence rather than a definitive answer.</p>
+
+<p><strong>Simpler models are generally preferred</strong> when predictive accuracy is comparable to more complex alternatives. A model with five predictors that achieves an RMSE of 12.4 is preferable to a model with fifteen predictors that achieves an RMSE of 12.1, especially when the fifteen-predictor model is harder to explain, harder to maintain, and more likely to degrade as the data environment changes. This preference is sometimes formalized as Occam's razor or the <em>parsimony principle</em>: among models that explain the data roughly equally well, favor the simpler one.</p>
+
+<p><strong>Applying Transformations and Functional Form Adjustments</strong></p>
+
+<p>When residual analysis reveals non-linearity, heteroscedasticity, or severe skew in predictors or the outcome, the standard response is to adjust the <em>functional form</em> of the model. This does not mean abandoning linear regression — it means adjusting the scale or shape in which variables enter the model so that linearity and constant variance hold on the transformed scale.</p>
+
+<p><strong>Logarithmic transformations</strong> are the most commonly applied. If the outcome <em>Y</em> is right-skewed (many small values, a long right tail), replacing <em>Y</em> with log(<em>Y</em>) often produces a more symmetric distribution and stabilizes variance. The model then estimates the relationship between predictors and the <em>log</em> of the outcome, and coefficients are interpreted multiplicatively rather than additively. For example, a coefficient of 0.08 on a predictor in a log-outcome model means a one-unit increase in that predictor is associated with approximately an 8% increase in the original outcome — a more natural interpretation for quantities like income or price that grow proportionally.</p>
+
+<p>Similarly, a right-skewed predictor can be log-transformed before entry into the model. If both predictor and outcome are logged, the coefficient becomes an elasticity: a 1% increase in the predictor is associated with a <em>β</em>% change in the outcome. These interpretations only hold on the log scale, so communication to non-technical audiences requires careful translation back to original units.</p>
+
+<p><strong>Polynomial terms</strong> allow the model to capture curvilinear relationships while remaining within the linear regression framework. Adding a squared term for a predictor <em>X</em> — that is, including both <em>X</em> and <em>X²</em> as separate predictors — allows the modeled relationship between <em>X</em> and <em>Y</em> to follow a parabola rather than a straight line. This is useful when the effect of <em>X</em> accelerates or decelerates across its range.</p>
+
+<p>For instance, in a model predicting employee productivity from hours worked per week, productivity might rise as hours increase from 20 to 40 but then fall as hours push beyond 50 (burnout). A linear term alone would miss this inverted-U shape entirely. Adding a squared term allows the model to detect it. The coefficients for <em>X</em> and <em>X²</em> must be interpreted jointly — neither alone tells the full story — and the turning point can be computed algebraically as <em>−β₁ / (2β₂)</em> where β₁ is the coefficient on the linear term and β₂ is the coefficient on the squared term.</p>
+
+<p>Cubic and higher-order terms are possible but risk overfitting and should only be added when there is theoretical or strong empirical reason to expect multiple changes in direction across the predictor range.</p>
+
+<p><strong>After any transformation, assumptions must be re-checked from the beginning.</strong> A log transformation that resolves heteroscedasticity might still leave a slight non-linear pattern in residuals, indicating that a polynomial term is also needed. Conversely, adding a polynomial term might introduce multicollinearity between <em>X</em> and <em>X²</em> that was not present before (centering <em>X</em> before squaring it helps reduce this). The iterative logic applies to functional form adjustments just as it applies to variable selection.</p>
+
+<p><strong>Comparing Competing Models</strong></p>
+
+<p>Once several candidate models have been developed — perhaps one with a log-transformed outcome, one with a polynomial term, one with fewer predictors — they must be compared systematically to determine which best balances fit against complexity.</p>
+
+<p><strong>Adjusted R²</strong> is the first tool for this purpose. Ordinary R² never decreases when a predictor is added, even if that predictor is noise, because adding any variable allows the model to explain at least some additional variance by chance. Adjusted R² corrects for this by penalizing the number of predictors relative to the sample size. Its formula is:</p>
+
+<pre><code>Adjusted R² = 1 − [(1 − R²) × (n − 1) / (n − k − 1)]</code></pre>
+
+<p>where <em>n</em> is the sample size and <em>k</em> is the number of predictors. When a new predictor is added, adjusted R² increases only if the predictor explains more variance than would be expected by chance. If adjusted R² falls after adding a predictor, that predictor is almost certainly not earning its place in the model.</p>
+
+<p><strong>Information criteria — AIC and BIC</strong> — provide a more principled framework for model comparison, particularly when models are not nested (i.e., one is not simply a restricted version of the other). Both measure the trade-off between goodness of fit (higher likelihood) and model complexity (more parameters).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Formula (conceptual)</th>
+      <th>Complexity Penalty</th>
+      <th>Best Used When</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AIC</td>
+      <td>−2 × log-likelihood + 2k</td>
+      <td>Proportional to number of parameters</td>
+      <td>Predictive accuracy is the priority; sample size is large</td>
+    </tr>
+    <tr>
+      <td>BIC</td>
+      <td>−2 × log-likelihood + k × ln(n)</td>
+      <td>Proportional to parameters × log(sample size)</td>
+      <td>Identifying the true data-generating model; avoiding overfitting in moderate samples</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In both cases, <strong>lower values indicate a better model</strong>. BIC penalizes complexity more heavily than AIC when sample size exceeds about 7 (since ln(7) ≈ 1.95 > 2), meaning BIC tends to favor more parsimonious models in realistic sample sizes. A difference of 2–4 AIC units between models is considered meaningful; a difference of more than 10 is considered strong evidence in favor of the lower-AIC model.</p>
+
+<p>Neither AIC nor BIC tells you whether the model is <em>good</em> in an absolute sense — only which of the candidates under consideration is relatively better. You can rank ten bad models by AIC and the winner is still a bad model.</p>
+
+<p><strong>Cross-validation performance on held-out data</strong> provides the most direct evidence of generalizability. The standard approach is <em>k-fold cross-validation</em>: the data are divided into k roughly equal folds; the model is trained on k−1 folds and tested on the remaining fold; this is repeated k times so that every observation serves as a test case exactly once; and the k error estimates are averaged. Common choices are k = 5 or k = 10.</p>
+
+<p>When comparing models, the one with lower average test-set RMSE (or MAE, or whatever metric is appropriate for the problem) across folds is preferred. This comparison is especially valuable when AIC and adjusted R² point in different directions — in that case, cross-validation provides an empirical tiebreaker grounded in actual predictive performance rather than analytical approximations.</p>
+
+<p><strong>Balancing Statistical Performance and Practical Utility</strong></p>
+
+<p>Statistical performance and practical utility are related but not identical. A model can score well on every statistical criterion and still be wrong for the deployment context, or vice versa. Bridging this gap requires explicit criteria established before model selection, not after.</p>
+
+<p><strong>Pre-defining success criteria</strong> forces clarity about what "good enough" means for the specific application. These criteria typically include:</p>
+
+<ul>
+  <li>An <strong>acceptable error threshold</strong>: what level of prediction error can stakeholders tolerate? For a model predicting energy demand in megawatts, a test RMSE of 50 MW might be excellent; for a model guiding individual patient dosing, the same absolute error could be dangerous.</li>
+  <li><strong>Required predictor availability</strong>: every predictor in the model must be available at prediction time. A model that requires a variable that takes weeks to collect is useless for real-time decisions, regardless of how much it improves R².</li>
+  <li><strong>Audience for results</strong>: a model used by engineers can carry technical complexity; a model presented to a board of directors needs outputs that translate directly into plain-language claims. This shapes not just communication but which model architecture is chosen in the first place.</li>
+</ul>
+
+<p><strong>A model with strong in-sample fit but poor out-of-sample performance should not be deployed.</strong> This situation — an impressive R² accompanied by much larger test-set error — is the clearest possible warning of overfitting. In practice it often arises when a model is developed on a convenience sample that does not represent the deployment population, or when too many predictors are included relative to sample size. The appropriate response is to return to the refinement cycle: simplify the model, collect more data, or both.</p>
+
+<p><strong>Communicating uncertainty and limitations</strong> is not a courtesy — it is a professional obligation. Decision-makers who are unaware of a model's limitations will almost certainly misapply it. Best practice includes:</p>
+
+<ul>
+  <li>Reporting prediction intervals alongside point predictions, so that uncertainty in individual forecasts is visible.</li>
+  <li>Clearly stating the range of conditions under which the model was validated and cautioning against extrapolation beyond that range.</li>
+  <li>Identifying the assumptions the model relies on and explaining what would happen to predictions if those assumptions were violated in the deployment context.</li>
+  <li>Specifying when the model should be revisited — for instance, when new data of a certain volume become available, or when a known structural change occurs in the domain (a policy change, a market disruption, a technological shift).</li>
+</ul>
+
+<p><strong>Deciding When a Model Is Sufficient for Application</strong></p>
+
+<p>The decision to deploy a model is a threshold judgment that integrates statistical evidence with domain knowledge and organizational risk tolerance. No single metric triggers deployment; rather, a constellation of conditions should be satisfied.</p>
+
+<p>A model can reasonably be considered ready for application when:</p>
+
+<ul>
+  <li>It meets the <strong>pre-defined accuracy benchmarks</strong> on held-out validation data — not just on training data.</li>
+  <li>It <strong>satisfies key assumptions</strong> at a level consistent with the intended use. A model used for broad directional forecasting may tolerate mild heteroscedasticity; a model used for individual-level predictions may require stricter assumption compliance.</li>
+  <li>It <strong>performs consistently</strong> across multiple validation samples or cross-validation folds, without dramatic swings in error metrics that would indicate instability.</li>
+  <li>Its coefficients and predictions are <strong>consistent with domain knowledge</strong>. If a model predicts that increasing safety training hours increases accident rates, that result demands explanation before deployment — it likely indicates a confound (organizations with high accident rates respond by increasing training) rather than a causal mechanism.</li>
+</ul>
+
+<p>The last point deserves emphasis. <strong>Statistical adequacy is necessary but not sufficient.</strong> Domain knowledge is an independent evidentiary layer. A model that satisfies every statistical criterion but contradicts well-established subject-matter understanding should trigger investigation, not immediate deployment. Sometimes the model reveals a genuine surprise; more often, it reflects a methodological artifact. Resolving that tension is part of the analyst's job.</p>
+
+<p><strong>Documenting the validation process</strong> is the final step before deployment and an ongoing obligation afterward. Documentation should record:</p>
+
+<ul>
+  <li>The data used for training and validation, including any exclusion criteria applied.</li>
+  <li>Each model version considered, the rationale for moving from one to the next, and the key metrics at each stage.</li>
+  <li>The final model specification: all predictors, any transformations, the estimation method, and the software version used.</li>
+  <li>Known limitations: what the model does not capture, where it may be unreliable, and what conditions would require re-estimation.</li>
+  <li>A recommended review schedule or trigger conditions for revisiting the model.</li>
+</ul>
+
+<p>This documentation is not bureaucratic overhead. It is what allows a colleague, an auditor, or your future self to understand why the model looks the way it does, to reproduce the analysis, and to update it responsibly as circumstances change.</p>
+
+<p><strong>Iterative Refinement as a Workflow</strong></p>
+
+<p>The individual techniques described above — residual diagnosis, variable selection, transformation, model comparison — do not occur in a fixed linear sequence. They form an iterative loop. Understanding that loop as a <em>workflow</em> rather than a checklist is what separates experienced modelers from novices.</p>
+
+<p>Each iteration of the loop should begin with a <strong>clear hypothesis</strong>. Before making any change, articulate in plain language what you believe is wrong with the current model and what specific change you expect will address it. For example: <em>"The residual plot shows a fan shape, suggesting heteroscedasticity. I expect that log-transforming the outcome will stabilize variance because the outcome spans several orders of magnitude."</em> This framing prevents aimless tinkering and creates a testable prediction: after the transformation, the fan shape should diminish or disappear.</p>
+
+<p><strong>Changes should be made one at a time</strong> whenever feasible. If you simultaneously log-transform the outcome, remove two predictors, and add a polynomial term, you cannot determine which change drove any improvement or introduced any new problem. Isolating changes is the same logic that governs controlled experiments: vary one thing at a time so that cause and effect remain visible.</p>
+
+<p>In practice, some situations force compound changes — for instance, when a transformation that resolves heteroscedasticity also changes which predictors appear significant, requiring re-evaluation of all variable-selection decisions. In those cases, document the compound change clearly and note that the individual contributions cannot be disentangled.</p>
+
+<p><strong>Keeping a record of each model version</strong> creates what practitioners sometimes call an <em>audit trail</em>. A minimal record for each version might look like:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Change Made</th>
+      <th>Rationale</th>
+      <th>Training RMSE</th>
+      <th>Test RMSE</th>
+      <th>Adjusted R²</th>
+      <th>AIC</th>
+      <th>Key Residual Finding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>v1</td>
+      <td>Baseline: all 8 predictors, no transformations</td>
+      <td>Starting point</td>
+      <td>14.2</td>
+      <td>19.8</td>
+      <td>0.71</td>
+      <td>1142</td>
+      <td>Fan shape in residuals vs. fitted</td>
+    </tr>
+    <tr>
+      <td>v2</td>
+      <td>Log-transformed outcome</td>
+      <td>Address heteroscedasticity</td>
+      <td>0.18</td>
+      <td>0.22</td>
+      <td>0.74</td>
+      <td>−88</td>
+      <td>Fan shape resolved; slight curve remains</td>
+    </tr>
+    <tr>
+      <td>v3</td>
+      <td>Added X² for predictor 3</td>
+      <td>Address residual curvature</td>
+      <td>0.16</td>
+      <td>0.19</td>
+      <td>0.77</td>
+      <td>−104</td>
+      <td>No systematic patterns; mild right-tail deviation</td>
+    </tr>
+    <tr>
+      <td>v4</td>
+      <td>Removed predictor 6 (VIF = 14, p = 0.38)</td>
+      <td>Reduce multicollinearity and complexity</td>
+      <td>0.16</td>
+      <td>0.19</td>
+      <td>0.77</td>
+      <td>−106</td>
+      <td>No change; predictor was redundant</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of record makes the evolution of the model legible to anyone who reads it later. It shows not just where the model ended up but why — which is often more important for building trust and enabling future updates than the final specification itself.</p>
+
+<p>The iterative refinement workflow embodies a broader principle: modeling is not a destination but a process. Even a deployed model is provisional. New data may reveal that conditions have shifted, that assumptions no longer hold, or that a previously omitted predictor has become measurable and important. The habits of systematic diagnosis, hypothesis-driven change, one-at-a-time adjustment, and careful documentation are not just good practice for the initial development cycle — they are the foundation for responsible stewardship of any model over its lifetime.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers the full arc of model refinement and deployment decision-making. Key instructional emphases: (1) residual patterns as diagnostic signals rather than pass/fail tests; (2) the danger of simultaneous changes and the value of one-at-a-time iteration; (3) the distinction between statistical adequacy and practical deployability; (4) documentation as a professional obligation, not an administrative chore. The version-tracking table is a practical artifact learners can adopt immediately in their own workflows.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

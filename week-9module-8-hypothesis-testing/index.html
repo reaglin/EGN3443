@@ -1,193 +1,172 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 9/Module 8 – Hypothesis Testing | EGN3443</title>
   <style>
-    /* ── Reset & Base ── */
+    /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background: #f4f6f9;
       color: #1e2530;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #245e8f 60%, #2d7ab5 100%);
+      background: linear-gradient(135deg, #1a3a5c 0%, #245e8f 100%);
       color: #fff;
-      padding: 2.8rem 2rem 2.4rem;
+      padding: 2.5rem 2rem 2rem;
     }
 
     .header-inner {
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     .course-label {
-      display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.9rem;
+      color: #a8cce8;
+      margin-bottom: 0.45rem;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-size: clamp(1.4rem, 3vw, 2rem);
       font-weight: 700;
+      margin-bottom: 0.75rem;
       line-height: 1.25;
-      margin-bottom: 0.85rem;
     }
 
     header p {
       font-size: 0.97rem;
-      max-width: 720px;
-      color: rgba(255,255,255,0.88);
-      line-height: 1.7;
+      color: #d0e6f5;
+      max-width: 72ch;
     }
 
-    /* ── Main Content ── */
+    /* ── Main content ── */
     main {
-      max-width: 1080px;
-      margin: 2.4rem auto;
+      max-width: 1100px;
+      margin: 2rem auto;
       padding: 0 1.25rem 3rem;
     }
 
-    .section-label {
-      font-size: 0.75rem;
+    /* ── Section headings ── */
+    .section-heading {
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: #5a6a80;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #d8e1ea;
+      color: #5a7a99;
+      border-bottom: 2px solid #d0dce8;
+      padding-bottom: 0.4rem;
+      margin: 2rem 0 1rem;
     }
 
-    /* ── Card Grid ── */
+    /* ── Card grid ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
+      gap: 1.1rem;
     }
 
+    /* ── Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dde4ed;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
+      border: 1px solid #dde4ee;
+      border-radius: 8px;
+      padding: 1.2rem 1.3rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-      position: relative;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 6px 22px rgba(36, 94, 143, 0.13);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(36, 94, 143, 0.12);
+      border-color: #b0c8e0;
     }
 
-    /* ── Card Badges ── */
-    .badge-row {
+    /* ── Card meta row ── */
+    .card-meta {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
       flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
     }
 
     .badge {
-      font-size: 0.7rem;
+      display: inline-block;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
+      letter-spacing: 0.04em;
+      padding: 0.18em 0.6em;
+      border-radius: 3px;
+      white-space: nowrap;
     }
 
-    .badge-type {
-      background: #e8f0fb;
-      color: #1a4e8f;
+    /* Badge colour map by type */
+    .badge-type-module   { background: #e3f0fb; color: #1a5a8a; }
+    .badge-type-text     { background: #e8f5e9; color: #2e7d32; }
+    .badge-type-topic    { background: #f3e8fd; color: #6a1b9a; }
+    .badge-type-quiz     { background: #fff3e0; color: #e65100; }
+    .badge-type-assign   { background: #fce4ec; color: #880e4f; }
+    .badge-type-default  { background: #eceff1; color: #455a64; }
+
+    .filetype-tag {
+      font-size: 0.67rem;
+      color: #7a8fa8;
+      font-family: 'Courier New', monospace;
+      background: #f0f3f7;
+      padding: 0.15em 0.45em;
+      border-radius: 3px;
     }
 
-    .badge-filetype {
-      background: #edf6ee;
-      color: #2a6e35;
-    }
-
-    .badge-type.quiz    { background: #fef4e5; color: #8a5200; }
-    .badge-type.assign  { background: #f3ecfb; color: #5a1f8c; }
-    .badge-type.topics  { background: #e5f5fb; color: #095f80; }
-
-    /* ── Card Title & Links ── */
+    /* ── Card title ── */
     .card-title {
-      font-size: 1rem;
+      font-size: 0.97rem;
       font-weight: 600;
-      color: #1e2530;
-      line-height: 1.4;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.55rem;
-      flex-wrap: wrap;
+      color: #1a2e44;
+      line-height: 1.35;
     }
 
-    .card-title a.primary-link {
-      color: #1a4e8f;
+    .card-title a {
+      color: #1a5a8a;
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: color 0.15s, border-color 0.15s;
     }
 
-    .card-title a.primary-link:hover {
-      color: #0d3068;
-      border-bottom-color: #0d3068;
-    }
-
-    .card-title a.primary-link:focus-visible {
-      outline: 2px solid #2d7ab5;
-      outline-offset: 2px;
-      border-radius: 2px;
+    .card-title a:hover {
+      text-decoration: underline;
+      color: #0d3d66;
     }
 
     .source-link {
+      display: inline-block;
       font-size: 0.72rem;
-      font-weight: 500;
-      color: #5a7a9a;
+      color: #5a7a99;
+      border: 1px solid #b8cfe0;
+      border-radius: 3px;
+      padding: 0.1em 0.5em;
+      margin-left: 0.4rem;
       text-decoration: none;
-      border: 1px solid #b8cde0;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
       white-space: nowrap;
-      align-self: flex-start;
-      margin-top: 0.15rem;
-      transition: background 0.15s, color 0.15s;
+      vertical-align: middle;
+      transition: background 0.15s;
     }
 
     .source-link:hover {
-      background: #dceaf5;
-      color: #0d3068;
+      background: #ddeaf5;
+      color: #0d3d66;
     }
 
-    .source-link:focus-visible {
-      outline: 2px solid #2d7ab5;
-      outline-offset: 2px;
-      border-radius: 4px;
-    }
-
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.65;
+    /* ── Card description ── */
+    .card-desc {
+      font-size: 0.855rem;
+      color: #4a5a6e;
       flex: 1;
     }
 
@@ -195,15 +174,15 @@
     footer {
       text-align: center;
       font-size: 0.78rem;
-      color: #8a97a8;
+      color: #8fa5bc;
       padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde4ed;
+      border-top: 1px solid #dde4ee;
     }
 
     /* ── Responsive ── */
-    @media (max-width: 540px) {
-      header { padding: 2rem 1.25rem 1.8rem; }
+    @media (max-width: 480px) {
       .card-grid { grid-template-columns: 1fr; }
+      header { padding: 1.8rem 1.1rem 1.5rem; }
     }
   </style>
 </head>
@@ -211,138 +190,219 @@
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
-  <header>
-    <div class="header-inner">
-      <span class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</span>
-      <h1>Week 9 / Module 8 &mdash; Hypothesis Testing</h1>
-      <p>
-        This module introduces the foundations of statistical hypothesis testing, covering the
-        formulation of null and alternative hypotheses, test statistics, sampling distributions,
-        p-values, and significance levels. Use the resources below to read, practice, and apply
-        these concepts in engineering contexts.
-      </p>
+<header>
+  <div class="header-inner">
+    <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
+    <h1>Week 9 / Module 8 — Hypothesis Testing</h1>
+    <p>
+      This module introduces the principles of statistical hypothesis testing, guiding
+      you from formulating null and alternative hypotheses through selecting test
+      statistics, interpreting p-values, understanding error types, and communicating
+      results professionally. Use the resources below to work through readings, lectures,
+      assessments, and collaborative assignments.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 – Navigation & Overview
+  ════════════════════════════════════════════ -->
+  <p class="section-heading">Navigation &amp; Overview</p>
+  <div class="card-grid">
+
+    <!-- Module Topics -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-module">Module Topics</span>
+        <span class="filetype-tag">.json</span>
+      </div>
+      <div class="card-title">
+        <a href="content/module_topics.html">Module Topics</a>
+        <a class="source-link" href="source/hierarchy.json">source file</a>
+      </div>
+      <p class="card-desc">A structured outline of the module's core topics covering hypothesis testing foundations, null and alternative hypothesis formulation, test statistics, sampling distributions, and p-values, used as a navigation guide for the module's content.</p>
     </div>
-  </header>
 
-  <main>
-    <p class="section-label">Module Artifacts &mdash; 6 items</p>
-
-    <div class="card-grid">
-
-      <!-- 1. Module Topics -->
-      <article class="card">
-        <div class="badge-row">
-          <span class="badge badge-type topics">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title">
-          <a class="primary-link" href="content/module_topics.html">Module Topics</a>
-          <a class="source-link" href="source/hierarchy.json" title="Raw source file">source file</a>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's core topics covering hypothesis testing foundations,
-          null and alternative hypothesis formulation, test statistics, sampling distributions, and
-          p-values, used as a navigation guide for the module's content.
-        </p>
-      </article>
-
-      <!-- 2. EGN3443 Module 8 Intro Landing -->
-      <article class="card">
-        <div class="badge-row">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title">
-          <a class="primary-link" href="content/EGN3443_Module_8_Introduction_to_Statistical_Hyp.html">
-            EGN3443 Module 8 &mdash; Introduction to Statistical Hypothesis Testing
-          </a>
-        </div>
-        <p class="card-description">
-          A landing page that organizes and links to the module's main learning resources &mdash;
-          the PowerPoint slides, lecture video, and Google Colab notebook &mdash; giving learners
-          a single access point for all Module 8 instructional materials.
-        </p>
-      </article>
-
-      <!-- 3. Introduction to Hypothesis Testing (reading) -->
-      <article class="card">
-        <div class="badge-row">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title">
-          <a class="primary-link" href="content/Introduction_to_Hypothesis_Testing.html">
-            Introduction to Hypothesis Testing
-          </a>
-        </div>
-        <p class="card-description">
-          A reading that explains the core concepts of hypothesis testing, including null and
-          alternative hypotheses, test statistics, p-values, significance levels, and decision
-          rules, serving as the primary reference text learners study before or alongside lectures.
-        </p>
-      </article>
-
-      <!-- 4. Quiz Question Bank -->
-      <article class="card">
-        <div class="badge-row">
-          <span class="badge badge-type quiz">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title">
-          <a class="primary-link" href="quiz/index.html">Quiz Question Bank (45 questions)</a>
-          <a class="source-link" href="source/quiz_questions.json" title="Raw source file">source file</a>
-        </div>
-        <p class="card-description">
-          A 45-question quiz bank containing applied hypothesis testing problems set in engineering
-          contexts (e.g., ball bearings, concrete strength), used by instructors to assess learners'
-          ability to formulate hypotheses and select appropriate tests.
-        </p>
-      </article>
-
-      <!-- 5. Module 8 Graded Discussion -->
-      <article class="card">
-        <div class="badge-row">
-          <span class="badge badge-type assign">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title">
-          <a class="primary-link" href="assignments/index.html">
-            Module 8 Graded Discussion
-          </a>
-        </div>
-        <p class="card-description">
-          A graded discussion assignment in which learners query an AI tool about statistical
-          methodology for determining whether manufactured products meet specified tolerances, then
-          post the prompt, AI response, and their own critical comments for peer discussion.
-        </p>
-      </article>
-
-      <!-- 6. Group Assignment 8 -->
-      <article class="card">
-        <div class="badge-row">
-          <span class="badge badge-type assign">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title">
-          <a class="primary-link" href="assignments/index.html">
-            Group Assignment 8 &mdash; Hypothesis Testing
-          </a>
-        </div>
-        <p class="card-description">
-          A group assignment that uses a provided sample problem to explore how sample size affects
-          the accept/reject region at a given significance level, requiring teams to run multiple
-          hypothesis tests and analyze the relationship between sample size and decision boundaries.
-        </p>
-      </article>
-
+    <!-- EGN3443 Module 8 Landing Page -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-text">Text Content</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/EGN3443_Module_8_Introduction_to_Statistical_Hyp.html">EGN3443 Module 8 – Introduction to Statistical Hypothesis Testing</a>
+      </div>
+      <p class="card-desc">A landing page that organizes and links to the module's main learning resources — the PowerPoint slides, lecture video, and Google Colab notebook — giving learners a single access point for all Module 8 instructional materials.</p>
     </div>
-  </main>
 
-  <footer>
-    EGN3443 Probability &amp; Statistics for Engineers &mdash; Week 9 / Module 8 &mdash; Hypothesis Testing
-  </footer>
+  </div><!-- /.card-grid -->
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 – Core Reading
+  ════════════════════════════════════════════ -->
+  <p class="section-heading">Core Reading</p>
+  <div class="card-grid">
+
+    <!-- Introduction to Hypothesis Testing -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-text">Text Content</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Introduction_to_Hypothesis_Testing.html">Introduction to Hypothesis Testing</a>
+      </div>
+      <p class="card-desc">A reading that explains the core concepts of hypothesis testing, including null and alternative hypotheses, test statistics, p-values, significance levels, and decision rules, serving as the primary reference text learners study before or alongside lectures.</p>
+    </div>
+
+  </div><!-- /.card-grid -->
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 – Topic Detail Readings
+  ════════════════════════════════════════════ -->
+  <p class="section-heading">Topic Detail Readings</p>
+  <div class="card-grid">
+
+    <!-- Foundations of Hypothesis Testing -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t1.html">Foundations of Hypothesis Testing</a>
+      </div>
+      <p class="card-desc">A reading that introduces hypothesis testing as a framework for using sample data to make decisions about populations, covering core concepts such as the logic of statistical inference, burden of proof, and the structured steps of a hypothesis test — intended as foundational background for learners beginning the topic.</p>
+    </div>
+
+    <!-- Formulating Null and Alternative Hypotheses -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t2.html">Formulating Null and Alternative Hypotheses</a>
+      </div>
+      <p class="card-desc">A reading that explains how to correctly formulate null and alternative hypotheses before collecting data, covering the roles of each hypothesis, directional versus non-directional tests, and common pitfalls in hypothesis specification — used by learners to practice translating research questions into formal statistical claims.</p>
+    </div>
+
+    <!-- Test Statistics and Sampling Distributions -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t3.html">Test Statistics and Sampling Distributions</a>
+      </div>
+      <p class="card-desc">A reading that explains what a test statistic is, how it compresses sample data into a single value, and how sampling distributions (such as z, t, and chi-square) are used to evaluate that value under the null hypothesis — used by learners to understand the mathematical bridge between raw data and a hypothesis test decision.</p>
+    </div>
+
+    <!-- P-Values and Significance Levels -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t4.html">P-Values and Significance Levels</a>
+      </div>
+      <p class="card-desc">A reading that explains p-values and significance levels (α), how they interact to form a decision rule for rejecting or failing to reject the null hypothesis, and how to correctly interpret p-values — used by learners to understand and apply the core decision-making mechanism of hypothesis testing.</p>
+    </div>
+
+    <!-- Applying Common Hypothesis Tests -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t5.html">Applying Common Hypothesis Tests</a>
+      </div>
+      <p class="card-desc">A reading that walks through the step-by-step application of the most commonly used hypothesis tests — including one-sample z and t tests, two-sample tests, and chi-square tests — providing worked examples so learners can see how to select and execute the appropriate test for a given engineering or research scenario.</p>
+    </div>
+
+    <!-- Type I and Type II Errors -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t6.html">Type I and Type II Errors</a>
+      </div>
+      <p class="card-desc">A reading that defines Type I errors (false positives) and Type II errors (false negatives), explains their relationship to α and statistical power, and discusses the consequences of each error type — used by learners to understand the trade-offs and risks inherent in any hypothesis testing decision.</p>
+    </div>
+
+    <!-- Interpreting and Communicating Results -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-topic">Topic Detail</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t7.html">Interpreting and Communicating Results</a>
+      </div>
+      <p class="card-desc">A reading that addresses how to accurately interpret hypothesis test results and communicate findings without overstating conclusions, covering common misinterpretations of p-values, the distinction between statistical and practical significance, and best practices for reporting results — used by learners and instructors to ensure correct understanding and professional communication of statistical analyses.</p>
+    </div>
+
+  </div><!-- /.card-grid -->
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 – Assessment
+  ════════════════════════════════════════════ -->
+  <p class="section-heading">Assessment</p>
+  <div class="card-grid">
+
+    <!-- Quiz Question Bank -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-quiz">Quiz</span>
+        <span class="filetype-tag">.json</span>
+      </div>
+      <div class="card-title">
+        
+        
+      </div>
+      <p class="card-desc">A 45-question quiz bank containing applied hypothesis testing problems set in engineering contexts (e.g., ball bearings, concrete strength), used by instructors to assess learners' ability to formulate hypotheses and select appropriate tests.</p>
+    </div>
+
+    <!-- Module 8 Graded Discussion -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-assign">Assignment</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="assignments/index.html">Module 8 Graded Discussion</a>
+      </div>
+      <p class="card-desc">A graded discussion assignment in which learners query an AI tool about statistical methodology for determining whether manufactured products meet specified tolerances, then post the prompt, AI response, and their own critical comments for peer discussion.</p>
+    </div>
+
+    <!-- Group Assignment 8 -->
+    <div class="card">
+      <div class="card-meta">
+        <span class="badge badge-type-assign">Assignment</span>
+        <span class="filetype-tag">.html</span>
+      </div>
+      <div class="card-title">
+        <a href="assignments/index.html">Group Assignment 8 – Hypothesis Testing</a>
+      </div>
+      <p class="card-desc">A group assignment that uses a provided sample problem to explore how sample size affects the accept/reject region at a given significance level, requiring teams to run multiple hypothesis tests and analyze the relationship between sample size and decision boundaries.</p>
+    </div>
+
+  </div><!-- /.card-grid -->
+
+</main>
+
+<footer>
+  EGN3443 Probability &amp; Statistics for Engineers — Week 9 / Module 8
+</footer>
 
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
-</html>
+
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
