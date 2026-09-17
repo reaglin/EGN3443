@@ -1,0 +1,997 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The Oche - an interactive probability game. Assign five dart throwers, each a normal distribution of radial miss distance, to five scoring targets and beat a random assignment.">
+<title>The Oche</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<style>
+:root{
+  --plate:#F3EFE6;
+  --plate-2:#E7E1D4;
+  --card:#FBF8F2;
+  --ink:#1B2422;
+  --ink-2:#4E5C57;
+  --ink-3:#7F8D87;
+  --rule:#D9D1C1;
+  --rule-2:#C6BCA8;
+  --amber:#C9761F;
+  --amber-soft:#F1DCBF;
+  --cork:#C0966A;
+  --felt:#2F6F5E;
+  --clay:#B04A3C;
+  --dart-you:#C9761F;
+  --dart-cpu:#4E5FA0;
+  --shadow:rgba(27,36,34,.13);
+  --focus:#2F6F5E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --plate:#131A19; --plate-2:#0D1312; --card:#1C2523;
+    --ink:#EDE7DA; --ink-2:#A7B3AD; --ink-3:#77837E;
+    --rule:#2C3634; --rule-2:#3C4744;
+    --amber:#E5983F; --amber-soft:#4A3A25; --cork:#8E6C4A;
+    --felt:#5BB093; --clay:#D2705F;
+    --dart-you:#E5983F; --dart-cpu:#8A9AD8;
+    --shadow:rgba(0,0,0,.45); --focus:#5BB093;
+  }
+}
+:root[data-theme="dark"]{
+  --plate:#131A19; --plate-2:#0D1312; --card:#1C2523;
+  --ink:#EDE7DA; --ink-2:#A7B3AD; --ink-3:#77837E;
+  --rule:#2C3634; --rule-2:#3C4744;
+  --amber:#E5983F; --amber-soft:#4A3A25; --cork:#8E6C4A;
+  --felt:#5BB093; --clay:#D2705F;
+  --dart-you:#E5983F; --dart-cpu:#8A9AD8;
+  --shadow:rgba(0,0,0,.45); --focus:#5BB093;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--plate);color:var(--ink);
+  font-family:"Instrument Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+[hidden]{display:none !important}
+img{max-width:100%}
+h1,h2,h3{font-family:"Bricolage Grotesque","Instrument Sans",sans-serif;font-weight:800;margin:0;text-wrap:balance;letter-spacing:-.015em}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:3px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px;padding-block:0 48px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:color-mix(in srgb,var(--plate) 92%,transparent);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand h1{font-size:21px;line-height:1}
+.brand .tag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.whoami{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);
+  background:var(--plate-2);border-radius:20px;padding:4px 11px}
+
+.btn{border:1px solid var(--rule-2);background:var(--card);border-radius:7px;padding:7px 13px;
+  font-size:13.5px;font-weight:500;cursor:pointer;transition:background .14s,border-color .14s,transform .08s}
+.btn:hover{border-color:var(--ink-3)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn.primary{background:var(--ink);color:var(--plate);border-color:var(--ink);font-weight:600}
+.btn.primary:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.btn.throw{background:var(--amber);border-color:var(--amber);color:#1B1408;font-weight:700}
+.btn.throw:hover{filter:brightness(1.06)}
+.btn.lg{padding:11px 22px;font-size:15px;border-radius:9px}
+
+/* ---------- start screen ---------- */
+.start{max-width:720px;margin:0 auto;padding-block:52px 0;text-align:left}
+.start .kicker{display:block;margin-bottom:10px}
+.start h2{font-size:clamp(28px,5vw,44px);line-height:1.04}
+.start p{color:var(--ink-2);margin:14px 0 0;max-width:60ch}
+.start .namefield{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.start .namefield label{display:block;font-size:12.5px;color:var(--ink-3);margin-bottom:5px}
+.start .namefield input{font:inherit;font-size:15px;background:var(--card);color:var(--ink);
+  border:1px solid var(--rule-2);border-radius:8px;padding:10px 12px;width:260px;max-width:100%}
+.start .optional{font-size:12.5px;color:var(--ink-3);margin-top:12px}
+.start .rules{margin-top:34px;border-left:2px solid var(--amber);padding-left:16px;display:grid;gap:10px;list-style:none;padding-right:0}
+.start .rules li{font-size:13.5px;color:var(--ink-2)}
+.start .rules b{color:var(--ink);font-weight:600}
+
+/* ---------- assignment ---------- */
+.board-area{display:grid;grid-template-columns:320px minmax(0,1fr);gap:22px;margin-top:20px;align-items:start}
+@media (max-width:920px){.board-area{grid-template-columns:1fr}}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+.panel-head h2{font-size:15px}
+.roster{display:grid;gap:9px}
+@media (max-width:920px){.roster{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}}
+
+.thrower{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:10px 11px;
+  cursor:grab;position:relative;display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center;
+  transition:border-color .14s,box-shadow .14s,opacity .18s}
+.thrower:hover{border-color:var(--ink-3);box-shadow:0 2px 8px var(--shadow)}
+.thrower.picked{border-color:var(--amber);box-shadow:0 0 0 2px var(--amber-soft)}
+.thrower.assigned{opacity:.46;cursor:default}
+.thrower.dragging{opacity:.35}
+.th-name{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:14.5px;line-height:1.15}
+.th-params{font-size:11px;color:var(--ink-3);margin-top:1px}
+.th-curve{grid-row:span 2;width:74px;height:40px}
+.th-stats{display:flex;gap:4px;grid-column:1;flex-wrap:wrap}
+.chip{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:10.5px;
+  background:var(--plate-2);border-radius:4px;padding:2px 5px;color:var(--ink-2)}
+.chip b{color:var(--ink);font-weight:600}
+.th-slot{grid-column:1/-1;font-size:11.5px;color:var(--amber);font-weight:600;
+  border-top:1px dashed var(--rule);padding-top:6px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.th-slot button{background:none;border:none;cursor:pointer;color:var(--ink-3);font-size:11px;text-decoration:underline;padding:0}
+
+.boards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.board{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:10px;
+  display:flex;flex-direction:column;gap:7px;transition:border-color .14s,background .14s}
+.board.drop{border-color:var(--amber);background:var(--amber-soft)}
+.board-top{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.board-no{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.board svg{width:100%;height:auto;display:block}
+.ring-key{display:grid;gap:2px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.ring-key div{display:flex;justify-content:space-between;gap:6px}
+.ring-key .sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.assign{border:1px dashed var(--rule-2);border-radius:7px;padding:6px 8px;min-height:38px;
+  display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12.5px}
+.assign.empty{color:var(--ink-3);justify-content:center;font-style:italic}
+.assign strong{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:13px}
+.assign .ev{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--felt);font-weight:600}
+.assign button{background:none;border:none;cursor:pointer;color:var(--ink-3);font-size:14px;line-height:1;padding:0 2px}
+
+.actionbar{position:sticky;bottom:0;z-index:30;margin-top:18px;
+  background:color-mix(in srgb,var(--plate) 93%,transparent);backdrop-filter:blur(8px);
+  border-top:1px solid var(--rule);padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.progress{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-2);margin-right:auto}
+.progress b{color:var(--ink)}
+
+/* ---------- reveal stage ---------- */
+.stage{max-width:900px;margin:0 auto;padding-block:20px 0}
+.stage-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.pips{display:flex;gap:6px;margin-right:auto}
+.pip{width:26px;height:5px;border-radius:3px;background:var(--rule)}
+.pip.done{background:var(--ink-3)}
+.pip.now{background:var(--amber)}
+.runtally{display:flex;gap:16px;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:13px}
+.runtally b{font-size:17px;font-weight:600}
+.runtally .u{color:var(--dart-you)}
+.runtally .c{color:var(--dart-cpu)}
+
+.stage-card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:22px;
+  display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:26px;align-items:start}
+@media (max-width:760px){.stage-card{grid-template-columns:1fr;padding:16px;gap:18px}}
+.stage-board svg{width:100%;height:auto;display:block}
+.stage-board .ring-key{margin-top:10px;font-size:11.5px}
+.scalenote{font-size:10.5px;color:var(--ink-3);text-align:center;margin-top:7px;font-style:italic}
+.stage-title{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.stage-title h2{font-size:23px}
+
+.duel{display:grid;gap:12px}
+.side{border:1px solid var(--rule);border-radius:10px;padding:12px 14px;background:var(--plate);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"who pts" "nm pts" "pm pts" "land land";
+  gap:2px 16px;align-items:center}
+.side.you{border-left:4px solid var(--dart-you)}
+.side.cpu{border-left:4px solid var(--dart-cpu)}
+.side .who{grid-area:who;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.side .nm{grid-area:nm;font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:18px;line-height:1.2}
+.side .pm{grid-area:pm;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3)}
+.side .pts{grid-area:pts;align-self:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:42px;line-height:.9;text-align:right;font-variant-numeric:tabular-nums}
+.side.you .pts{color:var(--dart-you)}
+.side.cpu .pts{color:var(--dart-cpu)}
+.side .land{grid-area:land;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2);
+  margin-top:7px;padding-top:7px;border-top:1px dotted var(--rule)}
+.side .land em{font-style:normal;color:var(--ink);font-weight:600}
+.fade{opacity:0;transition:opacity .45s ease}
+.fade.in{opacity:1}
+
+.exp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.expbox{border:1px dashed var(--rule-2);border-radius:9px;padding:9px 12px}
+.expbox .k{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.expbox .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;margin-top:2px}
+.expbox.you .v{color:var(--dart-you)}
+.expbox.cpu .v{color:var(--dart-cpu)}
+.expbox .d{font-size:11px;color:var(--ink-3);margin-top:1px}
+.stage-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  border-top:1px solid var(--rule);padding-top:16px}
+.stage-foot .hint{font-size:12.5px;color:var(--ink-3);max-width:52ch}
+
+/* ---------- results ---------- */
+.result{margin-top:22px;display:grid;gap:16px}
+.verdict{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:22px 24px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center}
+.verdict h2{font-size:30px}
+.verdict .sub{color:var(--ink-2);font-size:14px;margin-top:6px;max-width:58ch}
+.tally{display:flex;gap:26px;font-variant-numeric:tabular-nums}
+.tally .t{text-align:right}
+.tally .t .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:42px;line-height:1}
+.tally .t .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.t.you .v{color:var(--dart-you)}
+.t.cpu .v{color:var(--dart-cpu)}
+
+.analysis{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px 22px}
+.meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:14px}
+.meter .lbl{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}
+.meter .lbl .n{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.bar{height:8px;border-radius:4px;background:var(--plate-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px}
+.note{font-size:13px;color:var(--ink-2);margin-top:16px;max-width:70ch;border-left:2px solid var(--felt);padding-left:12px}
+
+.matrix-wrap{overflow-x:auto;margin-top:14px;border:1px solid var(--rule);border-radius:9px}
+table.matrix{border-collapse:collapse;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-variant-numeric:tabular-nums;width:100%}
+table.matrix th{font-weight:500;color:var(--ink-3);padding:6px 8px;white-space:nowrap;text-align:center;font-size:10.5px;letter-spacing:.04em}
+table.matrix th.row{text-align:left;position:sticky;left:0;background:var(--card);z-index:2}
+table.matrix td{padding:6px 8px;text-align:center;position:relative;color:var(--ink);min-width:56px}
+table.matrix td.you{outline:2px solid var(--dart-you);outline-offset:-2px;font-weight:600}
+table.matrix td.cpu::before{content:"";position:absolute;left:3px;top:3px;width:6px;height:6px;border-radius:50%;background:var(--dart-cpu)}
+table.matrix td.opt::after{content:"";position:absolute;inset:2px;border:1.5px dashed var(--felt);border-radius:3px;pointer-events:none}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2);margin-top:9px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;display:inline-block;flex:none}
+
+.card-out{background:var(--card);border:1px solid var(--rule-2);border-radius:12px;padding:20px 22px}
+.card-out .row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dotted var(--rule);font-size:13.5px}
+.card-out .row:last-of-type{border-bottom:none}
+.card-out .row .k{color:var(--ink-2)}
+.card-out .row .v{font-family:"IBM Plex Mono",monospace;font-weight:600}
+
+@media (max-width:640px){
+  .brand{margin-right:0;width:100%}
+  .brand .tag{display:none}
+}
+@media (max-width:760px){
+  .verdict{grid-template-columns:1fr}
+  .tally{justify-content:flex-start}
+  .verdict h2{font-size:24px}
+  .side .pts{font-size:32px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+@media print{.topbar,.actionbar{display:none !important}}
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <h1>The Oche</h1>
+      <span class="tag">Normal distributions &middot; 5 throwers &middot; 5 targets</span>
+    </div>
+    <span class="whoami" id="whoami" hidden></span>
+    <button class="btn" id="newGame" type="button" hidden>New match</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ===== start ===== -->
+  <section class="start" id="screenStart">
+    <span class="eyebrow kicker">A game of expected value</span>
+    <h2>Five throwers. Five targets. One assignment to get right.</h2>
+    <p>Every thrower on your team has been filmed at the oche. Their <b>radial miss distance</b> &mdash; how far the dart lands from dead centre, in centimetres &mdash; follows a normal distribution with a known mean &mu; and standard deviation &sigma;. Five targets are dealt, each with its own rings and point values. You assign one thrower to each target; your opponent assigns the same five throwers at random.</p>
+    <div class="namefield">
+      <div>
+        <label for="playerName">Your name</label>
+        <input id="playerName" type="text" placeholder="Leave blank to stay anonymous" autocomplete="name" maxlength="40">
+      </div>
+      <button class="btn primary lg" id="beginBtn" type="button">Step up to the oche</button>
+    </div>
+    <p class="optional">Optional &mdash; but the final report only carries a name if you enter one now.</p>
+    <ul class="rules">
+      <li><b>Tight groupers</b> (small &sigma;) are wasted on a wide 5&nbsp;cm target almost anyone can hit.</li>
+      <li><b>Loose throwers</b> (large &sigma;) still earn on generous targets &mdash; park them there.</li>
+      <li>Point values are <b>not</b> proportional to ring size. Read the payoff, not just the radius.</li>
+      <li>No target is larger than <b>10&nbsp;cm across</b>. Expected value is shown live as you assign.</li>
+    </ul>
+  </section>
+
+  <!-- ===== assignment ===== -->
+  <div id="screenAssign" hidden>
+    <div class="board-area">
+      <section>
+        <div class="panel-head">
+          <h2>Your team</h2>
+          <span class="eyebrow" id="rosterHint">Drag onto a target</span>
+        </div>
+        <div class="roster" id="roster"></div>
+      </section>
+      <section>
+        <div class="panel-head">
+          <h2>Tonight's targets</h2>
+          <span class="eyebrow">Max diameter 10 cm</span>
+        </div>
+        <div class="boards" id="boards"></div>
+      </section>
+    </div>
+    <div class="actionbar">
+      <div class="progress"><b id="assignedCount">0</b> of 5 assigned &middot; projected <b id="evTotal">0.0</b> pts</div>
+      <button class="btn" id="clearBtn" type="button">Clear all</button>
+      <button class="btn throw" id="playBtn" type="button" disabled>Play</button>
+    </div>
+  </div>
+
+  <!-- ===== reveal ===== -->
+  <section class="stage" id="screenStage" hidden></section>
+
+  <!-- ===== summary ===== -->
+  <section class="result" id="screenResult" hidden></section>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var N = 5;   // throwers, and targets
+
+/* ============================================================
+   1. Statistics
+   ============================================================ */
+
+function erf(x){
+  var s = x < 0 ? -1 : 1; x = Math.abs(x);
+  var t = 1/(1+0.3275911*x);
+  var y = 1 - (((((1.061405429*t - 1.453152027)*t) + 1.421413741)*t - 0.284496736)*t + 0.254829592)*t*Math.exp(-x*x);
+  return s*y;
+}
+function normCdf(z){ return 0.5*(1+erf(z/Math.SQRT2)); }
+
+function normInv(p){
+  if(p <= 0) return -Infinity;
+  if(p >= 1) return Infinity;
+  var a=[-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00],
+      b=[-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01],
+      c=[-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00],
+      d=[7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00];
+  var plow=0.02425, phigh=1-plow, q, r, x;
+  if(p < plow){
+    q = Math.sqrt(-2*Math.log(p));
+    x = (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  } else if(p > phigh){
+    q = Math.sqrt(-2*Math.log(1-p));
+    x = -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  } else {
+    q = p-0.5; r = q*q;
+    x = (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+  }
+  var e = normCdf(x) - p;
+  var u = e*Math.sqrt(2*Math.PI)*Math.exp(x*x/2);
+  return x - u/(1 + x*u/2);
+}
+
+// Radial miss distance D ~ N(mu, sigma) truncated to D >= 0
+function Thrower(name, mu, sigma){
+  this.name = name; this.mu = mu; this.sigma = sigma;
+  this.a = normCdf(-mu/sigma);
+  this.norm = 1 - this.a;
+}
+Thrower.prototype.cdf = function(r){
+  if(r <= 0) return 0;
+  return (normCdf((r - this.mu)/this.sigma) - this.a)/this.norm;
+};
+Thrower.prototype.pdf = function(r){
+  if(r < 0) return 0;
+  var z = (r - this.mu)/this.sigma;
+  return Math.exp(-0.5*z*z)/(this.sigma*Math.sqrt(2*Math.PI)*this.norm);
+};
+Thrower.prototype.sample = function(){
+  var u = this.a + Math.random()*this.norm;
+  return Math.max(0, this.mu + this.sigma*normInv(u));
+};
+
+function expectedValue(t, board){
+  var ev = 0, prev = 0;
+  for(var i=0;i<board.rings.length;i++){
+    var c = t.cdf(board.rings[i].r);
+    ev += (c - prev)*board.rings[i].pts;
+    prev = c;
+  }
+  return ev;
+}
+function scoreThrow(board, d){
+  for(var i=0;i<board.rings.length;i++) if(d <= board.rings[i].r) return board.rings[i].pts;
+  return 0;
+}
+
+/* Hungarian algorithm on a square cost matrix; we negate EV to maximise. */
+function hungarian(cost){
+  var n = cost.length, INF = 1e18;
+  var u = new Array(n+1).fill(0), v = new Array(n+1).fill(0);
+  var p = new Array(n+1).fill(0), way = new Array(n+1).fill(0);
+  for(var i=1;i<=n;i++){
+    p[0] = i;
+    var j0 = 0;
+    var minv = new Array(n+1).fill(INF);
+    var used = new Array(n+1).fill(false);
+    do{
+      used[j0] = true;
+      var i0 = p[j0], delta = INF, j1 = 0;
+      for(var j=1;j<=n;j++) if(!used[j]){
+        var cur = cost[i0-1][j-1] - u[i0] - v[j];
+        if(cur < minv[j]){ minv[j] = cur; way[j] = j0; }
+        if(minv[j] < delta){ delta = minv[j]; j1 = j; }
+      }
+      for(var j2=0;j2<=n;j2++){
+        if(used[j2]){ u[p[j2]] += delta; v[j2] -= delta; }
+        else { minv[j2] -= delta; }
+      }
+      j0 = j1;
+    } while(p[j0] !== 0);
+    do{ var j3 = way[j0]; p[j0] = p[j3]; j0 = j3; } while(j0);
+  }
+  var res = new Array(n);
+  for(var j=1;j<=n;j++) if(p[j] > 0) res[p[j]-1] = j-1;
+  return res;
+}
+
+/* ============================================================
+   2. Content generation
+   ============================================================ */
+
+var SURNAMES = ["Vance","Okonkwo","Brandt","Alarcón","Pell","Nakashima","Reyes","Quill","Harrow","Delacroix",
+                "Fen","Marlowe","Adeyemi","Sutcliffe","Bex","Lindqvist","Orsini","Whitlock","Ramos","Kovač"];
+var FIRSTS = ["J.","R.","M.","T.","A.","L.","D.","S.","K.","P.","C.","E.","N.","B.","V.","W."];
+
+function rnd(a,b){ return a + Math.random()*(b-a); }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function range(n){ var r=[]; for(var i=0;i<n;i++) r.push(i); return r; }
+
+function makeThrowers(){
+  var names = shuffle(SURNAMES.slice()).slice(0,N);
+  var archetypes = shuffle([0,1,2,3,4]);
+  var out = [];
+  for(var i=0;i<N;i++){
+    var mu, sigma;
+    switch(archetypes[i % 5]){
+      case 0: mu = rnd(0.15,0.9); sigma = rnd(0.30,0.75); break;  // metronome
+      case 1: mu = rnd(0.5,1.6);  sigma = rnd(0.9,1.7);   break;  // streaky
+      case 2: mu = rnd(1.6,3.0);  sigma = rnd(0.35,0.9);  break;  // consistent but off-centre
+      case 3: mu = rnd(0.3,1.4);  sigma = rnd(1.7,2.6);   break;  // wild
+      default: mu = rnd(1.0,2.4); sigma = rnd(1.0,1.9);            // journeyman
+    }
+    out.push(new Thrower(pick(FIRSTS)+" "+names[i], Math.round(mu*100)/100, Math.round(sigma*100)/100));
+  }
+  return shuffle(out);
+}
+
+var RADII = [1, 1.5, 2, 2.5, 3, 3.5, 4, 5];
+function basePoints(r){ return Math.max(1, Math.round(30/Math.pow(r,1.6))); }
+
+function makeBoard(){
+  var count = Math.random() < 0.28 ? 1 : (Math.random() < 0.62 ? 2 : 3);
+  var picked = shuffle(RADII.slice()).slice(0,count).sort(function(a,b){return a-b;});
+  // rings need at least 1 cm of band between them, or the payoff labels collide
+  var chosen = [picked[0]];
+  for(var i=1;i<picked.length;i++){
+    var r = Math.max(picked[i], chosen[chosen.length-1] + 1);
+    if(r <= 5) chosen.push(r);
+  }
+  var rings = chosen.map(function(rr){
+    return { r:rr, pts: Math.max(1, Math.round(basePoints(rr)*rnd(0.7,1.45))) };
+  });
+  for(var k=rings.length-2;k>=0;k--) if(rings[k].pts <= rings[k+1].pts)
+    rings[k].pts = rings[k+1].pts + Math.max(1, Math.round(rings[k+1].pts*rnd(0.3,0.9)));
+  return { rings: rings };
+}
+function boardKey(b){ return b.rings.map(function(r){ return r.r+":"+r.pts; }).join("|"); }
+function makeBoardSet(n){
+  var seen = {}, out = [];
+  while(out.length < n){
+    var b = makeBoard(), k = boardKey(b), tries = 0;
+    while(seen[k] && tries < 12){ b = makeBoard(); k = boardKey(b); tries++; }
+    seen[k] = true; out.push(b);
+  }
+  return out;
+}
+
+/* ============================================================
+   3. State
+   ============================================================ */
+
+var state = null;
+var playerName = "";
+var timers = [];
+function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+function later(fn, ms){ timers.push(setTimeout(fn, ms)); }
+function reduced(){ return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
+
+function newGame(){
+  clearTimers();
+  var throwers = makeThrowers();
+  var boards = makeBoardSet(N);
+  var ev = throwers.map(function(t){ return boards.map(function(b){ return expectedValue(t,b); }); });
+  var opt = hungarian(ev.map(function(row){ return row.map(function(x){ return -x; }); }));
+  var optEV = 0; for(var i=0;i<N;i++) optEV += ev[i][opt[i]];
+
+  state = {
+    throwers: throwers, boards: boards, ev: ev,
+    optimal: opt, optEV: optEV,
+    assign: new Array(N).fill(-1),   // assign[target] = thrower
+    picked: -1,
+    cpuAssign: null,
+    results: null,
+    step: 0
+  };
+  show("assign");
+  render();
+}
+
+function show(screen){
+  document.getElementById("screenStart").hidden  = screen !== "start";
+  document.getElementById("screenAssign").hidden = screen !== "assign";
+  document.getElementById("screenStage").hidden  = screen !== "stage";
+  document.getElementById("screenResult").hidden = screen !== "result";
+  document.getElementById("newGame").hidden      = screen === "start";
+  window.scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" });
+}
+
+/* ============================================================
+   4. Drawing
+   ============================================================ */
+
+var RING_FILL = ["var(--clay)","var(--cork)","var(--felt)"];
+function ringColor(i){ return RING_FILL[Math.min(i, RING_FILL.length-1)]; }
+var PLATE_R = 6.8, DART_R = 6.5;
+
+function boardSvg(b, idx, prefix, guides){
+  var parts = [];
+  parts.push('<svg viewBox="-7.2 -7.2 14.4 14.4" role="img" aria-label="Target '+(idx+1)+'">');
+  parts.push('<circle cx="0" cy="0" r="'+PLATE_R+'" fill="var(--plate-2)" stroke="var(--rule-2)" stroke-width="0.12"/>');
+  if(guides){
+    [2,4,6].forEach(function(g){
+      parts.push('<circle cx="0" cy="0" r="'+g+'" fill="none" stroke="var(--ink-3)" stroke-opacity="0.34" stroke-width="0.05" stroke-dasharray="0.18 0.3"/>');
+      parts.push('<text x="'+(g*0.7071+0.1).toFixed(2)+'" y="'+(g*0.7071+0.1).toFixed(2)+'" font-size="0.5" '+
+        'font-family="IBM Plex Mono, monospace" fill="var(--ink-3)">'+g+'</text>');
+    });
+  }
+  for(var i=b.rings.length-1;i>=0;i--){
+    parts.push('<circle cx="0" cy="0" r="'+b.rings[i].r+'" fill="'+ringColor(i)+'" fill-opacity="'+
+      (0.30+0.22*(b.rings.length-1-i))+'" stroke="'+ringColor(i)+'" stroke-width="0.11"/>');
+  }
+  for(var j=0;j<b.rings.length;j++){
+    var y = j === 0 ? 0.36 : -(b.rings[j-1].r + b.rings[j].r)/2 + 0.32;
+    parts.push('<text x="0" y="'+y.toFixed(2)+'" text-anchor="middle" font-size="'+(j===0?1.15:0.95)+
+      '" font-family="IBM Plex Mono, ui-monospace, monospace" font-weight="600" fill="var(--ink)" '+
+      'stroke="var(--card)" stroke-width="0.24" paint-order="stroke fill">'+b.rings[j].pts+'</text>');
+  }
+  parts.push('<g class="darts" id="'+prefix+idx+'"></g>');
+  parts.push('</svg>');
+  return parts.join("");
+}
+
+function ringKey(b){
+  return b.rings.map(function(ring, j){
+    return '<div><span><i class="sw" style="background:'+ringColor(j)+'"></i>&le; '+ring.r.toFixed(1)+
+           ' cm</span><span>'+ring.pts+' pts</span></div>';
+  }).join("");
+}
+
+function curveSvg(t){
+  var W = 74, H = 40, maxR = 6, M = 60;
+  var ys = [], maxY = 0;
+  for(var i=0;i<=M;i++){ var y = t.pdf(maxR*i/M); ys.push(y); if(y>maxY) maxY = y; }
+  if(maxY <= 0) maxY = 1;
+  var pts = ys.map(function(y,i){ return (i/M*W).toFixed(1)+","+(H - 2 - (y/maxY)*(H-6)).toFixed(1); }).join(" ");
+  var x2 = 2/maxR*W;
+  return '<svg class="th-curve" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+
+    '<rect x="0" y="0" width="'+x2.toFixed(1)+'" height="'+H+'" fill="var(--amber)" fill-opacity="0.14"/>'+
+    '<polyline points="'+pts+'" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linejoin="round"/>'+
+    '<line x1="0" y1="'+(H-2)+'" x2="'+W+'" y2="'+(H-2)+'" stroke="var(--rule-2)" stroke-width="1"/>'+
+    '<line x1="'+x2.toFixed(1)+'" y1="2" x2="'+x2.toFixed(1)+'" y2="'+(H-2)+'" stroke="var(--ink-3)" stroke-width="0.7" stroke-dasharray="2 2"/>'+
+    '</svg>';
+}
+
+function dartMark(x, y, color, label){
+  var r = Math.sqrt(x*x+y*y), cx = x, cy = y, off = false;
+  if(r > DART_R){ cx = x/r*DART_R; cy = y/r*DART_R; off = true; }
+  return '<g class="dartg"><title>'+label+'</title>'+
+    '<circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+(off?0.34:0.30)+'" fill="'+color+'" stroke="var(--card)" stroke-width="0.12"/>'+
+    (off ? '<circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="0.62" fill="none" stroke="'+color+'" stroke-width="0.1" stroke-dasharray="0.25 0.25"/>' : '')+
+    '</g>';
+}
+
+/* ============================================================
+   5. Assignment screen
+   ============================================================ */
+
+function pct(x){ return (x*100).toFixed(0)+"%"; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]; }); }
+
+function render(){ renderRoster(); renderBoards(); updateBar(); }
+
+function renderRoster(){
+  var host = document.getElementById("roster");
+  host.innerHTML = "";
+  state.throwers.forEach(function(t, i){
+    var target = state.assign.indexOf(i);
+    var el = document.createElement("div");
+    el.className = "thrower" + (target >= 0 ? " assigned" : "") + (state.picked === i ? " picked" : "");
+    el.draggable = target < 0;
+    el.dataset.thrower = i;
+    el.tabIndex = 0;
+    el.setAttribute("role","button");
+    el.setAttribute("aria-label", t.name + ", mean " + t.mu + " centimetres, standard deviation " + t.sigma);
+    el.innerHTML =
+      '<div><div class="th-name">'+esc(t.name)+'</div>'+
+      '<div class="th-params mono">&mu; '+t.mu.toFixed(2)+' cm &nbsp;&sigma; '+t.sigma.toFixed(2)+' cm</div></div>'+
+      curveSvg(t)+
+      '<div class="th-stats">'+
+        '<span class="chip">&le;1cm <b>'+pct(t.cdf(1))+'</b></span>'+
+        '<span class="chip">&le;2cm <b>'+pct(t.cdf(2))+'</b></span>'+
+        '<span class="chip">&le;5cm <b>'+pct(t.cdf(5))+'</b></span>'+
+      '</div>'+
+      (target >= 0 ? '<div class="th-slot">Target '+(target+1)+'<button type="button" data-unassign="'+target+'">remove</button></div>' : '');
+    host.appendChild(el);
+  });
+}
+
+function renderBoards(){
+  var host = document.getElementById("boards");
+  host.innerHTML = "";
+  state.boards.forEach(function(b, i){
+    var tIdx = state.assign[i];
+    var el = document.createElement("div");
+    el.className = "board";
+    el.dataset.board = i;
+    el.innerHTML =
+      '<div class="board-top"><span class="board-no">Target '+(i+1)+'</span>'+
+      '<span class="board-no">'+b.rings.length+(b.rings.length===1?' ring':' rings')+'</span></div>'+
+      boardSvg(b, i, "mini-")+
+      '<div class="ring-key">'+ringKey(b)+'</div>'+
+      (tIdx >= 0
+        ? '<div class="assign"><strong>'+esc(state.throwers[tIdx].name)+'</strong>'+
+          '<span class="ev mono">EV '+state.ev[tIdx][i].toFixed(1)+'</span>'+
+          '<button type="button" data-unassign="'+i+'" aria-label="Remove thrower from target '+(i+1)+'">&times;</button></div>'
+        : '<div class="assign empty">drop a thrower</div>');
+    host.appendChild(el);
+  });
+}
+
+function updateBar(){
+  var n = state.assign.filter(function(x){ return x >= 0; }).length;
+  var ev = 0;
+  state.assign.forEach(function(t,b){ if(t>=0) ev += state.ev[t][b]; });
+  document.getElementById("assignedCount").textContent = n;
+  document.getElementById("evTotal").textContent = ev.toFixed(1);
+  document.getElementById("playBtn").disabled = n < N;
+}
+
+function assignTo(target, thrower){
+  var old = state.assign.indexOf(thrower);
+  if(old >= 0) state.assign[old] = -1;
+  state.assign[target] = thrower;
+  state.picked = -1;
+  render();
+}
+function unassign(target){ state.assign[target] = -1; render(); }
+
+/* drag and drop */
+document.addEventListener("dragstart", function(e){
+  var card = e.target.closest ? e.target.closest(".thrower") : null;
+  if(!card || card.classList.contains("assigned")) return;
+  e.dataTransfer.setData("text/plain", card.dataset.thrower);
+  e.dataTransfer.effectAllowed = "move";
+  card.classList.add("dragging");
+});
+document.addEventListener("dragend", function(e){
+  var card = e.target.closest ? e.target.closest(".thrower") : null;
+  if(card) card.classList.remove("dragging");
+});
+document.addEventListener("dragover", function(e){
+  var b = e.target.closest ? e.target.closest(".board") : null;
+  if(!b) return;
+  e.preventDefault(); e.dataTransfer.dropEffect = "move"; b.classList.add("drop");
+});
+document.addEventListener("dragleave", function(e){
+  var b = e.target.closest ? e.target.closest(".board") : null;
+  if(b) b.classList.remove("drop");
+});
+document.addEventListener("drop", function(e){
+  var b = e.target.closest ? e.target.closest(".board") : null;
+  if(!b) return;
+  e.preventDefault(); b.classList.remove("drop");
+  var t = parseInt(e.dataTransfer.getData("text/plain"), 10);
+  if(!isNaN(t)) assignTo(parseInt(b.dataset.board,10), t);
+});
+
+/* click / keyboard */
+document.addEventListener("click", function(e){
+  if(!state || document.getElementById("screenAssign").hidden) return;
+  var un = e.target.closest ? e.target.closest("[data-unassign]") : null;
+  if(un){ e.stopPropagation(); unassign(parseInt(un.dataset.unassign,10)); return; }
+  var card = e.target.closest ? e.target.closest(".thrower") : null;
+  if(card && !card.classList.contains("assigned")){
+    var i = parseInt(card.dataset.thrower,10);
+    state.picked = (state.picked === i ? -1 : i);
+    renderRoster();
+    document.getElementById("rosterHint").textContent = state.picked >= 0 ? "Now click a target" : "Drag onto a target";
+    return;
+  }
+  var b = e.target.closest ? e.target.closest(".board") : null;
+  if(b && state.picked >= 0){
+    assignTo(parseInt(b.dataset.board,10), state.picked);
+    document.getElementById("rosterHint").textContent = "Drag onto a target";
+  }
+});
+document.addEventListener("keydown", function(e){
+  if(e.key !== "Enter" && e.key !== " ") return;
+  var card = e.target.closest ? e.target.closest(".thrower") : null;
+  if(card){ e.preventDefault(); card.click(); }
+});
+
+/* ============================================================
+   6. Play: throw everything, then reveal one target at a time
+   ============================================================ */
+
+function play(){
+  var cpu = shuffle(range(N));
+  var rows = [];
+  for(var b=0;b<N;b++){
+    var yt = state.throwers[state.assign[b]], ct = state.throwers[cpu[b]];
+    var yd = yt.sample(), cd = ct.sample();
+    var ya = Math.random()*Math.PI*2, ca = Math.random()*Math.PI*2;
+    rows.push({
+      you: { t:state.assign[b], d:yd, x:yd*Math.cos(ya), y:yd*Math.sin(ya),
+             pts:scoreThrow(state.boards[b], yd), ev:state.ev[state.assign[b]][b] },
+      cpu: { t:cpu[b], d:cd, x:cd*Math.cos(ca), y:cd*Math.sin(ca),
+             pts:scoreThrow(state.boards[b], cd), ev:state.ev[cpu[b]][b] }
+    });
+  }
+  state.cpuAssign = cpu;
+  state.results = rows;
+  state.step = 0;
+  show("stage");
+  renderStage();
+}
+
+function runningTotals(upTo){
+  var y = 0, c = 0, ye = 0, ce = 0;
+  for(var i=0;i<=upTo && i<N;i++){
+    y += state.results[i].you.pts; c += state.results[i].cpu.pts;
+    ye += state.results[i].you.ev;  ce += state.results[i].cpu.ev;
+  }
+  return { you:y, cpu:c, youEv:ye, cpuEv:ce };
+}
+
+function renderStage(){
+  clearTimers();
+  var i = state.step, b = state.boards[i], row = state.results[i];
+  var yt = state.throwers[row.you.t], ct = state.throwers[row.cpu.t];
+  var before = i > 0 ? runningTotals(i-1) : { you:0, cpu:0 };
+  var last = i === N-1;
+
+  var pips = "";
+  for(var k=0;k<N;k++) pips += '<span class="pip'+(k<i?" done":(k===i?" now":""))+'"></span>';
+
+  document.getElementById("screenStage").innerHTML =
+    '<div class="stage-head">'+
+      '<div class="pips" aria-label="Target '+(i+1)+' of '+N+'">'+pips+'</div>'+
+      '<div class="runtally"><span class="u">'+(playerName ? esc(playerName) : "You")+' <b id="runYou">'+before.you+'</b></span>'+
+      '<span class="c">Opponent <b id="runCpu">'+before.cpu+'</b></span></div>'+
+    '</div>'+
+    '<div class="stage-card">'+
+      '<div class="stage-title"><h2>Target '+(i+1)+'</h2>'+
+        '<span class="eyebrow">'+b.rings.length+(b.rings.length===1?' ring':' rings')+' &middot; outer edge '+b.rings[b.rings.length-1].r.toFixed(1)+' cm</span></div>'+
+      '<div class="stage-board">'+boardSvg(b, i, "stage-", true)+
+        '<div class="scalenote">dotted guides mark 2, 4 and 6 cm from centre</div>'+
+        '<div class="ring-key">'+ringKey(b)+'</div></div>'+
+      '<div class="duel">'+
+        side("you", "Your thrower", yt, row.you)+
+        side("cpu", "Opponent's thrower", ct, row.cpu)+
+        '<div class="exp fade" id="expRow">'+
+          '<div class="expbox you"><div class="k">Your expected pts</div><div class="v">'+row.you.ev.toFixed(2)+'</div>'+
+            '<div class="d">'+delta(row.you.pts, row.you.ev)+'</div></div>'+
+          '<div class="expbox cpu"><div class="k">Opponent expected pts</div><div class="v">'+row.cpu.ev.toFixed(2)+'</div>'+
+            '<div class="d">'+delta(row.cpu.pts, row.cpu.ev)+'</div></div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="stage-foot">'+
+        '<span class="hint">'+(row.you.t === row.cpu.t
+          ? 'You both sent the same thrower up. Same distribution, same expected points &mdash; any gap in the score here is pure variance.'
+          : 'Expected points are what this pairing was worth on average before the dart flew. One throw rarely lands on its own average.')+'</span>'+
+        '<button class="btn primary lg" id="nextBtn" type="button">'+(last ? "See the summary" : "Next target")+'</button>'+
+      '</div>'+
+    '</div>';
+
+  document.getElementById("nextBtn").addEventListener("click", function(){
+    if(last){ renderResult(); show("result"); }
+    else { state.step++; renderStage(); window.scrollTo({top:0, behavior: reduced()?"auto":"smooth"}); }
+  });
+
+  // animate: your dart, then theirs, then the numbers
+  var g = document.getElementById("stage-"+i);
+  var yMark = dartMark(row.you.x, row.you.y, "var(--dart-you)", "You: "+row.you.d.toFixed(2)+" cm from centre");
+  var cMark = dartMark(row.cpu.x, row.cpu.y, "var(--dart-cpu)", "Opponent: "+row.cpu.d.toFixed(2)+" cm from centre");
+
+  if(reduced()){
+    g.innerHTML = cMark + yMark;
+    revealSide("you"); revealSide("cpu");
+    document.getElementById("expRow").classList.add("in");
+    bumpTotals(before, row);
+  } else {
+    later(function(){ g.insertAdjacentHTML("beforeend", yMark); revealSide("you"); }, 420);
+    later(function(){ g.insertAdjacentHTML("beforeend", cMark); revealSide("cpu"); }, 1150);
+    later(function(){
+      document.getElementById("expRow").classList.add("in");
+      bumpTotals(before, row);
+    }, 1750);
+  }
+}
+
+function side(who, label, t, r){
+  return '<div class="side '+who+'">'+
+    '<div class="who">'+label+'</div>'+
+    '<div class="pts fade" id="pts-'+who+'">'+r.pts+'</div>'+
+    '<div class="nm">'+esc(t.name)+'</div>'+
+    '<div class="pm">&mu; '+t.mu.toFixed(2)+' cm &nbsp;&sigma; '+t.sigma.toFixed(2)+' cm</div>'+
+    '<div class="land fade" id="land-'+who+'">landed <em>'+r.d.toFixed(2)+' cm</em> from centre &rarr; '+
+      (r.pts > 0 ? '<em>'+r.pts+' pts</em>' : 'no score')+'</div>'+
+  '</div>';
+}
+function revealSide(who){
+  var a = document.getElementById("pts-"+who), b = document.getElementById("land-"+who);
+  if(a) a.classList.add("in");
+  if(b) b.classList.add("in");
+}
+function delta(actual, ev){
+  var d = actual - ev;
+  if(Math.abs(d) < 0.05) return "right on expectation";
+  return (d > 0 ? "+" : "") + d.toFixed(2) + " vs expectation";
+}
+function bumpTotals(before, row){
+  var y = document.getElementById("runYou"), c = document.getElementById("runCpu");
+  if(y) y.textContent = before.you + row.you.pts;
+  if(c) c.textContent = before.cpu + row.cpu.pts;
+}
+
+/* ============================================================
+   7. Summary
+   ============================================================ */
+
+function meter(label, value, max, color){
+  var w = max > 0 ? Math.max(2, (value/max)*100) : 0;
+  return '<div class="meter"><div class="lbl"><span>'+label+'</span><span class="n">'+value.toFixed(1)+'</span></div>'+
+         '<div class="bar"><i style="width:'+w.toFixed(1)+'%;background:'+color+'"></i></div></div>';
+}
+
+function renderResult(){
+  clearTimers();
+  var tot = runningTotals(N-1);
+  var win = tot.you > tot.cpu, tie = tot.you === tot.cpu;
+  var eff = state.optEV > 0 ? tot.youEv/state.optEV : 0;
+
+  var headline = tie ? "Dead heat." : (win ? "You take the match." : "The random draw takes it.");
+  var sub;
+  if(eff >= 0.995) sub = "Your assignment was the optimal one &mdash; there was no better way to pair these five throwers with these five targets.";
+  else if(eff >= 0.93) sub = "Your assignment captured " + (eff*100).toFixed(1) + "% of the available expected value. Close to optimal.";
+  else if(eff >= 0.8) sub = "Your assignment captured " + (eff*100).toFixed(1) + "% of the available expected value. There were points left on the table.";
+  else sub = "Your assignment captured only " + (eff*100).toFixed(1) + "% of the available expected value &mdash; check the table below for the pairings you missed.";
+
+  var luck;
+  if(tot.youEv > tot.cpuEv && !win) luck = "Note what happened: you had the better <em>expected</em> score (" + tot.youEv.toFixed(1) + " vs " + tot.cpuEv.toFixed(1) + ") and still did not win. Five throws is a tiny sample, and variance does not care how well you optimised.";
+  else if(tot.youEv < tot.cpuEv && win) luck = "You won with the weaker expected score (" + tot.youEv.toFixed(1) + " vs " + tot.cpuEv.toFixed(1) + "). Over many matches that edge reverses &mdash; one result is not evidence of a good strategy.";
+  else if(win) luck = "Expected scores ran " + tot.youEv.toFixed(1) + " to " + tot.cpuEv.toFixed(1) + " in your favour, and the darts obliged. Play again to see how often the expectation holds.";
+  else luck = "Expected scores ran " + tot.youEv.toFixed(1) + " to " + tot.cpuEv.toFixed(1) + ". Play again &mdash; a single match of five throws is mostly noise.";
+
+  var maxEV = 0;
+  state.ev.forEach(function(row){ row.forEach(function(x){ if(x > maxEV) maxEV = x; }); });
+
+  var head = "<tr><th class='row'>Thrower \\ Target</th>";
+  for(var b=0;b<N;b++) head += "<th>"+(b+1)+"</th>";
+  head += "</tr>";
+
+  var rows = "";
+  state.throwers.forEach(function(t, i){
+    rows += "<tr><th class='row'>"+esc(t.name)+"</th>";
+    for(var b2=0;b2<N;b2++){
+      var v = state.ev[i][b2];
+      var cls = [];
+      if(state.assign[b2] === i) cls.push("you");
+      if(state.cpuAssign[b2] === i) cls.push("cpu");
+      if(state.optimal[i] === b2) cls.push("opt");
+      rows += "<td class='"+cls.join(" ")+"' style='background:color-mix(in srgb, var(--felt) "+
+              ((v/maxEV)*45).toFixed(0)+"%, transparent)'>"+v.toFixed(1)+"</td>";
+    }
+    rows += "</tr>";
+  });
+
+  var when = new Date().toLocaleString(undefined, {year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+
+  document.getElementById("screenResult").innerHTML =
+    '<div class="verdict">'+
+      '<div><span class="eyebrow">Final</span><h2>'+headline+'</h2><p class="sub">'+sub+'</p></div>'+
+      '<div class="tally">'+
+        '<div class="t you"><div class="v">'+tot.you+'</div><div class="k">'+(playerName ? esc(playerName) : "You")+'</div></div>'+
+        '<div class="t cpu"><div class="v">'+tot.cpu+'</div><div class="k">Random draw</div></div>'+
+      '</div>'+
+    '</div>'+
+
+    '<div class="analysis">'+
+      '<span class="eyebrow">Strategy vs. luck</span>'+
+      '<h2 style="font-size:19px;margin-top:4px">Expected points, before a single dart flew</h2>'+
+      '<div class="meters">'+
+        meter("Your assignment", tot.youEv, state.optEV, "var(--dart-you)")+
+        meter("Random assignment", tot.cpuEv, state.optEV, "var(--dart-cpu)")+
+        meter("Optimal assignment", state.optEV, state.optEV, "var(--felt)")+
+      '</div>'+
+      '<p class="note">'+luck+'</p>'+
+    '</div>'+
+
+    '<div class="analysis">'+
+      '<span class="eyebrow">The whole payoff table</span>'+
+      '<h2 style="font-size:19px;margin-top:4px">Expected points for every thrower on every target</h2>'+
+      '<div class="matrix-wrap"><table class="matrix"><thead>'+head+'</thead><tbody>'+rows+'</tbody></table></div>'+
+      '<div class="legend">'+
+        '<span><i style="outline:2px solid var(--dart-you);outline-offset:-2px"></i>Your pairing</span>'+
+        '<span><i style="background:var(--dart-cpu);border-radius:50%;width:9px;height:9px"></i>Opponent pairing</span>'+
+        '<span><i style="border:1.5px dashed var(--felt)"></i>Optimal pairing</span>'+
+        '<span><i style="background:color-mix(in srgb, var(--felt) 45%, transparent)"></i>Higher expected points</span>'+
+      '</div>'+
+    '</div>'+
+
+    '<div class="card-out">'+
+      '<span class="eyebrow">Result card</span>'+
+      '<h2 style="font-size:19px;margin:4px 0 10px">'+(playerName ? esc(playerName) : "Anonymous player")+'</h2>'+
+      '<div class="row"><span class="k">Played</span><span class="v">'+esc(when)+'</span></div>'+
+      '<div class="row"><span class="k">Your score</span><span class="v">'+tot.you+' pts</span></div>'+
+      '<div class="row"><span class="k">Opponent score</span><span class="v">'+tot.cpu+' pts</span></div>'+
+      '<div class="row"><span class="k">Result</span><span class="v">'+(tie?"Draw":(win?"Win":"Loss"))+'</span></div>'+
+      '<div class="row"><span class="k">Your expected points</span><span class="v">'+tot.youEv.toFixed(2)+'</span></div>'+
+      '<div class="row"><span class="k">Optimal expected points</span><span class="v">'+state.optEV.toFixed(2)+'</span></div>'+
+      '<div class="row"><span class="k">Assignment efficiency</span><span class="v">'+(eff*100).toFixed(1)+'%</span></div>'+
+      '<p class="note" style="border-color:var(--amber)">Capture this card for submission. Efficiency is your expected points as a share of the best possible expected points &mdash; it grades your reasoning, not your luck.</p>'+
+      '<div style="margin-top:16px"><button class="btn primary" id="againBtn" type="button">Play another match</button></div>'+
+    '</div>';
+
+  document.getElementById("againBtn").addEventListener("click", newGame);
+}
+
+/* ============================================================
+   8. Boot
+   ============================================================ */
+
+var css = document.createElement("style");
+css.textContent = "@keyframes dartIn{from{opacity:0;transform:scale(2.8)}to{opacity:1;transform:scale(1)}}"+
+                  ".dartg{transform-box:fill-box;transform-origin:center;animation:dartIn .34s ease-out both}";
+document.head.appendChild(css);
+
+document.getElementById("beginBtn").addEventListener("click", function(){
+  playerName = (document.getElementById("playerName").value || "").trim();
+  var w = document.getElementById("whoami");
+  if(playerName){ w.textContent = playerName; w.hidden = false; } else { w.hidden = true; }
+  newGame();
+});
+document.getElementById("playerName").addEventListener("keydown", function(e){
+  if(e.key === "Enter") document.getElementById("beginBtn").click();
+});
+document.getElementById("clearBtn").addEventListener("click", function(){
+  state.assign = new Array(N).fill(-1); state.picked = -1; render();
+});
+document.getElementById("playBtn").addEventListener("click", play);
+document.getElementById("newGame").addEventListener("click", newGame);
+
+function start(saved){
+  if(saved && saved.name){
+    document.getElementById("playerName").value = saved.name;
+  }
+  show("start");
+}
+start({});
+
+})();
+</script>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

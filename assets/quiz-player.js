@@ -52,6 +52,8 @@ const QuizPlayer = (function () {
 
     _questions = QUIZ_DATA.Questions;
 
+    ensureLiveRegion();
+
     // Pre-shuffle ordering questions
     _questions.forEach(q => {
       if (typeStr(q) === 'O' && Array.isArray(q.Items) && q.Items.length > 0) {
@@ -64,15 +66,42 @@ const QuizPlayer = (function () {
     renderMode();
   }
 
+  // ── Screen-reader announcements ───────────────────────────────────────
+  // A polite live region announces navigation, reordering, and results so
+  // the page never changes silently for assistive-technology users.
+
+  function ensureLiveRegion() {
+    if (document.getElementById('quiz-live')) return;
+    const live = document.createElement('div');
+    live.id = 'quiz-live';
+    live.className = 'sr-only';
+    live.setAttribute('role', 'status');
+    live.setAttribute('aria-live', 'polite');
+    const root = document.getElementById('quiz-root');
+    if (root) root.insertAdjacentElement('beforebegin', live);
+  }
+
+  function announce(msg) {
+    const live = document.getElementById('quiz-live');
+    if (!live) return;
+    live.textContent = '';
+    setTimeout(function () { live.textContent = msg; }, 30);
+  }
+
+  function focusQuestion() {
+    const el = document.querySelector('#quiz-questions .question-text');
+    if (el) el.focus();
+  }
+
   // ── Mode toggle ───────────────────────────────────────────────────────
 
   function renderModeToggle() {
     const container = document.getElementById('quiz-mode-toggle');
     if (!container) return;
     container.innerHTML =
-      '<div class="mode-toggle">' +
-        '<button id="btn-mode-one" class="mode-btn active" onclick="QuizPlayer.setMode(\'one\')">One at a time</button>' +
-        '<button id="btn-mode-all" class="mode-btn"        onclick="QuizPlayer.setMode(\'all\')">All questions</button>' +
+      '<div class="mode-toggle" role="group" aria-label="Quiz display mode">' +
+        '<button id="btn-mode-one" class="mode-btn active" aria-pressed="true"  onclick="QuizPlayer.setMode(\'one\')">One at a time</button>' +
+        '<button id="btn-mode-all" class="mode-btn"        aria-pressed="false" onclick="QuizPlayer.setMode(\'all\')">All questions</button>' +
       '</div>';
   }
 
@@ -81,8 +110,8 @@ const QuizPlayer = (function () {
     _mode = mode;
     const btnOne = document.getElementById('btn-mode-one');
     const btnAll = document.getElementById('btn-mode-all');
-    if (btnOne) btnOne.classList.toggle('active', mode === 'one');
-    if (btnAll) btnAll.classList.toggle('active', mode === 'all');
+    if (btnOne) { btnOne.classList.toggle('active', mode === 'one'); btnOne.setAttribute('aria-pressed', mode === 'one'); }
+    if (btnAll) { btnAll.classList.toggle('active', mode === 'all'); btnAll.setAttribute('aria-pressed', mode === 'all'); }
     renderMode();
   }
 
@@ -104,7 +133,7 @@ const QuizPlayer = (function () {
 
     qRoot.innerHTML =
       '<div class="progress-label">Question ' + (_currentIndex + 1) + ' of ' + total + '</div>' +
-      '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="progress-bar" aria-hidden="true"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
       renderQuestionHtml(q, _currentIndex) +
       '<div class="nav-buttons">' +
         (isFirst ? '<span></span>' : '<button class="btn-nav" onclick="QuizPlayer.prev()">← Previous</button>') +
@@ -147,13 +176,18 @@ const QuizPlayer = (function () {
     const hintHtml = q.Hint
       ? '<div class="hint"><strong>Hint:</strong> ' + esc(q.Hint) + '</div>'
       : '';
+    // Radio/checkbox groups get a fieldset whose (visually hidden) legend is the
+    // question, so assistive tech names the group when focus enters an option.
+    if (t === 'MC' || t === 'TF' || t === 'MS')
+      body = '<fieldset class="option-group"><legend class="sr-only">' +
+             esc(q.QuestionText) + '</legend>' + body + '</fieldset>';
     return (
       '<div class="question-card" data-id="' + esc(q.Id) + '" data-type="' + t + '">' +
         '<div class="question-header">' +
           '<span class="question-num">' + (index + 1) + '.</span>' +
           '<span class="type-badge">' + esc(label) + '</span>' +
         '</div>' +
-        '<div class="question-text">' + esc(q.QuestionText) + '</div>' +
+        '<div class="question-text" tabindex="-1">' + esc(q.QuestionText) + '</div>' +
         body +
         hintHtml +
       '</div>'
@@ -194,6 +228,7 @@ const QuizPlayer = (function () {
 
   function renderSA(q) {
     return '<input type="text" class="sa-input" id="sa_' + q.Id + '"' +
+      ' aria-label="Your answer"' +
       ' placeholder="Type your answer…"' +
       ' oninput="QuizPlayer.saveAnswer(\'' + q.Id + '\',this.value)">';
   }
@@ -207,6 +242,7 @@ const QuizPlayer = (function () {
       '<tr>' +
         '<td class="match-prompt">' + c.Number + '.&nbsp;' + esc(c.Text) + '</td>' +
         '<td><select class="match-select"' +
+          ' aria-label="Match for: ' + esc(c.Text) + '"' +
           ' data-qid="' + q.Id + '" data-choice="' + c.Number + '"' +
           ' onchange="QuizPlayer.saveAnswerM(\'' + q.Id + '\')">' +
           '<option value="">— select —</option>' + opts +
@@ -226,11 +262,11 @@ const QuizPlayer = (function () {
         ' ondragover="QuizPlayer.dragOver(event)"' +
         ' ondrop="QuizPlayer.dragDrop(event,\'' + q.Id + '\')"' +
         ' ondragleave="QuizPlayer.dragLeave(event)">' +
-        '<span class="drag-handle">⠿</span>' +
+        '<span class="drag-handle" aria-hidden="true">⠿</span>' +
         '<span class="item-text">' + esc(item.Text) + '</span>' +
         '<span class="order-arrows">' +
-          '<button onclick="QuizPlayer.moveItem(\'' + q.Id + '\',this,-1)" title="Move up">▲</button>' +
-          '<button onclick="QuizPlayer.moveItem(\'' + q.Id + '\',this,1)"  title="Move down">▼</button>' +
+          '<button onclick="QuizPlayer.moveItem(\'' + q.Id + '\',this,-1)" title="Move up"   aria-label="Move ' + esc(item.Text) + ' up">▲</button>' +
+          '<button onclick="QuizPlayer.moveItem(\'' + q.Id + '\',this,1)"  title="Move down" aria-label="Move ' + esc(item.Text) + ' down">▼</button>' +
         '</span>' +
       '</li>';
     }).join('');
@@ -243,6 +279,7 @@ const QuizPlayer = (function () {
       : '';
     return (
       '<textarea class="wr-textarea" id="wr_' + q.Id + '"' +
+        ' aria-label="Your written response"' +
         ' placeholder="Write your response here…"' +
         ' oninput="QuizPlayer.saveAnswer(\'' + q.Id + '\',this.value)"></textarea>' +
       '<p class="wr-note">📝 Written responses require instructor review.</p>' +
@@ -329,6 +366,8 @@ const QuizPlayer = (function () {
     if (dir === -1 && li.previousElementSibling) list.insertBefore(li, li.previousElementSibling);
     if (dir ===  1 && li.nextElementSibling)     list.insertBefore(li.nextElementSibling, li);
     saveAnswerOrdering(qId);
+    const items = Array.from(list.children);
+    announce('Moved to position ' + (items.indexOf(li) + 1) + ' of ' + items.length + '.');
   }
 
   // ── Navigation ────────────────────────────────────────────────────────
@@ -344,12 +383,20 @@ const QuizPlayer = (function () {
 
   function next() {
     saveCurrentForNav();
-    if (_currentIndex < _questions.length - 1) { _currentIndex++; renderOneAtATime(); }
+    if (_currentIndex < _questions.length - 1) { _currentIndex++; afterNav(); }
   }
 
   function prev() {
     saveCurrentForNav();
-    if (_currentIndex > 0) { _currentIndex--; renderOneAtATime(); }
+    if (_currentIndex > 0) { _currentIndex--; afterNav(); }
+  }
+
+  // Re-render replaces the DOM, which silently drops keyboard focus to <body>;
+  // move it to the new question and announce the position.
+  function afterNav() {
+    renderOneAtATime();
+    focusQuestion();
+    announce('Question ' + (_currentIndex + 1) + ' of ' + _questions.length + '.');
   }
 
   // ── Submit ────────────────────────────────────────────────────────────
@@ -442,7 +489,7 @@ const QuizPlayer = (function () {
 
     let html =
       '<div class="results-header">' +
-        '<h2>Quiz Results</h2>' +
+        '<h2 id="results-heading" tabindex="-1">Quiz Results</h2>' +
         '<div class="score-circle">' +
           '<div class="score-pct">' + pct + '%</div>' +
           '<div class="score-sub">' + correct + ' / ' + gradable.length + ' correct</div>' +
@@ -466,11 +513,17 @@ const QuizPlayer = (function () {
                     : score >= 100   ? '✓'
                     : score > 0      ? '◑'
                     :                  '✗';
+      // Outcome must not rely on color/glyph alone — name it for screen readers.
+      const srWord  = score === null ? 'Awaiting instructor review.'
+                    : score >= 100   ? 'Correct.'
+                    : score > 0      ? 'Partially correct.'
+                    :                  'Incorrect.';
 
       html +=
         '<div class="result-item ' + cls + '">' +
           '<div class="result-q">' +
-            '<span class="result-icon">' + icon + '</span>' +
+            '<span class="result-icon" aria-hidden="true">' + icon + '</span>' +
+            '<span class="sr-only">' + srWord + ' </span>' +
             '<strong>' + (i + 1) + '. ' + esc(q.QuestionText) + '</strong>' +
           '</div>' +
           '<div class="result-detail">' +
@@ -486,6 +539,19 @@ const QuizPlayer = (function () {
 
     html += '</div>';
     document.getElementById('quiz-root').innerHTML = html;
+
+    announce('Quiz submitted. Score ' + pct + ' percent: ' + correct + ' of ' +
+             gradable.length + ' correct' +
+             (ungraded > 0 ? ', ' + ungraded + ' awaiting instructor review' : '') + '.');
+    const heading = document.getElementById('results-heading');
+    if (heading) heading.focus();
+
+    // SCORM: when this quiz runs inside an LMS package, report the score
+    // through the adapter (absent on the plain website, so this is skipped).
+    if (window.PreseMakerScorm && window.PreseMakerScorm.isConnected()) {
+      const passPct = (typeof window.QUIZ_PASS_PCT === 'number') ? window.QUIZ_PASS_PCT : 70;
+      window.PreseMakerScorm.reportScore(pct, pct >= passPct);
+    }
   }
 
   function formatAnswer(q, ans, t) {
@@ -563,6 +629,8 @@ const QuizPlayer = (function () {
     });
     renderModeToggle();
     renderMode();
+    focusQuestion();
+    announce('Quiz reset. Question 1 of ' + _questions.length + '.');
   }
 
   // ── Utilities ─────────────────────────────────────────────────────────

@@ -3,6 +3,44 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── Accessibility utilities ────────────────────────────────────────── */
+
+/* Screen-reader-only text (visually hidden, still announced). */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Skip link: first tab stop on every page, visible only when focused. */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: #0054a6; color: #fff;
+  padding: 8px 16px; z-index: 10000;
+  text-decoration: none; font-weight: 600; border-radius: 0 0 5px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* Visible keyboard focus everywhere (WCAG 2.4.7). */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid #0054a6;
+  outline-offset: 2px;
+}
+
+/* Question option groups render as plain blocks (fieldset used for semantics). */
+fieldset.option-group { border: none; }
+fieldset.option-group legend { padding: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   font-size: 15px;
@@ -88,7 +126,7 @@ p  { margin: 8px 0; }
 
 .module-card-num {
   font-size: 0.75em;
-  color: #888;
+  color: #6e6e6e;   /* AA contrast on white */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -116,7 +154,7 @@ p  { margin: 8px 0; }
   color: #444;
 }
 .status-item { display: inline-flex; align-items: center; gap: 4px; }
-.status-item.absent { opacity: 0.28; filter: grayscale(1); }
+.status-item.absent { opacity: 0.45; filter: grayscale(1); }   /* faded but still ≥AA; sr-only text names the state */
 
 /* ── Artifact list (module index) ───────────────────────────────────── */
 
@@ -133,7 +171,7 @@ p  { margin: 8px 0; }
 }
 .artifact-item.not-generated {
   background: #fafafa;
-  color: #aaa;
+  color: #767676;   /* AA contrast on white */
   font-style: italic;
 }
 
@@ -150,7 +188,7 @@ p  { margin: 8px 0; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #888;
+  color: #6e6e6e;   /* AA contrast on white */
   margin-bottom: 4px;
 }
 .artifact-links { display: flex; flex-direction: column; gap: 4px; }
@@ -207,7 +245,7 @@ p  { margin: 8px 0; }
 }
 .outcome-blooms {
   font-size: 0.78em;
-  color: #888;
+  color: #6e6e6e;   /* AA contrast on white */
   margin-top: 3px;
 }
 
@@ -285,7 +323,7 @@ p  { margin: 8px 0; }
   font-weight: 600;
 }
 .activity-title a:hover { text-decoration: underline; }
-.activity-meta { font-size: 0.82em; color: #888; margin-top: 3px; }
+.activity-meta { font-size: 0.82em; color: #6e6e6e;   /* AA contrast on white */ margin-top: 3px; }
 
 /* ── Quiz player ────────────────────────────────────────────────────── */
 
@@ -381,7 +419,7 @@ p  { margin: 8px 0; }
   box-shadow: 0 0 0 3px rgba(0,84,166,0.1);
 }
 .wr-textarea { resize: vertical; min-height: 120px; }
-.wr-note { font-size: 0.8em; color: #888; margin-top: 8px; font-style: italic; }
+.wr-note { font-size: 0.8em; color: #6e6e6e;   /* AA contrast on white */ margin-top: 8px; font-style: italic; }
 
 .matching-table           { width: 100%; border-collapse: collapse; }
 .matching-table td        { padding: 8px 10px; border-bottom: 1px solid #eaecf0; }
@@ -520,7 +558,7 @@ p  { margin: 8px 0; }
 }
 .your-answer    { color: #333; }
 .correct-answer { color: #1a7a30; font-weight: 500; }
-.score-detail   { color: #888; }
+.score-detail   { color: #6e6e6e;   /* AA contrast on white */ }
 .feedback       {
   font-style: italic;
   color: #666;
@@ -528,7 +566,7 @@ p  { margin: 8px 0; }
   padding-top: 4px;
   margin-top: 3px;
 }
-.quiz-empty { color: #888; font-style: italic; margin-top: 20px; }
+.quiz-empty { color: #6e6e6e;   /* AA contrast on white */ font-style: italic; margin-top: 20px; }
 
 /* ── Inline nav bar injected into standalone pages ──────────────────── */
 /* (used in assignment and interactive activity pages) */
