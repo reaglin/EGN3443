@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to ANOVA</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+<h1>Introduction to ANOVA</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: What is ANOVA? | Statistics Ep. 26</a>
+<a href="#sec3">Video 2: Single Factor ANOVA, Part 1</a>
+<a href="#sec4">Video 3: The Problem of Multiple Comparisons | NEJM Evidence</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Analysis of Variance (ANOVA) is the standard tool for asking whether three or more group means differ by more than we would expect from random variation alone. Instead of comparing groups two at a time, ANOVA compares the variability between group means to the variability within groups, and summarizes that comparison in a single F-statistic. If the between-group variability is large relative to the noise inside the groups, we have evidence that at least one population mean differs from the others.</p>
+<p>This matters in engineering work because experiments rarely involve just two conditions. You might compare four suppliers&#39; material strengths, three catalyst temperatures, or several machine settings. Running a separate t-test for every pair seems convenient, but each test carries its own chance of a false positive, and those chances accumulate quickly. Understanding that inflation of the Type I error rate is the central justification for ANOVA, and it is the idea this topic builds everything else on.</p>
+<p>As you watch, keep four questions in mind: What exactly is being partitioned when we &quot;analyze variance&quot;? Why does the number of pairwise comparisons grow so fast, and what does that do to the overall error rate? What assumptions (normality, equal variances, independence) must hold before an F-test is trustworthy? And how does a one-way design, with a single factor, differ from a multi-factor design where interactions become possible?</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: What is ANOVA? | Statistics Ep. 26</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qP7rqPeQGBI?cc_load_policy=1&amp;rel=0" title="Video: What is ANOVA? | Statistics Ep. 26 (Study Hall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Study Hall</strong> · 11:23 · 3,580 views · 7mo ago · captions — <a href="https://www.youtube.com/watch?v=qP7rqPeQGBI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A general-audience introduction to ANOVA from the Study Hall statistics series, likely covering what the method does, the logic of comparing between-group and within-group variation, and the role of the F-statistic. As an episode in a sequenced course, it should connect ANOVA to the hypothesis testing and t-test material you have already seen. Expect conceptual explanation and worked intuition rather than heavy algebra.</p>
+<h3>Why this video</h3>
+<p>It is the best entry point for the &quot;What is ANOVA?&quot; and &quot;When is ANOVA the appropriate choice?&quot; subtopics, giving you the conceptual framing before the computational details arrive later in the module.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Single Factor ANOVA, Part 1</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/VaOmf94C6n0?cc_load_policy=1&amp;rel=0" title="Video: Single Factor ANOVA, Part 1 (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 9:34 · 1,434 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=VaOmf94C6n0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The first part of LearnChemE&#39;s treatment of single-factor (one-way) ANOVA, oriented toward engineering students and organized to follow standard textbooks. It should introduce the one-way setup, the hypotheses being tested, and how the total variation in the data is split into between-treatment and within-treatment pieces. Parts 2 and 3 are linked in the description if you want to continue into the full calculation.</p>
+<h3>Why this video</h3>
+<p>LearnChemE produces engineering-focused statistics content, so the notation and examples match the style used in this course, and it directly addresses the one-way design that anchors the one-way versus multi-factor distinction.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: The Problem of Multiple Comparisons | NEJM Evidence</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HpjlcEH4zuY?cc_load_policy=1&amp;rel=0" title="Video: The Problem of Multiple Comparisons | NEJM Evidence (NEJM Group)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>NEJM Group</strong> · 3:19 · 28,925 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=HpjlcEH4zuY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short animated explainer from the New England Journal of Medicine on the multiple comparisons problem. It reviews how running many statistical tests on the same data increases the chance of finding a &quot;significant&quot; result purely by luck, and discusses why that undermines confidence in reported findings. The framing comes from clinical research, but the arithmetic of error accumulation is identical in engineering studies.</p>
+<h3>Why this video</h3>
+<p>At just over three minutes, it is the most direct and credible treatment of the &quot;Why not just use multiple t-tests?&quot; subtopic, which is the core justification for ANOVA in this module.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the conceptual foundation the module&#39;s outcomes depend on. The NEJM explainer supplies the error-inflation argument you need to justify ANOVA over repeated t-tests (MO1), while the Study Hall episode frames the method as a whole and should touch on the conditions and assumptions that make an F-test valid (MO2). The LearnChemE single-factor video introduces the variance partitioning and F-statistic computation that MO3 asks you to carry out by hand, and establishes the one-way baseline against which multi-factor main effects and interactions (MO4) are later contrasted. None of these videos resolves which specific pairs of means differ, so post-hoc procedures (MO5) remain for the lecture notes and problem sets, but the multiple comparisons video explains exactly why those procedures must adjust for the number of comparisons made.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

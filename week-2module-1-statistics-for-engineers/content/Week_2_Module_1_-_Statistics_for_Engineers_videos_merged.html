@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week 2/Module 1 - Statistics for Engineers</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+<h1>Week 2/Module 1 - Statistics for Engineers</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Statistics in Engineering</a>
+<a href="#part2">Descriptive Statistics</a>
+<a href="#part3">Data Variability and Distribution Shape</a>
+<a href="#part4">Probability Distributions</a>
+<a href="#part5">Statistical Inference and Interpretation</a>
+<a href="#part6">Applications in Engineering Analysis and Quality Control</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Statistics in Engineering</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Engineering decisions are almost never made with perfect information. Materials vary from batch to batch, instruments have measurement error, manufacturing processes drift, and user loads fluctuate. Statistics is the toolkit engineers use to describe that variation honestly, quantify how confident they can be in a conclusion, and decide what to do next. This topic sets up the mindset and the vocabulary — population versus sample, parameter versus statistic, descriptive versus inferential, variability, and probability — that the rest of the module builds on.</p>
+<p>In this course, statistical thinking is not a side skill. You will use descriptive statistics to summarize test data, probability distributions to model failures and arrival rates, and confidence intervals and hypothesis tests to judge whether a process meets tolerance. Before any of the formulas make sense, it helps to see the big picture of how data moves from collection, to summary, to visualization, to a defensible decision.</p>
+<p>The three videos below come from outside the classroom — a career-education channel, IBM, and a data science educator — and they frame statistics as it is actually practiced with data. As you watch, listen for the workflow (ask a question, gather data, summarize it, test a claim, act on it), and note the vocabulary terms you hear. Write down any words you cannot yet define; those become your study list for the week. Keep asking: where would an engineer use this — a tolerance check, a reliability estimate, a quality control chart?</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: What Is Data Analytics? - An Introduction (Full Guide)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yZvFH7B6gKI?cc_load_policy=1&amp;rel=0" title="Video: What Is Data Analytics? - An Introduction (Full Guide) (CareerFoundry)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>CareerFoundry</strong> · 9:04 · 2,290,088 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=yZvFH7B6gKI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A general-audience introduction to data analytics that walks through what analytics is, the typical stages of an analytics process, and the kinds of questions data is used to answer. Based on its title and description, it is structured as a full overview guide rather than a technical tutorial, and it likely distinguishes types of analysis such as descriptive and more advanced predictive work. Expect career framing alongside the conceptual content.</p>
+<h4>Why this video</h4>
+<p>It gives a plain-language picture of data-driven decision-making and the analytics workflow, which maps directly onto the "Why Statistics Matters" and "Statistical Thinking as an Engineering Mindset" subtopics. Its length and high view count reflect that it is a widely used, accessible entry point for people new to working with data.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: What is Data Science?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RBSUwFGa6Fk?cc_load_policy=1&amp;rel=0" title="Video: What is Data Science? (IBM Technology)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IBM Technology</strong> · 7:51 · 1,163,085 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=RBSUwFGa6Fk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A concise explainer from IBM Technology describing what data science is, how it draws on statistics and domain knowledge, and how it is applied across business operations. It is likely to introduce foundational vocabulary and to contrast describing data with drawing conclusions or making predictions from it. The framing is applied and organizational rather than mathematical.</p>
+<h4>Why this video</h4>
+<p>Coming from IBM, it is a credible, well-produced overview that situates statistics inside a larger evidence-based decision process — useful context for the data-driven decision-making and foundational vocabulary subtopics. At under eight minutes it is an efficient complement to the broader analytics video.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: What is Hypothesis Testing ? Math, Statistics for data science, machine learning</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/fb8BSFr0isg?cc_load_policy=1&amp;rel=0" title="Video: What is Hypothesis Testing ? Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 13:56 · 237,789 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=fb8BSFr0isg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An instructional video from codebasics on hypothesis testing, which the description indicates covers what hypothesis testing is and how the null and alternative hypotheses are defined. As a math and statistics lesson aimed at data science learners, it should illustrate the logic of testing a claim against data with worked examples. This is the most technical of the three videos.</p>
+<h4>Why this video</h4>
+<p>It previews the inferential side of the module and shows why probability underlies engineering conclusions, supporting the "Role of Probability in Engineering Analysis" subtopic. Seeing the null-versus-alternative structure early makes the later formal treatment of hypothesis tests and confidence intervals much easier to follow.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos are orientation material: they build the conceptual frame that makes the module's computational outcomes meaningful. The analytics and data science overviews motivate why engineers summarize data at all, preparing you to compute and interpret descriptive statistics (MO1), to build frequency distributions, histograms, and box plots that reveal shape and spread (MO4), and to reason about where variability comes from and what it means for process consistency and product quality (MO5). The hypothesis testing video introduces the null and alternative hypothesis structure that underpins MO3, where you will interpret test results and confidence intervals against engineering tolerances, and it hints at the probability reasoning you will formalize when choosing among normal, binomial, and Poisson models (MO2). Treat the videos as context and vocabulary building; the course readings, lectures, and problem sets supply the formulas and procedures you will be assessed on.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Descriptive Statistics</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>Descriptive statistics is the toolkit engineers use to turn a pile of measurements into a short, honest summary of what the data look like. Instead of reporting every tensile test result or every cycle time, you report a center (mean, median, mode), a measure of spread (range, variance, standard deviation, interquartile range), and something about shape (symmetric, skewed, heavy-tailed, or multi-peaked). Frequency distributions, histograms, percentiles, quartiles, and box plots are the visual companions to those numbers.</p>
+<p>This matters in EGN3443 because almost everything that follows — probability models, sampling distributions, confidence intervals, and hypothesis tests — starts from a sample summary. If you cannot describe a dataset accurately, you cannot choose a reasonable model for it or defend a decision about whether a process meets tolerance. Descriptive statistics is also how engineering variability becomes visible: two production lines can share the same average and still behave very differently.</p>
+<p>As you watch the videos below, pay attention to three things. First, how each statistic is actually computed, step by step, so you can reproduce it by hand and in software. Second, when the median and IQR are preferable to the mean and standard deviation, especially with skewed data or outliers. Third, how a five-number summary becomes a picture, and what that picture tells you about center, spread, and shape at a glance.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/t4LOv9h-FJM?cc_load_policy=1&amp;rel=0" title="Video: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 18:54 · 240,436 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=t4LOv9h-FJM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video walks through the core summary statistics — mean, median, and mode — and then extends into percentiles, which are the basis for quartiles and the five-number summary. Based on its description, it is framed for learners heading into data science and machine learning, so expect worked numerical examples and discussion of when each measure of center is the sensible choice. It should give you a practical feel for how percentile rank is defined and read off a dataset.</p>
+<h4>Why this video</h4>
+<p>codebasics is a well-known applied statistics and data channel, and this single video spans two of our subtopics at once: measures of central tendency and percentiles/quartiles. The longer runtime allows the examples to be worked out rather than just stated.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: AP Stats 1.4 - Measures of Center &amp; Spread</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qHaOsfXnsec?cc_load_policy=1&amp;rel=0" title="Video: AP Stats 1.4 - Measures of Center &amp; Spread (Skew The Script)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Skew The Script</strong> · 14:11 · 20,700 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=qHaOsfXnsec" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An AP Statistics lesson that pairs measures of center with measures of spread in one treatment, using a salary-offer scenario as the motivating context. Expect coverage of mean versus median, how outliers and skew pull them apart, and spread measures such as range, interquartile range, and standard deviation. The channel also links a handout and lesson materials for practice.</p>
+<h4>Why this video</h4>
+<p>Skew The Script is known for accurate, curriculum-aligned statistics instruction tied to realistic contexts, which models exactly the reasoning we want when summarizing engineering data. It directly supports the central tendency, spread, and shape subtopics by showing how skew changes which summary you should trust.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Box and Whisker Plots Explained | Understanding Box and Whisker Plots (Box Plots) | Math with Mr. J</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nV8jR8M8C74?cc_load_policy=1&amp;rel=0" title="Video: Box and Whisker Plots Explained | Understanding Box and Whisker Plots (Box Plots) | Math with Mr. J (Math with Mr. J)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Math with Mr. J</strong> · 8:25 · 1,145,507 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=nV8jR8M8C74" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused explanation of how to read and interpret box and whisker plots, built on the five-number summary: minimum, first quartile, median, third quartile, and maximum. The video emphasizes interpretation — what the box, the whiskers, and their relative lengths tell you about where data are concentrated and how spread out they are.</p>
+<h4>Why this video</h4>
+<p>Math with Mr. J gives a clear, slow-paced visual treatment that connects quartiles and percentiles to a graphical summary, which is the bridge between numerical descriptive statistics and data visualization. It is the most direct support for reading distribution shape and variability from a plot.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these three videos cover the computational and interpretive skills in MO1: the codebasics and Skew The Script videos handle central tendency, spread, and the effect of skew on which measure to report, while all three reinforce percentiles and quartiles. The box plot video supports MO4 by showing how a five-number summary is turned into a visual representation that communicates variability and distribution shape. The emphasis across the set on outliers, skew, and the gap between mean and median also prepares you for MO5, where you will need to explain what observed variability implies for process consistency and product quality, and it lays the descriptive groundwork that MO2 and MO3 build on later in the module.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Data Variability and Distribution Shape</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Averages alone rarely tell an engineer what is happening in a process. Two production lines can hit the same mean shaft diameter while one delivers parts that are nearly identical and the other produces a mix of oversized and undersized pieces. This topic focuses on the second half of the descriptive-statistics story: how spread out the data are, and what shape the distribution takes.</p>
+<p>You will work with three related measures of variability. The range is the simplest, just the distance between the largest and smallest observations, and it is quick but sensitive to a single outlier. Variance quantifies the average squared distance of observations from the mean, and standard deviation takes the square root of that to return the spread to the original units — millimeters, volts, hours — which makes it the most practical everyday measure. Alongside these, you will learn to read distribution shape: whether data are roughly symmetric, or skewed with a long tail toward high or low values, and how histograms and box plots make that shape visible.</p>
+<p>As you watch, pay attention to three things. First, the arithmetic: why we square deviations instead of simply averaging them, and the difference between dividing by n and by n minus 1. Second, the interpretation: what a standard deviation of a given size actually tells you about a batch of parts or a set of measurements. Third, the connection to engineering practice — tight variability means a consistent process, while a skewed distribution often signals a systematic cause such as tool wear, a measurement limit, or an intermittent fault worth investigating.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Variance and Standard Deviation</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dmSRMYQsM8w?cc_load_policy=1&amp;rel=0" title="Video: Variance and Standard Deviation (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 12:59 · 29,102 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=dmSRMYQsM8w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton develops variance and standard deviation as measures of the spread of a probability distribution, moving from the definitions to how these quantities are used in probability and statistics. Expect the mathematical reasoning behind squaring deviations from the mean and taking the square root to recover interpretable units. The treatment connects the sample calculations you perform on data to the distribution-level quantities they estimate.</p>
+<h4>Why this video</h4>
+<p>Brunton is a mechanical engineering professor whose lectures are known for being rigorous and clearly motivated, which suits the variance and standard deviation subtopics and bridges descriptive statistics with the probability distributions coming later in the module.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Skewness - Positive &amp; Negative Skew</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/_dR1nTaaK5s?cc_load_policy=1&amp;rel=0" title="Video: Skewness - Positive &amp; Negative Skew (PsychExamReview)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PsychExamReview</strong> · 10:22 · 9,757 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=_dR1nTaaK5s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains skewness as one way a distribution can depart from normality, distinguishing positive (right) skew from negative (left) skew. It covers how the direction of the long tail relates to the shape of the curve and how the mean, median, and mode shift relative to one another. The discussion is built around visual comparisons of distribution shapes.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the symmetric versus skewed distribution subtopic and gives you the vocabulary and visual cues needed to describe the shape of an engineering dataset rather than only its center and spread.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Mean Absolute Deviation, Variance, &amp; Standard Deviation</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dg1SYOJ8IBY?cc_load_policy=1&amp;rel=0" title="Video: Mean Absolute Deviation, Variance, &amp; Standard Deviation (PsychExamReview)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PsychExamReview</strong> · 12:42 · 3,552 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=dg1SYOJ8IBY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video walks through several measures of dispersion in sequence: mean deviation, mean absolute deviation, variance, and standard deviation. By building up from the simplest ideas, it shows why the raw mean deviation fails as a spread measure and what absolute values and squaring each accomplish. Worked calculations illustrate how each statistic is computed from a dataset.</p>
+<h4>Why this video</h4>
+<p>The step-by-step comparison of alternative dispersion measures reinforces why variance and standard deviation became the standard tools, which deepens the conceptual understanding needed to choose and defend a variability measure.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the spread-and-shape portion of MO1: the Brunton and PsychExamReview dispersion videos give you the computational procedures and the reasoning behind variance and standard deviation, while the skewness video supplies the language for describing distribution shape. Because shape and spread are read most easily from graphics, the skewness discussion of symmetric versus tailed distributions prepares you to interpret the histograms and box plots you will construct for MO4. The distribution-level framing of variance in the Brunton video also sets up the move to named probability models in MO2, and a working feel for how much variation is normal in a dataset is exactly what MO5 asks you to apply when you distinguish sources of variability and judge their impact on process consistency and product quality.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Probability Distributions</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>A probability distribution is a mathematical description of how likely the different possible values of a random variable are. In engineering, distributions let us move from describing data we already have to making statements about data we have not yet collected: the chance a shaft diameter falls outside tolerance, the number of defective units in a lot of 500, or the number of service calls arriving at a help desk in an hour. The three workhorse models in this course are the normal distribution for continuous measurements that cluster around a mean, the binomial distribution for counts of successes in a fixed number of independent trials, and the Poisson distribution for counts of events occurring over an interval of time, length, or area.</p>
+<p>This week builds directly on the descriptive statistics you have been computing. A histogram and a mean and standard deviation summarize a sample; a distribution is the idealized model you fit to that sample so you can compute probabilities, set specification limits, and make predictions. Choosing the right model matters: applying a normal distribution to pass/fail counts, or a binomial to a rate of rare events with no fixed number of trials, will give you answers that look reasonable but are wrong.</p>
+<p>As you watch, pay attention to three things. First, the distinction between discrete and continuous variables, and the corresponding tools (probability mass function versus probability density function, and the cumulative distribution function that works for both). Second, the assumptions behind each distribution — fixed number of trials, constant probability, independence — because those assumptions are exactly what you check when selecting a model for an engineering scenario. Third, the parameters of each distribution and how they connect back to the mean and standard deviation you already know how to calculate.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yRbfLlTmPE8?cc_load_policy=1&amp;rel=0" title="Video: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF) (RiskByNumbers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>RiskByNumbers</strong> · 13:41 · 73,073 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yRbfLlTmPE8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A visual introduction to what a probability distribution actually is, built around the three core functions: the probability mass function for discrete random variables, the probability density function for continuous ones, and the cumulative distribution function. Expect graphical explanations of why probability for a continuous variable is an area under a curve rather than the height of the curve, and how the CDF accumulates probability as you move along the axis.</p>
+<h4>Why this video</h4>
+<p>This is the right starting point because it establishes the vocabulary and the discrete-versus-continuous distinction that every later distribution depends on, and it does so visually rather than through heavy algebra.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: The Binomial Distribution and the Multinomial Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UXB9eeMZfwo?cc_load_policy=1&amp;rel=0" title="Video: The Binomial Distribution and the Multinomial Distribution (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 16:32 · 66,875 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=UXB9eeMZfwo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton introduces the binomial distribution — the model for the number of successes in a fixed number of independent trials, each with the same probability of success — and then extends the idea to the multinomial distribution for outcomes with more than two categories. The lecture is likely to cover the combinatorial reasoning behind the binomial coefficient and the conditions under which the model applies.</p>
+<h4>Why this video</h4>
+<p>Brunton is a mechanical engineering professor known for clear, carefully derived lectures, and his framing of the binomial as a foundational distribution sets up the connection to the normal distribution in the next video.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: The Normal Distribution: The Limit of Binomial Distribution for Large "n"</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8n1n0OM4gLk?cc_load_policy=1&amp;rel=0" title="Video: The Normal Distribution: The Limit of Binomial Distribution for Large &quot;n&quot; (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 17:15 · 52,166 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=8n1n0OM4gLk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lecture develops the normal, or Gaussian, distribution as the limiting case of a binomial distribution when the number of trials becomes large. Along the way it should clarify where the familiar bell shape comes from, what the mean and standard deviation parameters control, and why the normal distribution appears so often in measurement data.</p>
+<h4>Why this video</h4>
+<p>Deriving the normal from the binomial rather than simply asserting the bell curve gives you a real reason why normality shows up in engineering data, which is exactly the judgment you need when deciding whether a normal model is appropriate.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos primarily support MO2: before you can select the appropriate distribution for an engineering scenario, you need a working understanding of what a distribution is (video one) and of the specific assumptions, parameters, and use cases of the binomial and normal models (videos two and three). The PMF/PDF/CDF material also reinforces MO1 and MO4, since the shape, center, and spread you read off a histogram are the sample-level counterparts of the density curves discussed here, and recognizing a skewed or bell-shaped histogram is the first step in fitting a model. Understanding the normal distribution and its standard deviation parameter further lays the groundwork for MO3, because confidence intervals and hypothesis tests are built on distributional assumptions, and for MO5, since explaining process variability and tolerance limits in manufacturing depends on modeling that variability with an appropriate distribution. Note that the Poisson distribution and the predictive-analysis subtopics are addressed in the course readings and lecture materials rather than in these videos.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Statistical Inference and Interpretation</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Engineers almost never measure every part, every batch, or every user. Instead, we take a sample and use it to say something defensible about the larger population or process. Statistical inference is the set of principles that makes that leap trustworthy: point estimates summarize what the sample suggests, confidence intervals express how precise that estimate is, and hypothesis tests give a structured way to decide whether observed differences are real or plausibly just sampling noise.</p>
+<p>In this course, inference is the bridge between the descriptive work of Module 1 and the engineering decisions that follow. A mean tensile strength of 412 MPa means little on its own; what matters is whether the interval around it clears a design tolerance, and whether the sampling plan that produced it was representative in the first place. Poor sampling, small samples, or misread p-values all lead to confident conclusions that are simply wrong.</p>
+<p>As you watch the videos below, focus on three things. First, what exactly is being estimated — a population parameter, not the sample statistic itself. Second, the relationship between a confidence interval and a hypothesis test, since they are two views of the same underlying calculation. Third, the language of interpretation: notice carefully what a 95% confidence level does and does not claim, because that distinction is where most practical errors occur.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Statistical Learning: 3.2 Hypothesis Testing and Confidence Intervals</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3GiWpRfkSjc?cc_load_policy=1&amp;rel=0" title="Video: Statistical Learning: 3.2 Hypothesis Testing and Confidence Intervals (Stanford Online)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Stanford Online</strong> · 8:25 · 33,995 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=3GiWpRfkSjc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A segment from Stanford's Statistical Learning course in which Professor Trevor Hastie covers hypothesis testing and confidence intervals, likely in the context of regression coefficients and model interpretation. Expect treatment of the null hypothesis, test statistics, p-values, and how interval estimates around a parameter are reported and read. The framing is modern statistical learning rather than classical textbook drill.</p>
+<h4>Why this video</h4>
+<p>Stanford Online and Hastie are an authoritative source, and the video connects inference directly to interpreting fitted models — useful for the Fundamentals of Statistical Inference and Hypothesis Testing subtopics where you need rigor alongside intuition.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: 9-4 The Connection Between Confidence Intervals and Hypothesis Testing</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xOxAehEyzdc?cc_load_policy=1&amp;rel=0" title="Video: 9-4 The Connection Between Confidence Intervals and Hypothesis Testing (Introduction to Statistical Ideas and Methods)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Introduction to Statistical Ideas and Methods</strong> · 11:27 · 5,605 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=xOxAehEyzdc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lesson from the Introduction to Statistical Ideas and Methods series explains how confidence intervals and hypothesis tests are two expressions of the same inference, using a worked bottle cap example to make the link concrete. It should show how a null value falling inside or outside an interval corresponds to failing to reject or rejecting the null hypothesis. The manufacturing-style example keeps the discussion close to engineering practice.</p>
+<h4>Why this video</h4>
+<p>At eleven minutes with a physical product example, it directly serves the Point Estimates and Confidence Intervals and Hypothesis Testing subtopics and clarifies a relationship students often memorize without understanding.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: What Confidence Intervals Actually Mean</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/KW-i7CDmBAw?cc_load_policy=1&amp;rel=0" title="Video: What Confidence Intervals Actually Mean (Foundations of Math)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Foundations of Math</strong> · 4:05 · 31,823 views · 11mo ago · captions — <a href="https://www.youtube.com/watch?v=KW-i7CDmBAw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused explainer on what a confidence interval actually means — estimating a population parameter from a sample statistic and the correct interpretation of the confidence level. It is likely to address the common misreading that a 95% interval contains the true value with 95% probability, and to clarify the repeated-sampling logic instead. Compact enough to rewatch before an assignment.</p>
+<h4>Why this video</h4>
+<p>Interpretation is exactly where this topic bridges to engineering decisions, and this video targets the single most misstated idea in inference in only four minutes, supporting the Interpreting Statistical Results Practically subtopic.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos concentrate on MO3: interpreting confidence intervals and hypothesis test results in context. The Foundations of Math clip establishes the correct meaning of a confidence level, the Introduction to Statistical Ideas and Methods lesson shows how intervals and tests give the same decision, and the Stanford Online segment adds rigor on test statistics and p-values when parameters are estimated from data. Watching them in that order — meaning, then connection, then formal testing — prepares you to judge whether a sampled measurement credibly meets an engineering tolerance, and reinforces MO5 by framing observed differences as either real process effects or ordinary sampling variability.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Applications in Engineering Analysis and Quality Control</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Statistics becomes most meaningful to engineers when it is attached to a decision: Is this process stable? Should this lot be accepted? Will this component survive its design life? This topic takes the descriptive measures, distributions, and inference tools from earlier in the module and puts them to work in manufacturing and quality assurance settings, where variability is unavoidable and the engineer's job is to measure it, understand its sources, and keep it inside acceptable limits.</p>
+<p>Three ideas tie the subtopics together. First, every measured characteristic varies, and distinguishing routine (common cause) variation from unusual (special cause) variation is what statistical process control is designed to do. Second, probability distributions let us translate observed variation into predictions about defect rates, reliability, and failure. Third, sampling plans and tolerance analysis convert those predictions into practical rules for inspection and design.</p>
+<p>As you watch the videos below, pay attention to how each one moves from raw data to a chart or a decision rule. Note what is being plotted, how the limits or criteria are computed, what assumptions are being made about the underlying distribution, and what action an engineer would take based on the result. Those connections — data to statistic to decision — are exactly what the module outcomes ask you to demonstrate.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Statistical Process Control in Quality Management - 7 Tools</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/TfVcP_drj50?cc_load_policy=1&amp;rel=0" title="Video: Statistical Process Control in Quality Management - 7 Tools (Dr. Haywood)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Dr. Haywood</strong> · 9:54 · 24,083 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=TfVcP_drj50" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An overview of statistical process control within quality management, framed around the classic seven quality tools. Based on the title and description, it introduces control charts as graphical displays of process data over time with a center line and control limits, alongside the other tools commonly used to investigate process problems. Expect a survey-level treatment that shows where each tool fits in a quality improvement workflow.</p>
+<h4>Why this video</h4>
+<p>It gives you the big picture first, which helps you see SPC as part of a broader quality toolkit rather than an isolated formula, and it directly supports the SPC and quality control subtopics.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: Choice of Sample Size and OC Curves</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/j6gib-0HCSY?cc_load_policy=1&amp;rel=0" title="Video: Choice of Sample Size and OC Curves (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 7:29 · 2,341 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=j6gib-0HCSY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>From LearnChemE, this video addresses the choice of sample size and the use of operating characteristic (OC) curves. OC curves show the probability of accepting a lot or failing to reject a hypothesis as a function of the true underlying quality level or parameter value, and they are the standard tool for evaluating how a sampling plan performs.</p>
+<h4>Why this video</h4>
+<p>LearnChemE is a well-regarded engineering education channel, and this video connects acceptance sampling and sample size selection to the risk trade-offs behind hypothesis testing — core content for the quality control and data-driven decision-making subtopics.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: Statistical Process Control II (X-bar chart)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Pl-1yqvOC8w?cc_load_policy=1&amp;rel=0" title="Video: Statistical Process Control II (X-bar chart) (Statistics Doc)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statistics Doc</strong> · 3:58 · 303 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=Pl-1yqvOC8w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused walkthrough of how to construct an X-bar chart, the most common control chart for monitoring the mean of a process over subgroups. As the second video in a series on statistical process control, it concentrates on the mechanics: computing subgroup averages, setting the center line and control limits, and plotting points to check for out-of-control signals.</p>
+<h4>Why this video</h4>
+<p>It complements the broader overview with concrete, step-by-step construction, which is what you need to actually build and interpret a chart for variability management and process monitoring.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos carry the module's statistical tools into engineering practice. The control chart videos require you to compute and interpret measures of center and spread from sampled data (MO1) and to display that data visually so that distribution shape and variation are apparent (MO4), while their emphasis on common versus special cause signals supports distinguishing sources of variability and their effect on product quality (MO5). The OC curve and sample size video makes the risk structure of testing and acceptance decisions explicit, reinforcing the interpretation of inference results against real tolerance and cost constraints (MO3), and all three rely on distributional assumptions — normal behavior of subgroup means, binomial counts of defectives, Poisson counts of defects — that give you practice recognizing which model fits a described scenario (MO2).</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

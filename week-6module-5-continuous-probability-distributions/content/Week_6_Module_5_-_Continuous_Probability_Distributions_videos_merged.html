@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week 6/Module 5 - Continuous Probability Distributions.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+<h1>Week 6/Module 5 - Continuous Probability Distributions.</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Continuous Probability Distributions</a>
+<a href="#part2">The Uniform Distribution</a>
+<a href="#part3">The Normal Distribution</a>
+<a href="#part4">The Exponential Distribution</a>
+<a href="#part5">Calculating and Interpreting Probabilities</a>
+<a href="#part6">Applying Continuous Distributions to Real-World Scenarios</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Continuous Probability Distributions</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Up to this point in the course you have worked mostly with discrete random variables, where a variable takes on countable values and each value carries its own probability. Continuous random variables behave differently: measurements like time to failure, shaft diameter, voltage, or wait time can fall anywhere within an interval, and no finite list can capture all the possible outcomes. That shift forces us to change how we describe probability itself.</p>
+<p>The central idea of this topic is that for a continuous variable, the probability of any single exact value is zero, and probability is instead measured over intervals as the area under a probability density function (PDF). The cumulative distribution function (CDF) accumulates that area from the left, giving P(X less than or equal to x) directly, which makes it the practical tool for computing interval probabilities. Because the total area under a PDF must equal 1, and because the mean and variance of a continuous distribution are defined through integration rather than summation, these ideas set up everything you will do later with the uniform, normal, and exponential distributions.</p>
+<p>As you watch, keep three questions in mind. First, what exactly does the height of a PDF curve represent, and why is it not a probability? Second, how do the PDF and CDF relate to each other graphically — area versus accumulated area? Third, how do the familiar notions of expected value and variance carry over from the discrete case? Sketching the curves yourself while watching will make the area interpretation stick far better than passive viewing.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yRbfLlTmPE8?cc_load_policy=1&amp;rel=0" title="Video: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF) (RiskByNumbers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>RiskByNumbers</strong> · 13:41 · 73,100 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yRbfLlTmPE8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A visual walkthrough that moves from discrete probability mass functions and their cumulative distribution functions into the continuous case, introducing the probability density function and its CDF. Based on its timestamps, the video treats the discrete and continuous pictures side by side so you can see exactly where the two frameworks diverge. Expect graphs and worked illustrations rather than heavy algebra.</p>
+<h4>Why this video</h4>
+<p>Its structure directly mirrors the discrete-versus-continuous comparison at the heart of this topic, and the visual approach makes the PMF/PDF/CDF distinction concrete rather than abstract.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: Probability Density Functions (PDFs) Explained Clearly | Continuous Random Variables</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/5iUOa3fz-X4?cc_load_policy=1&amp;rel=0" title="Video: Probability Density Functions (PDFs) Explained Clearly | Continuous Random Variables (Socratica)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Socratica</strong> · 11:14 · 6,433 views · 4mo ago · captions — <a href="https://www.youtube.com/watch?v=5iUOa3fz-X4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Socratica focuses specifically on probability density functions for continuous random variables, including why PDFs can feel counterintuitive when you first meet them. The video is positioned to address the common sticking points: what the height of the density curve means, why total area equals one, and why probability is found over intervals rather than at points. Expect clear definitions paired with graphical reasoning.</p>
+<h4>Why this video</h4>
+<p>It targets the single most confusing idea in this topic — that density is not probability and point probabilities are zero — from a producer known for careful, well-paced mathematical explanations.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: What are Continuous Random Variables? → Probability &amp; Statistics</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ajrFIsv0bNI?cc_load_policy=1&amp;rel=0" title="Video: What are Continuous Random Variables? → Probability &amp; Statistics (Socratica)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Socratica</strong> · 8:01 · 4,371 views · 5mo ago · captions — <a href="https://www.youtube.com/watch?v=ajrFIsv0bNI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short conceptual introduction from Socratica's probability and statistics series defining what makes a random variable continuous and how such variables differ from discrete ones. It serves as an orientation piece, likely using everyday measurement examples to show why a continuous sample space cannot be handled with a list of point probabilities.</p>
+<h4>Why this video</h4>
+<p>At eight minutes it is an efficient starting point that frames the vocabulary and motivation before you tackle the density and cumulative function details in the other two videos.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos build the conceptual foundation that MO1 requires: distinguishing discrete from continuous random variables and understanding the distinct roles of the PDF and CDF. The emphasis on probability as area under a curve, and on the CDF as accumulated area, gives you the computational mindset you will apply in MO2 when evaluating uniform, normal, and exponential probabilities. Understanding the general properties of density functions and key parameters such as mean and variance also prepares you to compare candidate distributions for a given data set (MO3) and to explain what a computed probability actually means in an engineering context (MO4).</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>The Uniform Distribution</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>The continuous uniform distribution is the simplest continuous probability model: every value in an interval [a, b] is equally likely, so the probability density function is a flat, rectangular curve of constant height 1/(b-a). Because the density is constant, probabilities become areas of rectangles, which means you can often compute them with basic geometry instead of calculus. This makes the uniform distribution an ideal starting point for Module 5, where you move from discrete random variables and probability mass functions to continuous random variables described by a PDF and a cumulative distribution function (CDF).</p>
+<p>In engineering practice, the uniform distribution models situations where you know only the range of possible values and have no reason to favor one value over another: waiting time for a bus that arrives every 10 minutes, rounding or measurement error within a tolerance band, or random number generation in simulation studies. It is also the building block for Monte Carlo methods, where uniform random numbers are transformed into samples from other distributions. Knowing its mean (a+b)/2 and variance (b-a)^2/12 lets you summarize such scenarios quickly.</p>
+<p>As you watch the videos below, pay attention to three things: how the height of the density is determined from the endpoints a and b, how a probability statement such as P(X &lt; c) or P(c &lt; X &lt; d) is translated into an area or into the CDF expression (x-a)/(b-a), and how conditional or "given that" problems shrink the interval you are working with. Try pausing each worked example, solving it yourself, and then comparing your setup to the one on screen.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Uniform Distribution EXPLAINED with Examples</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UC-CBUSQXAo?cc_load_policy=1&amp;rel=0" title="Video: Uniform Distribution EXPLAINED with Examples (Ace Tutors)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Ace Tutors</strong> · 6:05 · 415,462 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=UC-CBUSQXAo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact overview of the continuous uniform distribution that defines the distribution, introduces its parameters a and b, and shows the rectangular shape of the density function. The video then works through example probability problems of the type you will see on homework and exams. Expect the key formulas for probabilities, and likely the mean and standard deviation, to be stated and applied.</p>
+<h4>Why this video</h4>
+<p>At about six minutes it is an efficient first pass that covers the "what is it," "parameters," and "calculating probabilities" subtopics in one place, with a worked-example style that matches the problem-solving focus of this course.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Basic Uniform Distribution Probabilities: Dish Washing</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1ZXY2uXjcT8?cc_load_policy=1&amp;rel=0" title="Video: Basic Uniform Distribution Probabilities: Dish Washing (Mathispower4u)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Mathispower4u</strong> · 5:11 · 37,184 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=1ZXY2uXjcT8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused example video built around a dish-washing time scenario, in which a quantity is assumed to be uniformly distributed over a fixed interval. As the description notes, it demonstrates two different ways to arrive at the same probability, which typically means computing the area under the flat density geometrically and then using the cumulative distribution function.</p>
+<h4>Why this video</h4>
+<p>Seeing the same answer obtained two ways reinforces the link between the PDF (area) and the CDF (accumulated probability), and Mathispower4u is a reliable, carefully worked source for step-by-step statistics examples.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Uniform Distribution | Mean, Variance &amp; M.G.F | By GP Sir</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/D7arN5Je6WA?cc_load_policy=1&amp;rel=0" title="Video: Uniform Distribution | Mean, Variance &amp; M.G.F | By GP Sir (Dr.Gajendra Purohit)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Dr.Gajendra Purohit</strong> · 18:15 · 122,777 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=D7arN5Je6WA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer, more mathematical treatment that derives the properties of the uniform distribution, including the mean, the variance, and the moment generating function. The derivations use integration of the density function rather than just quoting formulas, giving you the reasoning behind (a+b)/2 and (b-a)^2/12.</p>
+<h4>Why this video</h4>
+<p>This fills in the theory behind the shortcut formulas used in the other two videos, which is useful if you want to understand why the results hold; note that the MGF material goes beyond what this course requires, so treat it as optional enrichment.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build from definition to derivation. The first and second support MO1 by showing how a continuous random variable is described by a flat PDF and an accumulating CDF, in contrast to discrete probability mass functions, and they directly serve MO2 by demonstrating how to compute P(X &lt; c) and P(c &lt; X &lt; d) using both area and cumulative-function approaches. The applied scenarios, such as timing and waiting-time examples, give practice with MO3 and MO4: recognizing when "equally likely across a range" is a reasonable modeling assumption, and stating what a computed probability means for a decision. The third video deepens your grasp of the mean and variance formulas so that you can summarize and interpret uniform models rather than only plugging into them.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>The Normal Distribution</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>The normal distribution — also called the Gaussian distribution or the bell curve — is the most widely used continuous probability model in engineering and science. It is completely described by two parameters: the mean, which locates the center of the symmetric bell, and the standard deviation, which controls how wide or narrow the curve is. Because the curve is a probability density function, probabilities correspond to areas under the curve rather than to heights at single points, so finding P(a &lt; X &lt; b) means finding the area between two values.</p>
+<p>In this course, the normal distribution matters for two practical reasons. First, many measured quantities in engineering — machined dimensions, material strengths, measurement errors, process outputs — are approximately normal, so the model lets you predict how often a part falls outside tolerance or a process drifts out of spec. Second, the standardization step (the z-score, z = (x - mu)/sigma) converts any normal distribution into the single standard normal distribution with mean 0 and standard deviation 1, which is what makes a one-page table or a calculator function usable for every problem you will meet.</p>
+<p>As you watch the videos below, keep three things in your notes: how a z-score is computed and what it means in "number of standard deviations from the mean"; exactly what region of the curve the table you are using reports (mean-to-z versus cumulative from the left), since mixing these up is the most common source of errors; and how the Empirical Rule gives you a quick sanity check on any table-based answer. Sketching the bell curve and shading the region you want before you compute anything is the habit worth building.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Normal Distribution and Z Score | Math, Statistics for data science, machine learning</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/okhrFgaUwio?cc_load_policy=1&amp;rel=0" title="Video: Normal Distribution and Z Score | Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 19:48 · 157,400 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=okhrFgaUwio" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video introduces the normal (Gaussian) distribution and then builds up to the z-score, explaining what the bell shape represents and how the mean and standard deviation determine its center and spread. Based on its title and description, it connects the distribution to the standardization formula and shows how z-scores are used to find probabilities, with the applied framing typical of data science and machine learning examples.</p>
+<h4>Why this video</h4>
+<p>It is the best starting point here because it covers the shape, parameters, and z-score subtopics in one continuous explanation, and codebasics is a well-known channel for clear, example-driven quantitative tutorials.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Normal Distribution | Mean or 0 to Z Table | Calculating Probabilities</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yVCEZr5dF14?cc_load_policy=1&amp;rel=0" title="Video: Normal Distribution | Mean or 0 to Z Table | Calculating Probabilities (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 8:21 · 83,002 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yVCEZr5dF14" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short, focused video demonstrates how to solve normal probability problems using a "Mean to Z" standard normal table, where the tabulated value is the area between the mean and a given z. It works through the computation of probabilities and, per the description, also notes how to get the same results on a Casio calculator.</p>
+<h4>Why this video</h4>
+<p>It directly targets the table-reading subtopics, and because it uses the mean-to-z table specifically, it forces you to be precise about which area the table reports — exactly the distinction that causes most mistakes on exams.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: The Empirical Rule Explained: 68-95-99.7 Rule with 10 Practice Problems</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lEms9KUkles?cc_load_policy=1&amp;rel=0" title="Video: The Empirical Rule Explained: 68-95-99.7 Rule with 10 Practice Problems (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 10:43 · 7,521 views · 9mo ago · captions — <a href="https://www.youtube.com/watch?v=lEms9KUkles" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video defines the properties of the bell curve and explains the Empirical Rule, the result that roughly 68%, 95%, and 99.7% of the data fall within one, two, and three standard deviations of the mean. It then reinforces the rule with ten worked practice problems.</p>
+<h4>Why this video</h4>
+<p>The heavy practice component makes it ideal for the Empirical Rule subtopic, and the rule itself gives you a fast approximate check on any probability you later compute from a standard normal table.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos move you from understanding the normal curve as a continuous density (MO1) to actually computing probabilities with it. The codebasics video and the Joshua Emmanuel table video supply the z-score conversion and table-lookup procedures needed to calculate normal probabilities for both standard and non-standard cases (MO2), while the Empirical Rule video provides a quick approximation method and a check on those results. The applied examples and problem contexts in all three help you recognize when data are plausibly bell-shaped and therefore suited to a normal model (MO3), and they model how to translate a computed area under the curve back into a meaningful statement — such as the percentage of parts or measurements falling in a range — which is the interpretation step required for data-driven engineering decisions (MO4).</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>The Exponential Distribution</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>The exponential distribution is the continuous model engineers reach for when the quantity of interest is a waiting time: how long until the next arrival at a service counter, the next packet on a network, the next failure of a component, or the next decay event from a radioactive sample. It is defined by a single parameter, the rate lambda, and its density f(x) = lambda*e^(-lambda*x) for x greater than or equal to 0 decays smoothly from a maximum at zero, which is why small waiting times are more likely than long ones.</p>
+<p>Because the exponential distribution has a closed-form cumulative distribution function, F(x) = 1 - e^(-lambda*x), you can compute probabilities directly by substitution instead of using a table, as you must for the normal distribution. Its mean and standard deviation are both 1/lambda, and it is the only continuous distribution with the memoryless property: the probability of waiting an additional t units does not depend on how long you have already waited. That property is both powerful and easy to misuse, so it deserves careful attention.</p>
+<p>As you watch, keep three questions in mind. First, how is lambda defined and what are its units relative to the units of the waiting time? Second, how does the exponential distribution arise as the time between events in a Poisson process, linking this week's continuous material back to the discrete distributions you studied earlier? Third, what does memorylessness imply about modeling component lifetimes, and when is it a reasonable assumption for real engineering hardware?</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: The Exponential Distribution: Time Between Poisson Events</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/C7V3d2yB58U?cc_load_policy=1&amp;rel=0" title="Video: The Exponential Distribution: Time Between Poisson Events (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 18:46 · 57,360 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=C7V3d2yB58U" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton develops the exponential distribution as the distribution of the time between successive events in a Poisson process, which is the standard derivation connecting the discrete and continuous pictures. Expect coverage of the probability density function, the role of the rate parameter lambda, and the shape of the decaying curve, along with worked reasoning about rare-event timing.</p>
+<h4>Why this video</h4>
+<p>This is the conceptual anchor for the topic: it explains where the distribution comes from rather than just presenting the formula, and Brunton is a well-known engineering faculty lecturer whose treatment is mathematically careful and clearly paced.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: The Hazard Rate and Memoryless Property of the Exponential Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8qZilAKQM6s?cc_load_policy=1&amp;rel=0" title="Video: The Hazard Rate and Memoryless Property of the Exponential Distribution (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 7:11 · 26,411 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=8qZilAKQM6s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short follow-up focused on the hazard rate, the instantaneous rate at which an event occurs given that it has not yet occurred, and its connection to the memoryless property of the exponential distribution. The video is likely to show why a constant hazard rate is equivalent to memorylessness and what that means for modeling lifetimes and failures.</p>
+<h4>Why this video</h4>
+<p>It targets the memoryless property directly, which is the subtopic students most often misunderstand, and the hazard-rate framing makes the idea concrete for reliability and failure-time applications in engineering.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: The Exponential Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WKFk0NXyO50?cc_load_policy=1&amp;rel=0" title="Video: The Exponential Distribution (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 8:09 · 94,248 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=WKFk0NXyO50" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A concise screencast from LearnChemE that presents the exponential distribution and demonstrates how to compute probabilities from it, typically through a worked example using the cumulative distribution function. Expect a compact review of the density, the parameter, and the mean.</p>
+<h4>Why this video</h4>
+<p>Produced by chemical engineering faculty at CU Boulder for undergraduate coursework, it is a short, example-driven complement to the longer conceptual videos and models the calculation steps you will use on homework and exams.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos move from the probability density function and cumulative distribution function of a continuous random variable (MO1) to direct computation of exponential probabilities using lambda and the closed-form CDF (MO2). The Poisson-process derivation and the hazard-rate discussion give you concrete criteria for deciding when a waiting time or lifetime is well modeled by an exponential distribution rather than a uniform or normal one (MO3). The reliability, service-time, and rare-event examples, along with the mean and standard deviation of 1/lambda, provide the interpretive vocabulary you need to explain a computed probability in engineering terms and act on it (MO4).</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Calculating and Interpreting Probabilities</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>In this topic you move from describing continuous distributions to actually computing with them. For a continuous random variable, probability is area under the density curve, so every calculation reduces to finding an area between two points, to the left of a point, or to the right of a point. For the uniform distribution that area is a rectangle you can find geometrically; for the exponential distribution it comes from a short closed-form cumulative distribution function; for the normal distribution it requires converting values to z-scores and then reading a table or using technology.</p>
+<p>These skills matter because almost every applied problem in this course ends with a probability statement that someone has to act on: the chance a component lasts beyond its warranty period, the chance a measurement falls outside specification limits, the chance a wait time exceeds a service target. Getting the number right is only half the job; you also need to state clearly what the number means in context and what decision it supports.</p>
+<p>While watching, pay close attention to three things. First, how each presenter sets up the problem: which parameters are identified, and how the question is translated into an area. Second, which table or technology convention is used, since normal tables differ (mean-to-z versus cumulative-from-the-left) and mixing them up is one of the most common errors. Third, the small habits that prevent mistakes: sketching the curve and shading the region, checking that your answer is between 0 and 1, and confirming that the answer is on the plausible side of 0.5 given where your cutoff sits relative to the mean.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Normal Distribution | Mean or 0 to Z Table | Calculating Probabilities</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yVCEZr5dF14?cc_load_policy=1&amp;rel=0" title="Video: Normal Distribution | Mean or 0 to Z Table | Calculating Probabilities (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 8:21 · 83,002 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yVCEZr5dF14" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video demonstrates normal probability calculations using a mean-to-z table, meaning the table entries give the area between the mean and a given z-value rather than the full cumulative area. It shows how to convert raw values to z-scores and then combine or subtract table areas to find left-tail, right-tail, and between-two-values probabilities, with a note on doing the same work on a Casio calculator.</p>
+<h4>Why this video</h4>
+<p>It squarely covers z-score conversion and table use, and because it uses the mean-to-z convention it is a useful check on whether you truly understand what your own table reports instead of copying numbers mechanically.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Uniform Distribution EXPLAINED with Examples</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UC-CBUSQXAo?cc_load_policy=1&amp;rel=0" title="Video: Uniform Distribution EXPLAINED with Examples (Ace Tutors)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Ace Tutors</strong> · 6:05 · 415,452 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=UC-CBUSQXAo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Reviewing this uniform distribution video a second time is useful for the error-avoidance subtopic: watch specifically for how interval endpoints are handled and how the problem statement is turned into limits of integration or rectangle boundaries.</p>
+<h4>Why this video</h4>
+<p>Repeated, focused viewing of a clear worked example is an efficient way to internalize the setup step, which is where most calculation errors actually originate.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: The Exponential Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WKFk0NXyO50?cc_load_policy=1&amp;rel=0" title="Video: The Exponential Distribution (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 8:09 · 94,248 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=WKFk0NXyO50" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short lesson on the exponential distribution from the LearnChemE project at the University of Colorado Boulder, aimed at engineering students. It should introduce the density and cumulative distribution function in terms of the rate or mean parameter and apply them to computing probabilities, typically for waiting times or times between events.</p>
+<h4>Why this video</h4>
+<p>LearnChemE materials are produced by engineering faculty and framed around engineering applications, so the examples connect the exponential CDF to the kinds of lifetime and interarrival problems you will see in this course.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these three videos cover the computational core of the module. The uniform and exponential videos reinforce MO1 by showing how a density function and its cumulative form are used to produce probabilities, and all three directly serve MO2 by demonstrating the formulas, z-score conversion, and CDF evaluations for the three required distributions. Because each video frames its calculations around concrete scenarios, they also support MO3 by illustrating the kinds of situations each distribution is meant to model, and MO4 by modeling how a computed number is stated back in context. Use them alongside the module's worked examples, and practice sketching and labeling each region before you compute.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Applying Continuous Distributions to Real-World Scenarios</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have worked with continuous distributions mostly as formulas: a density function, an integral, a z-score table. This topic shifts the emphasis to judgement. Given a real data set or a described engineering situation — machining tolerances, time between equipment failures, arrival times, repair costs — which continuous model is defensible, and what does the resulting probability actually tell a decision-maker?</p>
+<p>The practical skill has three parts. First, matching the physical behaviour of the process to the shape and assumptions of a candidate distribution: constant likelihood across an interval suggests uniform, memoryless waiting between independent events suggests exponential, the accumulation of many small independent effects suggests normal, and multiplicative effects often produce a right-skewed lognormal. Second, computing the probability correctly. Third, checking whether the assumption held at all, and reporting the result honestly, including its limitations.</p>
+<p>As you watch the videos below, pay attention to the reasoning that precedes each calculation: what feature of the scenario justified the choice of model? Note also where the presenters mention related distributions — the gamma and lognormal are not required computations in this module, but seeing them helps you understand why the uniform, normal, and exponential are chosen for some problems and not others.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Uniform Distribution EXPLAINED with Examples</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UC-CBUSQXAo?cc_load_policy=1&amp;rel=0" title="Video: Uniform Distribution EXPLAINED with Examples (Ace Tutors)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Ace Tutors</strong> · 6:05 · 415,462 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=UC-CBUSQXAo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, worked introduction to the continuous uniform distribution, where every outcome in an interval is equally likely. Based on its title and description, the video should set up the density and cumulative forms and then solve example probability problems step by step.</p>
+<h4>Why this video</h4>
+<p>It gives direct, example-driven coverage of the uniform distribution subtopic at a level suited to a first course, and its focus on solving problems supports the calculation and interpretation outcomes.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: The Gamma Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9IIcHAJlcWc?cc_load_policy=1&amp;rel=0" title="Video: The Gamma Distribution (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 12:30 · 58,541 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=9IIcHAJlcWc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton presents the gamma distribution and explains its relationship to the exponential distribution — specifically, as the waiting time until the r-th event in a Poisson process. Expect discussion of how the exponential arises as a special case and how the shape changes with its parameters.</p>
+<h4>Why this video</h4>
+<p>Seeing the exponential placed inside a larger family clarifies exactly what the exponential assumes about waiting times, which is central to selecting and validating it in professional contexts; Brunton is a respected engineering faculty producer known for clear, correct explanations.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: Log normal distribution | Math, Statistics for data science, machine learning</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xtTX69JZ92w?cc_load_policy=1&amp;rel=0" title="Video: Log normal distribution | Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 6:44 · 157,470 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=xtTX69JZ92w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>codebasics introduces the lognormal distribution as a right-skewed model and points to real-world examples such as income and length of hospital stay. The video is likely to contrast it with the symmetric normal distribution and show how a log transformation relates the two.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the risk of assuming normality when data are skewed, reinforcing the distribution-fit and assumption-validation subtopics and sharpening your sense of when the normal model is and is not appropriate.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos move beyond formula practice toward model selection and interpretation. The uniform video supplies direct computational practice with a named continuous distribution and its density and cumulative forms (MO1, MO2). The gamma video clarifies the exponential's role as a waiting-time model within a Poisson process, giving you a principled basis for choosing it over other candidates in engineering reliability and queueing settings (MO3). The lognormal video provides a concrete counterexample to automatic normality assumptions, prompting you to check data shape before modelling and to qualify the conclusions you draw (MO3, MO4). Across all three, the recurring emphasis on real examples supports interpreting computed probabilities as evidence for decisions rather than as answers in isolation.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

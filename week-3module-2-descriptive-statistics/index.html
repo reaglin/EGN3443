@@ -1,409 +1,161 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 3/Module 2 – Descriptive Statistics | EGN3443</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c2f35;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #25567a 60%, #1e7fa6 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-      text-align: center;
-    }
-
-    header .course-label {
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.82;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3.5vw, 2rem);
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
-    }
-
-    header p.intro {
-      max-width: 680px;
-      margin: 0 auto;
-      font-size: 0.97rem;
-      opacity: 0.92;
-      line-height: 1.7;
-    }
-
-    /* ── Main Content ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    /* ── Section Headings ── */
-    .section-heading {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: #1a3a5c;
-      border-bottom: 2px solid #c9d8e8;
-      padding-bottom: 0.35rem;
-      margin: 2.2rem 0 1.1rem;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.2rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #fff;
-      border: 1px solid #dce4ed;
-      border-radius: 8px;
-      padding: 1.25rem 1.3rem 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.11);
-      border-color: #aabfd4;
-    }
-
-    /* ── Card Top Row ── */
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .card-name {
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-      line-height: 1.35;
-    }
-
-    .card-name a {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 1.5px solid #4a90b8;
-      padding-bottom: 1px;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
-    .card-name a:hover {
-      color: #1e7fa6;
-      border-color: #1e7fa6;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      color: #5b7fa0;
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #b8cfde;
-      border-radius: 3px;
-      padding: 0.15rem 0.42rem;
-      line-height: 1.5;
-      transition: background 0.15s, color 0.15s;
-      flex-shrink: 0;
-      align-self: flex-start;
-      margin-top: 0.05rem;
-    }
-
-    .source-link:hover {
-      background: #e8f2f8;
-      color: #1a3a5c;
-      border-color: #7aaec8;
-    }
-
-    /* ── Badges Row ── */
-    .card-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 3px;
-      padding: 0.15rem 0.5rem;
-    }
-
-    .badge-type {
-      background: #e4edf6;
-      color: #1a4a72;
-    }
-
-    .badge-filetype {
-      background: #eaf4f0;
-      color: #1a6040;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* Type-specific accent colours on the card left border */
-    .card[data-type="Module Topics"]    { border-left: 4px solid #5b8db8; }
-    .card[data-type="Text Content"]     { border-left: 4px solid #4aaa82; }
-    .card[data-type="Topic Detail"]     { border-left: 4px solid #8f72c8; }
-    .card[data-type="Quiz"]             { border-left: 4px solid #d4860a; }
-    .card[data-type="Assignment"]       { border-left: 4px solid #c94a4a; }
-
-    /* ── Description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #4a5160;
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.78rem;
-      color: #8a95a3;
-      border-top: 1px solid #dce4ed;
-      background: #fff;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      header { padding: 2rem 1rem 1.6rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <title>Week 3/Module 2 - Descriptive Statistics — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</div>
-    <h1>Week 3 / Module 2 — Descriptive Statistics</h1>
-    <p class="intro">
-      This module introduces the fundamental tools used to summarise and interpret data.
-      You will explore measures of central tendency (mean, median, mode), measures of
-      variability (range, variance, standard deviation), and data distributions — building
-      the statistical vocabulary every engineer needs for rigorous data analysis.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 3/Module 2 - Descriptive Statistics</span>
+  </nav>
+      <div class="hero-label">Module 3</div>
+      <h1>Week 3/Module 2 - Descriptive Statistics</h1>
+      <p class="hero-desc">In this module, learners explore the core concepts of descriptive statistics, including measures of central tendency, variability, and data distribution. Through practical examples and exercises, learners develop the ability to summarise and interpret datasets meaningfully. By the end of the module, learners will be equipped to select and apply appropriate statistical measures to communicate key insights from data clearly and accurately.</p>
+    </div>
   </header>
-
-  <main>
-
-    <!-- ── Module Overview ── -->
-    <div class="section-heading">Module Overview</div>
-    <div class="card-grid">
-
-      <!-- Module Topics -->
-      <div class="card" data-type="Module Topics">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-desc">An outline of the module's topics, spanning descriptive statistics fundamentals, measures of central tendency (mean, median, mode), and measures of variability (range, variance), used by learners to preview what the module covers.</p>
-      </div>
-
-    </div><!-- /card-grid -->
-
-    <!-- ── Reading &amp; Content ── -->
-    <div class="section-heading">Reading &amp; Content</div>
-    <div class="card-grid">
-
-      <!-- Descriptive Statistics for Engineers -->
-      <div class="card" data-type="Text Content">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/Descriptive_Statistics_for_Engineers.html">Descriptive Statistics for Engineers</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">A reading that defines and explains key descriptive statistics concepts — mean, median, mode, and measures of variability — with formulas and engineering-context examples, used by learners as the primary reference text for the module.</p>
-      </div>
-
-      <!-- EGN3443 Module 2 - Descriptive Statistics -->
-      <div class="card" data-type="Text Content">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/EGN3443_Module_2_Descriptive_Statistics.html">EGN3443 Module 2 - Descriptive Statistics</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">A landing page that provides learners with links to the Module 2 PowerPoint presentation and YouTube lecture on descriptive statistics, serving as a navigation hub for the module's multimedia resources.</p>
-      </div>
-
-    </div><!-- /card-grid -->
-
-    <!-- ── Topic Details ── -->
-    <div class="section-heading">Topic Details</div>
-    <div class="card-grid">
-
-      <!-- Introduction to Descriptive Statistics -->
-      <div class="card" data-type="Topic Detail">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t1.html">Introduction to Descriptive Statistics</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">This reading introduces descriptive statistics as the practice of summarising, organising, and presenting data, giving real-world examples of its use and establishing the conceptual foundation for the measures covered later in the module.</p>
-      </div>
-
-      <!-- Measures of Central Tendency -->
-      <div class="card" data-type="Topic Detail">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t2.html">Measures of Central Tendency</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">This reading explains the three main measures of central tendency — mean, median, and mode — describing what each represents, how each is calculated, and when each is the most appropriate summary of a typical value in a dataset.</p>
-      </div>
-
-      <!-- Measures of Variability -->
-      <div class="card" data-type="Topic Detail">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t3.html">Measures of Variability</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">This reading covers measures of variability — including range, variance, and standard deviation — explaining how each quantifies the spread of data around a central value and why spread matters even when two datasets share the same mean.</p>
-      </div>
-
-      <!-- Data Distribution -->
-      <div class="card" data-type="Topic Detail">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t4.html">Data Distribution</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">This reading describes how data values form distributional patterns, covering concepts such as frequency distributions, histogram shapes, skewness, and symmetry so learners can recognise and interpret the overall structure of a dataset.</p>
-      </div>
-
-      <!-- Selecting and Applying Appropriate Statistical Measures -->
-      <div class="card" data-type="Topic Detail">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t5.html">Selecting and Applying Appropriate Statistical Measures</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">This reading guides learners and instructors on how to choose the correct descriptive statistics for a given dataset by matching measures of central tendency and variability to the appropriate level of measurement and data type to avoid misleading conclusions.</p>
-      </div>
-
-    </div><!-- /card-grid -->
-
-    <!-- ── Assessment ── -->
-    <div class="section-heading">Assessment</div>
-    <div class="card-grid">
-
-      <!-- Quiz Question Bank -->
-      <div class="card" data-type="Quiz">
-        <div class="card-top">
-          <span class="card-name">
-            
-          </span>
-          
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-desc">A 40-question quiz bank featuring engineering-scenario problems (e.g., concrete strength, voltage measurements) that test learners' ability to select and apply the correct descriptive statistic, used by instructors to assess comprehension of module concepts.</p>
-      </div>
-
-      <!-- Assignment 2 - Basic Statistics -->
-      <div class="card" data-type="Assignment">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="assignments/index.html">Assignment 2 - Basic Statistics</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">A programming-based assignment requiring learners to choose a real-world dataset, perform descriptive statistical analysis using R or Python, and write a report summarizing the results, assessing their practical ability to apply module concepts.</p>
-      </div>
-
-      <!-- Module 2 Graded Discussion -->
-      <div class="card" data-type="Assignment">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="assignments/index.html">Module 2 Graded Discussion</a>
-          </span>
-        </div>
-        <div class="card-badges">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">A graded discussion in which learners query an AI about which descriptive statistics every engineer should know, reflect on their current understanding of those statistics, and respond to at least one peer's post.</p>
-      </div>
-
-    </div><!-- /card-grid -->
-
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 5 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Descriptive Statistics</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Measures of Central Tendency</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Measures of Variability</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Data Distribution</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Selecting and Applying Appropriate Statistical Measures</span><span class="topic-meta">6 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">14 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Descriptive_Statistics_for_Engineers.html">Descriptive Statistics for Engineers</a></div>
+    <p class="content-desc">A reading that defines and explains key descriptive statistics concepts—mean, median, mode, and measures of variability—with formulas and engineering-context examples, used by learners as the primary reference text for the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_2_Descriptive_Statistics.html">EGN3443 Module 2 - Descriptive Statistics</a></div>
+    <p class="content-desc">A landing page that provides learners with links to the Module 2 PowerPoint presentation and YouTube lecture on descriptive statistics, serving as a navigation hub for the module&#39;s multimedia resources.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t1.html">Introduction to Descriptive Statistics</a></div>
+    <p class="content-desc">This reading introduces descriptive statistics as the practice of summarising, organising, and presenting data, giving real-world examples of its use and establishing the conceptual foundation for the measures covered later in the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t2.html">Measures of Central Tendency</a></div>
+    <p class="content-desc">This reading explains the three main measures of central tendency — mean, median, and mode — describing what each represents, how each is calculated, and when each is the most appropriate summary of a typical value in a dataset.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t3.html">Measures of Variability</a></div>
+    <p class="content-desc">This reading covers measures of variability — including range, variance, and standard deviation — explaining how each quantifies the spread of data around a central value and why spread matters even when two datasets share the same mean.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t4.html">Data Distribution</a></div>
+    <p class="content-desc">This reading describes how data values form distributional patterns, covering concepts such as frequency distributions, histogram shapes, skewness, and symmetry so learners can recognise and interpret the overall structure of a dataset.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t5.html">Selecting and Applying Appropriate Statistical Measures</a></div>
+    <p class="content-desc">This reading guides learners and instructors on how to choose the correct descriptive statistics for a given dataset by matching measures of central tendency and variability to the appropriate level of measurement and data type to avoid misleading conclusions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t1_videos.html">Introduction to Descriptive Statistics — Videos</a></div>
+    <p class="content-desc">An opening reading that explains what descriptive statistics are and why engineers summarise raw measurement data into typical values, spread, and visual pictures, used to orient learners before they tackle specific summary measures.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t2_videos.html">Measures of Central Tendency — Videos</a></div>
+    <p class="content-desc">A lesson page defining the mean, median, and mode as answers to the question &quot;what is a typical value?&quot;, which learners use to compute and compare each measure on engineering data such as test results, failure times, and sensor readings.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t3_videos.html">Measures of Variability — Videos</a></div>
+    <p class="content-desc">A reading on quantifying spread — range, variance, standard deviation, and related measures — that shows why datasets with identical means can behave very differently and helps learners judge whether a process or measurement system is acceptable.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t4_videos.html">Data Distribution — Videos</a></div>
+    <p class="content-desc">A topic page on the shape of data distributions, covering how values cluster or thin out, symmetry versus skew, and reading histograms or dot plots, so learners inspect data visually before computing summary numbers.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t5_videos.html">Selecting and Applying Appropriate Statistical Measures — Videos</a></div>
+    <p class="content-desc">A decision-focused reading on matching the statistical measure to the data type and distribution, using examples like means on skewed cost data or modes on continuous readings to teach learners how to choose measures that will not mislead an audience.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_3_Module_2_-_Descriptive_Statistics_videos_merged.html">Week 3/Module 2 - Descriptive Statistics — 5 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module page that strings together all the Week 3 descriptive statistics topics — introduction, central tendency, variability, distributions, and measure selection — for learners who want to read or review the full module in one place.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A programming-based assignment requiring learners to choose a real-world dataset, perform descriptive statistical analysis using R or Python, and write a report summarizing the results, assessing their practical ability to apply module concepts.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-2module-1-statistics-for-engineers/index.html">← Week 2/Module 1 - Statistics for Engineers</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-4module-3-probability-concepts/index.html">Week 4/Module 3 Probability Concepts →</a>
+</nav>
   </main>
-
-  <footer>
-    EGN3443 Probability &amp; Statistics for Engineers — Week 3 / Module 2 — Descriptive Statistics
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interpreting and Applying Probability in Context</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<h1>Interpreting and Applying Probability in Context</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Probability Rules | Real World College Math | Study Hall</a>
+<a href="#sec3">Video 2: Using probability to make fair decisions</a>
+<a href="#sec4">Video 3: Overexplaining the binomial distribution</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A probability is a number, but a number by itself rarely helps anyone make a decision. This topic is about the step that comes after the arithmetic: saying clearly what a probability of 0.03, 0.5, or 0.97 actually means for the situation in front of you. That includes describing likelihood in plain language, explaining what the complement tells you, and being careful about whether a value came from theory (counting equally likely outcomes in a sample space) or from experiment (observing relative frequencies over many trials).</p>
+<p>This matters in EGN3443 because engineers are usually not the final decision-maker acting alone. You will report reliability estimates, failure chances, and test results to managers, clients, regulators, and the public. A well-calculated probability that is poorly communicated — or that is quietly conditional on something the audience does not know about — can lead to a bad decision just as easily as a wrong calculation.</p>
+<p>As you watch the videos below, pay attention to three things. First, how each presenter moves from a formula or a diagram back to a sentence about the real situation. Second, how sample spaces and the basic rules (complement, addition, multiplication) are used to justify a claim about fairness or risk. Third, where joint and conditional probabilities show up, and how the wording changes when you condition on information you already have.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Probability Rules | Real World College Math | Study Hall</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ZRtk8qyxgP8?cc_load_policy=1&amp;rel=0" title="Video: Probability Rules | Real World College Math | Study Hall (Study Hall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Study Hall</strong> · 7:22 · 11,044 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=ZRtk8qyxgP8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short overview of the core probability rules, presented through real-world framing and Venn diagrams. Based on its title and description, it covers how the rules fit together — including unions, overlaps, and complements — and uses decision-making scenarios as the motivating context. The Venn diagram approach gives a visual way to see why the addition rule needs to correct for double counting.</p>
+<h3>Why this video</h3>
+<p>Study Hall is a PBS/Crash Course production aimed at general college audiences, so the explanations stay in plain language rather than heavy notation — a good match for the translating-probability-into-words and complementary-probability subtopics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Using probability to make fair decisions</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Z_5f3kys52o?cc_load_policy=1&amp;rel=0" title="Video: Using probability to make fair decisions (Khan Academy)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Khan Academy</strong> · 3:34 · 23,135 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=Z_5f3kys52o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Khan Academy works through an example of judging whether a procedure is fair by examining the probabilities involved. The focus is on checking whether each party or outcome has an equal chance, which requires laying out the possible outcomes and comparing their likelihoods. It is a compact, worked example rather than a lecture on theory.</p>
+<h3>Why this video</h3>
+<p>This is a direct demonstration of applying probability to inform a judgment about a real situation, and it shows how grounding your interpretation in the full set of outcomes is what makes the conclusion defensible.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Overexplaining the binomial distribution</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6YzrVUVO9M0?cc_load_policy=1&amp;rel=0" title="Video: Overexplaining the binomial distribution (Primer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Primer</strong> · 15:18 · 1,557,442 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=6YzrVUVO9M0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Primer builds up the binomial distribution slowly, using animation and simulated trials rather than starting from the formula. Expect a careful look at how repeated independent trials generate a distribution of outcomes, and how counting arrangements of successes and failures connects to the multiplication and addition rules. Because the video runs simulations, it also illustrates how observed frequencies behave relative to theoretical values.</p>
+<h3>Why this video</h3>
+<p>It is the clearest video here for seeing the theoretical-versus-experimental distinction in action, and its visual counting of outcome sequences reinforces how sample spaces underpin any probability you later interpret.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos reinforce the module outcomes from the interpretation side. The Study Hall episode and the Primer video both make the structure of a sample space visible — through Venn diagrams and through enumerated sequences of trials — supporting MO1, while their treatment of unions, complements, and repeated independent events supports MO2 and MO5 by showing when each rule applies. Primer&#39;s simulations give a concrete feel for how experimental frequencies relate to theoretical values and the Law of Large Numbers (MO3). The Khan Academy fairness example and the decision-oriented framing in Study Hall model MO4 most directly: each ends not with a number but with a plain-language statement about what that number means for the choice being made.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

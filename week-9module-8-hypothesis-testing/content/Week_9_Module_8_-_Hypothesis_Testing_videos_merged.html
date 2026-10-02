@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week 9/Module 8 - Hypothesis Testing</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+<h1>Week 9/Module 8 - Hypothesis Testing</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Foundations of Hypothesis Testing</a>
+<a href="#part2">Formulating Null and Alternative Hypotheses</a>
+<a href="#part3">Test Statistics and Sampling Distributions</a>
+<a href="#part4">P-Values and Significance Levels</a>
+<a href="#part5">Applying Common Hypothesis Tests</a>
+<a href="#part6">Type I and Type II Errors</a>
+<a href="#part7">Interpreting and Communicating Results</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Foundations of Hypothesis Testing</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Hypothesis testing is the formal procedure engineers use to decide whether sample data provide enough evidence to support a claim about a population. Instead of asking "is this value exactly right?", we ask a sharper question: "if the status quo were true, how surprising would our data be?" That shift in framing is the heart of this week's material, and it underlies everything that follows — test statistics, p-values, significance levels, and error types.</p>
+<p>The core machinery is a pair of competing statements. The null hypothesis (H0) expresses no change, no difference, or no effect, and it is the statement we assume true while we evaluate the evidence. The alternative hypothesis (H1 or Ha) expresses the claim we would need evidence to accept, and it may be directional (greater than, less than) or non-directional (not equal to). Learning to translate a real-world engineering claim — a supplier says the mean tensile strength is at least 450 MPa, a redesign is supposed to reduce cycle time — into this pair of symbolic statements is the first skill you must master.</p>
+<p>As you watch the videos below, pay attention to three things: how the speaker decides which statement gets the equality sign and becomes H0, how the wording of a claim determines whether the alternative is one-sided or two-sided, and how the logic of "reject H0" versus "fail to reject H0" is phrased. Note especially that we never "prove" the null hypothesis — we only decide whether the evidence is strong enough to abandon it.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: Introduction to Hypothesis Testing for Beginners (Null vs. Alternative, P-value),  Conclusions</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/TFerpxUr4dg?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Hypothesis Testing for Beginners (Null vs. Alternative, P-value),  Conclusions (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:39 · 5,035 views · 9mo ago · captions — <a href="https://www.youtube.com/watch?v=TFerpxUr4dg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A beginner-oriented introduction that frames hypothesis testing as a decision process, walking through the null versus alternative hypotheses, the role of the p-value, and how to state a conclusion in context. Based on its title and description, it is designed as a first exposure to the topic rather than a computational deep dive. Expect a compact tour of the full logic from hypotheses to final wording of the decision.</p>
+<h4>Why this video</h4>
+<p>It is recent, short, and explicitly aimed at students who find hypothesis testing confusing, making it a good entry point for the subtopics on the logic of evidence and decision-making. Joshua Emmanuel is a well-established statistics and engineering-math channel known for clear, exam-focused explanations.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: Introduction to Hypothesis Testing | Intro to Statistics</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8EW0JwQDM1I?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Hypothesis Testing | Intro to Statistics (Chegg)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Chegg</strong> · 8:52 · 5,265 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=8EW0JwQDM1I" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A general introduction to hypothesis testing from Chegg's statistics series, covering the basic vocabulary and the purpose of testing claims with sample data. Its description emphasizes why hypothesis testing matters as a core statistical concept, so expect attention to the reasoning behind the procedure as well as the mechanics. At roughly nine minutes, it allows a slightly slower pace and more worked context than a quick overview.</p>
+<h4>Why this video</h4>
+<p>It reinforces the same foundations from a different voice, which helps if one explanation does not click, and it directly serves the subtopics on what hypothesis testing is and the role of statistical hypotheses.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: Lesson: Null and Alternative Hypotheses</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9iYSNJRtinE?cc_load_policy=1&amp;rel=0" title="Video: Lesson: Null and Alternative Hypotheses (Mathispower4u)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Mathispower4u</strong> · 7:01 · 7,145 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=9iYSNJRtinE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused lesson on writing null and alternative hypotheses, which is the single most testable skill in this topic. Mathispower4u videos are typically structured around several worked examples, so expect practice translating verbal claims into symbolic statements with the correct inequality direction. The narrow scope means the whole seven minutes is spent on hypothesis construction rather than p-values or test statistics.</p>
+<h4>Why this video</h4>
+<p>This is the most targeted match for the subtopics on H0, H1, and connecting real-world claims to statistical hypotheses, and Mathispower4u is a long-running, reliable instructional channel used widely in college statistics courses.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these three videos build the conceptual base the rest of the module depends on. The Mathispower4u lesson and the hypothesis-writing portions of the other two directly support MO1 by giving repeated practice turning verbal claims into correctly structured null and alternative hypotheses, including directional and non-directional forms. The introductory overviews from Joshua Emmanuel and Chegg preview the p-value and the compare-to-alpha decision rule that MO4 formalizes, and they establish the "assume H0, then weigh the evidence" logic that makes the test-selection work of MO2, the computations of MO3, and the Type I and Type II error distinctions of MO5 make sense. Treat these videos as the orientation step: watch them before the computational lectures, then return to the formal definitions in your textbook.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Formulating Null and Alternative Hypotheses</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>Hypothesis testing begins long before any arithmetic: it begins with a careful translation of a claim into two competing statements about a population parameter. The null hypothesis (H0) is the statement of "no effect," "no difference," or "the claim as stated," and it always contains an equality. The alternative hypothesis (H1 or Ha) is the statement you are gathering evidence for, and it is written with &lt;, &gt;, or not-equal. Getting these two statements right determines everything that follows — which tail (or tails) of the sampling distribution you look at, how the p-value is computed, and what your conclusion is allowed to say.</p>
+<p>In engineering practice, the claims you test are concrete: a supplier says a batch of fasteners averages at least a given tensile strength, a process engineer says a redesign reduced mean cycle time, a quality team says fill volume is on target and not drifting in either direction. Each of these maps to a different hypothesis form. A claim about being "on target" leads to a non-directional, two-tailed test; a claim about an improvement or a minimum guarantee leads to a directional, one-tailed test. The direction must be decided from the research question before the data are examined — choosing a tail after seeing which way the sample went is one of the most common and most serious errors in hypothesis formulation.</p>
+<p>As you watch the videos below, pay attention to three things: (1) where the equality sign always lives, (2) how the wording of a claim ("at least," "more than," "differs from," "has changed") signals the direction, and (3) how the choice of one or two tails changes the shaded rejection region and the p-value calculation. Try writing H0 and H1 yourself from each spoken claim before the narrator does, then check your answer.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: One-Tailed vs Two-Tailed Hypothesis Tests | 2-sided vs lower and upper tails</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Iv1RQnjV-1U?cc_load_policy=1&amp;rel=0" title="Video: One-Tailed vs Two-Tailed Hypothesis Tests | 2-sided vs lower and upper tails (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 3:41 · 250,694 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=Iv1RQnjV-1U" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused explanation of the difference between one-tailed tests (both lower/left and upper/right) and two-tailed tests. It covers how the direction of the alternative hypothesis determines which tail or tails of the distribution are used, and shows the corresponding rejection regions.</p>
+<h4>Why this video</h4>
+<p>This is the most direct match for the directional versus non-directional subtopics, and Joshua Emmanuel's statistics videos are known for clean, accurate visuals that make the tail structure easy to see in under four minutes.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Hypothesis Z-test Explained: One-tailed, 𝝈 known -Does This Fitness App's Claim Hold Up?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/kNKyhEuqszs?cc_load_policy=1&amp;rel=0" title="Video: Hypothesis Z-test Explained: One-tailed, 𝝈 known -Does This Fitness App's Claim Hold Up? (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 7:26 · 116,980 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=kNKyhEuqszs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A worked introduction to hypothesis testing built around a real-world claim: a fitness app's statement about average daily exercise time, tested with a z-test when the population standard deviation is known. The video walks through setting up the hypotheses from the claim and carrying the one-tailed test through to a conclusion.</p>
+<h4>Why this video</h4>
+<p>It demonstrates the full path from a verbal, real-world claim to a correctly structured one-tailed H0 and H1, which is exactly the translation skill this topic emphasizes, and it shows why the formulation step matters for everything downstream.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: One tail vs Two tail tests</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uTbodDDKXIc?cc_load_policy=1&amp;rel=0" title="Video: One tail vs Two tail tests (DammCourse)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>DammCourse</strong> · 5:21 · 31,405 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=uTbodDDKXIc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video focuses on the decision itself: how to read a research question and determine whether a one-tailed or two-tailed test is appropriate. It is framed around interpreting question wording rather than on computation.</p>
+<h4>Why this video</h4>
+<p>It gives a second perspective on the "choosing between directional and non-directional forms" subtopic and helps you avoid the common error of picking a tail arbitrarily or after the fact.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos concentrate on MO1: translating a real-world claim into correctly structured null and alternative hypotheses, including both one-tailed and two-tailed forms. The Emmanuel z-test example additionally previews MO3 and MO4 by carrying a formulated hypothesis through a test statistic and p-value to a conclusion at a stated significance level, so you can see how the setup choice propagates. They do not cover test selection among t-tests, chi-square, and ANOVA (MO2) or Type I and Type II errors (MO5); those outcomes are addressed by other materials in this module.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Test Statistics and Sampling Distributions</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>A test statistic is a single number computed from your sample that measures how far the sample result sits from what the null hypothesis predicts, expressed in units of standard error. Because every test statistic is compared against a reference distribution — the standard normal curve for a z-test, a t-distribution with a particular number of degrees of freedom for a t-test — you cannot interpret the number without knowing which sampling distribution it belongs to. The sampling distribution is what turns an abstract distance into a probability statement, and that probability is the p-value.</p>
+<p>In this course the practical skills are: identify what is known and unknown about the population (is sigma given, or only the sample standard deviation s?), pick the matching test statistic, compute it correctly, determine the degrees of freedom when using t, and convert the result into a p-value you can compare against alpha. These steps sit at the heart of nearly every engineering hypothesis test you will run, from verifying a manufacturing tolerance to checking a vendor's performance claim.</p>
+<p>As you watch, keep three questions in front of you: What is being subtracted from what in the numerator? What goes in the denominator, and why is it a standard error rather than a standard deviation? And which curve is the resulting value being compared against? If you can answer those for each example, the formulas stop being things to memorize and become things you can reconstruct.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Hypothesis Z-test Explained: One-tailed, 𝝈 known -Does This Fitness App's Claim Hold Up?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/kNKyhEuqszs?cc_load_policy=1&amp;rel=0" title="Video: Hypothesis Z-test Explained: One-tailed, 𝝈 known -Does This Fitness App's Claim Hold Up? (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 7:26 · 116,980 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=kNKyhEuqszs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Joshua Emmanuel works through a complete one-tailed hypothesis test about a fitness app's claim regarding average daily exercise time, in the case where the population standard deviation sigma is known. Based on the title and description, it should cover stating the hypotheses, computing the z-test statistic from the sample mean, and reaching a conclusion about the claim. This is the classic known-sigma scenario that defines when the z-test statistic is the right choice.</p>
+<h4>Why this video</h4>
+<p>It gives a clean, fully worked z-test on a realistic claim, which directly supports the 'What Is a Test Statistic?' and 'The Z-Test Statistic' subtopics; Joshua Emmanuel's statistics tutorials are widely used and known for clear, step-by-step numerical work.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: How To Use Probability Distributions | Statistics Ep. 17</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/To4DAZjDzCQ?cc_load_policy=1&amp;rel=0" title="Video: How To Use Probability Distributions | Statistics Ep. 17 (Study Hall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Study Hall</strong> · 12:04 · 3,834 views · 10mo ago · captions — <a href="https://www.youtube.com/watch?v=To4DAZjDzCQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This Study Hall episode addresses probability distributions and, per its description, how sampling distributions and test statistics are used to judge what counts as typical versus unlikely given expectations. It should build the conceptual bridge between a distribution of possible sample outcomes and the decision rule used in a hypothesis test. Expect emphasis on reasoning and intuition rather than heavy computation.</p>
+<h4>Why this video</h4>
+<p>It is the best fit for the 'Sampling Distributions and Their Role' and 'Connecting the Test Statistic to a P-Value' subtopics, and the Study Hall / Crash Course production style keeps the conceptual framing accessible before you dive into formulas.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Z-Test VS T-Test (Hypothesis Testing - Choosing Type of Test to Use)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/0HlJ--xuYIw?cc_load_policy=1&amp;rel=0" title="Video: Z-Test VS T-Test (Hypothesis Testing - Choosing Type of Test to Use) (ALL-MATH)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ALL-MATH</strong> · 7:51 · 2,396 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=0HlJ--xuYIw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused comparison of the z-test and the t-test aimed at helping you decide which one a given problem calls for. The video is organized around the selection criteria — typically whether the population standard deviation is known and how large the sample is — rather than around a single worked example.</p>
+<h4>Why this video</h4>
+<p>It maps directly onto the 'Choosing the Right Test Statistic' subtopic and reinforces 'The t-Test Statistic' and 'Degrees of Freedom' by contrasting the t-distribution with the normal, which is exactly the decision students most often get wrong.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the computational core of the module. The Study Hall episode establishes why a sampling distribution is needed before any p-value can be interpreted, and the Joshua Emmanuel walkthrough demonstrates the full cycle of stating hypotheses, computing a test statistic, and converting it to a conclusion — supporting MO1, MO3, and MO4. The z-versus-t comparison trains the selection judgment required by MO2 and clarifies the role of degrees of freedom when sigma is unknown. None of the three focuses on Type I and Type II errors (MO5), so pair them with the module readings and lecture material on error types and on the broader test families (paired t, chi-square, ANOVA) referenced in MO2.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>P-Values and Significance Levels</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>A hypothesis test ends with a number — the p-value — and a decision rule built around a threshold you choose before you look at the data. The p-value answers a narrow but useful question: if the null hypothesis were true, how likely is it that we would see a sample result at least as extreme as the one we actually got? The significance level, alpha, is the amount of risk you are willing to accept of rejecting a true null hypothesis. Comparing the two gives you a defensible, repeatable decision rule: reject the null when p is less than or equal to alpha, otherwise fail to reject it.</p>
+<p>This matters in engineering because conclusions about material strength, process yield, calibration drift, or supplier quality are rarely obvious from the raw numbers. A p-value lets you state how much evidence your data provides against a claim, and alpha forces you to decide in advance how strong that evidence must be rather than rationalizing after the fact. Equally important is knowing what a p-value is not: it is not the probability the null hypothesis is true, not the probability your result happened by chance, and not a measure of how large or important an effect is.</p>
+<p>As you watch, pay attention to three things. First, the exact wording used to define the p-value — the conditional phrasing "assuming the null is true" does a lot of work. Second, how one-tailed and two-tailed situations change the tail area being computed. Third, how each presenter translates the final comparison back into a sentence about the original claim, since on exams and in practice you will be graded on the interpretation as much as the arithmetic.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Hypothesis Test - Mean | μ | p value | z-table + Examples</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/89q_4LSqwhA?cc_load_policy=1&amp;rel=0" title="Video: Hypothesis Test - Mean | μ | p value | z-table + Examples (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:30 · 86,173 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=89q_4LSqwhA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact, worked walkthrough of testing a claim about a population mean using the p-value approach when the population standard deviation is known. Based on its title and description, it covers computing the z test statistic, finding the corresponding tail probability from a z-table, and comparing that p-value to the significance level to reach a conclusion. Expect fully worked numerical examples rather than extended conceptual discussion.</p>
+<h4>Why this video</h4>
+<p>This is the mechanical side of the topic done cleanly and quickly: it shows exactly how a p-value is produced from a test statistic and then compared to alpha, which is the core computational skill for this week.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: What is a p-value? | Hypothesis Testing, Part 1</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qEE0rzytHls?cc_load_policy=1&amp;rel=0" title="Video: What is a p-value? | Hypothesis Testing, Part 1 (Max Dudek)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Max Dudek</strong> · 19:17 · 19,592 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=qEE0rzytHls" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer, friendly conceptual introduction to hypothesis testing built around the question "what is a p-value?" Created for the Summer of Math Exposition, it is aimed at building intuition for what the p-value measures and why the logic of testing works the way it does, with Part 2 continuing the discussion. Expect visual explanation and careful definitions rather than table lookups.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the conceptual subtopics — what a p-value is and how to interpret it in context — and the extended run time allows the kind of careful definition work that prevents the common misinterpretations.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Medical Statistics - Part 11: The p-value</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2SomTEOXa7Y?cc_load_policy=1&amp;rel=0" title="Video: Medical Statistics - Part 11: The p-value (AMBOSS: Medical Knowledge Distilled)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>AMBOSS: Medical Knowledge Distilled</strong> · 7:51 · 24,547 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=2SomTEOXa7Y" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of the AMBOSS medical statistics series, this video explains how p-values are reported and understood in published studies, including what statistical significance claims actually mean. It is framed around interpreting results rather than deriving them, so expect emphasis on reading a reported p-value correctly and on the limits of what significance tells you.</p>
+<h4>Why this video</h4>
+<p>The applied-publication framing is an excellent complement to the computational videos, targeting interpretation in context and the misinterpretations that arise when a significance threshold is treated as proof.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos reinforce MO3 and MO4 most directly: the Joshua Emmanuel example shows how to compute a test statistic and convert it into a p-value using the correct sampling distribution, while all three videos model the comparison of that p-value to a pre-specified alpha and the distinction between a significant result and an important one. The Max Dudek introduction supports MO1 by situating the p-value within a properly stated null and alternative hypothesis and by clarifying how directional claims affect the tail area used. The AMBOSS video strengthens interpretation and connects to MO5, since understanding what alpha controls is the same as understanding the Type I error rate you have accepted. Use the shorter videos for procedure and the longer ones for the reasoning you will need to justify conclusions in writing.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Applying Common Hypothesis Tests</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>In earlier parts of this module you learned the logic of hypothesis testing: stating a null and alternative hypothesis, choosing a significance level, computing a test statistic, and deciding whether the evidence is strong enough to reject the null. This topic turns that logic into practice. Engineering data arrives in many shapes — one sample compared to a specification, two independent production lines, before-and-after measurements on the same units, counts in categories, or three or more treatment groups — and each shape calls for a different test.</p>
+<p>The practical skill is matching the data scenario to the right procedure. Ask yourself: Is the response measured on a continuous scale or is it a count in categories? How many groups are being compared? Are the observations in the two groups independent, or are they naturally paired? Answering those questions leads you to the one-sample t-test, the two-sample t-test, the paired t-test, a chi-square test, or ANOVA. Getting this choice wrong invalidates everything that follows, no matter how carefully you compute the arithmetic.</p>
+<p>The videos below focus on two of the trickier cases: paired data and categorical count data. While watching, pay attention to how each hypothesis is worded, where the degrees of freedom come from, how the test statistic is assembled from the sample values, and — most importantly — how the final numerical result is translated back into a plain-language conclusion about the original question. Try pausing before the solution is revealed and working the example yourself.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qkBVUcjPLuA?cc_load_policy=1&amp;rel=0" title="Video: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:28 · 8,719 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=qkBVUcjPLuA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial works through a two-tailed paired (repeated measures) t-test starting from raw data, so you can see how the paired differences are formed before any test statistic is computed. The description indicates it also covers the related matched-subjects setup and the construction of a confidence interval alongside the test. Expect to see the hypotheses stated, the test statistic calculated, and a conclusion drawn.</p>
+<h4>Why this video</h4>
+<p>It directly supports the Paired t-Test for Before-and-After Data subtopic and clarifies the distinction between paired and independent designs — exactly the judgment call needed when selecting the right test. Joshua Emmanuel's channel is widely used in engineering statistics courses for compact, worked numerical examples.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Chi-Square Goodness-of-Fit Test</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/y24q6BhRiDc?cc_load_policy=1&amp;rel=0" title="Video: Chi-Square Goodness-of-Fit Test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 7:00 · 160,243 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=y24q6BhRiDc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains the chi-square goodness-of-fit test using a single worked example, showing how observed category counts are compared against expected counts under the null hypothesis. You should see how expected frequencies are generated, how the chi-square statistic accumulates contributions across categories, and how degrees of freedom are determined before the decision is made.</p>
+<h4>Why this video</h4>
+<p>It covers the Chi-Square Test for Categorical Data subtopic for the single-variable case, and reinforces that categorical count data requires a different sampling distribution than the t-tests used for continuous measurements.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Chi-Square Test of Independence | Contingency Table | Hypothesis Test</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AuYRQVmpSaE?cc_load_policy=1&amp;rel=0" title="Video: Chi-Square Test of Independence | Contingency Table | Hypothesis Test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:31 · 54,401 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=AuYRQVmpSaE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video introduces the chi-square test of independence using a contingency table, where two categorical variables are cross-classified. It is a brief, example-driven explanation that walks through setting up the table, obtaining expected counts from row and column totals, and testing whether the two variables are associated.</p>
+<h4>Why this video</h4>
+<p>It completes the chi-square portion of this topic by addressing the two-variable case, and it pairs naturally with the goodness-of-fit video so you can tell the two chi-square procedures apart when choosing a test for real data.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos give you repeated practice with the core steps the module outcomes demand. Each one begins by stating null and alternative hypotheses from a concrete scenario (MO1) and then carries the example through to a test statistic, degrees of freedom, and a p-value or critical-value comparison (MO3), ending with an explicit accept/reject decision at a stated significance level (MO4). Because the three videos cover three distinct situations — paired continuous measurements, a single categorical variable, and two cross-classified categorical variables — they build the pattern recognition needed to choose correctly among the paired t-test, chi-square, and the other tests in your toolkit (MO2). As you watch, consider what a wrong rejection or a missed effect would mean in an engineering setting, and supplement these examples with the course material on one-sample tests, two-sample tests, ANOVA, and Type I versus Type II error (MO5).</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Type I and Type II Errors</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Every hypothesis test ends with a decision — reject the null hypothesis or fail to reject it — and that decision can be wrong in two distinct ways. A Type I error (a false positive) happens when we reject a null hypothesis that is actually true; its probability is the significance level, alpha, that we choose before collecting data. A Type II error (a false negative) happens when we fail to reject a null hypothesis that is actually false; its probability is called beta, and the complement, 1 minus beta, is the power of the test.</p>
+<p>This matters in engineering because the two errors usually carry very different costs. Falsely concluding that a new alloy is stronger, that a process change reduced defects, or that a contaminant level exceeds a limit leads to one kind of expensive mistake; failing to detect a real problem leads to another. Choosing alpha, sample size, and effect size is therefore an engineering judgment about which error you can least afford, not just a statistical formality.</p>
+<p>As you watch, keep track of four things: the 2-by-2 table of truth versus decision, which error alpha controls and which beta controls, why lowering alpha tends to raise beta when sample size is fixed, and how increasing sample size (or effect size) raises power without that trade-off. Also notice the careful wording used for conclusions — we never "accept" the null hypothesis, we only fail to reject it.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Introduction to Hypothesis Testing Outcomes: Type I and Type II Errors</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3_ntLwALEWo?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Hypothesis Testing Outcomes: Type I and Type II Errors (Mathispower4u)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Mathispower4u</strong> · 5:22 · 4,915 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=3_ntLwALEWo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short introduction that lays out the four possible outcomes of a hypothesis test: correctly rejecting, correctly failing to reject, and the two error types. Expect the standard decision-versus-reality table along with definitions of Type I and Type II errors and the probabilities attached to each.</p>
+<h4>Why this video</h4>
+<p>Mathispower4u is a well-established source of concise, correct math explanations, and this video gives the foundational framework and vocabulary you need before discussing trade-offs or power.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: Type I and Type II Errors</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/lbpbB_5iJkk?cc_load_policy=1&amp;rel=0" title="Video: Type I and Type II Errors (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 6:05 · 681 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=lbpbB_5iJkk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An engineering-oriented treatment of Type I and Type II errors from LearnChemE, likely connecting the definitions to the sampling distributions under the null and alternative hypotheses. Expect discussion of how alpha is set by the analyst and how beta depends on the true parameter value, sample size, and variability.</p>
+<h4>Why this video</h4>
+<p>Produced by chemical engineering faculty at CU Boulder, it frames the errors in a technical, applied context that matches how you will encounter false positives and false negatives in engineering decisions.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: Power of the Test</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/K3V8fbcJJkw?cc_load_policy=1&amp;rel=0" title="Video: Power of the Test (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 4:42 · 2,860 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=K3V8fbcJJkw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video focuses on the power of a test, 1 minus beta, and how it relates directly to the chance of a Type II error. It is presented as a companion to a worked Type II error example, so expect the geometry of overlapping distributions and the factors that increase power.</p>
+<h4>Why this video</h4>
+<p>Power is the key concept for minimizing Type II errors, and this video closes the loop on the alpha-beta trade-off that the first two videos set up.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos target MO5 most directly: the first establishes the four-outcome framework and precise definitions of Type I and Type II errors, the second reinforces those definitions in an engineering setting where consequences differ, and the third explains power as the tool for controlling false negatives. Together they also support MO4, since understanding what alpha actually buys you clarifies what it means to compare a p-value to a significance level and why statistical significance is not the same as a practically important or risk-free conclusion. Pair them with your own course examples so you can state, in words, what each error would mean for a specific engineering claim.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part7">
+<h2>Interpreting and Communicating Results</h2>
+<section class="item" id="p7-sec1">
+<h3>Introduction</h3>
+<p>Running a hypothesis test is only half the job. The other half — the half that engineering reports, design reviews, and regulatory submissions actually depend on — is stating what the test does and does not tell you. A p-value is a conditional probability computed under the assumption that the null hypothesis is true; it is not the probability that the null is true, not the probability you made a mistake, and not a measure of how large or important an effect is. Writing conclusions that respect those boundaries is a skill you practice deliberately.</p>
+<p>This topic pulls together the pieces: phrasing a conclusion in terms of the original engineering claim rather than in bare symbols, reporting the test statistic, degrees of freedom, p-value, and significance level so a reader can check your work, separating statistical significance from practical significance (a 0.2 psi difference can be highly significant with a large enough sample and still be irrelevant to the design), and being honest about Type I and Type II error risk and about the assumptions your test required.</p>
+<p>As you watch the videos below, pay attention to the exact wording used at the moment of the conclusion. Notice whether the speaker says "reject the null" or "prove the alternative," whether assumptions are checked before results are trusted, and how limitations are flagged. Try restating each conclusion in your own words for a non-statistician reader — that translation is what you will be graded on.</p>
+</section>
+<section class="item" id="p7-sec2">
+<h3>Video 1: Chi-Square Test of Independence | Contingency Table | Hypothesis Test</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AuYRQVmpSaE?cc_load_policy=1&amp;rel=0" title="Video: Chi-Square Test of Independence | Contingency Table | Hypothesis Test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:31 · 54,423 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=AuYRQVmpSaE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact walkthrough of the chi-square test of independence using a contingency table, from setting up the hypotheses about association between two categorical variables through computing expected counts, the test statistic, and degrees of freedom. The video closes by comparing the result to a critical value or significance level and stating what the outcome means for the two variables. It is structured with timestamps so you can jump to the conclusion step.</p>
+<h4>Why this video</h4>
+<p>Joshua Emmanuel's statistics videos are widely used and carefully worked, and this one models the full path from a stated claim to a conclusion phrased in terms of the variables rather than symbols — exactly the habit this topic targets.</p>
+</section>
+<section class="item" id="p7-sec3">
+<h3>Video 2: Applications and Limitations of Inferential Statistics</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r8fi3OWT4bA?cc_load_policy=1&amp;rel=0" title="Video: Applications and Limitations of Inferential Statistics (Art+Science with Kevin Hartman)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Art+Science with Kevin Hartman</strong> · 9:16 · 640 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=r8fi3OWT4bA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video steps back from calculation to discuss what inferential statistics can and cannot deliver when you generalize from a sample to a population. Based on its description, it covers the practical uses of inference alongside its challenges and limitations — the kinds of caveats that belong in the discussion section of a report.</p>
+<h4>Why this video</h4>
+<p>It directly supports the subtopics on acknowledging potential errors and presenting results with appropriate confidence, giving you language for stating limitations honestly instead of overclaiming.</p>
+</section>
+<section class="item" id="p7-sec4">
+<h3>Video 3: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R6ALNCeUbmo?cc_load_policy=1&amp;rel=0" title="Video: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:05 · 654 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R6ALNCeUbmo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An end-to-end treatment of the paired sample t-test in R that explicitly covers four stages: checking assumptions, running the calculation, interpreting the output, and reporting the result. The reporting segment shows how test statistics and p-values are conventionally written up for an audience.</p>
+<h4>Why this video</h4>
+<p>Few short videos include a dedicated reporting step, which makes this a useful template for communicating findings clearly and accurately — and the assumption-checking segment reinforces that a conclusion is only as sound as the conditions behind it.</p>
+</section>
+<section class="item" id="p7-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos carry you from test selection and execution into defensible interpretation. The chi-square walkthrough reinforces hypothesis construction, test choice for categorical data, and computing a test statistic and p-value against the correct distribution (MO1, MO2, MO3), and ends by comparing the result to a significance level (MO4). The paired t-test video supports MO2 and MO3 for paired designs and adds an explicit interpretation-and-reporting stage that models the communication skills at the center of this topic. The video on applications and limitations of inferential statistics supports MO4 and MO5 by framing what a significant result does and does not establish and why error risk and sampling limitations must be acknowledged when you present conclusions to an engineering audience.</p>
+</section>
+<section class="item" id="p7-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

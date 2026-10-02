@@ -1,465 +1,194 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 6/Module 5 – Continuous Probability Distributions | EGN3443</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    /* ── Header / Hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
-      color: #fff;
-      padding: 2.5rem 2rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.9rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      line-height: 1.25;
-    }
-
-    header p {
-      font-size: 1rem;
-      max-width: 720px;
-      color: rgba(255,255,255,0.88);
-    }
-
-    /* ── Main Layout ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 3rem;
-    }
-
-    /* ── Section Labels ── */
-    .section-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a7fa8;
-      margin-bottom: 0.85rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #d3e0ed;
-    }
-
-    .artifact-section {
-      margin-bottom: 2.5rem;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.1rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dce6f0;
-      border-radius: 8px;
-      padding: 1.15rem 1.25rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(46, 109, 164, 0.14);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Top Row ── */
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    /* ── Card Name / Link ── */
-    .card-name {
-      font-size: 0.98rem;
-      font-weight: 600;
-      color: #1a3a5c;
-      line-height: 1.35;
-    }
-
-    .card-name a {
-      color: #1a6fbd;
-      text-decoration: none;
-    }
-
-    .card-name a:hover {
-      text-decoration: underline;
-      color: #0d4f8a;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      white-space: nowrap;
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: #5a8bbf;
-      background: #eef4fb;
-      border: 1px solid #c5d9ef;
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem;
-      text-decoration: none;
-      transition: background 0.15s;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .source-link:hover {
-      background: #d6e8f7;
-      color: #0d4f8a;
-    }
-
-    /* ── Badges Row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-    }
-
-    /* Type badge colours */
-    .badge-type-module    { background: #e8f0fb; color: #1a5fa8; border: 1px solid #c2d5f0; }
-    .badge-type-text      { background: #e9f7ef; color: #1a7a42; border: 1px solid #b8e0c8; }
-    .badge-type-topic     { background: #fdf3e7; color: #9a5e00; border: 1px solid #f0d5a0; }
-    .badge-type-quiz      { background: #f3ecfb; color: #6a3fa0; border: 1px solid #d8c0f0; }
-    .badge-type-assignment{ background: #fdecea; color: #9e2a1c; border: 1px solid #f0bdb8; }
-
-    /* File type badge */
-    .badge-file {
-      background: #f0f2f5;
-      color: #546a80;
-      border: 1px solid #d0d8e4;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #4a5f72;
-      line-height: 1.55;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8fa3b8;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce6f0;
-      margin-top: 1rem;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 1.75rem 1rem 1.5rem; }
-    }
-  </style>
+  <title>Week 6/Module 5 - Continuous Probability Distributions. — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-<header>
-  <div class="header-inner">
-    <span class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</span>
-    <h1>Week 6 / Module 5 — Continuous Probability Distributions</h1>
-    <p>
-      This module introduces continuous probability distributions, including the uniform, normal,
-      exponential, Weibull, and log-normal distributions. Learners will develop skills in working
-      with probability density functions, cumulative distribution functions, and applying these
-      distributions to practical engineering problems.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 6/Module 5 - Continuous Probability Distributions.</span>
+  </nav>
+      <div class="hero-label">Module 6</div>
+      <h1>Week 6/Module 5 - Continuous Probability Distributions.</h1>
+      <p class="hero-desc">In this module, learners explore the key characteristics and applications of continuous probability distributions, with a focus on the normal, exponential, and uniform distributions. Through worked examples and practical exercises, participants develop the ability to calculate probabilities, interpret distribution parameters, and apply these concepts to real-world scenarios. By the end of the module, learners will be equipped to select and use appropriate continuous distributions to model and analyse data in professional and research contexts.</p>
+    </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Continuous Probability Distributions</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">The Uniform Distribution</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">The Normal Distribution</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">The Exponential Distribution</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Calculating and Interpreting Probabilities</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Applying Continuous Distributions to Real-World Scenarios</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">18 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Continuous_Distribution_Analysis_Example_Problem.html">Engineering Problems Using Continuous Probability Distributions</a></div>
+    <p class="content-desc">A worked example set presenting four engineering problems — one each for the normal, exponential, Weibull, and log-normal distributions — with problem statements, solution approaches, Python and R code, visualizations, and rationale for distribution choice, used as a self-study modeling reference.</p>
   </div>
-</header>
-
-<main>
-
-  <!-- ── Module Topics ── -->
-  <section class="artifact-section">
-    <div class="section-label">Module Overview</div>
-    <div class="card-grid">
-
-      <!-- Module Topics -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </div>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-module">Module Topics</span>
-          <span class="badge badge-file">.json</span>
-        </div>
-        <p class="card-desc">A structured outline of the module's topics, covering discrete vs. continuous random variables, probability density functions, and key distributions (uniform, normal, exponential, Weibull, log-normal) to guide learners through the module's scope.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── Text Content ── -->
-  <section class="artifact-section">
-    <div class="section-label">Text Content &amp; Reference Pages</div>
-    <div class="card-grid">
-
-      <!-- Continuous Distribution Analysis Example Problems -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Continuous_Distribution_Analysis_Example_Problem.html">Continuous Distribution Analysis Example Problems</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">Four worked engineering examples — one each for normal, exponential, Weibull, and log-normal distributions — providing problem statements, solution approaches, and Python and R code with visualizations to show learners how to apply each distribution in practical contexts.</p>
-      </div>
-
-      <!-- Continuous Probability Distributions -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Continuous_Probability_Distributions.html">Continuous Probability Distributions</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">A comprehensive reference page covering PDFs, CDFs, and the key continuous distributions (uniform, normal, exponential, Weibull, log-normal) with definitions, formulas, and supporting lecture links for learners to study core concepts.</p>
-      </div>
-
-      <!-- EGN3443 Module 5 Landing Page -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/EGN3443_Module_5_Continuous_Probability_Distribu.html">EGN3443 Module 5 – Continuous Probability Distributions</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">A landing page linking learners to the Module 5 PowerPoint slides and YouTube lecture video on continuous probability distributions.</p>
-      </div>
-
-      <!-- Plotting of PDF and CDF -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Plotting_of_PDF_and_CDF.html">Plotting of PDF and CDF</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">A worked engineering problem focused on semiconductor oxide-layer thickness that demonstrates how to plot and interpret PDFs and CDFs, helping learners understand the practical value of distribution visualizations.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── Topic Details ── -->
-  <section class="artifact-section">
-    <div class="section-label">Topic Detail Readings</div>
-    <div class="card-grid">
-
-      <!-- Introduction to Continuous Probability Distributions -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t1.html">Introduction to Continuous Probability Distributions</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">This reading introduces the foundational concepts of continuous probability distributions, explaining how they differ from discrete distributions, defining key ideas such as probability density functions and cumulative distribution functions, and preparing learners to study specific continuous distributions used in engineering statistics.</p>
-      </div>
-
-      <!-- The Uniform Distribution -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t2.html">The Uniform Distribution</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">This reading explains the uniform distribution, covering its probability density function, mean, variance, and the property that probability is spread evenly across a fixed interval, enabling learners to apply it to problems where all outcomes within a range are equally likely.</p>
-      </div>
-
-      <!-- The Normal Distribution -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t3.html">The Normal Distribution</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">This reading covers the normal distribution, including its bell-curve shape, parameters (mean and standard deviation), standardisation to the Z-distribution, and use of Z-tables, allowing learners to calculate probabilities for normally distributed engineering and real-world variables.</p>
-      </div>
-
-      <!-- The Exponential Distribution -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t4.html">The Exponential Distribution</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">This reading describes the exponential distribution, including its probability density function, rate parameter, mean, memoryless property, and its use in modelling the time or distance between random events, equipping learners to solve reliability and waiting-time problems.</p>
-      </div>
-
-      <!-- Calculating and Interpreting Probabilities -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t5.html">Calculating and Interpreting Probabilities</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">This reading presents systematic methods for computing and interpreting probabilities from uniform, normal, and exponential distributions, walking learners through worked examples so they can translate a described scenario into a numerical probability using the appropriate technique.</p>
-      </div>
-
-      <!-- Applying Continuous Distributions -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t6.html">Applying Continuous Distributions to Real-World Scenarios</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">This reading applies all three continuous distributions to realistic engineering and professional scenarios, guiding learners through multi-step problems that require selecting the correct distribution, setting up calculations, and interpreting results in context.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── Assessment ── -->
-  <section class="artifact-section">
-    <div class="section-label">Assessment &amp; Assignments</div>
-    <div class="card-grid">
-
-      <!-- Quiz Question Bank -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            
-          </div>
-          
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-quiz">Quiz</span>
-          <span class="badge badge-file">.json</span>
-        </div>
-        <p class="card-desc">A 45-question quiz bank assessing learners' ability to identify appropriate probability distributions and solve problems involving continuous and discrete distributions across engineering scenarios.</p>
-      </div>
-
-      <!-- Module 5 Graded Discussion -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="assignments/index.html">Module 5 Graded Discussion</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-assignment">Assignment</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">A graded discussion assignment in which students use an AI tool to generate visualizations of the Assignment 5 dataset, then evaluate how providing distribution context affects the quality of the AI's output.</p>
-      </div>
-
-      <!-- Assignment 5 -->
-      <div class="card">
-        <div class="card-top">
-          <div class="card-name">
-            <a href="assignments/index.html">Assignment 5 – Continuous Probability Distributions</a>
-          </div>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type-assignment">Assignment</span>
-          <span class="badge badge-file">.html</span>
-        </div>
-        <p class="card-desc">A graded assignment using real-style wind turbine gearbox failure data (100 gearboxes, time between failures) in which students fit and analyze continuous probability distributions to support maintenance scheduling decisions.</p>
-      </div>
-
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  EGN3443 Probability &amp; Statistics for Engineers — Week 6 / Module 5 — Continuous Probability Distributions
-</footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Continuous_Probability_Distributions.html">Module 5: Continuous Probability Distributions</a></div>
+    <p class="content-desc">A module overview reading that defines probability density functions and walks through the core continuous distributions covered in Module 5, serving as the main written companion to the lecture.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_5_Continuous_Probability_Distribu.html">EGN3443 Module 5 - Continuous Probability Distributions</a></div>
+    <p class="content-desc">A short landing page linking to the Module 5 PowerPoint slide deck and the accompanying YouTube lecture video on continuous probability distributions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Plotting_of_PDF_and_CDF.html">Engineering Probability Distribution Analysis</a></div>
+    <p class="content-desc">A demonstration problem on semiconductor oxide-layer thickness that shows why and how to plot PDFs and CDFs from measurement data, used by learners to practice distribution visualization and interpretation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t1.html">Introduction to Continuous Probability Distributions</a></div>
+    <p class="content-desc">An in-depth reading contrasting discrete and continuous random variables, explaining why point probabilities are zero and introducing the probability density function as the foundation for the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t2.html">The Uniform Distribution</a></div>
+    <p class="content-desc">A detailed reading on the continuous uniform distribution, covering its parameters, flat density function, and how probabilities become simple rectangular areas over an interval.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t3.html">The Normal Distribution</a></div>
+    <p class="content-desc">A detailed reading on the normal distribution, covering its bell shape, symmetry, mean and standard deviation parameters, and its prevalence in natural and measurement phenomena.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t4.html">The Exponential Distribution</a></div>
+    <p class="content-desc">A detailed reading on the exponential distribution, explaining how it models time or distance between events and how it differs from symmetric distributions like the normal.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t5.html">Calculating and Interpreting Probabilities</a></div>
+    <p class="content-desc">A methods-focused reading that shows systematic procedures for extracting numerical probabilities from uniform, normal, and exponential distributions and interpreting the results in context.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_printable_topics_t6.html">Applying Continuous Distributions to Real-World Scenarios</a></div>
+    <p class="content-desc">A reading on applying continuous distributions to practical situations, emphasizing how to model real-world phenomena mathematically with the appropriate distribution.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_t1_videos.html">Introduction to Continuous Probability Distributions — Videos</a></div>
+    <p class="content-desc">A course-contextualized introductory reading that transitions students from discrete to continuous random variables using engineering measurements such as time to failure, shaft diameter, and voltage.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_t2_videos.html">The Uniform Distribution — Videos</a></div>
+    <p class="content-desc">A concise lesson page on the uniform distribution showing how its constant density 1/(b-a) lets probabilities be computed as rectangle areas using basic geometry.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_t3_videos.html">The Normal Distribution — Videos</a></div>
+    <p class="content-desc">A concise lesson page on the normal/Gaussian distribution describing its two parameters, symmetric bell curve, and use of areas under the curve to find probabilities in engineering contexts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_t4_videos.html">The Exponential Distribution — Videos</a></div>
+    <p class="content-desc">A concise lesson page on the exponential distribution as the waiting-time model, introducing the rate parameter lambda and typical applications like arrivals, packets, and component failures.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_t5_videos.html">Calculating and Interpreting Probabilities — Videos</a></div>
+    <p class="content-desc">A computation-focused lesson page teaching students to find probabilities as areas under density curves — to the left, right, or between points — for uniform, normal, and exponential models.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_t6_videos.html">Applying Continuous Distributions to Real-World Scenarios — Videos</a></div>
+    <p class="content-desc">A judgement-focused lesson page asking students to choose and justify the appropriate continuous distribution for scenarios such as machining tolerances, failure intervals, and arrival times.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_6_Module_5_-_Continuous_Probability_Distributions_videos_merged.html">Week 6/Module 5 - Continuous Probability Distributions. — 6 topics (merged)</a></div>
+    <p class="content-desc">A single consolidated HTML page combining all six Module 5 topic readings into one continuous document for reading or printing the entire week&#39;s content at once.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A graded discussion prompt asking students to use an AI tool to visualize the Assignment 5 data and to reflect on whether providing data context changes the quality of the AI-generated visualizations or Python code.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-5module-4-discrete-probability-distributions/index.html">← Week 5/Module 4 - Discrete Probability Distributions</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-7module-6-sampling-distrbutions/index.html">Week 7/Module 6 - Sampling Distrbutions →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

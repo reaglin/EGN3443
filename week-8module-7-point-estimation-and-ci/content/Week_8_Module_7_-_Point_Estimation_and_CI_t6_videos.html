@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Factors Affecting Precision and Margin of Error</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div>
+<h1>Factors Affecting Precision and Margin of Error</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Confidence Interval for a population proportion | Solved Problems</a>
+<a href="#sec3">Video 2: Sample Size Estimation for Confidence Intervals</a>
+<a href="#sec4">Video 3: Finding the Sample Size Needed for a Confidence Interval for a Mean, LibreTexts Calculator</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A confidence interval is only as useful as it is precise. The margin of error — the quantity you add to and subtract from a point estimate — is what sets the width of the interval, and it is driven by three things: the confidence level you choose, the size of your sample, and how variable the population is. Raising the confidence level widens the interval; increasing the sample size narrows it (but only in proportion to the square root of n); and a more variable population forces a wider interval for the same sample size.</p>
+<p>This matters in engineering practice because data collection costs money and time. If a client asks for an estimate of a mean strength or a proportion defective &quot;within 2 units&quot; or &quot;within 3 percentage points,&quot; you need to translate that requirement into a required sample size before testing begins. That calculation is simply the margin-of-error formula solved for n, and it forces you to commit to a confidence level and to supply a planning value for the standard deviation or proportion.</p>
+<p>As you watch, pay attention to three things: which pieces of the margin-of-error formula change when the confidence level changes, how much extra sample is needed to cut the margin of error in half, and how a required sample size is rounded (always up) once computed. Also notice the language used to interpret the finished interval — precision claims should always be stated in the units of the problem and tied to the stated confidence level.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Confidence Interval for a population proportion | Solved Problems</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dLEtlteLVJU?cc_load_policy=1&amp;rel=0" title="Video: Confidence Interval for a population proportion | Solved Problems (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:44 · 155,862 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=dLEtlteLVJU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A worked-problem video on confidence intervals for a population proportion. Based on its timestamps, it builds an interval, interprets it in context, then constructs intervals at non-standard confidence levels such as 94% and 97%, and closes with a segment on how confidence level and sample size affect the result. The repeated construction at different confidence levels makes the effect on interval width directly visible.</p>
+<h3>Why this video</h3>
+<p>Joshua Emmanuel&#39;s channel is a widely used source of clear, worked statistics examples, and this video hits both the confidence-level and sample-size subtopics using concrete numbers rather than abstract formulas, while also modeling correct interpretation language.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Sample Size Estimation for Confidence Intervals</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/rl3-xHCE2nk?cc_load_policy=1&amp;rel=0" title="Video: Sample Size Estimation for Confidence Intervals (Learning with Luke)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Learning with Luke</strong> · 8:31 · 336 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=rl3-xHCE2nk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused walkthrough of sample size estimation for confidence intervals. It is likely to show how the margin-of-error formula is rearranged to solve for n, what planning values are needed for the standard deviation or proportion, and how the z critical value enters through the chosen confidence level. The description links to companion videos on confidence interval basics and finding z-scores, suggesting it assumes those foundations.</p>
+<h3>Why this video</h3>
+<p>It targets the &quot;Determining Required Sample Size&quot; subtopic head-on and, at roughly eight minutes, gives enough room to explain where each term in the formula comes from rather than just stating the result.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Finding the Sample Size Needed for a Confidence Interval for a Mean, LibreTexts Calculator</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/EruA68Fwa9k?cc_load_policy=1&amp;rel=0" title="Video: Finding the Sample Size Needed for a Confidence Interval for a Mean, LibreTexts Calculator (Larry Green)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Larry Green</strong> · 3:22 · 290 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=EruA68Fwa9k" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, practical demonstration of computing the sample size needed for a confidence interval for a population mean using the LibreTexts online calculator. The instructor states the goal explicitly and then enters the required inputs — confidence level, desired margin of error, and an estimate of the population standard deviation — to obtain the required n.</p>
+<h3>Why this video</h3>
+<p>Larry Green is a community college statistics instructor whose tool-based clips are reliable and to the point; this one reinforces how the three precision factors act as inputs to a sample size decision and is a quick way to check hand calculations.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These three videos concentrate on MO4 and MO5. The proportion video shows, through repeated construction at several confidence levels, how confidence level and sample size change interval width, and it explicitly models interpreting an interval in context (MO4, MO5). The two sample-size videos invert the margin-of-error relationship so you can see precisely how required sample size responds to a tighter margin of error, a higher confidence level, or greater population variability — the core trade-off in study design (MO4). Both also reinforce MO3, since solving for n requires fluency with the same critical value and standard error components used to construct the interval in the first place.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One-Way ANOVA</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+<h1>One-Way ANOVA</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: The One-Way ANOVA</a>
+<a href="#sec3">Video 2: Single Factor ANOVA, Part 1</a>
+<a href="#sec4">Video 3: One Way ANOVA Example</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>One-way ANOVA (analysis of variance) is the standard procedure for comparing the means of three or more groups when those groups differ on a single factor — for example, three suppliers of a bearing, four curing temperatures, or several machine settings. Rather than running many separate t-tests, which would inflate the chance of at least one false positive, ANOVA asks a single question: is there evidence that at least one group mean differs from the others?</p>
+<p>The logic rests on partitioning variability. Total variation in the data is split into variation between group means and variation within groups, and the ratio of those two mean squares forms the F-statistic. If the between-group variation is large relative to the natural scatter inside the groups, F is large and the p-value is small, which gives evidence against the null hypothesis that all population means are equal. Along the way you need to check the working assumptions — independent observations, approximately normal errors, and roughly equal variances across groups — because the F-test&#39;s validity depends on them.</p>
+<p>As you watch these videos, track four things: how the hypotheses are stated, how the sums of squares and degrees of freedom are computed and laid out in the ANOVA table, how the F-statistic is compared to a critical value or p-value, and what happens after a significant result. Remember that a significant F tells you that the means are not all equal but not which pairs differ — that is the job of post-hoc comparisons such as Tukey&#39;s procedure. Keep a blank ANOVA table beside you and try to fill it in as each example proceeds.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: The One-Way ANOVA</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/pzhYWBWzrd0?cc_load_policy=1&amp;rel=0" title="Video: The One-Way ANOVA (Stat Brat)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Stat Brat</strong> · 8:35 · 2,039 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=pzhYWBWzrd0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact walkthrough of the ANOVA procedure used to test a claim about three or more population means. Based on the title and description, expect the hypotheses to be stated, the between- and within-group variability to be summarized in an ANOVA table, and the F-statistic to be compared against a critical value or p-value to reach a conclusion.</p>
+<h3>Why this video</h3>
+<p>It covers the definition, purpose, and mechanics of one-way ANOVA in under nine minutes, making it a good first or review pass over the core test procedure.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Single Factor ANOVA, Part 1</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/VaOmf94C6n0?cc_load_policy=1&amp;rel=0" title="Video: Single Factor ANOVA, Part 1 (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 9:34 · 1,434 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=VaOmf94C6n0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part 1 of a short series from LearnChemE on single-factor (one-way) ANOVA, framed around an engineering/chemical engineering context. It is likely to introduce the design structure — one factor with several levels — and begin building the variance partition and summary table, with later parts continuing the calculation and interpretation.</p>
+<h3>Why this video</h3>
+<p>LearnChemE is a well-established engineering education channel, so the notation and examples will feel familiar to EGN3443 students; the series format lets you follow the full calculation step by step.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: One Way ANOVA Example</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/4obZodXnEIw?cc_load_policy=1&amp;rel=0" title="Video: One Way ANOVA Example (Jason Liu)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Jason Liu</strong> · 3:13 · 521 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=4obZodXnEIw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief worked example testing whether three different golf clubs produce different mean results. Expect the data to be organized by group, sums of squares and the F-statistic to be computed, and a decision to be stated about whether the group means differ.</p>
+<h3>Why this video</h3>
+<p>Short, concrete examples are the fastest way to see how the formulas apply to real data, and this one directly illustrates conducting and interpreting a one-way ANOVA with three groups.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the computational and interpretive core of the module. The Stat Brat and Jason Liu examples model stating hypotheses, computing the F-statistic from between- and within-group variation, and reading the result — directly supporting MO3 and the reasoning behind MO1, since each shows a single omnibus test replacing multiple pairwise comparisons. The LearnChemE series grounds the single-factor design in an engineering setting and reinforces the structure of the ANOVA summary table. Assumption checking (MO2), multi-factor main and interaction effects (MO4), and the selection and interpretation of post-hoc procedures (MO5) are only touched on here, so pair this viewing with your course notes and assigned readings on those points.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

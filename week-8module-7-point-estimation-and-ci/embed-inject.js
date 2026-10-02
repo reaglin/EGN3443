@@ -13,15 +13,21 @@
     (items||[]).forEach(function(it){ map[norm(it.href)] = it; });
 
     document.querySelectorAll('a[href]').forEach(function(a){
-      var key = norm(a.getAttribute('href'));
-      if(!key || a.hasAttribute('data-pm-embed')) return;
+      var raw = a.getAttribute('href') || '';
+      // Links into a section of a page (the topic cards) are not offered: the page is,
+      // once, where it is linked whole. The module page itself is on the hub below.
+      if(raw.indexOf('#') >= 0) return;
+      var key = norm(raw);
+      if(!key || key === 'index.html' || a.hasAttribute('data-pm-embed')) return;
       var it = map[key]; if(!it) return;
       a.setAttribute('data-pm-embed','1');
+      var name = it.title || a.textContent.trim();
       var em = document.createElement('a');
       em.className = 'pm-embed-link';
-      em.href = 'embed.html?u=' + encodeURIComponent(key) + '&t=' + encodeURIComponent(it.title || a.textContent.trim());
+      em.href = 'embed.html?u=' + encodeURIComponent(key) + '&t=' + encodeURIComponent(name);
       em.textContent = '(Embed)';
       em.title = 'Get LMS embed code for this page';
+      em.setAttribute('aria-label', 'Embed code for ' + name);
       a.insertAdjacentElement('afterend', em);
     });
 
@@ -29,7 +35,8 @@
     hub.className = 'pm-embed-hub';
     hub.href = 'embed.html';
     hub.textContent = '\u{1F517} Embed a page in your LMS';
+    // At the bottom of the page: it is for the teacher, not the student.
     var main = document.querySelector('main') || document.body;
-    main.insertBefore(hub, main.firstChild);
+    main.appendChild(hub);
   }).catch(function(){});
 })();

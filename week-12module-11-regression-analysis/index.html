@@ -1,404 +1,178 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 12/Module 11 – Regression Analysis | EGN3443</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header / hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-      text-align: center;
-    }
-
-    header .course-label {
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.82;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
-    }
-
-    header p.intro {
-      max-width: 680px;
-      margin: 0 auto;
-      font-size: 0.97rem;
-      opacity: 0.9;
-    }
-
-    /* ── Main container ── */
-    main {
-      max-width: 1100px;
-      margin: 2.2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    /* ── Section headings ── */
-    .section-heading {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a7a9a;
-      border-bottom: 2px solid #d0dce8;
-      padding-bottom: 0.4rem;
-      margin: 2rem 0 1rem;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.15rem;
-    }
-
-    /* ── Individual card ── */
-    .card {
-      background: #fff;
-      border: 1px solid #dce6f0;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 14px rgba(0,0,0,0.11);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card top row: badges ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.18rem 0.55rem;
-      border-radius: 20px;
-      text-transform: uppercase;
-    }
-
-    /* type badge colours */
-    .badge-type-module-topics    { background: #e8f4fd; color: #1a6aa1; }
-    .badge-type-text-content     { background: #eaf5ea; color: #2e7d32; }
-    .badge-type-topic-detail     { background: #f3eafd; color: #6a1b9a; }
-    .badge-type-quiz             { background: #fff3e0; color: #e65100; }
-    .badge-type-assignment       { background: #fce4ec; color: #880e4f; }
-    .badge-type-default          { background: #eceff1; color: #455a64; }
-
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #546e7a;
-      font-weight: 500;
-    }
-
-    /* ── Card title row ── */
-    .card-title-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
-
-    .card-name {
-      font-size: 0.97rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-    }
-
-    .card-name a {
-      color: #1a6aa1;
-      text-decoration: none;
-    }
-
-    .card-name a:hover {
-      text-decoration: underline;
-      color: #0d4a7a;
-    }
-
-    .source-link {
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: #5a8db5;
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #b0cde0;
-      border-radius: 4px;
-      padding: 0.1rem 0.4rem;
-      flex-shrink: 0;
-      transition: background 0.15s;
-    }
-
-    .source-link:hover {
-      background: #e8f2fb;
-      color: #0d4a7a;
-    }
-
-    /* ── Card description ── */
-    .card-desc {
-      font-size: 0.855rem;
-      color: #4a5f72;
-      flex: 1 1 auto;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a9bb0;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce6f0;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 2rem 1rem 1.6rem; }
-    }
-  </style>
+  <title>Week 12/Module 11 - Regression Analysis — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
-    <h1>Week 12 / Module 11 — Regression Analysis</h1>
-    <p class="intro">
-      This module introduces regression analysis as a core statistical tool for engineers.
-      Topics span the foundations of regression, simple linear regression and the least
-      squares method, multiple regression models, model evaluation, and practical
-      application to real-world datasets. Use the resources below to read, practice,
-      and assess your understanding.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 12/Module 11 - Regression Analysis</span>
+  </nav>
+      <div class="hero-label">Module 12</div>
+      <h1>Week 12/Module 11 - Regression Analysis</h1>
+      <p class="hero-desc">In this module, learners explore the foundations of regression analysis, examining how to model and quantify relationships between variables to support data-driven decision-making. Through practical application, learners develop skills in building, interpreting, and evaluating both simple and multiple regression models. By the end of the module, learners will be equipped to apply regression techniques to real-world datasets and draw meaningful conclusions from their results.</p>
+    </div>
   </header>
-
-  <main>
-
-    <!-- ── Module Overview ── -->
-    <h2 class="section-heading">Module Overview</h2>
-    <div class="card-grid">
-
-      <!-- Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-module-topics">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-desc">An outline of the module's topics covering the foundations of regression analysis, simple linear regression (including the least squares method), and multiple regression models, used by instructors to understand the scope and structure of the module.</p>
-      </div>
-
-      <!-- Hub page -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-text-content">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/EGN3443_Module_11_Introduction_to_Regression_Ana.html">EGN3443 Module 11 - Introduction to Regression Analysis</a>
-          </span>
-        </div>
-        <p class="card-desc">A hub page linking learners to the Module 11 PowerPoint slides, lecture video, and a Google Colab notebook for hands-on regression analysis practice.</p>
-      </div>
-
-      <!-- Study reference -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-text-content">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Regression_Analysis.html">Regression Analysis</a>
-          </span>
-        </div>
-        <p class="card-desc">A study reference page explaining key regression analysis concepts—including simple linear regression, model definition, and interpretation—supported by links to the module lecture, used by learners to review and reinforce core content.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
-
-    <!-- ── Topic Readings ── -->
-    <h2 class="section-heading">Topic Readings</h2>
-    <div class="card-grid">
-
-      <!-- Topic 1 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic-detail">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t1.html">Foundations of Regression Analysis</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading introduces regression analysis as a statistical method for modeling relationships between variables, covering its core concepts, purposes, and applications across fields; learners use it to build conceptual understanding before diving into specific regression techniques.</p>
-      </div>
-
-      <!-- Topic 2 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic-detail">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t2.html">Simple Linear Regression</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading explains simple linear regression, covering the mathematical relationship between one predictor and one outcome variable, how the regression line is fitted, and interpretation of slope and intercept; learners use it as the foundational reference for understanding and applying single-predictor regression models.</p>
-      </div>
-
-      <!-- Topic 3 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic-detail">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t3.html">Multiple Regression Models</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading extends regression to models with two or more predictor variables, covering how multiple predictors are incorporated simultaneously, coefficient interpretation, and the motivation for using multiple regression over simple linear regression; learners use it to understand and build more realistic predictive models.</p>
-      </div>
-
-      <!-- Topic 4 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic-detail">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t4.html">Evaluating Regression Model Performance</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading covers the metrics and diagnostic tools used to assess how well a regression model fits data, including R-squared, residual analysis, and other performance indicators; learners and instructors use it to evaluate and compare regression models after fitting them.</p>
-      </div>
-
-      <!-- Topic 5 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic-detail">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t5.html">Interpreting Regression Results</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading explains how to read and interpret regression output tables, covering coefficients, p-values, confidence intervals, and common pitfalls in interpretation; learners use it as a practical guide to translate regression results into meaningful, real-world conclusions.</p>
-      </div>
-
-      <!-- Topic 6 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic-detail">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t6.html">Applying Regression to Real-World Datasets</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading addresses the application of regression analysis to messy, real-world datasets, covering challenges such as missing data, skewed distributions, and multicollinearity, along with strategies to handle them; learners use it to bridge the gap between textbook methods and practical data analysis workflows.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
-
-    <!-- ── Assessment ── -->
-    <h2 class="section-heading">Assessment &amp; Assignments</h2>
-    <div class="card-grid">
-
-      <!-- Quiz -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-quiz">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            
-          </span>
-          
-        </div>
-        <p class="card-desc">A 35-question quiz bank assessing learners on regression analysis concepts such as the least squares method, homoscedasticity, R-squared interpretation, multicollinearity, and coefficient interpretation in simple linear regression models.</p>
-      </div>
-
-      <!-- Graded Discussion -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-assignment">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="assignments/index.html">Module 11 Graded Discussion</a>
-          </span>
-        </div>
-        <p class="card-desc">A graded discussion assignment asking learners to provide a real-world example from a field of their choice where linear regression would be a good fit, then review and comment on at least one classmate's response.</p>
-      </div>
-
-      <!-- Assignment 11 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-assignment">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="assignments/index.html">Assignment 11 - Regression Analysis</a>
-          </span>
-        </div>
-        <p class="card-desc">A graded assignment in which learners download a Kaggle housing dataset and build a regression model to predict house price as a function of square footage of living area.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
-
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of Regression Analysis</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Simple Linear Regression</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Multiple Regression Models</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Evaluating Regression Model Performance</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Interpreting Regression Results</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Applying Regression to Real-World Datasets</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_11_Introduction_to_Regression_Ana.html">EGN3443 Module 11 - Introduction to Regression Analysis</a></div>
+    <p class="content-desc">A hub page linking learners to the Module 11 PowerPoint slides, lecture video, and a Google Colab notebook for hands-on regression analysis practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Regression_Analysis.html">Regression Analysis</a></div>
+    <p class="content-desc">A study reference page explaining key regression analysis concepts—including simple linear regression, model definition, and interpretation—supported by links to the module lecture, used by learners to review and reinforce core content.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t1.html">Foundations of Regression Analysis</a></div>
+    <p class="content-desc">This reading introduces regression analysis as a statistical method for modeling relationships between variables, covering its core concepts, purposes, and applications across fields; learners use it to build conceptual understanding before diving into specific regression techniques.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t2.html">Simple Linear Regression</a></div>
+    <p class="content-desc">This reading explains simple linear regression, covering the mathematical relationship between one predictor and one outcome variable, how the regression line is fitted, and interpretation of slope and intercept; learners use it as the foundational reference for understanding and applying single-predictor regression models.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t3.html">Multiple Regression Models</a></div>
+    <p class="content-desc">This reading extends regression to models with two or more predictor variables, covering how multiple predictors are incorporated simultaneously, coefficient interpretation, and the motivation for using multiple regression over simple linear regression; learners use it to understand and build more realistic predictive models.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t4.html">Evaluating Regression Model Performance</a></div>
+    <p class="content-desc">This reading covers the metrics and diagnostic tools used to assess how well a regression model fits data, including R-squared, residual analysis, and other performance indicators; learners and instructors use it to evaluate and compare regression models after fitting them.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t5.html">Interpreting Regression Results</a></div>
+    <p class="content-desc">This reading explains how to read and interpret regression output tables, covering coefficients, p-values, confidence intervals, and common pitfalls in interpretation; learners use it as a practical guide to translate regression results into meaningful, real-world conclusions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_printable_topics_t6.html">Applying Regression to Real-World Datasets</a></div>
+    <p class="content-desc">This reading addresses the application of regression analysis to messy, real-world datasets, covering challenges such as missing data, skewed distributions, and multicollinearity, along with strategies to handle them; learners use it to bridge the gap between textbook methods and practical data analysis workflows.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_t1_videos.html">Foundations of Regression Analysis — Videos</a></div>
+    <p class="content-desc">An introductory reading that defines regression analysis, distinguishes predictor from response variables, and explains how fitting a line to scatter data lets engineers describe and quantify relationships — read first to build conceptual grounding before the computational topics.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_t2_videos.html">Simple Linear Regression — Videos</a></div>
+    <p class="content-desc">A lesson on simple linear regression covering the one-predictor straight-line model, least-squares fitting, and interpretation of slope and intercept using engineering examples such as load versus deflection and temperature versus reaction rate; learners use it to turn measured data into a usable prediction equation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_t3_videos.html">Multiple Regression Models — Videos</a></div>
+    <p class="content-desc">A reading that extends the single-predictor model to multiple regression (y = b0 + b1x1 + ... + bkxk), explaining how a fitted surface replaces a fitted line and how each slope coefficient represents one predictor&#39;s effect while holding the others constant.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_t4_videos.html">Evaluating Regression Model Performance — Videos</a></div>
+    <p class="content-desc">A topic on assessing model quality, addressing how much variation the model explains, significance testing of individual predictors, the overall F-test comparing the model to predicting the mean, and residual-based checks of model adequacy.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_t5_videos.html">Interpreting Regression Results — Videos</a></div>
+    <p class="content-desc">A guide to reading regression software output, explaining coefficients in the units of the problem, p-values and whether a predictor differs from zero, R-squared, and overall model usefulness — used to practice translating computer output into engineering conclusions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_t6_videos.html">Applying Regression to Real-World Datasets — Videos</a></div>
+    <p class="content-desc">A capstone applied reading that walks through the complete regression workflow on messy real-world data, including selecting and cleaning a dataset, choosing variables, framing an answerable question, and reporting results — used as the bridge from textbook exercises to authentic engineering analysis.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_12_Module_11_-_Regression_Analysis_videos_merged.html">Week 12/Module 11 - Regression Analysis — 6 topics (merged)</a></div>
+    <p class="content-desc">A consolidated module page compiling all six Week 12 regression topics — foundations, simple linear regression, multiple regression, model evaluation, result interpretation, and real-world application — in one continuous document for review or printing.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A graded discussion assignment asking learners to provide a real-world example from a field of their choice where linear regression would be a good fit, then review and comment on at least one classmate&#39;s response.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-11module-10-2-sample-hypothesis-testing/index.html">← Week 11/Module 10 - 2 Sample Hypothesis Testing</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-13module-12-multiple-regression/index.html">Week 13/Module 12 - Multiple Regression →</a>
+</nav>
   </main>
-
-  <footer>
-    EGN3443 — Probability &amp; Statistics for Engineers &nbsp;|&nbsp; Week 12 / Module 11 — Regression Analysis
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

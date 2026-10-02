@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to Statistics in Engineering</h3>
+<h3 id="topic-1">Introduction to Statistics in Engineering</h3>
 <div class="summary">Overview of why statistical thinking is essential for engineers and how data-driven decision-making improves technical outcomes. This topic establishes the foundational vocabulary and framework used throughout the module.</div>
 <ul>
 <li><strong>Why Statistics Matters in Engineering</strong> <span class="el-body">— Engineering decisions are rarely made with perfect information, making statistical thinking a critical tool for managing uncertainty and variability in technical work.</span></li>
@@ -44,7 +44,7 @@ li{margin:5px 0}
 <li><strong>Understanding Data Variability</strong> <span class="el-body">— Variability is an inherent feature of all engineering data, and recognizing its sources is essential for accurate analysis and process improvement.</span></li>
 <li><strong>Statistical Thinking as an Engineering Mindset</strong> <span class="el-body">— Statistical thinking is more than a set of techniques — it is a disciplined approach to problem-solving that engineers apply throughout the design, testing, and quality assurance lifecycle.</span></li>
 </ul>
-<h3>Descriptive Statistics</h3>
+<h3 id="topic-2">Descriptive Statistics</h3>
 <div class="summary">Exploration of measures of central tendency, spread, and shape used to summarize and describe datasets. Learners will apply these tools to characterize engineering data clearly and efficiently.</div>
 <ul>
 <li><strong>Measures of Central Tendency</strong> <span class="el-body">— Measures of central tendency describe the center or typical value of a dataset, giving engineers a single representative figure for a collection of data points.</span></li>
@@ -54,7 +54,7 @@ li{margin:5px 0}
 <li><strong>Percentiles and Quartiles</strong> <span class="el-body">— Percentiles and quartiles divide a dataset into equal parts, providing engineers with precise reference points for understanding data position and spread.</span></li>
 <li><strong>Applying Descriptive Statistics to Engineering Data</strong> <span class="el-body">— Engineering applications require selecting and interpreting the right descriptive statistics to draw meaningful conclusions about processes, materials, and system performance.</span></li>
 </ul>
-<h3>Data Variability and Distribution Shape</h3>
+<h3 id="topic-3">Data Variability and Distribution Shape</h3>
 <div class="summary">Examination of how data varies within engineering contexts, including range, variance, standard deviation, and the visual interpretation of distribution shapes. Understanding variability is critical for assessing process consistency and product quality.</div>
 <ul>
 <li><strong>Understanding Range as a Variability Measure</strong> <span class="el-body">— Range is the simplest measure of variability, calculated as the difference between the maximum and minimum values in a dataset.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>Visual Tools for Interpreting Distribution Shape</strong> <span class="el-body">— Histograms, box plots, and frequency polygons are essential visual tools that allow engineers to quickly assess the shape and spread of a dataset.</span></li>
 <li><strong>Variability and Its Role in Process Consistency and Quality</strong> <span class="el-body">— In engineering and manufacturing, minimizing unwanted variability is fundamental to ensuring product quality, meeting specifications, and maintaining reliable processes.</span></li>
 </ul>
-<h3>Probability Distributions</h3>
+<h3 id="topic-4">Probability Distributions</h3>
 <div class="summary">Introduction to common probability distributions relevant to engineering, such as normal, binomial, and Poisson distributions. Learners will explore how these models represent real-world phenomena and support predictive analysis.</div>
 <ul>
 <li><strong>What Is a Probability Distribution?</strong> <span class="el-body">— A probability distribution describes how the probabilities of outcomes are spread across the possible values of a random variable.</span></li>
@@ -74,7 +74,7 @@ li{margin:5px 0}
 <li><strong>Selecting the Right Distribution for Engineering Problems</strong> <span class="el-body">— Choosing an appropriate probability distribution is a critical step in building accurate predictive models for engineering analysis.</span></li>
 <li><strong>Using Distributions for Predictive Analysis in Engineering</strong> <span class="el-body">— Probability distributions are powerful tools for making data-driven predictions about future outcomes in engineering systems.</span></li>
 </ul>
-<h3>Statistical Inference and Interpretation</h3>
+<h3 id="topic-5">Statistical Inference and Interpretation</h3>
 <div class="summary">Principles for drawing conclusions from data samples and interpreting statistical results with confidence. This topic bridges raw data analysis to actionable engineering insights.</div>
 <ul>
 <li><strong>Fundamentals of Statistical Inference</strong> <span class="el-body">— Statistical inference is the process of drawing conclusions about a population based on data collected from a sample. Engineers rely on inference to make decisions without measuring every component or outcome in a system.</span></li>
@@ -84,7 +84,7 @@ li{margin:5px 0}
 <li><strong>Sampling Strategies and Their Impact on Inference</strong> <span class="el-body">— The validity of statistical inference depends heavily on how samples are collected. Poor sampling strategies introduce bias and can lead engineers to draw incorrect conclusions from data.</span></li>
 <li><strong>Connecting Inference to Engineering Decision-Making</strong> <span class="el-body">— The ultimate goal of statistical inference in engineering is to support better, evidence-based decisions about design, manufacturing, and quality control. Properly interpreted statistical results reduce reliance on intuition and minimize costly errors.</span></li>
 </ul>
-<h3>Applications in Engineering Analysis and Quality Control</h3>
+<h3 id="topic-6">Applications in Engineering Analysis and Quality Control</h3>
 <div class="summary">Practical application of statistical methods to engineering problem-solving, process monitoring, and quality assurance. Learners will connect module concepts to real-world scenarios encountered in technical environments.</div>
 <ul>
 <li><strong>Statistical Process Control (SPC) in Manufacturing</strong> <span class="el-body">— Statistical Process Control uses statistical methods to monitor and control manufacturing processes, ensuring they operate at their full potential.</span></li>
@@ -124,6 +124,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

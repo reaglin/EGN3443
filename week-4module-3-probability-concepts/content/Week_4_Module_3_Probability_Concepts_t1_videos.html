@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Probability</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<h1>Introduction to Probability</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Probability Crash Course: Key Definitions and Mathematical Concepts</a>
+<a href="#sec3">Video 2: Probability Explained | Introduction to Probability</a>
+<a href="#sec4">Video 3: Introduction to Probability: What Is Probability?</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Probability is the mathematical language we use to describe uncertainty. In engineering, almost nothing is known with perfect certainty: material strengths vary, sensors drift, components fail at unpredictable times, and measurements carry error. Probability gives us a disciplined way to quantify that uncertainty on a fixed scale from 0 (impossible) to 1 (certain), so that vague statements like &quot;this part will probably hold&quot; can be replaced by numbers that support design decisions and risk analysis.</p>
+<p>This week you are building the vocabulary that the rest of the course depends on. Terms such as experiment, outcome, sample space, and event have precise technical meanings, and the rules you will learn later (complement, addition, multiplication) are stated in that vocabulary. You will also meet the distinction between theoretical probability, derived from the structure of the experiment, and experimental (empirical) probability, estimated from observed data — a distinction that matters any time you compare a model to real test results.</p>
+<p>As you watch the videos below, keep a running glossary. Note how each presenter defines the sample space and how they list or diagram outcomes, watch for how probabilities are interpreted in words rather than just computed, and pay attention to any discussion of relative frequency and what happens as the number of trials grows. Where the videos overlap, compare notation; where they differ in emphasis, ask yourself which framing is most useful for an engineering problem.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Probability Crash Course: Key Definitions and Mathematical Concepts</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/rROPs4C5jN0?cc_load_policy=1&amp;rel=0" title="Video: Probability Crash Course: Key Definitions and Mathematical Concepts (RiskByNumbers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>RiskByNumbers</strong> · 18:43 · 6,779 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=rROPs4C5jN0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A crash course that works through the core definitions of probability, including sample spaces and the events defined within them, along with the mathematical notation used to express them. At roughly nineteen minutes it is the most detailed of the three and is likely to cover basic rules and worked examples rather than stopping at definitions. Treat it as your main reference pass through the terminology.</p>
+<h3>Why this video</h3>
+<p>Its stated focus on key definitions, sample spaces and events maps directly onto the Key Probability Terminology subtopic, and its length allows the precision that a foundations lecture requires.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Probability Explained | Introduction to Probability</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/PMs76lrqiA4?cc_load_policy=1&amp;rel=0" title="Video: Probability Explained | Introduction to Probability (Data Science Dojo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Data Science Dojo</strong> · 5:12 · 7,944 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=PMs76lrqiA4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief, accessible introduction framed around the idea that we cannot know the outcome of a situation until it happens, which leads naturally into why we quantify likelihood at all. Expect plain-language explanations of what a probability value means and simple everyday examples rather than heavy notation. It is a good first watch or a quick refresher before the longer video.</p>
+<h3>Why this video</h3>
+<p>Data Science Dojo pitches content at practitioners, so the framing around uncertainty and interpretation fits the Uncertainty and Its Role in Probability and Probability in Data Analysis subtopics well.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Introduction to Probability: What Is Probability?</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/T5Osz1hZBfU?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Probability: What Is Probability? (Wolfram U)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Wolfram U</strong> · 5:27 · 453 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=T5Osz1hZBfU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An opening lesson from a Wolfram U course that answers the question &quot;what is probability?&quot; before the course moves on to random variables and common distributions. It should establish the probability scale and the basic concepts in a compact, carefully structured way. Think of it as a clean definitional anchor for the topic.</p>
+<h3>Why this video</h3>
+<p>It comes from a reputable technical publisher and, as the first lesson of a structured course, it gives the concise and accurate definitional statement that the What Is Probability? and The Probability Scale subtopics call for.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the foundation the module outcomes rest on. The emphasis on sample spaces and events supports MO1, since you cannot construct a sample space systematically without first knowing precisely what one is. The definitional and notational work prepares you for the complement, addition and multiplication rules in MO2 and for choosing among them in MO5. The treatment of uncertainty and of what a probability value actually means supports MO4&#39;s requirement to interpret results in plain engineering language, while the contrast between probabilities derived from structure and those estimated from observed outcomes sets up the theoretical versus experimental comparison and the Law of Large Numbers discussion in MO3.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

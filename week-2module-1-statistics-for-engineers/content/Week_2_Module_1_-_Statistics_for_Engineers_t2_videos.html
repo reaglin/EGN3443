@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Descriptive Statistics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+<h1>Descriptive Statistics</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning</a>
+<a href="#sec3">Video 2: AP Stats 1.4 - Measures of Center &amp; Spread</a>
+<a href="#sec4">Video 3: Box and Whisker Plots Explained | Understanding Box and Whisker Plots (Box Plots) | Math with Mr. J</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Descriptive statistics is the toolkit engineers use to turn a pile of measurements into a short, honest summary of what the data look like. Instead of reporting every tensile test result or every cycle time, you report a center (mean, median, mode), a measure of spread (range, variance, standard deviation, interquartile range), and something about shape (symmetric, skewed, heavy-tailed, or multi-peaked). Frequency distributions, histograms, percentiles, quartiles, and box plots are the visual companions to those numbers.</p>
+<p>This matters in EGN3443 because almost everything that follows — probability models, sampling distributions, confidence intervals, and hypothesis tests — starts from a sample summary. If you cannot describe a dataset accurately, you cannot choose a reasonable model for it or defend a decision about whether a process meets tolerance. Descriptive statistics is also how engineering variability becomes visible: two production lines can share the same average and still behave very differently.</p>
+<p>As you watch the videos below, pay attention to three things. First, how each statistic is actually computed, step by step, so you can reproduce it by hand and in software. Second, when the median and IQR are preferable to the mean and standard deviation, especially with skewed data or outliers. Third, how a five-number summary becomes a picture, and what that picture tells you about center, spread, and shape at a glance.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/t4LOv9h-FJM?cc_load_policy=1&amp;rel=0" title="Video: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 18:54 · 240,436 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=t4LOv9h-FJM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video walks through the core summary statistics — mean, median, and mode — and then extends into percentiles, which are the basis for quartiles and the five-number summary. Based on its description, it is framed for learners heading into data science and machine learning, so expect worked numerical examples and discussion of when each measure of center is the sensible choice. It should give you a practical feel for how percentile rank is defined and read off a dataset.</p>
+<h3>Why this video</h3>
+<p>codebasics is a well-known applied statistics and data channel, and this single video spans two of our subtopics at once: measures of central tendency and percentiles/quartiles. The longer runtime allows the examples to be worked out rather than just stated.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: AP Stats 1.4 - Measures of Center &amp; Spread</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qHaOsfXnsec?cc_load_policy=1&amp;rel=0" title="Video: AP Stats 1.4 - Measures of Center &amp; Spread (Skew The Script)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Skew The Script</strong> · 14:11 · 20,700 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=qHaOsfXnsec" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An AP Statistics lesson that pairs measures of center with measures of spread in one treatment, using a salary-offer scenario as the motivating context. Expect coverage of mean versus median, how outliers and skew pull them apart, and spread measures such as range, interquartile range, and standard deviation. The channel also links a handout and lesson materials for practice.</p>
+<h3>Why this video</h3>
+<p>Skew The Script is known for accurate, curriculum-aligned statistics instruction tied to realistic contexts, which models exactly the reasoning we want when summarizing engineering data. It directly supports the central tendency, spread, and shape subtopics by showing how skew changes which summary you should trust.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Box and Whisker Plots Explained | Understanding Box and Whisker Plots (Box Plots) | Math with Mr. J</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nV8jR8M8C74?cc_load_policy=1&amp;rel=0" title="Video: Box and Whisker Plots Explained | Understanding Box and Whisker Plots (Box Plots) | Math with Mr. J (Math with Mr. J)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Math with Mr. J</strong> · 8:25 · 1,145,507 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=nV8jR8M8C74" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused explanation of how to read and interpret box and whisker plots, built on the five-number summary: minimum, first quartile, median, third quartile, and maximum. The video emphasizes interpretation — what the box, the whiskers, and their relative lengths tell you about where data are concentrated and how spread out they are.</p>
+<h3>Why this video</h3>
+<p>Math with Mr. J gives a clear, slow-paced visual treatment that connects quartiles and percentiles to a graphical summary, which is the bridge between numerical descriptive statistics and data visualization. It is the most direct support for reading distribution shape and variability from a plot.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these three videos cover the computational and interpretive skills in MO1: the codebasics and Skew The Script videos handle central tendency, spread, and the effect of skew on which measure to report, while all three reinforce percentiles and quartiles. The box plot video supports MO4 by showing how a five-number summary is turned into a visual representation that communicates variability and distribution shape. The emphasis across the set on outliers, skew, and the gap between mean and median also prepares you for MO5, where you will need to explain what observed variability implies for process consistency and product quality, and it lays the descriptive groundwork that MO2 and MO3 build on later in the module.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

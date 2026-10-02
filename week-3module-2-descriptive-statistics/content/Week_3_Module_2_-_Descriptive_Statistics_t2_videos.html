@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measures of Central Tendency</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
+<h1>Measures of Central Tendency</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning</a>
+<a href="#sec3">Video 2: Measure of Central Tendency - What? Why? How? || Mean || Median || Mode || Statistics for Beginners</a>
+<a href="#sec4">Video 3: Choosing the right average - Is it Mode, Median or Mean? | GCSE Maths</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>When engineers collect data — test results, failure times, sensor readings, survey responses — the first question is usually &quot;what is a typical value?&quot; Measures of central tendency answer that question. The mean is the arithmetic average, the median is the middle value once the data are ordered, and the mode is the value that occurs most often. Each summarizes the &quot;center&quot; of a dataset, but each does so differently, and they can disagree sharply.</p>
+<p>This topic matters because almost everything that follows in the course builds on it. Variance and standard deviation are measured around the mean; the shape of a distribution is often described by how the mean, median, and mode relate to one another; and later work in probability and inference depends on knowing what a sample average represents. Just as importantly, choosing the wrong measure can distort a conclusion — a single extreme value can pull the mean far from anything typical, while the median barely moves.</p>
+<p>As you watch, focus on three things: the exact computational procedure for each measure (especially the median with an even number of observations), how outliers and skew affect each measure differently, and the decision rules for choosing one measure over another based on data type (nominal, ordinal, interval/ratio) and distribution shape. Try pausing each video to compute the answer yourself before the presenter reveals it.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/t4LOv9h-FJM?cc_load_policy=1&amp;rel=0" title="Video: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 18:54 · 240,436 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=t4LOv9h-FJM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A thorough walkthrough of mean, median, mode, and percentiles aimed at learners preparing for data science and machine learning work. The longer runtime allows the presenter to work through calculations step by step and to show how extreme values distort the mean while leaving the median relatively stable. The inclusion of percentiles connects central tendency to the broader idea of describing position within a dataset.</p>
+<h3>Why this video</h3>
+<p>codebasics is a well-established technical teaching channel, and the applied data-science framing matches the engineering context of this course; its depth makes it the best single source for the mean, median, and mode subtopics plus the comparison between them.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Measure of Central Tendency - What? Why? How? || Mean || Median || Mode || Statistics for Beginners</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/EN5SQY92ebc?cc_load_policy=1&amp;rel=0" title="Video: Measure of Central Tendency - What? Why? How? || Mean || Median || Mode || Statistics for Beginners (Learning Champion)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Learning Champion</strong> · 7:08 · 45,885 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=EN5SQY92ebc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact animated introduction organized around what measures of central tendency are, why they are used, and how they are computed. In about seven minutes it defines the mean, median, and mode and demonstrates the arithmetic for each with simple examples.</p>
+<h3>Why this video</h3>
+<p>Its What/Why/How structure gives a clean conceptual framing before the mechanics, making it a good first watch or a quick review of the three core definitions.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Choosing the right average - Is it Mode, Median or Mean? | GCSE Maths</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uvbfQ0HripM?cc_load_policy=1&amp;rel=0" title="Video: Choosing the right average - Is it Mode, Median or Mean? | GCSE Maths (Beat the Calculator)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Beat the Calculator</strong> · 4:45 · 4,470 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=uvbfQ0HripM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused video on the decision itself: given a dataset, should you report the mode, the median, or the mean? It illustrates how using the wrong average can lead to misleading conclusions about a set of data.</p>
+<h3>Why this video</h3>
+<p>This maps directly onto the &quot;Choosing the Appropriate Measure&quot; subtopic, which the other two videos treat more briefly, and it reinforces why the choice has real consequences for interpretation.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos cover the computational skills in MO1 — each presents the procedure for calculating the mean, median, and mode from raw data. The codebasics video&#39;s treatment of outliers and percentiles supports MO3 by showing how extreme values and asymmetry shift the mean relative to the median, a key diagnostic for recognizing skew. The &quot;choosing the right average&quot; video speaks directly to MO4, and the emphasis across all three on misleading versus meaningful summaries builds toward MO5. Note that measures of variability (MO2) are addressed elsewhere in this module; these videos establish the center around which that spread will be measured.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

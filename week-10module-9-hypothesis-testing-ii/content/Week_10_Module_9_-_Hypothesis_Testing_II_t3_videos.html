@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selecting the Appropriate Statistical Test</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+<h1>Selecting the Appropriate Statistical Test</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Choosing the right inferential statistics 1: Tests of Comparisons and Regressions</a>
+<a href="#sec3">Video 2: Choosing the appropriate Statistical test part 2: Comparing between the Groups</a>
+<a href="#sec4">Video 3: Hypothesis test for Equality of Two Variances | F-test</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>By this point in the course you have seen several hypothesis tests: the two-sample z-test, the two-sample t-test (pooled and unpooled), and the paired-sample t-test. The harder skill is not computing a test statistic but deciding which test belongs with which problem. This topic gives you a structured decision-making framework: start with the type of data you collected (continuous measurement, count, or category), then ask about sample size and distributional assumptions, whether your samples are independent or paired, how many groups you are comparing, and finally what the research or engineering question actually asks.</p>
+<p>This matters because an incorrectly chosen test produces a p-value that looks perfectly respectable but answers the wrong question. In engineering practice, where you may be comparing two production lines, two measurement instruments, or before-and-after readings on the same specimens, the difference between an independent two-sample test and a paired test can flip your conclusion. The framework also tells you when to step outside the parametric family entirely and reach for a non-parametric alternative such as the Mann-Whitney or Wilcoxon signed-rank test.</p>
+<p>As you watch the videos below, keep a running checklist. For each test mentioned, note: what data type it requires, how many groups it handles, whether it assumes independence or pairing, and which distributional assumptions must hold. Pay particular attention to the branch points in each decision tree, since those branch points are exactly the questions you should ask yourself on an exam problem or in the lab. The third video addresses a specific assumption check that feeds directly back into the two-sample t-test decision.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Choosing the right inferential statistics 1: Tests of Comparisons and Regressions</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WSAqbNFCw58?cc_load_policy=1&amp;rel=0" title="Video: Choosing the right inferential statistics 1: Tests of Comparisons and Regressions (Prof Oluwadiya&#39;s Educational Videos)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Prof Oluwadiya&#39;s Educational Videos</strong> · 19:35 · 180 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=WSAqbNFCw58" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video walks through how to choose an inferential statistical method based on the structure of your data and your research question. Based on its title and description, it covers tests of comparison as well as regression methods, organizing them into a selection framework rather than treating each test in isolation. Expect branching questions about data type, number of groups, and the nature of the comparison being made.</p>
+<h3>Why this video</h3>
+<p>At roughly twenty minutes it is the most complete treatment here of the overall decision-making framework, and it connects comparison tests and regression so you can see where each family of methods fits. It maps directly onto the framework overview, data type, number-of-groups, and research-question subtopics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Choosing the appropriate Statistical test part 2: Comparing between the Groups</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Cke-LtdFVk4?cc_load_policy=1&amp;rel=0" title="Video: Choosing the appropriate Statistical test part 2: Comparing between the Groups (My Easy Statistics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>My Easy Statistics</strong> · 8:48 · 447 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=Cke-LtdFVk4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part two of a series on selecting the appropriate statistical test, this video focuses specifically on comparisons between groups. It is likely to distinguish tests by the number of groups being compared and by whether those groups are independent or related, which is the core branch point in the framework. The short runtime suggests a focused, example-driven treatment.</p>
+<h3>Why this video</h3>
+<p>It zeroes in on the independence-versus-dependence and number-of-groups decisions that separate the two-sample t-test from the paired t-test, which is precisely the distinction this module emphasizes. Its brevity makes it a good review or checklist companion to the longer framework video.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Hypothesis test for Equality of Two Variances | F-test</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/EVCfuk9PdMU?cc_load_policy=1&amp;rel=0" title="Video: Hypothesis test for Equality of Two Variances | F-test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 3:00 · 92,999 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=EVCfuk9PdMU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused walkthrough of the F-test for comparing two population variances. The chaptered description indicates it covers stating the hypotheses, forming the test statistic as a ratio of sample variances, finding the critical value and rejection region, and reaching a conclusion.</p>
+<h3>Why this video</h3>
+<p>Equality of variances is one of the assumptions you must assess before choosing between the pooled and unpooled two-sample t-test, so this video supports the distributional-assumptions step of the framework directly. Joshua Emmanuel&#39;s videos are widely used in engineering statistics courses and are concise and procedurally clear.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the selection skill at the center of MO1: the first two provide explicit decision frameworks keyed to data type, number of groups, and whether samples are independent or paired, which is exactly how you should approach choosing among the z-test, two-sample t-test, and paired t-test. The F-test video supports MO3 by demonstrating a formal assumption check on equal variances, and its step-by-step computation reinforces the test-statistic and critical-value mechanics of MO2 and the interpretation habits behind MO4. The comparison frameworks in the first two videos typically include non-parametric branches alongside parametric ones, giving you a map for MO5 so that when normality or other assumptions fail you know which alternative test to consider.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

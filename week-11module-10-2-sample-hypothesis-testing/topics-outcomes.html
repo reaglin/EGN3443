@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Foundations of Two-Sample Hypothesis Testing</h3>
+<h3 id="topic-1">Foundations of Two-Sample Hypothesis Testing</h3>
 <div class="summary">Introduces the core concepts and purpose of two-sample hypothesis testing, explaining when and why comparing two groups is necessary. Covers the logical framework of null and alternative hypotheses in a two-sample context.</div>
 <ul>
 <li><strong>Why Two-Sample Testing?</strong> <span class="el-body">— Two-sample hypothesis testing is used when a researcher needs to compare a characteristic — such as a mean or proportion — across two distinct groups rather than evaluating a single group against a fixed value.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>Independent vs. Paired Groups</strong> <span class="el-body">— A foundational distinction in two-sample testing is whether the two groups are independent of each other or whether observations in one group are naturally paired with observations in the other.</span></li>
 <li><strong>Parameters Being Compared</strong> <span class="el-body">— Two-sample tests can be designed to compare different population parameters, most commonly means or proportions, depending on the type of data and the research question.</span></li>
 </ul>
-<h3>Independent vs. Paired Samples</h3>
+<h3 id="topic-2">Independent vs. Paired Samples</h3>
 <div class="summary">Distinguishes between independent and paired (dependent) sample designs, outlining the characteristics of each group type. Learners explore how the relationship between samples determines the appropriate testing approach.</div>
 <ul>
 <li><strong>Defining Independent Samples</strong> <span class="el-body">— Independent samples consist of two groups where the observations in one group have no relationship or connection to the observations in the other group.</span></li>
@@ -52,7 +52,7 @@ li{margin:5px 0}
 <li><strong>How the Relationship Between Samples Determines the Testing Approach</strong> <span class="el-body">— The nature of the relationship between the two samples directly governs which hypothesis test is appropriate to apply.</span></li>
 <li><strong>Real-World Design Examples</strong> <span class="el-body">— Applying the distinction between independent and paired samples to real-world scenarios helps reinforce when each design is appropriate.</span></li>
 </ul>
-<h3>Assumptions and Conditions for Two-Sample Tests</h3>
+<h3 id="topic-3">Assumptions and Conditions for Two-Sample Tests</h3>
 <div class="summary">Examines the statistical assumptions underlying two-sample tests, including normality, equal variances, and random sampling. Covers how to verify these conditions before selecting and applying a test.</div>
 <ul>
 <li><strong>Random Sampling Requirement</strong> <span class="el-body">— Two-sample hypothesis tests require that data in each group be collected through a random sampling process to ensure valid inference.</span></li>
@@ -62,7 +62,7 @@ li{margin:5px 0}
 <li><strong>Independence of Observations Within Groups</strong> <span class="el-body">— Within each sample, individual observations must be independent of one another — one data point should not influence another within the same group.</span></li>
 <li><strong>Verifying Conditions Before Selecting a Test</strong> <span class="el-body">— Before applying any two-sample test, analysts must systematically verify which assumptions are met to select the most appropriate test statistic.</span></li>
 </ul>
-<h3>Comparing Two Means</h3>
+<h3 id="topic-4">Comparing Two Means</h3>
 <div class="summary">Focuses on hypothesis tests for the difference between two population means using t-tests for both independent and paired samples. Learners practice selecting the correct test statistic and interpreting results.</div>
 <ul>
 <li><strong>Introduction to Two-Sample Mean Comparisons</strong> <span class="el-body">— When researchers want to determine whether two population means differ, they use a two-sample hypothesis test for means. The choice of test depends on whether the samples are independent or paired.</span></li>
@@ -72,7 +72,7 @@ li{margin:5px 0}
 <li><strong>Selecting the Correct Test: Independent vs. Paired</strong> <span class="el-body">— Choosing between the independent and paired t-test is a foundational decision that shapes the entire analysis. Selecting the wrong test can invalidate conclusions.</span></li>
 <li><strong>Interpreting Results and Making Decisions</strong> <span class="el-body">— After computing the test statistic, learners must compare it to the critical value or evaluate the p-value to reach a conclusion about the null hypothesis. Interpretation must always be placed in the real-world context of the problem.</span></li>
 </ul>
-<h3>Comparing Two Proportions</h3>
+<h3 id="topic-5">Comparing Two Proportions</h3>
 <div class="summary">Addresses hypothesis testing for the difference between two population proportions using the z-test framework. Covers the setup of hypotheses, calculation of the test statistic, and interpretation of p-values.</div>
 <ul>
 <li><strong>Setting Up Hypotheses for Two Proportions</strong> <span class="el-body">— Hypothesis testing for two proportions begins by defining the null and alternative hypotheses in terms of the difference between two population proportions, p₁ and p₂.</span></li>
@@ -82,7 +82,7 @@ li{margin:5px 0}
 <li><strong>Determining and Interpreting the P-Value</strong> <span class="el-body">— The p-value for a two-proportion z-test represents the probability of observing a difference as extreme as the one calculated, assuming the null hypothesis is true.</span></li>
 <li><strong>Drawing Conclusions and Contextual Interpretation</strong> <span class="el-body">— After computing the p-value, the final step is to make a statistical decision and translate it into a meaningful conclusion within the context of the original problem.</span></li>
 </ul>
-<h3>Interpreting Results and Making Data-Driven Decisions</h3>
+<h3 id="topic-6">Interpreting Results and Making Data-Driven Decisions</h3>
 <div class="summary">Guides learners in drawing meaningful conclusions from two-sample test outcomes within real-world contexts. Emphasizes communicating findings clearly and using statistical evidence to support decision making.</div>
 <ul>
 <li><strong>Connecting Statistical Results to Real-World Context</strong> <span class="el-body">— A statistically significant result only becomes meaningful when interpreted within the context of the original research question or business problem.</span></li>
@@ -123,6 +123,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

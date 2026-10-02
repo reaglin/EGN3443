@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Refinement and Decision-Making</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+<h1>Model Refinement and Decision-Making</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Statistics 101: Variable Transformations, Improving a Model</a>
+<a href="#sec3">Video 2: Statistics 101: Multiple Regression, AIC, AICc, and BIC Basics</a>
+<a href="#sec4">Video 3: Statistical Learning: 6.1 Introduction and Best Subset Selection</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Validation tells you whether a regression model is trustworthy; refinement is what you do about it. This topic closes the loop: once residual plots, diagnostic statistics, and cross-validation results have revealed a problem — curvature in the residuals, non-constant variance, a redundant or collinear predictor, an influential point, or poor out-of-sample performance — you have to choose a response. Typical responses include dropping or adding variables, transforming the response or a predictor, changing the functional form, or accepting the model as it stands because it is good enough for its intended use.</p>
+<p>In this course, refinement matters because engineering models are built to support decisions, not to win a contest for the highest R-squared. A slightly less accurate model that uses measurable, inexpensive inputs and is easy to explain may be the better engineering choice. You will also see that refinement is iterative: each change produces a new model that must be re-validated, and you need a stopping rule so the process converges rather than drifting into overfitting the data you happen to have.</p>
+<p>While watching the videos, pay attention to three things: what evidence triggers a particular refinement, how competing models are compared on a common footing (information criteria, adjusted fit measures, or out-of-sample error), and what the trade-off is between fit and complexity. Keep asking: would this change actually make the model more useful to the engineer who has to apply it?</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Statistics 101: Variable Transformations, Improving a Model</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/fyRubPKgVoY?cc_load_policy=1&amp;rel=0" title="Video: Statistics 101: Variable Transformations, Improving a Model (Brandon Foltz)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Brandon Foltz</strong> · 12:49 · 9,987 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=fyRubPKgVoY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Brandon Foltz works through a regression model before and after applying variable transformations, using the well-known Boston housing data as the running example. Expect to see how a transformation changes the fitted relationship and the diagnostic picture, and how you judge whether the transformed model is actually an improvement.</p>
+<h3>Why this video</h3>
+<p>This is the most direct coverage of the &quot;applying transformations and functional form adjustments&quot; subtopic, and the before-and-after structure models exactly the diagnose-change-recheck loop that iterative refinement requires. Foltz&#39;s Statistics 101 series is widely used for its slow, worked-example pacing.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Statistics 101: Multiple Regression, AIC, AICc, and BIC Basics</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/-BR4WElPIXg?cc_load_policy=1&amp;rel=0" title="Video: Statistics 101: Multiple Regression, AIC, AICc, and BIC Basics (Brandon Foltz)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Brandon Foltz</strong> · 17:25 · 59,524 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=-BR4WElPIXg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video introduces AIC, AICc, and BIC as scores for comparing multiple regression models, explaining what the acronyms stand for and how the criteria penalize added complexity. It focuses on how to read and compare these numbers across candidate models rather than on heavy derivation.</p>
+<h3>Why this video</h3>
+<p>Comparing competing models and balancing fit against simplicity is central to this topic, and information criteria give you a defensible, quantitative basis for that comparison instead of eyeballing R-squared.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Statistical Learning: 6.1 Introduction and Best Subset Selection</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nsv5rEV3mVI?cc_load_policy=1&amp;rel=0" title="Video: Statistical Learning: 6.1 Introduction and Best Subset Selection (Stanford Online)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Stanford Online</strong> · 13:45 · 20,540 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=nsv5rEV3mVI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>From Stanford Online&#39;s Statistical Learning course with Trevor Hastie, this opening lecture of the model-selection unit motivates why we do not simply keep every available predictor and then presents best subset selection as a systematic search over candidate variable sets. It frames variable selection in terms of prediction accuracy and model interpretability.</p>
+<h3>Why this video</h3>
+<p>It supplies the conceptual backbone for variable selection and model simplification from the authors of the standard reference text, which complements the more hands-on treatment in the other two videos.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos extend the diagnostic work of MO1, MO2, and MO4 into action: once residual patterns or collinearity have been identified, the Foltz transformation video shows how a functional-form change is applied and re-evaluated, and the Hastie lecture shows how redundant predictors are systematically removed — together supplying the specific refinement strategies called for in MO5. The AIC/AICc/BIC video gives you a principled way to compare the resulting candidate models and to decide when added complexity is not paying for itself, which reinforces the out-of-sample thinking behind MO3 and supports judgments about when a model is sufficient for its intended engineering application.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

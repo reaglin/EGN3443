@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Specification and Structure</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+<h1>Model Specification and Structure</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Multiple Regression Predictions, interpreting and understanding</a>
+<a href="#sec3">Video 2: Statistics 101: Multiple Regression, Best Subsets</a>
+<a href="#sec4">Video 3: Fitting &amp; interpreting regression models: Linear regression with categorical predictors</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Multiple regression extends the simple linear model y = b0 + b1x + e by allowing several predictors to act on the response at once. Instead of asking how one variable relates to an outcome, we ask how a set of variables jointly explains it, and how much each one contributes once the others are accounted for. Model specification is the step where you decide which predictors belong in the equation, what form they take (continuous, categorical/indicator, possibly transformed), and what assumptions you are making about the error term.</p>
+<p>This matters in engineering practice because real systems rarely depend on a single input. Yield depends on temperature and pressure and feed rate; travel time depends on distance, time of day, and road type. A badly specified model, one missing an important variable or padded with irrelevant ones, produces coefficients that are misleading even when the software reports impressive-looking output. Getting the specification right is what makes the later inference (t-tests on coefficients, the overall F-test, R-squared versus adjusted R-squared) meaningful.</p>
+<p>As you watch, pay attention to three things. First, the language used to interpret a coefficient: a partial slope is the expected change in the response per unit change in that predictor while the other predictors are held fixed. Second, how predictors get chosen and compared, and why adding variables always raises R-squared but not necessarily adjusted R-squared. Third, how non-numeric predictors are brought into a model that is, mathematically, still linear in its coefficients.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Multiple Regression Predictions, interpreting and understanding</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2ZuxewG2Y9o?cc_load_policy=1&amp;rel=0" title="Video: Multiple Regression Predictions, interpreting and understanding (Dr Nic&#39;s Maths and Stats)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Dr Nic&#39;s Maths and Stats</strong> · 9:34 · 6,320 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=2ZuxewG2Y9o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Dr Nic works through prediction with a simple regression model and then with a multiple regression model, comparing the two side by side. Based on the title and description, expect an emphasis on reading the fitted equation, substituting predictor values, and interpreting what the output actually means rather than just computing it.</p>
+<h3>Why this video</h3>
+<p>It directly addresses the move from simple to multiple regression and the interpretation of the regression equation, and Dr Nic&#39;s channel is known for clear, careful statistical explanation aimed at students.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Statistics 101: Multiple Regression, Best Subsets</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/5jHPTC6_21w?cc_load_policy=1&amp;rel=0" title="Video: Statistics 101: Multiple Regression, Best Subsets (Brandon Foltz)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Brandon Foltz</strong> · 11:59 · 16,183 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=5jHPTC6_21w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This Statistics 101 video introduces best subsets regression, a systematic procedure for comparing candidate models built from different combinations of available predictors. It is likely to cover how competing subsets are evaluated using fit criteria and why a model with more predictors is not automatically a better model.</p>
+<h3>Why this video</h3>
+<p>Brandon Foltz&#39;s series is a widely used, slow-paced, example-driven introduction, and this episode speaks directly to the subtopic of selecting predictor variables and justifying what stays in the model.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Fitting &amp; interpreting regression models: Linear regression with categorical predictors</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/_ti7Lju1odk?cc_load_policy=1&amp;rel=0" title="Video: Fitting &amp; interpreting regression models: Linear regression with categorical predictors (StataCorp LLC)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>StataCorp LLC</strong> · 9:56 · 17,821 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=_ti7Lju1odk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>StataCorp demonstrates fitting a linear regression that includes a categorical predictor using factor-variable notation, and then interpreting the resulting coefficients. Expect discussion of how category levels are encoded relative to a baseline group and what each estimated coefficient means in that setup.</p>
+<h3>Why this video</h3>
+<p>It extends model specification beyond purely numeric predictors, which is essential for correct interpretation of coefficients in context, and it comes from the software developer itself, so the mechanics shown are authoritative.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the specification skills the module outcomes require. The Dr Nic video supports MO1 and MO2 by showing how a multiple regression equation is assembled and how its coefficients are read as predictor-specific effects with the other variables held constant. The best subsets video supports MO3 and MO5 by framing model building as a comparison among candidate predictor sets judged on fit measures, which is exactly the reasoning behind preferring adjusted R-squared over raw R-squared and defending the inclusion or removal of a variable. The Stata demonstration reinforces MO1 and MO2 for categorical predictors, and the output shown in these examples is the same output you will use in lecture to carry out the overall F-test for MO4.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

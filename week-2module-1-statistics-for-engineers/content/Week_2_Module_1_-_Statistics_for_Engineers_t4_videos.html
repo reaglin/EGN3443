@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probability Distributions</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
+<h1>Probability Distributions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF)</a>
+<a href="#sec3">Video 2: The Binomial Distribution and the Multinomial Distribution</a>
+<a href="#sec4">Video 3: The Normal Distribution: The Limit of Binomial Distribution for Large &quot;n&quot;</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A probability distribution is a mathematical description of how likely the different possible values of a random variable are. In engineering, distributions let us move from describing data we already have to making statements about data we have not yet collected: the chance a shaft diameter falls outside tolerance, the number of defective units in a lot of 500, or the number of service calls arriving at a help desk in an hour. The three workhorse models in this course are the normal distribution for continuous measurements that cluster around a mean, the binomial distribution for counts of successes in a fixed number of independent trials, and the Poisson distribution for counts of events occurring over an interval of time, length, or area.</p>
+<p>This week builds directly on the descriptive statistics you have been computing. A histogram and a mean and standard deviation summarize a sample; a distribution is the idealized model you fit to that sample so you can compute probabilities, set specification limits, and make predictions. Choosing the right model matters: applying a normal distribution to pass/fail counts, or a binomial to a rate of rare events with no fixed number of trials, will give you answers that look reasonable but are wrong.</p>
+<p>As you watch, pay attention to three things. First, the distinction between discrete and continuous variables, and the corresponding tools (probability mass function versus probability density function, and the cumulative distribution function that works for both). Second, the assumptions behind each distribution — fixed number of trials, constant probability, independence — because those assumptions are exactly what you check when selecting a model for an engineering scenario. Third, the parameters of each distribution and how they connect back to the mean and standard deviation you already know how to calculate.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yRbfLlTmPE8?cc_load_policy=1&amp;rel=0" title="Video: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF) (RiskByNumbers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>RiskByNumbers</strong> · 13:41 · 73,073 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yRbfLlTmPE8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A visual introduction to what a probability distribution actually is, built around the three core functions: the probability mass function for discrete random variables, the probability density function for continuous ones, and the cumulative distribution function. Expect graphical explanations of why probability for a continuous variable is an area under a curve rather than the height of the curve, and how the CDF accumulates probability as you move along the axis.</p>
+<h3>Why this video</h3>
+<p>This is the right starting point because it establishes the vocabulary and the discrete-versus-continuous distinction that every later distribution depends on, and it does so visually rather than through heavy algebra.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: The Binomial Distribution and the Multinomial Distribution</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UXB9eeMZfwo?cc_load_policy=1&amp;rel=0" title="Video: The Binomial Distribution and the Multinomial Distribution (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 16:32 · 66,875 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=UXB9eeMZfwo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Steve Brunton introduces the binomial distribution — the model for the number of successes in a fixed number of independent trials, each with the same probability of success — and then extends the idea to the multinomial distribution for outcomes with more than two categories. The lecture is likely to cover the combinatorial reasoning behind the binomial coefficient and the conditions under which the model applies.</p>
+<h3>Why this video</h3>
+<p>Brunton is a mechanical engineering professor known for clear, carefully derived lectures, and his framing of the binomial as a foundational distribution sets up the connection to the normal distribution in the next video.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: The Normal Distribution: The Limit of Binomial Distribution for Large &quot;n&quot;</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8n1n0OM4gLk?cc_load_policy=1&amp;rel=0" title="Video: The Normal Distribution: The Limit of Binomial Distribution for Large &quot;n&quot; (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 17:15 · 52,166 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=8n1n0OM4gLk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This lecture develops the normal, or Gaussian, distribution as the limiting case of a binomial distribution when the number of trials becomes large. Along the way it should clarify where the familiar bell shape comes from, what the mean and standard deviation parameters control, and why the normal distribution appears so often in measurement data.</p>
+<h3>Why this video</h3>
+<p>Deriving the normal from the binomial rather than simply asserting the bell curve gives you a real reason why normality shows up in engineering data, which is exactly the judgment you need when deciding whether a normal model is appropriate.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These three videos primarily support MO2: before you can select the appropriate distribution for an engineering scenario, you need a working understanding of what a distribution is (video one) and of the specific assumptions, parameters, and use cases of the binomial and normal models (videos two and three). The PMF/PDF/CDF material also reinforces MO1 and MO4, since the shape, center, and spread you read off a histogram are the sample-level counterparts of the density curves discussed here, and recognizing a skewed or bell-shaped histogram is the first step in fitting a model. Understanding the normal distribution and its standard deviation parameter further lays the groundwork for MO3, because confidence intervals and hypothesis tests are built on distributional assumptions, and for MO5, since explaining process variability and tolerance limits in manufacturing depends on modeling that variability with an appropriate distribution. Note that the Poisson distribution and the predictive-analysis subtopics are addressed in the course readings and lecture materials rather than in these videos.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

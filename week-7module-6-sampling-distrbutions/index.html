@@ -1,399 +1,161 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 7 / Module 6 – Sampling Distributions | EGN3443</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
-      min-height: 100vh;
-    }
-
-    /* ── Header banner ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
-      color: #fff;
-      padding: 2.5rem 2rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      opacity: 0.8;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-
-    header p {
-      font-size: 0.97rem;
-      line-height: 1.7;
-      max-width: 780px;
-      opacity: 0.92;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    /* ── Section headings ── */
-    .section-heading {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #5a7fa8;
-      border-bottom: 2px solid #d0dcea;
-      padding-bottom: 0.45rem;
-      margin: 2.2rem 0 1.1rem;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.15rem;
-    }
-
-    /* ── Individual card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dce6f0;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(30, 70, 120, 0.11);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card top row: badges ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.67rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.22em 0.65em;
-      border-radius: 4px;
-    }
-
-    /* type badge colours */
-    .badge-type-module    { background: #e8f0fb; color: #2055a4; }
-    .badge-type-text      { background: #e6f4ea; color: #1e7e34; }
-    .badge-type-topic     { background: #fef6e4; color: #8a5e00; }
-    .badge-type-quiz      { background: #f3e8fb; color: #6b2fa0; }
-    .badge-type-assignment{ background: #fde8e8; color: #b02020; }
-    .badge-type-default   { background: #eef0f3; color: #4a5568; }
-
-    .badge-filetype {
-      background: #f0f2f5;
-      color: #555;
-      font-weight: 600;
-    }
-
-    /* ── Card title row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .card-name {
-      font-size: 0.97rem;
-      font-weight: 700;
-      line-height: 1.35;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-    }
-
-    .card-name a {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 2px solid #7eabd4;
-    }
-
-    .card-name a:hover {
-      color: #2e6da4;
-      border-bottom-color: #2e6da4;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      white-space: nowrap;
-      color: #5a7fa8;
-      text-decoration: none;
-      border: 1px solid #b0c8e0;
-      border-radius: 4px;
-      padding: 0.18em 0.55em;
-      transition: background 0.15s, color 0.15s;
-      flex-shrink: 0;
-    }
-
-    .source-link:hover {
-      background: #2e6da4;
-      color: #fff;
-      border-color: #2e6da4;
-    }
-
-    /* ── Description ── */
-    .card-desc {
-      font-size: 0.85rem;
-      line-height: 1.65;
-      color: #4a5568;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a9bae;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce6f0;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 1.8rem 1rem 1.5rem; }
-    }
-  </style>
+  <title>Week 7/Module 6 - Sampling Distrbutions — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
-      <h1>Week 7 / Module 6 — Sampling Distributions</h1>
-      <p>
-        This module introduces the theory and practice of sampling distributions, a foundational
-        concept in statistical inference. Learners will explore the distinction between population
-        parameters and sample statistics, investigate the Central Limit Theorem, examine how sample
-        size affects variability, and apply sampling distributions to make probabilistic inferences
-        about populations. Use the resources below to guide your study.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 7/Module 6 - Sampling Distrbutions</span>
+  </nav>
+      <div class="hero-label">Module 7</div>
+      <h1>Week 7/Module 6 - Sampling Distrbutions</h1>
+      <p class="hero-desc">In this module, learners explore the concept of sampling distributions and how they form the foundation for statistical inference. Through guided examples and practice, participants examine the behavior of sample statistics, the Central Limit Theorem, and how sample size influences variability. By the end of the module, learners will be equipped to interpret sampling distributions and apply this understanding to real-world data analysis scenarios.</p>
     </div>
   </header>
-
-  <main>
-
-    <!-- ── Module Overview ── -->
-    <p class="section-heading">Module Overview</p>
-    <div class="card-grid">
-
-      <!-- Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-module">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-desc">An ordered list of subtopics covered in Module 6, including sampling distributions, population parameters vs. sample statistics, the Central Limit Theorem, and related concepts, used to give learners and instructors an at-a-glance overview of the module's curriculum.</p>
-      </div>
-
-      <!-- EGN3443 Module 6 Landing Page -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/EGN3443_Module_6_Sampling_Distributions_and_Infe.html">EGN3443 Module 6 - Sampling Distributions and Inference</a>
-          </span>
-        </div>
-        <p class="card-desc">A landing page for Module 6 that links learners to the core resources for the module, including the PowerPoint slide deck, lecture video, and a Google Colab code demonstration of the Central Limit Theorem.</p>
-      </div>
-
-      <!-- Sampling Distributions reading -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-text">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Sampling_Distributions.html">Sampling Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">A reading page that explains key Module 6 concepts in depth, covering the Central Limit Theorem and its implications, the sampling distribution of the mean, and related inference topics, serving as a primary reference text to support the lecture and other materials.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
-
-    <!-- ── Topic Readings ── -->
-    <p class="section-heading">Topic Detail Readings</p>
-    <div class="card-grid">
-
-      <!-- T1 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t1.html">Introduction to Sampling Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading introduces the concept of sampling distributions, explaining how they serve as the theoretical link between sample observations and conclusions about a population, laying the groundwork for tools like confidence intervals and hypothesis tests.</p>
-      </div>
-
-      <!-- T2 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t2.html">Population Parameters vs. Sample Statistics</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading clarifies the distinction between population parameters (fixed, usually unknown values describing an entire group) and sample statistics (values calculated from a subset), explaining how statistics are used to estimate parameters and why that distinction matters in engineering and research contexts.</p>
-      </div>
-
-      <!-- T3 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t3.html">The Central Limit Theorem</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading explains the Central Limit Theorem, describing how the distribution of sample means approaches normality as sample size increases regardless of the population's original shape, and why this result makes probability calculations about sample means tractable in practice.</p>
-      </div>
-
-      <!-- T4 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t4.html">The Effect of Sample Size on Variability</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading examines how increasing sample size reduces the variability of sample statistics, covering the standard error concept and explaining why larger samples produce more precise and reliable estimates of population parameters.</p>
-      </div>
-
-      <!-- T5 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-topic">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t5.html">Interpreting and Applying Sampling Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading covers how to correctly interpret and apply sampling distributions in practice, distinguishing between distributions of individual values and distributions of statistics, and guiding learners through using sampling distributions to answer probability questions and make inferences about populations.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
-
-    <!-- ── Assessment ── -->
-    <p class="section-heading">Assessment &amp; Assignments</p>
-    <div class="card-grid">
-
-      <!-- Quiz -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-quiz">Quiz</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            
-          </span>
-          
-        </div>
-        <p class="card-desc">A 45-question quiz bank assessing learners on sampling distribution concepts such as applying the Central Limit Theorem to non-normal populations, calculating standard error, and interpreting hypothesis testing outcomes, used by instructors to build graded quizzes.</p>
-      </div>
-
-      <!-- Graded Discussion -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-assignment">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="assignments/index.html">Module 6 Graded Discussion</a>
-          </span>
-        </div>
-        <p class="card-desc">A graded discussion assignment in which learners prompt an AI with questions about sampling concepts and then reflect on the AI's response, encouraging critical engagement with the importance of using samples to make statistical predictions and decisions.</p>
-      </div>
-
-      <!-- Assignment 6 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type-assignment">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="assignments/index.html">Assignment 6 - Sampling</a>
-          </span>
-        </div>
-        <p class="card-desc">A graded assignment in which learners construct and interpret 90%, 95%, and 99% confidence intervals for a population proportion using survey data from a tech company's user satisfaction study, applying sampling and inference skills.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
-
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 5 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Sampling Distributions</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Population Parameters vs. Sample Statistics</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">The Central Limit Theorem</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">The Effect of Sample Size on Variability</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Interpreting and Applying Sampling Distributions</span><span class="topic-meta">6 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">14 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_6_Sampling_Distributions_and_Infe.html">EGN3443 Module 6 - Sampling Distributions and Inference</a></div>
+    <p class="content-desc">A landing page for Module 6 that links learners to the core resources for the module, including the PowerPoint slide deck, lecture video, and a Google Colab code demonstration of the Central Limit Theorem.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Sampling_Distributions.html">Sampling Distributions</a></div>
+    <p class="content-desc">A reading page that explains key Module 6 concepts in depth, covering the Central Limit Theorem and its implications, the sampling distribution of the mean, and related inference topics, serving as a primary reference text to support the lecture and other materials.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t1.html">Introduction to Sampling Distributions</a></div>
+    <p class="content-desc">This reading introduces the concept of sampling distributions, explaining how they serve as the theoretical link between sample observations and conclusions about a population, laying the groundwork for tools like confidence intervals and hypothesis tests.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t2.html">Population Parameters vs. Sample Statistics</a></div>
+    <p class="content-desc">This reading clarifies the distinction between population parameters (fixed, usually unknown values describing an entire group) and sample statistics (values calculated from a subset), explaining how statistics are used to estimate parameters and why that distinction matters in engineering and research contexts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t3.html">The Central Limit Theorem</a></div>
+    <p class="content-desc">This reading explains the Central Limit Theorem, describing how the distribution of sample means approaches normality as sample size increases regardless of the population&#39;s original shape, and why this result makes probability calculations about sample means tractable in practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t4.html">The Effect of Sample Size on Variability</a></div>
+    <p class="content-desc">This reading examines how increasing sample size reduces the variability of sample statistics, covering the standard error concept and explaining why larger samples produce more precise and reliable estimates of population parameters.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t5.html">Interpreting and Applying Sampling Distributions</a></div>
+    <p class="content-desc">This reading covers how to correctly interpret and apply sampling distributions in practice, distinguishing between distributions of individual values and distributions of statistics, and guiding learners through using sampling distributions to answer probability questions and make inferences about populations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t1_videos.html">Introduction to Sampling Distributions — Videos</a></div>
+    <p class="content-desc">A reading that introduces the concept of a sampling distribution by asking what happens when many samples are drawn from the same population, explaining why sample statistics vary from sample to sample and setting up the vocabulary learners need before studying the Central Limit Theorem.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t2_videos.html">Population Parameters vs. Sample Statistics — Videos</a></div>
+    <p class="content-desc">A reading that distinguishes fixed population parameters (such as mu, sigma, and p) from the sample statistics that estimate them (x-bar, s, and p-hat), using engineering examples like bolt production and weld inspection so learners can correctly identify and notate each in a problem.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t3_videos.html">The Central Limit Theorem — Videos</a></div>
+    <p class="content-desc">A reading on the Central Limit Theorem explaining that the distribution of sample means approaches normality as sample size grows regardless of the population&#39;s shape, which learners use to justify applying normal-based probability calculations to sample means.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t4_videos.html">The Effect of Sample Size on Variability — Videos</a></div>
+    <p class="content-desc">A reading on how sample size controls the spread of a sampling distribution, developing the standard error formula (sigma divided by the square root of n) and the square-root relationship so learners can predict how much precision is gained by collecting more data.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t5_videos.html">Interpreting and Applying Sampling Distributions — Videos</a></div>
+    <p class="content-desc">A reading that pulls the module&#39;s results together, showing how to interpret a sampling distribution&#39;s mean and standard error and apply them to practical questions such as computing probabilities for sample means and judging whether an observed sample result is unusual.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_videos_merged.html">Week 7/Module 6 - Sampling Distrbutions — 5 topics (merged)</a></div>
+    <p class="content-desc">A combined module page compiling all five topic readings — introduction to sampling distributions, parameters versus statistics, the Central Limit Theorem, sample size and variability, and interpretation/applications — into one continuous document for reading or review of the entire week.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A graded discussion assignment in which learners prompt an AI with questions about sampling concepts and then reflect on the AI&#39;s response, encouraging critical engagement with the importance of using samples to make statistical predictions and decisions.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-6module-5-continuous-probability-distributions/index.html">← Week 6/Module 5 - Continuous Probability Distributions.</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-8module-7-point-estimation-and-ci/index.html">Week 8/Module 7 - Point Estimation and CI →</a>
+</nav>
   </main>
-
-  <footer>
-    EGN3443 — Probability &amp; Statistics for Engineers &nbsp;•&nbsp;
-    Week 7 / Module 6: Sampling Distributions
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

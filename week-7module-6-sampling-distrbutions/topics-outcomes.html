@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to Sampling Distributions</h3>
+<h3 id="topic-1">Introduction to Sampling Distributions</h3>
 <div class="summary">This topic establishes the foundational concept of sampling distributions and explains why they are essential to statistical inference. Learners explore how sample statistics vary across repeated samples drawn from a population.</div>
 <ul>
 <li><strong>What Is a Sampling Distribution?</strong> <span class="el-body">— A sampling distribution is the probability distribution of a given statistic computed from many repeated samples drawn from the same population.</span></li>
@@ -42,7 +42,7 @@ li{margin:5px 0}
 <li><strong>Variability of Sample Statistics</strong> <span class="el-body">— Sample statistics naturally vary from sample to sample due to random chance in the selection process, a phenomenon called sampling variability or sampling error.</span></li>
 <li><strong>The Role of Sampling Distributions in Statistical Inference</strong> <span class="el-body">— Sampling distributions serve as the bridge between descriptive statistics (summarizing a sample) and inferential statistics (drawing conclusions about a population).</span></li>
 </ul>
-<h3>Population Parameters vs. Sample Statistics</h3>
+<h3 id="topic-2">Population Parameters vs. Sample Statistics</h3>
 <div class="summary">This topic distinguishes between population parameters and the sample statistics used to estimate them. Learners examine how and why these values differ and what that means for data analysis.</div>
 <ul>
 <li><strong>Defining Population Parameters</strong> <span class="el-body">— A population parameter is a fixed numerical value that describes a characteristic of an entire population.</span></li>
@@ -52,7 +52,7 @@ li{margin:5px 0}
 <li><strong>Sampling Error and Its Implications</strong> <span class="el-body">— Sampling error is the natural discrepancy between a sample statistic and the population parameter it estimates, arising from the randomness of sample selection.</span></li>
 <li><strong>Practical Implications for Data Analysis</strong> <span class="el-body">— Understanding the distinction between parameters and statistics is essential for correctly interpreting data analysis results and drawing valid conclusions.</span></li>
 </ul>
-<h3>The Central Limit Theorem</h3>
+<h3 id="topic-3">The Central Limit Theorem</h3>
 <div class="summary">This topic introduces the Central Limit Theorem and explains how it guarantees that sampling distributions of the mean approach normality under sufficient sample sizes. Learners explore the conditions and implications of this foundational theorem.</div>
 <ul>
 <li><strong>What Is the Central Limit Theorem?</strong> <span class="el-body">— The Central Limit Theorem (CLT) is one of the most important results in statistics, stating that the sampling distribution of the sample mean will approach a normal distribution as sample size increases, regardless of the population&#39;s original shape.</span></li>
@@ -62,7 +62,7 @@ li{margin:5px 0}
 <li><strong>Conditions for Applying the CLT</strong> <span class="el-body">— While the CLT is broadly applicable, certain conditions should be met to ensure its validity in practice.</span></li>
 <li><strong>Implications for Statistical Inference</strong> <span class="el-body">— The Central Limit Theorem makes it possible to use normal distribution methods to draw conclusions about population parameters, even when little is known about the population&#39;s true distribution.</span></li>
 </ul>
-<h3>The Effect of Sample Size on Variability</h3>
+<h3 id="topic-4">The Effect of Sample Size on Variability</h3>
 <div class="summary">This topic investigates how increasing or decreasing sample size affects the spread and reliability of a sampling distribution. Learners connect sample size to standard error and the precision of statistical estimates.</div>
 <ul>
 <li><strong>What Is Standard Error?</strong> <span class="el-body">— Standard error (SE) is the measure of variability in a sampling distribution, representing how much sample means are expected to differ from the true population mean.</span></li>
@@ -72,7 +72,7 @@ li{margin:5px 0}
 <li><strong>Practical Trade-offs in Choosing Sample Size</strong> <span class="el-body">— While larger samples improve precision, researchers must balance statistical benefits against real-world constraints such as cost, time, and feasibility.</span></li>
 <li><strong>Connecting Sample Size to Statistical Inference</strong> <span class="el-body">— Understanding how sample size affects variability is essential for interpreting confidence intervals, hypothesis tests, and the overall reliability of statistical conclusions.</span></li>
 </ul>
-<h3>Interpreting and Applying Sampling Distributions</h3>
+<h3 id="topic-5">Interpreting and Applying Sampling Distributions</h3>
 <div class="summary">This topic guides learners through interpreting sampling distributions in the context of real-world data analysis scenarios. Practical examples reinforce how sampling distributions support inference and decision-making.</div>
 <ul>
 <li><strong>Reading a Sampling Distribution</strong> <span class="el-body">— Interpreting a sampling distribution requires understanding what the distribution represents: the range of possible values a sample statistic could take across many repeated samples.</span></li>
@@ -112,6 +112,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

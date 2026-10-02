@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>From Simple to Multiple Regression</h3>
+<h3 id="topic-1">From Simple to Multiple Regression</h3>
 <div class="summary">This topic introduces multiple regression as an extension of simple linear regression, explaining why and when multiple predictor variables are needed to better model a continuous outcome.</div>
 <ul>
 <li><strong>Limitations of Simple Linear Regression</strong> <span class="el-body">— Simple linear regression models the relationship between one predictor variable and one continuous outcome, which is often insufficient for real-world data.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>When to Use Multiple Regression</strong> <span class="el-body">— Multiple regression is appropriate when a researcher wants to explain or predict a continuous outcome using more than one predictor variable.</span></li>
 <li><strong>Continuity from Simple to Multiple Regression</strong> <span class="el-body">— Multiple regression builds directly on the concepts and mechanics of simple linear regression, making the transition a logical and incremental step.</span></li>
 </ul>
-<h3>Model Specification and Structure</h3>
+<h3 id="topic-2">Model Specification and Structure</h3>
 <div class="summary">This topic covers how to properly specify a multiple regression model, including selecting predictor variables and understanding the mathematical structure of the regression equation.</div>
 <ul>
 <li><strong>From Simple to Multiple Regression</strong> <span class="el-body">— Multiple regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single continuous outcome variable.</span></li>
@@ -53,7 +53,7 @@ li{margin:5px 0}
 <li><strong>Assumptions Underlying Model Specification</strong> <span class="el-body">— A properly specified multiple regression model must satisfy several key assumptions for the estimates and inferences to be valid.</span></li>
 <li><strong>The Role of the Error Term</strong> <span class="el-body">— The error term in a multiple regression model accounts for all variation in the outcome that is not explained by the included predictor variables.</span></li>
 </ul>
-<h3>Interpreting Regression Coefficients</h3>
+<h3 id="topic-3">Interpreting Regression Coefficients</h3>
 <div class="summary">This topic focuses on how to interpret partial regression coefficients in a multiple regression context, distinguishing the unique contribution of each predictor while holding others constant.</div>
 <ul>
 <li><strong>What Are Partial Regression Coefficients?</strong> <span class="el-body">— In multiple regression, each predictor has a partial regression coefficient that reflects its unique relationship with the outcome variable.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>Units of Measurement and Coefficient Comparability</strong> <span class="el-body">— Raw (unstandardized) partial regression coefficients are expressed in the original units of the predictors, which can make direct comparison across predictors difficult.</span></li>
 <li><strong>Common Misinterpretations to Avoid</strong> <span class="el-body">— Partial regression coefficients are frequently misread, especially when researchers conflate correlation with unique prediction or ignore the &#39;all else equal&#39; condition.</span></li>
 </ul>
-<h3>Assessing Model Fit</h3>
+<h3 id="topic-4">Assessing Model Fit</h3>
 <div class="summary">This topic examines statistical measures used to evaluate how well a multiple regression model fits the data, with emphasis on R-squared and adjusted R-squared and what they reveal about explanatory power.</div>
 <ul>
 <li><strong>The Concept of Model Fit</strong> <span class="el-body">— Model fit refers to how well a multiple regression model explains the variation observed in the outcome variable using the selected predictors.</span></li>
@@ -74,7 +74,7 @@ li{margin:5px 0}
 <li><strong>Comparing R-Squared and Adjusted R-Squared</strong> <span class="el-body">— Understanding the relationship between R&#178; and adjusted R&#178; helps researchers make informed decisions about model complexity and variable selection.</span></li>
 <li><strong>Using Model Fit Statistics to Evaluate and Refine Models</strong> <span class="el-body">— R-squared and adjusted R-squared are practical tools for guiding decisions about which predictors to retain or remove during model building.</span></li>
 </ul>
-<h3>Building and Evaluating Multiple Regression Models</h3>
+<h3 id="topic-5">Building and Evaluating Multiple Regression Models</h3>
 <div class="summary">This topic guides learners through the practical process of constructing, testing, and refining multiple regression models using real-world data to draw meaningful analytical conclusions.</div>
 <ul>
 <li><strong>Specifying the Multiple Regression Model</strong> <span class="el-body">— Model specification involves selecting which predictor variables to include in the regression equation to best explain variation in the outcome variable.</span></li>
@@ -115,6 +115,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

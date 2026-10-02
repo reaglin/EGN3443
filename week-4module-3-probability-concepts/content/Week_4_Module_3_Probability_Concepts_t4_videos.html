@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core Probability Rules</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<h1>Core Probability Rules</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: AP Stats 5.3 - Multiplication Rule &amp; Conditional Probability</a>
+<a href="#sec3">Video 2: Addition Rule for Probability Example</a>
+<a href="#sec4">Video 3: Multiplication Rule for Probability Example</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Probability rules are the grammar of uncertainty. Once you can describe a sample space, you need a reliable set of operations for combining events: what happens when you want the chance that an event does not occur, the chance that at least one of two events occurs, or the chance that two events both occur. The core rules — complementary probability, the addition rule (for mutually exclusive events and the general form that subtracts the overlap), the multiplication rule (for independent events and the general form that uses a conditional probability), and conditional probability itself — cover nearly every basic computation you will do this semester.</p>
+<p>In engineering, these rules show up constantly: the probability a redundant system fails only if every component fails, the probability a part is out of tolerance on at least one dimension, the probability a test flags a defect given that the part is actually defective. Getting the right answer usually depends less on arithmetic than on correctly identifying which rule applies and whether the events overlap or influence each other.</p>
+<p>As you watch the videos below, keep three questions in mind. First, are the events mutually exclusive (can they happen together)? Second, are they independent (does knowing one occurred change the probability of the other)? Third, when a problem has several steps, which rule applies at each step and how do the pieces combine? Try to pause each video before the solution is shown and set up the calculation yourself.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: AP Stats 5.3 - Multiplication Rule &amp; Conditional Probability</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/oti2OJJsksA?cc_load_policy=1&amp;rel=0" title="Video: AP Stats 5.3 - Multiplication Rule &amp; Conditional Probability (Skew The Script)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Skew The Script</strong> · 16:38 · 17,499 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=oti2OJJsksA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A full lesson on the multiplication rule and conditional probability, framed around a real data question about identifying honest online dating profiles. Based on the title and accompanying handout, it should develop conditional probability notation, the general multiplication rule, and the connection between independence and the simpler product form, all within an applied context.</p>
+<h3>Why this video</h3>
+<p>Skew The Script is known for statistically careful lessons built on real data, and this video covers the general multiplication rule and conditional probability — the hardest subtopics here — while modeling how to interpret results in plain language.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Addition Rule for Probability Example</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/57uTti4XE_4?cc_load_policy=1&amp;rel=0" title="Video: Addition Rule for Probability Example (TwoSigma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>TwoSigma</strong> · 4:22 · 48,345 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=57uTti4XE_4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short worked example applying the addition rule for probability, covering both the mutually exclusive case and the non-mutually exclusive case. The description indicates it contrasts the two situations, so you should see where the &#39;minus the intersection&#39; term comes from and when it drops out.</p>
+<h3>Why this video</h3>
+<p>It directly targets two of the subtopics — the simple addition rule and the general addition rule — in a compact, example-driven format that makes the overlap correction concrete rather than abstract.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Multiplication Rule for Probability Example</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/bl0n9W4cUxA?cc_load_policy=1&amp;rel=0" title="Video: Multiplication Rule for Probability Example (TwoSigma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>TwoSigma</strong> · 4:29 · 7,625 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=bl0n9W4cUxA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief example-based walkthrough of the multiplication rule for probability. Expect a problem set up so that the probability of a joint event is found by multiplying individual probabilities, with attention to the conditions that make that multiplication valid.</p>
+<h3>Why this video</h3>
+<p>It pairs naturally with the addition rule video from the same producer, giving you a consistent treatment of the &#39;and&#39; rule alongside the &#39;or&#39; rule so the distinction between them stays clear.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these three videos give direct practice with the computational core of the module. The addition and multiplication rule examples support MO2 by showing the rules applied to concrete problems, and the contrast between mutually exclusive and overlapping events, and between independent and dependent events, builds the judgment needed for MO5 when you must choose a rule in a multi-step problem. The conditional probability lesson extends this to the general multiplication rule and, because it works from a real-world scenario, supports MO4 by modeling how to state what a probability actually means in context. Note that the videos focus on the rules themselves, so you should rely on the module readings and class materials for constructing sample spaces (MO1) and for the theoretical versus experimental probability distinction and the Law of Large Numbers (MO3).</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

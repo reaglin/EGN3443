@@ -48,14 +48,15 @@
       + '<div class="opts"><label>Height <input type="number" id="h" value="650" min="200" max="2000" step="50"> px</label>'
       + '<label>Scrolling <select id="sc"><option>auto</option><option>yes</option><option>no</option></select></label></div>'
       + '<textarea id="code" readonly rows="4" aria-label="LMS embed code"></textarea>'
-      + '<div style="margin-top:8px"><button id="copy">Copy code</button>'
+      + '<div style="margin-top:8px"><button id="copy">Copy code</button> <span id="copied" aria-live="polite"></span>'
       + '<a class="open" href="' + esc(abs) + '" target="_blank" rel="noopener">Open the page &#8599;</a></div>'
-      + '<h3>Preview</h3><div class="preview"><iframe src="' + esc(abs) + '"></iframe></div>';
+      + '<h3>Preview</h3><div class="preview"><iframe title="' + esc(title) + '" src="' + esc(abs) + '"></iframe></div>';
     function build(){
       var h = document.getElementById('h').value || 650;
       var sc = document.getElementById('sc').value || 'auto';
+      // title: an LMS accessibility check (WCAG 4.1.2) wants every iframe named.
       document.getElementById('code').value =
-        '<iframe src="' + abs + '" width="100%" height="' + h + '" '
+        '<iframe title="' + esc(title) + '" src="' + abs + '" width="100%" height="' + h + '" '
         + 'style="border:none;width:100%;min-height:' + h + 'px;" '
         + 'frameborder="0" scrolling="' + sc + '" allowfullscreen></iframe>';
     }
@@ -65,7 +66,8 @@
     document.getElementById('copy').addEventListener('click', function(){
       var c = document.getElementById('code'); c.select();
       try { navigator.clipboard.writeText(c.value); } catch(e){ document.execCommand('copy'); }
-      var b = this; b.textContent = 'Copied!'; setTimeout(function(){ b.textContent = 'Copy code'; }, 1500);
+      var st = document.getElementById('copied'); st.textContent = 'Copied.';
+      setTimeout(function(){ st.textContent = ''; }, 2500);
     });
   } else {
     box.innerHTML = '<p class="instr">Choose a page to get its LMS embed code:</p><ul id="list" class="list"><li>Loading&#8230;</li></ul>';

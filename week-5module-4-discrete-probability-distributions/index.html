@@ -1,375 +1,178 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Week 5/Module 4 – Discrete Probability Distributions | EGN3443</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-      background: #f4f6f9;
-      color: #1e2533;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header / hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #fff;
-      padding: 2.5rem 2rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a8c8f0;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.9rem;
-    }
-
-    header p {
-      max-width: 720px;
-      font-size: 0.97rem;
-      color: #cfe0f5;
-      line-height: 1.7;
-    }
-
-    /* ── Main content wrapper ── */
-    main {
-      max-width: 1100px;
-      margin: 2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    /* ── Section heading ── */
-    .section-heading {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a6a82;
-      margin-bottom: 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dce3ed;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.1rem;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #dce3ed;
-      border-radius: 8px;
-      padding: 1.25rem 1.35rem 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.13);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card top row: badges ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.18em 0.6em;
-      border-radius: 4px;
-    }
-
-    .badge-type {
-      background: #e8eef7;
-      color: #2a5090;
-    }
-
-    .badge-filetype {
-      background: #f0f4f0;
-      color: #3a6b3a;
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    /* ── Card title row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .card-title {
-      font-size: 0.97rem;
-      font-weight: 700;
-      color: #1e2533;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 1.5px solid #2563a8;
-      padding-bottom: 1px;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: #2563a8;
-      border-bottom-color: #5ba3e0;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      white-space: nowrap;
-      color: #5a6a82;
-      text-decoration: none;
-      background: #f0f4f8;
-      border: 1px solid #c8d4e4;
-      border-radius: 4px;
-      padding: 0.15em 0.55em;
-      transition: background 0.15s, color 0.15s;
-      flex-shrink: 0;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #dce7f5;
-      color: #1a3a5c;
-      outline: none;
-    }
-
-    /* ── Card description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.78rem;
-      color: #8899b0;
-      border-top: 1px solid #dce3ed;
-      background: #fff;
-    }
-
-    /* ── Responsive tweak ── */
-    @media (max-width: 480px) {
-      header { padding: 2rem 1.1rem 1.6rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 5/Module 4 - Discrete Probability Distributions — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <p class="course-label">EGN3443 &mdash; Probability &amp; Statistics for Engineers</p>
-      <h1>Week 5 / Module 4 &mdash; Discrete Probability Distributions</h1>
-      <p>
-        This module introduces discrete probability distributions as fundamental tools for
-        modeling uncertainty in engineering contexts. Topics include probability mass functions,
-        cumulative distribution functions, expected value, variance, and key named distributions
-        such as the Binomial and Poisson. Use the resources below to navigate lectures, readings,
-        topic detail pages, and the group assignment.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 5/Module 4 - Discrete Probability Distributions</span>
+  </nav>
+      <div class="hero-label">Module 5</div>
+      <h1>Week 5/Module 4 - Discrete Probability Distributions</h1>
+      <p class="hero-desc">In this module, learners explore the foundational concepts of discrete probability distributions, examining how probabilities are assigned to distinct outcomes in real-world scenarios. Through guided examples and applied exercises, participants will develop the ability to identify, interpret, and work with key distributions such as the binomial and Poisson distributions. By the end of the module, learners will be equipped to calculate probabilities, determine expected values and variances, and apply these techniques to solve practical problems in their field.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-heading">Module Artifacts &mdash; 10 items</p>
-
-    <div class="card-grid">
-
-      <!-- 1. Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-desc">An outline of the module's learning topics covering discrete probability distributions, PMFs, expected value, variance, and related distribution properties, used by learners and instructors to preview and navigate the module's scope.</p>
-      </div>
-
-      <!-- 2. EGN3443 Module 4 Landing -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/EGN3443_Module_4_Discrete_Probability_Distributi.html">EGN3443 Module 4 - Discrete Probability Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">A landing page for Module 4 that provides links to the lecture PowerPoint and recorded lecture video on discrete probability distributions, serving as a navigation hub for learners to access core instructional materials.</p>
-      </div>
-
-      <!-- 3. Probability Distributions - Discrete -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Probability_Distributions_Discrete.html">Probability Distributions - Discrete</a>
-          </span>
-        </div>
-        <p class="card-desc">A comprehensive reference text covering random variables, PMFs, expected value, variance, and named discrete distributions (e.g., Binomial, Poisson, Geometric), used by learners as a study guide alongside the module lectures.</p>
-      </div>
-
-      <!-- 4. Introduction to Discrete Probability Distributions -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t1.html">Introduction to Discrete Probability Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading introduces discrete probability distributions by explaining what a probability distribution is, why countable outcomes require discrete models, and how distributions form the foundation for quantifying uncertainty — learners read it to build conceptual grounding before studying specific distribution types.</p>
-      </div>
-
-      <!-- 5. PMFs and Distribution Properties -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t2.html">Probability Mass Functions and Distribution Properties</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading explains probability mass functions (PMFs), cumulative distribution functions (CDFs), and key properties such as non-negativity and summing to one, using examples like die rolls and coin flips — learners use it to understand the formal mathematical structure that all discrete distributions share.</p>
-      </div>
-
-      <!-- 6. Expected Value and Variance -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t3.html">Expected Value and Variance of Discrete Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading covers how to calculate and interpret expected value (mean) and variance for discrete random variables, including the formulas and their meaning as measures of center and spread — learners use it to summarize and compare distribution behavior quantitatively.</p>
-      </div>
-
-      <!-- 7. The Binomial Distribution -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t4.html">The Binomial Distribution</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading explains the binomial distribution, its four required conditions (fixed trials, two outcomes, constant probability, independence), the PMF formula, and its mean and variance — learners use it to model and solve problems involving a fixed number of repeated binary-outcome experiments.</p>
-      </div>
-
-      <!-- 8. The Poisson Distribution -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t5.html">The Poisson Distribution</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading introduces the Poisson distribution, explaining how it models the count of events occurring in a fixed interval of time, area, or volume, along with its PMF, single parameter λ, and mean and variance — learners use it to analyze rare or randomly occurring events when the binomial model does not apply.</p>
-      </div>
-
-      <!-- 9. Applying Discrete Distributions -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t6.html">Applying Discrete Distributions to Real-World Problems</a>
-          </span>
-        </div>
-        <p class="card-desc">This reading demonstrates how to identify which discrete distribution (binomial, Poisson, or other) applies to real-world engineering and applied-science scenarios and walks through problem-solving strategies for each — learners and instructors use it to practice selecting the correct model and executing full solutions on practical problems.</p>
-      </div>
-
-      <!-- 10. Group Assignment 4 -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="assignments/index.html">Group Assignment 4 - Discrete Probability Distributions</a>
-          </span>
-        </div>
-        <p class="card-desc">A group assignment in which students apply discrete probability distribution concepts to a semiconductor manufacturing quality-engineering scenario, requiring collaborative analysis and a written report submitted as a team.</p>
-      </div>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Discrete Probability Distributions</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Probability Mass Functions and Distribution Properties</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Expected Value and Variance of Discrete Distributions</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">The Binomial Distribution</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">The Poisson Distribution</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Applying Discrete Distributions to Real-World Problems</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_4_Discrete_Probability_Distributi.html">EGN3443 Module 4 - Discrete Probability Distributions</a></div>
+    <p class="content-desc">A landing page for Module 4 that provides links to the lecture PowerPoint and recorded lecture video on discrete probability distributions, serving as a navigation hub for learners to access core instructional materials.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Probability_Distributions_Discrete.html">Probability Distributions - Discrete</a></div>
+    <p class="content-desc">A comprehensive reference text covering random variables, PMFs, expected value, variance, and named discrete distributions (e.g., Binomial, Poisson, Geometric), used by learners as a study guide alongside the module lectures.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t1.html">Introduction to Discrete Probability Distributions</a></div>
+    <p class="content-desc">This reading introduces discrete probability distributions by explaining what a probability distribution is, why countable outcomes require discrete models, and how distributions form the foundation for quantifying uncertainty — learners read it to build conceptual grounding before studying specific distribution types.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t2.html">Probability Mass Functions and Distribution Properties</a></div>
+    <p class="content-desc">This reading explains probability mass functions (PMFs), cumulative distribution functions (CDFs), and key properties such as non-negativity and summing to one, using examples like die rolls and coin flips — learners use it to understand the formal mathematical structure that all discrete distributions share.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t3.html">Expected Value and Variance of Discrete Distributions</a></div>
+    <p class="content-desc">This reading covers how to calculate and interpret expected value (mean) and variance for discrete random variables, including the formulas and their meaning as measures of center and spread — learners use it to summarize and compare distribution behavior quantitatively.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t4.html">The Binomial Distribution</a></div>
+    <p class="content-desc">This reading explains the binomial distribution, its four required conditions (fixed trials, two outcomes, constant probability, independence), the PMF formula, and its mean and variance — learners use it to model and solve problems involving a fixed number of repeated binary-outcome experiments.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t5.html">The Poisson Distribution</a></div>
+    <p class="content-desc">This reading introduces the Poisson distribution, explaining how it models the count of events occurring in a fixed interval of time, area, or volume, along with its PMF, single parameter λ, and mean and variance — learners use it to analyze rare or randomly occurring events when the binomial model does not apply.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t6.html">Applying Discrete Distributions to Real-World Problems</a></div>
+    <p class="content-desc">This reading demonstrates how to identify which discrete distribution (binomial, Poisson, or other) applies to real-world engineering and applied-science scenarios and walks through problem-solving strategies for each — learners and instructors use it to practice selecting the correct model and executing full solutions on practical problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t1_videos.html">Introduction to Discrete Probability Distributions — Videos</a></div>
+    <p class="content-desc">An introductory reading that defines discrete random variables and probability distributions, explaining how listing every possible value with its probability extends earlier work on single-event probability, which learners use to frame the rest of the module with engineering examples such as die rolls and counts of defective parts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t2_videos.html">Probability Mass Functions and Distribution Properties — Videos</a></div>
+    <p class="content-desc">A lesson on probability mass functions that covers how a PMF assigns probability to each value of a discrete random variable and the properties a valid distribution must satisfy (non-negative probabilities summing to one), with cumulative distribution ideas; learners use it to build and verify PMFs for counting scenarios like defective parts or packet drops.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t3_videos.html">Expected Value and Variance of Discrete Distributions — Videos</a></div>
+    <p class="content-desc">A reading on summarizing a distribution through expected value E(X) as the probability-weighted center and variance/standard deviation as the measure of spread, including the computational formulas; learners use it to calculate and interpret these summary measures for any discrete PMF.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t4_videos.html">The Binomial Distribution — Videos</a></div>
+    <p class="content-desc">A topic covering the binomial distribution — the four conditions of fixed independent trials with constant success probability, the binomial PMF, and its mean and variance — which learners apply to problems such as counting defective parts in a sample of 50 or successful packet transmissions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t5_videos.html">The Poisson Distribution — Videos</a></div>
+    <p class="content-desc">A lesson on the Poisson distribution for modeling counts of events over a fixed interval of time, length, area, or volume using the rate parameter lambda, including its PMF, mean and variance, and its use as an approximation to the binomial; learners apply it to cases like weld defects per meter or help-desk calls per hour.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t6_videos.html">Applying Discrete Distributions to Real-World Problems — Videos</a></div>
+    <p class="content-desc">A synthesis topic that teaches learners to read an unlabeled real-world scenario and choose among the Bernoulli, binomial, geometric, negative binomial, hypergeometric, and Poisson models, then carry out and interpret the calculation — useful as practice in model selection before assessments.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_videos_merged.html">Week 5/Module 4 - Discrete Probability Distributions — 6 topics (merged)</a></div>
+    <p class="content-desc">A consolidated, full-module reading that compiles all six topics — introduction to discrete distributions, PMFs and distribution properties, expected value and variance, the binomial and Poisson distributions, and applied model selection — into a single document for review or offline study.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A group assignment in which students apply discrete probability distribution concepts to a semiconductor manufacturing quality-engineering scenario, requiring collaborative analysis and a written report submitted as a team.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-4module-3-probability-concepts/index.html">← Week 4/Module 3 Probability Concepts</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-6module-5-continuous-probability-distributions/index.html">Week 6/Module 5 - Continuous Probability Distributions. →</a>
+</nav>
   </main>
-
-  <footer>
-    EGN3443 &mdash; Probability &amp; Statistics for Engineers &nbsp;&bull;&nbsp;
-    Week 5 / Module 4 &nbsp;&bull;&nbsp; Discrete Probability Distributions
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week 11/Module 10 - 2 Sample Hypothesis Testing</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+<h1>Week 11/Module 10 - 2 Sample Hypothesis Testing</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Foundations of Two-Sample Hypothesis Testing</a>
+<a href="#part2">Independent vs. Paired Samples</a>
+<a href="#part3">Assumptions and Conditions for Two-Sample Tests</a>
+<a href="#part4">Comparing Two Means</a>
+<a href="#part5">Comparing Two Proportions</a>
+<a href="#part6">Interpreting Results and Making Data-Driven Decisions</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Foundations of Two-Sample Hypothesis Testing</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have tested claims about a single population — one mean, one proportion, one variance. Engineering questions, though, are usually comparative: Does the new alloy last longer than the old one? Does supplier B deliver more consistent tolerances than supplier A? Did the redesigned process reduce defect rates? Two-sample hypothesis testing is the formal machinery for answering these questions, and it rests on one key idea: instead of comparing a sample statistic to a fixed claimed value, you compare two samples to each other and ask whether the observed difference is larger than what random sampling variability alone would plausibly produce.</p>
+<p>This topic lays the conceptual groundwork for everything that follows in the module. You will see how the null hypothesis is expressed as a statement of no difference (typically mu1 - mu2 = 0 or p1 - p2 = 0), how the alternative encodes the direction of the engineering question (two-tailed for 'is there any difference?', one-tailed for 'is it larger/smaller?'), and how the same logic of assume-the-null, measure-the-discrepancy, quantify-the-surprise carries over from one-sample testing. You will also meet the critical design distinction between independent groups (two separate, unrelated sets of units) and paired groups (the same unit measured twice, or units deliberately matched), because that distinction determines which test you may legitimately use later in the module.</p>
+<p>The videos below are short refreshers and framing pieces rather than full derivations. As you watch, keep three questions in mind: What exactly is the parameter being compared? How would I write the null and alternative for the engineering question in front of me? And what would the decision rule be if the data turned out to be surprising under the null? Note that the videos are framed largely in one-sample or general terms — your job is to translate each idea into the two-sample setting, replacing 'the mean' with 'the difference between two means.'</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: One-Tailed vs Two-Tailed Hypothesis Tests | 2-sided vs lower and upper tails</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Iv1RQnjV-1U?cc_load_policy=1&amp;rel=0" title="Video: One-Tailed vs Two-Tailed Hypothesis Tests | 2-sided vs lower and upper tails (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 3:41 · 250,694 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=Iv1RQnjV-1U" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A concise walkthrough of the difference between one-tailed (lower-tail and upper-tail) and two-tailed hypothesis tests, and how the wording of a research question determines which form the alternative hypothesis takes. Expect to see how the rejection region and the significance level are placed differently for directional versus non-directional tests.</p>
+<h4>Why this video</h4>
+<p>Choosing between 'the two means differ' and 'mean 1 exceeds mean 2' is exactly the decision you face when writing a two-sample alternative hypothesis, so this video targets the Alternative Hypothesis subtopic directly. Joshua Emmanuel's videos are brief, well-paced, and widely used by statistics students, making this an efficient refresher.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: The Null and Alternative Hypotheses</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xKIOEw2HbYI?cc_load_policy=1&amp;rel=0" title="Video: The Null and Alternative Hypotheses (Learning with Luke)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Learning with Luke</strong> · 7:13 · 761 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=xKIOEw2HbYI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An introductory lesson devoted specifically to stating the null and alternative hypotheses, part of a short three-video series on hypothesis testing fundamentals. It covers what each hypothesis asserts, why the null is the statement that is assumed true and then tested, and how to translate a verbal claim into symbolic notation.</p>
+<h4>Why this video</h4>
+<p>It isolates hypothesis formulation — the single skill most students get wrong when moving from one sample to two — and reinforces the convention that the null is a statement of no effect or no difference, which becomes mu1 - mu2 = 0 in the two-sample context.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: AP Stats 7.4 (Day 2) - Intro to Hypothesis Tests</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ltwB6-fKpag?cc_load_policy=1&amp;rel=0" title="Video: AP Stats 7.4 (Day 2) - Intro to Hypothesis Tests (Skew The Script)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Skew The Script</strong> · 15:34 · 13,510 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=ltwB6-fKpag" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer, example-driven introduction to the logic of hypothesis testing built around a real NBA Bubble scenario, from the Skew The Script AP Statistics curriculum. It works through why we assume the null, how we measure how unusual the observed data would be under that assumption, and how that evidence leads to a conclusion in context.</p>
+<h4>Why this video</h4>
+<p>This is the best fit for the Logical Framework subtopic, because it spends its time on reasoning rather than formulas, and Skew The Script is known for accurate, context-rich statistics instruction that emphasizes interpreting results in the real world.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos build the conceptual foundation the rest of the module depends on. Precise hypothesis statements and a clear grasp of directional versus non-directional alternatives are prerequisites for selecting and correctly applying the independent-samples t-test, the paired t-test, and the two-proportion z-test (MO1, MO3, MO4), since the structure of the hypotheses signals which design and parameter are in play. The emphasis on assuming the null and asking how surprising the data would be under that assumption is the reasoning you will use when checking assumptions before running a test (MO2) and when interpreting p-values and confidence intervals in engineering context (MO5). The videos do not perform two-sample calculations themselves — treat them as the framing layer, and expect the module's worked examples and readings to supply the independent-versus-paired decision rules and the test statistic formulas.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Independent vs. Paired Samples</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have tested claims about a single population. Two-sample hypothesis testing extends that work to comparisons: Is one manufacturing process faster than another? Does a coating reduce corrosion? Before you can choose a formula, though, you must answer a prior question about study design: are the two sets of measurements independent, or are they paired?</p>
+<p>Independent samples come from two separate groups of units, where knowing a value in one group tells you nothing about any particular value in the other; the groups can even differ in size. Paired (dependent) samples consist of matched observations, such as the same specimen measured before and after treatment, the same subject tested under two conditions, or units deliberately matched on characteristics that affect the response. With paired data you analyze the differences within pairs, which removes unit-to-unit variability and often gives a more sensitive test with n - 1 degrees of freedom based on the number of pairs, not the total number of measurements.</p>
+<p>As you watch, focus on the diagnostic questions each presenter uses to classify a design, how the data are organized in each case (two columns of raw values versus one column of differences), and how the choice changes the test statistic, the standard error, and the degrees of freedom. Pay attention to the real-world examples: being able to recognize the design from a verbal description of an experiment is exactly the skill assessed in this module.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Independent vs Paired Groups Explained (Choose the Right Test)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uya8HhTyF44?cc_load_policy=1&amp;rel=0" title="Video: Independent vs Paired Groups Explained (Choose the Right Test) (This Is Why with Dr. Busti)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>This Is Why with Dr. Busti</strong> · 13:47 · 27,239 views · 5mo ago · captions — <a href="https://www.youtube.com/watch?v=uya8HhTyF44" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video focuses squarely on telling independent and paired groups apart and then using that classification to select the correct statistical test. Based on its title and description, it works through the defining features of each design in a clinical research context and shows how the relationship between observations drives the choice of procedure.</p>
+<h4>Why this video</h4>
+<p>It is the most direct match to this topic's core question, covering the defining characteristics of both designs and the decision rule that connects design to test, with concrete study examples that transfer easily to engineering settings.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Inference with Two Sample Means &amp; Paired Data</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dn7kRL5bjXY?cc_load_policy=1&amp;rel=0" title="Video: Inference with Two Sample Means &amp; Paired Data (Dan Kernler)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Dan Kernler</strong> · 13:41 · 2,536 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=dn7kRL5bjXY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of Dan Kernler's introductory statistics series, this lecture covers inference for two sample means alongside paired data, so you see both procedures presented together. Expect discussion of the setup for each case, the required conditions, and how the test statistic and interval are constructed for comparing means.</p>
+<h4>Why this video</h4>
+<p>Seeing independent and paired mean comparisons side by side in one classroom-style lecture reinforces the contrast, and the instructor-produced series format fits the level and sequence of this course.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Hypothesis Test: Matched or Paired Data</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/vYb9BlCTzz8?cc_load_policy=1&amp;rel=0" title="Video: Hypothesis Test: Matched or Paired Data (Mathispower4u)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Mathispower4u</strong> · 6:17 · 4,556 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=vYb9BlCTzz8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused Mathispower4u walkthrough of conducting a hypothesis test on matched or paired data. It should demonstrate forming the within-pair differences, stating hypotheses about the mean difference, and computing and interpreting the resulting test statistic.</p>
+<h4>Why this video</h4>
+<p>Mathispower4u videos are concise and computation-oriented, making this a clean reference for the mechanics of the paired t-test once you have decided the design is dependent.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the design-recognition skill at the center of MO1, giving you multiple framings of what makes two samples independent versus paired and several examples to practice classifying. The Kernler lecture and the Mathispower4u walkthrough support MO2 and MO3 by reviewing the conditions required for each procedure and demonstrating how the independent-samples and paired t statistics are computed from data. Interpreting the resulting p-values and intervals in context, as modeled in the clinical and classroom examples, previews MO5, while the proportion-based z-test of MO4 is addressed in other module materials.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Assumptions and Conditions for Two-Sample Tests</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Every two-sample hypothesis test rests on a set of assumptions. Before you can trust a p-value or a confidence interval for the difference between two means, you need to know that the data were collected by random sampling, that observations within each group are independent of one another, that the sampling distribution of the mean is approximately normal (either because the population is roughly normal or because the sample is large enough for the Central Limit Theorem to apply), and — for the pooled-variance t-test — that the two population variances are comparable.</p>
+<p>These conditions are not bureaucratic checkboxes; they determine which test you are allowed to use. The same data might call for a pooled t-test, a Welch (unequal-variance) t-test, a paired t-test, or a nonparametric alternative depending on how the data were gathered and what the diagnostics show. In this course you will be expected to state the assumptions, check them with plots and formal tests, and then justify your choice of procedure.</p>
+<p>The videos below walk through complete t-test workflows in R, beginning with assumption checking before any test statistic is computed. As you watch, pay attention to the order of operations: identify the design first, verify conditions second, run the test third, and interpret last. Note which graphical and numerical diagnostics are used (for example normality checks and variance comparisons) and how the presenter's conclusion about the assumptions changes the test that gets selected.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WZSTIQvz9NI?cc_load_policy=1&amp;rel=0" title="Video: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:45 · 445 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=WZSTIQvz9NI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A complete walkthrough of the independent two-sample t-test in R, structured around assumptions first, then calculation, interpretation, and reporting. Based on its title and description, it should demonstrate how to check normality and equal variances for two separate groups before running the test, and how to report the result properly.</p>
+<h4>Why this video</h4>
+<p>This is the most directly relevant video for the topic: it treats assumption verification as a required first step for the independent-samples design rather than an afterthought, covering the normality, equal-variance, and reporting subtopics in one short clip.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R6ALNCeUbmo?cc_load_policy=1&amp;rel=0" title="Video: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:05 · 654 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R6ALNCeUbmo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The companion video for the paired-sample t-test in R, following the same assumptions-calculation-interpretation-reporting structure. It should show that the paired design shifts the assumption checks onto the differences between matched observations rather than onto the two groups separately.</p>
+<h4>Why this video</h4>
+<p>Comparing this video with the independent-samples one makes clear how conditions depend on the study design, which is exactly the judgment required when verifying assumptions before selecting a test.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: One sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iO2z1p2gYao?cc_load_policy=1&amp;rel=0" title="Video: One sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 5:12 · 263 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iO2z1p2gYao" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact one-sample t-test walkthrough in R, again organized as assumptions, calculation, interpretation, and reporting. It should illustrate the simplest case of the normality and independence requirements with a single sample.</p>
+<h4>Why this video</h4>
+<p>Useful as a baseline review: seeing the assumption checklist in its simplest form makes it easier to recognize what is genuinely new in the two-sample setting, such as the equal-variances question and independence between groups.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Taken together, these videos reinforce the module outcomes. Contrasting the independent-samples and paired-samples walkthroughs supports MO1 by tying the choice of procedure to the relationship between observations across groups, while each video's opening assumption segment directly serves MO2 on verifying conditions prior to application. The calculation portions support MO3 for both the independent and paired t-statistics, and the interpretation and reporting segments support MO5 by modeling how to read p-values and confidence intervals in context. The two-proportion z-test of MO4 is not covered here and should be studied from the course notes and assigned readings.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Comparing Two Means</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have tested claims about a single population mean. Many engineering questions, however, involve a comparison: does a new alloy have a higher average tensile strength than the current one, does a revised process reduce average cycle time, does a calibration procedure change the average reading of an instrument? Comparing two means is the natural extension of one-sample hypothesis testing, and the mechanics are familiar — state hypotheses about the difference between the means, compute a t statistic, find a p-value, and decide.</p>
+<p>The key new decision is which two-sample procedure applies. If the two sets of measurements come from separate, unrelated units, you use an independent samples t-test, which requires attention to whether the two population variances can be treated as equal (pooled) or not (Welch-type). If each measurement in one group is naturally matched to a measurement in the other — the same specimen before and after treatment, the same part measured by two gauges — the data are paired, and you analyze the differences with a one-sample t-test on those differences. Choosing the wrong test misstates the standard error and can lead to the wrong conclusion.</p>
+<p>As you watch the videos below, pay attention to three things: how the speaker identifies the design (independent versus paired) from how the data were collected, what assumptions are checked or stated before the test is run, and how the numerical output — test statistic, degrees of freedom, p-value, and confidence interval — is translated back into a statement about the engineering question. Try to reproduce at least one example by hand or in a spreadsheet so the formulas, not just the software output, become familiar.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Independent Samples T-Test Tutorial in SPSS</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/gHSE6paes2w?cc_load_policy=1&amp;rel=0" title="Video: Independent Samples T-Test Tutorial in SPSS (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 4:43 · 4,778 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=gHSE6paes2w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, applied walkthrough of running an independent (two-sample) t-test in SPSS, from setting up the data to reading the output table. Based on its title and description, it covers how to interpret the results SPSS reports, which for this test typically includes a variance-equality check, the t statistic, degrees of freedom, significance value, and a confidence interval for the difference in means.</p>
+<h4>Why this video</h4>
+<p>It gives a compact, concrete picture of what an independent samples t-test produces and how each piece of output is read, which supports the subtopics on the independent samples test, its assumptions, and interpreting results — even if your course uses a different software tool, the output elements are the same.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qkBVUcjPLuA?cc_load_policy=1&amp;rel=0" title="Video: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:28 · 8,719 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=qkBVUcjPLuA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This tutorial works through a two-tailed paired (repeated measures / matched subjects) t-test starting from raw data, showing how the paired differences are formed and used. The description also indicates it constructs the associated interval estimate, so you see both the test and the confidence interval for the mean difference.</p>
+<h4>Why this video</h4>
+<p>Joshua Emmanuel's statistics tutorials are known for clear, step-by-step numerical work, and this one directly addresses the paired design and the distinction between repeated measures and matched subjects, which is central to selecting the correct test.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Paired T Test</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/tK2XdZzyoMU?cc_load_policy=1&amp;rel=0" title="Video: Paired T Test (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 8:57 · 3,754 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=tK2XdZzyoMU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A LearnChemE screencast on the paired t-test, with an accompanying spreadsheet, organized around standard engineering textbook material. Expect a worked example in which paired observations are differenced, a t statistic is computed, and the result is compared against a critical value or p-value.</p>
+<h4>Why this video</h4>
+<p>It is produced for engineering students by a university-based channel, so the context and notation are likely to match this course, and the spreadsheet lets you repeat the computation yourself rather than only watching.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos cover the two core procedures of the module: the independent samples t-test (MO3) with attention to the variance and independence conditions reported in the output (MO2), and the paired t-test presented twice, from raw-data computation and from a spreadsheet, so you can see how matched observations are differenced and why that design is handled differently (MO1, MO3). All three emphasize reading the test statistic, p-value, and confidence interval and stating a conclusion, which supports evaluating results in context (MO5). Note that none of the videos addresses the two-proportion z-test (MO4); for that outcome, rely on the course notes, textbook, and assigned problems.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Comparing Two Proportions</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Many engineering questions come down to comparing two success rates: the defect rate from two production lines, the pass rate of two inspection methods, or the proportion of users who complete a task with two different interface designs. The two-proportion z-test gives you a formal way to decide whether an observed difference between two sample proportions is large enough to be considered real, or whether it is within the range you would expect from sampling variability alone.</p>
+<p>The mechanics follow the same five-step logic you used for means, with a few specifics. You state hypotheses about p1 - p2 (usually H0: p1 = p2 against a one- or two-sided alternative), check that the samples are independent and random and that each group has enough expected successes and failures for the normal approximation to hold, pool the two samples into a single estimate of the common proportion under H0, form the z statistic by dividing the observed difference by its standard error, and convert z into a p-value for a decision in context.</p>
+<p>As you watch, pay close attention to two things that students most often get wrong. First, why the pooled proportion is used in the test statistic (because H0 assumes the two proportions are equal) even though the unpooled standard error is used for a confidence interval. Second, how the tail area is computed: one-tailed versus two-tailed p-values, and how to read them from a z table or software. Try pausing each example before the arithmetic and working it yourself.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Two Sample Proportion Hypothesis Test</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/rsc7XymnVA8?cc_load_policy=1&amp;rel=0" title="Video: Two Sample Proportion Hypothesis Test (Learning with Luke)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Learning with Luke</strong> · 9:50 · 620 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=rsc7XymnVA8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused walkthrough of the two-sample proportion hypothesis test, from stating the null and alternative hypotheses through computing and interpreting the result. Based on its title and series description, it sits within a broader hypothesis-testing sequence that covers null and alternative hypotheses and Type I/II errors, so the vocabulary and logic are set up before the formula appears.</p>
+<h4>Why this video</h4>
+<p>It is the most directly on-topic video of the three, covering hypothesis setup, the test statistic, and the conclusion in one short pass, which matches the subtopic sequence for this lesson.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Hypothesis Test for Proportion | Examples | P-value | Z table</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/CyFh2oYHmH0?cc_load_policy=1&amp;rel=0" title="Video: Hypothesis Test for Proportion | Examples | P-value | Z table (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:56 · 85,574 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=CyFh2oYHmH0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Joshua Emmanuel works through significance tests for a single population proportion, demonstrating both one-tailed and two-tailed cases and obtaining p-values using a z table. The examples show how the tail area is found and compared against a significance level to reach a decision.</p>
+<h4>Why this video</h4>
+<p>It builds the proportion-testing foundation and, more importantly, drills the p-value step with a z table, which is exactly the skill you reuse unchanged in the two-proportion test; Joshua Emmanuel's statistics tutorials are widely used and carefully worked.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: 2 sample z test for proportions</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1bQrSJd5XRo?cc_load_policy=1&amp;rel=0" title="Video: 2 sample z test for proportions (Statistics Doc)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Statistics Doc</strong> · 7:09 · 1,170 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=1bQrSJd5XRo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video demonstrates how to carry out a two-sample z-test for proportions and, in addition, how to construct a confidence interval for the difference between the two proportions. Expect a worked example that moves from the sample counts through the test statistic to a conclusion, with the interval presented alongside.</p>
+<h4>Why this video</h4>
+<p>Pairing the test with the confidence interval reinforces the connection between the two forms of inference and gives you a second, independent presentation of the same calculation to compare against the other videos.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target the proportion half of this module. The two-sample videos support MO4 directly by showing how the pooled estimate feeds into the z statistic for p1 - p2, and they reinforce MO2 by reminding you to check independence and the success/failure counts before applying the normal approximation. The single-proportion video strengthens the p-value machinery that MO5 depends on, while the confidence-interval segment in the third video models the interval-plus-test interpretation MO5 asks for. MO1 and MO3 are covered elsewhere in the module, but recognizing that these tests assume two independent groups is a useful contrast to the paired designs discussed there.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Interpreting Results and Making Data-Driven Decisions</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>Running a two-sample test is only half the job. Once you have a test statistic, a p-value, and a confidence interval for the difference between two means or two proportions, you still have to answer the question an engineer or a manager actually cares about: does this evidence justify changing a process, a supplier, a design, or a specification? This topic focuses on that final step — translating numerical output into defensible, clearly communicated conclusions.</p>
+<p>Three ideas carry most of the weight. First, the p-value is a conditional probability about data given the null hypothesis, not the probability that the null hypothesis is true and not a measure of effect size; misreading it is one of the most common errors in applied statistics. Second, a confidence interval for the difference between groups tells you both whether a difference is statistically detectable and how large it plausibly is, which is exactly what you need to separate statistical significance from practical significance. Third, every conclusion rests on assumptions — independence, sampling method, approximate normality or adequate sample size — and an honest report states those limitations.</p>
+<p>As you watch, pay attention to the exact wording each presenter uses when stating a conclusion, and notice how a confidence interval and a hypothesis test at the same confidence level agree with each other. Try rephrasing each interpretation in engineering terms: "the mean fatigue life of alloy B exceeds that of alloy A by somewhere between 200 and 900 cycles," rather than simply "p is less than 0.05."</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: 9-4 The Connection Between Confidence Intervals and Hypothesis Testing</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xOxAehEyzdc?cc_load_policy=1&amp;rel=0" title="Video: 9-4 The Connection Between Confidence Intervals and Hypothesis Testing (Introduction to Statistical Ideas and Methods)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Introduction to Statistical Ideas and Methods</strong> · 11:27 · 5,605 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=xOxAehEyzdc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lecture segment from an introductory statistics course explains how confidence intervals and hypothesis tests are two views of the same inference, contrasting the interval's role of giving a range of plausible values with the test's role of deciding between hypotheses. Based on its title and description, it should show how a confidence interval that excludes the null value corresponds to rejecting the null at the matching significance level, and vice versa.</p>
+<h4>Why this video</h4>
+<p>It directly supports the subtopics on using confidence intervals to quantify differences and on distinguishing a yes-or-no test result from an estimate of magnitude, which is the foundation for judging practical significance.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: P-Value Interpretation and Misinterpretation in Statistics</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/O_VW_4e825s?cc_load_policy=1&amp;rel=0" title="Video: P-Value Interpretation and Misinterpretation in Statistics (Bill Kinney)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Bill Kinney</strong> · 10:43 · 639 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=O_VW_4e825s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Bill Kinney walks through what a p-value actually means in inferential statistics and catalogs the ways it is commonly misinterpreted — for example, treating it as the probability the null hypothesis is true or as a measure of how large an effect is. Expect careful attention to precise conditional-probability language when stating conclusions.</p>
+<h4>Why this video</h4>
+<p>Accurate interpretation of the p-value is the core skill of this topic, and a video built around misinterpretations helps you avoid the specific wording errors that cost points on reports and exams.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: How do you interpret a p-value?</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/C1-FO-12xtU?cc_load_policy=1&amp;rel=0" title="Video: How do you interpret a p-value? (YouTooBio)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>YouTooBio</strong> · 9:56 · 5,416 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=C1-FO-12xtU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short video introduces the p-value from a research-practice angle, asking why the 0.05 threshold is treated as special and describing how scientists use p-values to decide whether a result is worth acting on. It frames interpretation in the context of real studies and decision making rather than pure formulas.</p>
+<h4>Why this video</h4>
+<p>Its applied, audience-friendly framing models how to explain a test result to non-specialists and connects to the subtopics on communicating findings and recognizing the limitations of threshold-based decisions.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These videos target the interpretation end of the module, most directly MO5: together they cover what a p-value does and does not tell you, how a confidence interval for a difference quantifies the size of an effect, and how the two forms of inference agree. By emphasizing plausible-value ranges and the limits of a 0.05 cutoff, they also reinforce the habit of checking conditions and stating assumptions that underlies MO2, and they give meaning to the test statistics you compute in MO3 and MO4 for the independent, paired, and two-proportion designs introduced in MO1. Watch them after you can perform the calculations, so that your practice problems end with a sentence about the engineering decision rather than just a numerical verdict.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

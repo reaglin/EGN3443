@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interpreting Regression Coefficients</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 13/Module 12 - Multiple Regression</a></div>
+<h1>Interpreting Regression Coefficients</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Multiple Regression | Coefficients – Interpretation, C.I, Hypothesis Testing</a>
+<a href="#sec3">Video 2: Multiple Regression - Interpreting coefficients</a>
+<a href="#sec4">Video 3: Multiple Regression Predictions, interpreting and understanding</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>In simple linear regression, the slope answers a straightforward question: when x goes up by one unit, how much does the predicted y change? In multiple regression we estimate several slopes at once, and each one is a partial regression coefficient. A partial coefficient tells you the expected change in the response for a one-unit increase in that predictor while all other predictors in the model are held fixed. That small phrase, &quot;holding the others constant,&quot; is what makes multiple regression powerful and also what makes it easy to misread.</p>
+<p>This matters in engineering work because real systems rarely depend on one input. Material strength, process yield, energy consumption, and travel time all respond to several factors simultaneously, and those factors are usually correlated with each other. Learning to read a coefficient as a unique contribution, net of the other predictors, is what lets you say something defensible about an individual factor instead of just quoting an overall fit statistic. You also need to recognize what the intercept means (and when it is meaningless), what the sign of a coefficient does and does not imply, and why coefficients measured in different units cannot be ranked by size alone.</p>
+<p>As you watch, keep a few questions in front of you. What exactly is being held constant in each interpretation sentence? What are the units of the response and of each predictor, and does the stated interpretation carry those units? Does the intercept correspond to a physically possible setting of the predictors? And watch how each presenter phrases a conclusion out loud, because wording is where most interpretation errors show up on exams and in reports. Try writing your own one-sentence interpretation of a coefficient before the video gives one, then compare.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Multiple Regression | Coefficients – Interpretation, C.I, Hypothesis Testing</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xj_e7M7YS6w?cc_load_policy=1&amp;rel=0" title="Video: Multiple Regression | Coefficients – Interpretation, C.I, Hypothesis Testing (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 8:06 · 132,587 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=xj_e7M7YS6w" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused walkthrough of the coefficients section of typical multiple regression software output. Based on its title and description, it covers how to read each estimated coefficient, how to interpret the accompanying confidence intervals, and how hypothesis tests on individual coefficients are reported and read. It builds on a simple linear regression example so the move from one slope to several partial slopes is visible.</p>
+<h3>Why this video</h3>
+<p>Because most of your interpretation work will happen from a software output table, this video connects the concept of a partial coefficient directly to the numbers you will actually see, including the inference columns that tell you whether a predictor&#39;s unique contribution is statistically distinguishable from zero.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Multiple Regression - Interpreting coefficients</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/G_hgr5sK_hc?cc_load_policy=1&amp;rel=0" title="Video: Multiple Regression - Interpreting coefficients (Dr Nic&#39;s Maths and Stats)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Dr Nic&#39;s Maths and Stats</strong> · 7:57 · 19,708 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=G_hgr5sK_hc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Dr Nic works through how to interpret coefficients in both simple linear and multiple regression models, with attention to the wording used to state an interpretation. Expect explicit treatment of the &quot;holding other variables constant&quot; phrasing, the meaning of positive versus negative coefficients, and what the intercept represents in a model with multiple predictors. The description notes it continues from an earlier video in a regression series.</p>
+<h3>Why this video</h3>
+<p>This is the most directly on-topic video for the subtopics on partial coefficients, holding other variables constant, and sign interpretation, and Dr Nic&#39;s channel is well known for careful, plain-language statistical explanations that emphasize correct phrasing over mechanics.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Multiple Regression Predictions, interpreting and understanding</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2ZuxewG2Y9o?cc_load_policy=1&amp;rel=0" title="Video: Multiple Regression Predictions, interpreting and understanding (Dr Nic&#39;s Maths and Stats)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Dr Nic&#39;s Maths and Stats</strong> · 9:34 · 6,320 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=2ZuxewG2Y9o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video uses fitted simple and multiple regression models to generate predictions, then discusses how to understand what the model is telling you. Substituting predictor values into the equation makes concrete how each coefficient contributes separately to a predicted value, and how the intercept enters the calculation. It is a natural companion to the interpretation video from the same channel.</p>
+<h3>Why this video</h3>
+<p>Prediction is a useful check on interpretation: seeing how changing one predictor by one unit shifts the prediction, with the others fixed, makes the partial-coefficient idea tangible rather than verbal, and it reinforces attention to units of measurement.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These three videos sit squarely on MO2, the interpretation of partial regression coefficients as the unique effect of a predictor with the others held constant. Dr Nic&#39;s interpretation video supplies the conceptual language and the intercept discussion, the prediction video turns that language into arithmetic you can verify, and Joshua Emmanuel&#39;s walkthrough ties both to the coefficient table produced by statistical software. Together they also reinforce MO1 by showing a fitted multiple regression equation in use, and they touch MO5, since the hypothesis tests and confidence intervals on individual coefficients are part of the evidence you weigh when deciding whether a predictor earns a place in the model. Overall model fit and significance (MO3 and MO4) are handled in other topics of this module.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

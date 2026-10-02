@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assessing Regression Model Assumptions</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+<h1>Assessing Regression Model Assumptions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: 12-5 Checking the Conditions for Linear Regression</a>
+<a href="#sec3">Video 2: Testing assumptions for linear regression using Stata</a>
+<a href="#sec4">Video 3: Residual Plots for Checking Assumptions in Excel 2016</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Fitting a regression line is only half the job. The least-squares estimates, the standard errors, the t-tests, the F-test, and every prediction interval you build all rest on a set of assumptions about how the data were generated: that the mean response is a linear function of the predictors, that the error variance is constant across the range of fitted values (homoscedasticity), that the errors are independent of one another, and that they are approximately normally distributed. If those assumptions hold, the inference you report is trustworthy. If they do not, the fitted line may still minimize squared error while the p-values, confidence intervals, and predictions it supports are misleading.</p>
+<p>In this module the main diagnostic tool is the residual — the difference between an observed response and the value the model predicts. Residuals are what we actually have access to, and the way they are patterned carries information about the unobservable errors. A plot of residuals against fitted values reveals curvature (a linearity problem) and fanning or funneling (a variance problem); a plot of residuals against time or observation order reveals dependence; a histogram or normal probability plot of residuals addresses the normality condition. Learning to read these plots is a skill you build by looking at many of them.</p>
+<p>As you watch the videos below, pay attention to three things: what each specific plot is designed to detect, what the &quot;good&quot; (random, structureless) version of that plot looks like, and what the failure modes look like. Also notice how the same diagnostic logic is carried out in different software environments — the computations differ, but the questions being asked of the data are identical. Finally, keep in mind the consequence side: a violation of homoscedasticity damages your standard errors and intervals, while a violation of linearity damages the fitted relationship itself, and the two call for different remedies.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: 12-5 Checking the Conditions for Linear Regression</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Y8BSwiQ-vuM?cc_load_policy=1&amp;rel=0" title="Video: 12-5 Checking the Conditions for Linear Regression (Introduction to Statistical Ideas and Methods)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Introduction to Statistical Ideas and Methods</strong> · 7:24 · 4,583 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=Y8BSwiQ-vuM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise conceptual walkthrough of the conditions required for simple linear regression and how each one is checked in practice. Based on its title and description, it should lay out the linearity, constant-variance, independence, and normality conditions and show which graphical check corresponds to each, using residual plots as the central tool. The focus is on understanding what the conditions mean rather than on software mechanics.</p>
+<h3>Why this video</h3>
+<p>Coming from a university-produced introductory statistics course, it gives a clean, accurate framing of all four assumptions in one short video, which makes it the natural starting point before moving to software-based diagnostics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Testing assumptions for linear regression using Stata</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/JOvOiJ18VdY?cc_load_policy=1&amp;rel=0" title="Video: Testing assumptions for linear regression using Stata (KnowHow)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>KnowHow</strong> · 15:05 · 19,409 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=JOvOiJ18VdY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A tutor from the Stats@Liverpool support service demonstrates, step by step, how to test linear regression assumptions using Stata. Over fifteen minutes it should move through fitting a model and then producing and interpreting the diagnostic output — residual-versus-fitted plots, normality checks on residuals, and related tests — commenting on what the results indicate about the model.</p>
+<h3>Why this video</h3>
+<p>It is the most detailed of the three and shows a full diagnostic workflow rather than a single plot, which is useful for seeing how linearity, homoscedasticity, and normality checks fit together in one sitting.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Residual Plots for Checking Assumptions in Excel 2016</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3RGWK9R68lw?cc_load_policy=1&amp;rel=0" title="Video: Residual Plots for Checking Assumptions in Excel 2016 (UTSDS)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>UTSDS</strong> · 5:34 · 15,341 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=3RGWK9R68lw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, practical demonstration of building and reading residual plots in Excel 2016, continuing from earlier videos on scatterplots and correlation. It should show where the residual output options live in Excel&#39;s regression tool and how to use the resulting plots to judge whether the assumptions are reasonable.</p>
+<h3>Why this video</h3>
+<p>Excel is often the first tool engineering students reach for, and this video connects the abstract assumption checks to concrete button-clicks and to residuals you can compute yourself, directly supporting hands-on residual analysis.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these three videos cover the diagnostic core of the module. The conceptual video establishes what linearity, homoscedasticity, independence, and normality mean and which plot detects each, supporting MO1. The Excel and Stata demonstrations show residuals being generated and read from actual output, which builds the computation-and-interpretation skill in MO2 and the systematic plot-based workflow habit required for MO4. Because the Stata walkthrough interprets diagnostic results and comments on what they imply about the fitted model, it also starts you toward the remediation decisions in MO5. Note that these videos address assumption checking rather than resampling; the holdout, k-fold, and leave-one-out comparison in MO3 is covered by other materials in this module.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

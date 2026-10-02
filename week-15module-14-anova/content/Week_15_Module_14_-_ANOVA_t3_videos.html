@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The F-Statistic and ANOVA Logic</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+<h1>The F-Statistic and ANOVA Logic</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Partitioning Variation in One Way ANOVA</a>
+<a href="#sec3">Video 2: ANOVA Sum of Squares- Partitioned- Example</a>
+<a href="#sec4">Video 3: Explain and solve one-way Analysis of Variance (ANOVA) problem</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>When you need to compare the means of three or more groups — three alloy suppliers, four catalyst temperatures, five machine operators — running a separate t-test on every pair seems natural but is statistically costly. Each test carries its own chance of a false positive, and those chances accumulate quickly, so the overall Type I error rate climbs well above the 5 percent you think you are controlling. Analysis of Variance (ANOVA) solves this by asking a single question with a single test: is there evidence that at least one group mean differs from the others?</p>
+<p>The logic behind that single test is variance partitioning. Every observation differs from the overall (grand) mean for two reasons: the group it belongs to may sit above or below the grand mean, and the observation itself varies within its group. ANOVA splits the total sum of squares into a between-group piece (SS_Between) and a within-group piece (SS_Within), divides each by its degrees of freedom to get mean squares, and forms the F-statistic as the ratio MS_Between / MS_Within. When group means truly differ, the numerator grows relative to the numerator&#39;s &quot;noise&quot; benchmark and F becomes large; when they do not, F hovers near 1.</p>
+<p>As you watch the videos below, keep three things in your notes. First, track the identity SS_Total = SS_Between + SS_Within and the matching degrees of freedom bookkeeping — they are the structural backbone of the ANOVA summary table. Second, watch how each quantity is computed from group means, group sizes, and the grand mean, so the formulas stop looking arbitrary. Third, pay attention to how the computed F is compared against a critical value or p-value to reach a conclusion about the null hypothesis that all group means are equal.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Partitioning Variation in One Way ANOVA</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qD4-T0Fdwxs?cc_load_policy=1&amp;rel=0" title="Video: Partitioning Variation in One Way ANOVA (Jason Liu)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Jason Liu</strong> · 3:43 · 766 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=qD4-T0Fdwxs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused clip on how total variation in a one-way ANOVA is decomposed into among-group (between-group) variation plus within-group variation. Based on its description, it works through the partitioning identity that underlies the entire ANOVA table, showing where each sum of squares comes from relative to the grand mean and the individual group means.</p>
+<h3>Why this video</h3>
+<p>At under four minutes it delivers the single most important conceptual idea of this topic — partitioning total variance — without computational clutter, making it an ideal first watch before you tackle worked numerical examples.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: ANOVA Sum of Squares- Partitioned- Example</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ZEnQsTC2UWE?cc_load_policy=1&amp;rel=0" title="Video: ANOVA Sum of Squares- Partitioned- Example (Aimee Birdsall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Aimee Birdsall</strong> · 8:05 · 549 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=ZEnQsTC2UWE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An example-driven lecture segment from a Probability and Statistics for Engineers lecture series that carries the sum-of-squares partition through an actual data set. Expect the calculation of SS_Total, SS_Between, and SS_Within from grouped data, with the numbers assembled in the structure an ANOVA summary table uses.</p>
+<h3>Why this video</h3>
+<p>It comes from a lecture series aimed specifically at engineering probability and statistics students, so the notation and level of detail match this course, and the worked example directly supports the SS_Between and SS_Within subtopics.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Explain and solve one-way Analysis of Variance (ANOVA) problem</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9cILC2BZmzo?cc_load_policy=1&amp;rel=0" title="Video: Explain and solve one-way Analysis of Variance (ANOVA) problem (Vu Do Math)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Vu Do Math</strong> · 12:38 · 455 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=9cILC2BZmzo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A complete walkthrough of a one-way ANOVA problem from start to finish: recognizing when an ANOVA applies, stating the null and alternative hypotheses, computing the sums of squares and mean squares, forming the F-statistic, and reaching a decision. The longer runtime allows each step of the solution to be explained rather than just listed.</p>
+<h3>Why this video</h3>
+<p>This video closes the loop between partitioning variance and drawing a statistical conclusion, giving you a model for interpreting the F-statistic for significance and for laying out a full solution the way you would on an exam.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the computational and conceptual core of MO3: the first establishes why and how total variance splits into between-group and within-group components, the second demonstrates those sums of squares on real numbers in an engineering-statistics context, and the third assembles mean squares into an F-statistic and organizes the results in a summary table. The full problem walkthrough also reinforces MO1 by showing how a single omnibus F-test answers the &quot;are any means different?&quot; question that multiple t-tests handle poorly, and it sets up MO5 by producing the significant-or-not decision that determines whether post-hoc pairwise testing is warranted. Assumption checking (MO2) and multi-factor designs (MO4) are addressed elsewhere in the module; these videos deliberately concentrate on the one-way variance-partitioning logic that everything else in ANOVA is built on.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

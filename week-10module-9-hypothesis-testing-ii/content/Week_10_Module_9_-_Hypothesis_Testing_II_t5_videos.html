@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Non-Parametric Methods</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+<h1>Introduction to Non-Parametric Methods</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Parametric vs Non-Parametric Statistical Tests Explained</a>
+<a href="#sec3">Video 2: Parametric vs Nonparametric Tests</a>
+<a href="#sec4">Video 3: Introduction to Statistics: Nonparametric Statistics</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>So far this module you have worked with tests that rest on fairly specific assumptions: that the underlying population is approximately normal, that variances behave in a particular way, and that the mean is a meaningful summary of the data. Real engineering data does not always cooperate. Sample sizes are small, measurements are skewed or contain outliers, and sometimes the data are ranks or ordered categories rather than true measurements. Non-parametric methods are the family of procedures designed for exactly these situations — they make far fewer assumptions about the shape of the population distribution, and many of them work with ranks or signs rather than raw values.</p>
+<p>This topic is the bridge between knowing how to run a two-sample or paired t-test and knowing what to do when you check the assumptions and find they fail. You will learn what &quot;non-parametric&quot; actually means, the circumstances that call for these methods, what you gain (robustness to outliers and non-normality, applicability to ordinal data) and what you give up (typically some statistical power when the parametric assumptions would have held, and conclusions phrased about medians or distributions rather than means). You will also meet the standard pairings: the Wilcoxon rank-sum or Mann-Whitney U test as the counterpart to the two-sample t-test, the Wilcoxon signed-rank test as the counterpart to the paired t-test, and the Kruskal-Wallis test in place of one-way ANOVA.</p>
+<p>As you watch, keep a decision-making lens. Note the specific conditions each presenter cites as a reason to abandon the parametric test, write down the parametric/non-parametric pairs as they appear, and pay attention to how the null hypothesis is worded differently for a rank-based test. You are not being asked to memorize computational formulas here — the goal is to be able to justify, in a sentence or two, why a given engineering dataset calls for one approach over the other.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Parametric vs Non-Parametric Statistical Tests Explained</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aCmSJ1Fwj7s?cc_load_policy=1&amp;rel=0" title="Video: Parametric vs Non-Parametric Statistical Tests Explained (This Is Why with Dr. Busti)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>This Is Why with Dr. Busti</strong> · 15:10 · 157,300 views · 5mo ago · captions — <a href="https://www.youtube.com/watch?v=aCmSJ1Fwj7s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A thorough, lecture-style treatment of the distinction between parametric and non-parametric tests, framed around how to choose correctly when interpreting research results. Based on its title and description, it should cover the assumptions parametric tests require, the consequences of violating them, and the circumstances in which a non-parametric alternative is the defensible choice. At roughly fifteen minutes, it is the most detailed of the three and likely walks through matched pairs of tests.</p>
+<h3>Why this video</h3>
+<p>This is the anchor video for the topic: it is long enough to address nearly all the subtopics — definitions, when to use, advantages, trade-offs, and test selection — in one coherent explanation, and its focus on avoiding common mistakes matches the decision-making skill this module emphasizes.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Parametric vs Nonparametric Tests</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/kRZcwpL0woA?cc_load_policy=1&amp;rel=0" title="Video: Parametric vs Nonparametric Tests (Solomon Getachew)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Solomon Getachew</strong> · 7:58 · 10,298 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=kRZcwpL0woA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact eight-minute lesson that states its structure up front: the basic concepts behind parametric versus non-parametric tests, followed by guidance on when each is appropriate. Expect clear definitions and, typically in this format, a summary table or list pairing common parametric tests with their non-parametric counterparts.</p>
+<h3>Why this video</h3>
+<p>Its explicit two-part outline maps directly onto the &quot;What Are Non-Parametric Methods?&quot; and &quot;When to Use Non-Parametric Tests&quot; subtopics, making it an efficient review or a second pass if the longer video moved too quickly.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Introduction to Statistics: Nonparametric Statistics</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Z1gXoOkW14I?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Statistics: Nonparametric Statistics (Wolfram U)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Wolfram U</strong> · 4:31 · 156 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=Z1gXoOkW14I" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief introduction from Wolfram U&#39;s statistics series that frames non-parametric methods specifically as the tools to reach for when data fail the conditions required by a t-test, such as normality. In under five minutes it defines the approach and, per its description, works through examples.</p>
+<h3>Why this video</h3>
+<p>Produced by Wolfram as part of a structured introductory statistics sequence, it ties the topic directly back to the t-test assumptions you checked earlier in this module, which is exactly the trigger condition described in the selection subtopic.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These videos extend the test-selection skill of MO1 beyond the z-test, t-test, and paired t-test by showing what to do when none of those is defensible. They reinforce MO3 by repeatedly returning to the assumptions — normality, distribution shape, data type — that must be verified before a parametric test is used, and they support MO4 by clarifying that a rank-based test answers a slightly different question (about medians or distributions) than a mean-based one, which matters when you interpret results. Most directly, all three videos serve MO5: each is built around pairing a parametric test with its appropriate non-parametric alternative, which is precisely the identification you will be asked to make.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

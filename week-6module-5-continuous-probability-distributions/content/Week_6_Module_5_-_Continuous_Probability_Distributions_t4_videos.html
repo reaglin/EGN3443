@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Exponential Distribution</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+<h1>The Exponential Distribution</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: The Exponential Distribution: Time Between Poisson Events</a>
+<a href="#sec3">Video 2: The Hazard Rate and Memoryless Property of the Exponential Distribution</a>
+<a href="#sec4">Video 3: The Exponential Distribution</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>The exponential distribution is the continuous model engineers reach for when the quantity of interest is a waiting time: how long until the next arrival at a service counter, the next packet on a network, the next failure of a component, or the next decay event from a radioactive sample. It is defined by a single parameter, the rate lambda, and its density f(x) = lambda*e^(-lambda*x) for x greater than or equal to 0 decays smoothly from a maximum at zero, which is why small waiting times are more likely than long ones.</p>
+<p>Because the exponential distribution has a closed-form cumulative distribution function, F(x) = 1 - e^(-lambda*x), you can compute probabilities directly by substitution instead of using a table, as you must for the normal distribution. Its mean and standard deviation are both 1/lambda, and it is the only continuous distribution with the memoryless property: the probability of waiting an additional t units does not depend on how long you have already waited. That property is both powerful and easy to misuse, so it deserves careful attention.</p>
+<p>As you watch, keep three questions in mind. First, how is lambda defined and what are its units relative to the units of the waiting time? Second, how does the exponential distribution arise as the time between events in a Poisson process, linking this week&#39;s continuous material back to the discrete distributions you studied earlier? Third, what does memorylessness imply about modeling component lifetimes, and when is it a reasonable assumption for real engineering hardware?</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: The Exponential Distribution: Time Between Poisson Events</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/C7V3d2yB58U?cc_load_policy=1&amp;rel=0" title="Video: The Exponential Distribution: Time Between Poisson Events (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 18:46 · 57,360 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=C7V3d2yB58U" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Steve Brunton develops the exponential distribution as the distribution of the time between successive events in a Poisson process, which is the standard derivation connecting the discrete and continuous pictures. Expect coverage of the probability density function, the role of the rate parameter lambda, and the shape of the decaying curve, along with worked reasoning about rare-event timing.</p>
+<h3>Why this video</h3>
+<p>This is the conceptual anchor for the topic: it explains where the distribution comes from rather than just presenting the formula, and Brunton is a well-known engineering faculty lecturer whose treatment is mathematically careful and clearly paced.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: The Hazard Rate and Memoryless Property of the Exponential Distribution</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8qZilAKQM6s?cc_load_policy=1&amp;rel=0" title="Video: The Hazard Rate and Memoryless Property of the Exponential Distribution (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 7:11 · 26,411 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=8qZilAKQM6s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short follow-up focused on the hazard rate, the instantaneous rate at which an event occurs given that it has not yet occurred, and its connection to the memoryless property of the exponential distribution. The video is likely to show why a constant hazard rate is equivalent to memorylessness and what that means for modeling lifetimes and failures.</p>
+<h3>Why this video</h3>
+<p>It targets the memoryless property directly, which is the subtopic students most often misunderstand, and the hazard-rate framing makes the idea concrete for reliability and failure-time applications in engineering.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: The Exponential Distribution</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WKFk0NXyO50?cc_load_policy=1&amp;rel=0" title="Video: The Exponential Distribution (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 8:09 · 94,248 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=WKFk0NXyO50" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise screencast from LearnChemE that presents the exponential distribution and demonstrates how to compute probabilities from it, typically through a worked example using the cumulative distribution function. Expect a compact review of the density, the parameter, and the mean.</p>
+<h3>Why this video</h3>
+<p>Produced by chemical engineering faculty at CU Boulder for undergraduate coursework, it is a short, example-driven complement to the longer conceptual videos and models the calculation steps you will use on homework and exams.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos move from the probability density function and cumulative distribution function of a continuous random variable (MO1) to direct computation of exponential probabilities using lambda and the closed-form CDF (MO2). The Poisson-process derivation and the hazard-rate discussion give you concrete criteria for deciding when a waiting time or lifetime is well modeled by an exponential distribution rather than a uniform or normal one (MO3). The reliability, service-time, and rare-event examples, along with the mean and standard deviation of 1/lambda, provide the interpretive vocabulary you need to explain a computed probability in engineering terms and act on it (MO4).</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

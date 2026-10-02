@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constructing Confidence Intervals for Means</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div>
+<h1>Constructing Confidence Intervals for Means</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Confidence Interval for a population mean - t distribution</a>
+<a href="#sec3">Video 2: Confidence Interval on the Mean, Variance Unknown</a>
+<a href="#sec4">Video 3: One-Sided Confidence Intervals (Upper &amp; Lower Bound): Z-Test vs. T-Test Examples</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A point estimate like the sample mean gives a single best guess for an unknown population mean, but it says nothing about how much that guess might be off. A confidence interval fixes this by reporting a range of plausible values built around the estimate. Every confidence interval for a mean shares the same structure: point estimate plus or minus a critical value times the standard error of the mean. Once you recognize that structure, the only real decisions left are which critical value to use and how to compute the standard error.</p>
+<p>The choice of critical value depends on what you know. When the population standard deviation sigma is known (and the sampling distribution of the mean is approximately normal, by the Central Limit Theorem), you use a z critical value. When sigma is unknown and you must substitute the sample standard deviation s, the extra uncertainty is accounted for by the Student t distribution with n - 1 degrees of freedom. In engineering practice sigma is almost never known, so the t procedure is the workhorse method.</p>
+<p>As you watch the videos below, pay attention to three things: how each presenter identifies which distribution applies, how they read the correct critical value from a table or software (watch the degrees of freedom and the alpha/2 split carefully), and how the margin of error responds to changes in confidence level, sample size, and variability. Also notice the language used to interpret the final interval — the confidence level describes the long-run performance of the procedure, not the probability that a particular interval contains the mean.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Confidence Interval for a population mean - t distribution</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6r5IZCjvIHI?cc_load_policy=1&amp;rel=0" title="Video: Confidence Interval for a population mean - t distribution (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 7:40 · 180,338 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=6r5IZCjvIHI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video walks through constructing a confidence interval for a population mean using the Student t distribution, starting with an introduction to the t distribution itself before moving into worked computation. Based on its chapter markers, it covers how the t distribution differs from the normal, how degrees of freedom enter the problem, and how to locate the appropriate t critical value for a given confidence level. Expect a complete example that assembles the sample mean, standard error, and margin of error into a finished interval.</p>
+<h3>Why this video</h3>
+<p>Joshua Emmanuel&#39;s statistics tutorials are widely used and carefully paced, and this one directly addresses the unknown-sigma case, degrees of freedom, and t critical value selection — three of the core subtopics in this lesson.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Confidence Interval on the Mean, Variance Unknown</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/c-BpbyIaVsE?cc_load_policy=1&amp;rel=0" title="Video: Confidence Interval on the Mean, Variance Unknown (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 4:51 · 7,590 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=c-BpbyIaVsE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused screencast from LearnChemE on building a confidence interval on the mean when the variance is unknown. In under five minutes it should set up the problem, apply the t-based formula with n - 1 degrees of freedom, and carry the arithmetic through to a numerical interval. The framing is engineering-oriented, tied to a textbook-style problem.</p>
+<h3>Why this video</h3>
+<p>Produced by chemical engineering faculty at the University of Colorado Boulder, it presents the t-interval the way it appears in an engineering statistics course, making it a compact reinforcement of the step-by-step construction process.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: One-Sided Confidence Intervals (Upper &amp; Lower Bound): Z-Test vs. T-Test Examples</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/c9RVFq6v5-g?cc_load_policy=1&amp;rel=0" title="Video: One-Sided Confidence Intervals (Upper &amp; Lower Bound): Z-Test vs. T-Test Examples (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 5:40 · 3,771 views · 10mo ago · captions — <a href="https://www.youtube.com/watch?v=c9RVFq6v5-g" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video extends the standard two-sided interval to one-sided confidence bounds, showing upper-bound and lower-bound cases and contrasting the z-based and t-based versions. It should illustrate how the critical value changes when the entire alpha is placed in one tail rather than split between two, using worked examples for each situation.</p>
+<h3>Why this video</h3>
+<p>It directly compares the z and t situations side by side, which sharpens your ability to select the correct distribution and critical value, and it broadens the general interval structure to problems where only one direction matters.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos target the construction and interpretation outcomes of this module. The first two build fluency with the t procedure when the population standard deviation is unknown — identifying degrees of freedom, selecting the critical value, computing the margin of error, and forming the interval (MO3) — while implicitly relying on normal-based sampling theory justified by the Central Limit Theorem (MO2). The third video reinforces the decision between z and t critical values and shows how shifting tail area changes the critical value, which supports reasoning about how confidence level and related choices affect interval width and precision (MO4). Across all three, the worked examples model the correct way to state what a confidence interval does and does not claim (MO5), giving context to the point-estimator properties discussed elsewhere in the module (MO1).</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

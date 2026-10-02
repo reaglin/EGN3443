@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interpreting and Communicating Results</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+<h1>Interpreting and Communicating Results</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Chi-Square Test of Independence | Contingency Table | Hypothesis Test</a>
+<a href="#sec3">Video 2: Applications and Limitations of Inferential Statistics</a>
+<a href="#sec4">Video 3: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Running a hypothesis test is only half the job. The other half — the half that engineering reports, design reviews, and regulatory submissions actually depend on — is stating what the test does and does not tell you. A p-value is a conditional probability computed under the assumption that the null hypothesis is true; it is not the probability that the null is true, not the probability you made a mistake, and not a measure of how large or important an effect is. Writing conclusions that respect those boundaries is a skill you practice deliberately.</p>
+<p>This topic pulls together the pieces: phrasing a conclusion in terms of the original engineering claim rather than in bare symbols, reporting the test statistic, degrees of freedom, p-value, and significance level so a reader can check your work, separating statistical significance from practical significance (a 0.2 psi difference can be highly significant with a large enough sample and still be irrelevant to the design), and being honest about Type I and Type II error risk and about the assumptions your test required.</p>
+<p>As you watch the videos below, pay attention to the exact wording used at the moment of the conclusion. Notice whether the speaker says &quot;reject the null&quot; or &quot;prove the alternative,&quot; whether assumptions are checked before results are trusted, and how limitations are flagged. Try restating each conclusion in your own words for a non-statistician reader — that translation is what you will be graded on.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Chi-Square Test of Independence | Contingency Table | Hypothesis Test</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AuYRQVmpSaE?cc_load_policy=1&amp;rel=0" title="Video: Chi-Square Test of Independence | Contingency Table | Hypothesis Test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:31 · 54,423 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=AuYRQVmpSaE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact walkthrough of the chi-square test of independence using a contingency table, from setting up the hypotheses about association between two categorical variables through computing expected counts, the test statistic, and degrees of freedom. The video closes by comparing the result to a critical value or significance level and stating what the outcome means for the two variables. It is structured with timestamps so you can jump to the conclusion step.</p>
+<h3>Why this video</h3>
+<p>Joshua Emmanuel&#39;s statistics videos are widely used and carefully worked, and this one models the full path from a stated claim to a conclusion phrased in terms of the variables rather than symbols — exactly the habit this topic targets.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Applications and Limitations of Inferential Statistics</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r8fi3OWT4bA?cc_load_policy=1&amp;rel=0" title="Video: Applications and Limitations of Inferential Statistics (Art+Science with Kevin Hartman)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Art+Science with Kevin Hartman</strong> · 9:16 · 640 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=r8fi3OWT4bA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video steps back from calculation to discuss what inferential statistics can and cannot deliver when you generalize from a sample to a population. Based on its description, it covers the practical uses of inference alongside its challenges and limitations — the kinds of caveats that belong in the discussion section of a report.</p>
+<h3>Why this video</h3>
+<p>It directly supports the subtopics on acknowledging potential errors and presenting results with appropriate confidence, giving you language for stating limitations honestly instead of overclaiming.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R6ALNCeUbmo?cc_load_policy=1&amp;rel=0" title="Video: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:05 · 654 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R6ALNCeUbmo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An end-to-end treatment of the paired sample t-test in R that explicitly covers four stages: checking assumptions, running the calculation, interpreting the output, and reporting the result. The reporting segment shows how test statistics and p-values are conventionally written up for an audience.</p>
+<h3>Why this video</h3>
+<p>Few short videos include a dedicated reporting step, which makes this a useful template for communicating findings clearly and accurately — and the assumption-checking segment reinforces that a conclusion is only as sound as the conditions behind it.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos carry you from test selection and execution into defensible interpretation. The chi-square walkthrough reinforces hypothesis construction, test choice for categorical data, and computing a test statistic and p-value against the correct distribution (MO1, MO2, MO3), and ends by comparing the result to a significance level (MO4). The paired t-test video supports MO2 and MO3 for paired designs and adds an explicit interpretation-and-reporting stage that models the communication skills at the center of this topic. The video on applications and limitations of inferential statistics supports MO4 and MO5 by framing what a significant result does and does not establish and why error risk and sampling limitations must be acknowledged when you present conclusions to an engineering audience.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

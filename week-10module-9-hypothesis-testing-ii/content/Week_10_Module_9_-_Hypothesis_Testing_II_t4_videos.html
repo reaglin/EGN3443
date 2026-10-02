@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assumptions and Conditions for Validity</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
+<h1>Assumptions and Conditions for Validity</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Independent Samples t-tests, more assumptions &amp; APA writeup - GMT20250728 190922 Recording 1920x1080</a>
+<a href="#sec3">Video 2: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</a>
+<a href="#sec4">Video 3: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Every hypothesis test you have learned in this course rests on a set of assumptions. A t-statistic only follows a t-distribution, and a p-value only means what we claim it means, if certain conditions about the data hold: observations are independent, the underlying populations are approximately normal (or the samples are large enough for the Central Limit Theorem to help), and, for some versions of the two-sample test, the population variances are comparable. When those conditions fail, the arithmetic still produces a number, but the conclusion drawn from it can be badly wrong.</p>
+<p>This topic asks you to slow down before computing and ask: is this test appropriate for this data? You will look at how independence is established by study design rather than by a test, how normality is checked informally with histograms, boxplots, and Q-Q plots or formally with tests such as Shapiro-Wilk, how equal variances are assessed (and why Welch&#39;s correction often makes that check less critical), and what changes when the data are paired — in that case the normality assumption applies to the differences, not to the two original samples. You will also see what to do when assumptions clearly fail, namely turn to non-parametric alternatives such as the Mann-Whitney U or Wilcoxon signed-rank test.</p>
+<p>The three videos below all walk through two-sample and paired t-tests with assumption checking built into the workflow. As you watch, pay attention to the order of operations: which assumptions are checked first, which diagnostic tool is used for each, what the presenter does when an assumption appears violated, and how the assumption check is eventually reported alongside the result. Two of the videos use R, so focus on the logic of each step rather than memorizing syntax.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Independent Samples t-tests, more assumptions &amp; APA writeup - GMT20250728 190922 Recording 1920x1080</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/akpsVRLt5Zk?cc_load_policy=1&amp;rel=0" title="Video: Independent Samples t-tests, more assumptions &amp; APA writeup - GMT20250728 190922 Recording 1920x1080 (Amy Madewell)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Amy Madewell</strong> · 8:08 · 165 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=akpsVRLt5Zk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short lecture-style recording covering the assumptions behind the independent-samples t-test and how to communicate results in APA format. Based on the title and description, it should address conditions such as independence of groups, normality, and equal variances, and then connect those checks to the way a results section is written up. The emphasis is on tying the assumption discussion to the reported conclusion rather than treating it as a separate exercise.</p>
+<h3>Why this video</h3>
+<p>It isolates the assumption set for the independent-samples test, which is the central case for this topic, and it models the professional habit of stating which conditions were checked when reporting a test result.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WZSTIQvz9NI?cc_load_policy=1&amp;rel=0" title="Video: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:45 · 445 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=WZSTIQvz9NI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact end-to-end demonstration of the two-sample t-test in R, structured around assumptions, calculation, interpretation, and reporting. Expect it to show how normality and equal-variance conditions are examined before the test is run, and how the choice between the pooled and Welch versions follows from the variance check. The interpretation segment should connect the output back to the original research question.</p>
+<h3>Why this video</h3>
+<p>The all-in-one format makes the dependency explicit — assumption checks come first and determine which version of the test is used — which is exactly the reasoning this topic asks you to internalize.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R6ALNCeUbmo?cc_load_policy=1&amp;rel=0" title="Video: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:05 · 654 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R6ALNCeUbmo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The paired-sample counterpart from the same channel, again organized as assumptions, calculation, interpretation, and reporting in R. It should highlight the conditions specific to paired data, most importantly that the normality requirement applies to the within-pair differences, and show how the paired structure is handled in the analysis. The video closes with how to interpret and report the result.</p>
+<h3>Why this video</h3>
+<p>It directly covers the subtopic on conditions specific to paired comparisons and, watched alongside the two-sample video, makes the contrast between independent and paired assumption sets easy to see.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos reinforce MO3 most directly by demonstrating how to evaluate normality, independence, and equal-variance conditions on real datasets before trusting a test result. The contrast between the independent-samples and paired-samples videos supports MO1, since recognizing whether observations are independent or matched is the key decision in choosing the right test, and the calculation segments reinforce MO2 by showing the statistic and degrees of freedom in context. The interpretation and reporting portions support MO4 by modeling how a p-value is translated into a defensible conclusion, and the assumption-failure discussions set up MO5 by signaling when a parametric test should be abandoned in favor of a non-parametric alternative.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

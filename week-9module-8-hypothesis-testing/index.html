@@ -1,408 +1,195 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 9/Module 8 – Hypothesis Testing | EGN3443</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #1e2530;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #245e8f 100%);
-      color: #fff;
-      padding: 2.5rem 2rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a8cce8;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
-    }
-
-    header p {
-      font-size: 0.97rem;
-      color: #d0e6f5;
-      max-width: 72ch;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    /* ── Section headings ── */
-    .section-heading {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: #5a7a99;
-      border-bottom: 2px solid #d0dce8;
-      padding-bottom: 0.4rem;
-      margin: 2rem 0 1rem;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.1rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde4ee;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(36, 94, 143, 0.12);
-      border-color: #b0c8e0;
-    }
-
-    /* ── Card meta row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.45rem;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.18em 0.6em;
-      border-radius: 3px;
-      white-space: nowrap;
-    }
-
-    /* Badge colour map by type */
-    .badge-type-module   { background: #e3f0fb; color: #1a5a8a; }
-    .badge-type-text     { background: #e8f5e9; color: #2e7d32; }
-    .badge-type-topic    { background: #f3e8fd; color: #6a1b9a; }
-    .badge-type-quiz     { background: #fff3e0; color: #e65100; }
-    .badge-type-assign   { background: #fce4ec; color: #880e4f; }
-    .badge-type-default  { background: #eceff1; color: #455a64; }
-
-    .filetype-tag {
-      font-size: 0.67rem;
-      color: #7a8fa8;
-      font-family: 'Courier New', monospace;
-      background: #f0f3f7;
-      padding: 0.15em 0.45em;
-      border-radius: 3px;
-    }
-
-    /* ── Card title ── */
-    .card-title {
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: #1a2e44;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1a5a8a;
-      text-decoration: none;
-    }
-
-    .card-title a:hover {
-      text-decoration: underline;
-      color: #0d3d66;
-    }
-
-    .source-link {
-      display: inline-block;
-      font-size: 0.72rem;
-      color: #5a7a99;
-      border: 1px solid #b8cfe0;
-      border-radius: 3px;
-      padding: 0.1em 0.5em;
-      margin-left: 0.4rem;
-      text-decoration: none;
-      white-space: nowrap;
-      vertical-align: middle;
-      transition: background 0.15s;
-    }
-
-    .source-link:hover {
-      background: #ddeaf5;
-      color: #0d3d66;
-    }
-
-    /* ── Card description ── */
-    .card-desc {
-      font-size: 0.855rem;
-      color: #4a5a6e;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8fa5bc;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde4ee;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 1.8rem 1.1rem 1.5rem; }
-    }
-  </style>
+  <title>Week 9/Module 8 - Hypothesis Testing — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-<header>
-  <div class="header-inner">
-    <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
-    <h1>Week 9 / Module 8 — Hypothesis Testing</h1>
-    <p>
-      This module introduces the principles of statistical hypothesis testing, guiding
-      you from formulating null and alternative hypotheses through selecting test
-      statistics, interpreting p-values, understanding error types, and communicating
-      results professionally. Use the resources below to work through readings, lectures,
-      assessments, and collaborative assignments.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 9/Module 8 - Hypothesis Testing</span>
+  </nav>
+      <div class="hero-label">Module 9</div>
+      <h1>Week 9/Module 8 - Hypothesis Testing</h1>
+      <p class="hero-desc">In this module, learners explore the fundamental principles of hypothesis testing, including how to formulate null and alternative hypotheses, select appropriate test statistics, and interpret p-values and significance levels. Through practical examples and guided exercises, learners develop the ability to apply common hypothesis tests to real-world data and draw statistically sound conclusions. By the end of the module, learners will be equipped to critically evaluate claims, identify potential errors in testing, and communicate findings with confidence and precision.</p>
+    </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of Hypothesis Testing</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Formulating Null and Alternative Hypotheses</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Test Statistics and Sampling Distributions</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">P-Values and Significance Levels</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Applying Common Hypothesis Tests</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Type I and Type II Errors</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Interpreting and Communicating Results</span><span class="topic-meta">6 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">18 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_8_Introduction_to_Statistical_Hyp.html">EGN3443 Module 8 - Introduction to Statistical Hypothesis Testing</a></div>
+    <p class="content-desc">A landing page that organizes and links to the module&#39;s main learning resources — the PowerPoint slides, lecture video, and Google Colab notebook — giving learners a single access point for all Module 8 instructional materials.</p>
   </div>
-</header>
-
-<main>
-
-  <!-- ═══════════════════════════════════════════
-       SECTION 1 – Navigation & Overview
-  ════════════════════════════════════════════ -->
-  <p class="section-heading">Navigation &amp; Overview</p>
-  <div class="card-grid">
-
-    <!-- Module Topics -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-module">Module Topics</span>
-        <span class="filetype-tag">.json</span>
-      </div>
-      <div class="card-title">
-        <a href="content/module_topics.html">Module Topics</a>
-        <a class="source-link" href="source/hierarchy.json">source file</a>
-      </div>
-      <p class="card-desc">A structured outline of the module's core topics covering hypothesis testing foundations, null and alternative hypothesis formulation, test statistics, sampling distributions, and p-values, used as a navigation guide for the module's content.</p>
-    </div>
-
-    <!-- EGN3443 Module 8 Landing Page -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-text">Text Content</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/EGN3443_Module_8_Introduction_to_Statistical_Hyp.html">EGN3443 Module 8 – Introduction to Statistical Hypothesis Testing</a>
-      </div>
-      <p class="card-desc">A landing page that organizes and links to the module's main learning resources — the PowerPoint slides, lecture video, and Google Colab notebook — giving learners a single access point for all Module 8 instructional materials.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-  <!-- ═══════════════════════════════════════════
-       SECTION 2 – Core Reading
-  ════════════════════════════════════════════ -->
-  <p class="section-heading">Core Reading</p>
-  <div class="card-grid">
-
-    <!-- Introduction to Hypothesis Testing -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-text">Text Content</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Introduction_to_Hypothesis_Testing.html">Introduction to Hypothesis Testing</a>
-      </div>
-      <p class="card-desc">A reading that explains the core concepts of hypothesis testing, including null and alternative hypotheses, test statistics, p-values, significance levels, and decision rules, serving as the primary reference text learners study before or alongside lectures.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-  <!-- ═══════════════════════════════════════════
-       SECTION 3 – Topic Detail Readings
-  ════════════════════════════════════════════ -->
-  <p class="section-heading">Topic Detail Readings</p>
-  <div class="card-grid">
-
-    <!-- Foundations of Hypothesis Testing -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t1.html">Foundations of Hypothesis Testing</a>
-      </div>
-      <p class="card-desc">A reading that introduces hypothesis testing as a framework for using sample data to make decisions about populations, covering core concepts such as the logic of statistical inference, burden of proof, and the structured steps of a hypothesis test — intended as foundational background for learners beginning the topic.</p>
-    </div>
-
-    <!-- Formulating Null and Alternative Hypotheses -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t2.html">Formulating Null and Alternative Hypotheses</a>
-      </div>
-      <p class="card-desc">A reading that explains how to correctly formulate null and alternative hypotheses before collecting data, covering the roles of each hypothesis, directional versus non-directional tests, and common pitfalls in hypothesis specification — used by learners to practice translating research questions into formal statistical claims.</p>
-    </div>
-
-    <!-- Test Statistics and Sampling Distributions -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t3.html">Test Statistics and Sampling Distributions</a>
-      </div>
-      <p class="card-desc">A reading that explains what a test statistic is, how it compresses sample data into a single value, and how sampling distributions (such as z, t, and chi-square) are used to evaluate that value under the null hypothesis — used by learners to understand the mathematical bridge between raw data and a hypothesis test decision.</p>
-    </div>
-
-    <!-- P-Values and Significance Levels -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t4.html">P-Values and Significance Levels</a>
-      </div>
-      <p class="card-desc">A reading that explains p-values and significance levels (α), how they interact to form a decision rule for rejecting or failing to reject the null hypothesis, and how to correctly interpret p-values — used by learners to understand and apply the core decision-making mechanism of hypothesis testing.</p>
-    </div>
-
-    <!-- Applying Common Hypothesis Tests -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t5.html">Applying Common Hypothesis Tests</a>
-      </div>
-      <p class="card-desc">A reading that walks through the step-by-step application of the most commonly used hypothesis tests — including one-sample z and t tests, two-sample tests, and chi-square tests — providing worked examples so learners can see how to select and execute the appropriate test for a given engineering or research scenario.</p>
-    </div>
-
-    <!-- Type I and Type II Errors -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t6.html">Type I and Type II Errors</a>
-      </div>
-      <p class="card-desc">A reading that defines Type I errors (false positives) and Type II errors (false negatives), explains their relationship to α and statistical power, and discusses the consequences of each error type — used by learners to understand the trade-offs and risks inherent in any hypothesis testing decision.</p>
-    </div>
-
-    <!-- Interpreting and Communicating Results -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-topic">Topic Detail</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t7.html">Interpreting and Communicating Results</a>
-      </div>
-      <p class="card-desc">A reading that addresses how to accurately interpret hypothesis test results and communicate findings without overstating conclusions, covering common misinterpretations of p-values, the distinction between statistical and practical significance, and best practices for reporting results — used by learners and instructors to ensure correct understanding and professional communication of statistical analyses.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-  <!-- ═══════════════════════════════════════════
-       SECTION 4 – Assessment
-  ════════════════════════════════════════════ -->
-  <p class="section-heading">Assessment</p>
-  <div class="card-grid">
-
-    <!-- Quiz Question Bank -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-quiz">Quiz</span>
-        <span class="filetype-tag">.json</span>
-      </div>
-      <div class="card-title">
-        
-        
-      </div>
-      <p class="card-desc">A 45-question quiz bank containing applied hypothesis testing problems set in engineering contexts (e.g., ball bearings, concrete strength), used by instructors to assess learners' ability to formulate hypotheses and select appropriate tests.</p>
-    </div>
-
-    <!-- Module 8 Graded Discussion -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-assign">Assignment</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="assignments/index.html">Module 8 Graded Discussion</a>
-      </div>
-      <p class="card-desc">A graded discussion assignment in which learners query an AI tool about statistical methodology for determining whether manufactured products meet specified tolerances, then post the prompt, AI response, and their own critical comments for peer discussion.</p>
-    </div>
-
-    <!-- Group Assignment 8 -->
-    <div class="card">
-      <div class="card-meta">
-        <span class="badge badge-type-assign">Assignment</span>
-        <span class="filetype-tag">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="assignments/index.html">Group Assignment 8 – Hypothesis Testing</a>
-      </div>
-      <p class="card-desc">A group assignment that uses a provided sample problem to explore how sample size affects the accept/reject region at a given significance level, requiring teams to run multiple hypothesis tests and analyze the relationship between sample size and decision boundaries.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-</main>
-
-<footer>
-  EGN3443 Probability &amp; Statistics for Engineers — Week 9 / Module 8
-</footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Introduction_to_Hypothesis_Testing.html">Introduction to Hypothesis Testing</a></div>
+    <p class="content-desc">A reading that explains the core concepts of hypothesis testing, including null and alternative hypotheses, test statistics, p-values, significance levels, and decision rules, serving as the primary reference text learners study before or alongside lectures.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t1.html">Foundations of Hypothesis Testing</a></div>
+    <p class="content-desc">A reading that introduces hypothesis testing as a framework for using sample data to make decisions about populations, covering core concepts such as the logic of statistical inference, burden of proof, and the structured steps of a hypothesis test — intended as foundational background for learners beginning the topic.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t2.html">Formulating Null and Alternative Hypotheses</a></div>
+    <p class="content-desc">A reading that explains how to correctly formulate null and alternative hypotheses before collecting data, covering the roles of each hypothesis, directional versus non-directional tests, and common pitfalls in hypothesis specification — used by learners to practice translating research questions into formal statistical claims.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t3.html">Test Statistics and Sampling Distributions</a></div>
+    <p class="content-desc">A reading that explains what a test statistic is, how it compresses sample data into a single value, and how sampling distributions (such as z, t, and chi-square) are used to evaluate that value under the null hypothesis — used by learners to understand the mathematical bridge between raw data and a hypothesis test decision.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t4.html">P-Values and Significance Levels</a></div>
+    <p class="content-desc">A reading that explains p-values and significance levels (α), how they interact to form a decision rule for rejecting or failing to reject the null hypothesis, and how to correctly interpret p-values — used by learners to understand and apply the core decision-making mechanism of hypothesis testing.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t5.html">Applying Common Hypothesis Tests</a></div>
+    <p class="content-desc">A reading that walks through the step-by-step application of the most commonly used hypothesis tests — including one-sample z and t tests, two-sample tests, and chi-square tests — providing worked examples so learners can see how to select and execute the appropriate test for a given engineering or research scenario.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t6.html">Type I and Type II Errors</a></div>
+    <p class="content-desc">A reading that defines Type I errors (false positives) and Type II errors (false negatives), explains their relationship to α and statistical power, and discusses the consequences of each error type — used by learners to understand the trade-offs and risks inherent in any hypothesis testing decision.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t7.html">Interpreting and Communicating Results</a></div>
+    <p class="content-desc">A reading that addresses how to accurately interpret hypothesis test results and communicate findings without overstating conclusions, covering common misinterpretations of p-values, the distinction between statistical and practical significance, and best practices for reporting results — used by learners and instructors to ensure correct understanding and professional communication of statistical analyses.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t1_videos.html">Foundations of Hypothesis Testing — Videos</a></div>
+    <p class="content-desc">A conceptual reading that introduces hypothesis testing as a formal decision procedure, reframing engineering questions as &quot;how surprising would this data be if the status quo were true?&quot; and setting up the vocabulary used throughout the week.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t2_videos.html">Formulating Null and Alternative Hypotheses — Videos</a></div>
+    <p class="content-desc">A lesson on translating engineering claims into competing statements about a population parameter, explaining why the null hypothesis always carries the equality and how to choose one- versus two-sided alternatives before any calculation begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t3_videos.html">Test Statistics and Sampling Distributions — Videos</a></div>
+    <p class="content-desc">A reading that defines the test statistic as a standardized measure of distance between the sample result and the null-predicted value, and shows which reference sampling distribution (standard normal, t with given degrees of freedom, etc.) applies to each situation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t4_videos.html">P-Values and Significance Levels — Videos</a></div>
+    <p class="content-desc">A lesson explaining the p-value as the probability of a result at least as extreme as the observed one when the null is true, and how to compare it to a pre-chosen significance level alpha to reach a reject / fail-to-reject decision.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t5_videos.html">Applying Common Hypothesis Tests — Videos</a></div>
+    <p class="content-desc">A worked application page that puts the testing procedure into practice across common engineering data situations — one-sample, two-sample, and related comparisons — so learners can match a data scenario to the correct test and carry it through.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t6_videos.html">Type I and Type II Errors — Videos</a></div>
+    <p class="content-desc">A reading contrasting Type I (false positive, probability alpha) and Type II (false negative, probability beta) errors, used to help learners reason about the trade-off between the two and its connection to power and sample size.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t7_videos.html">Interpreting and Communicating Results — Videos</a></div>
+    <p class="content-desc">A closing lesson on correctly interpreting and writing up results, emphasizing what a p-value is not (e.g., the probability the null is true) and how to communicate conclusions in engineering reports, design reviews, and regulatory submissions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_9_Module_8_-_Hypothesis_Testing_videos_merged.html">Week 9/Module 8 - Hypothesis Testing — 7 topics (merged)</a></div>
+    <p class="content-desc">A single compiled page containing all of the module&#39;s topic readings end to end, useful as a consolidated review document or printable version of the full Week 9 hypothesis testing module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A graded discussion assignment in which learners query an AI tool about statistical methodology for determining whether manufactured products meet specified tolerances, then post the prompt, AI response, and their own critical comments for peer discussion.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-8module-7-point-estimation-and-ci/index.html">← Week 8/Module 7 - Point Estimation and CI</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-10module-9-hypothesis-testing-ii/index.html">Week 10/Module 9 - Hypothesis Testing II →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Population Parameters vs. Sample Statistics</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+<h1>Population Parameters vs. Sample Statistics</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Population, Sample, Paramater, and Statistic</a>
+<a href="#sec3">Video 2: Population and Sample</a>
+<a href="#sec4">Video 3: Statistics: Population and Sample; Parameter and Statistic</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Almost every statistical question an engineer asks is about a population — all the bolts coming off a production line, all the bridge welds in a fleet of structures, all the response times of a sensor design. Measuring every member of that population is usually impossible, so we measure a sample and compute numbers from it. The fixed, usually unknown numbers that describe the population (such as the population mean, the population standard deviation, or a population proportion) are called parameters. The numbers we actually compute from our sample data are called statistics, and they are our best available estimates of those parameters.</p>
+<p>The distinction matters because parameters and statistics behave very differently. A parameter is a single fixed value; a statistic changes every time you draw a new sample. That variation is called sampling error, and it is not a mistake — it is the natural consequence of looking at part of a population instead of all of it. Understanding this difference is the foundation for everything else in this module: sampling distributions, standard error, and the Central Limit Theorem all exist to describe how far a statistic is likely to fall from the parameter it estimates.</p>
+<p>As you watch the videos below, pay close attention to the notation conventions (Greek letters such as mu and sigma for parameters versus Roman letters such as x-bar, s, and p-hat for statistics), and to how each presenter identifies the population in a worded scenario before naming the parameter and statistic. Practice the habit of asking two questions of any data problem: what group am I trying to describe, and what did I actually measure?</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Population, Sample, Paramater, and Statistic</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jKY7jRDQ6uo?cc_load_policy=1&amp;rel=0" title="Video: Population, Sample, Paramater, and Statistic (Red Rocks Community College Math Department)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Red Rocks Community College Math Department</strong> · 4:11 · 74 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=jKY7jRDQ6uo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A brief, structured definition video that walks through population, sample, parameter, and statistic in sequence, with worked examples drawn from an introductory statistics course. The timestamps indicate it begins with population and sample before moving on to the parameter-statistic pairing. Expect clear definitions and short identification examples rather than computation.</p>
+<h3>Why this video</h3>
+<p>At just over four minutes it is an efficient, well-organized starting point from a community college math department, and its sequencing maps directly onto the first three subtopics: defining parameters, defining statistics, and the relationship between them.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Population and Sample</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aLz7XRtbSoA?cc_load_policy=1&amp;rel=0" title="Video: Population and Sample (Virginia Somes)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Virginia Somes</strong> · 10:29 · 711 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=aLz7XRtbSoA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer treatment that spends time on the logic of using a sample statistic to say something about an unknown population parameter — that is, estimation. The description signals discussion of how a statistic is used to estimate or talk about the parameter, so expect more explanation of reasoning and context than in a pure definitions video. The extra runtime allows room for multiple examples.</p>
+<h3>Why this video</h3>
+<p>This video is the best fit for the conceptual subtopics — why parameters and statistics differ and why we settle for an estimate — which sets up the idea of sampling error and its practical implications for analysis.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Statistics: Population and Sample; Parameter and Statistic</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/S2JRLOfcVv0?cc_load_policy=1&amp;rel=0" title="Video: Statistics: Population and Sample; Parameter and Statistic (Julie&#39;s Math Explained)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Julie&#39;s Math Explained</strong> · 4:57 · 9 views · 1mo ago · captions — <a href="https://www.youtube.com/watch?v=S2JRLOfcVv0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise review of the four key terms, pairing population with sample and parameter with statistic, followed by illustrative examples. The paired presentation makes the correspondence between the group you want to describe and the number that describes it easy to see.</p>
+<h3>Why this video</h3>
+<p>Its short length and example-driven format make it a useful second pass or quick review before attempting homework, reinforcing the vocabulary and notation you will need throughout the rest of the module.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>These three videos concentrate on MO1: each one gives you practice naming the population, the sample, the parameter, and the statistic in a described scenario, which is exactly the skill you need to read and set up every later problem in this module. By establishing that a statistic varies from sample to sample while a parameter stays fixed, they also lay the conceptual groundwork for MO2 through MO5 — the standard error you will compute, the effect of sample size you will predict, and the sampling variability you will distinguish from real differences all describe how far a sample statistic tends to fall from the population parameter. Treat these videos as vocabulary and intuition building; the Central Limit Theorem formulas themselves are covered in the other materials for this week.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

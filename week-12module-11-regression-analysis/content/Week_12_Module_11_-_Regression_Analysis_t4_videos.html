@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evaluating Regression Model Performance</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 12/Module 11 - Regression Analysis</a></div>
+<h1>Evaluating Regression Model Performance</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Evaluating Regression Models</a>
+<a href="#sec3">Video 2: Analyzing Residuals for Model Accuracy</a>
+<a href="#sec4">Video 3: Decomposition of Variability: Sum of Squares | Statistics Tutorial</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Fitting a regression line is only the first step. Once you have an equation, you have to ask harder questions: How much of the variation in the response does the model actually explain? Are the individual predictors contributing anything beyond chance? Does the model as a whole do better than simply predicting the mean? And, just as important, are the assumptions behind the least squares procedure reasonable for this data set? This topic gathers the standard tools engineers use to answer those questions — R-squared and adjusted R-squared, MSE and RMSE, coefficient p-values, the overall F-statistic, and residual diagnostics.</p>
+<p>These ideas matter in this course because a regression model that looks good on a summary line can still be wrong in ways that cause bad engineering decisions. A high R-squared does not guarantee linearity, constant variance, or independent errors; adding predictors always raises R-squared, which is why adjusted R-squared exists; and residual plots often reveal curvature or funnel shapes that no single number will show you. Understanding the decomposition of total variability into explained and unexplained parts ties all of these metrics together, since R-squared, MSE, and the F-statistic are all built from sums of squares.</p>
+<p>As you watch, keep track of three things. First, the vocabulary and arithmetic of sums of squares (total, regression/explained, error/residual) and how each metric is computed from them. Second, what a &quot;good&quot; residual plot looks like versus plots that signal a violated assumption. Third, the distinction between a model that fits the data you have and a model that will predict well on new data — that distinction motivates adjusted R-squared and RMSE as honest measures of error in the units of the response.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Evaluating Regression Models</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eVivMkxlS6M?cc_load_policy=1&amp;rel=0" title="Video: Evaluating Regression Models (Leslie Myint)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Leslie Myint</strong> · 10:30 · 10,225 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=eVivMkxlS6M" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This lecture-style video builds on the idea of examining regression residuals and moves into how we evaluate and compare regression models overall. Based on its title and description, it covers quantifying the errors a model makes and using those error summaries as criteria for judging model quality, which is the conceptual home of measures such as MSE, RMSE, and R-squared.</p>
+<h3>Why this video</h3>
+<p>It frames model evaluation as a systematic process rather than a single number, which directly supports the R-squared, error-metric, and residual-analysis subtopics in this module.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Analyzing Residuals for Model Accuracy</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/B3dZg_laEEs?cc_load_policy=1&amp;rel=0" title="Video: Analyzing Residuals for Model Accuracy (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 10:00 · 3,544 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=B3dZg_laEEs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Produced by LearnChemE at the University of Colorado Boulder, this short video focuses specifically on reading residuals to judge whether a fitted model is accurate. Expect discussion of plotting residuals, recognizing patterns that indicate a poor or incorrectly specified model, and using that visual evidence to decide whether the fit should be trusted.</p>
+<h3>Why this video</h3>
+<p>It is an engineering-faculty-produced treatment of residual analysis, so the examples and framing align well with how you will check linearity, homoscedasticity, and overall model validity in EGN3443.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Decomposition of Variability: Sum of Squares | Statistics Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/NxRTs7sXKAQ?cc_load_policy=1&amp;rel=0" title="Video: Decomposition of Variability: Sum of Squares | Statistics Tutorial (365 Data Science)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>365 Data Science</strong> · 3:20 · 62,251 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=NxRTs7sXKAQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A concise tutorial from 365 Data Science that breaks total variability in the response into its components — the sum of squares total, the sum of squares due to regression, and the sum of squares of errors. It explains what each piece represents and how they relate to one another in a fitted regression.</p>
+<h3>Why this video</h3>
+<p>Nearly every metric in this topic (R-squared, adjusted R-squared, MSE, and the F-statistic) is assembled from these sums of squares, so this short, clearly presented video gives you the algebraic foundation the other videos build on.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos move you from the mechanics of fitting (MO1) to the interpretation and judgment skills the module emphasizes. The sum-of-squares decomposition video supplies the quantities behind R-squared, adjusted R-squared, and the F-statistic, supporting your ability to read and interpret standard regression output (MO2). The model-evaluation video treats error metrics and comparison criteria, which is also how you decide whether extra predictors in a multiple regression are earning their place (MO3). The LearnChemE residual video targets MO4 directly by showing how residual plots expose violations of linearity and constant variance. Finally, being able to explain why a model is or is not trustworthy — not just report a number — is exactly the communication skill called for in MO5.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

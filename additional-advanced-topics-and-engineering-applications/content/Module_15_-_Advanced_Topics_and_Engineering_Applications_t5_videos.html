@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optimization and Design Strategies</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Additional Advanced Topics and Engineering Applications</a></div>
+<h1>Optimization and Design Strategies</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Multiobjective optimization</a>
+<a href="#sec3">Video 2: Unit 10: Utility Analysis and Multidimensional Evaluation, Video 1: Is Optimization Possible?</a>
+<a href="#sec4">Video 3: Multi-Objective Optimization in Structural Engineering</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Engineering design rarely has a single &quot;right&quot; answer. Instead, you define what you are trying to achieve (objectives), what you cannot violate (constraints), and then search systematically for designs that perform well against those criteria. Optimization gives that search a mathematical structure: an objective function to minimize or maximize, decision variables you are free to change, and constraints that bound the feasible region. In practice, engineers almost never optimize one thing alone — weight competes with cost, speed competes with safety margin, and performance competes with manufacturability.</p>
+<p>In this course, optimization connects directly to the probabilistic and simulation tools you have already seen. Design variables carry uncertainty, performance predictions come from models whose outputs are distributions rather than single numbers, and data from tests or simulations feeds back into the next design iteration. That is why the topic emphasizes iterative refinement, data-driven decisions, and trade-off analysis rather than a one-shot calculation.</p>
+<p>As you watch the videos below, pay attention to three things: how each speaker formalizes &quot;better&quot; (weights, utility, Pareto fronts), where subjective judgment enters a seemingly objective procedure, and how constraints on cost and safety shape the set of designs worth considering at all. Note the vocabulary — Pareto optimal, dominated solution, weighting, trade-off curve — since you will use it when evaluating competing alternatives.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Multiobjective optimization</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ELLHqHk32II?cc_load_policy=1&amp;rel=0" title="Video: Multiobjective optimization (OpenMDAO)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>OpenMDAO</strong> · 5:49 · 29,658 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=ELLHqHk32II" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short technical explainer from the OpenMDAO team on what multiobjective optimization actually means in practice. The description signals a key point: so-called multiobjective methods usually require predefined weightings for each objective, which effectively collapses several goals into one scalar objective function. Expect discussion of how weighting choices drive the solution you obtain and what that implies when you report an &quot;optimal&quot; design.</p>
+<h3>Why this video</h3>
+<p>OpenMDAO is a NASA-developed multidisciplinary optimization framework, so the perspective comes from practitioners who build computational optimization tools. It directly addresses Defining Optimization Objectives and Multi-Objective Optimization in a tight, honest format that warns against treating optimization output as objective truth.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Unit 10: Utility Analysis and Multidimensional Evaluation, Video 1: Is Optimization Possible?</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/cF6he3JbWbs?cc_load_policy=1&amp;rel=0" title="Video: Unit 10: Utility Analysis and Multidimensional Evaluation, Video 1: Is Optimization Possible? (MIT OpenCourseWare)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>MIT OpenCourseWare</strong> · 7:54 · 7,828 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=cF6he3JbWbs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The opening video of an MIT OpenCourseWare unit on utility analysis and multidimensional evaluation, taught by Richard de Neufville in IDS.333 Risk and Decision Analysis. It poses the question &quot;Is optimization possible?&quot; and likely examines why problems with multiple, non-commensurate objectives resist a single optimum, motivating utility-based evaluation instead. Expect framing of decision criteria, preferences, and the limits of purely numerical optimization.</p>
+<h3>Why this video</h3>
+<p>An MIT OpenCourseWare lecture from a risk and decision analysis course gives rigorous, well-vetted treatment of trade-off analysis and evaluation under uncertainty, connecting optimization to the probabilistic decision-making themes of this module.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Multi-Objective Optimization in Structural Engineering</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/wiXdPCihKlA?cc_load_policy=1&amp;rel=0" title="Video: Multi-Objective Optimization in Structural Engineering (Manhattan University Civil Analytics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Manhattan University Civil Analytics</strong> · 13:44 · 20 views · 4w ago · captions — <a href="https://www.youtube.com/watch?v=wiXdPCihKlA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A civil engineering application video showing how multi-objective optimization is used to balance competing design goals in structural engineering. Based on its description, it addresses safety, resilience, cost-effectiveness, and sustainability as simultaneous targets rather than separate concerns. At roughly fourteen minutes it is the longest of the three and should give the most worked-out engineering context.</p>
+<h3>Why this video</h3>
+<p>It grounds abstract optimization theory in a concrete discipline, which supports the Performance, Cost, and Safety Balancing subtopic and shows what trade-off analysis looks like on a real structure.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos build the evaluation skills at the center of MO3: the OpenMDAO video defines objectives, weightings, and the mechanics of multiobjective formulations; the MIT lecture supplies the decision-analysis framing needed to compare alternatives when objectives cannot be reduced to one number; and the structural engineering case study demonstrates performance, cost, and safety balancing in a real design setting. The emphasis on weighting choices, preferences, and uncertainty also reinforces MO5 by showing how risk and competing priorities are made explicit and prioritized, while the computational framing in the OpenMDAO material connects to the modeling and simulation work of MO1 and MO2. Use the videos to establish vocabulary and judgment; the course assignments will supply the quantitative practice.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

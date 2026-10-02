@@ -1,385 +1,161 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 13/Module 12 – Multiple Regression | EGN3443</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #1e2530;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #003865 0%, #0060a9 100%);
-      color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
-      text-align: center;
-    }
-
-    header .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #9dcfef;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 4vw, 2.1rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-
-    header p.intro {
-      max-width: 680px;
-      margin: 0 auto;
-      font-size: 0.97rem;
-      color: #d6eaf8;
-      line-height: 1.7;
-    }
-
-    /* ── Main Content ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    /* ── Section Headings ── */
-    .section-heading {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: #5a6a82;
-      border-bottom: 2px solid #d0dae6;
-      padding-bottom: 0.4rem;
-      margin: 2.2rem 0 1.1rem;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.1rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #dce4ef;
-      border-radius: 8px;
-      padding: 1.25rem 1.3rem 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(0, 60, 120, 0.10);
-      transform: translateY(-2px);
-    }
-
-    /* ── Badges ── */
-    .badge-row {
-      display: flex;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      padding: 0.18em 0.55em;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-
-    .badge-type {
-      background: #e8f0fb;
-      color: #1a4d8f;
-    }
-
-    .badge-filetype {
-      background: #eef7ee;
-      color: #2a6a2a;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* Type-specific accent colours */
-    .badge-type[data-type="Quiz"]       { background: #fef4e5; color: #8b5000; }
-    .badge-type[data-type="Assignment"] { background: #fdeef0; color: #8b1a2a; }
-    .badge-type[data-type="Topic Detail"]{ background: #ede8f8; color: #4a2a8a; }
-    .badge-type[data-type="Module Topics"]{ background: #e0f4f8; color: #0a5a72; }
-
-    /* ── Card Title ── */
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1e2530;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #0060a9;
-      text-decoration: none;
-    }
-
-    .card-title a:hover {
-      text-decoration: underline;
-      color: #004080;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.73rem;
-      color: #5a6a82;
-      text-decoration: none;
-      border: 1px solid #c8d4e4;
-      border-radius: 4px;
-      padding: 0.1em 0.5em;
-      margin-left: 0.5rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover {
-      background: #eef3fa;
-      color: #003865;
-      border-color: #a0b4cc;
-    }
-
-    .source-link::before {
-      content: "⬇";
-      font-size: 0.7rem;
-    }
-
-    /* ── Description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #44525e;
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* ── Left-accent colour by type ── */
-    .card[data-type="Quiz"]        { border-left: 4px solid #e09a00; }
-    .card[data-type="Assignment"]  { border-left: 4px solid #c0293a; }
-    .card[data-type="Topic Detail"]{ border-left: 4px solid #6c48c0; }
-    .card[data-type="Module Topics"]{ border-left: 4px solid #0a8eab; }
-    .card[data-type="Text Content"]{ border-left: 4px solid #0060a9; }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a9ab0;
-      padding: 1.5rem 1rem 2rem;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 2rem 1rem 1.6rem; }
-    }
-  </style>
+  <title>Week 13/Module 12 - Multiple Regression — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-<header>
-  <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
-  <h1>Week 13 / Module 12 — Multiple Regression</h1>
-  <p class="intro">
-    This module extends simple linear regression to models with multiple predictor variables.
-    Explore the learning resources below to understand model specification, coefficient
-    interpretation, fit evaluation, and practical model-building techniques used in
-    engineering data analysis.
-  </p>
-</header>
-
-<main>
-
-  <!-- ── Module Navigation ── -->
-  <p class="section-heading">Module Navigation</p>
-  <div class="card-grid">
-
-    <!-- Module Topics -->
-    <div class="card" data-type="Module Topics">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Module Topics">Module Topics</span>
-        <span class="badge badge-filetype">.json</span>
-      </div>
-      <div class="card-title">
-        <a href="content/module_topics.html">Module Topics</a>
-        <a class="source-link" href="source/hierarchy.json">source file</a>
-      </div>
-      <p class="card-desc">An outline of the module's learning topics, covering the transition from simple to multiple regression, model structure and variable selection, and interpretation of partial regression coefficients, used to guide course design and learner navigation.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 13/Module 12 - Multiple Regression</span>
+  </nav>
+      <div class="hero-label">Module 13</div>
+      <h1>Week 13/Module 12 - Multiple Regression</h1>
+      <p class="hero-desc">In this module, learners explore multiple regression analysis as a powerful extension of simple linear regression, examining how two or more predictor variables can be used to model and explain variation in a continuous outcome. Learners will investigate key concepts including model specification, interpretation of regression coefficients, and the assessment of model fit using statistical measures such as R-squared and adjusted R-squared. By the end of the module, learners will be equipped to construct, evaluate, and interpret multiple regression models using real-world data, strengthening their ability to draw meaningful conclusions from complex datasets.</p>
     </div>
-
-  </div><!-- /card-grid -->
-
-  <!-- ── Core Instructional Resources ── -->
-  <p class="section-heading">Core Instructional Resources</p>
-  <div class="card-grid">
-
-    <!-- EGN3443 Module 12 Landing Page -->
-    <div class="card" data-type="Text Content">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Text Content">Text Content</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/EGN3443_Module_12_Multiple_Regression_Analysis.html">EGN3443 Module 12 - Multiple Regression Analysis</a>
-      </div>
-      <p class="card-desc">A landing page for Module 12 that provides links to the PowerPoint slides, lecture recording, and a Google Colab notebook for multiple regression analysis, used by learners to access all core instructional resources in one place.</p>
-    </div>
-
-    <!-- Multiple Regression Analysis -->
-    <div class="card" data-type="Text Content">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Text Content">Text Content</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Multiple_Regression_Analysis.html">Multiple Regression Analysis</a>
-      </div>
-      <p class="card-desc">A comprehensive study reference page explaining multiple regression concepts including model definition, key characteristics, coefficient interpretation, and model evaluation, used by learners to read, review, and reinforce lecture material.</p>
-    </div>
-
-  </div><!-- /card-grid -->
-
-  <!-- ── Topic Readings ── -->
-  <p class="section-heading">Topic Readings</p>
-  <div class="card-grid">
-
-    <!-- From Simple to Multiple Regression -->
-    <div class="card" data-type="Topic Detail">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t1.html">From Simple to Multiple Regression</a>
-      </div>
-      <p class="card-desc">This reading explains why simple linear regression is insufficient for real-world engineering and scientific problems and introduces multiple regression as the method for modeling outcomes that depend on more than one predictor variable; learners read it to build conceptual motivation before studying the technique formally.</p>
-    </div>
-
-    <!-- Model Specification and Structure -->
-    <div class="card" data-type="Topic Detail">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t2.html">Model Specification and Structure</a>
-      </div>
-      <p class="card-desc">This reading covers how a multiple regression model is mathematically structured, including how predictors are combined with coefficients and an intercept to form the model equation; learners use it to understand how to correctly specify a multiple regression model before fitting it to data.</p>
-    </div>
-
-    <!-- Interpreting Regression Coefficients -->
-    <div class="card" data-type="Topic Detail">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t3.html">Interpreting Regression Coefficients</a>
-      </div>
-      <p class="card-desc">This reading explains how to interpret regression coefficients in a multiple regression context, emphasizing that each coefficient represents the effect of one predictor while holding all others constant; learners use it to correctly draw conclusions from estimated model parameters.</p>
-    </div>
-
-    <!-- Assessing Model Fit -->
-    <div class="card" data-type="Topic Detail">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t4.html">Assessing Model Fit</a>
-      </div>
-      <p class="card-desc">This reading covers the metrics and methods used to evaluate how well a multiple regression model fits the data, including R-squared, adjusted R-squared, and overall model significance tests; learners use it to judge whether a fitted model adequately explains variation in the outcome variable.</p>
-    </div>
-
-    <!-- Building and Evaluating Multiple Regression Models -->
-    <div class="card" data-type="Topic Detail">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t5.html">Building and Evaluating Multiple Regression Models</a>
-      </div>
-      <p class="card-desc">This reading provides a practical, end-to-end walkthrough of constructing and evaluating multiple regression models, covering predictor selection, assumption checking, and interpretation of results; learners use it as an applied guide for carrying out a full multiple regression analysis.</p>
-    </div>
-
-  </div><!-- /card-grid -->
-
-  <!-- ── Assessment ── -->
-  <p class="section-heading">Assessment &amp; Assignments</p>
-  <div class="card-grid">
-
-    <!-- Quiz Question Bank -->
-    <div class="card" data-type="Quiz">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Quiz">Quiz</span>
-        <span class="badge badge-filetype">.json</span>
-      </div>
-      <div class="card-title">
-        
-        
-      </div>
-      <p class="card-desc">A 30-question quiz bank covering simple and multiple linear regression concepts such as R-squared interpretation, regression coefficients, model assumptions, and multicollinearity, used by instructors to assess learner understanding of regression topics.</p>
-    </div>
-
-    <!-- Module 12 Graded Discussion -->
-    <div class="card" data-type="Assignment">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Assignment">Assignment</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="assignments/index.html">Module 12 Graded Discussion</a>
-      </div>
-      <p class="card-desc">A graded discussion assignment asking learners to propose a real-world example from a field of their choice where multiple linear regression with at least two independent variables would be appropriate, and to comment on a peer's response.</p>
-    </div>
-
-    <!-- Assignment 12 -->
-    <div class="card" data-type="Assignment">
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Assignment">Assignment</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <div class="card-title">
-        <a href="assignments/index.html">Assignment 12 - Multiple Regression</a>
-      </div>
-      <p class="card-desc">A hands-on assignment requiring learners to extend their Assignment 11 simple regression model by adding at least one additional predictor variable to build a two-variable multiple regression model that improves predictive performance.</p>
-    </div>
-
-  </div><!-- /card-grid -->
-
-</main>
-
-<footer>
-  EGN3443 Probability &amp; Statistics for Engineers — Week 13 / Module 12 — Multiple Regression
-</footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 5 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">From Simple to Multiple Regression</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Model Specification and Structure</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Interpreting Regression Coefficients</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Assessing Model Fit</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Building and Evaluating Multiple Regression Models</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">14 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_12_Multiple_Regression_Analysis.html">EGN3443 Module 12 - Multiple Regression Analysis</a></div>
+    <p class="content-desc">A landing page for Module 12 that provides links to the PowerPoint slides, lecture recording, and a Google Colab notebook for multiple regression analysis, used by learners to access all core instructional resources in one place.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Multiple_Regression_Analysis.html">Multiple Regression Analysis</a></div>
+    <p class="content-desc">A comprehensive study reference page explaining multiple regression concepts including model definition, key characteristics, coefficient interpretation, and model evaluation, used by learners to read, review, and reinforce lecture material.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t1.html">From Simple to Multiple Regression</a></div>
+    <p class="content-desc">This reading explains why simple linear regression is insufficient for real-world engineering and scientific problems and introduces multiple regression as the method for modeling outcomes that depend on more than one predictor variable; learners read it to build conceptual motivation before studying the technique formally.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t2.html">Model Specification and Structure</a></div>
+    <p class="content-desc">This reading covers how a multiple regression model is mathematically structured, including how predictors are combined with coefficients and an intercept to form the model equation; learners use it to understand how to correctly specify a multiple regression model before fitting it to data.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t3.html">Interpreting Regression Coefficients</a></div>
+    <p class="content-desc">This reading explains how to interpret regression coefficients in a multiple regression context, emphasizing that each coefficient represents the effect of one predictor while holding all others constant; learners use it to correctly draw conclusions from estimated model parameters.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t4.html">Assessing Model Fit</a></div>
+    <p class="content-desc">This reading covers the metrics and methods used to evaluate how well a multiple regression model fits the data, including R-squared, adjusted R-squared, and overall model significance tests; learners use it to judge whether a fitted model adequately explains variation in the outcome variable.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_printable_topics_t5.html">Building and Evaluating Multiple Regression Models</a></div>
+    <p class="content-desc">This reading provides a practical, end-to-end walkthrough of constructing and evaluating multiple regression models, covering predictor selection, assumption checking, and interpretation of results; learners use it as an applied guide for carrying out a full multiple regression analysis.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_t1_videos.html">From Simple to Multiple Regression — Videos</a></div>
+    <p class="content-desc">A reading that motivates the move from single-predictor to multi-predictor models, using engineering examples like fuel consumption and concrete strength to show why one variable rarely explains an outcome on its own, serving as the conceptual entry point to the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_t2_videos.html">Model Specification and Structure — Videos</a></div>
+    <p class="content-desc">A lesson on specifying the multiple regression model, extending y = b0 + b1x + e to several predictors and guiding learners through deciding which variables to include and how the model&#39;s structure represents their joint effect on the response.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_t3_videos.html">Interpreting Regression Coefficients — Videos</a></div>
+    <p class="content-desc">A reading explaining partial regression coefficients — how each estimated slope represents the expected change in the response per one-unit increase in that predictor while the others are held constant — so learners can correctly interpret multi-predictor output.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_t4_videos.html">Assessing Model Fit — Videos</a></div>
+    <p class="content-desc">A lesson on evaluating how well a fitted model describes the data, covering R-squared and related fit measures and how to use them to compare competing models built from different predictor sets.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_t5_videos.html">Building and Evaluating Multiple Regression Models — Videos</a></div>
+    <p class="content-desc">A summative reading that walks through the full workflow of constructing and assessing a multiple regression model with engineering examples such as material strength depending on temperature, curing time, and composition.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_13_Module_12_-_Multiple_Regression_videos_merged.html">Week 13/Module 12 - Multiple Regression — 5 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module page compiling all Week 13 topics on multiple regression in sequence, from the transition out of simple regression through model specification, coefficient interpretation, and fit assessment, for use as a single-source review.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A graded discussion assignment asking learners to propose a real-world example from a field of their choice where multiple linear regression with at least two independent variables would be appropriate, and to comment on a peer&#39;s response.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-12module-11-regression-analysis/index.html">← Week 12/Module 11 - Regression Analysis</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-14module-13-validating-regression/index.html">Week 14/Module 13 - Validating Regression →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

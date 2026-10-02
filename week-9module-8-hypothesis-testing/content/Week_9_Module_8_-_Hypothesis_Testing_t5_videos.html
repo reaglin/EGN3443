@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applying Common Hypothesis Tests</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+<h1>Applying Common Hypothesis Tests</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial</a>
+<a href="#sec3">Video 2: Chi-Square Goodness-of-Fit Test</a>
+<a href="#sec4">Video 3: Chi-Square Test of Independence | Contingency Table | Hypothesis Test</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>In earlier parts of this module you learned the logic of hypothesis testing: stating a null and alternative hypothesis, choosing a significance level, computing a test statistic, and deciding whether the evidence is strong enough to reject the null. This topic turns that logic into practice. Engineering data arrives in many shapes — one sample compared to a specification, two independent production lines, before-and-after measurements on the same units, counts in categories, or three or more treatment groups — and each shape calls for a different test.</p>
+<p>The practical skill is matching the data scenario to the right procedure. Ask yourself: Is the response measured on a continuous scale or is it a count in categories? How many groups are being compared? Are the observations in the two groups independent, or are they naturally paired? Answering those questions leads you to the one-sample t-test, the two-sample t-test, the paired t-test, a chi-square test, or ANOVA. Getting this choice wrong invalidates everything that follows, no matter how carefully you compute the arithmetic.</p>
+<p>The videos below focus on two of the trickier cases: paired data and categorical count data. While watching, pay attention to how each hypothesis is worded, where the degrees of freedom come from, how the test statistic is assembled from the sample values, and — most importantly — how the final numerical result is translated back into a plain-language conclusion about the original question. Try pausing before the solution is revealed and working the example yourself.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/qkBVUcjPLuA?cc_load_policy=1&amp;rel=0" title="Video: Repeated Measures T-Test vs. Matched Subjects | Paired T-Test Tutorial (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:28 · 8,719 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=qkBVUcjPLuA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This tutorial works through a two-tailed paired (repeated measures) t-test starting from raw data, so you can see how the paired differences are formed before any test statistic is computed. The description indicates it also covers the related matched-subjects setup and the construction of a confidence interval alongside the test. Expect to see the hypotheses stated, the test statistic calculated, and a conclusion drawn.</p>
+<h3>Why this video</h3>
+<p>It directly supports the Paired t-Test for Before-and-After Data subtopic and clarifies the distinction between paired and independent designs — exactly the judgment call needed when selecting the right test. Joshua Emmanuel&#39;s channel is widely used in engineering statistics courses for compact, worked numerical examples.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Chi-Square Goodness-of-Fit Test</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/y24q6BhRiDc?cc_load_policy=1&amp;rel=0" title="Video: Chi-Square Goodness-of-Fit Test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 7:00 · 160,243 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=y24q6BhRiDc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video explains the chi-square goodness-of-fit test using a single worked example, showing how observed category counts are compared against expected counts under the null hypothesis. You should see how expected frequencies are generated, how the chi-square statistic accumulates contributions across categories, and how degrees of freedom are determined before the decision is made.</p>
+<h3>Why this video</h3>
+<p>It covers the Chi-Square Test for Categorical Data subtopic for the single-variable case, and reinforces that categorical count data requires a different sampling distribution than the t-tests used for continuous measurements.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Chi-Square Test of Independence | Contingency Table | Hypothesis Test</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AuYRQVmpSaE?cc_load_policy=1&amp;rel=0" title="Video: Chi-Square Test of Independence | Contingency Table | Hypothesis Test (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:31 · 54,401 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=AuYRQVmpSaE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video introduces the chi-square test of independence using a contingency table, where two categorical variables are cross-classified. It is a brief, example-driven explanation that walks through setting up the table, obtaining expected counts from row and column totals, and testing whether the two variables are associated.</p>
+<h3>Why this video</h3>
+<p>It completes the chi-square portion of this topic by addressing the two-variable case, and it pairs naturally with the goodness-of-fit video so you can tell the two chi-square procedures apart when choosing a test for real data.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos give you repeated practice with the core steps the module outcomes demand. Each one begins by stating null and alternative hypotheses from a concrete scenario (MO1) and then carries the example through to a test statistic, degrees of freedom, and a p-value or critical-value comparison (MO3), ending with an explicit accept/reject decision at a stated significance level (MO4). Because the three videos cover three distinct situations — paired continuous measurements, a single categorical variable, and two cross-classified categorical variables — they build the pattern recognition needed to choose correctly among the paired t-test, chi-square, and the other tests in your toolkit (MO2). As you watch, consider what a wrong rejection or a missed effect would mean in an engineering setting, and supplement these examples with the course material on one-sample tests, two-sample tests, ANOVA, and Type I versus Type II error (MO5).</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assumptions and Conditions for Two-Sample Tests</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
+<h1>Assumptions and Conditions for Two-Sample Tests</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</a>
+<a href="#sec3">Video 2: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</a>
+<a href="#sec4">Video 3: One sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Every two-sample hypothesis test rests on a set of assumptions. Before you can trust a p-value or a confidence interval for the difference between two means, you need to know that the data were collected by random sampling, that observations within each group are independent of one another, that the sampling distribution of the mean is approximately normal (either because the population is roughly normal or because the sample is large enough for the Central Limit Theorem to apply), and — for the pooled-variance t-test — that the two population variances are comparable.</p>
+<p>These conditions are not bureaucratic checkboxes; they determine which test you are allowed to use. The same data might call for a pooled t-test, a Welch (unequal-variance) t-test, a paired t-test, or a nonparametric alternative depending on how the data were gathered and what the diagnostics show. In this course you will be expected to state the assumptions, check them with plots and formal tests, and then justify your choice of procedure.</p>
+<p>The videos below walk through complete t-test workflows in R, beginning with assumption checking before any test statistic is computed. As you watch, pay attention to the order of operations: identify the design first, verify conditions second, run the test third, and interpret last. Note which graphical and numerical diagnostics are used (for example normality checks and variance comparisons) and how the presenter&#39;s conclusion about the assumptions changes the test that gets selected.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WZSTIQvz9NI?cc_load_policy=1&amp;rel=0" title="Video: Two sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:45 · 445 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=WZSTIQvz9NI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A complete walkthrough of the independent two-sample t-test in R, structured around assumptions first, then calculation, interpretation, and reporting. Based on its title and description, it should demonstrate how to check normality and equal variances for two separate groups before running the test, and how to report the result properly.</p>
+<h3>Why this video</h3>
+<p>This is the most directly relevant video for the topic: it treats assumption verification as a required first step for the independent-samples design rather than an afterthought, covering the normality, equal-variance, and reporting subtopics in one short clip.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/R6ALNCeUbmo?cc_load_policy=1&amp;rel=0" title="Video: Paired sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 6:05 · 654 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=R6ALNCeUbmo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The companion video for the paired-sample t-test in R, following the same assumptions-calculation-interpretation-reporting structure. It should show that the paired design shifts the assumption checks onto the differences between matched observations rather than onto the two groups separately.</p>
+<h3>Why this video</h3>
+<p>Comparing this video with the independent-samples one makes clear how conditions depend on the study design, which is exactly the judgment required when verifying assumptions before selecting a test.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: One sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iO2z1p2gYao?cc_load_policy=1&amp;rel=0" title="Video: One sample t-test in R - ALL IN ONE (Assumptions, Calculation, Interpretation, Reporting) (Statorials)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Statorials</strong> · 5:12 · 263 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iO2z1p2gYao" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact one-sample t-test walkthrough in R, again organized as assumptions, calculation, interpretation, and reporting. It should illustrate the simplest case of the normality and independence requirements with a single sample.</p>
+<h3>Why this video</h3>
+<p>Useful as a baseline review: seeing the assumption checklist in its simplest form makes it easier to recognize what is genuinely new in the two-sample setting, such as the equal-variances question and independence between groups.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Taken together, these videos reinforce the module outcomes. Contrasting the independent-samples and paired-samples walkthroughs supports MO1 by tying the choice of procedure to the relationship between observations across groups, while each video&#39;s opening assumption segment directly serves MO2 on verifying conditions prior to application. The calculation portions support MO3 for both the independent and paired t-statistics, and the interpretation and reporting segments support MO5 by modeling how to read p-values and confidence intervals in context. The two-proportion z-test of MO4 is not covered here and should be studied from the course notes and assigned readings.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

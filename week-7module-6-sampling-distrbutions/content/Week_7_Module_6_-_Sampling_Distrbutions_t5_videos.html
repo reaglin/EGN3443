@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interpreting and Applying Sampling Distributions</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+<h1>Interpreting and Applying Sampling Distributions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Central Limit Theorem Examples - Data Science DISCOVERY - University of Illinois (m5-04b)</a>
+<a href="#sec3">Video 2: Central Limit Theorem Example</a>
+<a href="#sec4">Video 3: Real-world application of the Central Limit Theorem (CLT)</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A sampling distribution describes how a statistic — most often the sample mean — behaves across all the samples we could have drawn from a population. In earlier parts of this module you built that idea formally: the mean of the sampling distribution equals the population mean, the standard error equals sigma divided by the square root of n, and the Central Limit Theorem tells us the shape becomes approximately normal as n grows. This topic turns those formulas outward, toward the questions an engineer actually asks: Is this batch different from spec, or is it just sampling noise? How large a sample do I need before I trust the estimate?</p>
+<p>Reading a sampling distribution well means keeping three distributions separate in your mind: the population, a single sample, and the distribution of the statistic. Mixing them up is the single most common source of error in inference. Once they are separate, probability statements about sample means become routine — standardize using the standard error rather than the population standard deviation, then read a normal probability — and those statements are the foundation for confidence intervals and hypothesis tests later in the course.</p>
+<p>As you watch the videos below, track four things each time a worked example appears: what the population parameters are assumed to be, what the sample size is, how the standard error is computed, and whether the normal approximation is justified by a normal population or by a large enough n. Notice especially what happens to the spread when n changes — that inverse square-root relationship is what lets you use sample size as a design decision rather than an afterthought.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Central Limit Theorem Examples - Data Science DISCOVERY - University of Illinois (m5-04b)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AumgUyu8Py4?cc_load_policy=1&amp;rel=0" title="Video: Central Limit Theorem Examples - Data Science DISCOVERY - University of Illinois (m5-04b) (Data Science Discovery)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Data Science Discovery</strong> · 11:41 · 2,002 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=AumgUyu8Py4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A lecture segment from the University of Illinois Data Science Discovery course that works through multiple Central Limit Theorem examples. Based on its title and series position, expect several applied problems in which the mean and standard error of a sampling distribution are computed and probabilities about sample means are evaluated. The pacing of a university course module means definitions and setup are likely stated before each calculation.</p>
+<h3>Why this video</h3>
+<p>Coming from a university data science curriculum, it offers accurate, course-level treatment and the multiple-example format is well suited to the subtopics on reading a sampling distribution and applying the CLT in practice.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Central Limit Theorem Example</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/WVUBjCI95xQ?cc_load_policy=1&amp;rel=0" title="Video: Central Limit Theorem Example (TwoSigma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>TwoSigma</strong> · 9:59 · 758 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=WVUBjCI95xQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused worked example showing how the Central Limit Theorem is used to find a probability corresponding to a sample mean. The description indicates a single problem carried from setup through to the probability result, which should make the standardization step — dividing by the standard error rather than the population standard deviation — easy to follow. At roughly ten minutes, it has room to explain each step rather than just state answers.</p>
+<h3>Why this video</h3>
+<p>Its narrow scope makes it a clean model of the calculation sequence you will repeat on homework, directly supporting the mean-and-standard-error and normal-approximation subtopics.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Real-world application of the Central Limit Theorem (CLT)</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/N7wW1dlmMaE?cc_load_policy=1&amp;rel=0" title="Video: Real-world application of the Central Limit Theorem (CLT) (365 Data Science)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>365 Data Science</strong> · 7:27 · 96,655 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=N7wW1dlmMaE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, widely viewed video from 365 Data Science framing the Central Limit Theorem in terms of a real-world application rather than abstract theory. Expect discussion of why the theorem matters for drawing conclusions about a population from limited sample data, and how it underpins common inference procedures. Its brevity suggests emphasis on intuition and motivation over lengthy computation.</p>
+<h3>Why this video</h3>
+<p>It fills the interpretive side of this topic — connecting sampling distributions to statistical inference and to a real-world scenario such as estimating a population mean — and the producer is a well-established data science education channel.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos move from calculation to interpretation. The Illinois and TwoSigma examples give repeated practice computing the mean and standard error of the sampling distribution of the sample mean and checking when a normal approximation applies (MO2, MO4), and their setup steps require explicitly naming which quantities are population parameters and which are sample statistics (MO1). Watching the standard error shrink as n grows across different examples reinforces the inverse square-root relationship used in sample-size decisions (MO3). The 365 Data Science video supplies the applied framing — why these distributions justify inference about a population — which supports distinguishing ordinary sampling variability from a genuinely meaningful difference in an engineering data scenario (MO5).</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

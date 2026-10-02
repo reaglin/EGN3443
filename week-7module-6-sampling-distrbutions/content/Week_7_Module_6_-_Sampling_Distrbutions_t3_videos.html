@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Central Limit Theorem</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
+<h1>The Central Limit Theorem</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: The Central Limit Theorem</a>
+<a href="#sec3">Video 2: Central Limit Theorem (CLT) - Sampling Distribution of Sample Means</a>
+<a href="#sec4">Video 3: The Sampling Distribution of the Mean &amp; Standard Error</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>The Central Limit Theorem (CLT) is the bridge between probability theory and practical statistical inference. It tells us that if we repeatedly draw random samples of size n from a population and compute the sample mean each time, the distribution of those sample means tends toward a normal distribution as n grows — even when the original population is skewed, uniform, or otherwise non-normal. The mean of that sampling distribution equals the population mean, and its standard deviation, called the standard error, equals the population standard deviation divided by the square root of n.</p>
+<p>This result matters in EGN3443 because nearly every inference technique you will use later — confidence intervals, hypothesis tests, process control limits — rests on being able to treat the sample mean as approximately normal. It is also why engineers can quantify how much of an observed difference between two measurements is just sampling noise and how much is a real effect. The inverse square-root relationship between sample size and standard error is what tells you how many measurements you need to achieve a desired precision.</p>
+<p>As you watch the videos below, pay attention to four things: (1) the distinction between the population distribution and the sampling distribution of the mean, (2) the two formulas for the mean and standard error of that sampling distribution, (3) what changes visually as the sample size increases, and (4) the conditions — random sampling, independence, and either a normal population or a sufficiently large n — under which the normal approximation is justified.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: The Central Limit Theorem</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ckkrS752tjU?cc_load_policy=1&amp;rel=0" title="Video: The Central Limit Theorem (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 10:57 · 33,580 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=ckkrS752tjU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Steve Brunton introduces the Central Limit Theorem as one of the foundational results in probability and statistics, stating the theorem and explaining why sums and averages of random variables tend toward a normal distribution. Based on the title and description, expect a mathematically grounded presentation of the statement of the theorem along with intuition for why normality emerges. This is a good entry point for the subtopics &quot;What Is the Central Limit Theorem?&quot; and &quot;The Role of Sample Size.&quot;</p>
+<h3>Why this video</h3>
+<p>Brunton is a well-known engineering faculty producer whose explanations are technically careful and aimed at an engineering audience, which matches the level and framing of this course.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Central Limit Theorem (CLT) - Sampling Distribution of Sample Means</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6Oe1_50QKk4?cc_load_policy=1&amp;rel=0" title="Video: Central Limit Theorem (CLT) - Sampling Distribution of Sample Means (Red Rocks Community College Math Department)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Red Rocks Community College Math Department</strong> · 17:58 · 26 views · 10mo ago · captions — <a href="https://www.youtube.com/watch?v=6Oe1_50QKk4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This community college lecture explains the Central Limit Theorem specifically as a tool for describing the sampling distribution of sample means, and the description notes that graphical illustrations are included. Expect coverage of the mean and standard error formulas and visual demonstrations of how the shape of the sampling distribution changes with sample size. At roughly eighteen minutes it is the most course-style, worked treatment of the three.</p>
+<h3>Why this video</h3>
+<p>Its direct focus on the sampling distribution of sample means and its graphical approach map closely onto the subtopics on mean, standard error, and the role of sample size.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: The Sampling Distribution of the Mean &amp; Standard Error</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yHQanImkK-Y?cc_load_policy=1&amp;rel=0" title="Video: The Sampling Distribution of the Mean &amp; Standard Error (PsychExamReview)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>PsychExamReview</strong> · 19:20 · 2,969 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=yHQanImkK-Y" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>PsychExamReview focuses on the sampling distribution of the mean as a comparison distribution used to reason about the probability of different sample outcomes, and explicitly covers standard error. Expect careful development of what a sampling distribution actually is and how standard error measures its spread. The framing as a &quot;comparison distribution&quot; previews how the CLT is used in hypothesis testing.</p>
+<h3>Why this video</h3>
+<p>It fills in the conceptual groundwork behind the formulas and connects directly to the &quot;Implications for Statistical Inference&quot; subtopic by showing why the sampling distribution is the reference point for inference.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos cover the module outcomes from complementary angles. The PsychExamReview video reinforces the population-versus-sample distinction and the meaning of standard error (MO1, MO2), while the Red Rocks lecture works through the CLT formulas for the mean and standard error with graphical support (MO2, MO3). Brunton&#39;s treatment supplies the theoretical statement and the conditions under which normality emerges, supporting your ability to judge when the normal approximation is justified (MO4). All three, by emphasizing that sample means vary and that this variation shrinks predictably with larger n, prepare you to separate ordinary sampling variability from meaningful differences in engineering data (MO3, MO5).</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

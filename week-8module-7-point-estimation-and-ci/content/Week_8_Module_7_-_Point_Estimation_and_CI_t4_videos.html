@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Constructing Confidence Intervals for Proportions</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div>
+<h1>Constructing Confidence Intervals for Proportions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Confidence Interval for a population proportion | Solved Problems</a>
+<a href="#sec3">Video 2: Lesson: Calculate a Confidence Interval for a Population Proportion</a>
+<a href="#sec4">Video 3: One Sample Proportion Confidence Interval</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Many engineering questions are about categories rather than measurements: What fraction of welds pass inspection? What proportion of users click a redesigned interface? What share of components fail within 1,000 hours? When the data are counts of successes out of n trials, the parameter of interest is a population proportion p, and the natural point estimate is the sample proportion p-hat = x/n. This topic extends the confidence interval machinery you built for means to this categorical setting.</p>
+<p>The logic is the same as before, but the details differ. Because p-hat is an average of 0s and 1s, the Central Limit Theorem applies when the sample is large enough, which is usually checked with a success-failure condition (roughly np-hat and n(1 - p-hat) both at least 10 or 15) along with an assumption of independent observations. The standard error is computed from p-hat itself, so the interval takes the form p-hat plus or minus z times the square root of p-hat(1 - p-hat)/n. Note that we use a z critical value here, not a t value, because no separate sample standard deviation is being estimated.</p>
+<p>As you watch the videos below, pay attention to three things: where the critical value comes from for a given confidence level, how the margin of error is assembled piece by piece, and how the final interval is stated in words. Correct interpretation matters as much as correct arithmetic. The confidence level describes the long-run reliability of the procedure, not the probability that one particular interval contains p. Also watch for how sample size and confidence level push the margin of error up or down, since that trade-off shows up in nearly every applied problem you will solve.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Confidence Interval for a population proportion | Solved Problems</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dLEtlteLVJU?cc_load_policy=1&amp;rel=0" title="Video: Confidence Interval for a population proportion | Solved Problems (Joshua Emmanuel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Joshua Emmanuel</strong> · 6:44 · 155,862 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=dLEtlteLVJU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A worked-problem walkthrough of confidence intervals for a population proportion, built on the normal approximation. The video covers the properties of the interval and then moves through solved examples, with timestamps marking each problem so you can jump to the case you want to review. Expect to see the sample proportion computed, a z critical value selected for a stated confidence level, and the margin of error assembled.</p>
+<h3>Why this video</h3>
+<p>Joshua Emmanuel is a widely used statistics channel known for compact, accurate problem walkthroughs, and the example-driven format directly supports the formula, margin of error, and practical application subtopics.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Lesson: Calculate a Confidence Interval for a Population Proportion</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/gdzz-8jeRYc?cc_load_policy=1&amp;rel=0" title="Video: Lesson: Calculate a Confidence Interval for a Population Proportion (Mathispower4u)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Mathispower4u</strong> · 7:33 · 4,345 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=gdzz-8jeRYc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A lesson-style explanation of how to calculate a confidence interval for a population proportion, moving from the setup to the completed interval. It is likely to present the formula, identify each input (p-hat, n, and the z critical value), and demonstrate the computation step by step.</p>
+<h3>Why this video</h3>
+<p>Mathispower4u is a well-established instructional math channel whose lessons are deliberately structured and easy to follow, making this a reliable reference for the computation and formula subtopics.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: One Sample Proportion Confidence Interval</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/IG5wZSN_bMY?cc_load_policy=1&amp;rel=0" title="Video: One Sample Proportion Confidence Interval (Learning with Luke)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Learning with Luke</strong> · 9:22 · 822 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=IG5wZSN_bMY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer treatment of the one-sample proportion confidence interval that situates it within a broader series; the description links to companion videos on the binomial distribution and an introduction to confidence intervals. That framing suggests attention to where the proportion estimator comes from, the conditions that make the normal approximation reasonable, and the construction of the interval itself.</p>
+<h3>Why this video</h3>
+<p>The extra running time and the explicit connection to the binomial distribution make this the best fit for the conditions-for-valid-inference subtopic, giving you the reasoning behind the formula rather than just the steps.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos center on MO3: each one demonstrates selecting a z critical value, computing the margin of error from p-hat(1 - p-hat)/n, and forming the resulting interval for a proportion. The binomial and conditions framing in the Learning with Luke video reinforces MO2 by showing why normal-based inference is justified for a sample proportion, and it connects back to MO1 by clarifying what p-hat estimates. The solved-problem examples support MO4, since changing the confidence level or sample size visibly changes the margin of error, and MO5, because each example ends with a stated interpretation of the interval in context. Use the videos as worked models, then practice stating your conclusions in your own words to confirm you are describing the confidence level correctly.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

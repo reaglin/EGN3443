@@ -1,5 +1,5 @@
 ﻿/**
- * quiz-player.js  —  PreseMaker Website Export
+ * quiz-player.js  —  CourseBuilder+ Website Export
  *
  * Reads window.QUIZ_DATA (a serialised QuizBank object inlined by the
  * website export service) and renders an interactive quiz.

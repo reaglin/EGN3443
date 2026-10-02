@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Foundations of Regression Validation</h3>
+<h3 id="topic-1">Foundations of Regression Validation</h3>
 <div class="summary">Introduces the purpose and importance of validating regression models, establishing why validation is essential for ensuring reliability and generalizability of model outputs.</div>
 <ul>
 <li><strong>What Is Regression Validation?</strong> <span class="el-body">— Regression validation is the systematic process of evaluating whether a regression model accurately represents the underlying data patterns and can reliably generalize to new, unseen data.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>The Role of Residual Analysis in Validation</strong> <span class="el-body">— Residual analysis examines the differences between observed and predicted values to reveal patterns that indicate model misfit or assumption violations.</span></li>
 <li><strong>Validation as a Cycle of Model Refinement</strong> <span class="el-body">— Validation is not a one-time check but an iterative process that informs ongoing model improvement and refinement.</span></li>
 </ul>
-<h3>Assessing Regression Model Assumptions</h3>
+<h3 id="topic-2">Assessing Regression Model Assumptions</h3>
 <div class="summary">Covers the core statistical assumptions underlying regression models, including linearity, homoscedasticity, and independence, and explains how violations of these assumptions affect model integrity.</div>
 <ul>
 <li><strong>Linearity Assumption</strong> <span class="el-body">— The linearity assumption requires that the relationship between the predictor variables and the outcome variable is linear, meaning changes in predictors produce proportional changes in the response.</span></li>
@@ -53,7 +53,7 @@ li{margin:5px 0}
 <li><strong>Consequences of Assumption Violations on Model Integrity</strong> <span class="el-body">— When regression assumptions are violated, the model&#39;s parameter estimates, standard errors, and inferential conclusions can all be compromised, undermining the model&#39;s reliability and generalizability.</span></li>
 <li><strong>Diagnosing Assumptions Through Residual Analysis</strong> <span class="el-body">— Residual analysis is the primary diagnostic toolkit for evaluating whether regression assumptions are met, using patterns in the residuals to signal specific types of violations.</span></li>
 </ul>
-<h3>Residual Analysis</h3>
+<h3 id="topic-3">Residual Analysis</h3>
 <div class="summary">Examines how to compute, interpret, and visualize residuals to detect patterns or anomalies that indicate potential model weaknesses or assumption violations.</div>
 <ul>
 <li><strong>What Are Residuals?</strong> <span class="el-body">— A residual is the difference between an observed value and the value predicted by the regression model for that same data point.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>Identifying Outliers and Influential Points via Residuals</strong> <span class="el-body">— Unusually large residuals flag potential outliers—observations that the model fits poorly—which may indicate data errors or genuinely anomalous cases.</span></li>
 <li><strong>Normality of Residuals</strong> <span class="el-body">— Many inferential procedures in regression assume that residuals are approximately normally distributed, an assumption that can be checked visually and statistically.</span></li>
 </ul>
-<h3>Cross-Validation Techniques</h3>
+<h3 id="topic-4">Cross-Validation Techniques</h3>
 <div class="summary">Explores cross-validation methods used to assess how well a regression model generalizes to independent datasets, reducing the risk of overfitting and improving predictive confidence.</div>
 <ul>
 <li><strong>Why Cross-Validation Is Needed</strong> <span class="el-body">— Cross-validation addresses the fundamental problem of overfitting, where a model performs well on training data but fails to generalize to new, unseen data.</span></li>
@@ -74,7 +74,7 @@ li{margin:5px 0}
 <li><strong>Interpreting Cross-Validation Results</strong> <span class="el-body">— The output of cross-validation is a set of performance metrics computed across multiple test sets, which together provide an overall assessment of model generalizability.</span></li>
 <li><strong>Cross-Validation and Model Refinement</strong> <span class="el-body">— Cross-validation is not only an evaluation tool but also a guide for model refinement, helping analysts identify when to simplify, adjust, or reconsider their regression model.</span></li>
 </ul>
-<h3>Identifying and Diagnosing Model Weaknesses</h3>
+<h3 id="topic-5">Identifying and Diagnosing Model Weaknesses</h3>
 <div class="summary">Guides learners through systematic approaches to detecting common regression problems such as multicollinearity, outliers, and influential observations that can compromise model validity.</div>
 <ul>
 <li><strong>Understanding Multicollinearity</strong> <span class="el-body">— Multicollinearity occurs when two or more predictor variables in a regression model are highly correlated with each other, making it difficult to isolate the individual effect of each predictor.</span></li>
@@ -84,7 +84,7 @@ li{margin:5px 0}
 <li><strong>Interpreting Diagnostic Plots</strong> <span class="el-body">— Diagnostic plots translate numerical regression output into visual summaries that make model weaknesses easier to recognize and communicate.</span></li>
 <li><strong>Consequences of Ignoring Model Weaknesses</strong> <span class="el-body">— Failing to diagnose and address regression problems can lead to biased coefficients, invalid inference, and poor predictive performance in practice.</span></li>
 </ul>
-<h3>Model Refinement and Decision-Making</h3>
+<h3 id="topic-6">Model Refinement and Decision-Making</h3>
 <div class="summary">Addresses strategies for refining regression models based on validation findings and equips learners to make informed decisions about model selection, adjustment, and practical application.</div>
 <ul>
 <li><strong>Interpreting Validation Results to Guide Refinement</strong> <span class="el-body">— Validation findings such as poor residual patterns, high cross-validation error, or violated assumptions serve as diagnostic signals that direct specific model improvements.</span></li>
@@ -125,6 +125,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

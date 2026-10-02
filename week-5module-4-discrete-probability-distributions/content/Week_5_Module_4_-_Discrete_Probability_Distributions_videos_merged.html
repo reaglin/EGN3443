@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week 5/Module 4 - Discrete Probability Distributions</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+<h1>Week 5/Module 4 - Discrete Probability Distributions</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Discrete Probability Distributions</a>
+<a href="#part2">Probability Mass Functions and Distribution Properties</a>
+<a href="#part3">Expected Value and Variance of Discrete Distributions</a>
+<a href="#part4">The Binomial Distribution</a>
+<a href="#part5">The Poisson Distribution</a>
+<a href="#part6">Applying Discrete Distributions to Real-World Problems</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Discrete Probability Distributions</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Up to this point you have worked with probabilities of individual events. A discrete probability distribution takes that idea one step further: it is a complete accounting of every possible value a random variable can take, together with the probability of each value. If you roll a die, count defective parts in a batch of ten, or tally the number of service calls arriving in an hour, the outcomes are distinct and countable, and the distribution is the table or formula that assigns a probability to each one.</p>
+<p>This topic matters because every named distribution you meet later in the module, including the binomial and Poisson, is a special case of the general structure introduced here. Before you can use a formula, you need to be comfortable with the notation (capital X for the random variable, lowercase x for a particular value, P(X = x) for the probability mass function), with the two validity rules (every probability is between 0 and 1, and the probabilities sum to exactly 1), and with recognizing when a quantity is discrete rather than continuous.</p>
+<p>While watching, pay attention to three things: how each presenter moves from a verbal description of an experiment to a formal list or table of values and probabilities; the specific language used to distinguish a probability mass function from a probability density function; and the reason probabilities for a continuous variable at a single point behave differently. Keep a pencil handy and try to write out the distribution table for an example of your own as you watch.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: What are Discrete Distributions? A lesson in Probability</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/5pGWJUcSAX4?cc_load_policy=1&amp;rel=0" title="Video: What are Discrete Distributions? A lesson in Probability (Socratica)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Socratica</strong> · 6:28 · 4,805 views · 6mo ago · captions — <a href="https://www.youtube.com/watch?v=5pGWJUcSAX4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A focused introduction to what makes a probability distribution discrete, likely working through the countable outcomes of simple experiments and how probability is assigned to each one. Expect the core vocabulary and notation for discrete random variables, along with examples that illustrate the structure of a distribution.</p>
+<h4>Why this video</h4>
+<p>Socratica produces tightly scripted, mathematically careful lessons, and this one targets exactly the first subtopic, what a discrete probability distribution is, making it a natural starting point before the heavier material.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yRbfLlTmPE8?cc_load_policy=1&amp;rel=0" title="Video: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF) (RiskByNumbers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>RiskByNumbers</strong> · 13:41 · 73,100 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yRbfLlTmPE8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A visual treatment of probability distributions that, per its title and description, covers the probability mass function, the probability density function, and the cumulative distribution function side by side. Graphical comparisons should make clear how probability is stacked at discrete points versus spread over an interval, and how cumulative probability accumulates in each case.</p>
+<h4>Why this video</h4>
+<p>Seeing the PMF next to the PDF and CDF is the fastest way to internalize the discrete-versus-continuous distinction and the summation-to-one property, and the visual approach complements the more formal notation used in lecture.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: What are Continuous Random Variables? → Probability &amp; Statistics</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ajrFIsv0bNI?cc_load_policy=1&amp;rel=0" title="Video: What are Continuous Random Variables? → Probability &amp; Statistics (Socratica)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Socratica</strong> · 8:01 · 4,371 views · 5mo ago · captions — <a href="https://www.youtube.com/watch?v=ajrFIsv0bNI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This lesson approaches the same boundary from the continuous side, explaining what a continuous random variable is and why, as the description states, the mathematics of discrete and continuous random variables is fundamentally different. Look for the explanation of why probability is described over intervals rather than at individual points.</p>
+<h4>Why this video</h4>
+<p>Understanding what a discrete variable is not sharpens the definition of what it is, and this companion video from the same channel directly serves the discrete versus continuous subtopic.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>These three videos build the conceptual foundation that MO1 depends on: you cannot construct a valid discrete probability distribution until you can identify the countable outcome set, express it with correct P(X = x) notation, and verify non-negativity and summation to one. The PMF discussion also sets up MO2, since expected value and variance are computed directly from the probability mass function you learn to read here. Finally, by clarifying what qualifies as a discrete random variable and surveying real contexts such as counts of events or defects, the videos prepare you to judge whether a scenario fits the binomial or Poisson conditions (MO3 and MO4) and to interpret the resulting numbers in an engineering setting (MO5).</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Probability Mass Functions and Distribution Properties</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>A probability mass function, or PMF, is the rule that assigns a probability to each possible value of a discrete random variable. If a random variable counts something — defective parts in a batch, cars arriving at an intersection, packets dropped in a network — then its PMF is the complete description of how likely each count is. Written as p(x) = P(X = x), it is the discrete counterpart to the probability density function used for continuous variables.</p>
+<p>Two properties make a function a legitimate PMF: every probability must be non-negative (0 is less than or equal to p(x), which is less than or equal to 1), and the probabilities over all possible values must sum to exactly 1. These two conditions are the test you apply whenever you are handed a table or formula and asked whether it represents a valid distribution, or when you must solve for an unknown constant that makes it valid. They also underpin everything later in the module, since expected value and variance are weighted sums that only make sense when the weights are valid probabilities.</p>
+<p>As you watch, pay attention to three things: how a PMF is displayed (table, formula, or bar graph), how the summation property is used as an algebraic tool rather than just a definition, and how individual PMF values are interpreted in words — for example, "there is a 12% chance that exactly two units fail." Also notice the distinction between a PMF and a cumulative distribution function (CDF), which accumulates probability up to a value.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yRbfLlTmPE8?cc_load_policy=1&amp;rel=0" title="Video: Probability Distributions Clearly Explained Visually (PMF, PDF and CDF) (RiskByNumbers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>RiskByNumbers</strong> · 13:41 · 73,100 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=yRbfLlTmPE8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A visual walkthrough of probability distributions for random variables, covering the probability mass function, the probability density function, and the cumulative distribution function. Based on its title and description, it uses graphical representations to show what each function reports and how discrete and continuous cases differ. Expect the discrete PMF to be presented as probability assigned to individual outcomes, with total probability accounted for across the distribution.</p>
+<h4>Why this video</h4>
+<p>It gives the conceptual foundation and vocabulary for the whole topic, and placing the PMF alongside the PDF and CDF helps you avoid the most common confusion in this module. The visual approach makes the non-negativity and sum-to-one properties intuitive rather than purely symbolic.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Probability Mass Function  PMF | Statistics &amp; Probability</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/rUl1pmNiqIw?cc_load_policy=1&amp;rel=0" title="Video: Probability Mass Function  PMF | Statistics &amp; Probability (Math Video Central)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Math Video Central</strong> · 6:24 · 977 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=rUl1pmNiqIw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused worked example showing how to demonstrate that a given function is a valid probability mass function of a discrete random variable. The description indicates the video walks through the verification process, which typically means checking that all values are non-negative and that the probabilities sum to one, and may involve solving for a constant that makes the sum equal 1.</p>
+<h4>Why this video</h4>
+<p>This is the most direct match to the validation and construction subtopics, and it models the exact style of problem you will be asked to solve. At just over six minutes it is an efficient review before attempting homework.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Joint Probability Distributions</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/NBo5bXIX7Ac?cc_load_policy=1&amp;rel=0" title="Video: Joint Probability Distributions (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 14:34 · 72,963 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=NBo5bXIX7Ac" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton extends the idea of a distribution to two random variables at once, introducing the joint probability distribution and how it quantifies dependence between X and Y. The description suggests coverage of what happens when variables are independent versus dependent, which connects to marginal distributions obtained by summing over one variable.</p>
+<h4>Why this video</h4>
+<p>It is useful enrichment that shows the summation-to-one property generalizing to two dimensions, reinforcing that a PMF is fundamentally a complete, normalized accounting of probability. Brunton is a well-known engineering faculty lecturer whose explanations are reliable and clearly motivated.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build directly toward MO1: the first establishes what a PMF is and how it relates to other distribution functions, and the second demonstrates the non-negativity and summation checks used to construct and validate a discrete distribution. Because expected value and variance (MO2) are computed as probability-weighted sums over a PMF, mastering the PMF here is a prerequisite for those calculations, and for recognizing the binomial and Poisson distributions later as specific PMFs with defining conditions and parameters (MO3, MO4). The emphasis on reading and stating what an individual probability value means supports MO5, where you must translate computed numbers into defensible conclusions about an engineering problem. The joint distribution video is optional depth that strengthens your general sense of how probability must be allocated across all outcomes.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Expected Value and Variance of Discrete Distributions</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Once you can write down a valid probability mass function, the next question is what that distribution actually tells you. Two summary numbers do most of the work: the expected value, E(X), which is the probability-weighted average of all possible values and describes the center of the distribution, and the variance, Var(X), which measures how far outcomes tend to fall from that center. The standard deviation, the square root of the variance, puts that spread back in the original units of the random variable.</p>
+<p>These ideas matter in engineering because a single probability rarely answers a design question. You usually need to know the long-run average number of defects, the average cost of a maintenance policy, or the average waiting time, together with how much variability to plan around. Expected value supports the decision; variance and standard deviation tell you how much risk surrounds it.</p>
+<p>As you watch, pay attention to three things: the structure of the formulas (sum of value times probability for the mean; sum of squared deviation times probability for the variance, with the equivalent shortcut E(X^2) - [E(X)]^2), the bookkeeping of setting up a table of x, p(x), and x*p(x), and the interpretation step at the end. Expected value is a long-run average, not necessarily a value the variable can ever take, and that distinction shows up often in exam questions.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: 5-4 Expected Value of a Discrete Random Variable</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HpDmnjx-x8k?cc_load_policy=1&amp;rel=0" title="Video: 5-4 Expected Value of a Discrete Random Variable (Introduction to Statistical Ideas and Methods)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Introduction to Statistical Ideas and Methods</strong> · 6:32 · 8,941 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=HpDmnjx-x8k" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short lecture presents the general definition of the expected value of a discrete random variable and walks through the formula, showing how each possible value is weighted by its probability and summed. Based on the title and description, it works from the values of the random variable and their probabilities to the resulting mean. It is the natural starting point for the definition and notation you will use throughout the module.</p>
+<h4>Why this video</h4>
+<p>It targets the first two subtopics directly, giving a clean, formula-first statement of expected value from a university-style statistics course series, which makes it a reliable reference for the definition and notation used in class.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: 5-7 Expected Value and Variance of a Discrete Random Variable Two Example Problems</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Arps1t1tD_s?cc_load_policy=1&amp;rel=0" title="Video: 5-7 Expected Value and Variance of a Discrete Random Variable Two Example Problems (Introduction to Statistical Ideas and Methods)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Introduction to Statistical Ideas and Methods</strong> · 7:27 · 6,555 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=Arps1t1tD_s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video solves two complete example problems that ask for both the expectation and the variance of a discrete random variable. Expect to see the full procedure demonstrated: listing values and probabilities, computing the mean, then computing the variance from the squared deviations or the shortcut formula. Working the examples yourself before watching, then checking your steps, is the most effective way to use it.</p>
+<h4>Why this video</h4>
+<p>It is the step-by-step calculation video for this topic, covering both the mean and the variance in the same worked setting so you can see how the two computations connect and where arithmetic errors typically creep in.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Properties of the Expected Value</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/8rnzHE2UtoM?cc_load_policy=1&amp;rel=0" title="Video: Properties of the Expected Value (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 10:18 · 22,681 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=8rnzHE2UtoM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton discusses several important properties of the expected value, such as how expectation behaves under linear operations and combinations of random variables. The treatment is conceptual as well as computational, explaining why the properties hold rather than only stating them. These rules are what let you shortcut many expected value and variance calculations instead of rebuilding a table each time.</p>
+<h4>Why this video</h4>
+<p>Brunton is a well-known engineering faculty producer whose explanations are rigorous and clearly motivated, and the properties he covers underpin the linearity shortcuts and the E(X^2) - [E(X)]^2 form of the variance you will use in applications.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos move you from definition to computation to application for MO2: the first establishes the expected value formula from a probability mass function, the second demonstrates full worked calculations of both expected value and variance, and the third supplies the properties that make those computations efficient and generalizable. Because every calculation starts from a valid pmf, the videos reinforce MO1 implicitly, and their emphasis on what the mean and spread mean in context prepares you for MO5, where you must interpret expected values and variances to justify an engineering conclusion. The skills practiced here carry directly into the binomial and Poisson work in MO3 and MO4, where each distribution has its own mean and variance formulas.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>The Binomial Distribution</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>The binomial distribution describes the number of "successes" in a fixed number of independent trials when each trial has only two possible outcomes and the probability of success stays the same from trial to trial. Think of testing 50 manufactured parts for defects, sampling 20 solder joints for failure, or recording whether each of 100 transmitted packets arrives intact. Because so many engineering inspection, reliability, and quality-control problems have exactly this structure, the binomial is one of the most used discrete models you will meet in this course.</p>
+<p>In this topic you will learn to check the four defining conditions (fixed n, two outcomes, constant p, independent trials), identify the parameters n and p from a word problem, and apply the formula P(X = x) = C(n,x) p^x (1-p)^(n-x). You will also compute the mean, np, and the variance, np(1-p), and use the standard deviation to judge how much variability to expect around the average number of successes.</p>
+<p>As you watch, pay attention to three things: where the binomial coefficient comes from and why it counts arrangements; how the speaker extracts n and p from the wording of a problem; and how the mean and standard deviation are interpreted in context rather than just computed. Keeping those three threads in mind will make the later comparison with the Poisson distribution much easier.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: The Binomial Distribution and the Multinomial Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UXB9eeMZfwo?cc_load_policy=1&amp;rel=0" title="Video: The Binomial Distribution and the Multinomial Distribution (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 16:32 · 66,883 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=UXB9eeMZfwo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton introduces the binomial distribution from the ground up, building the probability formula and explaining the role of the binomial coefficient, and then extends the idea to the multinomial distribution for more than two outcomes. Expect a lecture-style derivation with the underlying combinatorial reasoning made explicit.</p>
+<h4>Why this video</h4>
+<p>Brunton is a well-known engineering professor whose explanations are mathematically careful, so this video gives you a solid foundation for the binomial probability formula and the conditions that make it valid, plus useful context on what happens when there are more than two outcomes.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Overexplaining the binomial distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6YzrVUVO9M0?cc_load_policy=1&amp;rel=0" title="Video: Overexplaining the binomial distribution (Primer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Primer</strong> · 15:18 · 1,557,442 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=6YzrVUVO9M0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Primer uses animated simulations to walk slowly through where the binomial distribution comes from, showing how counting the arrangements of successes and failures across repeated trials produces the familiar shape of the distribution. The title signals a deliberately thorough, step-by-step treatment rather than a quick summary.</p>
+<h4>Why this video</h4>
+<p>The visual, simulation-driven approach builds intuition for independent repeated trials and the counting factor in the formula, which helps when you need to decide whether a real scenario actually satisfies the binomial conditions.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Binomial Distributions: Mean, Standard Deviation, and Variance: Dragon Eggs</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/_9n-nAmEsvE?cc_load_policy=1&amp;rel=0" title="Video: Binomial Distributions: Mean, Standard Deviation, and Variance: Dragon Eggs (David Flenner)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>David Flenner</strong> · 4:54 · 9,426 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=_9n-nAmEsvE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short worked example applies the binomial mean, variance, and standard deviation formulas to a concrete problem with n = 48 and p = 0.19. The instructor identifies the parameters from the scenario and then substitutes them into np and np(1-p) to obtain numerical answers.</p>
+<h4>Why this video</h4>
+<p>It is a focused, quick demonstration of exactly the computational subtopics on parameter identification and expected value, variance, and standard deviation, making it a good model to imitate on homework problems.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos move from theory to practice. Brunton and Primer develop the binomial probability formula and the conditions behind it, supporting your ability to recognize when a scenario is binomial (MO3) and to compute exact probabilities with correctly identified n and p (MO4), while reinforcing that the probabilities assigned over all possible counts form a valid discrete distribution summing to one (MO1). Flenner's worked example targets the mean, variance, and standard deviation of a binomial random variable (MO2) and shows how those numbers are read back into the context of the problem, which is the habit you will need for interpreting results in applied engineering settings (MO5).</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>The Poisson Distribution</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>The Poisson distribution models the number of times an event occurs within a fixed interval of time, length, area, or volume — the number of defects per meter of weld, calls arriving at a help desk per hour, or particles detected per second. Instead of a fixed number of trials like the binomial distribution, the Poisson distribution is built around a single rate parameter, lambda, which represents the average number of occurrences per interval.</p>
+<p>In this course the Poisson distribution matters for two reasons. First, it is the natural model whenever you are counting rare events over a continuum, which describes a large share of reliability, quality control, and queueing problems in engineering. Second, it has an unusually clean structure: the probability mass function depends on a single parameter, and both the mean and the variance equal lambda. That makes it a good distribution for practicing the general skills of this module — verifying that probabilities sum to one, computing expected value and variance, and interpreting those numbers in context.</p>
+<p>As you watch, pay attention to three things: how lambda is identified and rescaled when the interval in the problem differs from the interval in which the rate was reported; the exact form of the probability formula and how factorials and the exponential term are evaluated; and the conditions (independence, constant average rate, events occurring one at a time) that justify using Poisson rather than binomial. Keep a running list of worked examples so you can recognize problem types on an exam.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Poisson Distribution</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Q0kEqhNqGlk?cc_load_policy=1&amp;rel=0" title="Video: Poisson Distribution (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 10:07 · 2,053 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=Q0kEqhNqGlk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A concise, engineering-oriented introduction to the Poisson distribution from LearnChemE, a video series produced by faculty in the Department of Chemical and Biological Engineering at the University of Colorado Boulder. In about ten minutes it should present the Poisson probability formula, explain the role of the rate parameter, and work through example calculations of the type found in engineering statistics textbooks.</p>
+<h4>Why this video</h4>
+<p>It is the shortest and most course-aligned of the three videos, produced by engineering faculty and organized around standard textbooks, so it fits the applied framing of this module and is a good first watch.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: Poisson Distribution | By GP Sir</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/O0W_EtXQMhQ?cc_load_policy=1&amp;rel=0" title="Video: Poisson Distribution | By GP Sir (Dr.Gajendra Purohit)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Dr.Gajendra Purohit</strong> · 18:11 · 312,576 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=O0W_EtXQMhQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A longer, lecture-style treatment of the Poisson distribution covering what it is, how the probability formula is written, and how to apply it to problems. Expect a steady walk through the derivation or motivation of the formula followed by multiple solved examples. The video offers both Hindi and English audio tracks, selectable through the settings icon.</p>
+<h4>Why this video</h4>
+<p>The extended runtime allows more worked problems than a short overview, which directly supports the subtopics on the probability formula and applying Poisson to real-world problems.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Poisson Distribution | Mean and Variance | By GP Sir</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yh8ZLXQJA6o?cc_load_policy=1&amp;rel=0" title="Video: Poisson Distribution | Mean and Variance | By GP Sir (Dr.Gajendra Purohit)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Dr.Gajendra Purohit</strong> · 16:08 · 184,136 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=yh8ZLXQJA6o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A companion video focused specifically on the mean and variance of the Poisson distribution. It should show how both quantities are obtained from the probability mass function and establish the distinctive result that the mean and variance are both equal to lambda. Like the other video from this channel, it is available with English audio.</p>
+<h4>Why this video</h4>
+<p>It targets the mean-and-variance subtopic directly, giving you the derivation behind a result that is easy to memorize but important to understand and to contrast with the binomial case.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos move from the structure of the Poisson probability mass function to its parameters and applications. The formula-focused segments support MO4 by showing how to identify lambda correctly for a given interval and compute exact probabilities, and they reinforce MO1 by demonstrating that Poisson probabilities are non-negative and sum to one across all non-negative integer counts. The mean-and-variance video addresses MO2 and gives you the key fact that both equal lambda. The discussion of when Poisson applies — independent events at a constant average rate over a continuum, with no fixed number of trials — equips you to meet MO3 by distinguishing Poisson from binomial scenarios, and the worked engineering and real-world examples across all three videos model the contextual interpretation required by MO5.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part6">
+<h2>Applying Discrete Distributions to Real-World Problems</h2>
+<section class="item" id="p6-sec1">
+<h3>Introduction</h3>
+<p>So far this module you have met the discrete distributions one at a time: the Bernoulli and binomial, the geometric and negative binomial, the hypergeometric, and the Poisson. Real problems do not arrive labeled. This topic is about the step that comes first in practice — reading a scenario carefully, deciding which model its assumptions actually match, and then setting up the parameters (n and p, or lambda and the time or space interval) before touching a formula.</p>
+<p>Once the model is chosen, the rest of the work is mechanical but easy to get wrong: translating phrases like "at least three," "no more than two," or "the first success" into the correct sum of probability mass function terms, deciding when a complement is faster, and then computing the expected value and variance so you can say something about the long-run behavior of the process, not just a single event. The final step — interpreting the number in context — is what makes the analysis useful to an engineer or a decision maker.</p>
+<p>The three videos below are worked-problem and conceptual supports. As you watch the two binomial examples, pay attention to how the speaker identifies n, p and x from the wording of the problem, and how cumulative and "at least" questions are organized. In the third video, focus on the reasoning that links counts of events in an interval to the waiting time between events — that connection is a common source of confusion when you are deciding whether a scenario is Poisson at all.</p>
+</section>
+<section class="item" id="p6-sec2">
+<h3>Video 1: Binomial Distributions: Probabilities: County Unemployment</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/DHl-BzRAPEE?cc_load_policy=1&amp;rel=0" title="Video: Binomial Distributions: Probabilities: County Unemployment (David Flenner)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>David Flenner</strong> · 9:29 · 21,163 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=DHl-BzRAPEE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A worked example in which an unemployment-rate scenario for a county is modeled as a binomial experiment and several probabilities are computed to four decimal places. Based on the title and description, expect the instructor to identify the number of trials and the success probability from the problem statement and then evaluate exact and cumulative binomial probabilities.</p>
+<h4>Why this video</h4>
+<p>It models the exact workflow of this topic — confirm the distribution, extract parameters, compute, round and report — using a social and economic data setting that shows these tools are not limited to manufacturing examples.</p>
+</section>
+<section class="item" id="p6-sec3">
+<h3>Video 2: Binomial Distributions: Probabilities: Fast Food Promotional Games</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r_7iUl_h8Zc?cc_load_policy=1&amp;rel=0" title="Video: Binomial Distributions: Probabilities: Fast Food Promotional Games (David Flenner)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>David Flenner</strong> · 10:18 · 11,774 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=r_7iUl_h8Zc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A second binomial worked problem, this time built around a fast-food promotional game where each game piece is a trial with a fixed win probability. The video should walk through setting up n and p and calculating probabilities, again carried to at least four decimal places.</p>
+<h4>Why this video</h4>
+<p>Having a second, differently framed binomial example helps you see which features of a scenario actually signal "binomial" (fixed trials, two outcomes, constant probability, independence) rather than memorizing one problem type.</p>
+</section>
+<section class="item" id="p6-sec4">
+<h3>Video 3: The Connection Between the Exponential Distribution and the Poisson Process</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/OWYGlwy0lkI?cc_load_policy=1&amp;rel=0" title="Video: The Connection Between the Exponential Distribution and the Poisson Process (Steve Brunton)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steve Brunton</strong> · 10:13 · 32,601 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=OWYGlwy0lkI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Steve Brunton explains how the exponential distribution describes the waiting time until the next event in a Poisson process, connecting the count-based view of random events to the time-between-events view. Expect conceptual derivation and intuition rather than a numerical homework problem.</p>
+<h4>Why this video</h4>
+<p>It strengthens your judgment about when a scenario really satisfies Poisson conditions, and the clear, well-regarded engineering presentation helps you interpret lambda correctly as a rate per unit interval.</p>
+</section>
+<section class="item" id="p6-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>The two binomial examples directly support MO4 by demonstrating parameter identification and exact probability computation for applied scenarios, and they reinforce MO1 and MO2 by showing how the probability mass function assigns probabilities across all outcomes and how those probabilities summarize long-run behavior. The Poisson-exponential video supports MO3 by clarifying the defining conditions of a Poisson process, which is the key test you apply when deciding between binomial and Poisson models. Across all three, the emphasis on explaining what the resulting numbers mean for the unemployment, promotional-game or event-timing context supports MO5, and the expected value and variance discussion in context connects back to MO2.</p>
+</section>
+<section class="item" id="p6-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

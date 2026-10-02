@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post-Hoc Testing and Interpreting Results</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 15/Module 14 - ANOVA</a></div>
+<h1>Post-Hoc Testing and Interpreting Results</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Mini Lecture: Multiple Testing</a>
+<a href="#sec3">Video 2: Statistical Learning: 13.3 Bonferroni Method for Controlling FWER</a>
+<a href="#sec4">Video 3: Conducting Post Hoc Analysis in Excel 2016</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>A significant F-test in ANOVA tells you something is going on — at least one group mean differs from the others — but it does not tell you which groups differ, or by how much. Post-hoc (&quot;after the fact&quot;) testing fills that gap by making pairwise comparisons among group means while keeping the overall chance of a false positive under control. Without that control, running every possible pairwise t-test would inflate the familywise error rate: with just five groups there are ten comparisons, and the probability of at least one spurious &quot;significant&quot; result climbs well above the 5% you intended.</p>
+<p>In this course, post-hoc analysis is where ANOVA becomes useful to an engineer. If you compare the fatigue life of four alloys, the yield of three process settings, or the response time of several controller designs, the decision you report is usually &quot;A and C differ, B is indistinguishable from both&quot; — a statement that only a properly adjusted set of comparisons can support. You will also need to communicate that result cleanly, which is why reporting conventions (F, degrees of freedom, p-value, effect size, and the specific pairwise findings) are part of this topic.</p>
+<p>As you watch, focus on three things. First, the logic of why error rates inflate with multiple comparisons and what &quot;familywise&quot; actually means. Second, the mechanics of a specific correction — Bonferroni is the simplest and the one most often shown — including how it changes the critical value or the adjusted p-value. Third, how to read pairwise output: which pairs are flagged, what the confidence intervals say about the size of the difference, and what you can and cannot conclude when a comparison is non-significant.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Mini Lecture: Multiple Testing</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/RUX94txw4Qo?cc_load_policy=1&amp;rel=0" title="Video: Mini Lecture: Multiple Testing (Biostatistics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Biostatistics</strong> · 9:50 · 17,970 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=RUX94txw4Qo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short lecture on the multiple testing problem: why performing many hypothesis tests on the same data increases the chance of at least one false positive, and two corrections that appear frequently in published literature (typically Bonferroni and a false discovery rate approach). The description indicates it is framed around how these corrections are actually used when reporting results.</p>
+<h3>Why this video</h3>
+<p>It gives the conceptual foundation for the &quot;Why Post-Hoc Tests Are Necessary&quot; and &quot;Controlling Familywise Error Rate&quot; subtopics in under ten minutes, and the biostatistics framing connects the correction directly to how results get reported.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Statistical Learning: 13.3 Bonferroni Method for Controlling FWER</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xML6pCgPv2c?cc_load_policy=1&amp;rel=0" title="Video: Statistical Learning: 13.3 Bonferroni Method for Controlling FWER (Stanford Online)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Stanford Online</strong> · 6:32 · 4,715 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=xML6pCgPv2c" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part of Stanford&#39;s Statistical Learning series taught by Trevor Hastie, this segment focuses specifically on the Bonferroni method as a procedure for controlling the familywise error rate across a set of tests. Expect a precise statement of what FWER is, how the Bonferroni adjustment is derived, and the trade-off it makes in statistical power.</p>
+<h3>Why this video</h3>
+<p>It is the most rigorous treatment of familywise error control among the three, from a leading authority on statistical learning, and it gives you the formal justification behind the adjusted significance levels you will apply in post-hoc comparisons.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Conducting Post Hoc Analysis in Excel 2016</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/6M91rZ3s6i0?cc_load_policy=1&amp;rel=0" title="Video: Conducting Post Hoc Analysis in Excel 2016 (UTSDS)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>UTSDS</strong> · 4:26 · 40,180 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=6M91rZ3s6i0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A hands-on demonstration of running a post-hoc analysis in Excel 2016 after rejecting the null hypothesis of a one-way ANOVA. It walks through the workflow from the ANOVA output into the pairwise comparisons and shows how to read which group means are flagged as different.</p>
+<h3>Why this video</h3>
+<p>This is the applied counterpart to the two conceptual videos, directly supporting &quot;Common Post-Hoc Testing Procedures&quot; and &quot;Interpreting Post-Hoc Output&quot; using software you can open immediately.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos carry the error-inflation argument from motivation through to execution. The multiple testing lecture and the Stanford Bonferroni segment reinforce MO1 by making explicit how repeated comparisons raise the Type I error rate and how a correction restores control of it. The Excel demonstration then addresses MO5 directly: it shows a post-hoc procedure applied after a significant ANOVA and how to read the pairwise output to identify which specific means differ. None of the three covers assumption checking, the F-statistic computation, or factorial designs (MO2-MO4); rely on the module&#39;s earlier materials and your textbook for those, and use these videos for the interpretation and reporting stage of the analysis.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

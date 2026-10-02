@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week 3/Module 2 - Descriptive Statistics</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
+<h1>Week 3/Module 2 - Descriptive Statistics</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to Descriptive Statistics</a>
+<a href="#part2">Measures of Central Tendency</a>
+<a href="#part3">Measures of Variability</a>
+<a href="#part4">Data Distribution</a>
+<a href="#part5">Selecting and Applying Appropriate Statistical Measures</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to Descriptive Statistics</h2>
+<section class="item" id="p1-sec1">
+<h3>Introduction</h3>
+<p>Descriptive statistics are the tools we use to take a raw collection of numbers and turn it into something a person can actually understand. Instead of staring at hundreds of measurements from a manufacturing line, a materials test, or a traffic survey, we summarise them: a typical value, a sense of how spread out the data are, and a picture of the overall shape of the distribution. That summary is almost always the first thing an engineer produces after collecting data, and it is often what ends up in the report that others read.</p>
+<p>In EGN3443, this topic sets the foundation for everything that follows. Before you can reason about probability models, sampling, or inference, you need to be comfortable describing what a dataset actually looks like — its center, its variability, and its shape — and you need to know which summary is appropriate for which kind of data. Descriptive statistics also protect you from mistakes: a mean reported without any measure of spread, or applied to a strongly skewed dataset, can be badly misleading.</p>
+<p>As you watch the videos below, look for three things. First, the standard categories of descriptive measures (central tendency, variability, and distribution shape) and the vocabulary used for each. Second, the reasoning behind choosing one measure over another for a particular dataset. Third, how descriptive statistics fit into a larger workflow — they are the starting point of analysis, the step that generates questions rather than final answers.</p>
+</section>
+<section class="item" id="p1-sec2">
+<h3>Video 1: Mastering Descriptive Statistics: The Foundation of Data Analysis</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Q9sjvkVH_sc?cc_load_policy=1&amp;rel=0" title="Video: Mastering Descriptive Statistics: The Foundation of Data Analysis (Art+Science with Kevin Hartman)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Art+Science with Kevin Hartman</strong> · 15:46 · 16,863 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=Q9sjvkVH_sc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A roughly 16-minute walkthrough of descriptive statistics as the foundation of data analysis, from a data analytics instructor. Based on its framing, it should cover what descriptive statistics are, the main families of summary measures used to condense a dataset, and how analysts apply them to make complex data interpretable. Expect worked examples and discussion of how these summaries are communicated.</p>
+<h4>Why this video</h4>
+<p>This is the most complete of the three videos and maps directly onto the subtopics of what descriptive statistics are, why they matter, and how they are categorised, making it a good primary viewing for the topic.</p>
+</section>
+<section class="item" id="p1-sec3">
+<h3>Video 2: Exploratory Data Analysis</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/QiqZliDXCCg?cc_load_policy=1&amp;rel=0" title="Video: Exploratory Data Analysis (IBM Technology)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IBM Technology</strong> · 5:02 · 131,907 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=QiqZliDXCCg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A concise IBM Technology explainer on exploratory data analysis (EDA) — the broader practice of examining a dataset before formal modelling. It introduces the purpose of EDA, the kinds of questions analysts ask of new data, and typical graphical and numerical techniques used to uncover patterns, anomalies, and structure.</p>
+<h4>Why this video</h4>
+<p>It places descriptive statistics in context as the starting point of analysis rather than an end in itself, and IBM Technology's short, well-produced explainers are reliable and easy to follow.</p>
+</section>
+<section class="item" id="p1-sec4">
+<h3>Video 3: Descriptive Statistics - What ? Why ? Types ? || Statistics for Beginners</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/PJfvYQsz5do?cc_load_policy=1&amp;rel=0" title="Video: Descriptive Statistics - What ? Why ? Types ? || Statistics for Beginners (Learning Champion)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Learning Champion</strong> · 4:04 · 11,557 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=PJfvYQsz5do" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, animated beginner's introduction organised around three questions: why descriptive statistics are used, what they are, and what types exist. It uses simple examples to distinguish the major categories of descriptive measures.</p>
+<h4>Why this video</h4>
+<p>At four minutes it is an efficient first pass or review that directly mirrors the subtopic structure of this page, which makes it useful either before or after the longer video.</p>
+</section>
+<section class="item" id="p1-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos build the conceptual groundwork the module outcomes depend on. The longer Art+Science video and the Learning Champion overview introduce the categories of descriptive measures — central tendency and variability — that you will compute by hand in MO1 and MO2, and they establish the vocabulary of distribution shape needed for MO3. Discussion of which summary measure suits which kind of data supports the selection judgement required in MO4, while the IBM Technology video on exploratory data analysis frames descriptive statistics as a communication and discovery tool, which is exactly the interpretive skill targeted by MO5. The videos are conceptual rather than computational, so pair them with the module's worked problems and dataset exercises to practise the actual calculations.</p>
+</section>
+<section class="item" id="p1-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part2">
+<h2>Measures of Central Tendency</h2>
+<section class="item" id="p2-sec1">
+<h3>Introduction</h3>
+<p>When engineers collect data — test results, failure times, sensor readings, survey responses — the first question is usually "what is a typical value?" Measures of central tendency answer that question. The mean is the arithmetic average, the median is the middle value once the data are ordered, and the mode is the value that occurs most often. Each summarizes the "center" of a dataset, but each does so differently, and they can disagree sharply.</p>
+<p>This topic matters because almost everything that follows in the course builds on it. Variance and standard deviation are measured around the mean; the shape of a distribution is often described by how the mean, median, and mode relate to one another; and later work in probability and inference depends on knowing what a sample average represents. Just as importantly, choosing the wrong measure can distort a conclusion — a single extreme value can pull the mean far from anything typical, while the median barely moves.</p>
+<p>As you watch, focus on three things: the exact computational procedure for each measure (especially the median with an even number of observations), how outliers and skew affect each measure differently, and the decision rules for choosing one measure over another based on data type (nominal, ordinal, interval/ratio) and distribution shape. Try pausing each video to compute the answer yourself before the presenter reveals it.</p>
+</section>
+<section class="item" id="p2-sec2">
+<h3>Video 1: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/t4LOv9h-FJM?cc_load_policy=1&amp;rel=0" title="Video: Median, Mean, Mode, Percentile | Math, Statistics for data science, machine learning (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 18:54 · 240,436 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=t4LOv9h-FJM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A thorough walkthrough of mean, median, mode, and percentiles aimed at learners preparing for data science and machine learning work. The longer runtime allows the presenter to work through calculations step by step and to show how extreme values distort the mean while leaving the median relatively stable. The inclusion of percentiles connects central tendency to the broader idea of describing position within a dataset.</p>
+<h4>Why this video</h4>
+<p>codebasics is a well-established technical teaching channel, and the applied data-science framing matches the engineering context of this course; its depth makes it the best single source for the mean, median, and mode subtopics plus the comparison between them.</p>
+</section>
+<section class="item" id="p2-sec3">
+<h3>Video 2: Measure of Central Tendency - What? Why? How? || Mean || Median || Mode || Statistics for Beginners</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/EN5SQY92ebc?cc_load_policy=1&amp;rel=0" title="Video: Measure of Central Tendency - What? Why? How? || Mean || Median || Mode || Statistics for Beginners (Learning Champion)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Learning Champion</strong> · 7:08 · 45,885 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=EN5SQY92ebc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A compact animated introduction organized around what measures of central tendency are, why they are used, and how they are computed. In about seven minutes it defines the mean, median, and mode and demonstrates the arithmetic for each with simple examples.</p>
+<h4>Why this video</h4>
+<p>Its What/Why/How structure gives a clean conceptual framing before the mechanics, making it a good first watch or a quick review of the three core definitions.</p>
+</section>
+<section class="item" id="p2-sec4">
+<h3>Video 3: Choosing the right average - Is it Mode, Median or Mean? | GCSE Maths</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uvbfQ0HripM?cc_load_policy=1&amp;rel=0" title="Video: Choosing the right average - Is it Mode, Median or Mean? | GCSE Maths (Beat the Calculator)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Beat the Calculator</strong> · 4:45 · 4,470 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=uvbfQ0HripM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused video on the decision itself: given a dataset, should you report the mode, the median, or the mean? It illustrates how using the wrong average can lead to misleading conclusions about a set of data.</p>
+<h4>Why this video</h4>
+<p>This maps directly onto the "Choosing the Appropriate Measure" subtopic, which the other two videos treat more briefly, and it reinforces why the choice has real consequences for interpretation.</p>
+</section>
+<section class="item" id="p2-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos cover the computational skills in MO1 — each presents the procedure for calculating the mean, median, and mode from raw data. The codebasics video's treatment of outliers and percentiles supports MO3 by showing how extreme values and asymmetry shift the mean relative to the median, a key diagnostic for recognizing skew. The "choosing the right average" video speaks directly to MO4, and the emphasis across all three on misleading versus meaningful summaries builds toward MO5. Note that measures of variability (MO2) are addressed elsewhere in this module; these videos establish the center around which that spread will be measured.</p>
+</section>
+<section class="item" id="p2-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part3">
+<h2>Measures of Variability</h2>
+<section class="item" id="p3-sec1">
+<h3>Introduction</h3>
+<p>Two datasets can share the same mean and still behave very differently. One batch of machined parts might cluster tightly around the target dimension while another swings widely above and below it, and that difference in spread is often what determines whether a design, a process, or a measurement system is acceptable. Measures of variability give us the vocabulary and the arithmetic to describe that spread precisely.</p>
+<p>In this topic you will work with three standard measures: the range (the distance between the largest and smallest values), the variance (the average squared deviation from the mean), and the standard deviation (the square root of the variance, expressed in the same units as the original data). Along the way you will see why deviations from the mean are squared rather than simply added, how the mean absolute deviation offers an alternative approach, and when the simplicity of the range is adequate versus when it hides important information.</p>
+<p>As you watch the videos below, pay attention to three things: the step-by-step mechanics of each calculation, the units attached to each result, and the reasoning each presenter gives for preferring one measure over another. Try pausing to compute a small example yourself before the presenter reveals the answer, and keep asking what a given number would mean to an engineer looking at a real process.</p>
+</section>
+<section class="item" id="p3-sec2">
+<h3>Video 1: Mean Absolute Deviation, Variance, &amp; Standard Deviation</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dg1SYOJ8IBY?cc_load_policy=1&amp;rel=0" title="Video: Mean Absolute Deviation, Variance, &amp; Standard Deviation (PsychExamReview)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PsychExamReview</strong> · 12:42 · 3,552 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=dg1SYOJ8IBY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video walks through dispersion measures in sequence, beginning with the mean deviation, then mean absolute deviation, then variance and standard deviation. The progression is designed to show why simply averaging deviations from the mean fails and what squaring (or taking absolute values) accomplishes. At roughly thirteen minutes, it is the most detailed treatment in this set and should include worked computation.</p>
+<h4>Why this video</h4>
+<p>It directly supports the variance and standard deviation subtopics by explaining the logic behind squared deviations rather than just presenting a formula, which is exactly the conceptual step students most often skip.</p>
+</section>
+<section class="item" id="p3-sec3">
+<h3>Video 2: Measures of Variability (Range, Variance and Standard Deviation)</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/p4Jofi8SMz0?cc_load_policy=1&amp;rel=0" title="Video: Measures of Variability (Range, Variance and Standard Deviation) (Steven Force)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Steven Force</strong> · 3:05 · 1,259 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=p4Jofi8SMz0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A brief review covering all three core measures — range, variance, and standard deviation — and what each one reveals about a dataset. In about three minutes it summarizes the definitions and the kind of information each statistic conveys.</p>
+<h4>Why this video</h4>
+<p>Its compact scope makes it a useful orientation before the longer video or a quick refresher before an assignment, and it touches every calculation subtopic in this unit.</p>
+</section>
+<section class="item" id="p3-sec4">
+<h3>Video 3: Range vs Variance vs Standard Deviation | When to Use Each in Six Sigma &amp; Data Analysis</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r-HuNSjsh7k?cc_load_policy=1&amp;rel=0" title="Video: Range vs Variance vs Standard Deviation | When to Use Each in Six Sigma &amp; Data Analysis (InfiniLean)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>InfiniLean</strong> · 5:48 · 209 views · 11mo ago · captions — <a href="https://www.youtube.com/watch?v=r-HuNSjsh7k" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video frames the three measures as a selection problem: given a situation, which measure of spread should you actually use? It positions the discussion within Six Sigma and data analysis practice, suggesting an applied, process-oriented perspective on interpreting variability.</p>
+<h4>Why this video</h4>
+<p>It maps onto the "Comparing and Choosing the Right Measure" and "Interpreting Variability in Context" subtopics, and its quality-engineering framing connects the statistics to engineering decision-making.</p>
+</section>
+<section class="item" id="p3-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target MO2 most directly: all three cover the computation of range, variance, and standard deviation, with the PsychExamReview video supplying the fuller derivation and worked arithmetic and the Steven Force video supplying a compact summary of all three. The InfiniLean video extends the work toward MO5 by asking which measure communicates the most useful information in a given applied setting, reinforcing the habit of interpreting a numerical result rather than merely producing it. Because variability is always computed relative to a center, these videos also reinforce MO1 and connect to the distribution-shape and measure-selection reasoning in MO3 and MO4, which the remaining topics in this module address more fully.</p>
+</section>
+<section class="item" id="p3-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part4">
+<h2>Data Distribution</h2>
+<section class="item" id="p4-sec1">
+<h3>Introduction</h3>
+<p>A data distribution describes how the values in a dataset are spread across the range of possible outcomes — where observations cluster, where they thin out, and whether the pattern is balanced or lopsided. Before you compute a single summary number, it is worth looking at the shape of the data in a histogram or dot plot, because shape tells you a great deal about what the data are doing and which summaries will describe them honestly.</p>
+<p>In this course, shape matters for practical reasons. A symmetrical distribution lets the mean sit comfortably at the centre, while a skewed distribution pulls the mean toward the long tail and can make it a misleading summary of a 'typical' value. Engineering data — component lifetimes, failure times, waiting times, measurement errors, concentrations — are frequently skewed, so recognising skew is part of reading your data correctly rather than an abstract exercise.</p>
+<p>As you watch the videos below, focus on three things: the vocabulary (symmetric, uniform, bimodal, positively/right skewed, negatively/left skewed), the direction convention (the skew is named for the side with the long tail, not the side with the tall bars), and how the relative positions of mean, median and mode shift as the shape changes. Also pay attention to how each presenter talks about spread — the range of values covered and how tightly or loosely the data cluster — since that language will be useful when you describe real datasets later in the module.</p>
+</section>
+<section class="item" id="p4-sec2">
+<h3>Video 1: Shape and Skewness - How To Classify a Distribution by its Shape</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9QBcp7sbfGM?cc_load_policy=1&amp;rel=0" title="Video: Shape and Skewness - How To Classify a Distribution by its Shape (Miacademy &amp; MiaPrep Learning Channel)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Miacademy &amp; MiaPrep Learning Channel</strong> · 9:28 · 646 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=9QBcp7sbfGM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A lesson on classifying distributions by shape, using symmetry and skewness as the organising ideas. Based on its title and description, it should walk through how to look at a graph of data and name its shape, likely including symmetric shapes alongside right- and left-skewed ones.</p>
+<h4>Why this video</h4>
+<p>This is the most direct match to the 'What is a Data Distribution?', 'Symmetrical Distributions' and 'Introduction to Skewness' subtopics, and its classroom-lesson format gives you the classification vocabulary in one place before you move on to the finer points.</p>
+</section>
+<section class="item" id="p4-sec3">
+<h3>Video 2: Skewness - Positive &amp; Negative Skew</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/_dR1nTaaK5s?cc_load_policy=1&amp;rel=0" title="Video: Skewness - Positive &amp; Negative Skew (PsychExamReview)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PsychExamReview</strong> · 10:22 · 9,757 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=_dR1nTaaK5s" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video frames skewness as a way a distribution can deviate from a normal, symmetrical shape, and explains the difference between positive and negative skew. Expect a careful treatment of the naming convention and what each type of skew looks like in practice.</p>
+<h4>Why this video</h4>
+<p>PsychExamReview is a well-regarded teaching channel for introductory statistics concepts, and this video gives focused, slower-paced coverage of exactly the 'Positive (Right) Skew' and 'Negative (Left) Skew' subtopics, including why the labels can feel counter-intuitive at first.</p>
+</section>
+<section class="item" id="p4-sec4">
+<h3>Video 3: Right skewed histogram, Left skewed histogram explained, Skewed histogram examples</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iuKyeInyvAo?cc_load_policy=1&amp;rel=0" title="Video: Right skewed histogram, Left skewed histogram explained, Skewed histogram examples (Six Sigma Mania)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Six Sigma Mania</strong> · 4:47 · 12,909 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=iuKyeInyvAo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, applied look at histograms as a tool for visualising data distribution, with examples of right-skewed and left-skewed histograms. The description positions the normal distribution as the usual reference point, so you should see skewed shapes compared against it.</p>
+<h4>Why this video</h4>
+<p>At under five minutes it is an efficient, practice-oriented reinforcement of the material, and its quality-engineering perspective connects directly to the 'Recognising and Describing Distributions in Practice' subtopic that engineers encounter on the job.</p>
+</section>
+<section class="item" id="p4-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos target MO3 most directly: they give you the vocabulary and the visual cues needed to classify a distribution as symmetrical, positively skewed or negatively skewed. Because skewness shifts the mean away from the median, they also support MO1 and MO4 by showing why the shape of a dataset governs which measure of central tendency is the fairer summary. Finally, the discussion of how widely data are spread across a histogram underpins MO2, and the applied histogram examples model the kind of plain-language interpretation of a real dataset that MO5 asks you to produce.</p>
+</section>
+<section class="item" id="p4-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+<section class="merged-part" id="part5">
+<h2>Selecting and Applying Appropriate Statistical Measures</h2>
+<section class="item" id="p5-sec1">
+<h3>Introduction</h3>
+<p>Descriptive statistics are only useful when the measure fits the data. A mean computed on a heavily skewed cost dataset, or a "mode" reported for continuous sensor readings, can mislead an audience even when the arithmetic is flawless. This topic focuses on the decision that comes before the calculation: identifying whether data are nominal, ordinal, interval, or ratio, checking the shape of the distribution and the presence of outliers, and then choosing the measure of central tendency and variability that honestly represents the data.</p>
+<p>In an engineering context this matters because your numbers travel. A single summary statistic may end up in a design review, a quality report, or a recommendation to a client who will never see the raw data. Choosing well — and explaining why you chose it — is part of the engineering work, not an afterthought.</p>
+<p>While watching the videos below, pay attention to three things: how each measure is actually computed, what each measure assumes about the data, and how the presenter decides which measure to report. Try to connect those decisions back to the data types and distribution shapes covered earlier in this module, and note any example where swapping one measure for another would change the story the data tells.</p>
+</section>
+<section class="item" id="p5-sec2">
+<h3>Video 1: Understanding Central Tendency</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/n_sSVhHBdj4?cc_load_policy=1&amp;rel=0" title="Video: Understanding Central Tendency (PsychExamReview)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>PsychExamReview</strong> · 10:56 · 7,091 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=n_sSVhHBdj4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video works through how the mean, median, and mode are each calculated using worked examples, and introduces the notation conventions used in statistics, including Greek letters for population parameters versus Latin letters for sample statistics. Based on its description, it also addresses when each measure is appropriate rather than treating them as interchangeable. Expect a clear, lecture-style walkthrough from a psychology-methods channel.</p>
+<h4>Why this video</h4>
+<p>It gives the computational foundation for the central tendency subtopic while also flagging the parameter-versus-statistic distinction that students often blur, which supports careful and accurate communication of results later.</p>
+</section>
+<section class="item" id="p5-sec3">
+<h3>Video 2: What is Standard Deviation and Mean Absolute Deviation | Math, Statistics for data science, ML</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yCDevFTNbC0?cc_load_policy=1&amp;rel=0" title="Video: What is Standard Deviation and Mean Absolute Deviation | Math, Statistics for data science, ML (codebasics)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>codebasics</strong> · 8:16 · 189,040 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=yCDevFTNbC0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Codebasics explains standard deviation and mean absolute deviation as two ways of quantifying how far individual data points sit from the center of a dataset. The video works through the calculations and, given the channel's data science and machine learning focus, frames why spread matters when summarizing data. It is a concise treatment aimed at practical application rather than proof.</p>
+<h4>Why this video</h4>
+<p>It directly serves the "selecting appropriate measures of variability" subtopic by comparing two competing measures of spread, so students see that variability also involves a choice, not just a formula.</p>
+</section>
+<section class="item" id="p5-sec4">
+<h3>Video 3: Measure of Central Tendency | Real World College Math | Study Hall</h3>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/MF6ij7tckI0?cc_load_policy=1&amp;rel=0" title="Video: Measure of Central Tendency | Real World College Math | Study Hall (Study Hall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Study Hall</strong> · 10:09 · 6,036 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=MF6ij7tckI0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Study Hall's episode places measures of central tendency in a real-world framing, starting from the problem that large datasets are hard to interpret without context. It reviews mean, median, and mode and, per its description, emphasizes the guidance and context needed to make sense of what the numbers refer to. The production is aimed at a general college audience, so the examples are everyday rather than technical.</p>
+<h4>Why this video</h4>
+<p>Its emphasis on context and interpretation maps onto the "analytical context and audience" and "communicating statistical insights" subtopics, complementing the more computational treatments in the other two videos.</p>
+</section>
+<section class="item" id="p5-sec5">
+<h3>How These Videos Support the Learning Outcomes</h3>
+<p>Together these videos cover both halves of the module's calculation outcomes: the PsychExamReview video builds the mean, median, and mode procedures behind MO1, while the codebasics video develops measures of spread supporting MO2. The discussion of when each central tendency measure is appropriate — and how skew and outliers pull the mean away from the median — feeds MO3 and MO4, giving students a basis for justifying their choice rather than defaulting to the mean. The Study Hall episode's focus on context and interpretation supports MO5 by modeling how summary statistics are explained to an audience that needs the meaning, not just the number.</p>
+</section>
+<section class="item" id="p5-sec6">
+<h3>About These Videos</h3>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

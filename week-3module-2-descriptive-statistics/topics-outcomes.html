@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to Descriptive Statistics</h3>
+<h3 id="topic-1">Introduction to Descriptive Statistics</h3>
 <div class="summary">An overview of what descriptive statistics are and why they matter. This topic establishes the foundation for summarising and interpreting data effectively.</div>
 <ul>
 <li><strong>What Are Descriptive Statistics?</strong> <span class="el-body">— Descriptive statistics are numerical and graphical methods used to summarise, organise, and describe the main features of a dataset.</span></li>
@@ -42,7 +42,7 @@ li{margin:5px 0}
 <li><strong>Summarising Data Meaningfully</strong> <span class="el-body">— Effective use of descriptive statistics means selecting the right measures to accurately represent the dataset and the question being asked.</span></li>
 <li><strong>Descriptive Statistics as a Starting Point</strong> <span class="el-body">— Descriptive statistics serve as the essential first step in any data analysis process, laying the groundwork for deeper investigation.</span></li>
 </ul>
-<h3>Measures of Central Tendency</h3>
+<h3 id="topic-2">Measures of Central Tendency</h3>
 <div class="summary">Exploration of the mean, median, and mode as tools for identifying the centre of a dataset. Learners examine when and how to apply each measure appropriately.</div>
 <ul>
 <li><strong>The Mean: Arithmetic Average</strong> <span class="el-body">— The mean is calculated by summing all values in a dataset and dividing by the total number of observations. It is the most widely used measure of central tendency.</span></li>
@@ -51,7 +51,7 @@ li{margin:5px 0}
 <li><strong>Comparing Mean, Median, and Mode</strong> <span class="el-body">— Each measure of central tendency describes the centre of a dataset differently, and their relative positions can reveal important information about the shape of the distribution.</span></li>
 <li><strong>Choosing the Appropriate Measure</strong> <span class="el-body">— Selecting the right measure of central tendency depends on the type of data, the shape of its distribution, and the purpose of the analysis. There is no single universally correct choice.</span></li>
 </ul>
-<h3>Measures of Variability</h3>
+<h3 id="topic-3">Measures of Variability</h3>
 <div class="summary">An examination of range, variance, and standard deviation to understand how spread out data values are. This topic helps learners quantify and interpret the dispersion within a dataset.</div>
 <ul>
 <li><strong>What Is Variability and Why Does It Matter?</strong> <span class="el-body">— Variability describes how spread out or dispersed data values are within a dataset. Understanding variability is essential because two datasets can share the same mean yet differ dramatically in how their values are distributed.</span></li>
@@ -61,7 +61,7 @@ li{margin:5px 0}
 <li><strong>Comparing and Choosing the Right Measure of Variability</strong> <span class="el-body">— Selecting the appropriate measure of variability depends on the nature of the data, the presence of outliers, and the level of detail required for interpretation.</span></li>
 <li><strong>Interpreting Variability in Context</strong> <span class="el-body">— A measure of variability only becomes meaningful when interpreted alongside the mean and within the context of the data being analyzed.</span></li>
 </ul>
-<h3>Data Distribution</h3>
+<h3 id="topic-4">Data Distribution</h3>
 <div class="summary">An introduction to the shape and pattern of data distributions, including concepts such as skewness and symmetry. Learners develop the ability to recognise and describe how data is spread across a range of values.</div>
 <ul>
 <li><strong>What is a Data Distribution?</strong> <span class="el-body">— A data distribution describes how values in a dataset are spread or arranged across a range, showing where values tend to cluster and how frequently different values occur.</span></li>
@@ -72,7 +72,7 @@ li{margin:5px 0}
 <li><strong>Describing the Spread of a Distribution</strong> <span class="el-body">— Beyond shape, a distribution is also characterised by how widely values are spread around the centre, which affects how much variability exists in the data.</span></li>
 <li><strong>Recognising and Describing Distributions in Practice</strong> <span class="el-body">— Learners should be able to look at a dataset or its visual representation and describe its shape, symmetry, and direction of skew in plain language.</span></li>
 </ul>
-<h3>Selecting and Applying Appropriate Statistical Measures</h3>
+<h3 id="topic-5">Selecting and Applying Appropriate Statistical Measures</h3>
 <div class="summary">Guidance on choosing the right descriptive statistics based on data type and analytical context. Learners practise applying these measures to real datasets to communicate meaningful insights clearly and accurately.</div>
 <ul>
 <li><strong>Understanding Data Types Before Selecting Measures</strong> <span class="el-body">— Choosing the right statistical measure begins with correctly identifying whether your data is nominal, ordinal, interval, or ratio. Each data type constrains which descriptive statistics are mathematically meaningful and interpretable.</span></li>
@@ -112,6 +112,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Two-Sample Hypothesis Tests</h3>
+<h3 id="topic-1">Two-Sample Hypothesis Tests</h3>
 <div class="summary">Introduces hypothesis testing procedures for comparing two independent groups, covering the logic, assumptions, and application of two-sample z-tests and t-tests.</div>
 <ul>
 <li><strong>Logic of Two-Sample Hypothesis Testing</strong> <span class="el-body">— Two-sample hypothesis tests are used to determine whether there is a statistically significant difference between the means (or proportions) of two independent groups.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>Assumptions Underlying Two-Sample Tests</strong> <span class="el-body">— Both two-sample z-tests and t-tests rely on a set of statistical assumptions that must be evaluated before the results can be considered valid.</span></li>
 <li><strong>Interpreting Results and Making Decisions</strong> <span class="el-body">— After computing the test statistic, the result is compared to a critical value or evaluated using a p-value to determine whether to reject the null hypothesis.</span></li>
 </ul>
-<h3>Paired Sample Comparisons</h3>
+<h3 id="topic-2">Paired Sample Comparisons</h3>
 <div class="summary">Explores methods for analyzing data collected from matched or repeated-measures designs, emphasizing how pairing reduces variability and strengthens inferential conclusions.</div>
 <ul>
 <li><strong>What Are Paired Sample Designs?</strong> <span class="el-body">— Paired sample designs involve collecting two related measurements from the same subject or from matched subjects, rather than from two independent groups.</span></li>
@@ -54,7 +54,7 @@ li{margin:5px 0}
 <li><strong>Interpreting and Reporting Results</strong> <span class="el-body">— Proper interpretation of a paired-sample t-test includes reporting the test statistic, degrees of freedom, p-value, and a measure of effect size to convey practical significance.</span></li>
 <li><strong>When to Choose a Paired vs. Independent Design</strong> <span class="el-body">— Selecting the correct design and corresponding test depends on the research question, how data were collected, and the nature of the relationship between observations.</span></li>
 </ul>
-<h3>Selecting the Appropriate Statistical Test</h3>
+<h3 id="topic-3">Selecting the Appropriate Statistical Test</h3>
 <div class="summary">Guides learners through a decision-making framework for choosing the correct hypothesis test based on data type, sample size, independence, and research context.</div>
 <ul>
 <li><strong>The Decision-Making Framework Overview</strong> <span class="el-body">— Selecting the correct statistical test requires a structured decision process rather than guesswork. A systematic framework helps researchers avoid errors that lead to invalid conclusions.</span></li>
@@ -65,7 +65,7 @@ li{margin:5px 0}
 <li><strong>Aligning Test Choice with the Research Question</strong> <span class="el-body">— Beyond data characteristics, the specific inferential goal—testing differences, associations, or relationships—shapes which test is appropriate. A test that answers the wrong question produces irrelevant results even if technically applied correctly.</span></li>
 <li><strong>Practical Checklist for Final Test Selection</strong> <span class="el-body">— A concise checklist consolidates all decision criteria into a quick-reference tool that can be applied before any analysis begins. Running through each checkpoint reduces the risk of selecting an inappropriate test.</span></li>
 </ul>
-<h3>Assumptions and Conditions for Validity</h3>
+<h3 id="topic-4">Assumptions and Conditions for Validity</h3>
 <div class="summary">Examines the underlying assumptions required for each inferential technique and discusses how to verify whether those conditions are met before drawing conclusions.</div>
 <ul>
 <li><strong>Why Assumptions Matter in Inferential Testing</strong> <span class="el-body">— Every inferential technique rests on a set of underlying assumptions; violating these can lead to invalid p-values, incorrect confidence intervals, and misleading conclusions.</span></li>
@@ -76,7 +76,7 @@ li{margin:5px 0}
 <li><strong>Conditions Specific to Paired Comparisons</strong> <span class="el-body">— The paired t-test requires that the differences between paired observations follow an approximately normal distribution, rather than requiring normality of the original measurements themselves.</span></li>
 <li><strong>Using Non-Parametric Methods When Assumptions Fail</strong> <span class="el-body">— Non-parametric tests make fewer distributional assumptions and serve as valid alternatives when parametric conditions cannot be met.</span></li>
 </ul>
-<h3>Introduction to Non-Parametric Methods</h3>
+<h3 id="topic-5">Introduction to Non-Parametric Methods</h3>
 <div class="summary">Introduces non-parametric alternatives to traditional hypothesis tests, explaining when and why they are used when parametric assumptions cannot be satisfied.</div>
 <ul>
 <li><strong>What Are Non-Parametric Methods?</strong> <span class="el-body">— Non-parametric methods are statistical tests that do not rely on assumptions about the underlying population distribution, such as normality.</span></li>
@@ -86,7 +86,7 @@ li{margin:5px 0}
 <li><strong>Common Non-Parametric Alternatives to Parametric Tests</strong> <span class="el-body">— For most standard parametric tests, there exists a non-parametric equivalent that can be applied when the necessary assumptions are not met.</span></li>
 <li><strong>Selecting the Right Test: Parametric vs. Non-Parametric</strong> <span class="el-body">— Choosing between a parametric and non-parametric test requires careful consideration of the data type, sample size, and the degree to which distributional assumptions are satisfied.</span></li>
 </ul>
-<h3>Interpreting and Communicating Results</h3>
+<h3 id="topic-6">Interpreting and Communicating Results</h3>
 <div class="summary">Focuses on accurately interpreting test statistics, p-values, and confidence intervals, and on communicating findings from hypothesis tests in a statistically sound and meaningful way.</div>
 <ul>
 <li><strong>Understanding the Test Statistic</strong> <span class="el-body">— A test statistic summarizes how far the observed sample data deviates from what would be expected under the null hypothesis, expressed in standardized units.</span></li>
@@ -127,6 +127,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

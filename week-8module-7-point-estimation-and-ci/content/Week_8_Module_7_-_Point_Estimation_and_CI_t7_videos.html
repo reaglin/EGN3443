@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applying Estimation in Real-World Data Analysis</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 8/Module 7 - Point Estimation and CI</a></div>
+<h1>Applying Estimation in Real-World Data Analysis</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Introduction to Confidence Intervals</a>
+<a href="#sec3">Video 2: Two-sided Confidence Intervals</a>
+<a href="#sec4">Video 3: Confidence intervals on Slope and Intercept</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Up to this point you have learned the machinery of estimation: how to compute a point estimate, how the Central Limit Theorem justifies normal-based inference, and how to assemble a confidence interval from a sample statistic, a critical value, and a standard error. This topic is about putting that machinery to work on real data. In practice, nobody hands you the formula to use — you have to decide what parameter you are estimating, which estimator fits the context, whether z or t is appropriate, and what the resulting interval actually tells you about the engineering question you started with.</p>
+<p>The emphasis here is on judgment and interpretation. A confidence interval is a statement about precision and reliability, so you will practice reading interval width as evidence: a narrow interval signals a precise estimate, a wide one warns you that the sample is small or the process is highly variable, and whether a meaningful value (a specification limit, a target, or zero) falls inside the interval often drives the engineering conclusion. You will also practice stating conclusions in correct statistical language, avoiding the common error of claiming a probability statement about a fixed population parameter.</p>
+<p>As you watch the videos below, pay attention to three things: how each example identifies the parameter and estimator before computing anything, how the margin of error is built and what inputs control its size, and how the speaker words the final interpretation. The third video extends the same logic to regression, where the parameters being estimated are a slope and an intercept — a useful reminder that confidence intervals apply to any estimated quantity, not just means and proportions.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Introduction to Confidence Intervals</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uFrXdhbt-FA?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Confidence Intervals (Aimee Birdsall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Aimee Birdsall</strong> · 8:56 · 743 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=uFrXdhbt-FA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A lecture-style introduction to the idea of a confidence interval: what it means to move from a single point estimate to an interval estimate, where the confidence level comes from, and how the margin of error is formed around a sample statistic. Expect the basic structure of an interval and discussion of how to interpret the confidence level correctly.</p>
+<h3>Why this video</h3>
+<p>It is drawn from a Probability and Statistics for Engineers lecture series, so the framing and notation match this course, and it directly supports the subtopics on extracting point estimates and interpreting intervals as evidence.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: Two-sided Confidence Intervals</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/x7iFSvuFUIY?cc_load_policy=1&amp;rel=0" title="Video: Two-sided Confidence Intervals (Aimee Birdsall)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Aimee Birdsall</strong> · 7:36 · 720 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=x7iFSvuFUIY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A follow-up lecture focused on two-sided confidence intervals, the standard form used for most engineering estimation problems. It should cover how the critical value is split between the two tails, how the lower and upper limits are computed, and how changing the confidence level changes the interval.</p>
+<h3>Why this video</h3>
+<p>This is the computational core of the topic and comes from the same engineering lecture series, making it a consistent companion to the introduction while reinforcing how confidence level and sample size affect interval width and precision.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Confidence intervals on Slope and Intercept</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ETSD8N03xOM?cc_load_policy=1&amp;rel=0" title="Video: Confidence intervals on Slope and Intercept (LearnChemE)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>LearnChemE</strong> · 6:22 · 11,952 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=ETSD8N03xOM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, worked LearnChemE video on building confidence intervals for the slope and intercept of a simple linear regression fitted to data. It shows that regression coefficients are themselves point estimates with standard errors, and how to form intervals around them to judge reliability.</p>
+<h3>Why this video</h3>
+<p>LearnChemE produces concise, well-regarded engineering statistics tutorials, and this video extends the estimation framework to a realistic data-analysis setting, supporting the guided-application and evidence-based conclusion subtopics.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos move from concept to computation to application. The first two, from an engineering probability and statistics lecture series, address how point estimates become interval estimates and how two-sided intervals are constructed and interpreted, supporting MO3 (selecting the distribution, computing the margin of error, forming the interval) and MO5 (stating interpretations in correct statistical language), while discussion of confidence level and sample size effects speaks to MO4. Their reliance on normal-based interval formulas reinforces the role of the Central Limit Theorem from MO2, and attention to which statistic is used as the estimator keeps MO1&#39;s ideas of unbiasedness and efficiency in view. The regression video then applies the same reasoning to estimated slopes and intercepts, giving you practice judging estimate reliability and drawing evidence-based conclusions from real data.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 2, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

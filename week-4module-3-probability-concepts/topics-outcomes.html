@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to Probability</h3>
+<h3 id="topic-1">Introduction to Probability</h3>
 <div class="summary">This topic establishes the foundational language and concepts of probability, including definitions of likelihood, uncertainty, and the role probability plays in data analysis and decision-making.</div>
 <ul>
 <li><strong>What Is Probability?</strong> <span class="el-body">— Probability is a numerical measure of the likelihood that a specific event will occur, expressed as a value between 0 and 1.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>Probability in Data Analysis and Decision-Making</strong> <span class="el-body">— Probability serves as a critical tool in data analysis, enabling analysts and decision-makers to evaluate risk, predict outcomes, and draw evidence-based conclusions.</span></li>
 <li><strong>Theoretical vs. Experimental Probability</strong> <span class="el-body">— Probability can be determined either through logical reasoning about equally likely outcomes (theoretical) or by observing the results of repeated trials (experimental).</span></li>
 </ul>
-<h3>Sample Spaces and Events</h3>
+<h3 id="topic-2">Sample Spaces and Events</h3>
 <div class="summary">Learners explore how to define and construct sample spaces and identify events within them, forming the structural basis for all probability calculations.</div>
 <ul>
 <li><strong>Defining a Sample Space</strong> <span class="el-body">— A sample space is the complete set of all possible outcomes of a probability experiment.</span></li>
@@ -53,7 +53,7 @@ li{margin:5px 0}
 <li><strong>Relationships Between Events</strong> <span class="el-body">— Events within the same sample space can relate to one another through union, intersection, and complementation, which are fundamental to probability rules.</span></li>
 <li><strong>Equally Likely Outcomes and Their Importance</strong> <span class="el-body">— When all outcomes in a sample space are equally likely, the probability of any event can be calculated with a straightforward ratio.</span></li>
 </ul>
-<h3>Theoretical vs. Experimental Probability</h3>
+<h3 id="topic-3">Theoretical vs. Experimental Probability</h3>
 <div class="summary">This topic distinguishes between theoretical probability derived from logical reasoning and experimental probability obtained through real-world trials and observation.</div>
 <ul>
 <li><strong>Defining Theoretical Probability</strong> <span class="el-body">— Theoretical probability is determined through logical reasoning and mathematical analysis, without conducting any experiments or trials.</span></li>
@@ -63,7 +63,7 @@ li{margin:5px 0}
 <li><strong>Practical Applications of Each Type</strong> <span class="el-body">— Both theoretical and experimental probability are used in data analysis and decision-making, each suited to different real-world scenarios.</span></li>
 <li><strong>Comparing Results and Identifying Discrepancies</strong> <span class="el-body">— Comparing theoretical and experimental probabilities allows analysts to assess whether a model is accurate or whether real-world conditions are introducing unexpected variation.</span></li>
 </ul>
-<h3>Core Probability Rules</h3>
+<h3 id="topic-4">Core Probability Rules</h3>
 <div class="summary">Learners study the fundamental rules governing probability, including the addition rule, multiplication rule, and complementary probability, to calculate outcomes accurately.</div>
 <ul>
 <li><strong>Complementary Probability</strong> <span class="el-body">— The complement of an event A is the probability that A does NOT occur, expressed as P(A&#39;) = 1 - P(A).</span></li>
@@ -73,7 +73,7 @@ li{margin:5px 0}
 <li><strong>The General Multiplication Rule and Conditional Probability</strong> <span class="el-body">— When two events are dependent, the occurrence of one affects the probability of the other, requiring the use of conditional probability in the multiplication rule.</span></li>
 <li><strong>Applying the Rules Together in Multi-Step Problems</strong> <span class="el-body">— Real-world probability problems often require combining the addition rule, multiplication rule, and complementary probability in sequence to reach a solution.</span></li>
 </ul>
-<h3>Interpreting and Applying Probability in Context</h3>
+<h3 id="topic-5">Interpreting and Applying Probability in Context</h3>
 <div class="summary">This topic focuses on translating probability calculations into meaningful interpretations within real-world scenarios, reinforcing practical application in data analysis and informed decision-making.</div>
 <ul>
 <li><strong>Translating Probability Values into Plain Language</strong> <span class="el-body">— A probability value only becomes useful when it is expressed in terms that relate directly to the situation being analyzed.</span></li>
@@ -114,6 +114,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

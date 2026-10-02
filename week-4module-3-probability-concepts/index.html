@@ -1,582 +1,193 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 4/Module 3 – Probability Concepts | EGN3443</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:          #f4f6f9;
-      --surface:     #ffffff;
-      --border:      #dde2ea;
-      --primary:     #1a4f8a;
-      --primary-lt:  #e8eff8;
-      --accent:      #2e7d52;
-      --accent-lt:   #e6f4ec;
-      --muted:       #5a6475;
-      --tag-bg:      #eef1f6;
-      --tag-txt:     #3a4560;
-      --radius:      10px;
-      --shadow:      0 2px 8px rgba(0,0,0,.08);
-    }
-
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--bg);
-      color: #1e2530;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #12305e 0%, #1a4f8a 60%, #1e6fa8 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      opacity: .75;
-      margin-bottom: .45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.15rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: .85rem;
-    }
-
-    header p {
-      font-size: .97rem;
-      opacity: .88;
-      max-width: 72ch;
-      line-height: 1.65;
-    }
-
-    /* ── Main ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 3rem;
-    }
-
-    /* ── Section headings ── */
-    .section-title {
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 2.2rem 0 .85rem;
-      padding-bottom: .4rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.1rem;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      padding: 1.25rem 1.35rem 1.15rem;
-      transition: box-shadow .18s ease, transform .18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 18px rgba(0,0,0,.12);
-      transform: translateY(-2px);
-    }
-
-    /* type accent stripe */
-    .card[data-type="Module Topics"]        { border-top: 3px solid #1a4f8a; }
-    .card[data-type="Text Content"]         { border-top: 3px solid #2e7d52; }
-    .card[data-type="Topic Detail"]         { border-top: 3px solid #7b5ea7; }
-    .card[data-type="Reference File"]       { border-top: 3px solid #b05c1a; }
-    .card[data-type="Quiz"]                 { border-top: 3px solid #b5281e; }
-    .card[data-type="Assignment"]           { border-top: 3px solid #1060a8; }
-
-    /* ── Card Header Row ── */
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: .6rem;
-      margin-bottom: .6rem;
-    }
-
-    .type-badge {
-      flex-shrink: 0;
-      margin-top: .18rem;
-      background: var(--tag-bg);
-      color: var(--tag-txt);
-      font-size: .68rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: .2rem .55rem;
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-
-    /* ── Card Title ── */
-    .card-title {
-      font-size: .97rem;
-      font-weight: 700;
-      line-height: 1.35;
-      color: #1e2530;
-    }
-
-    .card-title a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    .card-title a:hover {
-      text-decoration: underline;
-      color: #0e3360;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-      margin-left: .55rem;
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-      background: var(--accent-lt);
-      border: 1px solid #b6ddc7;
-      border-radius: 4px;
-      padding: .12rem .42rem;
-      vertical-align: middle;
-      white-space: nowrap;
-      transition: background .15s;
-    }
-
-    .source-link:hover {
-      background: #c8edda;
-      text-decoration: none;
-    }
-
-    .source-link::before {
-      content: "↓";
-      font-size: .8rem;
-    }
-
-    /* ── Description ── */
-    .card-desc {
-      font-size: .855rem;
-      color: var(--muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* ── Meta Footer ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      margin-top: .85rem;
-      padding-top: .65rem;
-      border-top: 1px solid var(--border);
-      font-size: .73rem;
-      color: #8a93a8;
-    }
-
-    .file-pill {
-      background: #f0f2f6;
-      border: 1px solid #d6dbe6;
-      border-radius: 3px;
-      padding: .1rem .38rem;
-      font-family: "Consolas", "Courier New", monospace;
-      font-size: .7rem;
-      color: #3a4560;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: .78rem;
-      color: #9aa0ae;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      header { padding: 1.75rem 1rem 1.5rem; }
-      main   { padding: 1.25rem .85rem 2rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <title>Week 4/Module 3 Probability Concepts — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-<header>
-  <div class="header-inner">
-    <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
-    <h1>Week 4 / Module 3: Probability Concepts</h1>
-    <p>
-      This module introduces the mathematical foundations of probability as applied in engineering
-      contexts. Learners explore sample spaces and events, contrast theoretical and experimental
-      probability, apply core probability rules, and engage with interactive simulations that build
-      intuition for probabilistic reasoning. Use the artifacts below to navigate readings,
-      activities, assessments, and supplementary resources.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 4/Module 3 Probability Concepts</span>
+  </nav>
+      <div class="hero-label">Module 4</div>
+      <h1>Week 4/Module 3 Probability Concepts</h1>
+      <p class="hero-desc">This module introduces foundational probability concepts, guiding learners through key principles such as sample spaces, events, and the rules governing likelihood. Learners will explore both theoretical and experimental probability, developing the ability to calculate and interpret probabilities in a variety of real-world contexts. By the end of the module, participants will be equipped to apply core probability rules confidently and accurately in data analysis and decision-making scenarios.</p>
+    </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 5 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Probability</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Sample Spaces and Events</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Theoretical vs. Experimental Probability</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Core Probability Rules</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Interpreting and Applying Probability in Context</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">18 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_3_Probability_Distributions.html">EGN3443 Module 3 - Probability Distributions</a></div>
+    <p class="content-desc">A landing page that links learners to the Module 3 PowerPoint slides and YouTube lecture video on probability distributions, serving as a navigation hub for accessing supplementary instructional resources.</p>
   </div>
-</header>
-
-<main>
-
-  <!-- ── Module Topics ── -->
-  <h2 class="section-title">Module Overview</h2>
-  <div class="card-grid">
-
-    <div class="card" data-type="Module Topics">
-      <div class="card-header">
-        <span class="type-badge">Module Topics</span>
-      </div>
-      <p class="card-title">
-        <a href="content/module_topics.html">Module Topics</a>
-        <a class="source-link" href="source/hierarchy.json" title="View source JSON file">source file</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        An outline of the module's learning topics covering probability fundamentals, sample spaces,
-        theoretical versus experimental probability, and core probability rules, used by instructors
-        to understand the module's scope and by learners to preview what will be studied.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.json</span>
-        <span>Module Topics</span>
-      </div>
-    </div>
-
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Probability_Concepts.html">Probability Concepts</a></div>
+    <p class="content-desc">A reading page covering foundational probability concepts including axioms, rules, sample spaces, events, and related theorems, used by learners as the primary reference text for understanding and reviewing core probability theory for the module.</p>
   </div>
-
-  <!-- ── Text Content ── -->
-  <h2 class="section-title">Readings &amp; Interactive Content</h2>
-  <div class="card-grid">
-
-    <div class="card" data-type="Text Content">
-      <div class="card-header">
-        <span class="type-badge">Text Content</span>
-      </div>
-      <p class="card-title">
-        <a href="content/EGN3443_Module_3_Probability_Distributions.html">EGN3443 Module 3 – Probability Distributions</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        A landing page that links learners to the Module 3 PowerPoint slides and YouTube lecture
-        video on probability distributions, serving as a navigation hub for accessing supplementary
-        instructional resources.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Text Content</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Text Content">
-      <div class="card-header">
-        <span class="type-badge">Text Content</span>
-      </div>
-      <p class="card-title">
-        <a href="content/Probability_Concepts.html">Probability Concepts</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        A reading page covering foundational probability concepts including axioms, rules, sample
-        spaces, events, and related theorems, used by learners as the primary reference text for
-        understanding and reviewing core probability theory for the module.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Text Content</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Text Content">
-      <div class="card-header">
-        <span class="type-badge">Text Content</span>
-      </div>
-      <p class="card-title">
-        <a href="content/The_Oche.html">The Oche</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        An interactive dart-throwing simulation in which learners apply normal distribution
-        properties to assign five throwers (each with a known μ and σ for radial miss distance)
-        to five scored targets, practicing expected-value calculations and normal distribution
-        reasoning to maximize their team's total score.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Text Content</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Text Content">
-      <div class="card-header">
-        <span class="type-badge">Text Content</span>
-      </div>
-      <p class="card-title">
-        <a href="content/thirty-strangers.html">Thirty Strangers</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        An interactive simulation in which learners practice optimal-stopping (secretary-problem)
-        decision-making by accepting or rejecting random monetary offers ($1–$100) across three
-        lines of ten strangers, competing against a computer using the same lines, to build
-        intuition about probability, sequential decision-making, and stopping rules.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Text Content</span>
-      </div>
-    </div>
-
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/The_Oche.html">The Oche</a></div>
+    <p class="content-desc">An interactive dart-throwing simulation in which learners apply normal distribution properties to assign five throwers (each with a known μ and σ for radial miss distance) to five scored targets, practicing expected-value calculations and normal distribution reasoning to maximize their team&#39;s total score.</p>
   </div>
-
-  <!-- ── Topic Details ── -->
-  <h2 class="section-title">Topic Detail Readings</h2>
-  <div class="card-grid">
-
-    <div class="card" data-type="Topic Detail">
-      <div class="card-header">
-        <span class="type-badge">Topic Detail</span>
-      </div>
-      <p class="card-title">
-        <a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t1.html">Introduction to Probability</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        This reading introduces probability as a formal system for quantifying uncertainty,
-        explaining its foundational concepts and relevance to engineering, data science, and
-        everyday decision-making; learners use it to build conceptual grounding before tackling
-        calculations.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Topic Detail</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Topic Detail">
-      <div class="card-header">
-        <span class="type-badge">Topic Detail</span>
-      </div>
-      <p class="card-title">
-        <a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t2.html">Sample Spaces and Events</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        This reading defines sample spaces and events as the mathematical foundation of
-        probability, explaining how to identify all possible outcomes and structure them before
-        assigning likelihoods; learners use it to set up problems correctly before applying any
-        probability rules.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Topic Detail</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Topic Detail">
-      <div class="card-header">
-        <span class="type-badge">Topic Detail</span>
-      </div>
-      <p class="card-title">
-        <a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t3.html">Theoretical vs. Experimental Probability</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        This reading contrasts theoretical probability (based on logical reasoning and equally
-        likely outcomes) with experimental probability (based on observed data and relative
-        frequency), helping learners understand when and how to apply each approach.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Topic Detail</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Topic Detail">
-      <div class="card-header">
-        <span class="type-badge">Topic Detail</span>
-      </div>
-      <p class="card-title">
-        <a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t4.html">Core Probability Rules</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        This reading covers the core rules of probability—including addition, multiplication, and
-        complement rules—explaining how to combine and calculate probabilities correctly; learners
-        use it as a reference for solving multi-event probability problems.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Topic Detail</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Topic Detail">
-      <div class="card-header">
-        <span class="type-badge">Topic Detail</span>
-      </div>
-      <p class="card-title">
-        <a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t5.html">Interpreting and Applying Probability in Context</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        This reading focuses on interpreting and communicating probability values in real-world
-        contexts, moving beyond calculation to explain what a probability means and how to apply
-        it in decision-making; learners and instructors use it to connect mathematical results to
-        practical reasoning.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Topic Detail</span>
-      </div>
-    </div>
-
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/thirty-strangers.html">Thirty Strangers</a></div>
+    <p class="content-desc">An interactive simulation in which learners practice optimal-stopping (secretary-problem) decision-making by accepting or rejecting random monetary offers ($1–$100) across three lines of ten strangers, competing against a computer using the same lines, to build intuition about probability, sequential decision-making, and stopping rules.</p>
   </div>
-
-  <!-- ── Reference Files ── -->
-  <h2 class="section-title">Reference Files</h2>
-  <div class="card-grid">
-
-    <div class="card" data-type="Reference File">
-      <div class="card-header">
-        <span class="type-badge">Reference File</span>
-      </div>
-      <p class="card-title">
-        <a href="content/ext_b40e64e7.html">Thirty Strangers – Interactive Probability Game</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        Thirty Strangers is a self-contained interactive browser game in which players repeatedly
-        decide whether to 'take' or 'pass' on strangers encountered across multiple lines,
-        competing against an AI opponent under a scoring system. The game simulates repeated
-        probabilistic decision-making across many rounds, producing experimental outcomes that
-        accumulate over gameplay. It includes configurable parameters such as number of lines,
-        people per line, and AI difficulty thresholds.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Reference File</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Reference File">
-      <div class="card-header">
-        <span class="type-badge">Reference File</span>
-      </div>
-      <p class="card-title">
-        <a href="content/ext_60e71b81.html">The Oche – Probability Dart-Throwing Simulation</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        The Oche is an interactive, browser-based simulation in which learners assign dart throwers
-        to boards and observe probability outcomes through repeated virtual throws. The tool models
-        skill distributions and generates experimental trial data visually, allowing users to
-        compare expected versus observed results. It includes roster management, board assignment
-        mechanics, and real-time outcome tracking.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Reference File</span>
-      </div>
-    </div>
-
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t1.html">Introduction to Probability</a></div>
+    <p class="content-desc">This reading introduces probability as a formal system for quantifying uncertainty, explaining its foundational concepts and relevance to engineering, data science, and everyday decision-making; learners use it to build conceptual grounding before tackling calculations.</p>
   </div>
-
-  <!-- ── Quiz ── -->
-  <h2 class="section-title">Assessment – Quiz</h2>
-  <div class="card-grid">
-
-    <div class="card" data-type="Quiz">
-      <div class="card-header">
-        <span class="type-badge">Quiz</span>
-      </div>
-      <p class="card-title">
-        
-        
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        A 45-question quiz bank containing applied probability problems set in engineering contexts
-        such as defect rates, resistor tolerances, and component selection, used by instructors to
-        assess learners' ability to calculate probabilities including binomial and combinatorial
-        scenarios.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.json</span>
-        <span>Quiz</span>
-      </div>
-    </div>
-
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t2.html">Sample Spaces and Events</a></div>
+    <p class="content-desc">This reading defines sample spaces and events as the mathematical foundation of probability, explaining how to identify all possible outcomes and structure them before assigning likelihoods; learners use it to set up problems correctly before applying any probability rules.</p>
   </div>
-
-  <!-- ── Assignments ── -->
-  <h2 class="section-title">Assignments</h2>
-  <div class="card-grid">
-
-    <div class="card" data-type="Assignment">
-      <div class="card-header">
-        <span class="type-badge">Assignment</span>
-      </div>
-      <p class="card-title">
-        <a href="assignments/index.html">Assignment 3 – Probability</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        A programming assignment in which learners write a Python or R Monte Carlo simulation to
-        estimate the probability of drawing exactly 21 from a three-card hand using a standard
-        deck, applying computational methods to reinforce probability concepts.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Assignment</span>
-      </div>
-    </div>
-
-    <div class="card" data-type="Assignment">
-      <div class="card-header">
-        <span class="type-badge">Assignment</span>
-      </div>
-      <p class="card-title">
-        <a href="assignments/index.html">Module 3 Graded Discussion</a>
-      </p>
-      <p class="card-desc" style="margin-top:.5rem;">
-        A graded discussion assignment in which learners use an AI tool to generate and evaluate
-        examples of statistically independent, mutually exclusive, and dependent events, then post
-        and peer-review responses to deepen conceptual understanding of event relationships.
-      </p>
-      <div class="card-meta">
-        <span class="file-pill">.html</span>
-        <span>Assignment</span>
-      </div>
-    </div>
-
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t3.html">Theoretical vs. Experimental Probability</a></div>
+    <p class="content-desc">This reading contrasts theoretical probability (based on logical reasoning and equally likely outcomes) with experimental probability (based on observed data and relative frequency), helping learners understand when and how to apply each approach.</p>
   </div>
-
-</main>
-
-<footer>
-  EGN3443 Probability &amp; Statistics for Engineers — Week 4 / Module 3 &nbsp;|&nbsp;
-  Course materials for instructional use.
-</footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t4.html">Core Probability Rules</a></div>
+    <p class="content-desc">This reading covers the core rules of probability—including addition, multiplication, and complement rules—explaining how to combine and calculate probabilities correctly; learners use it as a reference for solving multi-event probability problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t5.html">Interpreting and Applying Probability in Context</a></div>
+    <p class="content-desc">This reading focuses on interpreting and communicating probability values in real-world contexts, moving beyond calculation to explain what a probability means and how to apply it in decision-making; learners and instructors use it to connect mathematical results to practical reasoning.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_t1_videos.html">Introduction to Probability — Videos</a></div>
+    <p class="content-desc">A reading that introduces probability as the mathematical language of uncertainty, explaining the 0-to-1 scale and why engineers need a disciplined way to quantify variability in materials, sensors, failures, and measurements; learners use it as the conceptual entry point to the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_t2_videos.html">Sample Spaces and Events — Videos</a></div>
+    <p class="content-desc">A lesson defining sample spaces (the complete list of possible outcomes of an experiment) and events (subsets of interest), with engineering examples such as defective parts and multiple-sensor failures; learners use it to set up problems correctly before computing any probability.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_t3_videos.html">Theoretical vs. Experimental Probability — Videos</a></div>
+    <p class="content-desc">A lesson contrasting theoretical probability, derived by counting equally likely favorable outcomes over total outcomes, with experimental or empirical probability estimated from observed trials; learners use it to decide which approach fits a given situation and to see how the two converge.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_t4_videos.html">Core Probability Rules — Videos</a></div>
+    <p class="content-desc">A lesson covering the core operations for combining events — complementary probability, the addition rule for &#39;or&#39; situations including mutually exclusive cases, and multiplication for joint events; learners use it as the rulebook for computing probabilities of compound events.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_t5_videos.html">Interpreting and Applying Probability in Context — Videos</a></div>
+    <p class="content-desc">A lesson on interpreting probability results in context, translating values like 0.03, 0.5, or 0.97 into plain-language statements of likelihood and decision-relevant meaning; learners use it to communicate and act on probability calculations rather than just produce numbers.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_4_Module_3_Probability_Concepts_videos_merged.html">Week 4/Module 3 Probability Concepts — 5 topics (merged)</a></div>
+    <p class="content-desc">A consolidated page compiling all of the module&#39;s topics — introduction to probability, sample spaces and events, theoretical versus experimental probability, core probability rules, and interpretation in context — into a single document for review or printing.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🌐</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reference File</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_b40e64e7.html">Thirty Strangers – Interactive Probability Game</a></div>
+    <p class="content-desc">Thirty Strangers is a self-contained interactive browser game in which players repeatedly decide whether to &#39;take&#39; or &#39;pass&#39; on strangers encountered across multiple lines, competing against an AI opponent under a scoring system. The game simulates repeated probabilistic decision-making across many rounds, producing experimental outcomes that accumulate over gameplay. It includes configurable parameters such as number of lines, people per line, and AI difficulty thresholds.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🌐</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reference File</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_60e71b81.html">The Oche – Probability Dart-Throwing Simulation</a></div>
+    <p class="content-desc">The Oche is an interactive, browser-based simulation in which learners assign dart throwers to boards and observe probability outcomes through repeated virtual throws. The tool appears to model skill distributions and generate experimental trial data visually, allowing users to compare expected versus observed results. It includes roster management, board assignment mechanics, and real-time outcome tracking.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A programming assignment in which learners write a Python or R Monte Carlo simulation to estimate the probability of drawing exactly 21 from a three-card hand using a standard deck, applying computational methods to reinforce probability concepts.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-3module-2-descriptive-statistics/index.html">← Week 3/Module 2 - Descriptive Statistics</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-5module-4-discrete-probability-distributions/index.html">Week 5/Module 4 - Discrete Probability Distributions →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

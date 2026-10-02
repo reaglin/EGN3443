@@ -1,416 +1,178 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 11/Module 10 – 2 Sample Hypothesis Testing | EGN3443</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #fff;
-      padding: 2.4rem 2rem 2rem;
-      border-bottom: 4px solid #f0a500;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a8c8f0;
-      margin-bottom: 0.5rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.4rem, 3vw, 2.1rem);
-      font-weight: 700;
-      margin-bottom: 0.9rem;
-      line-height: 1.25;
-    }
-
-    header p {
-      font-size: 0.97rem;
-      color: #d0e4f7;
-      max-width: 780px;
-    }
-
-    /* ── Main Layout ── */
-    main {
-      max-width: 1100px;
-      margin: 2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    /* ── Section Labels ── */
-    .section-title {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: #6b7c93;
-      margin: 2.2rem 0 0.85rem;
-      padding-bottom: 0.35rem;
-      border-bottom: 1px solid #dce3ec;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.1rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #fff;
-      border: 1px solid #dce3ec;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.1);
-      border-color: #aac4e0;
-    }
-
-    /* ── Card Header Row ── */
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .card-name {
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: #1a3a5c;
-      line-height: 1.35;
-      flex: 1;
-    }
-
-    .card-name a {
-      color: #1a5aa8;
-      text-decoration: none;
-    }
-
-    .card-name a:hover {
-      text-decoration: underline;
-      color: #0d3d7a;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: #fff;
-      background: #5a7fa8;
-      border-radius: 4px;
-      padding: 0.18em 0.55em;
-      text-decoration: none;
-      white-space: nowrap;
-      align-self: flex-start;
-      transition: background 0.15s;
-    }
-
-    .source-link:hover {
-      background: #2563a8;
-    }
-
-    /* ── Badges ── */
-    .badge-row {
-      display: flex;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      padding: 0.2em 0.65em;
-      border-radius: 20px;
-      line-height: 1.5;
-    }
-
-    .badge-type {
-      background: #e8f0fb;
-      color: #2563a8;
-    }
-
-    .badge-filetype {
-      background: #f0f4f0;
-      color: #3a6b3a;
-      border: 1px solid #c2dcc2;
-    }
-
-    /* Type-specific accent colors */
-    .badge-type[data-type="Quiz"]       { background: #fef3e2; color: #a05c00; }
-    .badge-type[data-type="Assignment"] { background: #fdeaea; color: #9b1c1c; }
-    .badge-type[data-type="Topic Detail"]{ background: #eef6ee; color: #276127; }
-    .badge-type[data-type="Module Topics"]{ background: #f3eeff; color: #5b21b6; }
-
-    /* ── Description ── */
-    .card-desc {
-      font-size: 0.86rem;
-      color: #4a5568;
-      line-height: 1.55;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a98a8;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce3ec;
-      margin-top: 1rem;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 1.6rem 1rem 1.4rem; }
-    }
-  </style>
+  <title>Week 11/Module 10 - 2 Sample Hypothesis Testing — EGN3443 Prob and Stats for Engineers</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ EGN3443 Prob and Stats for Engineers</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-<header>
-  <div class="header-inner">
-    <p class="course-label">EGN3443 — Probability &amp; Statistics for Engineers</p>
-    <h1>Week 11 / Module 10 — 2 Sample Hypothesis Testing</h1>
-    <p>
-      This module extends single-sample inference to comparative two-sample settings, covering
-      independent and paired sample designs, pooled and Welch’s t-tests, two-proportion
-      z-tests, and best practices for interpreting and communicating results. Use the resources
-      below to access readings, reference materials, quizzes, and graded assignments.
-    </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">EGN3443 Prob and Stats for Engineers</a><span class="sep" aria-hidden="true">›</span><span class="current">Week 11/Module 10 - 2 Sample Hypothesis Testing</span>
+  </nav>
+      <div class="hero-label">Module 11</div>
+      <h1>Week 11/Module 10 - 2 Sample Hypothesis Testing</h1>
+      <p class="hero-desc">This module introduces learners to two-sample hypothesis testing, exploring how to compare means or proportions across two independent or paired groups. Learners will examine the underlying assumptions, select appropriate test statistics, and interpret results within real-world contexts. By the end of the module, learners will be equipped to confidently design and execute two-sample tests to support data-driven decision making.</p>
+    </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of Two-Sample Hypothesis Testing</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Independent vs. Paired Samples</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Assumptions and Conditions for Two-Sample Tests</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Comparing Two Means</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Comparing Two Proportions</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Interpreting Results and Making Data-Driven Decisions</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/EGN3443_Module_10_Hypothesis_Testing_for_2_Sampl.html">EGN3443 Module 10 - Hypothesis Testing for 2 Samples</a></div>
+    <p class="content-desc">A landing page that organizes and links to the module&#39;s core instructional resources — the PowerPoint slides, lecture video, and Google Colab notebook — for learners to access all materials in one place.</p>
   </div>
-</header>
-
-<main>
-
-  <!-- ═══════════════════════════════════ MODULE OVERVIEW ═══ -->
-  <p class="section-title">Module Overview</p>
-  <div class="card-grid">
-
-    <!-- Module Topics -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/module_topics.html">Module Topics</a>
-        </span>
-        <a class="source-link" href="source/hierarchy.json">source file</a>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Module Topics">Module Topics</span>
-        <span class="badge badge-filetype">.json</span>
-      </div>
-      <p class="card-desc">A structured outline of the module’s learning topics, covering two-sample hypothesis testing foundations, independent versus paired samples, assumptions, and related statistical conditions, used as a navigational reference for what the module addresses.</p>
-    </div>
-
-    <!-- EGN3443 Module 10 landing -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/EGN3443_Module_10_Hypothesis_Testing_for_2_Sampl.html">EGN3443 Module 10 - Hypothesis Testing for 2 Samples</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Text Content">Text Content</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">A landing page that organizes and links to the module’s core instructional resources — the PowerPoint slides, lecture video, and Google Colab notebook — for learners to access all materials in one place.</p>
-    </div>
-
-    <!-- Study Reference -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Hypothesis_Testing_for_2_Samples.html">Hypothesis Testing for 2 Samples</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Text Content">Text Content</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">A detailed study reference explaining key two-sample hypothesis testing methods, including the independent samples t-test, paired t-test, and tests for two proportions, with definitions, characteristics, and supporting lecture links for learners to review concepts.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-
-  <!-- ═══════════════════════════════════ TOPIC READINGS ═══ -->
-  <p class="section-title">Topic Readings</p>
-  <div class="card-grid">
-
-    <!-- T1 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t1.html">Foundations of Two-Sample Hypothesis Testing</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">This reading introduces the conceptual framework of two-sample hypothesis testing, explaining why comparative questions arise in engineering and science and how two-sample tests extend single-sample inference; learners use it to build foundational understanding before selecting and applying specific tests.</p>
-    </div>
-
-    <!-- T2 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t2.html">Independent vs. Paired Samples</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">This reading explains the critical distinction between independent and paired samples, covering how each design is structured, how pairing affects variability and test selection, and when to use each approach; learners and instructors use it to ensure the correct test type is chosen before any analysis begins.</p>
-    </div>
-
-    <!-- T3 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t3.html">Assumptions and Conditions for Two-Sample Tests</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">This reading outlines the statistical assumptions underlying pooled two-sample t-tests, Welch’s t-test, and non-parametric alternatives such as the Mann-Whitney U test, explaining how to check each condition and what violations mean for test validity; learners use it as a pre-analysis checklist before running two-sample tests.</p>
-    </div>
-
-    <!-- T4 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t4.html">Comparing Two Means</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">This reading covers the procedures for comparing two population means using pooled and Welch’s t-tests, including hypothesis formulation, test-statistic calculation, p-value interpretation, and confidence intervals for the difference in means; learners use it as a step-by-step procedural guide for mean-comparison problems.</p>
-    </div>
-
-    <!-- T5 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t5.html">Comparing Two Proportions</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">This reading explains the two-proportion z-test, covering how to set up hypotheses, calculate the pooled proportion and test statistic, interpret p-values, and construct confidence intervals for the difference between two population proportions; learners use it to analyze comparative rate or proportion problems.</p>
-    </div>
-
-    <!-- T6 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t6.html">Interpreting Results and Making Data-Driven Decisions</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Topic Detail">Topic Detail</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">This reading focuses on translating hypothesis test outputs—p-values, test statistics, and confidence intervals—into clear, context-specific conclusions and data-driven decisions; learners use it to practice communicating statistical results meaningfully rather than stopping at numerical output.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-
-  <!-- ═══════════════════════════════════ ASSESSMENT ═══════ -->
-  <p class="section-title">Assessment &amp; Assignments</p>
-  <div class="card-grid">
-
-    <!-- Quiz -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          
-        </span>
-        
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Quiz">Quiz</span>
-        <span class="badge badge-filetype">.json</span>
-      </div>
-      <p class="card-desc">A 30-question quiz bank assessing learners’ ability to select appropriate two-sample statistical tests and apply hypothesis testing procedures across engineering and applied scenarios, used by instructors to build graded quizzes.</p>
-    </div>
-
-    <!-- Discussion -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="assignments/index.html">Module 10 Graded Discussion</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Assignment">Assignment</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">A graded discussion assignment asking learners to describe Design of Experiments within Six Sigma methodology and apply it to a real-world personal or professional scenario, prompting reflection and peer engagement.</p>
-    </div>
-
-    <!-- Assignment 10 -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">
-          <a href="assignments/index.html">Assignment 10 - Hypothesis Testing</a>
-        </span>
-      </div>
-      <div class="badge-row">
-        <span class="badge badge-type" data-type="Assignment">Assignment</span>
-        <span class="badge badge-filetype">.html</span>
-      </div>
-      <p class="card-desc">A graded assignment presenting a paired before-and-after engineering scenario involving a new engine coolant additive, in which learners must conduct a two-sample hypothesis test to determine whether the additive significantly reduces engine operating temperature.</p>
-    </div>
-
-  </div><!-- /.card-grid -->
-
-</main>
-
-<footer>
-  EGN3443 Probability &amp; Statistics for Engineers — Week 11 / Module 10 &nbsp;|&nbsp; Course Materials Index
-</footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body></html>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Hypothesis_Testing_for_2_Samples.html">Hypothesis Testing for 2 Samples</a></div>
+    <p class="content-desc">A detailed study reference explaining key two-sample hypothesis testing methods, including the independent samples t-test, paired t-test, and tests for two proportions, with definitions, characteristics, and supporting lecture links for learners to review concepts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t1.html">Foundations of Two-Sample Hypothesis Testing</a></div>
+    <p class="content-desc">This reading introduces the conceptual framework of two-sample hypothesis testing, explaining why comparative questions arise in engineering and science and how two-sample tests extend single-sample inference; learners use it to build foundational understanding before selecting and applying specific tests.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t2.html">Independent vs. Paired Samples</a></div>
+    <p class="content-desc">This reading explains the critical distinction between independent and paired samples, covering how each design is structured, how pairing affects variability and test selection, and when to use each approach; learners and instructors use it to ensure the correct test type is chosen before any analysis begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t3.html">Assumptions and Conditions for Two-Sample Tests</a></div>
+    <p class="content-desc">This reading outlines the statistical assumptions underlying pooled two-sample t-tests, Welch&#39;s t-test, and non-parametric alternatives such as the Mann-Whitney U test, explaining how to check each condition and what violations mean for test validity; learners use it as a pre-analysis checklist before running two-sample tests.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t4.html">Comparing Two Means</a></div>
+    <p class="content-desc">This reading covers the procedures for comparing two population means using pooled and Welch&#39;s t-tests, including hypothesis formulation, test-statistic calculation, p-value interpretation, and confidence intervals for the difference in means; learners use it as a step-by-step procedural guide for mean-comparison problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t5.html">Comparing Two Proportions</a></div>
+    <p class="content-desc">This reading explains the two-proportion z-test, covering how to set up hypotheses, calculate the pooled proportion and test statistic, interpret p-values, and construct confidence intervals for the difference between two population proportions; learners use it to analyze comparative rate or proportion problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t6.html">Interpreting Results and Making Data-Driven Decisions</a></div>
+    <p class="content-desc">This reading focuses on translating hypothesis test outputs—p-values, test statistics, and confidence intervals—into clear, context-specific conclusions and data-driven decisions; learners use it to practice communicating statistical results meaningfully rather than stopping at numerical output.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t1_videos.html">Foundations of Two-Sample Hypothesis Testing — Videos</a></div>
+    <p class="content-desc">A foundational reading that extends one-sample inference to comparative engineering questions, introducing the logic of testing differences between two means, proportions, or variances and the hypothesis structures used to frame such comparisons.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t2_videos.html">Independent vs. Paired Samples — Videos</a></div>
+    <p class="content-desc">A lesson distinguishing independent samples from paired (matched) designs, showing learners how study design determines which two-sample procedure and formula to apply before any calculation is attempted.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t3_videos.html">Assumptions and Conditions for Two-Sample Tests — Videos</a></div>
+    <p class="content-desc">A reading on the assumptions underlying two-sample tests — random sampling, independence within and between groups, normality or sufficient sample size, and equal-variance considerations — so learners can verify conditions before trusting a p-value or confidence interval.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t4_videos.html">Comparing Two Means — Videos</a></div>
+    <p class="content-desc">A core lesson on comparing two population means, covering the pooled and Welch t-tests, paired t-tests, test statistics, and confidence intervals for the difference in means with engineering examples such as alloy strength and cycle time.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t5_videos.html">Comparing Two Proportions — Videos</a></div>
+    <p class="content-desc">A lesson on the two-proportion z-test, including the pooled proportion, test statistic, and confidence interval for the difference between two success rates such as defect or pass rates from competing processes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t6_videos.html">Interpreting Results and Making Data-Driven Decisions — Videos</a></div>
+    <p class="content-desc">A reading on translating test statistics, p-values, and confidence intervals into practical engineering and business decisions, including statistical versus practical significance and the limits of what the evidence supports.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_videos_merged.html">Week 11/Module 10 - 2 Sample Hypothesis Testing — 6 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module page compiling all Week 11 readings on two-sample hypothesis testing into a single continuous document for review or printing.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A graded discussion assignment asking learners to describe Design of Experiments within Six Sigma methodology and apply it to a real-world personal or professional scenario, prompting reflection and peer engagement.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../week-10module-9-hypothesis-testing-ii/index.html">← Week 10/Module 9 - Hypothesis Testing II</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../week-12module-11-regression-analysis/index.html">Week 12/Module 11 - Regression Analysis →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

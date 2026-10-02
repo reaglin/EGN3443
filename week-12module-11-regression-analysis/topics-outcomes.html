@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Foundations of Regression Analysis</h3>
+<h3 id="topic-1">Foundations of Regression Analysis</h3>
 <div class="summary">Introduces the core concepts and purpose of regression analysis, including how it models relationships between variables to support data-driven decision-making.</div>
 <ul>
 <li><strong>What Is Regression Analysis?</strong> <span class="el-body">— Regression analysis is a statistical method used to model and quantify the relationship between one or more independent variables and a dependent variable.</span></li>
@@ -43,7 +43,7 @@ li{margin:5px 0}
 <li><strong>The Concept of Model Fit</strong> <span class="el-body">— A key goal in regression analysis is to find the model that best fits the observed data, minimizing the difference between predicted and actual values.</span></li>
 <li><strong>Assumptions Underlying Regression Analysis</strong> <span class="el-body">— Regression analysis relies on a set of core assumptions about the data and the relationship between variables that must be considered for results to be valid.</span></li>
 </ul>
-<h3>Simple Linear Regression</h3>
+<h3 id="topic-2">Simple Linear Regression</h3>
 <div class="summary">Covers the construction and interpretation of simple linear regression models involving one predictor variable and one outcome variable.</div>
 <ul>
 <li><strong>What Is Simple Linear Regression?</strong> <span class="el-body">— Simple linear regression is a statistical method used to model the relationship between one predictor variable (X) and one outcome variable (Y) using a straight line.</span></li>
@@ -54,7 +54,7 @@ li{margin:5px 0}
 <li><strong>Testing the Significance of the Regression Relationship</strong> <span class="el-body">— Statistical hypothesis testing is used to determine whether the observed relationship between X and Y is statistically significant or likely due to chance.</span></li>
 <li><strong>Using the Model for Prediction</strong> <span class="el-body">— Once the regression equation is established, it can be used to predict the value of Y for a given value of X.</span></li>
 </ul>
-<h3>Multiple Regression Models</h3>
+<h3 id="topic-3">Multiple Regression Models</h3>
 <div class="summary">Extends regression analysis to include multiple predictor variables, exploring how to build and interpret models with greater complexity.</div>
 <ul>
 <li><strong>Introduction to Multiple Regression</strong> <span class="el-body">— Multiple regression extends simple linear regression by incorporating two or more predictor variables to explain variation in a single outcome variable.</span></li>
@@ -64,7 +64,7 @@ li{margin:5px 0}
 <li><strong>Multicollinearity Among Predictors</strong> <span class="el-body">— Multicollinearity occurs when two or more predictor variables in a multiple regression model are highly correlated with each other, which can distort coefficient estimates and interpretations.</span></li>
 <li><strong>Evaluating and Validating a Multiple Regression Model</strong> <span class="el-body">— After building a multiple regression model, it is essential to evaluate its assumptions and validate its predictive performance to ensure it is appropriate for the data.</span></li>
 </ul>
-<h3>Evaluating Regression Model Performance</h3>
+<h3 id="topic-4">Evaluating Regression Model Performance</h3>
 <div class="summary">Examines the key metrics and diagnostic tools used to assess the accuracy, fit, and validity of regression models.</div>
 <ul>
 <li><strong>R-Squared (Coefficient of Determination)</strong> <span class="el-body">— R-squared measures the proportion of variance in the dependent variable that is explained by the independent variable(s) in the regression model.</span></li>
@@ -75,7 +75,7 @@ li{margin:5px 0}
 <li><strong>Overall Model Significance (F-Statistic)</strong> <span class="el-body">— The F-statistic tests whether the regression model as a whole explains a statistically significant portion of the variance in the dependent variable.</span></li>
 <li><strong>Assumptions Checking and Model Validity</strong> <span class="el-body">— A regression model&#39;s performance evaluation is incomplete without verifying that key statistical assumptions — such as linearity, independence, homoscedasticity, and normality of residuals — are satisfied.</span></li>
 </ul>
-<h3>Interpreting Regression Results</h3>
+<h3 id="topic-5">Interpreting Regression Results</h3>
 <div class="summary">Focuses on drawing meaningful conclusions from regression output, including coefficients, significance levels, and practical implications for decision-making.</div>
 <ul>
 <li><strong>Understanding Regression Coefficients</strong> <span class="el-body">— Regression coefficients quantify the relationship between each predictor variable and the outcome, indicating the magnitude and direction of that relationship.</span></li>
@@ -85,7 +85,7 @@ li{margin:5px 0}
 <li><strong>Translating Results into Practical Implications</strong> <span class="el-body">— Effective interpretation of regression output goes beyond statistical metrics to inform actionable, data-driven decisions in real-world contexts.</span></li>
 <li><strong>Recognizing Limitations and Avoiding Misinterpretation</strong> <span class="el-body">— Regression results can be misread if assumptions are violated or if correlational findings are incorrectly treated as causal conclusions.</span></li>
 </ul>
-<h3>Applying Regression to Real-World Datasets</h3>
+<h3 id="topic-6">Applying Regression to Real-World Datasets</h3>
 <div class="summary">Provides hands-on practice using regression techniques on real-world data, reinforcing skills in model building and results interpretation across applied contexts.</div>
 <ul>
 <li><strong>Selecting and Preparing a Real-World Dataset</strong> <span class="el-body">— Before building a regression model, practitioners must identify an appropriate dataset and prepare it for analysis.</span></li>
@@ -126,6 +126,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>

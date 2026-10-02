@@ -18,13 +18,13 @@ li{margin:5px 0}
 .el-body{color:#555}
 .prefix{color:#555;font-style:italic;margin:6px 0 14px}
 .mo{border:1px solid #e2e2e2;border-radius:6px;padding:12px 16px;margin:12px 0}
-.mo .code{font-size:.8rem;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.mo .code{font-size:.8rem;color:#595959;text-transform:uppercase;letter-spacing:.04em}
 .mo .statement{font-weight:600;margin:4px 0 8px}
 .meta span{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin:0 6px 0 0;font-size:.85rem}
 .meta .map{background:#eaf6ec;color:#137333}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
-.empty{color:#888}
+.empty{color:#595959}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ li{margin:5px 0}
 <div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3>Introduction to Discrete Probability Distributions</h3>
+<h3 id="topic-1">Introduction to Discrete Probability Distributions</h3>
 <div class="summary">This topic establishes the foundational concepts of discrete probability distributions, explaining how probabilities are assigned to distinct, countable outcomes. Learners will understand the defining characteristics that differentiate discrete distributions from other types.</div>
 <ul>
 <li><strong>What Is a Discrete Probability Distribution?</strong> <span class="el-body">— A discrete probability distribution describes how probabilities are assigned to each possible distinct, countable outcome of a random variable.</span></li>
@@ -42,7 +42,7 @@ li{margin:5px 0}
 <li><strong>Probability Distribution Tables and Notation</strong> <span class="el-body">— Discrete probability distributions are commonly represented using tables, formulas, or graphs that pair each outcome with its probability.</span></li>
 <li><strong>Real-World Contexts for Discrete Distributions</strong> <span class="el-body">— Discrete probability distributions model a wide variety of real-world phenomena where outcomes are counted rather than measured.</span></li>
 </ul>
-<h3>Probability Mass Functions and Distribution Properties</h3>
+<h3 id="topic-2">Probability Mass Functions and Distribution Properties</h3>
 <div class="summary">Learners explore the probability mass function (PMF) as the core tool for describing discrete distributions, along with essential properties such as non-negativity and the requirement that all probabilities sum to one. Key rules for constructing and validating a valid discrete probability distribution are covered.</div>
 <ul>
 <li><strong>What Is a Probability Mass Function (PMF)?</strong> <span class="el-body">— A probability mass function (PMF) is the fundamental mathematical tool used to describe a discrete probability distribution by assigning a probability to each distinct outcome.</span></li>
@@ -52,7 +52,7 @@ li{margin:5px 0}
 <li><strong>Validating a Probability Distribution</strong> <span class="el-body">— Before applying a probability distribution to solve problems, learners must confirm that it satisfies the two core rules: non-negativity and the total sum equal to one.</span></li>
 <li><strong>Interpreting PMF Values in Context</strong> <span class="el-body">— Each PMF value carries a direct, interpretable meaning: it represents the likelihood that the random variable equals a specific outcome in a given scenario.</span></li>
 </ul>
-<h3>Expected Value and Variance of Discrete Distributions</h3>
+<h3 id="topic-3">Expected Value and Variance of Discrete Distributions</h3>
 <div class="summary">This topic covers the calculation and interpretation of expected value (mean) and variance for discrete random variables. Learners will understand what these measures reveal about the center and spread of a distribution in practical contexts.</div>
 <ul>
 <li><strong>Definition of Expected Value</strong> <span class="el-body">— The expected value (mean) of a discrete random variable is the weighted average of all possible outcomes, where each outcome is weighted by its probability of occurrence.</span></li>
@@ -62,7 +62,7 @@ li{margin:5px 0}
 <li><strong>Interpreting Variance and Standard Deviation</strong> <span class="el-body">— Variance and standard deviation reveal how much variability or uncertainty exists in the outcomes of a discrete random variable, supplementing the information provided by the expected value alone.</span></li>
 <li><strong>Practical Applications of Expected Value and Variance</strong> <span class="el-body">— Expected value and variance are foundational tools used across many fields to support decision-making under uncertainty.</span></li>
 </ul>
-<h3>The Binomial Distribution</h3>
+<h3 id="topic-4">The Binomial Distribution</h3>
 <div class="summary">Learners examine the binomial distribution, its conditions, formula, and applications to scenarios involving a fixed number of independent trials with two possible outcomes. Probability calculations, expected values, and variances specific to the binomial setting are practiced.</div>
 <ul>
 <li><strong>Conditions for a Binomial Experiment</strong> <span class="el-body">— A binomial distribution applies only when a specific set of conditions is met by the experiment or process being studied.</span></li>
@@ -72,7 +72,7 @@ li{margin:5px 0}
 <li><strong>Variance and Standard Deviation of the Binomial Distribution</strong> <span class="el-body">— The variance and standard deviation measure the spread of outcomes around the expected value in a binomial distribution.</span></li>
 <li><strong>Applying the Binomial Distribution to Real-World Scenarios</strong> <span class="el-body">— The binomial distribution is widely used to model real-world situations where outcomes are counted as successes or failures across a fixed number of trials.</span></li>
 </ul>
-<h3>The Poisson Distribution</h3>
+<h3 id="topic-5">The Poisson Distribution</h3>
 <div class="summary">This topic introduces the Poisson distribution as a model for counting the number of events occurring within a fixed interval of time or space. Learners will apply the Poisson formula to real-world problems and interpret the rate parameter in context.</div>
 <ul>
 <li><strong>What Is the Poisson Distribution?</strong> <span class="el-body">— The Poisson distribution models the number of times an event occurs within a fixed interval of time, space, distance, or volume.</span></li>
@@ -82,7 +82,7 @@ li{margin:5px 0}
 <li><strong>Conditions for Using the Poisson Distribution</strong> <span class="el-body">— Before applying the Poisson distribution, it is important to verify that the situation satisfies the required assumptions.</span></li>
 <li><strong>Applying the Poisson Formula to Real-World Problems</strong> <span class="el-body">— Solving Poisson probability problems involves identifying λ from context, selecting the correct value of x, and substituting into the formula.</span></li>
 </ul>
-<h3>Applying Discrete Distributions to Real-World Problems</h3>
+<h3 id="topic-6">Applying Discrete Distributions to Real-World Problems</h3>
 <div class="summary">Learners synthesize their knowledge by identifying the appropriate discrete distribution for a given scenario and executing full probability analyses. Practical exercises reinforce the ability to select, apply, and interpret distribution results across diverse fields.</div>
 <ul>
 <li><strong>Identifying the Right Distribution for a Scenario</strong> <span class="el-body">— The first step in any discrete probability problem is selecting the distribution that best matches the structure of the situation.</span></li>
@@ -123,6 +123,6 @@ li{margin:5px 0}
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
 
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
 </html>
