@@ -1,0 +1,655 @@
+﻿<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
+<div class="pm-injected-nav"><a href="../index.html">← Back to Module</a><span class="sep">|</span><span style="color:#555">Distribution Detective: Discrete Distribution Case Game</span></div>
+<div class="pm-injected-spacer"></div>
+<title>Distribution Detective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#F2F6EA; --grid:#D6E1C6; --card:#FCFDF8; --ink:#1E3557; --muted:#5B6A5C;
+  --line:#B9C8A8; --accent:#C2452D; --good:#2E7A4C; --goodbg:#E1F0E2; --badbg:#F8E4DD;
+  --hintbg:#FBF1D6; --hint:#8A5A00; --s2:#C98A1B;
+  --btn:#FFFFFF; --btnhover:#E9F0DE; --shadow:rgba(30,53,87,.14);
+  --hand:"Kalam","Comic Neue","Segoe Print",cursive;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#15201D; --grid:#1F2D29; --card:#1B2825; --ink:#E4ECE0; --muted:#9DAB9F;
+    --line:#34463F; --accent:#F0826A; --good:#72CF94; --goodbg:#1D3A2A; --badbg:#3D231D;
+    --hintbg:#3A3019; --hint:#F2C66B; --s2:#E8B04C;
+    --btn:#1F2E2A; --btnhover:#283B36; --shadow:rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#15201D; --grid:#1F2D29; --card:#1B2825; --ink:#E4ECE0; --muted:#9DAB9F;
+  --line:#34463F; --accent:#F0826A; --good:#72CF94; --goodbg:#1D3A2A; --badbg:#3D231D;
+  --hintbg:#3A3019; --hint:#F2C66B; --s2:#E8B04C;
+  --btn:#1F2E2A; --btnhover:#283B36; --shadow:rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.5;
+  padding-inline:16px; padding-block:20px 40px; min-height:100%;
+}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--hand);font-weight:700;font-size:clamp(2rem,6vw,2.7rem);margin:0;line-height:1}
+h1 span{color:var(--accent)}
+.tag{color:var(--muted);font-size:.9rem;margin:4px 0 0}
+.hud{display:flex;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem}
+.chip{border:1.5px solid var(--ink);border-radius:4px;padding:3px 10px;background:var(--card);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip b{font-weight:700}
+.chip.hintchip{border-color:var(--hint);color:var(--hint)}
+
+.stage{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:end}
+.fig svg{width:100%;height:auto;display:block;overflow:visible}
+.fig .stroke{stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.fig .head{fill:var(--card)} .fig .dot,.fig .cap{fill:var(--ink)}
+.fig .tassel{stroke:var(--accent);stroke-width:3;stroke-linecap:round;fill:none}
+.fig .lens{fill:none;stroke:var(--accent);stroke-width:3.5}
+.fig .cheek{fill:var(--accent);opacity:0}
+.fig.happy .cheek{opacity:.35}
+.fig.happy svg{animation:hop .5s ease-out 2}
+.fig.talk .mouth-talk{animation:talk .28s ease-in-out infinite alternate;transform-origin:60px 55px;transform-box:view-box}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
+
+.bubble{position:relative;background:var(--card);border:2.5px solid var(--ink);border-radius:18px 18px 18px 4px;
+  padding:16px 20px;min-height:140px;display:flex;flex-direction:column;justify-content:center;gap:6px;
+  box-shadow:4px 5px 0 var(--shadow);margin-bottom:60px}
+.bubble::before{content:"";position:absolute;left:-10px;bottom:22px;width:18px;height:18px;background:var(--card);
+  border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.say{font-family:var(--hand);font-size:clamp(1.08rem,2.8vw,1.3rem);line-height:1.35;margin:0}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0;padding:0;list-style:none}
+.steps li{border:2px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--card);display:flex;justify-content:space-between;gap:6px;align-items:baseline;font-size:.88rem}
+.steps li .n{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:block}
+.steps li .pts{font-family:var(--mono);font-size:.8rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.steps li.now{border-color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.steps li.done{border-color:var(--good)}
+.steps li.done .pts{color:var(--good)}
+
+.panel{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.qhead h2{font-family:var(--hand);font-size:1.45rem;margin:0;line-height:1.15;text-wrap:balance}
+.hintbtn{font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;border:2px dashed var(--hint);color:var(--hint);background:transparent;border-radius:999px;padding:5px 14px}
+.hintbtn:hover:not(:disabled){background:var(--hintbg)}
+.hintbtn:disabled{opacity:.5;cursor:default}
+.hintbox{background:var(--hintbg);color:var(--ink);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.hintbox b{color:var(--hint)}
+
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opts.list{grid-template-columns:1fr}
+.opt{font:inherit;text-align:left;cursor:pointer;color:var(--ink);background:var(--btn);border:2px solid var(--ink);border-radius:10px;
+  padding:10px 12px;box-shadow:3px 3px 0 var(--ink);display:flex;flex-direction:column;gap:4px;transition:transform .08s,box-shadow .08s,background .15s}
+.opt:hover:not(:disabled){background:var(--btnhover)}
+.opt:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.opt .top{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.02rem}
+.opt .key{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-left:auto;font-weight:500}
+.opt .info{font-size:.85rem;color:var(--muted);line-height:1.35}
+.opt .glyph{width:40px;height:24px;flex:none}
+.glyph .g1{fill:var(--ink)} .glyph .g2{fill:var(--s2)} .glyph .gl{stroke:var(--ink);stroke-width:2.5;fill:none}
+.opts.list .opt{font-size:.98rem;padding:12px 14px}
+.opt:disabled{cursor:default;opacity:.45}
+.opt.wrong{opacity:1;background:var(--badbg);border-color:var(--accent);box-shadow:3px 3px 0 var(--accent)}
+.opt.right{opacity:1;background:var(--goodbg);border-color:var(--good);box-shadow:3px 3px 0 var(--good)}
+.opt:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.feedback{border-left:5px solid var(--ink);background:var(--card);padding:12px 16px;border-radius:0 10px 10px 0;display:flex;flex-direction:column;gap:8px}
+.feedback.ok{border-left-color:var(--good)} .feedback.no{border-left-color:var(--accent)}
+.feedback h3{font-family:var(--hand);font-size:1.4rem;margin:0;line-height:1.1}
+.feedback.ok h3{color:var(--good)} .feedback.no h3{color:var(--accent)}
+.feedback p{margin:0;max-width:68ch}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.go,.start{font:inherit;font-weight:700;cursor:pointer;color:var(--ink);background:var(--btn);border:2.5px solid var(--ink);border-radius:10px;padding:10px 20px;box-shadow:3px 3px 0 var(--ink)}
+.go:hover{background:var(--btnhover)}
+.start{font-size:1.1rem;padding:12px 28px;background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--accent)}
+.start:hover{opacity:.9}
+.go:active,.start:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.small{font-size:.82rem;color:var(--muted)}
+kbd{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--card)}
+
+.chartcard{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.chartcard h3{margin:0;font-size:1rem}
+.chartcard .sub{margin:0;font-size:.85rem;color:var(--muted)}
+.chartwrap{overflow-x:auto}
+.chartwrap svg{width:100%;min-width:420px;height:auto;display:block}
+.chartwrap text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.chartwrap .axis{stroke:var(--muted);stroke-width:1}
+.chartwrap .gridl{stroke:var(--line);stroke-width:1}
+.chartwrap .b1{fill:var(--ink);opacity:.85}
+.chartwrap .b2{fill:var(--s2)}
+.chartwrap .hl{fill:var(--accent)}
+.chartwrap .step{stroke:var(--ink);stroke-width:2.5;fill:none}
+.chartwrap .mark{fill:var(--accent)}
+.chartwrap .markline{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 3}
+.chartwrap .target{stroke:var(--good);stroke-width:1.5;stroke-dasharray:6 4}
+.chartwrap .lbl{fill:var(--ink);font-weight:700}
+.chartwrap .tlbl{fill:var(--good);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0}
+.stats div{border:1.5px solid var(--line);border-radius:8px;padding:8px 10px}
+.stats dt{font-size:.8rem;color:var(--muted)}
+.stats dd{margin:0;font-family:var(--mono);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+
+.rules{background:var(--card);border:1.5px dashed var(--line);border-radius:10px;padding:14px 16px;font-size:.95rem}
+.rules ol{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:4px}
+.rules p{margin:10px 0 0;color:var(--muted)}
+table.sum{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--card)}
+.sumwrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:10px}
+table.sum th,table.sum td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.sum td.num,table.sum th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+table.sum tr:last-child td{border-bottom:0;font-weight:700}
+
+@media (max-width:720px){ .opts{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:540px){
+  .stage{grid-template-columns:78px 1fr;gap:10px}
+  .bubble{padding:12px 14px;margin-bottom:34px}
+  .opts{grid-template-columns:1fr}
+  .steps li{flex-direction:column;gap:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .fig.happy svg,.fig.talk .mouth-talk{animation:none}
+  .opt{transition:none}
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Distribution <span>Detective</span></h1>
+      <p class="tag">Pick the distribution, choose the chart, make the call.</p>
+    </div>
+    <div class="hud" aria-live="polite">
+      <span class="chip">Case <b id="caseNo">–</b>/12</span>
+      <span class="chip">Score <b id="score">0</b>/120</span>
+      <span class="chip hintchip">Free hint <b id="freeHint">1</b></span>
+    </div>
+  </header>
+
+  <section class="stage">
+    <div class="fig talk" id="fig" aria-hidden="true">
+      <svg viewBox="0 0 120 220">
+        <polygon class="cap" points="28,16 60,3 92,16 60,29"/>
+        <rect class="cap" x="44" y="18" width="32" height="8" rx="2"/>
+        <path class="tassel" d="M88 16 L90 34"/>
+        <circle class="stroke head" cx="60" cy="44" r="25"/>
+        <circle class="dot" cx="51" cy="40" r="2.8"/>
+        <circle class="dot" cx="69" cy="40" r="2.8"/>
+        <circle class="cheek" cx="45" cy="50" r="4"/>
+        <circle class="cheek" cx="75" cy="50" r="4"/>
+        <g id="m-smile" hidden><path class="stroke" d="M49 52 Q60 63 71 52"/></g>
+        <g id="m-neutral" hidden><path class="stroke" d="M51 56 L69 56"/></g>
+        <g id="m-talk"><ellipse class="stroke mouth-talk" cx="60" cy="55" rx="6" ry="4.5"/></g>
+        <path class="stroke" d="M60 69 L60 145"/>
+        <path class="stroke" d="M60 145 L40 205 M60 145 L80 205"/>
+        <path class="stroke" d="M60 90 L36 125"/>
+        <path class="stroke" d="M60 90 L90 78 L100 62"/>
+        <circle class="lens" cx="104" cy="52" r="10"/>
+      </svg>
+    </div>
+    <div class="bubble">
+      <span class="eyebrow" id="eyebrow">Professor Stick says</span>
+      <p class="say" id="say">Welcome, detective! I'll hand you 12 cases. For each one, identify the distribution, pick the chart that answers the question, then make a recommendation from the results.</p>
+    </div>
+  </section>
+
+  <div id="intro">
+    <div class="rules">
+      <ol>
+        <li><b>Part 1 · Distribution</b> (4 pts): Bernoulli, Binomial, Poisson, Geometric, Pascal, or Hypergeometric?</li>
+        <li><b>Part 2 · Visualization</b> (3 pts): which chart best answers this problem's question?</li>
+        <li><b>Part 3 · Recommendation</b> (3 pts): read the chart and the numbers, then make the call.</li>
+      </ol>
+      <p>Right on the first try earns full points; right on the second try earns half. A wrong answer shows the hint automatically, and after two wrong answers Professor Stick reveals the answer (0 pts for that part). You get <b>1 free hint</b> per game; after that, asking for a hint costs 1 point from that part.</p>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button type="button" class="start" id="start">Open the first case</button>
+      <span class="small">Keys: <kbd>1</kbd>–<kbd>6</kbd> choose · <kbd>H</kbd> hint · <kbd>Enter</kbd> continue</span>
+    </div>
+  </div>
+
+  <ol class="steps" id="steps" hidden>
+    <li id="st1"><span><span class="n">Part 1</span>Distribution</span><span class="pts" id="pt1">– / 4</span></li>
+    <li id="st2"><span><span class="n">Part 2</span>Visualization</span><span class="pts" id="pt2">– / 3</span></li>
+    <li id="st3"><span><span class="n">Part 3</span>Recommendation</span><span class="pts" id="pt3">– / 3</span></li>
+  </ol>
+
+  <div class="chartcard" id="chartcard" hidden>
+    <div><h3 id="chartTitle"></h3><p class="sub" id="chartSub"></p></div>
+    <div class="chartwrap" id="chart"></div>
+    <dl class="stats" id="stats"></dl>
+  </div>
+
+  <section class="panel" id="panel" hidden>
+    <div class="qhead">
+      <h2 id="qtext"></h2>
+      <button type="button" class="hintbtn" id="hintBtn">Hint (free)</button>
+    </div>
+    <div class="hintbox" id="hintBox" hidden></div>
+    <div class="opts" id="opts"></div>
+    <div class="feedback" id="feedback" hidden>
+      <h3 id="fbTitle"></h3>
+      <p id="fbText"></p>
+      <div class="row" id="fbRow"><button type="button" class="go" id="goBtn">Continue</button></div>
+    </div>
+  </section>
+
+  <section id="final" hidden></section>
+</div>
+
+<script>
+/* ---------- probability helpers ---------- */
+const LF=[0];for(let i=1;i<=400;i++)LF[i]=LF[i-1]+Math.log(i);
+const C=(n,k)=>(k<0||k>n)?0:Math.exp(LF[n]-LF[k]-LF[n-k]);
+function pmf(d,k){
+  switch(d.t){
+    case"bern":return k===1?d.p:k===0?1-d.p:0;
+    case"binom":return C(d.n,k)*d.p**k*(1-d.p)**(d.n-k);
+    case"pois":return k<0?0:Math.exp(-d.l+k*Math.log(d.l)-LF[k]);
+    case"geom":return k<1?0:(1-d.p)**(k-1)*d.p;
+    case"pascal":return k<d.r?0:C(k-1,d.r-1)*d.p**d.r*(1-d.p)**(k-d.r);
+    case"hyper":return C(d.K,k)*C(d.N-d.K,d.n-k)/C(d.N,d.n);
+  }
+}
+const lo=d=>d.t==="geom"?1:d.t==="pascal"?d.r:0;
+function cdf(d,k){let s=0;for(let i=lo(d);i<=k;i++)s+=pmf(d,i);return Math.min(1,s)}
+const f3=x=>x.toFixed(3), pc=x=>(100*x).toFixed(1)+"%";
+
+/* ---------- option sets ---------- */
+const DISTS=[
+ {id:"bern",name:"Bernoulli",info:"One trial, success or failure. X ∈ {0, 1}, P(X = 1) = p."},
+ {id:"binom",name:"Binomial",info:"Successes in a fixed number n of independent trials, same p each time."},
+ {id:"pois",name:"Poisson",info:"Count of events in an interval of time or space at average rate λ. No fixed n."},
+ {id:"geom",name:"Geometric",info:"Number of trials until the first success, same p each time."},
+ {id:"pascal",name:"Pascal",info:"Number of trials until the r-th success (negative binomial)."},
+ {id:"hyper",name:"Hypergeometric",info:"Successes in n draws without replacement from N items that contain K successes."}
+];
+const VIZ=[
+ {id:"bern",name:"Success/failure bars",info:"Two bars, P(X = 0) and P(X = 1). For a single yes/no trial.",g:'<rect class="g1" x="8" y="4" width="10" height="20"/><rect class="g2" x="24" y="16" width="10" height="8"/>'},
+ {id:"pmf",name:"PMF bar chart",info:"One bar per value, height P(X = k). Shows shape, peak, and exact-value probabilities.",g:'<rect class="g1" x="2" y="16" width="5" height="8"/><rect class="g1" x="9" y="8" width="5" height="16"/><rect class="g1" x="16" y="3" width="5" height="21"/><rect class="g1" x="23" y="10" width="5" height="14"/><rect class="g1" x="30" y="18" width="5" height="6"/>'},
+ {id:"cdf",name:"CDF step chart",info:"Cumulative P(X ≤ k). Reads 'at most' and 'at least' answers directly.",g:'<path class="gl" d="M2 22 H10 V16 H18 V9 H26 V5 H38"/>'},
+ {id:"overlay",name:"Overlaid PMFs",info:"Two distributions' bars on shared axes. For comparing two scenarios.",g:'<rect class="g1" x="3" y="6" width="4" height="18"/><rect class="g2" x="7" y="3" width="4" height="21"/><rect class="g1" x="15" y="4" width="4" height="20"/><rect class="g2" x="19" y="14" width="4" height="10"/><rect class="g1" x="27" y="10" width="4" height="14"/><rect class="g2" x="31" y="20" width="4" height="4"/>'},
+ {id:"hist",name:"Histogram",info:"Bins of observed continuous measurements. For raw sample data, not a model's probabilities.",g:'<rect class="g1" x="2" y="18" width="7" height="6"/><rect class="g1" x="9" y="9" width="7" height="15"/><rect class="g1" x="16" y="4" width="7" height="20"/><rect class="g1" x="23" y="12" width="7" height="12"/><rect class="g1" x="30" y="19" width="7" height="5"/>'},
+ {id:"scatter",name:"Scatter plot",info:"Points for pairs of measurements. Shows the relationship between two variables.",g:'<circle class="g1" cx="6" cy="19" r="2.2"/><circle class="g1" cx="13" cy="15" r="2.2"/><circle class="g1" cx="19" cy="16" r="2.2"/><circle class="g1" cx="25" cy="9" r="2.2"/><circle class="g1" cx="33" cy="6" r="2.2"/>'}
+];
+
+/* ---------- the 12 cases ---------- */
+const D={};
+const BANK=[
+{ // Bernoulli 1
+ dist:"bern",
+ text:"A robotic welder has a 92% first-pass rate. The QA lead pulls ONE weld from today's run for X-ray. A failed weld costs $2,000 to rework. She wants the chance this weld fails, and whether a $200 rework reserve per inspected weld covers the cost on average.",
+ h1:"Count the trials. How many welds are being modeled, and how many outcomes can each one have?",
+ e1:"One weld, one pass/fail outcome, known p = 0.08 of failing. A single yes/no trial is a Bernoulli trial.",
+ viz:"bern", h2:"With only two possible outcomes, the entire distribution is just two numbers.",
+ e2:"Two bars, fail (0.08) and pass (0.92), show the whole Bernoulli distribution. There are no other values of X to plot.",
+ D:{t:"bern",p:0.08}, chart:{kind:"bern",labels:["Pass (X = 0)","Fail (X = 1)"]},
+ title:"Single weld: Bernoulli(p = 0.08)", sub:"X = 1 if the weld fails",
+ stats:[["P(fail)","0.080"],["Expected rework cost","0.08 × $2,000 = $160"],["Variance p(1 − p)","0.0736"]],
+ q3:"Is the $200-per-weld reserve adequate?",
+ h3:"Expected cost = P(fail) × cost of one failure. Compare it with $200.",
+ recs:[
+  {t:"Keep the $200 reserve. The expected rework cost is $160 per inspected weld.",ok:1,w:"Expected cost is 0.08 × $2,000 = $160, which the $200 reserve covers with a margin."},
+  {t:"Raise the reserve to $2,000 per weld, since any weld might fail.",w:"That reserves the worst case for every weld. The expected cost is only $160, so this ties up 12.5 times too much."},
+  {t:"Drop the reserve. A pass is 92% likely, so failures can be ignored.",w:"8% of $2,000 is still $160 per weld on average. Rare is not the same as free."},
+  {t:"Set the reserve at $920, the pass rate times $1,000.",w:"This mixes the pass probability with an invented amount. Expected cost uses P(fail) × cost of a failure."}]},
+{ // Bernoulli 2
+ dist:"bern",
+ text:"Before a survey drone takes off, its lidar runs a single self-calibration. Past logs show it succeeds 97% of the time. Flight rules say to scrub the launch plan if the chance of a failed calibration is above 5%. Today's flight gets one calibration attempt.",
+ h1:"One attempt with two outcomes. How many trials does the model need?",
+ e1:"A single success/failure event with p = 0.03 of failure is a Bernoulli trial.",
+ viz:"bern", h2:"Only two outcomes are possible: calibrated or not.",
+ e2:"A two-bar success/failure chart shows 0.97 vs 0.03, the entire distribution, at a glance.",
+ D:{t:"bern",p:0.03}, chart:{kind:"bern",labels:["Calibrates (X = 0)","Fails (X = 1)"],target:0.05},
+ title:"One calibration: Bernoulli(p = 0.03)", sub:"X = 1 if calibration fails. Dashed line: the 5% limit",
+ stats:[["P(calibration fails)","0.030"],["P(calibration succeeds)","0.970"],["Rule limit","0.050"]],
+ q3:"Should the launch plan go ahead?",
+ h3:"Compare P(failure) with the 5% limit in the flight rules.",
+ recs:[
+  {t:"Proceed. The 3% failure chance is under the 5% limit.",ok:1,w:"0.03 < 0.05, so the flight rule is satisfied."},
+  {t:"Scrub. Any chance of failure is too risky.",w:"The rule explicitly allows up to 5%. A 3% chance meets it."},
+  {t:"Run 20 practice calibrations first to confirm the rate.",w:"The 97% rate already comes from past logs, and the decision is about today's single attempt."},
+  {t:"Scrub. 97% is below a 100% success target.",w:"There is no 100% target. The rule compares the failure probability to 5%."}]},
+{ // Binomial 1
+ dist:"binom",
+ text:"A line builds circuit boards in batches of 20. Each board is independently defective with probability 0.05. The customer rejects a batch if MORE than 2 boards are defective. Your contract requires at least a 95% chance that a batch is accepted.",
+ h1:"The number of trials is fixed (20 boards), each is defective or not, and p is the same for each.",
+ e1:"Fixed n = 20 independent trials with constant p = 0.05, counting defects: Binomial(20, 0.05).",
+ viz:"cdf", h2:"Acceptance means 'at most 2 defects', a cumulative probability.",
+ e2:"The CDF step chart reads P(X ≤ 2) straight off the curve and makes it easy to compare with the 0.95 line.",
+ D:{t:"binom",n:20,p:0.05}, chart:{kind:"cdf",x0:0,x1:8,mark:2,target:0.95},
+ title:"Defects per batch: Binomial(n = 20, p = 0.05)", sub:"Cumulative P(X ≤ k). Dashed green: 0.95 contract target",
+ stats:()=>[["P(X ≤ 2), accepted",f3(cdf({t:"binom",n:20,p:.05},2))],["P(X > 2), rejected",f3(1-cdf({t:"binom",n:20,p:.05},2))],["If p = 0.04: P(X ≤ 2)",f3(cdf({t:"binom",n:20,p:.04},2))]],
+ q3:"What do you recommend?",
+ h3:"Compare P(X ≤ 2) with the 0.95 requirement.",
+ recs:[
+  {t:"Improve the process. Acceptance is about 92.5%, short of 95%. Cutting the defect rate to 4% would raise it to about 95.6%.",ok:1,w:"P(X ≤ 2) = 0.925 < 0.95, and at p = 0.04 it becomes 0.956, which meets the contract."},
+  {t:"Ship as is. 92.5% rounds to about 95%.",w:"0.925 is below 0.95. Rounding doesn't satisfy a contract threshold."},
+  {t:"No change needed. The expected number of defects per batch is only 1.",w:"The mean (np = 1) doesn't tell you P(X > 2). The contract is about probability, and that falls short."},
+  {t:"Have the customer inspect only 10 boards per batch.",w:"That changes the customer's rule, not your process. The batch still contains the same defects."}]},
+{ // Binomial 2
+ dist:"binom",
+ text:"Each of the 12 students in a lab section independently has a 30% chance of visiting the tutoring center this week. The tutoring room has 6 seats reserved for this section. The coordinator wants to see how the number of visitors is spread out and which count is most likely.",
+ h1:"12 students is a fixed number of trials, and each one visits or doesn't.",
+ e1:"n = 12 independent students, each with p = 0.30: Binomial(12, 0.30).",
+ viz:"pmf", h2:"She wants the shape and the single most likely count. That means the probability of each exact value.",
+ e2:"PMF bars show P(X = k) for every k, so the peak (most likely count) and the spread are both visible.",
+ D:{t:"binom",n:12,p:0.3}, chart:{kind:"pmf",x0:0,x1:12,hl:k=>k>6},
+ title:"Visitors: Binomial(n = 12, p = 0.30)", sub:"P(X = k). Red bars: more than 6 visitors (room overflows)",
+ stats:()=>[["Most likely count","3  (P = "+f3(pmf({t:"binom",n:12,p:.3},3))+")"],["Mean np","3.6"],["P(X > 6)",f3(1-cdf({t:"binom",n:12,p:.3},6))]],
+ q3:"Are 6 seats enough?",
+ h3:"Look at the chance of more than 6 visitors in a week.",
+ recs:[
+  {t:"Yes. 6 seats are enough about 96% of weeks; 7 or more visitors has only a 3.9% chance.",ok:1,w:"P(X > 6) = 0.039, so overflow is rare."},
+  {t:"No. Reserve 12 seats in case everyone comes.",w:"P(X = 12) is essentially 0. Most of those seats would sit empty."},
+  {t:"Cut to 3 seats, the most likely count.",w:"P(X > 3) is about 0.51, so the room would overflow in about half of weeks."},
+  {t:"Cut to 4 seats, the mean rounded up.",w:"P(X > 4) is about 0.28, so the room would overflow in more than a quarter of weeks."}]},
+{ // Poisson 1
+ dist:"pois",
+ text:"A campus IT help desk receives an average of 4 calls per hour, arriving randomly and independently. One technician can handle up to 6 calls in an hour. Policy: schedule an on-call backup if the chance of more than 6 calls in an hour exceeds 10%.",
+ h1:"There's no fixed number of trials. Calls arrive over a time interval at an average rate.",
+ e1:"Random, independent arrivals counted in an hour at average rate λ = 4: Poisson(4).",
+ viz:"cdf", h2:"P(X > 6) = 1 − P(X ≤ 6). You need a cumulative probability.",
+ e2:"The CDF gives P(X ≤ 6) directly, and the overload risk is the gap between that and 1.",
+ D:{t:"pois",l:4}, chart:{kind:"cdf",x0:0,x1:12,mark:6,target:0.90},
+ title:"Calls per hour: Poisson(λ = 4)", sub:"Cumulative P(X ≤ k). Dashed green: 0.90 (the 10% overload line)",
+ stats:()=>[["P(X ≤ 6)",f3(cdf({t:"pois",l:4},6))],["P(X > 6), overload",f3(1-cdf({t:"pois",l:4},6))],["P(X > 7)",f3(1-cdf({t:"pois",l:4},7))]],
+ q3:"Should an on-call backup be scheduled?",
+ h3:"Compare P(X > 6) with the 10% policy threshold.",
+ recs:[
+  {t:"Yes. The overload chance is about 11.1%, just over the 10% threshold.",ok:1,w:"P(X > 6) = 0.111 > 0.10, so the policy calls for a backup."},
+  {t:"No. The average is 4 calls, well below 6.",w:"The average hides the variability. About 11% of hours still exceed 6 calls."},
+  {t:"No. Overload happens only about 1 hour in 9, which is rare.",w:"1 in 9 is about 11%, which is above the 10% policy line."},
+  {t:"Hire a second full-time technician.",w:"Overload happens in about 11% of hours, not most hours. The policy's on-call backup matches that level of risk."}]},
+{ // Poisson 2
+ dist:"pois",
+ text:"The county's current asphalt averages 2 potholes per mile per year. A supplier claims its new mix averages only 0.8 potholes per mile per year. Potholes appear randomly along the road. The road engineer wants to compare the two mixes side by side, including the chance a mile stays pothole-free for a year.",
+ h1:"You're counting events along a length of road over a year at an average rate, not successes in a set number of trials.",
+ e1:"Random events per mile-year at a rate: Poisson(λ = 2) for the current mix and Poisson(λ = 0.8) for the new one.",
+ viz:"overlay", h2:"There are two scenarios to compare on the same scale.",
+ e2:"Overlaid PMFs put both mixes on one axis, so you can see the new mix's probability pile up at 0 and 1.",
+ D:{t:"pois",l:2}, D2:{t:"pois",l:0.8}, chart:{kind:"overlay",x0:0,x1:8,names:["Current (λ = 2)","New mix (λ = 0.8)"]},
+ title:"Potholes per mile per year: Poisson comparison", sub:"P(X = k) for each mix",
+ stats:()=>[["P(0) current",f3(pmf({t:"pois",l:2},0))],["P(0) new mix",f3(pmf({t:"pois",l:.8},0))],["P(X ≥ 2) current",f3(1-cdf({t:"pois",l:2},1))],["P(X ≥ 2) new mix",f3(1-cdf({t:"pois",l:.8},1))]],
+ q3:"What do you recommend, assuming the supplier's rate is verified?",
+ h3:"Compare the pothole-free probability, P(X = 0), for the two mixes.",
+ recs:[
+  {t:"Adopt the new mix. Pothole-free miles rise from about 13.5% to 44.9%, and miles with 2+ potholes drop from 59% to 19%.",ok:1,w:"Both key probabilities move strongly in the new mix's favor."},
+  {t:"Keep the current mix. Both still produce potholes, so there's no real difference.",w:"The distributions differ sharply. A pothole-free mile is more than 3 times as likely with the new mix."},
+  {t:"Adopt the new mix because it guarantees less than 1 pothole per mile.",w:"0.8 is an average, not a guarantee. About 19% of miles will still see 2 or more."},
+  {t:"You can't compare them without knowing the number of trials.",w:"A Poisson model needs only the rate λ. There is no n."}]},
+{ // Geometric 1
+ dist:"geom",
+ text:"A CI pipeline has flaky tests. Each build attempt passes with probability 0.6, independently. The team retries until the first passing build. The release window allows 3 attempts, and the release manager wants at least a 95% chance of shipping within the window.",
+ h1:"You're counting attempts until the FIRST success.",
+ e1:"Trials until the first success with constant p = 0.6: Geometric(0.6).",
+ viz:"cdf", h2:"'Ship within 3 attempts' is P(X ≤ 3), a cumulative probability.",
+ e2:"The CDF shows the chance of success by attempt k, which is exactly the 'within the window' question.",
+ D:{t:"geom",p:0.6}, chart:{kind:"cdf",x0:1,x1:8,mark:3,target:0.95},
+ title:"Attempts until first pass: Geometric(p = 0.6)", sub:"Cumulative P(X ≤ k). Dashed green: 0.95 target",
+ stats:()=>[["P(X ≤ 3)",f3(cdf({t:"geom",p:.6},3))],["P(X ≤ 4)",f3(cdf({t:"geom",p:.6},4))],["Mean 1/p","1.67 attempts"]],
+ q3:"What should the release manager do?",
+ h3:"Compare P(X ≤ 3) and P(X ≤ 4) with 0.95.",
+ recs:[
+  {t:"Allow a 4th attempt (97.4%) or fix the flaky tests. Three attempts give only 93.6%.",ok:1,w:"P(X ≤ 3) = 0.936 < 0.95, while P(X ≤ 4) = 0.974 clears the target."},
+  {t:"Keep 3 attempts. The average build needs only 1.7 tries.",w:"The goal is a probability, not an average. Three attempts fall short of 95%."},
+  {t:"Allow 10 attempts to be safe.",w:"Four attempts already clear 95%. Ten wastes release-window time."},
+  {t:"Nothing can change the odds, so accept the risk.",w:"Both the window size and the pass rate can change, and either one raises the probability."}]},
+{ // Geometric 2
+ dist:"geom",
+ text:"10% of parts from a new supplier are defective. An inspector tests parts one at a time until she finds the first defective one. Her supervisor says, 'The first defect usually shows up around part 10, so start careful inspection at part 10.' You want to show which part number is most likely to be the first defect.",
+ h1:"The inspector stops at the first defective part.",
+ e1:"Trials until the first 'success' (a defect) with p = 0.10: Geometric(0.10).",
+ viz:"pmf", h2:"'Which part number is most likely' asks about the probability of each exact value.",
+ e2:"PMF bars show P(X = k) for each part number, and the tallest bar is at k = 1.",
+ D:{t:"geom",p:0.1}, chart:{kind:"pmf",x0:1,x1:30,hl:k=>k<=5},
+ title:"Part number of first defect: Geometric(p = 0.10)", sub:"P(X = k). Red bars: first 5 parts",
+ stats:()=>[["Most likely first defect","Part 1  (P = 0.100)"],["P(first defect in parts 1–5)",f3(cdf({t:"geom",p:.1},5))],["Mean 1/p","10"]],
+ q3:"How should you respond to the supervisor?",
+ h3:"Where are the bars tallest? Is the mean the same as the most likely value?",
+ recs:[
+  {t:"Inspect carefully from part 1. The first defect is most likely at part 1, and there's a 41% chance it appears within the first 5.",ok:1,w:"The geometric PMF is highest at k = 1 and always decreases."},
+  {t:"Agree. The mean is 10, so defects start around part 10.",w:"The mean is not the mode. The geometric distribution is skewed right, with its peak at 1."},
+  {t:"Skip the first 9 parts to save time.",w:"About 61% of first defects occur within the first 9 parts."},
+  {t:"Test 10 parts together and count the defects instead.",w:"That changes the question to a binomial count and doesn't address where careful inspection should start."}]},
+{ // Pascal 1
+ dist:"pascal",
+ text:"A sales rep closes a deal on 20% of calls, independently. The weekly quota is 3 closed deals, and she can make at most 20 calls a week. Her manager wants at least a 90% chance that she meets quota within her weekly calls.",
+ h1:"You're counting calls until the 3rd success, not the first.",
+ e1:"Trials until the r-th success (r = 3, p = 0.2): Pascal, also called negative binomial.",
+ viz:"cdf", h2:"'Meets quota within 20 calls' is P(X ≤ 20), a cumulative probability.",
+ e2:"The CDF shows the chance of reaching the 3rd deal by call k, so you can read off 20 and compare it with 0.90.",
+ D:{t:"pascal",r:3,p:0.2}, chart:{kind:"cdf",x0:3,x1:40,mark:20,target:0.90},
+ title:"Calls until 3rd deal: Pascal(r = 3, p = 0.2)", sub:"Cumulative P(X ≤ k). Dashed green: 0.90 target",
+ stats:()=>[["P(X ≤ 20)",f3(cdf({t:"pascal",r:3,p:.2},20))],["P(X ≤ 25)",f3(cdf({t:"pascal",r:3,p:.2},25))],["Mean r/p","15 calls"]],
+ q3:"What do you recommend to the manager?",
+ h3:"Compare P(X ≤ 20) with 0.90, then see what call capacity reaches 0.90.",
+ recs:[
+  {t:"Raise her capacity to 25 calls a week (90.2%) or lower the quota. At 20 calls she meets quota only about 79% of weeks.",ok:1,w:"P(X ≤ 20) = 0.794 < 0.90 and P(X ≤ 25) = 0.902."},
+  {t:"No change. The mean of 15 calls is under 20.",w:"Being below the mean isn't the target. The chance of finishing within 20 calls is only 79%."},
+  {t:"Lower the quota to 1 deal per week.",w:"That overcorrects. A modest capacity increase already reaches 90%."},
+  {t:"Require 40 calls per week.",w:"25 calls already clears 90%. Forty is far more than needed."}]},
+{ // Pascal 2
+ dist:"pascal",
+ text:"An exploration team needs 2 productive wells. Each exploratory well independently succeeds with probability 0.25 and costs $1M. Finance budgeted for 8 wells because 'the expected number is 8.' The team wants to see the full shape of how many wells it might take.",
+ h1:"You're counting wells until the 2nd success.",
+ e1:"Trials until the r-th success (r = 2, p = 0.25): Pascal (negative binomial).",
+ viz:"pmf", h2:"The 'full shape' means the probability of each exact number of wells.",
+ e2:"PMF bars show the peak and the long right tail, which is exactly what budgeting for the mean misses.",
+ D:{t:"pascal",r:2,p:0.25}, chart:{kind:"pmf",x0:2,x1:30,hl:k=>k>8},
+ title:"Wells until 2nd success: Pascal(r = 2, p = 0.25)", sub:"P(X = k). Red bars: more than the 8 budgeted wells",
+ stats:()=>[["Mean r/p","8 wells"],["P(X ≤ 8)",f3(cdf({t:"pascal",r:2,p:.25},8))],["P(X ≤ 14)",f3(cdf({t:"pascal",r:2,p:.25},14))],["Most likely","4 or 5 wells (tie)"]],
+ q3:"What should the team tell Finance?",
+ h3:"Look at P(X ≤ 8) and how far the tail stretches past 8.",
+ recs:[
+  {t:"Plan a contingency toward about 14–16 wells. A budget of 8 succeeds only about 63% of the time because of the long right tail.",ok:1,w:"P(X ≤ 8) = 0.633, and it takes about 14 wells to reach roughly 90%."},
+  {t:"Keep 8. It's the expected value, so it's enough.",w:"With a right-skewed distribution, there's about a 37% chance of needing more than 8."},
+  {t:"Budget for 4 wells, the most likely count.",w:"P(X ≤ 4) is only about 0.26. The mode is a poor budget target here."},
+  {t:"Drill all 8 wells at once to speed things up.",w:"Drilling them simultaneously doesn't change the probability of getting 2 successes in 8."}]},
+{ // Hypergeometric 1
+ dist:"hyper",
+ text:"A lot of 50 machined parts contains 6 that are out of tolerance. The receiving inspector draws 10 parts without replacement and accepts the lot if none are out of tolerance. Quality wants at least a 90% chance of catching (rejecting) a lot like this one.",
+ h1:"It's a small, finite lot sampled without replacement, so the probabilities change as parts are removed.",
+ e1:"n = 10 draws without replacement from N = 50 with K = 6 bad parts: Hypergeometric.",
+ viz:"pmf", h2:"The lot slips through only on one exact value, X = 0.",
+ e2:"The PMF shows P(X = 0), the chance of missing every bad part, next to the rest of the distribution.",
+ D:{t:"hyper",N:50,K:6,n:10}, chart:{kind:"pmf",x0:0,x1:6,hl:k=>k===0},
+ title:"Bad parts found: Hypergeometric(N = 50, K = 6, n = 10)", sub:"P(X = k). Red bar: X = 0 (bad lot accepted)",
+ stats:()=>[["P(X = 0), missed",f3(pmf({t:"hyper",N:50,K:6,n:10},0))],["Detect with n = 10",pc(1-pmf({t:"hyper",N:50,K:6,n:10},0))],["Detect with n = 15",pc(1-pmf({t:"hyper",N:50,K:6,n:15},0))],["Detect with n = 20",pc(1-pmf({t:"hyper",N:50,K:6,n:20},0))]],
+ q3:"What sampling plan do you recommend?",
+ h3:"Detection = 1 − P(X = 0). Which sample size clears 90%?",
+ recs:[
+  {t:"Increase the sample to 20 parts. Detection rises from 75.8% to 96.3%; 15 parts would reach only 89.8%.",ok:1,w:"n = 20 is the listed option that clears 90%."},
+  {t:"Keep 10 parts. Most samples find a bad part.",w:"75.8% is below the 90% requirement."},
+  {t:"Increase the sample to 15 parts.",w:"Close, but 89.8% just misses the 90% target."},
+  {t:"Model it as Binomial with p = 0.12 to raise detection.",w:"Changing the model doesn't change the lot. In a small lot drawn without replacement, the hypergeometric is the right model."}]},
+{ // Hypergeometric 2
+ dist:"hyper",
+ text:"A department has 20 staff: 12 engineers and 8 technicians. A 5-person safety committee was supposedly chosen at random, and it includes only 1 technician. A technician complains that technicians were underrepresented. Is 1 or fewer technicians unusual for a random draw?",
+ h1:"5 people are chosen from a finite group, and nobody can be chosen twice.",
+ e1:"n = 5 draws without replacement from N = 20 with K = 8 technicians: Hypergeometric.",
+ viz:"cdf", h2:"'1 or fewer' is a cumulative probability, P(X ≤ 1).",
+ e2:"The CDF shows P(X ≤ 1) directly, the tail probability you need to judge whether the result is unusual.",
+ D:{t:"hyper",N:20,K:8,n:5}, chart:{kind:"cdf",x0:0,x1:5,mark:1},
+ title:"Technicians on committee: Hypergeometric(N = 20, K = 8, n = 5)", sub:"Cumulative P(X ≤ k)",
+ stats:()=>[["P(X ≤ 1)",f3(cdf({t:"hyper",N:20,K:8,n:5},1))],["P(X = 0)",f3(pmf({t:"hyper",N:20,K:8,n:5},0))],["Expected nK/N","2 technicians"]],
+ q3:"What do you conclude about the complaint?",
+ h3:"Is P(X ≤ 1) small, say under 5%?",
+ recs:[
+  {t:"No evidence of bias. 1 or fewer technicians happens about 31% of the time by chance alone.",ok:1,w:"P(X ≤ 1) = 0.307 is far from a small tail probability."},
+  {t:"Bias confirmed. We expected 2 technicians but got 1.",w:"Falling one below the mean is common. The chance of 1 or fewer is about 31%."},
+  {t:"Bias confirmed, because P(X = 1) = 0.255 is under 50%.",w:"Almost every single outcome has a probability under 50%. Judge by the tail probability, P(X ≤ 1)."},
+  {t:"Recalculate with replacement to be fair.",w:"People can't be chosen twice, so drawing without replacement is the correct model."}]}
+];
+
+/* ---------- chart drawing ---------- */
+function niceMax(v){for(const m of[.05,.1,.15,.2,.25,.3,.4,.5,.6,.8,1])if(v<=m)return m;return 1}
+function drawChart(p){
+  const c=p.chart, W=640,H=270,L=50,R=16,T=18,B=40, iw=W-L-R, ih=H-T-B;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${p.title}">`;
+  let ks=[],vals=[],vals2=[];
+  if(c.kind==="bern"){ks=[0,1];vals=[1-p.D.p,p.D.p];}
+  else{for(let k=c.x0;k<=c.x1;k++){ks.push(k);vals.push(c.kind==="cdf"?cdf(p.D,k):pmf(p.D,k));if(p.D2)vals2.push(pmf(p.D2,k));}}
+  const ymax=c.kind==="cdf"?1:niceMax(Math.max(...vals,...vals2,c.target||0)*1.08);
+  const y=v=>T+ih-(v/ymax)*ih, bw=iw/ks.length, x=i=>L+i*bw;
+  for(let i=0;i<=4;i++){const v=ymax*i/4;s+=`<line class="gridl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${+v.toFixed(3)}</text>`;}
+  s+=`<line class="axis" x1="${L}" x2="${W-R}" y1="${T+ih}" y2="${T+ih}"/>`;
+  const every=ks.length>20?5:ks.length>12?2:1;
+  ks.forEach((k,i)=>{const lab=c.kind==="bern"?c.labels[i]:k;if(c.kind==="bern"||(k-ks[0])%every===0)s+=`<text x="${x(i)+bw/2}" y="${T+ih+16}" text-anchor="middle">${lab}</text>`;});
+  s+=`<text x="${L+iw/2}" y="${H-4}" text-anchor="middle">${c.kind==="bern"?"outcome":"k"}</text>`;
+  if(c.kind==="bern"){
+    ks.forEach((k,i)=>{const w=bw*.4,cx=x(i)+bw/2;s+=`<rect class="${i===1?"hl":"b1"}" x="${cx-w/2}" y="${y(vals[i])}" width="${w}" height="${T+ih-y(vals[i])}"/><text class="lbl" x="${cx}" y="${y(vals[i])-6}" text-anchor="middle">${f3(vals[i])}</text>`;});
+  }else if(c.kind==="pmf"){
+    ks.forEach((k,i)=>{const w=Math.max(2,bw*.7);s+=`<rect class="${c.hl&&c.hl(k)?"hl":"b1"}" x="${x(i)+(bw-w)/2}" y="${y(vals[i])}" width="${w}" height="${Math.max(0,T+ih-y(vals[i]))}"/>`;});
+  }else if(c.kind==="overlay"){
+    ks.forEach((k,i)=>{const w=bw*.36;s+=`<rect class="b1" x="${x(i)+bw/2-w}" y="${y(vals[i])}" width="${w}" height="${T+ih-y(vals[i])}"/><rect class="b2" x="${x(i)+bw/2}" y="${y(vals2[i])}" width="${w}" height="${T+ih-y(vals2[i])}"/>`;});
+    s+=`<rect class="b1" x="${W-R-190}" y="${T+2}" width="12" height="12"/><text class="lbl" x="${W-R-172}" y="${T+12}">${c.names[0]}</text><rect class="b2" x="${W-R-190}" y="${T+20}" width="12" height="12"/><text class="lbl" x="${W-R-172}" y="${T+30}">${c.names[1]}</text>`;
+  }else if(c.kind==="cdf"){
+    let d="";ks.forEach((k,i)=>{d+=(i?` V${y(vals[i])}`:`M${x(i)} ${y(vals[i])}`)+` H${x(i)+bw}`;});
+    s+=`<path class="step" d="${d}"/>`;
+  }
+  if(c.target!=null)s+=`<line class="target" x1="${L}" x2="${W-R}" y1="${y(c.target)}" y2="${y(c.target)}"/><text class="tlbl" x="${L+4}" y="${y(c.target)-5}">${c.target}</text>`;
+  if(c.kind==="cdf"&&c.mark!=null){const i=ks.indexOf(c.mark),v=vals[i],cx=x(i)+bw/2;
+    s+=`<line class="markline" x1="${cx}" x2="${cx}" y1="${T+ih}" y2="${y(v)}"/><circle class="mark" cx="${cx}" cy="${y(v)}" r="5"/><text class="lbl" x="${i>ks.length*.6?x(i)-6:x(i)+bw+6}" y="${y(v)+(v>.85?18:-8)}" text-anchor="${i>ks.length*.6?"end":"start"}">P(X ≤ ${c.mark}) = ${f3(v)}</text>`;}
+  return s+"</svg>";
+}
+
+/* ---------- game state ---------- */
+const $=id=>document.getElementById(id);
+const fig=$("fig");
+const PTS=[4,3,3], PARTNAME=["Distribution","Visualization","Recommendation"];
+let cases=[],ci=0,part=0,wrong=0,hintShown=false,hintPaid=0,freeHints=1,partPts=[],results=[],phase="intro",curOpts=[];
+
+function face(m){["smile","neutral","talk"].forEach(x=>$("m-"+x).hidden=x!==m);fig.classList.toggle("talk",m==="talk");fig.classList.toggle("happy",m==="smile");}
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+const fmt=n=>Number.isInteger(n)?String(n):n.toFixed(1);
+const total=()=>results.reduce((a,r)=>a+r.pts.reduce((x,y)=>x+y,0),0)+partPts.reduce((x,y)=>x+y,0);
+
+function start(){
+  cases=shuffle(BANK.slice()).map(c=>({...c,recs:shuffle(c.recs.slice())}));
+  ci=0;results=[];freeHints=1;$("freeHint").textContent=1;
+  $("intro").hidden=true;$("final").hidden=true;$("steps").hidden=false;$("panel").hidden=false;
+  openCase();
+}
+function openCase(){
+  const c=cases[ci];partPts=[];
+  $("caseNo").textContent=ci+1;$("score").textContent=fmt(total());
+  $("eyebrow").textContent="Case "+(ci+1)+" of 12";$("say").textContent=c.text;face("talk");
+  $("chartcard").hidden=true;
+  [1,2,3].forEach(i=>{$("st"+i).className="";$("pt"+i).textContent="– / "+PTS[i-1];});
+  openPart(0);
+}
+function openPart(p){
+  part=p;wrong=0;hintShown=false;hintPaid=0;phase="ask";
+  const c=cases[ci];
+  $("st"+(p+1)).className="now";
+  $("qtext").textContent=["Part 1 · Which distribution models this situation?","Part 2 · Which chart best answers the question?","Part 3 · "+c.q3][p];
+  $("hintBox").hidden=true;$("feedback").hidden=true;
+  updateHintBtn();
+  const box=$("opts");box.innerHTML="";box.className="opts"+(p===2?" list":"");
+  curOpts=p===0?DISTS.map(d=>({id:d.id,name:d.name,info:d.info})):p===1?VIZ.map(v=>({id:v.id,name:v.name,info:v.info,g:v.g})):c.recs.map((r,i)=>({id:"r"+i,name:r.t,ok:r.ok,w:r.w}));
+  curOpts.forEach((o,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="opt";b.id="opt-"+p+"-"+i;
+    b.innerHTML=p===2?`<span class="top"><span class="nm"></span><span class="key">${i+1}</span></span>`:`<span class="top">${o.g?`<svg class="glyph" viewBox="0 0 40 24" aria-hidden="true">${o.g}</svg>`:""}<span class="nm"></span><span class="key">${i+1}</span></span><span class="info"></span>`;
+    b.querySelector(".nm").textContent=o.name;if(p!==2)b.querySelector(".info").textContent=o.info;
+    if(p===2)b.querySelector(".top").style.fontWeight="400";
+    b.onclick=()=>choose(i);box.appendChild(b);
+  });
+}
+function correctIndex(){const c=cases[ci];return part===0?curOpts.findIndex(o=>o.id===c.dist):part===1?curOpts.findIndex(o=>o.id===c.viz):curOpts.findIndex(o=>o.ok);}
+function hintText(){const c=cases[ci];return[c.h1,c.h2,c.h3][part];}
+function showHint(){$("hintBox").innerHTML="<b>Hint:</b> ";$("hintBox").append(hintText());$("hintBox").hidden=false;hintShown=true;updateHintBtn();}
+function updateHintBtn(){const b=$("hintBtn");
+  if(hintShown||phase!=="ask"){b.disabled=true;b.textContent=hintShown?"Hint shown":"Hint";return}
+  b.disabled=false;b.textContent=freeHints>0?"Hint (free)":"Hint (−1 pt)";}
+function requestHint(){
+  if(phase!=="ask"||hintShown)return;
+  if(freeHints>0){freeHints--;$("freeHint").textContent=freeHints;}else hintPaid=1;
+  showHint();
+}
+function choose(i){
+  if(phase!=="ask")return;
+  const ci0=correctIndex(),btn=$("opt-"+part+"-"+i),o=curOpts[i],c=cases[ci];
+  if(btn.disabled)return;
+  if(i===ci0){
+    const base=wrong===0?PTS[part]:PTS[part]/2, pts=Math.max(0,base-hintPaid);
+    btn.classList.add("right");finishPart(pts,true);
+  }else{
+    wrong++;btn.classList.add("wrong");btn.disabled=true;
+    if(wrong>=2){$("opt-"+part+"-"+ci0).classList.add("right");finishPart(0,false,o);}
+    else{
+      face("neutral");
+      const why=part===0?`${o.name}: ${o.info} That doesn't fit here.`:part===1?`A ${o.name.toLowerCase()} is for this: ${o.info} Not the best match here.`:o.w;
+      showFeedback("no","Not quite. Try once more.",why,null);
+      if(!hintShown)showHint();
+    }
+  }
+}
+function finishPart(pts,ok,lastWrong){
+  phase="feedback";partPts[part]=pts;
+  document.querySelectorAll("#opts .opt").forEach(b=>b.disabled=true);
+  $("st"+(part+1)).className="done";$("pt"+(part+1)).textContent=fmt(pts)+" / "+PTS[part];
+  $("score").textContent=fmt(total());updateHintBtn();
+  const c=cases[ci],exp=[c.e1,c.e2,curOpts[correctIndex()].w][part];
+  const nextLabel=part<2?"On to Part "+(part+2)+" →":ci<11?"Next case →":"See final results →";
+  if(ok){face("smile");showFeedback("ok",(wrong?"Got it on the second try":"Correct!")+" +"+fmt(pts),exp,nextLabel);}
+  else{face("neutral");showFeedback("no","The answer is: "+(part===2?"the highlighted recommendation":curOpts[correctIndex()].name),(lastWrong&&part===2?"Your pick: "+lastWrong.w+" ":"")+exp,nextLabel);}
+  if(part===1){renderChart();}
+}
+function showFeedback(cls,title,text,nextLabel){
+  const fb=$("feedback");fb.className="feedback "+cls;fb.hidden=false;
+  $("fbTitle").textContent=title;$("fbText").textContent=text;
+  $("fbRow").hidden=!nextLabel;if(nextLabel){$("goBtn").textContent=nextLabel;$("goBtn").focus({preventScroll:true});}
+}
+function renderChart(){
+  const c=cases[ci];
+  $("chartTitle").textContent=c.title;$("chartSub").textContent=c.sub;
+  $("chart").innerHTML=drawChart(c);
+  const st=typeof c.stats==="function"?c.stats():c.stats;
+  $("stats").innerHTML="";st.forEach(([k,v])=>{const d=document.createElement("div");d.innerHTML="<dt></dt><dd></dd>";d.querySelector("dt").textContent=k;d.querySelector("dd").textContent=v;$("stats").appendChild(d);});
+  $("chartcard").hidden=false;
+}
+function advance(){
+  if(phase!=="feedback")return;
+  if(part<2){face("talk");openPart(part+1);return}
+  results.push({c:cases[ci],pts:partPts.slice()});partPts=[];
+  ci++;if(ci<12)openCase();else finish();
+}
+function finish(){
+  phase="done";$("panel").hidden=true;$("steps").hidden=true;$("chartcard").hidden=true;
+  const t=total();$("score").textContent=fmt(t);
+  face(t>=84?"smile":"neutral");$("eyebrow").textContent="Case closed";
+  $("say").textContent=`Final score: ${fmt(t)} out of 120. `+(t>=108?"Outstanding detective work.":t>=84?"Solid work. A few clues slipped past you.":t>=60?"Good progress. Review the cases below and try again.":"Tough case file. Study the reasons and go again.");
+  const name=id=>DISTS.find(d=>d.id===id).name;
+  let rows=results.map((r,i)=>`<tr><td>${i+1}</td><td>${name(r.c.dist)}</td><td class="num">${fmt(r.pts[0])}</td><td class="num">${fmt(r.pts[1])}</td><td class="num">${fmt(r.pts[2])}</td><td class="num">${fmt(r.pts[0]+r.pts[1]+r.pts[2])}</td></tr>`).join("");
+  const sums=[0,1,2].map(j=>results.reduce((a,r)=>a+r.pts[j],0));
+  rows+=`<tr><td></td><td>Total</td><td class="num">${fmt(sums[0])}/48</td><td class="num">${fmt(sums[1])}/36</td><td class="num">${fmt(sums[2])}/36</td><td class="num">${fmt(t)}/120</td></tr>`;
+  const f=$("final");f.hidden=false;
+  f.innerHTML=`<div class="sumwrap"><table class="sum"><thead><tr><th>Case</th><th>Distribution</th><th class="num">Dist.</th><th class="num">Chart</th><th class="num">Rec.</th><th class="num">Points</th></tr></thead><tbody>${rows}</tbody></table></div><div class="row" style="margin-top:16px"><button type="button" class="start" id="again">Play again</button></div>`;
+  $("again").onclick=start;$("again").focus({preventScroll:true});
+}
+
+$("start").onclick=start;$("hintBtn").onclick=requestHint;$("goBtn").onclick=advance;
+document.addEventListener("keydown",e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  const k=e.key.toLowerCase();
+  if(phase==="ask"){
+    if(k==="h"){e.preventDefault();requestHint();return}
+    const n=parseInt(k,10);if(n>=1&&n<=curOpts.length){e.preventDefault();choose(n-1);}
+  }else if(phase==="feedback"&&(k==="enter"||k===" ")){e.preventDefault();advance();}
+});
+</script>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

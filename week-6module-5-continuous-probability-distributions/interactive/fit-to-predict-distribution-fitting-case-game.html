@@ -1,0 +1,675 @@
+﻿<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 6/Module 5 - Continuous Probability Distributions.</a></div>
+<div class="pm-injected-nav"><a href="../index.html">← Back to Module</a><span class="sep">|</span><span style="color:#555">Fit to Predict: Distribution Fitting Case Game</span></div>
+<div class="pm-injected-spacer"></div>
+<title>Fit to Predict</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#F2F6EA; --grid:#D6E1C6; --card:#FCFDF8; --ink:#1E3557; --muted:#5B6A5C;
+  --line:#B9C8A8; --accent:#C2452D; --good:#2E7A4C; --goodbg:#E1F0E2; --badbg:#F8E4DD;
+  --hintbg:#FBF1D6; --hint:#8A5A00; --s2:#C98A1B;
+  --btn:#FFFFFF; --btnhover:#E9F0DE; --shadow:rgba(30,53,87,.14);
+  --hand:"Kalam","Comic Neue","Segoe Print",cursive;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#15201D; --grid:#1F2D29; --card:#1B2825; --ink:#E4ECE0; --muted:#9DAB9F;
+    --line:#34463F; --accent:#F0826A; --good:#72CF94; --goodbg:#1D3A2A; --badbg:#3D231D;
+    --hintbg:#3A3019; --hint:#F2C66B; --s2:#E8B04C;
+    --btn:#1F2E2A; --btnhover:#283B36; --shadow:rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#15201D; --grid:#1F2D29; --card:#1B2825; --ink:#E4ECE0; --muted:#9DAB9F;
+  --line:#34463F; --accent:#F0826A; --good:#72CF94; --goodbg:#1D3A2A; --badbg:#3D231D;
+  --hintbg:#3A3019; --hint:#F2C66B; --s2:#E8B04C;
+  --btn:#1F2E2A; --btnhover:#283B36; --shadow:rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.5;
+  padding-inline:16px; padding-block:20px 40px; min-height:100%;
+}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--hand);font-weight:700;font-size:clamp(2rem,6vw,2.7rem);margin:0;line-height:1}
+h1 span{color:var(--accent)}
+.tag{color:var(--muted);font-size:.9rem;margin:4px 0 0}
+.hud{display:flex;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem}
+.chip{border:1.5px solid var(--ink);border-radius:4px;padding:3px 10px;background:var(--card);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip b{font-weight:700}
+.chip.hintchip{border-color:var(--hint);color:var(--hint)}
+
+.stage{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:end}
+.fig svg{width:100%;height:auto;display:block;overflow:visible}
+.fig .stroke{stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.fig .head{fill:var(--card)} .fig .dot,.fig .cap{fill:var(--ink)}
+.fig .tassel{stroke:var(--accent);stroke-width:3;stroke-linecap:round;fill:none}
+.fig .lens{fill:none;stroke:var(--accent);stroke-width:3.5}
+.fig .cheek{fill:var(--accent);opacity:0}
+.fig.happy .cheek{opacity:.35}
+.fig.happy svg{animation:hop .5s ease-out 2}
+.fig.talk .mouth-talk{animation:talk .28s ease-in-out infinite alternate;transform-origin:60px 55px;transform-box:view-box}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
+
+.bubble{position:relative;background:var(--card);border:2.5px solid var(--ink);border-radius:18px 18px 18px 4px;
+  padding:16px 20px;min-height:140px;display:flex;flex-direction:column;justify-content:center;gap:6px;
+  box-shadow:4px 5px 0 var(--shadow);margin-bottom:60px}
+.bubble::before{content:"";position:absolute;left:-10px;bottom:22px;width:18px;height:18px;background:var(--card);
+  border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.say{font-family:var(--hand);font-size:clamp(1.08rem,2.8vw,1.3rem);line-height:1.35;margin:0}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0;padding:0;list-style:none}
+.steps li{border:2px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--card);display:flex;justify-content:space-between;gap:6px;align-items:baseline;font-size:.88rem}
+.steps li .n{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:block}
+.steps li .pts{font-family:var(--mono);font-size:.8rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.steps li.now{border-color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.steps li.done{border-color:var(--good)}
+.steps li.done .pts{color:var(--good)}
+
+.panel{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.qhead h2{font-family:var(--hand);font-size:1.45rem;margin:0;line-height:1.15;text-wrap:balance}
+.hintbtn{font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;border:2px dashed var(--hint);color:var(--hint);background:transparent;border-radius:999px;padding:5px 14px}
+.hintbtn:hover:not(:disabled){background:var(--hintbg)}
+.hintbtn:disabled{opacity:.5;cursor:default}
+.hintbox{background:var(--hintbg);color:var(--ink);border-radius:8px;padding:10px 14px;font-size:.95rem}
+.hintbox b{color:var(--hint)}
+
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opts.list{grid-template-columns:1fr}
+.opt{font:inherit;text-align:left;cursor:pointer;color:var(--ink);background:var(--btn);border:2px solid var(--ink);border-radius:10px;
+  padding:10px 12px;box-shadow:3px 3px 0 var(--ink);display:flex;flex-direction:column;gap:4px;transition:transform .08s,box-shadow .08s,background .15s}
+.opt:hover:not(:disabled){background:var(--btnhover)}
+.opt:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.opt .top{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.02rem}
+.opt .key{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-left:auto;font-weight:500}
+.opt .info{font-size:.85rem;color:var(--muted);line-height:1.35}
+.opt .glyph{width:40px;height:24px;flex:none}
+.glyph .g1{fill:var(--ink)} .glyph .g2{fill:var(--s2)} .glyph .gl{stroke:var(--ink);stroke-width:2.5;fill:none}
+.opts.list .opt{font-size:.98rem;padding:12px 14px}
+.opt:disabled{cursor:default;opacity:.45}
+.opt.wrong{opacity:1;background:var(--badbg);border-color:var(--accent);box-shadow:3px 3px 0 var(--accent)}
+.opt.right{opacity:1;background:var(--goodbg);border-color:var(--good);box-shadow:3px 3px 0 var(--good)}
+.opt:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.feedback{border-left:5px solid var(--ink);background:var(--card);padding:12px 16px;border-radius:0 10px 10px 0;display:flex;flex-direction:column;gap:8px}
+.feedback.ok{border-left-color:var(--good)} .feedback.no{border-left-color:var(--accent)}
+.feedback h3{font-family:var(--hand);font-size:1.4rem;margin:0;line-height:1.1}
+.feedback.ok h3{color:var(--good)} .feedback.no h3{color:var(--accent)}
+.feedback p{margin:0;max-width:68ch}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.go,.start{font:inherit;font-weight:700;cursor:pointer;color:var(--ink);background:var(--btn);border:2.5px solid var(--ink);border-radius:10px;padding:10px 20px;box-shadow:3px 3px 0 var(--ink)}
+.go:hover{background:var(--btnhover)}
+.start{font-size:1.1rem;padding:12px 28px;background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--accent)}
+.start:hover{opacity:.9}
+.go:active,.start:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.small{font-size:.82rem;color:var(--muted)}
+kbd{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--card)}
+
+.chartcard{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.chartcard h3{margin:0;font-size:1rem}
+.chartcard .sub{margin:0;font-size:.85rem;color:var(--muted)}
+.chartwrap{overflow-x:auto}
+.chartwrap svg{width:100%;min-width:420px;height:auto;display:block}
+.chartwrap text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.chartwrap .axis{stroke:var(--muted);stroke-width:1}
+.chartwrap .gridl{stroke:var(--line);stroke-width:1}
+.chartwrap .b1{fill:var(--ink);opacity:.85}
+.chartwrap .b2{fill:var(--s2)}
+.chartwrap .hl{fill:var(--accent)}
+.chartwrap .step{stroke:var(--ink);stroke-width:2.5;fill:none}
+.chartwrap .mark{fill:var(--accent)}
+.chartwrap .markline{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 3}
+.chartwrap .target{stroke:var(--good);stroke-width:1.5;stroke-dasharray:6 4}
+.chartwrap .lbl{fill:var(--ink);font-weight:700}
+.chartwrap .tlbl{fill:var(--good);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0}
+.stats div{border:1.5px solid var(--line);border-radius:8px;padding:8px 10px}
+.stats dt{font-size:.8rem;color:var(--muted)}
+.stats dd{margin:0;font-family:var(--mono);font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+
+.rules{background:var(--card);border:1.5px dashed var(--line);border-radius:10px;padding:14px 16px;font-size:.95rem}
+.rules ol{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:4px}
+.rules p{margin:10px 0 0;color:var(--muted)}
+table.sum{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--card)}
+.sumwrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:10px}
+table.sum th,table.sum td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.sum td.num,table.sum th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+table.sum tr:last-child td{border-bottom:0;font-weight:700}
+
+@media (max-width:720px){ .opts{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:540px){
+  .stage{grid-template-columns:78px 1fr;gap:10px}
+  .bubble{padding:12px 14px;margin-bottom:34px}
+  .opts{grid-template-columns:1fr}
+  .steps li{flex-direction:column;gap:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .fig.happy svg,.fig.talk .mouth-talk{animation:none}
+  .opt{transition:none}
+}
+</style>
+<style>
+.steps{grid-template-columns:repeat(5,1fr)}
+.steps li{flex-direction:column;gap:0}
+.steps li .lbl{font-size:.85rem}
+.casefile{display:flex;flex-direction:column;gap:10px}
+.casefile h2{font-family:var(--hand);font-size:1.35rem;margin:0}
+.entry{background:var(--card);border:2px solid var(--line);border-radius:12px}
+.entry>summary{cursor:pointer;padding:10px 14px;font-weight:700;display:flex;gap:10px;align-items:baseline;list-style:none}
+.entry>summary::-webkit-details-marker{display:none}
+.entry>summary::before{content:"▸";color:var(--muted);transition:transform .15s}
+.entry[open]>summary::before{transform:rotate(90deg)}
+.entry>summary .st{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.entry .body{padding:0 14px 14px;display:flex;flex-direction:column;gap:12px}
+.results{display:flex;flex-direction:column;gap:12px}
+.results h4{margin:0 0 4px;font-size:.92rem}
+.results .cap{margin:2px 0 0;font-size:.82rem;color:var(--muted)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chartwrap svg{min-width:300px}
+.chartwrap .curve{stroke:var(--accent);stroke-width:2.5;fill:none}
+.chartwrap .curve2{stroke:var(--ink);stroke-width:2.5;fill:none}
+.chartwrap .area{fill:var(--accent);opacity:.28}
+.chartwrap .pt{fill:var(--ink);opacity:.75}
+.chartwrap .ref{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4}
+.chartwrap .box{fill:var(--goodbg);stroke:var(--ink);stroke-width:2}
+.chartwrap .whisk{stroke:var(--ink);stroke-width:2}
+.chartwrap .med{stroke:var(--accent);stroke-width:3}
+.chartwrap .fitdot{fill:var(--accent)}
+table.tt{width:100%;border-collapse:collapse;font-size:.88rem}
+.ttwrap{overflow-x:auto;border:1.5px solid var(--line);border-radius:8px}
+table.tt th,table.tt td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.tt tr:last-child td{border-bottom:0}
+table.tt td.num,table.tt th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.ok-t{color:var(--good);font-weight:700}.no-t{color:var(--accent);font-weight:700}
+tr.pick td{background:var(--goodbg)}
+.feedback .res{margin-top:4px}
+@media (max-width:720px){.steps{grid-template-columns:repeat(3,1fr)}.twocol{grid-template-columns:1fr}}
+@media (max-width:420px){.steps{grid-template-columns:repeat(2,1fr)}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Fit to <span>Predict</span></h1>
+      <p class="tag">Explore the data, choose the distribution, validate it, predict, and recommend.</p>
+    </div>
+    <div class="hud" aria-live="polite">
+      <span class="chip">Case <b id="caseNo">–</b>/10</span>
+      <span class="chip">Score <b id="score">0</b>/100</span>
+      <span class="chip hintchip">Free hint <b id="freeHint">1</b></span>
+    </div>
+  </header>
+
+  <section class="stage">
+    <div class="fig talk" id="fig" aria-hidden="true">
+      <svg viewBox="0 0 120 220">
+        <polygon class="cap" points="28,16 60,3 92,16 60,29"/>
+        <rect class="cap" x="44" y="18" width="32" height="8" rx="2"/>
+        <path class="tassel" d="M88 16 L90 34"/>
+        <circle class="stroke head" cx="60" cy="44" r="25"/>
+        <circle class="dot" cx="51" cy="40" r="2.8"/>
+        <circle class="dot" cx="69" cy="40" r="2.8"/>
+        <circle class="cheek" cx="45" cy="50" r="4"/>
+        <circle class="cheek" cx="75" cy="50" r="4"/>
+        <g id="m-smile" hidden><path class="stroke" d="M49 52 Q60 63 71 52"/></g>
+        <g id="m-neutral" hidden><path class="stroke" d="M51 56 L69 56"/></g>
+        <g id="m-talk"><ellipse class="stroke mouth-talk" cx="60" cy="55" rx="6" ry="4.5"/></g>
+        <path class="stroke" d="M60 69 L60 145"/>
+        <path class="stroke" d="M60 145 L40 205 M60 145 L80 205"/>
+        <path class="stroke" d="M60 90 L36 125"/>
+        <path class="stroke" d="M60 90 L90 78 L100 62"/>
+        <path class="stroke" d="M96 60 Q104 38 112 50 T118 30" style="stroke:var(--accent);stroke-width:3"/>
+      </svg>
+    </div>
+    <div class="bubble">
+      <span class="eyebrow" id="eyebrow">Professor Stick says</span>
+      <p class="say" id="say">Ten cases, each with 100 real-looking measurements. Work through them the way the class decision map does: understand the data, pick a distribution, test it, predict, then recommend.</p>
+    </div>
+  </section>
+
+  <div id="intro">
+    <div class="rules">
+      <ol>
+        <li><b>Explore</b>: choose how to look at the data first.</li>
+        <li><b>Candidate</b>: Normal, Exponential, Weibull, Lognormal, Binomial, or Poisson?</li>
+        <li><b>Validate</b>: pick the right plot and goodness-of-fit test.</li>
+        <li><b>Predict</b>: CDF, complement (1 − CDF), interval, or inverse CDF?</li>
+        <li><b>Recommend</b>: make the engineering call from the numbers.</li>
+      </ol>
+      <p>Each step is worth 2 points (10 per case, 100 per game). A right answer on the first try earns 2 points; on the second try it earns 1. A wrong answer shows the hint, and after two wrong answers the answer is revealed. Each correct step adds real results (charts, fits, and test p-values) to the case file. You get <b>1 free hint</b> per game; after that, each hint you ask for costs 1 point.</p>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button type="button" class="start" id="start">Open the first case</button>
+      <span class="small">Keys: <kbd>1</kbd>–<kbd>6</kbd> choose · <kbd>H</kbd> hint · <kbd>Enter</kbd> continue</span>
+    </div>
+  </div>
+
+  <ol class="steps" id="steps" hidden>
+    <li id="st0"><span class="n">Step 1</span><span class="lbl">Explore</span><span class="pts" id="pt0">– / 2</span></li>
+    <li id="st1"><span class="n">Step 2</span><span class="lbl">Candidate</span><span class="pts" id="pt1">– / 2</span></li>
+    <li id="st2"><span class="n">Step 3</span><span class="lbl">Validate</span><span class="pts" id="pt2">– / 2</span></li>
+    <li id="st3"><span class="n">Step 4</span><span class="lbl">Predict</span><span class="pts" id="pt3">– / 2</span></li>
+    <li id="st4"><span class="n">Step 5</span><span class="lbl">Recommend</span><span class="pts" id="pt4">– / 2</span></li>
+  </ol>
+
+  <section class="casefile" id="casefile" hidden>
+    <h2>Case file</h2>
+    <div id="entries" class="casefile"></div>
+  </section>
+
+  <section class="panel" id="panel" hidden>
+    <div class="qhead">
+      <h2 id="qtext"></h2>
+      <button type="button" class="hintbtn" id="hintBtn">Hint (free)</button>
+    </div>
+    <div class="hintbox" id="hintBox" hidden></div>
+    <div class="opts" id="opts"></div>
+    <div class="feedback" id="feedback" hidden>
+      <h3 id="fbTitle"></h3>
+      <p id="fbText"></p>
+      <div class="results res" id="fbRes" hidden></div>
+      <div class="row" id="fbRow"><button type="button" class="go" id="goBtn">Continue</button></div>
+    </div>
+  </section>
+
+  <section id="final" hidden></section>
+</div>
+
+<script>
+const DATA={"N1":{"data":[0.129,-0.17,-0.123,-0.975,0.806,0.531,-0.087,0.375,0.168,-0.183,0.461,-0.08,-0.088,-0.283,0.241,0.008,0.279,-0.205,0.103,-0.325,0.403,0.129,0.189,0.222,-0.375,0.379,0.914,-0.638,-0.676,-0.582,0.403,0.104,0.503,0.353,0.138,0.169,-0.021,0.415,-0.424,-0.127,0.152,0.807,-0.271,-0.403,-0.187,0.457,-0.049,0.606,-0.736,0.524,0.485,-0.546,0.115,0.561,0.087,0.47,1.047,0.165,-0.068,-0.274,0.322,-0.033,-0.025,0.006,0.323,-0.398,-0.593,-0.972,0.553,0.081,0.684,0.046,-0.262,0.251,0.018,-0.477,-0.322,0.792,0.199,0.225,-0.066,-0.24,0.424,0.006,-0.269,-0.006,-0.33,0.13,0.524,-0.301,0.65,-0.23,0.114,-0.301,-0.043,0.07,-0.133,-0.245,-0.235,-0.295],"tests":{"norm":0.932},"sum":{"n":100,"mean":0.046439999999999995,"sd":0.4015487270581494,"median":0.032,"mn":-0.975,"mx":1.047,"skew":-0.021815095065642567,"q1":-0.24125,"q3":0.3305},"par":{"mu":0.046439999999999995,"sd":0.4015487270581494},"sw":0.9520990633078728},"N2":{"data":[508.8,505.9,506.3,498.2,515.2,512.6,506.7,511.1,509.1,505.8,511.9,506.8,506.7,504.8,509.8,507.6,510.2,505.6,508.5,504.4,511.4,508.8,509.3,509.6,504.0,511.1,516.2,501.4,501.1,502.0,511.4,508.5,512.3,510.9,508.8,509.1,507.3,511.5,503.5,506.3,509.0,515.2,504.9,503.7,505.7,511.9,507.1,513.3,500.5,512.5,512.1,502.3,508.6,512.9,508.4,512.0,517.5,509.1,506.9,504.9,510.6,507.2,507.3,507.6,510.6,503.7,501.9,498.3,512.8,508.3,514.0,508.0,505.0,509.9,507.7,503.0,504.5,515.1,509.4,509.7,506.9,505.2,511.6,507.6,505.0,507.5,504.4,508.8,512.5,504.7,513.7,505.3,508.6,504.7,507.1,508.2,506.3,505.2,505.3,504.7],"tests":{"norm":0.902,"lognorm":0.91,"expon":0.001,"weibull":0.002},"sum":{"n":100,"mean":507.96899999999994,"sd":3.824131115414169,"median":507.85,"mn":498.2,"mx":517.5,"skew":-0.024682125413445506,"q1":505.2,"q3":510.675},"par":{"mu":507.96899999999994,"sd":3.824131115414169},"sw":0.9465859548651974},"E1":{"data":[429.2,123.4,2150.2,146.6,46.1,719.9,199.5,220.6,11.9,305.6,416.6,92.2,670.9,83.4,314.5,51.5,369.2,184.9,275.5,1059.6,445.8,359.5,1136.0,812.3,466.3,131.4,573.9,63.1,3369.2,94.4,991.3,760.9,128.0,720.5,19.1,542.3,478.6,23.7,441.5,1502.4,320.5,226.2,242.5,466.6,211.6,107.4,410.7,576.9,324.1,896.5,59.6,137.9,50.0,10.6,246.9,349.3,839.5,281.1,86.4,2.8,107.3,207.9,497.7,110.7,317.8,126.9,1018.9,2267.4,68.7,301.5,430.3,55.1,28.9,548.6,811.2,300.0,255.7,205.3,270.6,905.5,218.9,510.8,29.2,948.1,103.4,567.1,125.8,45.7,237.1,295.8,12.4,96.4,96.2,274.5,644.5,149.4,442.2,790.9,250.8,65.9],"tests":{"norm":0.001,"lognorm":0.013,"expon":0.735,"weibull":0.576},"sum":{"n":100,"mean":415.19700000000006,"sd":499.11120589453304,"median":275.0,"mn":2.8,"mx":3369.2,"skew":3.179066257820875,"q1":107.375,"q3":518.675},"par":{"scale":415.19700000000006},"sw":null},"E2":{"data":[12.88,3.7,64.51,4.4,1.38,21.6,5.98,6.62,0.36,9.17,12.5,2.77,20.13,2.5,9.44,1.55,11.07,5.55,8.26,31.79,13.37,10.79,34.08,24.37,13.99,3.94,17.22,1.89,101.08,2.83,29.74,22.83,3.84,21.61,0.57,16.27,14.36,0.71,13.24,45.07,9.62,6.79,7.27,14.0,6.35,3.22,12.32,17.31,9.72,26.89,1.79,4.14,1.5,0.32,7.41,10.48,25.18,8.43,2.59,0.09,3.22,6.24,14.93,3.32,9.53,3.81,30.57,68.02,2.06,9.05,12.91,1.65,0.87,16.46,24.34,9.0,7.67,6.16,8.12,27.17,6.57,15.32,0.88,28.44,3.1,17.01,3.77,1.37,7.11,8.87,0.37,2.89,2.89,8.23,19.34,4.48,13.27,23.73,7.52,1.98],"tests":{"norm":0.001,"lognorm":0.014,"expon":0.734,"weibull":0.575},"sum":{"n":100,"mean":12.456199999999999,"sd":14.973667713959756,"median":8.245000000000001,"mn":0.09,"mx":101.08,"skew":3.179135510887368,"q1":3.22,"q3":15.557500000000001},"par":{"scale":12.456199999999999},"sw":null},"W1":{"data":[5156.0,2998.0,10388.0,3231.0,1955.0,6456.0,3695.0,3860.0,1084.0,4448.0,5089.0,2642.0,6261.0,2530.0,4504.0,2051.0,4829.0,3575.0,4252.0,7637.0,5241.0,4773.0,7872.0,6804.0,5345.0,3082.0,5850.0,2240.0,12628.0,2669.0,7419.0,6613.0,3046.0,6458.0,1333.0,5707.0,5406.0,1463.0,5219.0,8889.0,4541.0,3903.0,4022.0,5346.0,3791.0,2822.0,5058.0,5863.0,4563.0,7101.0,2185.0,3147.0,2025.0,1031.0,4054.0,4714.0,6902.0,4289.0,2568.0,582.0,2822.0,3762.0,5498.0,2860.0,4524.0,3036.0,7508.0,10631.0,2325.0,4422.0,5161.0,2112.0,1594.0,5736.0,6800.0,4412.0,4116.0,3741.0,4219.0,7133.0,3847.0,5561.0,1603.0,7277.0,2777.0,5820.0,3023.0,1946.0,3983.0,4385.0,1104.0,2693.0,2691.0,4245.0,6152.0,3259.0,5223.0,6725.0,4082.0,2283.0],"tests":{"norm":0.032,"lognorm":0.013,"expon":0.001,"weibull":0.576},"sum":{"n":100,"mean":4442.96,"sd":2164.9537374393303,"median":4248.5,"mn":582.0,"mx":12628.0,"skew":0.9200373970150952,"q1":2822.0,"q3":5597.5},"par":{"k":2.176450409774465,"lam":5022.5589089011},"sw":null},"W2":{"data":[7.25,3.89,16.23,4.24,2.38,9.39,4.94,5.2,1.21,6.12,7.14,3.36,9.07,3.2,6.21,2.51,6.72,4.76,5.81,11.39,7.39,6.64,11.8,9.98,7.56,4.01,8.38,2.78,20.32,3.4,11.02,9.65,3.96,9.39,1.53,8.15,7.66,1.7,7.35,13.57,6.27,5.26,5.45,7.56,5.09,3.63,7.09,8.41,6.3,10.48,2.7,4.11,2.48,1.14,5.5,6.54,10.14,5.87,3.25,0.59,3.63,5.05,7.81,3.68,6.24,3.94,11.17,16.67,2.9,6.08,7.26,2.6,1.88,8.2,9.97,6.06,5.6,5.01,5.76,10.53,5.18,7.91,1.89,10.78,3.56,8.33,3.93,2.37,5.39,6.02,1.23,3.44,3.43,5.8,8.89,4.28,7.36,9.84,5.54,2.84],"tests":{"norm":0.004,"lognorm":0.013,"expon":0.001,"weibull":0.575},"sum":{"n":100,"mean":6.231700000000001,"sd":3.4862662887914397,"median":5.805,"mn":0.59,"mx":20.32,"skew":1.167901070688341,"q1":3.63,"q3":7.970000000000001},"par":{"k":1.8925088245597381,"lam":7.0364719626434304},"sw":null},"L1":{"data":[39.2,25.6,27.3,8.1,103.0,69.5,28.8,55.7,41.4,25.1,62.9,29.0,28.7,21.8,46.0,33.0,48.5,24.3,37.8,20.5,58.0,39.2,42.7,44.8,19.1,56.0,120.2,13.1,12.4,14.2,58.0,37.8,66.8,54.0,39.7,41.5,31.6,58.9,17.8,27.2,40.5,103.2,22.1,18.3,25.0,62.6,30.4,77.5,11.4,68.9,65.1,14.9,38.4,72.6,36.9,63.8,145.5,41.3,29.6,22.0,51.6,31.1,31.4,32.9,51.7,18.5,14.0,8.1,71.8,36.6,86.6,34.8,22.4,46.6,33.4,16.5,20.6,101.0,43.3,44.9,29.6,23.1,59.8,32.9,22.2,32.3,20.3,39.2,68.9,21.2,82.5,23.4,38.4,21.2,30.6,36.0,27.0,23.0,23.3,21.4],"tests":{"norm":0.001,"lognorm":0.927,"expon":0.001,"weibull":0.002},"sum":{"n":100,"mean":40.933,"sd":24.838045332908063,"median":34.099999999999994,"mn":8.1,"mx":145.5,"skew":1.5762114720935378,"q1":23.075000000000003,"q3":52.275000000000006},"par":{"mu":3.550306097850812,"sg":0.5736191551004745},"sw":0.9492226139864276},"L2":{"data":[4.57,2.77,3.0,0.72,14.1,8.91,3.19,6.88,4.87,2.71,7.93,3.22,3.18,2.3,5.5,3.73,5.86,2.62,4.37,2.14,7.21,4.56,5.04,5.33,1.97,6.92,16.88,1.27,1.19,1.4,7.21,4.38,8.51,6.63,4.64,4.88,3.55,7.35,1.81,2.98,4.74,14.12,2.34,1.88,2.7,7.88,3.39,10.11,1.08,8.81,8.25,1.48,4.45,9.37,4.25,8.05,21.09,4.85,3.29,2.33,6.3,3.49,3.53,3.72,6.3,1.9,1.37,0.73,9.26,4.21,11.51,3.98,2.38,5.59,3.79,1.66,2.15,13.78,5.13,5.35,3.3,2.47,7.47,3.72,2.35,3.64,2.12,4.57,8.82,2.23,10.87,2.51,4.45,2.23,3.42,4.13,2.95,2.45,2.49,2.25],"tests":{"norm":0.001,"lognorm":0.935,"expon":0.001,"weibull":0.002},"sum":{"n":100,"mean":4.953099999999999,"sd":3.572952460197068,"median":3.885,"mn":0.72,"mx":21.09,"skew":1.8552655588025568,"q1":2.4650000000000003,"q3":6.3825},"par":{"mu":1.3804482135866163,"sg":0.6693561519491081},"sw":0.9556140184367801},"D1":{"data":[1,4,0,4,1,1,3,1,2,0,2,2,1,3,1,1,0,1,1,1,2,1,1,4,4,2,2,1,0,4,1,0,2,2,2,3,0,2,1,0,2,3,2,1,3,1,1,2,0,3,2,2,1,3,1,0,3,3,3,1,1,0,2,2,3,1,1,2,3,4,0,1,3,1,2,0,2,3,3,3,2,1,2,1,3,0,3,0,1,1,2,0,1,0,1,1,0,2,1,2],"sum":{"n":100,"mean":1.62,"var":1.3086868686868685},"chi":{"labels":["0","1","2","3","4+"],"obs":[17,34,25,18,6],"exp":[18.5,32.5,27.3,14.4,7.3],"chi2":1.5,"df":3,"p":0.682},"par":{"p":0.081}},"D2":{"data":[3,3,3,6,2,6,1,7,6,2,0,8,1,2,0,2,6,5,3,1,2,3,3,1,3,3,2,5,2,1,5,5,4,1,0,3,5,3,5,2,5,4,6,1,2,5,2,4,2,4,5,3,6,2,2,1,3,5,3,1,3,3,2,2,2,2,5,3,3,4,1,2,1,3,7,4,4,4,1,7,2,3,2,3,3,4,4,7,2,5,3,1,2,5,5,3,4,2,1,4],"sum":{"n":100,"mean":3.19,"var":3.165555555555555},"chi":{"labels":["0\u20131","2","3","4","5","6+"],"obs":[17,23,23,12,14,11],"exp":[17.3,20.9,22.3,17.8,11.3,10.4],"chi2":2.76,"df":4,"p":0.599},"par":{"l":3.19}}};
+
+/* ---------- math ---------- */
+function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.3275911*x);
+  const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);return s*y}
+const Phi=z=>0.5*(1+erf(z/Math.SQRT2));
+function Pinv(p){const a=[-39.69683028665376,220.9460984245205,-275.9285104469687,138.357751867269,-30.66479806614716,2.506628277459239],
+ b=[-54.47609879822406,161.5858368580409,-155.6989798598866,66.80131188771972,-13.28068155288572],
+ c=[-0.007784894002430293,-0.3223964580411365,-2.400758277161838,-2.549732539343734,4.374664141464968,2.938163982698783],
+ d=[0.007784695709041462,0.3224671290700398,2.445134137142996,3.754408661907416];
+ const pl=0.02425;let q,r;
+ if(p<pl){q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+ if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return-(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+ q=p-.5;r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+const LF=[0];for(let i=1;i<=200;i++)LF[i]=LF[i-1]+Math.log(i);
+const Cn=(n,k)=>(k<0||k>n)?0:Math.exp(LF[n]-LF[k]-LF[n-k]);
+const PDF={norm:(d,x)=>Math.exp(-.5*((x-d.mu)/d.sd)**2)/(d.sd*Math.sqrt(2*Math.PI)),
+ expon:(d,x)=>x<0?0:Math.exp(-x/d.scale)/d.scale,
+ weibull:(d,x)=>x<=0?0:(d.k/d.lam)*(x/d.lam)**(d.k-1)*Math.exp(-((x/d.lam)**d.k)),
+ lognorm:(d,x)=>x<=0?0:Math.exp(-.5*((Math.log(x)-d.mu)/d.sg)**2)/(x*d.sg*Math.sqrt(2*Math.PI)),
+ binom:(d,k)=>Cn(d.n,k)*d.p**k*(1-d.p)**(d.n-k),
+ pois:(d,k)=>k<0?0:Math.exp(-d.l+k*Math.log(d.l)-LF[k])};
+const CDF={norm:(d,x)=>Phi((x-d.mu)/d.sd),expon:(d,x)=>x<0?0:1-Math.exp(-x/d.scale),
+ weibull:(d,x)=>x<=0?0:1-Math.exp(-((x/d.lam)**d.k)),lognorm:(d,x)=>x<=0?0:Phi((Math.log(x)-d.mu)/d.sg),
+ binom:(d,k)=>{let s=0;for(let i=0;i<=k;i++)s+=PDF.binom(d,i);return Math.min(1,s)},
+ pois:(d,k)=>{let s=0;for(let i=0;i<=k;i++)s+=PDF.pois(d,i);return Math.min(1,s)}};
+const PPF={norm:(d,p)=>d.mu+d.sd*Pinv(p),expon:(d,p)=>-d.scale*Math.log(1-p),
+ weibull:(d,p)=>d.lam*(-Math.log(1-p))**(1/d.k),lognorm:(d,p)=>Math.exp(d.mu+d.sg*Pinv(p))};
+const pdf=(d,x)=>PDF[d.t](d,x),cdf=(d,x)=>CDF[d.t](d,x),ppf=(d,p)=>PPF[d.t](d,p);
+
+/* ---------- formatting ---------- */
+const f3=x=>x.toFixed(3),pc=x=>(100*x).toFixed(1)+"%";
+const nf=(x,dp)=>x.toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const pv=p=>p==null?"n/a":p<=0.001?"< 0.001":p.toFixed(3);
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+/* ---------- option sets ---------- */
+const STEPS=["Explore","Candidate","Validate","Predict","Recommend"];
+const OPT=[
+ [{id:"hist",name:"Histogram + box plot",info:"Shows the shape (symmetric or skewed), center, spread, and outliers of continuous measurements."},
+  {id:"bar",name:"Frequency bar chart + mean vs. variance",info:"For whole-number counts: tally how often each count occurs and compare mean with variance."},
+  {id:"mean",name:"Compute the average and use it as the answer",info:"A single number. It says nothing about spread, shape, or tail probabilities."},
+  {id:"scatter",name:"Scatter plot against sample order",info:"Checks for drift over time, but doesn't reveal the shape of the distribution."}],
+ [{id:"norm",name:"Normal",info:"Symmetric bell shape; values can be negative. Measurement error, dimensions, fill weights."},
+  {id:"expon",name:"Exponential",info:"Right-skewed, peak at 0, constant failure rate (memoryless). Time between random events."},
+  {id:"weibull",name:"Weibull",info:"Flexible positive model with shape k: k < 1 early failure, k ≈ 1 random, k > 1 wear-out. Lifetimes, wind speed."},
+  {id:"lognorm",name:"Lognormal",info:"Right-skewed positive values whose logarithm is normal. Repair times, particle sizes."},
+  {id:"binom",name:"Binomial",info:"Count of successes in a fixed n trials with constant p. Variance below the mean."},
+  {id:"pois",name:"Poisson",info:"Count of random events in an interval at rate λ. Mean ≈ variance."}],
+ [{id:"qqn",name:"Normal Q-Q plot + normality test",info:"Straight line and p > 0.05 (Anderson-Darling or Shapiro-Wilk) support a normal model."},
+  {id:"qql",name:"Q-Q plot of ln(x) + normality test on the logs",info:"If ln(x) is normal, then x is lognormal."},
+  {id:"pp",name:"Probability plot vs. fitted Exponential/Weibull + Anderson-Darling",info:"Compares the data with a fitted lifetime model."},
+  {id:"chi",name:"Chi-square goodness-of-fit on count frequencies",info:"Observed vs. expected counts for a discrete model."},
+  {id:"eye",name:"Skip testing; the histogram looks close enough",info:"No formal check. Judging shape by eye is often wrong, especially in the tails."}],
+ [{id:"cdf",name:"CDF: P(X ≤ x) = F(x)",info:"Probability of falling at or below one value."},
+  {id:"sf",name:"Complement: P(X > x) = 1 − F(x)",info:"Probability of exceeding one value."},
+  {id:"int",name:"Interval: P(a < X < b) = F(b) − F(a)",info:"Probability of landing between two limits."},
+  {id:"q",name:"Inverse CDF: find x where F(x) = p",info:"The value that a given fraction falls below (a percentile, e.g. B10 life)."},
+  {id:"pdf",name:"Read the PDF height f(x) as the probability",info:"f(x) is a density, not a probability. It can even exceed 1."},
+  {id:"emp",name:"Count the fraction of the 100 samples",info:"A raw sample proportion: coarse, and blind to tails beyond the data."}]
+];
+const DNAME={norm:"Normal",expon:"Exponential",weibull:"Weibull",lognorm:"Lognormal",binom:"Binomial",pois:"Poisson"};
+
+/* ---------- cases ---------- */
+const CASES=[
+{id:"N1",type:"c",unit:"mm",title:"Robot placement",dist:"norm",explore:"hist",validate:"qqn",predict:"int",pr:{kind:"int",a:-1,b:1},
+ text:"A pick-and-place robot sets parts on a conveyor. You measured its placement deviation from the target 100 times (mm; + means downstream). The spec: the deviation must stay within ±1.0 mm at least 99% of the time. Will the robot meet the tolerance?",
+ h:["Deviations are continuous measurements. Which view shows shape, spread and outliers?","Is the histogram symmetric? Can the values be negative?","For a normal candidate, the Q-Q plot should follow a straight line.","'Within ±1 mm' means between two limits.","Compare the predicted fraction within ±1 mm with 99%."],
+ e:["The histogram is a symmetric mound centered near 0 with no outliers, and the median sits mid-box.","Symmetric and bell-shaped, with both negative and positive values: Normal. Positive-only skewed models can't produce negative deviations.","The points follow the line: Anderson-Darling p = 0.93 and Shapiro-Wilk p = 0.95, so there's no evidence against normality. The other models can't fit negative values.","P(−1 < X < 1) = F(1) − F(−1) = 0.987."],
+ q5:"Does the robot meet the ±1 mm / 99% requirement?",
+ recs:[{t:"It falls just short. The fitted Normal predicts 98.7% within ±1 mm. Reduce variation to σ ≈ 0.37 mm (about 8% tighter) to reach 99%.",ok:1,w:"98.7% < 99%. With the mean at 0.046 mm, σ must drop from 0.402 to about 0.370 mm."},
+  {t:"It passes. 99 of the 100 measurements were within ±1 mm.",w:"A sample of 100 can't resolve a 1% tail. The fitted model predicts 98.7%."},
+  {t:"Just recenter the robot on zero.",w:"The mean is already 0.046 mm, and perfect centering only raises the result to 98.7%. The spread is the problem."},
+  {t:"It fails badly. Replace the robot.",w:"98.7% is close to the target, and a modest reduction in σ gets there."}]},
+{id:"N2",type:"c",unit:"g",title:"Cereal fill weight",dist:"norm",explore:"hist",validate:"qqn",predict:"cdf",pr:{kind:"cdf",x:500},
+ text:"A filler puts cereal into boxes labeled 500 g. You weighed 100 boxes. Regulations allow no more than 2% of boxes to be under the labeled 500 g. Does the line comply, and can management lower the fill target to save cereal?",
+ h:["Weights are continuous. Look at their shape and spread first.","Fill weights vary symmetrically around a target setting.","Check a normal model with a Q-Q plot and a normality test.","'Under 500 g' is the probability of falling below one value.","Compare P(X < 500) with 2%, and think about what lowering the mean would do."],
+ e:["The weights form a symmetric mound around 508 g, and the box plot is balanced with no extreme outliers.","Symmetric variation around a machine setting: Normal.","The Q-Q points are straight: Anderson-Darling p = 0.90, Shapiro-Wilk p = 0.95. Lognormal also passes because with such a small spread it's nearly symmetric, but Normal is the simpler, natural model for fill error.","P(X < 500) = F(500) = 0.019, or 1.9%."],
+ q5:"What do you tell management?",
+ recs:[{t:"Compliant, but barely: 1.9% underweight against a 2% limit. Don't lower the target (about 508 g) unless variation is reduced first.",ok:1,w:"F(500) = 0.019 ≤ 0.02, with almost no margin."},
+  {t:"Lower the target to 505 g to save cereal.",w:"With the mean at 505 g, P(X < 500) rises to about 9.5%, far over 2%."},
+  {t:"Non-compliant: two boxes in the sample were underweight.",w:"Some underweight boxes are allowed. The model predicts 1.9%, within the 2% limit."},
+  {t:"Compliant with a wide margin, since the average is 8 g over.",w:"The average says nothing about the tail, and 1.9% is right at the edge."}]},
+{id:"E1",type:"c",unit:"h",title:"Network switch failures",dist:"expon",explore:"hist",validate:"pp",predict:"sf",pr:{kind:"sf",x:168},
+ text:"Your campus network has many identical switches. You logged 100 times between failures (hours). A failed switch is swapped for a new one, and failures seem to strike at random rather than from wear. What's the probability a switch runs a full week (168 h) without failing, and should IT replace switches on a weekly schedule?",
+ h:["Times are continuous. Look at the shape of the data first.","Most values are short and a few are very long. Which model has a constant failure rate?","Compare the data with a fitted lifetime model using a formal test.","'Runs a full week' means lasting LONGER than 168 h.","Does replacing a part early help if its failure rate never increases?"],
+ e:["Strongly right-skewed (skewness 3.2): most gaps are short, and a few exceed 1,000 h. Mean 415 h, median 275 h.","Random failures with no wear-out mean a constant hazard: Exponential with mean ≈ 415 h.","Exponential Anderson-Darling p = 0.74. Weibull also fits (p = 0.58) because its fitted shape is k = 0.95 ≈ 1, which is the exponential, so the simpler model wins. Normal and lognormal are rejected.","P(X > 168) = 1 − F(168) = e^(−168/415) = 0.667."],
+ q5:"What should IT do?",
+ recs:[{t:"About 67% run a full week, so a third fail within 7 days. Keep spares on hand; weekly preventive replacement won't help because the exponential is memoryless.",ok:1,w:"P(X > 168) = 0.667, and a constant hazard means age doesn't raise the risk."},
+  {t:"Replace every switch weekly to prevent failures.",w:"With a constant hazard, a used switch is as good as new, so replacement wastes hardware without cutting failures."},
+  {t:"Nearly all survive a week, since the mean life is 415 h.",w:"33% fail within a week. The mean hides how much probability sits near zero."},
+  {t:"Replace switches at the median life of 275 h.",w:"Same memoryless problem: age doesn't change the risk, so early replacement buys nothing."}]},
+{id:"E2",type:"c",unit:"s",title:"Toll lane camera",dist:"expon",explore:"hist",validate:"pp",predict:"cdf",pr:{kind:"cdf",x:2},
+ text:"At a toll lane you recorded 100 gaps between arriving cars (seconds). Arrivals are random. A new license-plate camera needs 2 s to reset after each car, and a car arriving during the reset is missed. The authority accepts a miss rate under 10%.",
+ h:["Gaps are continuous times. Start by looking at their shape.","Gaps between random arrivals: which continuous model pairs with the Poisson count?","Test a fitted lifetime model formally.","A missed car means a gap SHORTER than 2 s.","Compare P(gap < 2 s) with 10%."],
+ e:["Right-skewed: many short gaps and a long tail out to 101 s. Mean 12.5 s, median 8.2 s.","Gaps between random (Poisson) arrivals are Exponential, with mean ≈ 12.5 s.","Exponential Anderson-Darling p = 0.73. Weibull fits too, but its shape k = 0.95 ≈ 1 makes it exponential anyway. Normal and lognormal are rejected.","P(X < 2) = F(2) = 1 − e^(−2/12.46) = 0.148."],
+ q5:"Should the authority accept the 2 s camera?",
+ recs:[{t:"Reject the 2 s camera: about 14.8% of cars would be missed. A camera with a 1 s reset would miss about 7.7%, under the 10% limit.",ok:1,w:"F(2) = 0.148 > 0.10, while F(1) = 0.077."},
+  {t:"Accept it. The average gap (12.5 s) is 6 times the reset time.",w:"The exponential puts the most probability near zero, so 15% of gaps are under 2 s."},
+  {t:"Accept it. Only 16 of 100 gaps were short, which is close to 10%.",w:"16% in the sample and 14.8% from the model are both well over the 10% limit."},
+  {t:"Reject every camera, because some cars will always be missed.",w:"The requirement allows up to 10%, and a 1 s reset camera meets it."}]},
+{id:"W1",type:"c",unit:"h",title:"Pump bearing life",dist:"weibull",explore:"hist",validate:"pp",predict:"q",pr:{kind:"q",p:0.10},
+ text:"You ran 100 pump bearings to failure (hours). Bearings wear out, so older ones fail more often. Maintenance wants a replacement interval by which no more than 10% of bearings will have failed (the B10 life).",
+ h:["Lifetimes are continuous. Look at the shape first.","Positive lifetimes with wear-out. Which model's shape parameter captures an increasing failure rate?","Test the fitted lifetime model formally.","You know the probability (10%) and need the time. Work backward.","Compare the B10 life with the mean life."],
+ e:["Right-skewed but not extreme (skewness 0.92), with a clear peak around 3,000–5,000 h.","Wear-out lifetimes point to Weibull. The fitted shape k = 2.18 > 1 means the failure rate increases with age.","Weibull Anderson-Darling p = 0.58. Exponential (p < 0.001), lognormal (p = 0.013) and normal (p = 0.032) are rejected.","B10 = F⁻¹(0.10) = λ(−ln 0.9)^(1/k) = 1,786 h."],
+ q5:"What replacement interval do you recommend?",
+ recs:[{t:"Replace bearings at about 1,800 h (B10 = 1,786 h), well before the 4,448 h mean life.",ok:1,w:"F(1,786) = 0.10 by construction."},
+  {t:"Replace at the mean life, about 4,450 h.",w:"About 54% of bearings would fail before then."},
+  {t:"Run to failure. Failures are random, so timing doesn't matter.",w:"k = 2.18 > 1 means wear-out, so preventive replacement does help."},
+  {t:"Replace at 2,018 h, the 10th-smallest observed failure time.",w:"The empirical percentile is noisy. By 2,018 h the fitted model has about 12.8% failed, over the 10% goal."}]},
+{id:"W2",type:"c",unit:"m/s",title:"Wind farm site",dist:"weibull",explore:"hist",validate:"pp",predict:"sf",pr:{kind:"sf",x:3},
+ text:"At a proposed wind-farm site you recorded 100 hourly average wind speeds (m/s). The chosen turbine starts producing power at a cut-in speed of 3 m/s. The project is viable if the turbine spins at least 75% of the time.",
+ h:["Wind speeds are continuous. Look at their shape.","Positive, moderately skewed wind speeds. Which flexible model is the standard for wind?","Test the fitted model formally.","'Spins' means wind ABOVE 3 m/s.","Compare P(X > 3) with 75%."],
+ e:["Positive and moderately right-skewed (skewness 1.17), peaking near 5 m/s with a tail to 20 m/s.","Wind speed is classically modeled as Weibull. Fitted k = 1.89, λ = 7.04 m/s.","Weibull Anderson-Darling p = 0.58. Exponential (p < 0.001), normal (p = 0.004) and lognormal (p = 0.013) are rejected.","P(X > 3) = 1 − F(3) = e^(−(3/7.04)^1.89) = 0.819."],
+ q5:"Is the site viable?",
+ recs:[{t:"Viable: the turbine spins about 82% of the time. Don't switch to a 4 m/s cut-in model, which would drop that to about 71%.",ok:1,w:"P(X > 3) = 0.819 ≥ 0.75, but P(X > 4) = 0.709."},
+  {t:"Not viable: the average wind is only 6.2 m/s.",w:"The average doesn't answer the question. P(X > 3) = 0.82 meets the 75% target."},
+  {t:"Use the normal model's P(X > 3) instead; it's simpler.",w:"The normal model is rejected (p = 0.004) and assigns probability to negative wind speeds."},
+  {t:"Viable with any turbine whose cut-in is 6 m/s or less.",w:"P(X > 6) is only about 48%, far below 75%."}]},
+{id:"L1",type:"c",unit:"min",title:"Machine repair time",dist:"lognorm",explore:"hist",validate:"qql",predict:"q",pr:{kind:"q",p:0.95},
+ text:"A maintenance team logged 100 repair times (minutes) for a packaging machine. Most repairs are quick, but a few take much longer. Management wants to promise production a repair-time guarantee that will be met 95% of the time.",
+ h:["Repair times are continuous. Look at their shape.","Positive, right-skewed times built from many multiplying delays. Try taking the log.","If ln(x) is normal, which plot and test checks that?","You know the probability (95%) and need the time.","Compare the lognormal 95th percentile with the normal formula and the average."],
+ e:["Right-skewed (skewness 1.58) and all positive: median 34 min, tail to 146 min.","Lognormal: ln(repair time) is normal with μ = 3.55 and σ = 0.574, so the median is e^μ ≈ 35 min.","The Q-Q plot of ln(x) is straight: Shapiro-Wilk p = 0.95 on the logs and Anderson-Darling p = 0.93. Normal, exponential and Weibull are rejected.","x(0.95) = exp(μ + 1.645σ) = 89.5 min."],
+ q5:"What repair-time guarantee should management offer?",
+ recs:[{t:"Promise repairs within 90 minutes. The lognormal 95th percentile is 89.5 min.",ok:1,w:"F(89.5) = 0.95 under the validated lognormal model."},
+  {t:"Promise 82 minutes (mean + 1.645 × SD).",w:"That's the normal formula applied to skewed data. Under the lognormal, 82 min is met only about 93% of the time."},
+  {t:"Promise 41 minutes, the average repair time.",w:"Only about 61% of repairs finish within the mean."},
+  {t:"Promise 146 minutes, the longest repair observed.",w:"Overly conservative. A sample maximum isn't a percentile."}]},
+{id:"L2",type:"c",unit:"µm",title:"Powder particle size",dist:"lognorm",explore:"hist",validate:"qql",predict:"cdf",pr:{kind:"cdf",x:2.5},
+ text:"A powder supplier's particle sizes (µm) were measured for 100 particles. Particles below 2.5 µm are respirable, and your safety plan requires them to be under 10% of the product. What fraction is below 2.5 µm?",
+ h:["Sizes are continuous. Look at their shape.","Positive, right-skewed sizes. Particle sizes from grinding classically follow which model?","Check whether ln(size) is normal.","'Below 2.5 µm' is a cumulative probability at one value.","Compare P(X < 2.5) with 10%."],
+ e:["Right-skewed (skewness 1.86) and all positive: median 3.9 µm, tail to 21 µm.","Particle sizes from breakage are Lognormal, with μ = 1.38 and σ = 0.669 on ln(µm).","The ln(x) Q-Q plot is straight: Shapiro-Wilk p = 0.96 and Anderson-Darling p = 0.94. The rejected normal model (p < 0.001) would even predict about 8% of particles with negative size.","P(X < 2.5) = Φ((ln 2.5 − μ)/σ) = 0.244."],
+ q5:"What's your recommendation on this powder?",
+ recs:[{t:"Reject or treat the powder: about 24% is respirable, well above the 10% limit. Require screening to remove the fines.",ok:1,w:"F(2.5) = 0.244 > 0.10."},
+  {t:"Accept it. The median is 3.9 µm, above 2.5 µm.",w:"A median above 2.5 µm still leaves 24% of particles below it."},
+  {t:"Accept it. Only 2% of particles are below 1 µm.",w:"The limit is at 2.5 µm, not 1 µm."},
+  {t:"Use the normal model instead; it gives a similar answer.",w:"The normal model is rejected and predicts impossible negative sizes (about 8%)."}]},
+{id:"D1",type:"d",unit:"defectives",title:"Daily defect sample",dist:"binom",explore:"bar",validate:"chi",predict:"sf",pr:{kind:"sf",x:3},
+ text:"Each day, QC pulls 20 parts from the line and counts the defectives. You have 100 days of counts. A process alarm triggers when a day's sample has 4 or more defectives. The team wants false alarms on no more than 5% of normal days.",
+ h:["The data are whole-number counts from 0 to 20.","There's a fixed 20 parts each day, and each is defective or not.","For counts, compare observed and expected frequencies.","'4 or more' means exceeding 3.","Compare P(X ≥ 4) with 5%, then check the next threshold."],
+ e:["Counts from 0 to 4: mean 1.62, variance 1.31. The variance is below the mean, as a binomial predicts (np(1 − p) = 1.49).","Fixed n = 20 trials with p̂ = 1.62/20 = 0.081: Binomial.","χ² = 1.50, df = 3, p = 0.68: the observed counts match the binomial.","P(X ≥ 4) = 1 − F(3) = 0.073."],
+ q5:"How should the alarm be set?",
+ recs:[{t:"Raise the alarm threshold to 5+ defectives. False alarms drop from 7.3% to 1.9% of normal days.",ok:1,w:"P(X ≥ 4) = 0.073 > 0.05, while P(X ≥ 5) = 0.019."},
+  {t:"Keep 4+. 7.3% is close enough to 5%.",w:"7.3% exceeds the 5% target by nearly half again."},
+  {t:"Keep 4+. Only 6 of the 100 days had 4 or more.",w:"6% is still over 5%, and the model says 7.3%."},
+  {t:"Lower the threshold to 3+ to catch more problems.",w:"P(X ≥ 3) ≈ 22%, so false alarms would triple."}]},
+{id:"D2",type:"d",unit:"calls",title:"911 call load",dist:"pois",explore:"bar",validate:"chi",predict:"cdf",pr:{kind:"cdf",x:6},
+ text:"A county 911 center logged the number of calls in each of 100 hours. One dispatcher can handle up to 6 calls in an hour. The center wants a single dispatcher to cover at least 95% of hours.",
+ h:["The data are whole-number counts per hour.","Counts of random events per hour, with no fixed number of trials.","For counts, compare observed and expected frequencies.","'Up to 6' means at or below a value.","Compare P(X ≤ 6) with 95%."],
+ e:["Counts from 0 to 8: mean 3.19, variance 3.17. Mean ≈ variance is the Poisson fingerprint.","Random events at an average rate: Poisson with λ = 3.19 calls per hour.","χ² = 2.76, df = 4, p = 0.60: the Poisson fits.","P(X ≤ 6) = F(6) = 0.956."],
+ q5:"Is one dispatcher enough?",
+ recs:[{t:"Yes. One dispatcher covers about 95.6% of hours. Plan a backup for the roughly 1 hour in 23 with 7+ calls.",ok:1,w:"F(6) = 0.956 ≥ 0.95."},
+  {t:"No. Two dispatchers are needed, because some hours exceed 6 calls.",w:"The 95% target allows some overflow, and 95.6% meets it."},
+  {t:"Yes, because calls never exceed 6 in an hour.",w:"About 4.4% of hours do, and 5 of the 100 logged hours had 7 or more."},
+  {t:"You can't decide without knowing the number of callers.",w:"A Poisson model needs only the rate λ."}]}
+];
+
+function distOf(c){const p=DATA[c.id].par;switch(c.dist){
+ case"norm":return{t:"norm",mu:p.mu,sd:p.sd};case"expon":return{t:"expon",scale:p.scale};
+ case"weibull":return{t:"weibull",k:p.k,lam:p.lam};case"lognorm":return{t:"lognorm",mu:p.mu,sg:p.sg};
+ case"binom":return{t:"binom",n:20,p:p.p};case"pois":return{t:"pois",l:p.l};}}
+
+/* ---------- chart primitives ---------- */
+function niceStep(r,n){const raw=r/n,m=10**Math.floor(Math.log10(raw)),s=raw/m;return(s<1.5?1:s<3?2:s<7?5:10)*m}
+function tickVals(a,b,n){const st=niceStep(b-a,n),out=[];for(let v=Math.ceil(a/st-1e-9)*st;v<=b+1e-9;v+=st)out.push(+v.toPrecision(10));return out}
+function frame(o){
+  const W=o.W||640,H=o.H||240,L=58,R=18,T=14,B=42,iw=W-L-R,ih=H-T-B;
+  const sx=x=>L+(x-o.x0)/(o.x1-o.x0)*iw, sy=y=>T+ih-(y-o.y0)/(o.y1-o.y0)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}">`;
+  tickVals(o.y0,o.y1,4).forEach(v=>{s+=`<line class="gridl" x1="${L}" x2="${W-R}" y1="${sy(v)}" y2="${sy(v)}"/><text x="${L-6}" y="${sy(v)+4}" text-anchor="end">${+v.toPrecision(4)}</text>`});
+  if(!o.noX)(o.xt||tickVals(o.x0,o.x1,6)).forEach(v=>{s+=`<text x="${sx(v)}" y="${T+ih+16}" text-anchor="middle">${o.xf?o.xf(v):+v.toPrecision(6)}</text>`});
+  s+=`<line class="axis" x1="${L}" x2="${W-R}" y1="${T+ih}" y2="${T+ih}"/><text x="${L+iw/2}" y="${H-4}" text-anchor="middle">${esc(o.xl||"")}</text>`;
+  s+=`<text transform="translate(12 ${T+ih/2}) rotate(-90)" text-anchor="middle">${esc(o.yl||"")}</text>`;
+  return{s,sx,sy,L,R,T,B,W,H,iw,ih};
+}
+function pathOf(pts){return pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ")}
+function rangeOf(c){const d=DATA[c.id].data,mn=Math.min(...d),mx=Math.max(...d);
+  if(c.dist==="norm"){const pad=(mx-mn)*.1;return[mn-pad,mx+pad]}return[0,mx*1.04]}
+
+function histSVG(c,fit){
+  const d=DATA[c.id].data,n=d.length,[x0,x1]=rangeOf(c),mn=Math.min(...d),mx=Math.max(...d);
+  const k=14,w=(mx-mn)/k,cnt=Array(k).fill(0);d.forEach(v=>cnt[Math.min(k-1,Math.floor((v-mn)/w))]++);
+  const dens=cnt.map(x=>x/(n*w)),D=distOf(c);
+  let ym=Math.max(...dens);const xs=[];for(let i=0;i<=160;i++)xs.push(x0+(x1-x0)*i/160);
+  if(fit)ym=Math.max(ym,...xs.map(x=>pdf(D,Math.max(x,1e-9))));
+  const f=frame({x0,x1,y0:0,y1:ym*1.1,xl:c.unit,yl:"density",aria:"Histogram"});let s=f.s;
+  dens.forEach((v,i)=>{const a=f.sx(mn+i*w),b=f.sx(mn+(i+1)*w);s+=`<rect class="b1" x="${a+1}" y="${f.sy(v)}" width="${Math.max(1,b-a-2)}" height="${f.sy(0)-f.sy(v)}"/>`});
+  if(fit)s+=`<path class="curve" d="${pathOf(xs.map(x=>[f.sx(x),f.sy(pdf(D,Math.max(x,1e-9)))]))}"/>`;
+  return s+"</svg>";
+}
+function boxSVG(c){
+  const d=DATA[c.id].data.slice().sort((a,b)=>a-b),[x0,x1]=rangeOf(c),q=p=>{const i=(d.length-1)*p,l=Math.floor(i);return d[l]+(d[Math.ceil(i)]-d[l])*(i-l)};
+  const q1=q(.25),m=q(.5),q3=q(.75),iq=q3-q1,lo=d.find(v=>v>=q1-1.5*iq),hi=[...d].reverse().find(v=>v<=q3+1.5*iq);
+  const f=frame({x0,x1,y0:0,y1:1,H:90,noX:false,xl:c.unit,aria:"Box plot"});let s=f.s.replace(/<line class="gridl"[^>]*\/><text[^>]*>[^<]*<\/text>/g,"");
+  const y=f.T+(f.ih)/2;
+  s+=`<line class="whisk" x1="${f.sx(lo)}" x2="${f.sx(q1)}" y1="${y}" y2="${y}"/><line class="whisk" x1="${f.sx(q3)}" x2="${f.sx(hi)}" y1="${y}" y2="${y}"/>`;
+  s+=`<line class="whisk" x1="${f.sx(lo)}" x2="${f.sx(lo)}" y1="${y-8}" y2="${y+8}"/><line class="whisk" x1="${f.sx(hi)}" x2="${f.sx(hi)}" y1="${y-8}" y2="${y+8}"/>`;
+  s+=`<rect class="box" x="${f.sx(q1)}" y="${y-13}" width="${f.sx(q3)-f.sx(q1)}" height="26"/><line class="med" x1="${f.sx(m)}" x2="${f.sx(m)}" y1="${y-13}" y2="${y+13}"/>`;
+  d.filter(v=>v<lo||v>hi).forEach(v=>{s+=`<circle class="pt" cx="${f.sx(v)}" cy="${y}" r="3"/>`});
+  return s+"</svg>";
+}
+function barsSVG(c,fit){
+  const d=DATA[c.id].data,n=d.length,mx=Math.max(...d)+2,D=distOf(c),ks=[];for(let k=0;k<=mx;k++)ks.push(k);
+  const pr=ks.map(k=>d.filter(v=>v===k).length/n),fp=ks.map(k=>pdf(D,k));
+  const f=frame({x0:-.5,x1:mx+.5,y0:0,y1:Math.max(...pr,...fp)*1.15,xl:c.unit+" per "+(c.id==="D1"?"day":"hour"),yl:"proportion",xt:ks,aria:"Bar chart"});let s=f.s;
+  const bw=(f.sx(1)-f.sx(0))*.6;
+  ks.forEach((k,i)=>{s+=`<rect class="b1" x="${f.sx(k)-bw/2}" y="${f.sy(pr[i])}" width="${bw}" height="${f.sy(0)-f.sy(pr[i])}"/>`;if(fit)s+=`<circle class="fitdot" cx="${f.sx(k)}" cy="${f.sy(fp[i])}" r="5"/>`});
+  if(fit)s+=`<circle class="fitdot" cx="${f.W-f.R-150}" cy="${f.T+8}" r="5"/><text class="lbl" x="${f.W-f.R-140}" y="${f.T+12}">fitted ${DNAME[c.dist]}</text>`;
+  return s+"</svg>";
+}
+function qqSVG(c){
+  const D=distOf(c),log=c.dist==="lognorm";let d=DATA[c.id].data.slice().sort((a,b)=>a-b);if(log)d=d.map(Math.log);
+  const n=d.length,th=d.map((_,i)=>{const p=(i+.5)/n;return log?D.mu+D.sg*Pinv(p):ppf(D,p)});
+  const lo=Math.min(...d,...th),hi=Math.max(...d,...th),pad=(hi-lo)*.05;
+  const f=frame({x0:lo-pad,x1:hi+pad,y0:lo-pad,y1:hi+pad,H:300,xl:"theoretical quantile"+(log?" of ln(x)":" ("+c.unit+")"),yl:"sample "+(log?"ln(x)":c.unit),aria:"Q-Q plot"});let s=f.s;
+  s+=`<line class="ref" x1="${f.sx(lo-pad)}" y1="${f.sy(lo-pad)}" x2="${f.sx(hi+pad)}" y2="${f.sy(hi+pad)}"/>`;
+  d.forEach((v,i)=>{s+=`<circle class="pt" cx="${f.sx(th[i])}" cy="${f.sy(v)}" r="3"/>`});
+  return s+"</svg>";
+}
+function predictSVGs(c){
+  const D=distOf(c),pr=c.pr,disc=c.type==="d";
+  let a,b,label,val;
+  if(pr.kind==="int"){a=pr.a;b=pr.b;val=cdf(D,b)-cdf(D,a);label=`P(${String(a).replace("-","−")} < X < ${b}) = ${f3(val)}`}
+  if(pr.kind==="cdf"){b=pr.x;a=null;val=cdf(D,b);label=`P(X ≤ ${b}) = ${f3(val)}`}
+  if(pr.kind==="sf"){a=pr.x;b=null;val=1-cdf(D,a);label=disc?`P(X ≥ ${a+1}) = ${f3(val)}`:`P(X > ${a}) = ${f3(val)}`}
+  if(pr.kind==="q"){b=ppf(D,pr.p);a=null;val=b;label=`F⁻¹(${pr.p}) = ${nf(b,b>100?0:1)} ${c.unit}`}
+  let s1,s2;
+  if(disc){
+    const mx=Math.max(...DATA[c.id].data)+3,ks=[];for(let k=0;k<=mx;k++)ks.push(k);
+    const inR=k=>pr.kind==="cdf"?k<=b:k>a;
+    const f=frame({x0:-.5,x1:mx+.5,y0:0,y1:Math.max(...ks.map(k=>pdf(D,k)))*1.15,xl:c.unit,yl:"P(X = k)",xt:ks,aria:"PMF",W:420,H:260});s1=f.s;const bw=(f.sx(1)-f.sx(0))*.6;
+    ks.forEach(k=>{s1+=`<rect class="${inR(k)?"hl":"b1"}" x="${f.sx(k)-bw/2}" y="${f.sy(pdf(D,k))}" width="${bw}" height="${f.sy(0)-f.sy(pdf(D,k))}"/>`});s1+="</svg>";
+    const g=frame({x0:-.5,x1:mx+.5,y0:0,y1:1,xl:c.unit,yl:"F(k)",xt:ks,aria:"CDF",W:420,H:260});s2=g.s;let p="";
+    ks.forEach((k,i)=>{const y=g.sy(cdf(D,k));p+=(i?` V${y}`:`M${g.sx(k-.5)} ${y}`)+` H${g.sx(k+.5)}`});s2+=`<path class="curve2" d="${p}"/>`;
+    const mk=pr.kind==="cdf"?b:a,yv=cdf(D,mk);s2+=`<circle class="mark" cx="${g.sx(mk)}" cy="${g.sy(yv)}" r="5"/><text class="lbl" x="${g.sx(mk)+8}" y="${g.sy(yv)+16}">F(${mk}) = ${f3(yv)}</text></svg>`;
+    return{s1,s2,label,val};
+  }
+  let[x0,x1]=rangeOf(c);if(pr.kind==="q")x1=Math.max(x1,b*1.1);
+  const xs=[];for(let i=0;i<=200;i++)xs.push(x0+(x1-x0)*i/200);
+  const f=frame({x0,x1,y0:0,y1:Math.max(...xs.map(x=>pdf(D,Math.max(x,1e-9))))*1.12,xl:c.unit,yl:"f(x)",aria:"PDF",W:420,H:260});s1=f.s;
+  const lo=a==null?x0:a,hi=b==null?x1:b,sh=xs.filter(x=>x>=lo&&x<=hi);sh.unshift(lo);sh.push(hi);
+  s1+=`<path class="area" d="${pathOf(sh.map(x=>[f.sx(x),f.sy(pdf(D,Math.max(x,1e-9)))]))} L${f.sx(hi)} ${f.sy(0)} L${f.sx(lo)} ${f.sy(0)} Z"/>`;
+  s1+=`<path class="curve" d="${pathOf(xs.map(x=>[f.sx(x),f.sy(pdf(D,Math.max(x,1e-9)))]))}"/>`;
+  [a,b].forEach(v=>{if(v!=null)s1+=`<line class="markline" x1="${f.sx(v)}" x2="${f.sx(v)}" y1="${f.sy(0)}" y2="${f.T}"/>`});
+  s1+=`<text class="lbl" x="${f.W-f.R-4}" y="${f.T+14}" text-anchor="end">shaded area = ${pr.kind==="q"?pr.p:f3(val)}</text></svg>`;
+  const g=frame({x0,x1,y0:0,y1:1,xl:c.unit,yl:"F(x)",aria:"CDF",W:420,H:260});s2=g.s;
+  s2+=`<path class="curve2" d="${pathOf(xs.map(x=>[g.sx(x),g.sy(cdf(D,x))]))}"/>`;
+  const marks=pr.kind==="int"?[a,b]:pr.kind==="sf"?[a]:[b];
+  marks.forEach(v=>{const y=cdf(D,v),right=g.sx(v)>g.L+g.iw*.6;s2+=`<line class="markline" x1="${g.sx(v)}" x2="${g.sx(v)}" y1="${g.sy(0)}" y2="${g.sy(y)}"/><line class="markline" x1="${g.L}" x2="${g.sx(v)}" y1="${g.sy(y)}" y2="${g.sy(y)}"/><circle class="mark" cx="${g.sx(v)}" cy="${g.sy(y)}" r="5"/><text class="lbl" x="${g.sx(v)+(right?-8:8)}" y="${g.sy(y)+(y>.8?16:-8)}" text-anchor="${right?"end":"start"}">F(${String(+v.toPrecision(5)).replace("-","−")}) = ${f3(y)}</text>`});
+  s2+="</svg>";return{s1,s2,label,val};
+}
+
+/* ---------- results per step ---------- */
+function tiles(arr){return`<dl class="stats">${arr.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`}
+function block(title,svg,cap){return`<div><h4>${esc(title)}</h4><div class="chartwrap">${svg}</div>${cap?`<p class="cap">${esc(cap)}</p>`:""}</div>`}
+function dp(c){return{mm:3,g:1,h:0,s:2,"m/s":2,min:1,"µm":2}[c.unit]??2}
+function resultsHTML(c,step){
+  const R=DATA[c.id],S=R.sum,D=distOf(c);
+  if(step===0){
+    if(c.type==="d")return block("Frequency of each count",barsSVG(c,false))+tiles([["n",String(S.n)],["Mean",S.mean.toFixed(2)],["Variance",S.var.toFixed(2)],["Variance / mean",(S.var/S.mean).toFixed(2)]]);
+    const k=dp(c);return block("Histogram",histSVG(c,false))+block("Box plot",boxSVG(c))+tiles([["n",String(S.n)],["Mean",nf(S.mean,k)+" "+c.unit],["Std. dev.",nf(S.sd,k)],["Median",nf(S.median,k)],["Skewness",S.skew.toFixed(2)],["Range",nf(S.mn,k)+" to "+nf(S.mx,k)]]);
+  }
+  if(step===1){
+    const par={norm:()=>[["μ (mean)",nf(D.mu,dp(c)+1)+" "+c.unit],["σ (std. dev.)",nf(D.sd,dp(c)+1)]],expon:()=>[["Mean (1/λ)",nf(D.scale,1)+" "+c.unit],["Rate λ",(1/D.scale).toPrecision(3)+" per "+c.unit]],
+      weibull:()=>[["Shape k",D.k.toFixed(2)],["Scale λ",nf(D.lam,D.lam>100?0:2)+" "+c.unit]],lognorm:()=>[["μ of ln(x)",D.mu.toFixed(3)],["σ of ln(x)",D.sg.toFixed(3)],["Median e^μ",nf(Math.exp(D.mu),1)+" "+c.unit]],
+      binom:()=>[["n",String(D.n)],["p̂",D.p.toFixed(3)]],pois:()=>[["λ",D.l.toFixed(2)+" per hour"]]}[c.dist]();
+    return c.type==="d"?block(`Observed proportions with fitted ${DNAME[c.dist]} (dots)`,barsSVG(c,true))+tiles(par):block(`Histogram with fitted ${DNAME[c.dist]} PDF`,histSVG(c,true))+tiles(par);
+  }
+  if(step===2){
+    if(c.type==="d"){const X=R.chi;
+      return`<div><h4>Chi-square goodness of fit: ${DNAME[c.dist]}</h4><div class="ttwrap"><table class="tt"><thead><tr><th>Count</th>${X.labels.map(l=>`<th class="num">${l}</th>`).join("")}</tr></thead><tbody><tr><td>Observed</td>${X.obs.map(v=>`<td class="num">${v}</td>`).join("")}</tr><tr><td>Expected</td>${X.exp.map(v=>`<td class="num">${v.toFixed(1)}</td>`).join("")}</tr></tbody></table></div></div>`+tiles([["χ² statistic",X.chi2.toFixed(2)],["Degrees of freedom",String(X.df)],["p-value",X.p.toFixed(3)],["Verdict",X.p>0.05?"Fit not rejected":"Rejected"]]);}
+    const T=R.tests,rows=[["norm","Normal"],["lognorm","Lognormal"],["expon","Exponential"],["weibull","Weibull"]].map(([k,nm])=>{
+      const p=T[k];return`<tr class="${k===c.dist?"pick":""}"><td>${nm}</td><td class="num">${p==null?"n/a":pv(p)}</td><td>${p==null?"Can't fit negative values":p>0.05?'<span class="ok-t">Not rejected</span>':'<span class="no-t">Rejected</span>'}</td></tr>`}).join("");
+    const qqT=c.dist==="lognorm"?"Normal Q-Q plot of ln(x)":c.dist==="norm"?"Normal Q-Q plot":`Q-Q plot vs. fitted ${DNAME[c.dist]}`;
+    return block(qqT,qqSVG(c),"Points close to the dashed line mean the model fits.")+`<div><h4>Anderson-Darling goodness of fit (parameters estimated from the data)</h4><div class="ttwrap"><table class="tt"><thead><tr><th>Candidate</th><th class="num">p-value</th><th>Verdict at α = 0.05</th></tr></thead><tbody>${rows}</tbody></table></div>${R.sw!=null?`<p class="cap">Shapiro-Wilk p = ${R.sw.toFixed(3)}${c.dist==="lognorm"?" on ln(x)":""}.</p>`:""}</div>`;
+  }
+  if(step===3){const P=predictSVGs(c);
+    return`<div class="twocol">${block(c.type==="d"?"PMF (highlighted: the event)":"PDF (shaded: the event)",P.s1)}${block("CDF",P.s2)}</div>`+tiles([["Prediction",P.label]]);
+  }
+  return"";
+}
+
+/* ---------- game state ---------- */
+const $=id=>document.getElementById(id),fig=$("fig");
+let cases=[],ci=0,step=0,wrong=0,hintShown=false,hintPaid=0,freeHints=1,stepPts=[],results=[],phase="intro",curOpts=[];
+function face(m){["smile","neutral","talk"].forEach(x=>$("m-"+x).hidden=x!==m);fig.classList.toggle("talk",m==="talk");fig.classList.toggle("happy",m==="smile")}
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+const fmt=n=>Number.isInteger(n)?String(n):n.toFixed(1);
+const total=()=>results.reduce((a,r)=>a+r.pts.reduce((x,y)=>x+y,0),0)+stepPts.reduce((x,y)=>x+(y||0),0);
+const correctId=c=>[c.explore,c.dist,c.validate,c.predict][step];
+
+function start(){
+  cases=shuffle(CASES.slice()).map(c=>({...c,recs:shuffle(c.recs.slice())}));
+  ci=0;results=[];freeHints=1;$("freeHint").textContent=1;
+  $("intro").hidden=true;$("final").hidden=true;$("steps").hidden=false;$("panel").hidden=false;$("casefile").hidden=false;
+  openCase();
+}
+function openCase(){
+  const c=cases[ci];stepPts=[];$("entries").innerHTML="";
+  $("caseNo").textContent=ci+1;$("score").textContent=fmt(total());
+  $("eyebrow").textContent=`Case ${ci+1} of 10 · ${c.title}`;$("say").textContent=c.text;face("talk");
+  for(let i=0;i<5;i++){$("st"+i).className="";$("pt"+i).textContent="– / 2"}
+  openStep(0);
+}
+function openStep(p){
+  step=p;wrong=0;hintShown=false;hintPaid=0;phase="ask";const c=cases[ci];
+  $("st"+p).className="now";
+  $("qtext").textContent=`Step ${p+1} · `+["Explore: how should you look at the data first?","Which distribution is the best candidate?","How do you validate that candidate?","Which calculation gives the prediction?",c.q5][p];
+  $("hintBox").hidden=true;$("feedback").hidden=true;$("fbRes").hidden=true;$("fbRes").innerHTML="";updateHintBtn();
+  const box=$("opts");box.innerHTML="";box.className="opts"+(p===2||p===4?" list":"");
+  curOpts=p<4?OPT[p].map(o=>({...o})):c.recs.map((r,i)=>({id:"r"+i,name:r.t,ok:r.ok,w:r.w}));
+  if(p===0||p===2||p===3)shuffle(curOpts);
+  curOpts.forEach((o,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="opt";b.id=`opt-${p}-${i}`;
+    b.innerHTML=p===4?`<span class="top" style="font-weight:400"><span class="nm"></span><span class="key">${i+1}</span></span>`:`<span class="top"><span class="nm"></span><span class="key">${i+1}</span></span><span class="info"></span>`;
+    b.querySelector(".nm").textContent=o.name;if(p<4)b.querySelector(".info").textContent=o.info;
+    b.onclick=()=>choose(i);box.appendChild(b);
+  });
+}
+function correctIndex(){return step<4?curOpts.findIndex(o=>o.id===correctId(cases[ci])):curOpts.findIndex(o=>o.ok)}
+function showHint(){$("hintBox").innerHTML="<b>Hint:</b> ";$("hintBox").append(cases[ci].h[step]);$("hintBox").hidden=false;hintShown=true;updateHintBtn()}
+function updateHintBtn(){const b=$("hintBtn");if(hintShown||phase!=="ask"){b.disabled=true;b.textContent=hintShown?"Hint shown":"Hint";return}
+  b.disabled=false;b.textContent=freeHints>0?"Hint (free)":"Hint (−1 pt)"}
+function requestHint(){if(phase!=="ask"||hintShown)return;if(freeHints>0){freeHints--;$("freeHint").textContent=freeHints}else hintPaid=1;showHint()}
+function choose(i){
+  if(phase!=="ask")return;const k=correctIndex(),btn=$(`opt-${step}-${i}`),o=curOpts[i];if(btn.disabled)return;
+  if(i===k){btn.classList.add("right");finishStep(Math.max(0,(wrong?1:2)-hintPaid),true)}
+  else{wrong++;btn.classList.add("wrong");btn.disabled=true;
+    if(wrong>=2){$(`opt-${step}-${k}`).classList.add("right");finishStep(0,false,o)}
+    else{face("neutral");showFeedback("no","Not quite. Try once more.",step<4?`${o.name}: ${o.info} That's not the best step here.`:o.w,null);if(!hintShown)showHint()}}
+}
+function finishStep(pts,ok,lastWrong){
+  phase="feedback";stepPts[step]=pts;const c=cases[ci];
+  document.querySelectorAll("#opts .opt").forEach(b=>b.disabled=true);
+  $("st"+step).className="done";$("pt"+step).textContent=fmt(pts)+" / 2";$("score").textContent=fmt(total());updateHintBtn();
+  const exp=step<4?c.e[step]:curOpts[correctIndex()].w, correctName=curOpts[correctIndex()].name;
+  const next=step<4?`On to Step ${step+2} →`:ci<9?"Next case →":"See final results →";
+  const why=(!ok&&lastWrong&&step===4?"Your pick: "+lastWrong.w+" ":"")+exp;
+  if(ok){face("smile");showFeedback("ok",(wrong?"Got it on the second try":"Correct!")+" +"+fmt(pts),why,next)}
+  else{face("neutral");showFeedback("no",step<4?"The best step: "+correctName:"The best recommendation is highlighted.",why,next)}
+  if(step<4){const r=$("fbRes");r.innerHTML=resultsHTML(c,step);r.hidden=false}
+}
+function showFeedback(cls,title,text,next){
+  const fb=$("feedback");fb.className="feedback "+cls;fb.hidden=false;$("fbTitle").textContent=title;$("fbText").textContent=text;
+  $("fbRow").hidden=!next;if(next){$("goBtn").textContent=next}
+}
+function archive(){
+  const c=cases[ci],det=document.createElement("details");det.className="entry";
+  det.innerHTML=`<summary><span class="st">Step ${step+1}</span><span></span></summary><div class="body results"></div>`;
+  det.querySelector("summary span:last-child").textContent=STEPS[step]+": "+curOpts[correctIndex()].name;
+  det.querySelector(".body").innerHTML=$("fbRes").innerHTML;
+  document.querySelectorAll("#entries details").forEach(d=>d.open=false);det.open=true;
+  $("entries").appendChild(det);
+}
+function advance(){
+  if(phase!=="feedback")return;
+  if(step<4){archive();face("talk");openStep(step+1);$("panel").scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return}
+  results.push({c:cases[ci],pts:stepPts.slice()});stepPts=[];ci++;
+  if(ci<10){openCase();window.scrollTo({top:0})}else finish();
+}
+function finish(){
+  phase="done";["panel","steps","casefile"].forEach(id=>$(id).hidden=true);
+  const t=total();$("score").textContent=fmt(t);face(t>=70?"smile":"neutral");$("eyebrow").textContent="All cases closed";
+  $("say").textContent=`Final score: ${fmt(t)} out of 100. `+(t>=90?"Excellent. You fit, test, and predict like an engineer.":t>=70?"Solid work. A few steps tripped you up.":t>=50?"Good progress. Review the steps you missed and try again.":"Tough set. Walk through the decision map again, then replay.");
+  const sums=[0,1,2,3,4].map(j=>results.reduce((a,r)=>a+r.pts[j],0));
+  let rows=results.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.c.title)}</td><td>${DNAME[r.c.dist]}</td>${r.pts.map(p=>`<td class="num">${fmt(p)}</td>`).join("")}<td class="num">${fmt(r.pts.reduce((a,b)=>a+b,0))}</td></tr>`).join("");
+  rows+=`<tr><td></td><td>Total</td><td></td>${sums.map(s=>`<td class="num">${fmt(s)}/20</td>`).join("")}<td class="num">${fmt(t)}/100</td></tr>`;
+  const f=$("final");f.hidden=false;
+  f.innerHTML=`<div class="sumwrap"><table class="sum"><thead><tr><th>Case</th><th>Scenario</th><th>Distribution</th>${STEPS.map(s=>`<th class="num">${s}</th>`).join("")}<th class="num">Points</th></tr></thead><tbody>${rows}</tbody></table></div><div class="row" style="margin-top:16px"><button type="button" class="start" id="again">Play again</button></div>`;
+  $("again").onclick=()=>{start();window.scrollTo({top:0})};
+}
+$("start").onclick=start;$("hintBtn").onclick=requestHint;$("goBtn").onclick=advance;
+document.addEventListener("keydown",e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();
+  if(e.target.tagName==="SUMMARY")return;
+  if(phase==="ask"){if(k==="h"){e.preventDefault();requestHint();return}const n=parseInt(k,10);if(n>=1&&n<=curOpts.length){e.preventDefault();choose(n-1)}}
+  else if(phase==="feedback"&&(k==="enter")){e.preventDefault();advance()}
+});
+</script>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

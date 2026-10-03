@@ -1,0 +1,706 @@
+﻿<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<div class="pm-injected-nav"><a href="../index.html">← Back to Module</a><span class="sep">|</span><span style="color:#555">Thirty Strangers: Optimal Stopping Game</span></div>
+<div class="pm-injected-spacer"></div>
+<title>Thirty Strangers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:ital,wght@0,400;0,600;0,800;1,400&display=swap">
+<style>
+:root{
+  --paper:#E9F1E0;
+  --card:#FFFDF4;
+  --card-2:#F6F2E2;
+  --ink:#1F2238;
+  --ink-soft:#5C6177;
+  --rule:#C8D6B9;
+  --rule-soft:#E2DCC7;
+  --hot:#DC2F5C;
+  --deep:#127069;
+  --sun:#EFAE2E;
+  --good:#2E8B4F;
+  --shade:rgba(31,34,56,.13);
+  --skin:#F6D5B4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14171F;--card:#20242F;--card-2:#1A1E27;--ink:#F2EFE4;--ink-soft:#A2A7B8;
+    --rule:#3A4150;--rule-soft:#2C323E;--hot:#FF6489;--deep:#3ACCC0;--sun:#FFC85C;
+    --good:#5FD68A;--shade:rgba(0,0,0,.45);--skin:#E8C49F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14171F;--card:#20242F;--card-2:#1A1E27;--ink:#F2EFE4;--ink-soft:#A2A7B8;
+  --rule:#3A4150;--rule-soft:#2C323E;--hot:#FF6489;--deep:#3ACCC0;--sun:#FFC85C;
+  --good:#5FD68A;--shade:rgba(0,0,0,.45);--skin:#E8C49F;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Nunito",ui-sans-serif,system-ui,sans-serif;font-size:15px;line-height:1.5;
+  padding:20px 16px 40px;display:flex;justify-content:center;
+}
+.wrap{width:100%;max-width:680px;display:flex;flex-direction:column;gap:12px}
+
+/* ---------- header ---------- */
+h1{
+  font-family:"Lilita One",Impact,system-ui,sans-serif;font-weight:400;
+  font-size:clamp(28px,7vw,40px);letter-spacing:.01em;margin:0;line-height:.95;text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--hot)}
+.tagline{margin:3px 0 0;color:var(--ink-soft);font-size:13.5px;max-width:44ch}
+
+/* ---------- scoreboard ---------- */
+.score{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;
+  background:var(--card);border:2px solid var(--rule);border-radius:12px;
+  padding:9px 12px;box-shadow:0 3px 0 var(--shade);
+}
+.side{display:flex;flex-direction:column;gap:0;min-width:0}
+.side.right{text-align:right;align-items:flex-end}
+.side .who{
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--ink-soft);
+  display:flex;align-items:center;gap:5px;
+}
+.side .amt{font-family:"Lilita One",Impact,sans-serif;font-size:29px;line-height:1.05;font-variant-numeric:tabular-nums}
+.side.you .amt{color:var(--hot)}
+.side.cpu .amt{color:var(--deep)}
+.side.ahead .who{color:var(--ink)}
+.tally{
+  text-align:center;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:800;color:var(--ink-soft);line-height:1.35;
+}
+.tally b{display:block;font-family:"Lilita One",Impact,sans-serif;font-size:18px;letter-spacing:0;color:var(--ink)}
+.bot{width:15px;height:15px;flex:0 0 auto}
+
+/* ---------- per-line chips ---------- */
+.lines{display:flex;gap:8px}
+.chip{
+  flex:1;border:2px solid var(--rule-soft);border-radius:9px;background:var(--card-2);
+  padding:6px 9px;min-width:0;
+}
+.chip .n{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--ink-soft)}
+.chip .row{display:flex;justify-content:space-between;gap:6px;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.chip .row span:first-child{color:var(--ink-soft);font-weight:800;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.chip .row.win{color:var(--good)}
+.chip .row.lose{opacity:.6}
+.chip.active{border-color:var(--hot);border-style:dashed;background:var(--card)}
+.chip.active .n{color:var(--hot)}
+
+/* ---------- ticket ---------- */
+.ticket{background:var(--card);border:2px solid var(--rule);border-radius:14px;box-shadow:0 3px 0 var(--shade);overflow:hidden}
+.ticket.turn-cpu{border-color:var(--deep)}
+.ticket-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 14px;border-bottom:2px dashed var(--rule);background:var(--card-2);
+  font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:var(--ink-soft);
+}
+.ticket-head .who{color:var(--ink)}
+
+.turnbar{
+  display:flex;align-items:center;gap:8px;padding:8px 14px;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
+}
+.turnbar.you{background:color-mix(in srgb,var(--hot) 13%,var(--card));color:var(--hot);border-bottom:2px solid color-mix(in srgb,var(--hot) 35%,transparent)}
+.turnbar.cpu{background:var(--deep);color:#fff;border-bottom:2px solid var(--deep)}
+.turnbar.cpu .bot{width:17px;height:17px}
+.blink{width:8px;height:8px;border-radius:50%;background:currentColor;animation:blink 1s steps(2,end) infinite}
+@keyframes blink{50%{opacity:.25}}
+
+.reason{
+  display:flex;gap:9px;align-items:flex-start;padding:10px 14px;
+  background:color-mix(in srgb,var(--deep) 9%,var(--card));
+  border-bottom:2px dashed var(--rule);font-size:13.5px;color:var(--ink);
+}
+.reason .bot{margin-top:2px;width:17px;height:17px;color:var(--deep)}
+.reason b{font-weight:800}
+
+/* ---------- stage ---------- */
+.stage{position:relative;display:flex;align-items:flex-end;justify-content:center;padding:10px 14px 0;min-height:250px}
+.ground{position:absolute;left:0;right:0;bottom:0;height:56px;background:repeating-linear-gradient(135deg,var(--card) 0 9px,var(--card-2) 9px 18px);border-top:2px solid var(--rule-soft)}
+.stage.cpu .ground{background:repeating-linear-gradient(135deg,var(--card) 0 9px,color-mix(in srgb,var(--deep) 12%,var(--card)) 9px 18px)}
+.figure{position:relative;z-index:1}
+svg.person{display:block;width:min(320px,86vw);height:auto;overflow:visible}
+.anim-in{animation:walkin .45s cubic-bezier(.2,.9,.3,1.1) both}
+@keyframes walkin{from{transform:translateX(48px) rotate(3deg);opacity:0}to{transform:none;opacity:1}}
+.bill-pop{animation:pop .46s .08s cubic-bezier(.2,1.5,.4,1) both;transform-origin:150px 74px}
+@keyframes pop{0%{transform:scale(.2) rotate(-18deg);opacity:0}70%{transform:scale(1.08) rotate(3deg);opacity:1}100%{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.anim-in,.bill-pop,.blink{animation:none}}
+
+/* ---------- queue ---------- */
+.queue{display:flex;align-items:center;gap:6px;justify-content:center;padding:12px 14px;border-top:2px dashed var(--rule);flex-wrap:wrap}
+.pip{width:13px;height:13px;border-radius:50%;border:2px solid var(--rule);background:transparent}
+.pip.past{background:var(--rule);border-color:var(--rule)}
+.pip.now{background:var(--hot);border-color:var(--hot);box-shadow:0 0 0 3px color-mix(in srgb,var(--hot) 25%,transparent)}
+.pip.now.cpu{background:var(--deep);border-color:var(--deep);box-shadow:0 0 0 3px color-mix(in srgb,var(--deep) 25%,transparent)}
+.pip.mark{background:var(--sun);border-color:var(--sun)}
+.queue .count{font-size:12px;color:var(--ink-soft);font-weight:700;margin-left:6px;font-variant-numeric:tabular-nums}
+
+/* ---------- controls ---------- */
+.controls{display:flex;gap:10px;padding:14px;border-top:2px solid var(--rule-soft);flex-wrap:wrap;align-items:center}
+button{
+  font-family:"Nunito",sans-serif;font-weight:800;font-size:15px;border-radius:10px;padding:13px 16px;
+  cursor:pointer;border:2px solid var(--ink);transition:transform .08s ease;flex:1 1 150px;
+}
+button:active{transform:translateY(2px)}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.btn-take{background:var(--hot);color:#fff;border-color:var(--hot);box-shadow:0 3px 0 var(--shade)}
+.btn-pass{background:var(--card-2);color:var(--ink);border-color:var(--rule);box-shadow:0 3px 0 var(--shade)}
+.btn-cpu{background:var(--deep);color:#fff;border-color:var(--deep);box-shadow:0 3px 0 var(--shade)}
+.btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--rule);box-shadow:none;flex:0 1 auto;padding:11px 14px;font-size:13.5px}
+.btn-wide{flex:1 1 100%}
+.act{
+  flex:1 1 200px;font-family:"Lilita One",Impact,sans-serif;font-size:21px;line-height:1.2;
+  font-variant-numeric:tabular-nums;
+}
+.act.take{color:var(--deep)}
+.act.pass{color:var(--ink-soft)}
+.hint{padding:0 14px 14px;margin:-4px 0 0;font-size:12.5px;color:var(--ink-soft)}
+.hint strong{color:var(--hot)}
+
+/* ---------- setup ---------- */
+.setup{padding:16px 14px}
+.setup h2{font-family:"Lilita One",Impact,sans-serif;font-weight:400;font-size:21px;margin:0 0 3px}
+.setup .sub{margin:0 0 14px;color:var(--ink-soft);font-size:13.5px}
+.modes{display:grid;gap:9px;grid-template-columns:1fr 1fr}
+@media (max-width:520px){.modes{grid-template-columns:1fr}}
+.mode{display:block;cursor:pointer}
+.mode input{position:absolute;opacity:0;width:0;height:0}
+.mode .box{
+  border:2px solid var(--rule);border-radius:11px;background:var(--card-2);padding:12px;height:100%;
+  display:flex;flex-direction:column;gap:5px;
+}
+.mode input:checked + .box{border-color:var(--deep);background:color-mix(in srgb,var(--deep) 11%,var(--card));box-shadow:0 3px 0 var(--shade)}
+.mode input:focus-visible + .box{outline:3px solid var(--sun);outline-offset:2px}
+.mode .lv{font-family:"Lilita One",Impact,sans-serif;font-size:20px;line-height:1.1;display:flex;align-items:center;gap:7px}
+.mode .lv .bot{width:17px;height:17px;color:var(--deep)}
+.mode .d{font-size:13px;color:var(--ink-soft)}
+.mode .ev{font-size:11.5px;font-weight:800;color:var(--deep);font-variant-numeric:tabular-nums;margin-top:auto;padding-top:4px}
+
+/* ---------- reveal ---------- */
+.receipt{padding:14px}
+.receipt h2{font-family:"Lilita One",Impact,sans-serif;font-weight:400;font-size:22px;margin:0 0 2px}
+.receipt .sub{margin:0 0 12px;color:var(--ink-soft);font-size:13.5px}
+.slips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.slip{border:2px solid var(--rule-soft);border-radius:8px;background:var(--card-2);padding:5px 3px 6px;text-align:center;position:relative}
+.slip .p{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:800}
+.slip .a{font-family:"Lilita One",Impact,sans-serif;font-size:18px;line-height:1.15;font-variant-numeric:tabular-nums}
+.slip .tags{display:flex;gap:3px;justify-content:center;margin-top:3px;min-height:14px}
+.tag{font-size:9px;font-weight:800;letter-spacing:.06em;border-radius:4px;padding:1px 4px;color:#fff}
+.tag.you{background:var(--hot)}
+.tag.cpu{background:var(--deep)}
+.slip.best .a{color:var(--sun)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:11.5px;color:var(--ink-soft)}
+.legend b{font-weight:800}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;vertical-align:baseline}
+
+/* ---------- final ---------- */
+.verdict{text-align:center;padding:20px 14px 6px}
+.vs{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.vs .col{min-width:110px}
+.vs .lbl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--ink-soft)}
+.vs .num{font-family:"Lilita One",Impact,sans-serif;font-size:clamp(34px,10vw,54px);line-height:.95;font-variant-numeric:tabular-nums}
+.vs .col.you .num{color:var(--hot)}
+.vs .col.cpu .num{color:var(--deep)}
+.vs .col.dim{opacity:.45}
+.vs .mid{font-family:"Lilita One",Impact,sans-serif;font-size:19px;color:var(--ink-soft)}
+.band{display:inline-block;margin-top:10px;padding:5px 14px;border-radius:999px;font-family:"Lilita One",Impact,sans-serif;font-size:17px;letter-spacing:.04em;border:2px solid currentColor}
+.win{color:var(--good)}.lose{color:var(--hot)}.draw{color:var(--ink-soft)}
+.verdict p{margin:9px auto 0;max-width:44ch;color:var(--ink-soft);font-size:13.5px}
+
+.coach{padding:0 14px 14px}
+.coach h3{font-family:"Lilita One",Impact,sans-serif;font-weight:400;font-size:19px;margin:18px 0 6px}
+.coach p{margin:0 0 10px;max-width:62ch;font-size:14px}
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums;min-width:440px}
+th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--rule-soft)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--rule)}
+tbody tr:last-child td{border-bottom:none}
+td.you{font-weight:800;color:var(--hot)}
+td.cpu{font-weight:800;color:var(--deep)}
+.w-you{color:var(--hot);font-weight:800}
+.w-cpu{color:var(--deep);font-weight:800}
+.thresholds{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:10px 0 4px}
+.th{border:2px solid var(--rule-soft);border-radius:8px;padding:6px 4px;text-align:center;background:var(--card-2)}
+.th .p{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:800}
+.th .v{font-family:"Lilita One",Impact,sans-serif;font-size:17px;line-height:1.15;color:var(--deep);font-variant-numeric:tabular-nums}
+.th.last .v{color:var(--ink-soft);font-size:14px;padding-top:2px}
+.foot{color:var(--ink-soft);font-size:12px;text-align:center;margin:0}
+</style>
+
+<div class="wrap">
+  <div>
+    <h1>Thirty <em>Strangers</em></h1>
+    <p class="tagline">Three lines. Ten strangers each. One offer apiece, no going back &mdash; and a machine walking the very same lines behind you.</p>
+  </div>
+
+  <div class="score" id="score"></div>
+  <div class="lines" id="lines"></div>
+
+  <div class="ticket" id="ticket">
+    <div class="ticket-head">
+      <span id="headLeft">Setup</span>
+      <span class="who" id="headRight">Pick a difficulty</span>
+    </div>
+    <div id="body"></div>
+  </div>
+
+  <p class="foot">Offers are drawn independently, $1&ndash;$100, all equally likely. You and the computer walk identical lines. Faces and outfits are decoration &mdash; they tell you nothing.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var LINES = 3, PEOPLE = 10, BAR = 200;
+
+  /* ---------- exact optimal thresholds (discrete uniform 1..100) ---------- */
+  var E = [0];
+  for (var k = 1; k <= PEOPLE; k++){
+    var s = 0;
+    for (var x = 1; x <= 100; x++) s += Math.max(x, E[k-1]);
+    E.push(s / 100);
+  }
+  function thresholdAt(p){ return E[PEOPLE - p]; }   // p is 1-indexed
+  var SKIP = 4;                                      // Easy: benchmark rounds
+
+  /* ---------- svg bits ---------- */
+  var BOT = '<svg class="bot" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+
+            '<rect x="3.5" y="7" width="17" height="13" rx="4"/><path d="M12 7V3.5"/><circle cx="12" cy="2.6" r="1.4" fill="currentColor" stroke="none"/>'+
+            '<circle cx="9" cy="13" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1.5" fill="currentColor" stroke="none"/>'+
+            '<path d="M9.5 17h5"/></svg>';
+
+  var SHIRTS = ["#E4572E","#3D8BFD","#2BA84A","#8E44C6","#F2B705","#1B9AAA","#E0428A","#5B6DF6","#D95D39","#0E9594"];
+  var HAIRS  = ["#2B1B12","#7A4A21","#C97B2B","#111318","#5A3C6B","#8C8C94","#D8B26A","#3E2723"];
+  var MOUTHS = ["smile","grin","flat","frown","o","smirk"];
+  function rnd(n){ return Math.floor(Math.random()*n); }
+
+  function mouthPath(kind){
+    switch(kind){
+      case "grin":  return '<path d="M86 62 q14 16 28 0 q-14 7 -28 0z" fill="#fff" stroke="#22202B" stroke-width="3" stroke-linejoin="round"/>';
+      case "flat":  return '<path d="M88 63 h24" stroke="#22202B" stroke-width="3.5" stroke-linecap="round" fill="none"/>';
+      case "frown": return '<path d="M87 66 q13 -12 26 0" stroke="#22202B" stroke-width="3.5" stroke-linecap="round" fill="none"/>';
+      case "o":     return '<ellipse cx="100" cy="63" rx="6" ry="7.5" fill="#fff" stroke="#22202B" stroke-width="3"/>';
+      case "smirk": return '<path d="M89 62 q12 9 22 -2" stroke="#22202B" stroke-width="3.5" stroke-linecap="round" fill="none"/>';
+      default:      return '<path d="M87 60 q13 12 26 0" stroke="#22202B" stroke-width="3.5" stroke-linecap="round" fill="none"/>';
+    }
+  }
+
+  function personSVG(look, amount, animate){
+    var legY = look.tall ? 206 : 196, hip = look.tall ? 156 : 150;
+    var billCls = animate ? ' class="bill-pop"' : '';
+    return ''+
+    '<svg class="person" viewBox="0 0 246 224" role="img" aria-label="A stranger offering $'+amount+'">'+
+      '<ellipse cx="102" cy="214" rx="46" ry="7" fill="currentColor" opacity=".12"/>'+
+      '<path d="M100 '+hip+' L80 '+legY+' M100 '+hip+' L122 '+legY+'" stroke="#22202B" stroke-width="7" stroke-linecap="round" fill="none"/>'+
+      '<path d="M80 '+legY+' h-11 M122 '+legY+' h11" stroke="#22202B" stroke-width="7" stroke-linecap="round" fill="none"/>'+
+      '<rect x="83" y="88" width="34" height="'+(hip-84)+'" rx="15" fill="'+look.shirt+'" stroke="#22202B" stroke-width="4"/>'+
+      '<path d="M88 100 L66 134" stroke="'+look.shirt+'" stroke-width="9" stroke-linecap="round" fill="none"/>'+
+      '<path d="M88 100 L66 134" stroke="#22202B" stroke-width="3" stroke-linecap="round" fill="none" opacity=".25"/>'+
+      '<circle cx="64" cy="137" r="7" fill="var(--skin)" stroke="#22202B" stroke-width="3"/>'+
+      '<path d="M112 100 L146 74" stroke="'+look.shirt+'" stroke-width="9" stroke-linecap="round" fill="none"/>'+
+      '<path d="M112 100 L146 74" stroke="#22202B" stroke-width="3" stroke-linecap="round" fill="none" opacity=".25"/>'+
+      '<circle cx="100" cy="53" r="27" fill="var(--skin)" stroke="#22202B" stroke-width="4"/>'+
+      '<path d="M76 42 q10 -22 24 -22 q16 0 24 22 q-12 -9 -24 -9 q-13 0 -24 9z" fill="'+look.hair+'" stroke="#22202B" stroke-width="3.5" stroke-linejoin="round"/>'+
+      (look.hat ? '<path d="M70 28 h60 M82 28 q2 -18 18 -18 q16 0 18 18z" stroke="#22202B" stroke-width="4" fill="'+look.shirt+'" stroke-linejoin="round" stroke-linecap="round"/>' : '')+
+      '<circle cx="90" cy="49" r="3.6" fill="#22202B"/><circle cx="110" cy="49" r="3.6" fill="#22202B"/>'+
+      mouthPath(look.mouth)+
+      '<circle cx="146" cy="74" r="7.5" fill="var(--skin)" stroke="#22202B" stroke-width="3"/>'+
+      '<g'+billCls+'>'+
+        '<rect x="144" y="44" width="82" height="48" rx="7" transform="rotate(-9 185 68)" fill="#DFF3E2" stroke="#22202B" stroke-width="4"/>'+
+        '<rect x="152" y="52" width="66" height="32" rx="4" transform="rotate(-9 185 68)" fill="none" stroke="#2E8B4F" stroke-width="2" stroke-dasharray="4 3"/>'+
+        '<text x="185" y="78" transform="rotate(-9 185 68)" text-anchor="middle" font-family="Lilita One, Impact, sans-serif" font-weight="700" font-size="28" fill="#1B6B3A">$'+amount+'</text>'+
+      '</g>'+
+    '</svg>';
+  }
+
+  /* ---------- game state ---------- */
+  function makeLine(){
+    var amounts = [], look = [];
+    for (var i = 0; i < PEOPLE; i++){
+      amounts.push(1 + rnd(100));
+      look.push({ shirt:SHIRTS[rnd(SHIRTS.length)], hair:HAIRS[rnd(HAIRS.length)],
+                  mouth:MOUTHS[rnd(MOUTHS.length)], hat:Math.random()<.28, tall:Math.random()<.35 });
+    }
+    return { amounts:amounts, look:look, taken:null, cpuTaken:null };
+  }
+  function newGame(mode){
+    var ls = [];
+    for (var i = 0; i < LINES; i++) ls.push(makeLine());
+    return { mode:mode||"easy", lines:ls, li:0, pi:0, view:"setup", step:0 };
+  }
+  var G = newGame("easy");
+  var timer = null;
+  function stopTimer(){ if (timer){ clearTimeout(timer); timer = null; } }
+
+  /* ---------- the computer ---------- */
+  // Returns the ordered decisions the computer makes on one line.
+  function cpuPlan(amounts, mode){
+    var steps = [], i, take = -1;
+    if (mode === "hard"){
+      for (i = 0; i < PEOPLE; i++){
+        var need = Math.ceil(thresholdAt(i+1));
+        if (i === PEOPLE - 1){
+          steps.push({ i:i, act:"take", note:"Last stranger &mdash; no standard left to hold. Takes <b>$"+amounts[i]+"</b>." });
+          take = i; break;
+        }
+        if (amounts[i] >= thresholdAt(i+1)){
+          steps.push({ i:i, act:"take", note:"Position "+(i+1)+" is only worth stopping for at <b>$"+need+"+</b>. $"+amounts[i]+" clears it." });
+          take = i; break;
+        }
+        steps.push({ i:i, act:"pass", note:"Position "+(i+1)+" is only worth stopping for at <b>$"+need+"+</b>. $"+amounts[i]+" falls short." });
+      }
+    } else {
+      var bar = 0;
+      for (i = 0; i < SKIP; i++){
+        bar = Math.max(bar, amounts[i]);
+        steps.push({ i:i, act:"watch", note:"Benchmark round "+(i+1)+" of "+SKIP+" &mdash; just looking. Best so far: <b>$"+bar+"</b>." });
+      }
+      for (i = SKIP; i < PEOPLE; i++){
+        if (amounts[i] > bar){
+          steps.push({ i:i, act:"take", note:"$"+amounts[i]+" beats the <b>$"+bar+"</b> benchmark. First one that does &mdash; takes it." });
+          take = i; break;
+        }
+        if (i === PEOPLE - 1){
+          steps.push({ i:i, act:"take", note:"Nothing ever beat the <b>$"+bar+"</b> benchmark. Forced to take <b>$"+amounts[i]+"</b>." });
+          take = i; break;
+        }
+        steps.push({ i:i, act:"pass", note:"$"+amounts[i]+" is under the <b>$"+bar+"</b> benchmark. Walks on." });
+      }
+    }
+    return { steps:steps, take:take, bar:(mode === "hard" ? null : Math.max.apply(null, amounts.slice(0, SKIP))) };
+  }
+  function cpuPick(amounts, mode){ return cpuPlan(amounts, mode).take; }
+
+  /* ---------- totals ---------- */
+  function totalYou(){ var t=0,i,L; for(i=0;i<LINES;i++){ L=G.lines[i]; if(L.taken!==null) t+=L.amounts[L.taken]; } return t; }
+  function totalCpu(){ var t=0,i,L; for(i=0;i<LINES;i++){ L=G.lines[i]; if(L.cpuTaken!==null) t+=L.amounts[L.cpuTaken]; } return t; }
+  function linesWon(){
+    var y=0,c=0,i,L;
+    for(i=0;i<LINES;i++){ L=G.lines[i];
+      if(L.taken!==null && L.cpuTaken!==null){
+        var a=L.amounts[L.taken], b=L.amounts[L.cpuTaken];
+        if(a>b) y++; else if(b>a) c++;
+      }
+    }
+    return { you:y, cpu:c };
+  }
+
+  /* ---------- render ---------- */
+  var elScore = document.getElementById("score");
+  var elLines = document.getElementById("lines");
+  var elBody  = document.getElementById("body");
+  var elHL    = document.getElementById("headLeft");
+  var elHR    = document.getElementById("headRight");
+  var elTicket= document.getElementById("ticket");
+
+  function renderScore(){
+    var y = totalYou(), c = totalCpu(), w = linesWon();
+    elScore.innerHTML =
+      '<div class="side you'+(y>c?" ahead":"")+'"><span class="who">You</span><span class="amt">$'+y+'</span></div>'+
+      '<div class="tally">Lines<b>'+w.you+'&ndash;'+w.cpu+'</b>'+(G.mode==="hard"?"Hard":"Easy")+'</div>'+
+      '<div class="side cpu right'+(c>y?" ahead":"")+'"><span class="who">'+BOT+'Computer</span><span class="amt">$'+c+'</span></div>';
+  }
+
+  function renderChips(){
+    var h = "", i;
+    for (i = 0; i < LINES; i++){
+      var L = G.lines[i], cls = "chip";
+      if (i === G.li && G.view !== "final" && G.view !== "setup") cls += " active";
+      var yv = L.taken    !== null ? "$"+L.amounts[L.taken]    : "&mdash;";
+      var cv = L.cpuTaken !== null ? "$"+L.amounts[L.cpuTaken] : "&mdash;";
+      var yc = "", cc = "";
+      if (L.taken !== null && L.cpuTaken !== null){
+        var a = L.amounts[L.taken], b = L.amounts[L.cpuTaken];
+        yc = a > b ? " win" : (a < b ? " lose" : "");
+        cc = b > a ? " win" : (b < a ? " lose" : "");
+      }
+      h += '<div class="'+cls+'"><div class="n">Line '+(i+1)+'</div>'+
+           '<div class="row'+yc+'"><span>You</span><span>'+yv+'</span></div>'+
+           '<div class="row'+cc+'"><span>CPU</span><span>'+cv+'</span></div></div>';
+    }
+    elLines.innerHTML = h;
+  }
+
+  function render(animate){
+    stopTimer();
+    renderScore(); renderChips();
+    elTicket.className = "ticket" + (G.view === "cpu" ? " turn-cpu" : "");
+    if (G.view === "setup") renderSetup();
+    else if (G.view === "offer") renderOffer(animate);
+    else if (G.view === "cpu") renderCpu();
+    else if (G.view === "reveal") renderReveal();
+    else renderFinal();
+  }
+
+  /* ---------- setup ---------- */
+  function renderSetup(){
+    elHL.innerHTML = "Setup";
+    elHR.innerHTML = "Pick your opponent";
+    elBody.innerHTML =
+      '<div class="setup">'+
+        '<h2>Who are you up against?</h2>'+
+        '<p class="sub">The computer walks the identical line right after you, with the identical offers. Pick how well it plays.</p>'+
+        '<div class="modes">'+
+          '<label class="mode"><input type="radio" name="mode" id="mode-easy" value="easy"'+(G.mode==="easy"?" checked":"")+'>'+
+            '<span class="box">'+
+              '<span class="lv">'+BOT+'Easy</span>'+
+              '<span class="d">Watches the first four strangers without taking anything, then grabs the first offer that beats the best of those four. If none ever does, it is stuck with the tenth.</span>'+
+              '<span class="ev">Averages about $70 a line &middot; $210 over three</span>'+
+            '</span></label>'+
+          '<label class="mode"><input type="radio" name="mode" id="mode-hard" value="hard"'+(G.mode==="hard"?" checked":"")+'>'+
+            '<span class="box">'+
+              '<span class="lv">'+BOT+'Hard</span>'+
+              '<span class="d">Plays the exact solution: a falling standard for every position &mdash; $86 from the first stranger, $51 from the ninth, anything from the tenth. It cannot be out-thought, only out-lucked.</span>'+
+              '<span class="ev">Averages about $87 a line &middot; $260 over three</span>'+
+            '</span></label>'+
+        '</div>'+
+      '</div>'+
+      '<div class="controls"><button class="btn-take btn-wide" id="go">Walk into line 1 &rarr;</button></div>';
+    document.getElementById("go").onclick = function(){
+      G.mode = document.getElementById("mode-hard").checked ? "hard" : "easy";
+      G.view = "offer"; G.li = 0; G.pi = 0;
+      render(true);
+    };
+  }
+
+  /* ---------- your turn ---------- */
+  function renderOffer(animate){
+    var L = G.lines[G.li], p = G.pi, amt = L.amounts[p], last = (p === PEOPLE - 1), i;
+    elHL.innerHTML = "Line " + (G.li + 1) + " of " + LINES;
+    elHR.innerHTML = "Person " + (p + 1) + " of " + PEOPLE;
+
+    var pips = "";
+    for (i = 0; i < PEOPLE; i++) pips += '<span class="pip '+(i<p?"past":i===p?"now":"")+'"></span>';
+
+    elBody.innerHTML =
+      '<div class="turnbar you"><span class="blink"></span>Your turn</div>'+
+      '<div class="stage"><div class="ground"></div>'+
+        '<div class="figure'+(animate?' anim-in':'')+'">'+personSVG(L.look[p], amt, animate)+'</div>'+
+      '</div>'+
+      '<div class="queue">'+pips+'<span class="count">'+(PEOPLE-p-1)+' behind them</span></div>'+
+      '<div class="controls">'+
+        '<button class="btn-take'+(last?" btn-wide":"")+'" id="take">Take the $'+amt+'</button>'+
+        (last ? '' : '<button class="btn-pass" id="pass">Walk on &rarr;</button>')+
+      '</div>'+
+      (last
+        ? '<p class="hint"><strong>End of the line.</strong> There is nobody behind them &mdash; this offer is yours whether you like it or not.</p>'
+        : '<p class="hint">Walk on and this offer is gone for good. Reach the tenth stranger and you must take whatever they hold up.</p>');
+
+    document.getElementById("take").onclick = function(){
+      G.lines[G.li].taken = G.pi;
+      G.view = "cpu"; G.step = 0;
+      render(false);
+    };
+    var pb = document.getElementById("pass");
+    if (pb) pb.onclick = function(){ G.pi++; render(true); };
+  }
+
+  /* ---------- the computer's turn ---------- */
+  function renderCpu(){
+    var L = G.lines[G.li], plan = cpuPlan(L.amounts, G.mode);
+    if (G.step >= plan.steps.length) G.step = plan.steps.length - 1;
+    var st = plan.steps[G.step], p = st.i, amt = L.amounts[p], i;
+    var done = (st.act === "take");
+
+    elHL.innerHTML = "Line " + (G.li + 1) + " of " + LINES;
+    elHR.innerHTML = "Person " + (p + 1) + " of " + PEOPLE;
+
+    var pips = "";
+    for (i = 0; i < PEOPLE; i++){
+      var c = "pip";
+      if (i < p) c += (G.mode === "easy" && i < SKIP) ? " mark" : " past";
+      else if (i === p) c += " now cpu";
+      pips += '<span class="'+c+'"></span>';
+    }
+
+    var actTxt = st.act === "take" ? "Takes the $"+amt
+               : st.act === "pass" ? "Walks on"
+               : "Just looking";
+
+    elBody.innerHTML =
+      '<div class="turnbar cpu">'+BOT+'<span class="blink"></span>Computer playing &mdash; '+(G.mode==="hard"?"hard":"easy")+'</div>'+
+      '<div class="reason">'+BOT+'<span>'+st.note+'</span></div>'+
+      '<div class="stage cpu"><div class="ground"></div>'+
+        '<div class="figure anim-in">'+personSVG(L.look[p], amt, true)+'</div>'+
+      '</div>'+
+      '<div class="queue">'+pips+'<span class="count">'+(PEOPLE-p-1)+' behind them</span></div>'+
+      '<div class="controls">'+
+        '<span class="act '+(st.act==="take"?"take":"pass")+'">'+actTxt+'</span>'+
+        (done ? '<button class="btn-cpu" id="cpudone">See the line &rarr;</button>'
+              : '<button class="btn-ghost" id="skip">Skip ahead &rarr;</button>')+
+      '</div>';
+
+    if (done){
+      document.getElementById("cpudone").onclick = function(){
+        G.lines[G.li].cpuTaken = plan.take;
+        G.view = "reveal"; render(false);
+      };
+      timer = setTimeout(function(){
+        G.lines[G.li].cpuTaken = plan.take;
+        G.view = "reveal"; render(false);
+      }, 1500);
+    } else {
+      document.getElementById("skip").onclick = function(){
+        stopTimer();
+        G.lines[G.li].cpuTaken = plan.take;
+        G.view = "reveal"; render(false);
+      };
+      timer = setTimeout(function(){ G.step++; render(false); }, st.act === "watch" ? 850 : 1000);
+    }
+  }
+
+  /* ---------- line result ---------- */
+  function renderReveal(){
+    var L = G.lines[G.li], t = L.taken, ct = L.cpuTaken, i;
+    var best = Math.max.apply(null, L.amounts), bestIdx = L.amounts.indexOf(best);
+    var you = L.amounts[t], cpu = L.amounts[ct];
+
+    elHL.innerHTML = "Line " + (G.li + 1) + " &mdash; closed";
+    elHR.innerHTML = "You $" + you + " &middot; CPU $" + cpu;
+
+    var slips = "";
+    for (i = 0; i < PEOPLE; i++){
+      var c = "slip" + (i === bestIdx ? " best" : "");
+      var tags = (i === t ? '<span class="tag you">YOU</span>' : '') + (i === ct ? '<span class="tag cpu">CPU</span>' : '');
+      slips += '<div class="'+c+'"><div class="p">'+(i+1)+'</div><div class="a">$'+L.amounts[i]+'</div><div class="tags">'+tags+'</div></div>';
+    }
+
+    var head, sub;
+    if (you > cpu){ head = "You take line "+(G.li+1)+", $"+you+" to $"+cpu+"."; }
+    else if (cpu > you){ head = "The computer takes line "+(G.li+1)+", $"+cpu+" to $"+you+"."; }
+    else { head = "Line "+(G.li+1)+" is a dead heat at $"+you+"."; }
+
+    if (t === bestIdx && ct === bestIdx) sub = "You both landed on the biggest offer in the line.";
+    else if (t === bestIdx) sub = "You took the biggest offer in the line. Nothing left on the table.";
+    else if (ct === bestIdx) sub = "The computer found the biggest offer in the line, $"+best+" at person "+(bestIdx+1)+".";
+    else sub = "Neither of you got the best of it &mdash; $"+best+" was sitting at person "+(bestIdx+1)+".";
+
+    var last = (G.li === LINES - 1);
+    elBody.innerHTML =
+      '<div class="receipt">'+
+        '<h2>'+head+'</h2>'+
+        '<p class="sub">'+sub+'</p>'+
+        '<div class="slips">'+slips+'</div>'+
+        '<div class="legend">'+
+          '<span><span class="dot" style="background:var(--hot)"></span> <b>your pick</b></span>'+
+          '<span><span class="dot" style="background:var(--deep)"></span> <b>computer&rsquo;s pick</b></span>'+
+          '<span><span class="dot" style="background:var(--sun)"></span> <b>best in line</b></span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="controls"><button class="btn-take btn-wide" id="next">'+
+        (last ? "See how you did &rarr;" : "Join line " + (G.li + 2) + " &rarr;")+'</button></div>';
+
+    document.getElementById("next").onclick = function(){
+      if (last){ G.view = "final"; render(false); }
+      else { G.li++; G.pi = 0; G.view = "offer"; render(true); }
+    };
+  }
+
+  function money(x){ return "$" + x.toFixed(2).replace(/\.00$/, ""); }
+
+  /* ---------- final ---------- */
+  function renderFinal(){
+    var you = totalYou(), cpu = totalCpu(), w = linesWon(), i;
+    var won = you > cpu, drew = you === cpu;
+
+    elHL.innerHTML = "All three lines walked";
+    elHR.innerHTML = won ? "You win" : drew ? "Dead heat" : "Computer wins";
+
+    var rows = "", bestTotal = 0, optTotal = 0;
+    for (i = 0; i < LINES; i++){
+      var L = G.lines[i], a = L.amounts[L.taken], b = L.amounts[L.cpuTaken];
+      var bst = Math.max.apply(null, L.amounts); bestTotal += bst;
+      optTotal += L.amounts[cpuPick(L.amounts, "hard")];
+      var winner = a > b ? '<span class="w-you">You</span>' : b > a ? '<span class="w-cpu">Computer</span>' : '<span style="color:var(--ink-soft)">Tie</span>';
+      rows += '<tr><td>Line '+(i+1)+'</td>'+
+              '<td class="you">$'+a+' <span style="color:var(--ink-soft);font-weight:400">(#'+(L.taken+1)+')</span></td>'+
+              '<td class="cpu">$'+b+' <span style="color:var(--ink-soft);font-weight:400">(#'+(L.cpuTaken+1)+')</span></td>'+
+              '<td>'+winner+'</td><td>$'+bst+'</td></tr>';
+    }
+    rows += '<tr><td><b>Total</b></td><td class="you">$'+you+'</td><td class="cpu">$'+cpu+'</td>'+
+            '<td>'+(won?'<span class="w-you">You</span>':drew?'<span style="color:var(--ink-soft)">Tie</span>':'<span class="w-cpu">Computer</span>')+'</td>'+
+            '<td>$'+bestTotal+'</td></tr>';
+
+    var ths = "";
+    for (var p = 1; p <= PEOPLE; p++){
+      ths += (p === PEOPLE)
+        ? '<div class="th last"><div class="p">#10</div><div class="v">anything</div></div>'
+        : '<div class="th"><div class="p">#'+p+'</div><div class="v">'+Math.ceil(thresholdAt(p))+'</div></div>';
+    }
+
+    var line;
+    if (won && G.mode === "hard") line = "You beat the exact solution. That takes good decisions and a kind line or two &mdash; it happens about one time in five.";
+    else if (won) line = "You out-earned the benchmark rule. It stops as soon as anything beats the first four, which is often far too early.";
+    else if (drew) line = "Level. Three lines is a short enough contest for that to happen.";
+    else if (G.mode === "hard") line = "The exact solution held. It usually does &mdash; it wins this matchup around four times in five.";
+    else line = "The benchmark rule got you this time, and it is beatable: it averages only about $70 a line.";
+
+    var cpuExplain = (G.mode === "hard")
+      ? '<p>On <b>hard</b> the computer runs the exact solution. An offer is worth taking only if it beats what walking on is worth. With nine strangers still ahead, walking on is worth a lot, so the standard is high; with one stranger left it is worth nothing, so anything beats it. That gives one number per position:</p>'+
+        '<div class="thresholds">'+ths+'</div>'+
+        '<p>Working backwards: the tenth stranger is forced, so before meeting them you expect the average, '+money(E[1])+'. That is your standard for the ninth. Carry it up the line and the first stranger has to hold up '+money(E[9])+' to be worth stopping for. Played this way a line is worth about '+money(E[PEOPLE])+', or '+money(E[PEOPLE]*LINES)+' over three.</p>'
+      : '<p>On <b>easy</b> the computer runs the classic benchmark rule: watch four, then take the first offer that beats the best of them. It is a good rule for <em>finding the single biggest</em> offer, but that is not this game &mdash; here you are paid the amount, not a prize for spotting the maximum. So it stops too eagerly, on anything at all that clears the benchmark, and about 41% of the time nothing ever does and it is dumped on the tenth stranger. It averages roughly $70 a line, $210 over three.</p>'+
+        '<p>The exact solution instead sets a standard that falls as the line runs out &mdash; take the offer only if it is at least this:</p>'+
+        '<div class="thresholds">'+ths+'</div>'+
+        '<p>That is worth about '+money(E[PEOPLE])+' a line, '+money(E[PEOPLE]*LINES)+' over three, and it is what <b>hard</b> plays. On these three lines it would have banked <b>$'+optTotal+'</b>.</p>';
+
+    elBody.innerHTML =
+      '<div class="verdict">'+
+        '<div class="vs">'+
+          '<div class="col you'+(!won&&!drew?" dim":"")+'"><div class="lbl">You</div><div class="num">$'+you+'</div></div>'+
+          '<div class="mid">vs</div>'+
+          '<div class="col cpu'+(won?" dim":"")+'"><div class="lbl">Computer &middot; '+(G.mode==="hard"?"Hard":"Easy")+'</div><div class="num">$'+cpu+'</div></div>'+
+        '</div>'+
+        '<div class="band '+(won?"win":drew?"draw":"lose")+'">'+(won?"YOU WIN":drew?"DEAD HEAT":"COMPUTER WINS")+'</div>'+
+        '<p>'+line+' Lines won '+w.you+'&ndash;'+w.cpu+'. '+
+          (you > BAR ? 'You also cleared the old $'+BAR+' bar.' : 'You finished under the old $'+BAR+' bar.')+'</p>'+
+      '</div>'+
+      '<div class="coach">'+
+        '<h3>Line by line</h3>'+
+        '<div class="tbl-scroll"><table>'+
+          '<thead><tr><th>Line</th><th>You took</th><th>Computer took</th><th>Winner</th><th>Best available</th></tr></thead>'+
+          '<tbody>'+rows+'</tbody></table></div>'+
+        '<h3>How the computer thinks</h3>'+
+        cpuExplain+
+        '<h3>What beats it</h3>'+
+        '<p>Both lazy extremes are worth exactly the same '+money(E[1])+' a line: grab the first stranger, or refuse everyone and take the forced tenth. A random offer is a random offer. Everything above that comes from the middle &mdash; holding a high standard early and letting it fall as the strangers run out.</p>'+
+        '<p style="color:var(--ink-soft);font-size:13px">Luck still gets a vote. Three lines is a short sample, and a line that never produces a big number costs you no matter how well you read it.</p>'+
+      '</div>'+
+      '<div class="controls">'+
+        '<button class="btn-take" id="again">Play again &rarr;</button>'+
+        '<button class="btn-pass" id="reset">Change difficulty</button>'+
+      '</div>';
+
+    document.getElementById("again").onclick = function(){
+      var m = G.mode; G = newGame(m); G.view = "offer"; render(true);
+      window.scrollTo({top:0,behavior:"smooth"});
+    };
+    document.getElementById("reset").onclick = function(){
+      var m = G.mode; G = newGame(m); render(false);
+      window.scrollTo({top:0,behavior:"smooth"});
+    };
+  }
+
+  /* ---------- boot ---------- */
+  function start(saved){
+    if (saved && saved.lines && saved.lines.length === LINES) G = saved;
+    if (G.view === "cpu") G.step = 0;
+    render(true);
+    try {
+      if (window.claude && window.claude.hot && window.claude.hot.snapshot)
+        window.claude.hot.snapshot(function(){ return G; });
+    } catch(e){}
+  }
+  try {
+    if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
+    else start((window.claude && window.claude.hot && window.claude.hot.data) || null);
+  } catch(e){ start(null); }
+})();
+</script>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

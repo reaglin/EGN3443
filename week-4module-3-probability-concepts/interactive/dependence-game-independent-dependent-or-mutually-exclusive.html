@@ -1,0 +1,370 @@
+﻿<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
+<div class="pm-injected-nav"><a href="../index.html">← Back to Module</a><span class="sep">|</span><span style="color:#555">Dependence Game: Independent, Dependent, or Mutually Exclusive?</span></div>
+<div class="pm-injected-spacer"></div>
+<title>Dependence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#F2F6EA; --grid:#D6E1C6; --card:#FCFDF8; --ink:#1E3557; --muted:#5B6A5C;
+  --line:#B9C8A8; --accent:#C2452D; --good:#2E7A4C; --goodbg:#E1F0E2; --badbg:#F8E4DD;
+  --btn:#FFFFFF; --btnhover:#E9F0DE; --shadow:rgba(30,53,87,.14);
+  --hand:"Kalam","Comic Neue","Segoe Print",cursive;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#15201D; --grid:#1F2D29; --card:#1B2825; --ink:#E4ECE0; --muted:#9DAB9F;
+    --line:#34463F; --accent:#F0826A; --good:#72CF94; --goodbg:#1D3A2A; --badbg:#3D231D;
+    --btn:#1F2E2A; --btnhover:#283B36; --shadow:rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#15201D; --grid:#1F2D29; --card:#1B2825; --ink:#E4ECE0; --muted:#9DAB9F;
+  --line:#34463F; --accent:#F0826A; --good:#72CF94; --goodbg:#1D3A2A; --badbg:#3D231D;
+  --btn:#1F2E2A; --btnhover:#283B36; --shadow:rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.5;
+  padding-inline:16px; padding-block:20px 40px; min-height:100%;
+}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--hand);font-weight:700;font-size:clamp(2rem,6vw,2.8rem);margin:0;line-height:1;letter-spacing:.5px}
+h1 span{color:var(--accent)}
+.tag{font-family:var(--body);color:var(--muted);font-size:.9rem;margin:4px 0 0}
+.hud{display:flex;gap:8px;font-family:var(--mono);font-size:.85rem}
+.chip{border:1.5px solid var(--ink);border-radius:4px;padding:3px 10px;background:var(--card);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip b{font-weight:700}
+
+.stage{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:end}
+.fig svg{width:100%;height:auto;display:block;overflow:visible}
+.fig .stroke{stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.fig .head{fill:var(--card)}
+.fig .dot{fill:var(--ink)}
+.fig .cap{fill:var(--ink)}
+.fig .tassel{stroke:var(--accent);stroke-width:3;stroke-linecap:round;fill:none}
+.fig .cheek{fill:var(--accent);opacity:0}
+.fig.happy .cheek{opacity:.35}
+.fig.happy svg{animation:hop .5s ease-out 2}
+.fig.talk .mouth-talk{animation:talk .28s ease-in-out infinite alternate;transform-origin:60px 50px;transform-box:view-box}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
+
+.bubble{position:relative;background:var(--card);border:2.5px solid var(--ink);border-radius:18px 18px 18px 4px;
+  padding:18px 20px;min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:8px;
+  box-shadow:4px 5px 0 var(--shadow);margin-bottom:70px}
+.bubble::before{content:"";position:absolute;left:-10px;bottom:22px;width:18px;height:18px;background:var(--card);
+  border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg)}
+.bubble .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.bubble .say{font-family:var(--hand);font-size:clamp(1.2rem,3.4vw,1.55rem);line-height:1.3;margin:0;text-wrap:balance}
+
+.timer{display:flex;align-items:center;gap:10px}
+.track{flex:1;height:12px;border:2px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--card)}
+.bar{height:100%;width:100%;background:var(--ink);transform-origin:left;transition:background .2s}
+.bar.low{background:var(--accent)}
+.secs{font-family:var(--mono);font-weight:700;font-size:1.1rem;min-width:3.2ch;text-align:right;font-variant-numeric:tabular-nums}
+
+.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.answers button,.next,.start{font:inherit;cursor:pointer;color:var(--ink);background:var(--btn);border:2.5px solid var(--ink);
+  border-radius:10px;padding:12px 10px;box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s,background .15s}
+.answers button{display:flex;flex-direction:column;align-items:center;gap:2px;font-weight:700;font-size:1.02rem}
+.answers button small{font-family:var(--mono);font-weight:500;font-size:.7rem;color:var(--muted)}
+.answers button:hover:not(:disabled),.next:hover,.start:hover{background:var(--btnhover)}
+.answers button:active:not(:disabled),.next:active,.start:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.answers button:disabled{cursor:default;opacity:.45}
+.answers button.pick{opacity:1}
+.answers button.right{opacity:1;background:var(--goodbg);border-color:var(--good);box-shadow:3px 3px 0 var(--good)}
+.answers button.wrong{opacity:1;background:var(--badbg);border-color:var(--accent);box-shadow:3px 3px 0 var(--accent)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.feedback{border-left:5px solid var(--ink);background:var(--card);padding:14px 16px;border-radius:0 10px 10px 0;
+  display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 0 var(--shadow)}
+.feedback.ok{border-left-color:var(--good)}
+.feedback.no{border-left-color:var(--accent)}
+.feedback h2{font-family:var(--hand);font-size:1.5rem;margin:0;line-height:1.1}
+.feedback.ok h2{color:var(--good)} .feedback.no h2{color:var(--accent)}
+.feedback p{margin:0;max-width:65ch}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.next,.start{font-weight:700;padding:10px 20px}
+.start{font-size:1.1rem;padding:12px 28px;background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--accent)}
+.start:hover{background:var(--ink);opacity:.9}
+.hint{font-size:.82rem;color:var(--muted)}
+kbd{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--card)}
+
+.levels{display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0;border:0}
+.levels legend{font-weight:700;margin-bottom:6px;padding:0}
+.lvl{display:flex;align-items:center;gap:10px;cursor:pointer;border:2.5px solid var(--ink);border-radius:10px;padding:10px 16px;background:var(--btn);flex:1 1 200px}
+.lvl input{accent-color:var(--accent);width:18px;height:18px;margin:0}
+.lvl b{display:block}
+.lvl span{font-size:.85rem;color:var(--muted)}
+.lvl:has(input:checked){background:var(--goodbg);box-shadow:3px 3px 0 var(--ink)}
+.lvl:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:3px}
+.rules{background:var(--card);border:1.5px dashed var(--line);border-radius:10px;padding:14px 16px;font-size:.95rem}
+.rules dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;margin:0}
+.rules dt{font-weight:700}
+.rules dd{margin:0}
+.rules .note{margin:10px 0 0;color:var(--muted)}
+
+.review{display:flex;flex-direction:column;gap:10px}
+.review h3{font-family:var(--hand);font-size:1.3rem;margin:4px 0 0}
+.miss{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:10px 14px;font-size:.93rem}
+.miss .q{font-weight:700}
+.miss .a{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:2px 0}
+
+@media (max-width:540px){
+  .stage{grid-template-columns:84px 1fr;gap:10px}
+  .bubble{min-height:130px;padding:14px;margin-bottom:40px}
+  .answers{grid-template-columns:1fr}
+  .answers button{flex-direction:row;justify-content:space-between;padding:12px 16px}
+  .rules dl{grid-template-columns:1fr}
+  .rules dd{margin-bottom:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  .fig.happy svg,.fig.talk .mouth-talk{animation:none}
+  .answers button,.next,.start{transition:none}
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Depend<span>ence</span></h1>
+      <p class="tag">Dependent, independent, or mutually exclusive? Easy gives you 10 seconds. Hard gives you 5.</p>
+    </div>
+    <div class="hud" aria-live="polite">
+      <span class="chip" id="levelChip" hidden>Level <b id="level">Easy</b></span>
+      <span class="chip">Round <b id="round">–</b>/10</span>
+      <span class="chip">Score <b id="score">0</b></span>
+    </div>
+  </header>
+
+  <section class="stage">
+    <div class="fig talk" id="fig" aria-hidden="true">
+      <svg viewBox="0 0 120 220">
+        <!-- mortarboard -->
+        <polygon class="cap" points="28,16 60,3 92,16 60,29"/>
+        <rect class="cap" x="44" y="18" width="32" height="8" rx="2"/>
+        <path class="tassel" d="M88 16 L90 34"/>
+        <!-- head -->
+        <circle class="stroke head" cx="60" cy="44" r="25"/>
+        <circle class="dot" cx="51" cy="40" r="2.8"/>
+        <circle class="dot" cx="69" cy="40" r="2.8"/>
+        <circle class="cheek" cx="45" cy="50" r="4"/>
+        <circle class="cheek" cx="75" cy="50" r="4"/>
+        <g id="m-smile" hidden><path class="stroke" d="M49 52 Q60 63 71 52"/></g>
+        <g id="m-neutral" hidden><path class="stroke" d="M51 56 L69 56"/></g>
+        <g id="m-talk"><ellipse class="stroke mouth-talk" cx="60" cy="55" rx="6" ry="4.5"/></g>
+        <!-- body -->
+        <path class="stroke" d="M60 69 L60 145"/>
+        <path class="stroke" d="M60 145 L40 205 M60 145 L80 205"/>
+        <path class="stroke" d="M60 90 L36 125"/>
+        <path class="stroke" id="arm" d="M60 90 L92 70 L110 52"/>
+      </svg>
+    </div>
+    <div class="bubble" id="bubble">
+      <span class="eyebrow" id="eyebrow">Professor Stick says</span>
+      <p class="say" id="say">Hi! I'll read you 10 probability scenarios. For each pair of events, tell me how they're related, fast!</p>
+    </div>
+  </section>
+
+  <div class="timer" id="timerRow" hidden>
+    <div class="track"><div class="bar" id="bar"></div></div>
+    <span class="secs" id="secs">10.0</span>
+  </div>
+
+  <div class="answers" id="answers" hidden>
+    <button type="button" id="btn-D" data-a="D">Dependent <small>1 · D</small></button>
+    <button type="button" id="btn-I" data-a="I">Independent <small>2 · I</small></button>
+    <button type="button" id="btn-M" data-a="M">Mutually Exclusive <small>3 · M</small></button>
+  </div>
+
+  <div class="feedback" id="feedback" hidden>
+    <h2 id="fbTitle"></h2>
+    <p id="fbText"></p>
+    <div class="row">
+      <button type="button" class="next" id="next">Next scenario →</button>
+      <span class="hint"><kbd>Enter</kbd> to continue</span>
+    </div>
+  </div>
+
+  <div id="intro">
+    <div class="rules">
+      <dl>
+        <dt>Independent</dt><dd>One event happening doesn't change the probability of the other. P(B | A) = P(B).</dd>
+        <dt>Dependent</dt><dd>One event happening changes the probability of the other. P(B | A) ≠ P(B).</dd>
+        <dt>Mutually Exclusive</dt><dd>The events can't both happen. P(A and B) = 0.</dd>
+      </dl>
+      <p class="note">Mutually exclusive events are always dependent (if A happens, B's chance drops to zero). When both apply, answer <strong>Mutually Exclusive</strong>.</p>
+    </div>
+    <fieldset class="levels" style="margin-top:16px">
+      <legend>Choose a level</legend>
+      <label class="lvl"><input type="radio" name="level" id="lvl-easy" value="easy" checked><div><b>Easy</b><span>10 seconds per scenario</span></div></label>
+      <label class="lvl"><input type="radio" name="level" id="lvl-hard" value="hard"><div><b>Hard</b><span>5 seconds per scenario</span></div></label>
+    </fieldset>
+    <div class="row" style="margin-top:16px">
+      <button type="button" class="start" id="start">Start game</button>
+      <span class="hint">Keys: <kbd>1</kbd>/<kbd>D</kbd> <kbd>2</kbd>/<kbd>I</kbd> <kbd>3</kbd>/<kbd>M</kbd></span>
+    </div>
+  </div>
+
+  <div class="review" id="review" hidden></div>
+</div>
+
+<script>
+const LABEL={D:"Dependent",I:"Independent",M:"Mutually Exclusive"};
+const BANK=[
+ // Independent
+ {t:"Flipping heads on a coin, then flipping heads again on the next flip.",a:"I",r:"A coin has no memory. The first flip has no effect on the second, so P(heads) stays 1/2."},
+ {t:"Drawing an Ace, putting it back and reshuffling, then drawing an Ace again.",a:"I",r:"With replacement the deck is restored, so the second draw is still 4/52 no matter what came first."},
+ {t:"Rolling a 6 on a red die and a 6 on a blue die, thrown at the same time.",a:"I",r:"Two separate dice don't affect each other. Each has a 1/6 chance of showing 6."},
+ {t:"It rains in Daytona today, and a coin toss in Denver lands heads.",a:"I",r:"The weather has no connection to a coin toss. Knowing one tells you nothing about the other."},
+ {t:"A spinner lands on red, and on the next spin it lands on red again.",a:"I",r:"Each spin is a fresh trial. The first result doesn't change the odds of the second."},
+ {t:"A lottery machine draws ball 7 this week, and draws ball 7 again next week.",a:"I",r:"All balls are returned before each weekly draw, so this week's result doesn't change next week's odds."},
+ {t:"Two strangers in different cities each pick a random number from 1 to 10, and both pick 3.",a:"I",r:"Neither person's choice influences the other, so P(second picks 3) stays 1/10."},
+ {t:"Two machines with separate power and material supplies each produce a defective part.",a:"I",r:"No shared cause links them, so one machine's defect doesn't change the other's defect rate."},
+ {t:"Rolling an even number on a die, then flipping tails on a coin.",a:"I",r:"A die and a coin are separate processes. The die result can't change P(tails) = 1/2."},
+ {t:"Guessing randomly and getting Question 1 right on a quiz, then guessing randomly and getting Question 2 right.",a:"I",r:"Pure random guesses are separate trials. Being lucky on Q1 doesn't change the chance on Q2."},
+ {t:"Drawing a heart from one deck, and drawing a King from a second, separate deck.",a:"I",r:"Two different decks don't interact. P(King) is 4/52 regardless of what the first deck gave."},
+ {t:"One card is drawn: the card is red, and the card is a King.",a:"I",r:"Trick one! P(King) = 4/52 = 1/13, and P(King | red) = 2/26 = 1/13. Knowing it's red doesn't change the chance, so they're independent (and both can happen, so not mutually exclusive)."},
+ {t:"One die is rolled: the result is even, and the result is 2 or less.",a:"I",r:"P(even) = 1/2, P(≤2) = 1/3, and P(both) = P(rolling a 2) = 1/6 = 1/2 × 1/3. The product rule holds, so they're independent."},
+ {t:"A family's baby is a boy, and an unrelated family across town also has a boy.",a:"I",r:"Two unrelated births don't influence each other. Each is roughly a 50/50 chance on its own."},
+ // Dependent
+ {t:"Drawing an Ace from a deck, then drawing another Ace after the first Ace was kept out.",a:"D",r:"Without replacement, the second draw is 3/51 instead of 4/52. The first draw changed the odds."},
+ {t:"Picking a red marble from a bag and keeping it, then picking another red marble.",a:"D",r:"Removing a red marble leaves fewer reds and fewer marbles, so the second probability changes."},
+ {t:"Being dealt a heart as your first card, then a heart as your second card.",a:"D",r:"Cards dealt aren't replaced: 13/52 becomes 12/51 for the second heart."},
+ {t:"Studying for an exam, and passing the exam.",a:"D",r:"Studying raises the chance of passing, so P(pass | studied) ≠ P(pass)."},
+ {t:"Morning skies are heavily overcast, and it rains in the afternoon.",a:"D",r:"Overcast mornings make afternoon rain more likely. One event shifts the other's probability."},
+ {t:"A randomly chosen college student is a senior, and that student is over 21.",a:"D",r:"Seniors are more likely to be over 21 than the student body overall, so knowing 'senior' changes the probability."},
+ {t:"One card is drawn: it is a face card, and it is a King.",a:"D",r:"P(King) = 1/13, but P(King | face card) = 4/12 = 1/3. Both can happen, so it isn't mutually exclusive, but the odds change."},
+ {t:"One die is rolled: the result is even, and the result is greater than 3.",a:"D",r:"P(>3) = 1/2, but P(>3 | even) = 2/3 (4 and 6 out of 2, 4, 6). Knowing it's even changes the chance."},
+ {t:"Choosing two people from a class of 12 women and 8 men: the first is a woman, then the second is a woman.",a:"D",r:"Without replacement, P(second woman) drops from 12/20 to 11/19 once a woman is chosen first."},
+ {t:"A car runs out of gas, and the driver arrives late.",a:"D",r:"Running out of gas makes being late much more likely, so the events are linked."},
+ {t:"Pulling a defective bulb from a box of 10 (not replaced), then pulling another defective bulb.",a:"D",r:"The box changes after the first pull: fewer defectives remain out of 9 bulbs."},
+ {t:"A patient has a high fever, and the patient tests positive for flu.",a:"D",r:"Fever is a common flu symptom, so P(flu | fever) is higher than P(flu) overall."},
+ {t:"Heavy traffic on the interstate, and arriving late to work.",a:"D",r:"Heavy traffic increases the chance of being late. The probability of one depends on the other."},
+ {t:"Names aren't returned to the hat: your friend's name is drawn first, then your name is drawn second.",a:"D",r:"Once your friend's slip is out, fewer slips remain, so your chance of being drawn second goes up."},
+ // Mutually exclusive
+ {t:"On a single roll of a die: rolling a 2, and rolling a 5.",a:"M",r:"One roll shows one face. Both can't happen, so P(2 and 5) = 0."},
+ {t:"On a single coin flip: landing heads, and landing tails.",a:"M",r:"A single flip can't be both heads and tails. That's mutually exclusive (which also makes them dependent)."},
+ {t:"One card is drawn: it is a heart, and it is a spade.",a:"M",r:"Every card has exactly one suit, so one card can't be both a heart and a spade."},
+ {t:"A student's final grade in one course is an A, and the same grade is a B.",a:"M",r:"A course has one final grade. Earning an A rules out a B."},
+ {t:"On a single roll of a die: rolling an even number, and rolling an odd number.",a:"M",r:"No number is both even and odd, so these can't happen together."},
+ {t:"At the same instant, a single traffic light shows red, and it shows green.",a:"M",r:"The light shows one color at a time. Red rules out green."},
+ {t:"One card is drawn: it is a King, and it is a numbered card (2–10).",a:"M",r:"A King isn't a numbered card, so a single card can't be both."},
+ {t:"In one game, the home team wins, and the home team loses.",a:"M",r:"A single game has one outcome for the team. Winning rules out losing."},
+ {t:"On one roll of two dice: the sum is 2, and the sum is 12.",a:"M",r:"One roll gives one sum. It can't be both 2 and 12."},
+ {t:"A randomly chosen person was born in January, and was born in March.",a:"M",r:"A person has one birth month, so both can't be true."},
+ {t:"One spin of a spinner: it lands on the red section, and it lands on the blue section.",a:"M",r:"The pointer stops in one section. Red and blue can't happen on the same spin."},
+ {t:"On a single test attempt, you score exactly 90, and you score exactly 95.",a:"M",r:"One attempt gives one score. Exactly 90 rules out exactly 95."}
+];
+
+const $=id=>document.getElementById(id);
+const fig=$("fig"), say=$("say"), eyebrow=$("eyebrow"), bar=$("bar"), secs=$("secs");
+const btns=[...document.querySelectorAll("#answers button")];
+const LEVELS={easy:{name:"Easy",ms:10000},hard:{name:"Hard",ms:5000}};
+let level="easy", TIME=LEVELS.easy.ms;
+let deck=[], i=0, score=0, misses=[], deadline=0, raf=0, locked=true, phase="intro";
+
+function face(m){
+  $("m-smile").hidden=m!=="smile"; $("m-neutral").hidden=m!=="neutral"; $("m-talk").hidden=m!=="talk";
+  fig.classList.toggle("talk",m==="talk"); fig.classList.toggle("happy",m==="smile");
+}
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+
+function start(lv){
+  level=lv||document.querySelector('input[name="level"]:checked').value; TIME=LEVELS[level].ms;
+  $("level").textContent=LEVELS[level].name; $("levelChip").hidden=false;
+  deck=shuffle(BANK.slice()).slice(0,10); i=0; score=0; misses=[];
+  $("score").textContent=0; $("intro").hidden=true; $("review").hidden=true;
+  $("timerRow").hidden=false; $("answers").hidden=false;
+  ask();
+}
+function ask(){
+  phase="ask"; const s=deck[i];
+  $("round").textContent=i+1; $("feedback").hidden=true;
+  eyebrow.textContent="Scenario "+(i+1)+" of 10"; say.textContent=s.t; face("talk");
+  btns.forEach(b=>{b.disabled=false;b.className=""});
+  locked=false; deadline=performance.now()+TIME; tick();
+
+}
+function tick(){
+  const left=Math.max(0,deadline-performance.now());
+  bar.style.transform="scaleX("+(left/TIME)+")"; bar.classList.toggle("low",left<TIME*0.3);
+  secs.textContent=(left/1000).toFixed(1);
+  if(left<=0){answer(null);return}
+  raf=requestAnimationFrame(tick);
+}
+function answer(a){
+  if(locked) return; locked=true; cancelAnimationFrame(raf); phase="feedback";
+  const s=deck[i], ok=a===s.a;
+  btns.forEach(b=>{b.disabled=true;
+    if(b.dataset.a===s.a) b.classList.add("right");
+    else if(b.dataset.a===a) b.classList.add("wrong");});
+  const fb=$("feedback"); fb.className="feedback "+(ok?"ok":"no"); fb.hidden=false;
+  if(ok){
+    score++; $("score").textContent=score; face("smile");
+    $("fbTitle").textContent=["Correct!","Nailed it!","Exactly right!","You got it!"][Math.floor(Math.random()*4)];
+    eyebrow.textContent="Nice work";
+  }else{
+    face("neutral");
+    $("fbTitle").textContent=a?("Not quite. It's "+LABEL[s.a]+"."):("Time's up! It's "+LABEL[s.a]+".");
+    eyebrow.textContent="Here's why";
+    misses.push({s,a});
+  }
+  $("fbText").textContent=s.r;
+  $("next").textContent=i<9?"Next scenario →":"See my results →";
+  $("next").focus({preventScroll:true});
+}
+function next(){ if(phase!=="feedback") return; i++; i<10?ask():finish(); }
+function finish(){
+  phase="done"; $("feedback").hidden=true; $("timerRow").hidden=true; $("answers").hidden=true;
+  $("round").textContent=10;
+  face(score>=7?"smile":"neutral");
+  eyebrow.textContent="Final score · "+LEVELS[level].name+" level";
+  say.textContent=score+" out of 10! "+(score===10?"Perfect. You clearly don't depend on luck.":score>=7?"Strong work. Your events are well understood.":score>=4?"Good start. Review the ones you missed and try again.":"Tough round. Read the reasons below and give it another go.");
+  const r=$("review"); r.innerHTML=""; r.hidden=false;
+  if(misses.length){
+    const h=document.createElement("h3"); h.textContent="Scenarios to review"; r.appendChild(h);
+    misses.forEach(({s,a})=>{
+      const d=document.createElement("div"); d.className="miss";
+      d.innerHTML='<div class="q"></div><div class="a"></div><div class="r"></div>';
+      d.querySelector(".q").textContent=s.t;
+      d.querySelector(".a").textContent="Your answer: "+(a?LABEL[a]:"no answer")+"  ·  Correct: "+LABEL[s.a];
+      d.querySelector(".r").textContent=s.r; r.appendChild(d);
+    });
+  }
+  const row=document.createElement("div"); row.className="row";
+  const other=level==="easy"?"hard":"easy";
+  const b=document.createElement("button"); b.type="button"; b.className="start"; b.id="again"; b.textContent="Play again ("+LEVELS[level].name+")";
+  b.onclick=()=>start(level);
+  const b2=document.createElement("button"); b2.type="button"; b2.className="next"; b2.id="switch"; b2.textContent="Try "+LEVELS[other].name+" ("+LEVELS[other].ms/1000+" s)";
+  b2.onclick=()=>{document.getElementById("lvl-"+other).checked=true;start(other)};
+  row.append(b,b2); r.appendChild(row); b.focus({preventScroll:true});
+}
+
+btns.forEach(b=>b.addEventListener("click",()=>answer(b.dataset.a)));
+$("next").addEventListener("click",next);
+$("start").addEventListener("click",()=>start());
+document.addEventListener("keydown",e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey) return;
+  const k=e.key.toLowerCase();
+  if(phase==="ask"){
+    const m={"1":"D","d":"D","2":"I","i":"I","3":"M","m":"M"}[k];
+    if(m){e.preventDefault();answer(m);}
+  }else if(phase==="feedback"&&(k==="enter"||k===" ")){e.preventDefault();next();}
+});
+</script>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

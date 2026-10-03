@@ -1,0 +1,1333 @@
+﻿<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
+<div class="pm-injected-nav"><a href="../index.html">← Back to Module</a><span class="sep">|</span><span style="color:#555">Burden of Proof: Hypothesis Testing Lab</span></div>
+<div class="pm-injected-spacer"></div>
+<title>Burden of Proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: engineering lab notebook — graph-paper ground, one centered work column, each test request is a form card followed by three stacked work panels. */
+:root {
+  --bg: #e8edf1; --grid: #d8e0e7; --surface: #fbfcfd; --sunk: #eef2f5; --ink: #14202a; --muted: #55636f; --line: #c4ced7;
+  --accent: #1b5b8a; --accent-ink: #ffffff; --accent-soft: #dbe8f2;
+  --reject: #d2561d; --reject-fill: rgba(210, 86, 29, .30);
+  --ok: #2b7745; --ok-soft: #e0efe5; --no: #b0271f; --no-soft: #f7e2df;
+  --f-display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --f-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1318; --grid: #16202a; --surface: #141d25; --sunk: #1a2530; --ink: #e1e8ee; --muted: #93a2af; --line: #2b3946;
+  --accent: #70b1e2; --accent-ink: #08131c; --accent-soft: #19304a;
+  --reject: #f08743; --reject-fill: rgba(240, 135, 67, .30);
+  --ok: #6cc38a; --ok-soft: #16301f; --no: #f1817a; --no-soft: #3a1c1a; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0d1318; --grid: #16202a; --surface: #141d25; --sunk: #1a2530; --ink: #e1e8ee; --muted: #93a2af; --line: #2b3946;
+  --accent: #70b1e2; --accent-ink: #08131c; --accent-soft: #19304a;
+  --reject: #f08743; --reject-fill: rgba(240, 135, 67, .30);
+  --ok: #6cc38a; --ok-soft: #16301f; --no: #f1817a; --no-soft: #3a1c1a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background-color: var(--bg); color: var(--ink); font: 400 15px/1.55 var(--f-body);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 700; line-height: 1.05; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+sub, sup { font-size: .7em; line-height: 0; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--bg); }
+.bar-in { max-width: 920px; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+.brand { display: flex; gap: 10px; align-items: center; font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; }
+.glyph { font-family: var(--f-mono); font-size: 12px; font-weight: 600; border: 1.5px solid currentColor; padding: 1px 6px; border-radius: 3px; letter-spacing: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 12px/1 var(--f-mono); padding: 6px 9px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); white-space: nowrap; }
+.chip.score { background: var(--bg); color: var(--ink); border-color: var(--bg); font-weight: 600; }
+.chip.hint-on { border-color: var(--reject); }
+
+.wrap { max-width: 920px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; }
+.eyebrow { font: 600 12px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+.small { font-size: 13px; color: var(--muted); margin: 0; }
+.err { color: var(--no); font-weight: 500; margin: 0; }
+
+/* start */
+.start { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: start; padding-top: 12px; }
+.start-copy { min-width: 0; }
+.start h1 { font-size: clamp(52px, 9vw, 92px); text-transform: uppercase; letter-spacing: .005em; }
+.lede { font-size: 17px; max-width: 34em; margin: 14px 0 18px; }
+.hero-svg { width: 100%; max-width: 520px; height: auto; display: block; }
+.start-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; display: grid; gap: 14px; min-width: 0; }
+.start-card h2 { font-size: 26px; text-transform: uppercase; }
+.rules { margin: 4px 0 0; padding-left: 20px; display: grid; gap: 8px; font-size: 14px; }
+.fld { display: grid; gap: 6px; min-width: 0; }
+.fld > span { font: 600 13px/1.2 var(--f-mono); letter-spacing: .02em; color: var(--muted); }
+.fld > span em { text-transform: none; letter-spacing: 0; font-weight: 400; font-style: normal; }
+input[type=text], select { width: 100%; padding: 10px 11px; border: 1px solid var(--line); border-radius: var(--r); background: var(--sunk); min-height: 42px; }
+input[type=text]:disabled, select:disabled { opacity: .75; }
+
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 10px 16px; border-radius: var(--r); cursor: pointer; font-weight: 600; min-height: 42px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; }
+.btn.ghost:hover { background: var(--sunk); }
+.btn.danger { background: var(--no); color: var(--surface); border-color: var(--no); }
+.btn.sm { padding: 5px 10px; min-height: 32px; font-size: 13px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* play */
+.play { display: grid; gap: 18px; }
+.progress { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+.progress i { height: 6px; background: var(--line); border-radius: 2px; }
+.progress i.done { background: var(--accent); }
+.progress i.now { background: var(--reject); }
+.request { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.req-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; font: 500 12px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; padding: 9px 18px; background: var(--sunk); border-bottom: 1px dashed var(--line); color: var(--muted); }
+.request h2 { font-size: clamp(28px, 5vw, 38px); text-transform: uppercase; padding: 16px 18px 0; }
+.request p { margin: 10px 18px 18px; font-size: 16px; max-width: 46em; }
+
+.part { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 16px; scroll-margin-top: 70px; }
+.phead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: flex-end; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.pnum { font: 600 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.phead h3 { font-size: 26px; text-transform: uppercase; margin-top: 4px; }
+.pright { display: flex; gap: 10px; align-items: center; }
+.ptag { font: 500 12px/1 var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 8px; white-space: nowrap; }
+.earned { font: 600 18px/1 var(--f-mono); }
+.hintbox { background: var(--accent-soft); border-radius: var(--r); padding: 12px 14px; font-size: 14px; }
+
+.grid1 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
+.preview { grid-column: 1 / -1; }
+#hypPrev, .key { font-family: var(--f-mono); font-size: 17px; }
+#hypPrev { background: var(--sunk); border: 1px dashed var(--line); border-radius: var(--r); padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 4px 32px; }
+.hyp { white-space: nowrap; }
+.hl { color: var(--muted); }
+.q { color: var(--no); }
+.hyp .q { color: var(--muted); }
+
+.seg { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; width: fit-content; max-width: 100%; }
+.segopt { position: relative; }
+.segopt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.segopt span { display: block; padding: 9px 16px; min-width: 52px; text-align: center; font: 500 15px/1.3 var(--f-mono); background: var(--sunk); border-right: 1px solid var(--line); cursor: pointer; }
+.segopt:last-child span { border-right: 0; }
+.segopt input:checked + span { background: var(--accent); color: var(--accent-ink); }
+.segopt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: -3px; }
+.segopt input:disabled + span { cursor: default; }
+
+.choices { display: grid; gap: 8px; }
+.choice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--sunk); cursor: pointer; }
+.choice input { margin-top: 4px; accent-color: var(--accent); flex: none; }
+.choice span { min-width: 0; }
+.choice:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.choice.right { border-color: var(--ok); background: var(--ok-soft); box-shadow: none; }
+.choice.wrong { border-color: var(--no); background: var(--no-soft); box-shadow: none; }
+.q > .ql { color: var(--ink); margin-bottom: 8px; }
+div.q { color: inherit; }
+
+.feedback { display: grid; gap: 14px; border-top: 1px dashed var(--line); padding-top: 14px; }
+.fb { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.fb li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 10px; border-radius: var(--r); }
+.fb li.ok { background: var(--ok-soft); }
+.fb li.no { background: var(--no-soft); }
+.fb .mk { font-weight: 700; }
+.fb li.ok .mk { color: var(--ok); }
+.fb li.no .mk { color: var(--no); }
+.fb .fp { font: 500 13px var(--f-mono); }
+.key { background: var(--sunk); border-left: 3px solid var(--ok); padding: 10px 14px; display: grid; gap: 2px; }
+.keyl, .keym { font: 600 12px/1.4 var(--f-mono); letter-spacing: .03em; color: var(--muted); }
+.keym { margin-top: 4px; }
+.why { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; max-width: 60em; }
+.tally { display: flex; justify-content: space-between; align-items: baseline; background: var(--ink); color: var(--bg); padding: 12px 16px; border-radius: var(--r); font-family: var(--f-mono); }
+.tally b { font-size: 22px; }
+
+.figure { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; background: var(--surface); min-width: 0; }
+.figl { font: 600 13px/1.2 var(--f-mono); letter-spacing: .02em; color: var(--muted); margin-bottom: 6px; }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.sw { width: 14px; height: 10px; display: inline-block; border-radius: 2px; }
+.sw-dot { background: var(--accent); border-radius: 50%; width: 10px; }
+.sw-band { background: var(--accent-soft); }
+.sw-ref { border-top: 2px dashed var(--muted); height: 0; }
+.sw-rej { background: var(--reject-fill); border: 1px solid var(--reject); }
+.sw-stat { background: var(--accent); width: 3px; height: 14px; }
+.sw-p { background: repeating-linear-gradient(45deg, var(--accent) 0 2px, transparent 2px 5px); }
+
+.c-curve { fill: none; stroke: var(--ink); stroke-width: 2; }
+.c-under { fill: var(--sunk); }
+.c-rej { fill: var(--reject-fill); stroke: none; }
+.c-p { fill: url(#hatch); stroke: var(--accent); stroke-width: 1; }
+.c-hbg { fill: transparent; }
+.c-hline { stroke: var(--accent); stroke-width: 2.2; }
+.c-axis { stroke: var(--muted); stroke-width: 1; }
+.c-tick { fill: var(--muted); font: 12px var(--f-mono); }
+.c-crit { stroke: var(--reject); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.c-critl { fill: var(--reject); font: 600 13px var(--f-mono); }
+.c-stat { stroke: var(--accent); stroke-width: 3; }
+.c-statl { fill: var(--accent); font: 600 14px var(--f-mono); }
+.c-dot { fill: var(--accent); fill-opacity: .72; stroke: var(--surface); stroke-width: 1; }
+.c-band { fill: var(--accent-soft); }
+.c-mean { stroke: var(--ink); stroke-width: 2.5; }
+.c-val { fill: var(--ink); font: 500 12.5px var(--f-mono); }
+.c-row { fill: var(--muted); font: 600 12px var(--f-mono); letter-spacing: .04em; text-transform: uppercase; }
+.c-ref { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.c-refl { fill: var(--muted); font: 500 12px var(--f-mono); }
+.c-bar { fill: var(--accent); fill-opacity: .8; }
+
+.results { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; }
+.summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; align-content: start; }
+.kv { background: var(--sunk); border: 1px solid var(--line); border-radius: 4px; padding: 7px 10px; display: grid; gap: 2px; min-width: 0; }
+.kv span { font-size: 12px; color: var(--muted); }
+.kv b { font: 500 15px var(--f-mono); font-variant-numeric: tabular-nums; }
+.bignums { display: grid; gap: 10px; align-content: start; }
+.bn { background: var(--ink); color: var(--bg); border-radius: var(--r); padding: 10px 14px; display: grid; gap: 2px; }
+.bn span { font: 600 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.bn b { font: 600 22px var(--f-mono); font-variant-numeric: tabular-nums; }
+
+.raw { margin-top: 8px; font-size: 13px; }
+.raw summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+.rawg { margin-top: 8px; }
+.rawl { font: 600 12px var(--f-mono); color: var(--muted); }
+.rawv { font: 13px/1.6 var(--f-mono); word-break: break-word; user-select: all; }
+.tscroll { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.rawt { margin-top: 8px; font: 13px var(--f-mono); }
+.rawt th, .rawt td { padding: 4px 12px; border-bottom: 1px solid var(--line); text-align: right; }
+
+/* report */
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; display: grid; gap: 20px; }
+.rep-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-end; border-bottom: 2px solid var(--ink); padding-bottom: 16px; }
+.rep-name { font-size: clamp(34px, 6vw, 52px); text-transform: uppercase; }
+.rep-meta { margin: 6px 0 0; color: var(--muted); }
+.rep-score { font-family: var(--f-display); display: flex; align-items: baseline; gap: 6px; }
+.rep-score b { font-size: 84px; line-height: .9; color: var(--accent); }
+.rep-score span { font-size: 26px; font-weight: 600; color: var(--muted); }
+table.rep { width: 100%; font-size: 14px; min-width: 640px; }
+.rep th { font: 600 11px var(--f-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 8px; border-bottom: 1px solid var(--line); }
+.rep td { padding: 8px; border-bottom: 1px solid var(--line); }
+.rep .n { text-align: right; font-family: var(--f-mono); }
+.rep tfoot td { border-bottom: 0; font-weight: 600; padding-top: 12px; }
+.rep-foot { display: grid; gap: 12px; }
+.code { font-family: var(--f-mono); font-size: 14px; }
+.code b { font-size: 18px; letter-spacing: .12em; background: var(--sunk); padding: 3px 8px; border-radius: 4px; }
+
+
+/* gate + cheat sheet */
+.gate { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 22px; display: grid; gap: 12px; }
+.gate h2 { font-size: clamp(28px, 5vw, 38px); text-transform: uppercase; }
+.gate p { margin: 0; max-width: 46em; }
+html.locked, html.locked body { overflow: hidden; }
+.overlay { position: fixed; inset: 0; z-index: 20; background: color-mix(in srgb, var(--ink) 55%, transparent); display: flex; justify-content: center; align-items: stretch; padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px calc(env(safe-area-inset-bottom, 0px) + 16px); }
+.sheet { background: var(--surface); color: var(--ink); width: 100%; max-width: 980px; border-radius: var(--r); border: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.sheet-head { display: flex; flex-wrap: wrap; gap: 10px 16px; justify-content: space-between; align-items: flex-end; padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+.sheet-head h2 { font-size: clamp(26px, 4.5vw, 34px); text-transform: uppercase; }
+.jumps { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 20px; border-bottom: 1px dashed var(--line); background: var(--sunk); }
+.sheet-body { overflow-y: auto; padding: 4px 20px 20px; display: grid; gap: 8px; min-height: 0; flex: 1; }
+.sheet-foot { padding: 12px 20px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; }
+.cs { padding-top: 16px; display: grid; gap: 10px; scroll-margin-top: 8px; }
+.cs + .cs { border-top: 1px solid var(--line); }
+.cs h3 { font-size: 24px; text-transform: uppercase; color: var(--accent); }
+.cs h4 { font: 600 15px/1.3 var(--f-body); margin: 0 0 6px; }
+.cs p, .cs ul { margin: 0; font-size: 14.5px; max-width: 62em; }
+.cs ul { padding-left: 20px; display: grid; gap: 5px; }
+.cs2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
+.cs2 > div { min-width: 0; display: grid; gap: 8px; align-content: start; }
+.cst { width: 100%; font-size: 14px; }
+.cst th { font: 600 12px var(--f-mono); color: var(--muted); text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cst td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cst td.sym { font: 600 15px var(--f-mono); white-space: nowrap; color: var(--accent); }
+.cst.num td { font-family: var(--f-mono); }
+.mono { font-family: var(--f-mono); font-size: 13.5px; }
+td.mono { min-width: 260px; }
+.note { background: var(--accent-soft); border-radius: var(--r); padding: 10px 12px; }
+.tails { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tails figure { margin: 0; border: 1px solid var(--line); border-radius: var(--r); padding: 10px; background: var(--sunk); display: grid; gap: 6px; }
+.tails figcaption { font-size: 13px; }
+.mini { width: 100%; height: auto; display: block; }
+.sheetnote { margin-top: -4px; }
+@media (max-width: 760px) {
+  .cs2, .tails { grid-template-columns: 1fr; }
+  .overlay { padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px); }
+  .sheet { border-radius: 0; border: 0; }
+  .sheet-head, .jumps, .sheet-body, .sheet-foot { padding-left: 16px; padding-right: 16px; }
+  .sheet-head #sheetClose { display: none; }
+}
+@media (max-width: 640px) {
+  table.rep { min-width: 0; font-size: 13px; }
+  .rep .opt { display: none; }
+  .report { padding: 16px; }
+  .rep th, .rep td { padding: 7px 4px; }
+}
+@media (max-width: 760px) {
+  .start { grid-template-columns: 1fr; }
+  .grid1, .results { grid-template-columns: 1fr; }
+  .segopt span { padding: 9px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media print {
+  html.locked, html.locked body { overflow: visible; }
+  html.locked .wrap, html.locked .bar, .jumps, .sheet-foot, .sheet-head .actions { display: none !important; }
+  .overlay { position: static; background: none; padding: 0; display: block; }
+  .sheet { border: 0; max-width: none; overflow: visible; display: block; }
+  .sheet-body { overflow: visible; padding: 0 4px; display: block; }
+  .sheet-head { padding: 0 4px 8px; }
+  .cs { break-inside: auto; } .cst tr, .tails figure, .cs2 > div { break-inside: avoid; }
+  .tscroll { overflow: visible; }
+  .cs h3, .cs h4 { break-after: avoid; }
+  .tails { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .cs2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .sheet, .sheet-body { background: #fff; }
+  svg, .c-rej, .note { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { background: #fff; color: #000; }
+  .bar, .actions, .small { display: none !important; }
+  .report { border: 0; padding: 0; }
+}
+</style>
+<div id="app"></div>
+<script>
+// ===== LOGIC (no DOM) =====
+const MINUS = '−';
+function fmt(x, d = 3) {
+  if (!isFinite(x)) return '—';
+  const s = Math.abs(x).toFixed(d);
+  return (x < 0 && +s !== 0 ? MINUS : '') + s;
+}
+function fmtP(p) { return p < 0.0001 ? '< 0.0001' : p.toFixed(4); }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function randn() { let u = 0, v = 0; while (u === 0) u = Math.random(); while (v === 0) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+function unif(a, b) { return a + Math.random() * (b - a); }
+function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+function round(x, d) { const m = Math.pow(10, d); return Math.round(x * m) / m; }
+function mean(a) { return a.reduce((s, v) => s + v, 0) / a.length; }
+function sd(a) { const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) * (v - m), 0) / (a.length - 1)); }
+
+// ---- distributions ----
+function erf(x) {
+  const z = Math.abs(x), t = 1 / (1 + 0.5 * z);
+  const r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 + t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 + t * (-0.82215223 + t * 0.17087277)))))))));
+  return x >= 0 ? 1 - r : r - 1;
+}
+function normCdf(x) { return 0.5 * (1 + erf(x / Math.SQRT2)); }
+function normPdf(x) { return Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI); }
+function lgamma(x) {
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+  let y = x, tmp = x + 5.5; tmp -= (x + 0.5) * Math.log(tmp);
+  let ser = 1.000000000190015; for (let j = 0; j < 6; j++) ser += c[j] / ++y;
+  return -tmp + Math.log(2.5066282746310005 * ser / x);
+}
+function betacf(a, b, x) {
+  const FP = 1e-300; const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap; if (Math.abs(d) < FP) d = FP; d = 1 / d; let h = d;
+  for (let m = 1; m <= 400; m++) {
+    const m2 = 2 * m;
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FP) d = FP; c = 1 + aa / c; if (Math.abs(c) < FP) c = FP; d = 1 / d; h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FP) d = FP; c = 1 + aa / c; if (Math.abs(c) < FP) c = FP; d = 1 / d;
+    const del = d * c; h *= del; if (Math.abs(del - 1) < 3e-15) break;
+  }
+  return h;
+}
+function ibeta(x, a, b) {
+  if (x <= 0) return 0; if (x >= 1) return 1;
+  const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b;
+}
+function gammaP(a, x) {
+  if (x <= 0) return 0;
+  const lg = -x + a * Math.log(x) - lgamma(a);
+  if (x < a + 1) {
+    let ap = a, sum = 1 / a, del = sum;
+    for (let n = 0; n < 1000; n++) { ap++; del *= x / ap; sum += del; if (Math.abs(del) < Math.abs(sum) * 1e-15) break; }
+    return sum * Math.exp(lg);
+  }
+  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d;
+  for (let i = 1; i < 1000; i++) {
+    const an = -i * (i - a); b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300;
+    c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300; d = 1 / d; const del = d * c; h *= del; if (Math.abs(del - 1) < 1e-15) break;
+  }
+  return 1 - Math.exp(lg) * h;
+}
+function tCdf(t, v) { const p = 0.5 * ibeta(v / (v + t * t), v / 2, 0.5); return t > 0 ? 1 - p : p; }
+function tPdf(t, v) { return Math.exp(lgamma((v + 1) / 2) - lgamma(v / 2) - 0.5 * Math.log(v * Math.PI) - (v + 1) / 2 * Math.log(1 + t * t / v)); }
+function chiCdf(x, k) { return gammaP(k / 2, x / 2); }
+function chiPdf(x, k) { return x <= 0 ? 0 : Math.exp((k / 2 - 1) * Math.log(x) - x / 2 - (k / 2) * Math.LN2 - lgamma(k / 2)); }
+function fCdf(x, a, b) { return x <= 0 ? 0 : ibeta(a * x / (a * x + b), a / 2, b / 2); }
+function fPdf(x, a, b) {
+  if (x <= 0) return 0;
+  return Math.exp(0.5 * (a * Math.log(a * x) + b * Math.log(b) - (a + b) * Math.log(a * x + b)) - Math.log(x) - (lgamma(a / 2) + lgamma(b / 2) - lgamma((a + b) / 2)));
+}
+function bisect(cdf, p, lo, hi) { for (let i = 0; i < 200; i++) { const m = (lo + hi) / 2; if (cdf(m) < p) lo = m; else hi = m; } return (lo + hi) / 2; }
+
+function makeDist(kind, a, b) {
+  if (kind === 'z') return { kind, sym: 'z', label: 'Standard normal (z)', cdf: normCdf, pdf: normPdf, inv: p => bisect(normCdf, p, -40, 40), sym2: false };
+  if (kind === 't') return { kind, a, sym: 't', label: `t distribution, ${a} df`, cdf: x => tCdf(x, a), pdf: x => tPdf(x, a), inv: p => bisect(x => tCdf(x, a), p, -200, 200) };
+  if (kind === 'chi') return { kind, a, sym: 'χ²', label: `χ² distribution, ${a} df`, cdf: x => chiCdf(x, a), pdf: x => chiPdf(x, a), inv: p => bisect(x => chiCdf(x, a), p, 0, 2000) };
+  if (kind === 'F') return { kind, a, b, sym: 'F', label: `F distribution, ${a} and ${b} df`, cdf: x => fCdf(x, a, b), pdf: x => fPdf(x, a, b), inv: p => bisect(x => fCdf(x, a, b), p, 0, 5000) };
+}
+function isSymmetric(d) { return d.kind === 'z' || d.kind === 't'; }
+
+// ---- parameters / statistics offered in Part 1 ----
+const PARAMS = [
+  { v: 'mu', o: 'μ — one population mean', h: 'μ' },
+  { v: 'mudiff', o: 'μ₁ − μ₂ — difference of two independent means', h: 'μ<sub>1</sub> − μ<sub>2</sub>' },
+  { v: 'mud', o: 'μ_D — mean of paired differences', h: 'μ<sub>D</sub>' },
+  { v: 'p', o: 'p — one population proportion', h: 'p' },
+  { v: 'pdiff', o: 'p₁ − p₂ — difference of two proportions', h: 'p<sub>1</sub> − p<sub>2</sub>' },
+  { v: 'sigma', o: 'σ — one population standard deviation', h: 'σ' },
+  { v: 'sigma2', o: 'σ² — one population variance', h: 'σ<sup>2</sup>' },
+  { v: 'ratio', o: 'σ₁² / σ₂² — ratio of two variances', h: 'σ<sub>1</sub><sup>2</sup> / σ<sub>2</sub><sup>2</sup>' },
+];
+const STATS = [
+  { v: 'z', o: 'z — one mean, σ known' },
+  { v: 't1', o: 't — one mean, σ unknown' },
+  { v: 't2', o: 't — two independent means (pooled)' },
+  { v: 'tp', o: 't — paired differences' },
+  { v: 'zp', o: 'z — one proportion' },
+  { v: 'zp2', o: 'z — two proportions (pooled)' },
+  { v: 'chi', o: 'χ² — one variance' },
+  { v: 'F', o: 'F — ratio of two variances' },
+];
+const ALPHAS = [0.01, 0.025, 0.05, 0.10];
+const ALT_SYM = { lt: '&lt;', gt: '&gt;', ne: '≠' };
+const ALT_WORD = { lt: 'left-tailed', gt: 'right-tailed', ne: 'two-tailed' };
+const TAIL_OF = { lt: 'left', gt: 'right', ne: 'both' };
+
+const TYPES = {
+  z1: { name: 'One-sample z (σ known)', param: 'mu', stat: 'z', why: 'σ is known from long-run records, so the statistic is z = (x̄ − μ₀) / (σ/√n) and it follows the standard normal distribution.' },
+  t1: { name: 'One-sample t', param: 'mu', stat: 't1', why: 'σ is unknown and has to be estimated with the sample standard deviation s, so the statistic is t = (x̄ − μ₀) / (s/√n) with n − 1 degrees of freedom.' },
+  t2: { name: 'Two-sample pooled t', param: 'mudiff', stat: 't2', why: 'Two independent groups with equal variances assumed, so use the pooled t: t = (x̄₁ − x̄₂ − Δ₀) / (s_p√(1/n₁ + 1/n₂)) with n₁ + n₂ − 2 df.' },
+  tp: { name: 'Paired t', param: 'mud', stat: 'tp', why: 'Every unit is measured twice, so the two columns are paired. Work with the differences: t = (d̄ − Δ₀) / (s_d/√n) with n − 1 df.' },
+  p1: { name: 'One-proportion z', param: 'p', stat: 'zp', why: 'The data are a count of successes out of n trials, so the statistic is z = (p̂ − p₀) / √(p₀(1 − p₀)/n).' },
+  p2: { name: 'Two-proportion z', param: 'pdiff', stat: 'zp2', why: 'Two independent groups, each a count out of n, so use the pooled z = (p̂₁ − p̂₂) / √(p̂(1 − p̂)(1/n₁ + 1/n₂)).' },
+  chi1: { name: 'χ² test of one variance', param: 'sigma2', stat: 'chi', why: 'The question is about the variability of one population, so χ² = (n − 1)s² / σ₀² with n − 1 df. (Hypotheses about σ and σ² are equivalent.)' },
+  F2: { name: 'F test of two variances', param: 'ratio', stat: 'F', why: 'The question compares the variability of two populations, so F = s₁² / s₂² with n₁ − 1 and n₂ − 1 df. Under H₀ the ratio σ₁²/σ₂² is 1.' },
+};
+
+const HINTS = {
+  1: {
+    z1: 'Look for a standard deviation described as <em>known</em> or taken from long-run records. The claim the engineer wants evidence for goes in H₁; the “no change / equals spec” value goes in H₀.',
+    t1: 'Only the sample is available to estimate spread. The claim the engineer wants evidence for goes in H₁; the spec or claimed value goes in H₀.',
+    t2: 'Two separate groups of different units are compared. Match the direction of H₁ to the stated order of the difference (population 1 − population 2).',
+    tp: 'Each unit appears in both columns. Think about the mean of the differences, and use the order of subtraction given in the problem to pick the direction.',
+    p1: 'The data are a count out of n. The claimed or spec rate goes in H₀. Phrases like “exceeds” or “lower than claimed” set the direction of H₁.',
+    p2: 'Two groups, each a count out of n. Under H₀ the proportions are equal, so the null difference is 0. Use the stated order of subtraction for the direction.',
+    chi1: 'The question is about spread, not the average. You may write the hypotheses in terms of σ or σ², but the null value must match the parameter you choose.',
+    F2: 'Two groups compared on spread. If the variances are equal, what is their ratio? Use the stated order (population 1 on top) for the direction.',
+  },
+  2: 'Shade the tail (or tails) that H₁ points to: “&lt;” is the left tail, “&gt;” is the right tail, “≠” splits α between both tails. Reject H₀ when the test statistic lands in a shaded region, which is the same as p-value &lt; α. A p-value is computed assuming H₀ is true.',
+  3: 'A conclusion is written about H₁, in the words of the problem: there <em>is</em> or <em>is not</em> sufficient evidence for the claim. A test never proves H₀. The action should follow from the decision you actually reached.',
+};
+
+// ---- scenario pool ----
+const SCENARIOS = [
+  { id: 'Z-01', type: 'z1', field: 'Civil · Materials', title: 'Concrete Cylinder Strength', unit: 'psi', alt: 'lt', alpha: 0.05, nullv: 4000,
+    text: 'A ready-mix supplier guarantees a mean 28-day compressive strength of 4000 psi for a bridge-deck pour. From years of plant records the standard deviation is known to be σ = 250 psi. The inspector suspects this batch is under-strength and breaks n = 12 test cylinders. Use a 5% significance level.',
+    g: { mu0: 4000, sigma: 250, n: 12, dec: 0 },
+    h1: 'the batch’s mean compressive strength is less than 4000 psi', h0: 'the batch’s mean compressive strength is 4000 psi', opp: 'the batch’s mean compressive strength is greater than 4000 psi',
+    act: { r: 'Reject the pour and have the supplier correct the mix before more concrete is placed.', f: 'Accept the batch; the cylinder results do not show a strength shortfall.', o: 'Certify that every section of the deck is guaranteed to exceed 4000 psi.' } },
+  { id: 'Z-02', type: 'z1', field: 'Manufacturing · Machining', title: 'Bolt Shank Diameter', unit: 'mm', alt: 'ne', alpha: 0.01, nullv: 10,
+    text: 'A CNC lathe turns bolt shanks to a nominal diameter of 10.000 mm. The machine’s standard deviation is well established at σ = 0.020 mm. After a tool change, quality control measures n = 16 shanks to check whether the mean diameter has shifted in either direction. The plant will tolerate only a 1% chance of stopping the line for a false alarm.',
+    alphaNote: 'A “1% chance of a false alarm” is the probability of a Type I error (rejecting a true H₀), so α = 0.01.',
+    g: { mu0: 10, sigma: 0.02, n: 16, dec: 3 },
+    h1: 'the mean shank diameter has shifted away from 10.000 mm', h0: 'the mean shank diameter is 10.000 mm', opp: 'the mean shank diameter has increased above 10.000 mm',
+    act: { r: 'Stop the line and re-zero the tool offset before producing more bolts.', f: 'Keep the line running; there is no evidence the tool change shifted the mean diameter.', o: 'Record that tool changes never affect bolt dimensions, so future changes need no inspection.' } },
+  { id: 'Z-03', type: 'z1', field: 'Mechanical · Fluids', title: 'Pump Impeller Redesign', unit: 'L/min', alt: 'gt', alpha: 0.05, nullv: 120,
+    text: 'A centrifugal pump is rated at a mean flow of 120 L/min, with a known standard deviation of σ = 4.0 L/min from factory testing. An engineer redesigned the impeller and wants evidence that the new design increases mean flow. She records n = 10 test runs. Use α = 0.05.',
+    g: { mu0: 120, sigma: 4, n: 10, dec: 1 },
+    h1: 'the new impeller increases the mean flow rate above 120 L/min', h0: 'the mean flow rate with the new impeller is 120 L/min', opp: 'the new impeller lowers the mean flow rate below 120 L/min',
+    act: { r: 'Adopt the new impeller design for production.', f: 'Hold off on the new impeller; the test runs do not show a flow improvement.', o: 'Advertise that every pump with the new impeller delivers more than 120 L/min.' } },
+  { id: 'T-01', type: 't1', field: 'Structural · Welding', title: 'Weld Procedure Qualification', unit: 'ksi', alt: 'gt', alpha: 0.05, nullv: 70,
+    text: 'Welds made with E70 electrodes must show a mean tensile strength greater than 70 ksi before a new welding procedure can be qualified. A fabricator tests n = 15 weld coupons. The population standard deviation is unknown. Use a 5% significance level.',
+    g: { mu0: 70, sigma: 3, n: 15, dec: 1 },
+    h1: 'the procedure’s mean weld tensile strength is greater than 70 ksi', h0: 'the procedure’s mean weld tensile strength is 70 ksi', opp: 'the procedure’s mean weld tensile strength is less than 70 ksi',
+    act: { r: 'Qualify the welding procedure for use on the project.', f: 'Do not qualify the procedure yet; revise it or test more coupons.', o: 'Declare that no weld made with this procedure can fail below 70 ksi.' } },
+  { id: 'T-02', type: 't1', field: 'Electrical · Instrumentation', title: 'Data-Logger Battery Life', unit: 'h', alt: 'lt', alpha: 0.05, nullv: 8,
+    text: 'A manufacturer claims its data-logger battery pack runs for a mean of 8.0 hours on a full charge. A field-instrumentation team suspects the true mean runtime is shorter. They test n = 20 packs; σ is unknown. Use α = 0.05.',
+    g: { mu0: 8, sigma: 0.6, n: 20, dec: 2 },
+    h1: 'the mean battery runtime is less than 8.0 hours', h0: 'the mean battery runtime is 8.0 hours', opp: 'the mean battery runtime is more than 8.0 hours',
+    act: { r: 'File a claim with the manufacturer and schedule field visits around a shorter runtime.', f: 'Keep planning deployments on the 8.0-hour rating; the tests do not contradict it.', o: 'Conclude the packs last exactly 8.0 hours and stop monitoring runtime.' } },
+  { id: 'T-03', type: 't1', field: 'Transportation · Pavements', title: 'Asphalt Layer Thickness', unit: 'mm', alt: 'ne', alpha: 0.10, nullv: 50,
+    text: 'The design thickness for an asphalt surface course is 50 mm. The DOT inspector takes n = 12 cores to check whether the contractor’s mean thickness differs from design in either direction. σ is unknown. The agency uses α = 0.10 for this acceptance check.',
+    g: { mu0: 50, sigma: 3, n: 12, dec: 1 },
+    h1: 'the mean layer thickness differs from 50 mm', h0: 'the mean layer thickness is 50 mm', opp: 'the mean layer thickness is greater than 50 mm',
+    act: { r: 'Flag the section for a pay adjustment and review the paving operation.', f: 'Accept the section at full pay; the cores do not show a departure from design thickness.', o: 'Certify that every point in the section is exactly 50 mm thick.' } },
+  { id: 'T2-01', type: 't2', field: 'Materials · Adhesives', title: 'Accelerated Epoxy Cure', unit: 'MPa', alt: 'lt', alpha: 0.05, nullv: 0,
+    text: 'A plant is considering an accelerated curing cycle for structural epoxy joints. The concern is that the faster cycle lowers mean lap-shear strength. Ten joints are cured with the new cycle (population 1) and ten with the standard cycle (population 2). Assume equal population variances, use α = 0.05, and define the difference as New − Standard.',
+    g: { m2: 30, sigma: 2.5, n1: 10, n2: 10, dec: 1, labels: ['New cycle', 'Standard'] },
+    h1: 'the accelerated cycle gives a lower mean lap-shear strength than the standard cycle', h0: 'the two curing cycles give the same mean lap-shear strength', opp: 'the accelerated cycle gives a higher mean lap-shear strength than the standard cycle',
+    act: { r: 'Keep the standard curing cycle; the faster cycle costs joint strength.', f: 'Move ahead with a pilot of the accelerated cycle; no strength loss was detected.', o: 'Conclude the two cycles give identical strength in every joint.' } },
+  { id: 'T2-02', type: 't2', field: 'Mechanical · Fleet', title: 'Fuel Additive Trial', unit: 'mpg', alt: 'gt', alpha: 0.05, nullv: 0,
+    text: 'A fleet engineer is evaluating a fuel additive. Twelve delivery vans run with the additive (population 1) and twelve comparable vans run without it (population 2) on the same routes. She wants evidence that the additive increases mean fuel economy. Assume equal variances, use α = 0.05, and define the difference as Additive − Control.',
+    g: { m2: 18, sigma: 1.5, n1: 12, n2: 12, dec: 1, labels: ['Additive', 'Control'] },
+    h1: 'the additive increases mean fuel economy', h0: 'mean fuel economy is the same with and without the additive', opp: 'the additive lowers mean fuel economy',
+    act: { r: 'Buy the additive for the whole fleet.', f: 'Do not buy the additive; the trial did not show a fuel-economy gain.', o: 'Guarantee every van will gain at least 1 mpg with the additive.' } },
+  { id: 'T2-03', type: 't2', field: 'Civil · Precast Concrete', title: 'Quarry Aggregate Comparison', unit: 'psi', alt: 'ne', alpha: 0.05, nullv: 0,
+    text: 'Two quarries supply coarse aggregate to a precast plant. The materials engineer wants to know whether concrete made with Quarry A aggregate (population 1) has a different mean compressive strength than concrete made with Quarry B aggregate (population 2). She tests n₁ = 9 and n₂ = 11 cylinders. Assume equal variances and use α = 0.05 (difference A − B).',
+    g: { m2: 5200, sigma: 180, n1: 9, n2: 11, dec: 0, labels: ['Quarry A', 'Quarry B'] },
+    h1: 'the mean strength with Quarry A aggregate differs from Quarry B', h0: 'the two quarries give the same mean strength', opp: 'Quarry A aggregate gives a higher mean strength than Quarry B',
+    act: { r: 'Treat the quarries as different: re-proportion the mix for each source.', f: 'Use either quarry with the current mix design; no strength difference was found.', o: 'Declare the two aggregates identical in every property.' } },
+  { id: 'TP-01', type: 'tp', field: 'Structural · Bridges', title: 'Girder Retrofit Deflection', unit: 'mm', alt: 'lt', alpha: 0.05, nullv: 0,
+    text: 'Ten steel girders on a highway bridge were load-tested before and after a carbon-fiber retrofit, using the same truck load each time. Midspan deflection was recorded on each girder. Engineers want evidence that the retrofit reduces deflection. Define d = After − Before and use α = 0.05.',
+    g: { base: 24, sdb: 3, sdd: 1.2, n: 10, dec: 1, labels: ['After', 'Before'], unitLabel: 'Girder' },
+    h1: 'the retrofit reduces mean midspan deflection', h0: 'the retrofit does not change mean midspan deflection', opp: 'the retrofit increases mean midspan deflection',
+    act: { r: 'Approve the retrofit design for the remaining spans.', f: 'Hold the retrofit program; the load tests do not show a reduction in deflection.', o: 'Certify that no girder on the bridge will deflect more than before under any load.' } },
+  { id: 'TP-02', type: 'tp', field: 'Materials · Testing Lab', title: 'Hardness Tester Agreement', unit: 'HRC', alt: 'ne', alpha: 0.05, nullv: 0,
+    text: 'Twelve steel specimens were each tested on two Rockwell hardness testers. The lab wants to know whether the testers read differently on average, in either direction. Define d = Tester A − Tester B and use α = 0.05.',
+    g: { base: 45, sdb: 4, sdd: 0.6, n: 12, dec: 1, labels: ['Tester A', 'Tester B'], unitLabel: 'Specimen' },
+    h1: 'the two testers give different mean readings', h0: 'the two testers give the same mean reading', opp: 'Tester A reads higher on average than Tester B',
+    act: { r: 'Send the testers for recalibration before reporting more results.', f: 'Use the testers interchangeably; no systematic difference was found.', o: 'Certify that the testers agree exactly on every specimen.' } },
+  { id: 'TP-03', type: 'tp', field: 'Industrial · Ergonomics', title: 'Workstation Redesign', unit: 's', alt: 'gt', alpha: 0.05, nullv: 0,
+    text: 'An industrial engineer redesigned an assembly workstation. Ten workers each assembled the product on the old layout and on the new layout, and the cycle time was recorded for both. She wants evidence that the new layout reduces cycle time. Define d = Old − New and use α = 0.05.',
+    g: { base: 95, sdb: 8, sdd: 4, n: 10, dec: 1, labels: ['Old', 'New'], unitLabel: 'Worker' },
+    h1: 'the new layout reduces mean cycle time', h0: 'the new layout does not change mean cycle time', opp: 'the new layout increases mean cycle time',
+    act: { r: 'Roll out the new layout to the other assembly cells.', f: 'Keep the old layout for now; the trial did not show a time saving.', o: 'Promise every worker will be faster on the new layout.' } },
+  { id: 'P-01', type: 'p1', field: 'Electronics · Assembly', title: 'Solder Joint Defect Rate', unit: '', alt: 'gt', alpha: 0.05, nullv: 0.03,
+    text: 'A reflow soldering process is acceptable if its defect rate is 3% or lower. A process engineer inspects n = 400 solder joints and counts the defective ones. Is there evidence that the defect rate exceeds 3%? Use α = 0.05.',
+    g: { p0: 0.03, n: 400, what: 'defective joints' },
+    h1: 'the solder-joint defect rate exceeds 3%', h0: 'the solder-joint defect rate is 3%', opp: 'the solder-joint defect rate is below 3%',
+    act: { r: 'Stop and adjust the reflow profile before continuing production.', f: 'Continue production on the current profile while monitoring defects.', o: 'Conclude no lot from this process will ever exceed 3% defects.' } },
+  { id: 'P-02', type: 'p1', field: 'Electrical · Sensors', title: 'Sensor Burn-In Pass Rate', unit: '', alt: 'lt', alpha: 0.01, nullv: 0.95,
+    text: 'A vendor claims that 95% of its pressure sensors pass a 48-hour burn-in test. You burn in n = 200 sensors from a new shipment. Is there evidence that the pass rate is lower than claimed? You will accept only a 1% risk of wrongly accusing the vendor.',
+    alphaNote: 'A “1% risk of wrongly accusing the vendor” is the risk of rejecting a true H₀ (Type I error), so α = 0.01.',
+    g: { p0: 0.95, n: 200, what: 'sensors passing' },
+    h1: 'the shipment’s burn-in pass rate is lower than 95%', h0: 'the shipment’s burn-in pass rate is 95%', opp: 'the shipment’s burn-in pass rate is higher than 95%',
+    act: { r: 'Return the shipment and open a quality complaint with the vendor.', f: 'Accept the shipment; the burn-in results do not contradict the vendor’s claim.', o: 'Conclude exactly 95% of all future sensors will pass.' } },
+  { id: 'P-03', type: 'p1', field: 'Transportation · Maintenance', title: 'Cold-Patch Pothole Repairs', unit: '', alt: 'gt', alpha: 0.05, nullv: 0.70,
+    text: 'A DOT pilot program is testing a new cold-patch material. It will be adopted statewide only if more than 70% of repairs survive one year. Engineers track n = 150 repairs and count those still intact after a year. Is there evidence the one-year survival rate exceeds 70%? Use α = 0.05.',
+    g: { p0: 0.70, n: 150, what: 'repairs intact' },
+    h1: 'more than 70% of cold-patch repairs survive one year', h0: '70% of cold-patch repairs survive one year', opp: 'fewer than 70% of cold-patch repairs survive one year',
+    act: { r: 'Adopt the new cold-patch material statewide.', f: 'Do not adopt statewide yet; extend the pilot or keep the current material.', o: 'Guarantee that every repair with the new material lasts a year.' } },
+  { id: 'P2-01', type: 'p2', field: 'Manufacturing · Plastics', title: 'Molding Line Warp Rates', unit: '', alt: 'ne', alpha: 0.05, nullv: 0,
+    text: 'Two injection-molding lines produce the same housing. From n₁ = 300 parts off Line 1 and n₂ = 300 parts off Line 2, engineers count warped parts. Is there evidence the warp rates differ? Define the difference as Line 1 − Line 2 and use α = 0.05.',
+    g: { p: 0.06, n1: 300, n2: 300, labels: ['Line 1', 'Line 2'], what: 'warped' },
+    h1: 'the warp rates on the two lines differ', h0: 'the two lines have the same warp rate', opp: 'Line 1 has a higher warp rate than Line 2',
+    act: { r: 'Audit the process settings on both lines to find the source of the difference.', f: 'Treat the lines as equivalent; no difference in warp rate was found.', o: 'Conclude both lines produce exactly the same number of warped parts every shift.' } },
+  { id: 'P2-02', type: 'p2', field: 'Materials · Corrosion', title: 'Salt-Spray Coating Test', unit: '', alt: 'lt', alpha: 0.05, nullv: 0,
+    text: 'Steel panels received either a new zinc-rich coating (population 1, n₁ = 120) or the current coating (population 2, n₂ = 120) and were placed in a 1000-hour salt-spray test. Engineers count panels showing red rust. Is there evidence the new coating lowers the proportion that rust? Define the difference as New − Current and use α = 0.05.',
+    g: { p: 0.25, n1: 120, n2: 120, labels: ['New coating', 'Current'], what: 'rusted' },
+    h1: 'the new coating lowers the proportion of panels that rust', h0: 'both coatings have the same rust proportion', opp: 'the new coating raises the proportion of panels that rust',
+    act: { r: 'Switch the specification to the new zinc-rich coating.', f: 'Keep the current coating; the test did not show better rust protection.', o: 'Guarantee panels with the new coating will never rust.' } },
+  { id: 'P2-03', type: 'p2', field: 'Aerospace · Autonomy', title: 'Autopilot Firmware Landings', unit: '', alt: 'gt', alpha: 0.10, nullv: 0,
+    text: 'A drone maker compares autopilot firmware v2 (population 1) with v1 (population 2) in crosswind landing trials, with n = 150 landings each. Is there evidence that v2 has a higher landing success rate? Define the difference as v2 − v1. The team uses α = 0.10 for this early-stage decision.',
+    g: { p: 0.80, n1: 150, n2: 150, labels: ['Firmware v2', 'Firmware v1'], what: 'successful landings' },
+    h1: 'firmware v2 has a higher landing success rate than v1', h0: 'v2 and v1 have the same landing success rate', opp: 'firmware v2 has a lower landing success rate than v1',
+    act: { r: 'Promote firmware v2 to the next round of certification testing.', f: 'Keep developing v2; the trials did not show a higher success rate.', o: 'Ship v2 as guaranteed to land successfully in any crosswind.' } },
+  { id: 'C-01', type: 'chi1', field: 'Manufacturing · Packaging', title: 'Coolant Fill Precision', unit: 'mL', alt: 'gt', alpha: 0.05, nullv: 0.25, s0: 0.5,
+    text: 'A filling machine for 500 mL coolant bottles meets spec only if the standard deviation of fill volume is no more than σ = 0.50 mL. A technician measures n = 20 bottles. Is there evidence the variability exceeds spec? Use α = 0.05.',
+    g: { s0: 0.5, n: 20, mu: 500.6, dec: 2 },
+    h1: 'the standard deviation of fill volume exceeds 0.50 mL', h0: 'the standard deviation of fill volume is 0.50 mL', opp: 'the standard deviation of fill volume is less than 0.50 mL',
+    act: { r: 'Take the filler down for maintenance to tighten its variability.', f: 'Keep the filler running; the sample does not show excess variability.', o: 'Certify every bottle is within 0.50 mL of 500 mL.' } },
+  { id: 'C-02', type: 'chi1', field: 'Manufacturing · Metrology', title: 'Gauge Block Grinding', unit: 'mm', alt: 'lt', alpha: 0.05, nullv: 0.000016, s0: 0.004,
+    text: 'The shop’s current grinding process produces gauge-block lengths with σ = 0.0040 mm. A new grinding process is claimed to reduce variability. A sample of n = 15 blocks from the new process is measured. Is there evidence that the new process has σ below 0.0040 mm? Use α = 0.05.',
+    g: { s0: 0.004, n: 15, mu: 25.0, dec: 4 },
+    h1: 'the new process has a standard deviation below 0.0040 mm', h0: 'the new process has a standard deviation of 0.0040 mm', opp: 'the new process has a standard deviation above 0.0040 mm',
+    act: { r: 'Switch production to the new grinding process.', f: 'Stay with the current process; no reduction in variability was shown.', o: 'Declare the new process produces perfect blocks.' } },
+  { id: 'C-03', type: 'chi1', field: 'Electrical · Components', title: 'Resistor Supplier Tolerance', unit: 'Ω', alt: 'ne', alpha: 0.05, nullv: 4, s0: 2,
+    text: 'Precision 1 kΩ resistors are specified with a standard deviation of σ = 2.0 Ω. Quality control measures n = 25 resistors from a new supplier and asks whether their variability differs from spec in either direction. Use α = 0.05.',
+    g: { s0: 2, n: 25, mu: 1000, dec: 1 },
+    h1: 'the new supplier’s standard deviation differs from 2.0 Ω', h0: 'the new supplier’s standard deviation is 2.0 Ω', opp: 'the new supplier’s standard deviation is larger than 2.0 Ω',
+    act: { r: 'Hold the supplier’s parts pending a tolerance review.', f: 'Approve the supplier; its variability is consistent with the spec.', o: 'Conclude every resistor is within 2.0 Ω of 1 kΩ.' } },
+  { id: 'F-01', type: 'F2', field: 'Manufacturing · Machining', title: 'Lathe Diameter Variability', unit: 'mm', alt: 'gt', alpha: 0.05, nullv: 1,
+    text: 'Two lathes turn the same shaft. Maintenance suspects Lathe A (population 1) is producing more variable diameters than Lathe B (population 2). Samples: n₁ = 13 shafts from A and n₂ = 11 from B. Test using the ratio σ₁²/σ₂² with α = 0.05.',
+    g: { s2: 0.010, n1: 13, n2: 11, mu: 25.4, dec: 3, labels: ['Lathe A', 'Lathe B'] },
+    h1: 'Lathe A produces more variable diameters than Lathe B', h0: 'the two lathes have the same diameter variance', opp: 'Lathe A produces less variable diameters than Lathe B',
+    act: { r: 'Schedule Lathe A for spindle and bearing maintenance.', f: 'Leave both lathes on the normal maintenance schedule.', o: 'Conclude Lathe B never produces an out-of-tolerance shaft.' } },
+  { id: 'F-02', type: 'F2', field: 'Process · Heat Treating', title: 'Furnace Controller Upgrade', unit: '°C', alt: 'lt', alpha: 0.05, nullv: 1,
+    text: 'A new PID temperature controller (population 1) was installed on one heat-treat furnace; an identical furnace kept the old controller (population 2). Furnace temperature was logged at n = 16 random times on each. Is there evidence the new controller reduces temperature variability? Use σ₁²/σ₂² and α = 0.05.',
+    g: { s2: 6, n1: 16, n2: 16, mu: 850, dec: 1, labels: ['New controller', 'Old controller'] },
+    h1: 'the new controller reduces temperature variance', h0: 'both controllers give the same temperature variance', opp: 'the new controller increases temperature variance',
+    act: { r: 'Install the new controller on the remaining furnaces.', f: 'Do not buy more controllers yet; no reduction in variability was shown.', o: 'Guarantee the furnace never drifts more than 1 °C with the new controller.' } },
+  { id: 'F-03', type: 'F2', field: 'Transportation · Materials Lab', title: 'Binder Viscosity Labs', unit: 'cP', alt: 'ne', alpha: 0.10, nullv: 1,
+    text: 'Two testing labs measure the viscosity of the same asphalt binder. The agency wants to know whether the labs differ in precision (variance) in either direction. Lab 1 ran n₁ = 10 tests and Lab 2 ran n₂ = 12. Use the ratio σ₁²/σ₂² and α = 0.10.',
+    g: { s2: 12, n1: 10, n2: 12, mu: 420, dec: 0, labels: ['Lab 1', 'Lab 2'] },
+    h1: 'the two labs differ in precision', h0: 'the two labs have the same variance', opp: 'Lab 1 is less precise than Lab 2',
+    act: { r: 'Require the labs to run a joint calibration study before results are accepted.', f: 'Accept results from either lab interchangeably.', o: 'Declare both labs produce identical viscosity values.' } },
+];
+
+// ---- data generation ----
+function effect(alt) {
+  const s = unif(-0.5, 3.8);
+  const sign = alt === 'gt' ? 1 : alt === 'lt' ? -1 : (Math.random() < 0.5 ? 1 : -1);
+  return { s, sign };
+}
+function sample(n, mu, sigma, dec) { const a = []; for (let i = 0; i < n; i++) a.push(round(mu + sigma * randn(), dec)); return a; }
+function binom(n, p) { let x = 0; for (let i = 0; i < n; i++) if (Math.random() < p) x++; return x; }
+
+function pValue(dist, stat, alt) {
+  const c = dist.cdf(stat);
+  if (alt === 'lt') return c;
+  if (alt === 'gt') return 1 - c;
+  if (isSymmetric(dist)) return 2 * (1 - dist.cdf(Math.abs(stat)));
+  return Math.min(1, 2 * Math.min(c, 1 - c));
+}
+function critVals(dist, alpha, tail) {
+  if (tail === 'left') return { left: dist.inv(alpha), right: null };
+  if (tail === 'right') return { left: null, right: dist.inv(1 - alpha) };
+  return { left: dist.inv(alpha / 2), right: dist.inv(1 - alpha / 2) };
+}
+
+function generate(sc) {
+  const g = sc.g, { s, sign } = effect(sc.alt);
+  const d = { rows: [], summary: [] };
+  if (sc.type === 'z1' || sc.type === 't1') {
+    const mu = g.mu0 + sign * s * g.sigma / Math.sqrt(g.n);
+    const x = sample(g.n, mu, g.sigma, g.dec);
+    const xb = mean(x), sx = sd(x);
+    d.rows = [{ label: 'Sample', values: x }];
+    d.ref = { x: g.mu0, label: 'μ₀ = ' + fmt(g.mu0, g.dec) };
+    if (sc.type === 'z1') {
+      d.stat = (xb - g.mu0) / (g.sigma / Math.sqrt(g.n)); d.dist = ['z'];
+      d.summary = [['n', g.n], ['x̄', fmt(xb, g.dec + 2)], ['σ (known)', fmt(g.sigma, g.dec + 1)], ['σ/√n', fmt(g.sigma / Math.sqrt(g.n), g.dec + 3)]];
+    } else {
+      d.stat = (xb - g.mu0) / (sx / Math.sqrt(g.n)); d.dist = ['t', g.n - 1];
+      d.summary = [['n', g.n], ['x̄', fmt(xb, g.dec + 2)], ['s', fmt(sx, g.dec + 2)], ['df', g.n - 1]];
+    }
+  } else if (sc.type === 't2') {
+    const k = Math.sqrt(1 / g.n1 + 1 / g.n2);
+    const mu1 = g.m2 + sign * s * g.sigma * k;
+    const x1 = sample(g.n1, mu1, g.sigma, g.dec), x2 = sample(g.n2, g.m2, g.sigma, g.dec);
+    const m1 = mean(x1), m2 = mean(x2), s1 = sd(x1), s2 = sd(x2);
+    const sp = Math.sqrt(((g.n1 - 1) * s1 * s1 + (g.n2 - 1) * s2 * s2) / (g.n1 + g.n2 - 2));
+    d.stat = (m1 - m2) / (sp * k); d.dist = ['t', g.n1 + g.n2 - 2];
+    d.rows = [{ label: g.labels[0], values: x1 }, { label: g.labels[1], values: x2 }];
+    d.summary = [[`n₁ (${g.labels[0]})`, g.n1], ['x̄₁', fmt(m1, g.dec + 2)], ['s₁', fmt(s1, g.dec + 2)], [`n₂ (${g.labels[1]})`, g.n2], ['x̄₂', fmt(m2, g.dec + 2)], ['s₂', fmt(s2, g.dec + 2)], ['s_p (pooled)', fmt(sp, g.dec + 2)], ['df', g.n1 + g.n2 - 2]];
+  } else if (sc.type === 'tp') {
+    const md = sign * s * g.sdd / Math.sqrt(g.n);
+    const y = sample(g.n, g.base, g.sdb, g.dec);
+    const x = y.map(v => round(v + md + g.sdd * randn(), g.dec));
+    const dd = x.map((v, i) => round(v - y[i], g.dec));
+    const db = mean(dd), sdd = sd(dd);
+    d.stat = db / (sdd / Math.sqrt(g.n)); d.dist = ['t', g.n - 1];
+    d.pairs = { x, y, d: dd, labels: g.labels, unitLabel: g.unitLabel };
+    d.rows = [{ label: `d = ${g.labels[0]} − ${g.labels[1]}`, values: dd }];
+    d.ref = { x: 0, label: 'Δ₀ = 0' };
+    d.summary = [['n (pairs)', g.n], ['d̄', fmt(db, g.dec + 2)], ['s_d', fmt(sdd, g.dec + 2)], ['df', g.n - 1]];
+  } else if (sc.type === 'p1') {
+    const p = clamp(g.p0 + sign * s * Math.sqrt(g.p0 * (1 - g.p0) / g.n), 0.002, 0.998);
+    const x = binom(g.n, p), ph = x / g.n;
+    d.stat = (ph - g.p0) / Math.sqrt(g.p0 * (1 - g.p0) / g.n); d.dist = ['z'];
+    d.bars = [{ label: 'Sample', x, n: g.n }]; d.ref = { x: g.p0, label: 'p₀ = ' + g.p0 };
+    d.summary = [['n', g.n], [`x (${g.what})`, x], ['p̂ = x/n', fmt(ph, 4)], ['√(p₀(1−p₀)/n)', fmt(Math.sqrt(g.p0 * (1 - g.p0) / g.n), 5)]];
+  } else if (sc.type === 'p2') {
+    const nb = (g.n1 + g.n2) / 2;
+    const p1 = clamp(g.p + sign * s * Math.sqrt(2 * g.p * (1 - g.p) / nb), 0.002, 0.998);
+    const x1 = binom(g.n1, p1), x2 = binom(g.n2, g.p);
+    const ph1 = x1 / g.n1, ph2 = x2 / g.n2, pp = (x1 + x2) / (g.n1 + g.n2);
+    const se = Math.sqrt(pp * (1 - pp) * (1 / g.n1 + 1 / g.n2));
+    d.stat = se > 0 ? (ph1 - ph2) / se : 0; d.dist = ['z'];
+    d.bars = [{ label: g.labels[0], x: x1, n: g.n1 }, { label: g.labels[1], x: x2, n: g.n2 }];
+    d.summary = [[`x₁ / n₁ (${g.labels[0]})`, `${x1} / ${g.n1}`], ['p̂₁', fmt(ph1, 4)], [`x₂ / n₂ (${g.labels[1]})`, `${x2} / ${g.n2}`], ['p̂₂', fmt(ph2, 4)], ['p̂ (pooled)', fmt(pp, 4)], ['Std. error', fmt(se, 5)]];
+  } else if (sc.type === 'chi1') {
+    const u = unif(-0.2, 1.3);
+    const sTrue = g.s0 * Math.sqrt(Math.exp(sign * u));
+    const x = sample(g.n, g.mu, sTrue, g.dec);
+    const sx = sd(x);
+    d.stat = (g.n - 1) * sx * sx / (g.s0 * g.s0); d.dist = ['chi', g.n - 1];
+    d.rows = [{ label: 'Sample', values: x }];
+    d.summary = [['n', g.n], ['x̄', fmt(mean(x), g.dec + 1)], ['s', fmt(sx, g.dec + 2)], ['s²', fmt(sx * sx, 2 * g.dec + 2)], ['σ₀²', fmt(g.s0 * g.s0, 2 * g.dec)], ['df', g.n - 1]];
+  } else if (sc.type === 'F2') {
+    const u = unif(-0.1, 2.0);
+    const s1 = g.s2 * Math.sqrt(Math.exp(sign * u));
+    const x1 = sample(g.n1, g.mu, s1, g.dec), x2 = sample(g.n2, g.mu, g.s2, g.dec);
+    const a = sd(x1), b = sd(x2);
+    d.stat = (a * a) / (b * b); d.dist = ['F', g.n1 - 1, g.n2 - 1];
+    d.rows = [{ label: g.labels[0], values: x1 }, { label: g.labels[1], values: x2 }];
+    d.summary = [[`n₁ (${g.labels[0]})`, g.n1], ['s₁', fmt(a, g.dec + 2)], ['s₁²', fmt(a * a, 2 * g.dec + 2)], [`n₂ (${g.labels[1]})`, g.n2], ['s₂', fmt(b, g.dec + 2)], ['s₂²', fmt(b * b, 2 * g.dec + 2)], ['df', `${g.n1 - 1}, ${g.n2 - 1}`]];
+  }
+  const dist = makeDist(...d.dist);
+  d.p = pValue(dist, d.stat, sc.alt);
+  d.reject = d.p < sc.alpha;
+  return d;
+}
+
+// ---- grading ----
+function numClose(v, key) { if (!isFinite(v)) return false; return Math.abs(v - key) <= Math.max(1e-9, Math.abs(key) * 0.002); }
+function nullKeyFor(sc, param) {
+  if (sc.type === 'chi1') return param === 'sigma' ? sc.s0 : sc.s0 * sc.s0;
+  return sc.nullv;
+}
+function gradePart1(sc, a) {
+  const T = TYPES[sc.type];
+  const paramOk = sc.type === 'chi1' ? (a.param === 'sigma' || a.param === 'sigma2') : a.param === T.param;
+  const v = parseFloat(String(a.nullv).replace(MINUS, '-'));
+  let nullOk;
+  if (sc.type === 'chi1') nullOk = paramOk ? numClose(v, nullKeyFor(sc, a.param)) : (numClose(v, sc.s0) || numClose(v, sc.s0 * sc.s0));
+  else nullOk = numClose(v, sc.nullv);
+  const items = [
+    { k: 'Parameter', ok: paramOk, pts: 1 },
+    { k: 'Null value', ok: nullOk, pts: 0.5 },
+    { k: 'Direction of H₁', ok: a.alt === sc.alt, pts: 1.5 },
+    { k: 'Test statistic', ok: a.stat === T.stat, pts: 0.5 },
+    { k: 'Significance level α', ok: +a.alpha === sc.alpha, pts: 0.5 },
+  ];
+  return { items, raw: items.reduce((s, i) => s + (i.ok ? i.pts : 0), 0), max: 4 };
+}
+function statSym(sc) { return { z1: 'z', p1: 'z', p2: 'z', t1: 't', t2: 't', tp: 't', chi1: 'χ²', F2: 'F' }[sc.type]; }
+
+function buildP2Options(sc, d) {
+  const st = `${statSym(sc)} = ${fmt(d.stat, 3)}`, p = fmtP(d.p), q = d.p < 0.0001 ? '> 0.9999' : (1 - d.p).toFixed(4);
+  return shuffle([
+    { id: 'c', ok: true, t: `If ${sc.h0}, the probability of a test statistic at least as extreme as ${st} is ${p}.` },
+    { id: 'h0', ok: false, t: `The probability that ${sc.h0} is ${p}.` },
+    { id: 'h1', ok: false, t: `The probability that ${sc.h1} is ${q}.` },
+    { id: 'wrongcond', ok: false, t: `If ${sc.h1}, the probability of a test statistic at least as extreme as ${st} is ${p}.` },
+  ]);
+}
+function buildP3Options(sc, d) {
+  const A = `At α = ${sc.alpha}`;
+  const yes = `${A}, there is sufficient evidence to conclude that ${sc.h1}.`;
+  const no = `${A}, there is not sufficient evidence to conclude that ${sc.h1}.`;
+  const concl = shuffle([
+    { id: 'c', ok: true, t: d.reject ? yes : no },
+    { id: 'opp', ok: false, t: d.reject ? no : yes },
+    { id: 'prove', ok: false, t: `${A}, the test proves that ${sc.h0}.` },
+    { id: 'dir', ok: false, t: `${A}, there is sufficient evidence to conclude that ${sc.opp}.` },
+  ]);
+  const act = shuffle([
+    { id: 'r', ok: d.reject, t: sc.act.r },
+    { id: 'f', ok: !d.reject, t: sc.act.f },
+    { id: 'o', ok: false, t: sc.act.o },
+  ]);
+  return { concl, act };
+}
+
+function pickScenarios() {
+  const byType = {};
+  SCENARIOS.forEach(s => (byType[s.type] = byType[s.type] || []).push(s));
+  const chosen = Object.values(byType).map(list => list[Math.floor(Math.random() * list.length)]);
+  const rest = shuffle(SCENARIOS.filter(s => !chosen.includes(s)));
+  return shuffle(chosen.concat(rest.slice(0, 10 - chosen.length))).map(s => s.id);
+}
+function scById(id) { return SCENARIOS.find(s => s.id === id); }
+
+function hashCode(str) { let h = 0x811c9dc5; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).toUpperCase().padStart(8, '0'); }
+// ===== END LOGIC =====
+// ===== UI =====
+let S = { phase: 'start', name: '', section: '', order: [], idx: 0, freeHints: 3, results: [], cur: null, startedAt: null, finishedAt: null, confirmReset: false };
+
+function newCur(id) {
+  return { id, part: 1, a1: { param: '', nullv: '', alt: '', stat: '', alpha: '' }, g1: null, data: null, p2opts: null, p3opts: null,
+    a2: { tail: '', dec: '', pint: '' }, g2: null, a3: { concl: '', act: '' }, g3: null, hints: { 1: null, 2: null, 3: null }, err: '', briefed: false, sheet: false };
+}
+function totalScore() { return S.results.reduce((s, r) => s + r.total, 0); }
+function fmtPts(x) { return (Math.round(x * 10) / 10).toString(); }
+function paramH(v) { const p = PARAMS.find(p => p.v === v); return p ? p.h : '<span class="q">?</span>'; }
+function nullDisp(sc, param) {
+  if (sc.type === 'chi1') { const v = nullKeyFor(sc, param === 'sigma' ? 'sigma' : 'sigma2'); return String(+v.toPrecision(6)); }
+  return String(sc.nullv);
+}
+function hypHTML(param, nullv, alt) {
+  const pv = paramH(param);
+  const nv = nullv === '' ? '<span class="q">?</span>' : esc(String(nullv));
+  const as = alt ? ALT_SYM[alt] : '<span class="q">?</span>';
+  return `<div class="hyp"><span class="hl">H<sub>0</sub>:</span> ${pv} = ${nv}</div><div class="hyp"><span class="hl">H<sub>1</sub>:</span> ${pv} ${as} ${nv}</div>`;
+}
+function partScore(g, cur, k) { return Math.max(0, g.raw - (cur.hints[k] || 0)); }
+
+// ---------- charts ----------
+function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * p; }
+function decFor(step) { return Math.max(0, -Math.floor(Math.log10(step) + 1e-9)); }
+function ticksSVG(x0, x1, sx, y, count, unit) {
+  const step = niceStep((x1 - x0) / count), dd = decFor(step);
+  let out = '';
+  for (let v = Math.ceil(x0 / step) * step; v <= x1 + step * 1e-6; v += step) {
+    const X = sx(v).toFixed(1);
+    out += `<line class="c-axis" x1="${X}" x2="${X}" y1="${y}" y2="${y + 5}"/><text class="c-tick" x="${X}" y="${y + 18}" text-anchor="middle">${fmt(v, dd)}</text>`;
+  }
+  return out;
+}
+
+function nullChart(sc, d, tail, showP) {
+  const dist = makeDist(...d.dist);
+  const W = 640, H = 270, L = 20, R = 20, T = 34, B = 62;
+  let x0, x1;
+  if (isSymmetric(dist)) { const lim = Math.max(4, Math.min(Math.abs(d.stat) + 0.9, 9)); x0 = -lim; x1 = lim; }
+  else if (dist.kind === 'chi') { x0 = 0; const q = dist.inv(0.999); x1 = Math.min(Math.max(q, d.stat * 1.12), q * 2.2); }
+  else { x0 = 0; const q = dist.inv(0.995); x1 = Math.min(Math.max(q, d.stat * 1.15), q * 2.5); }
+  const N = 320, xs = [], ys = [];
+  for (let i = 0; i <= N; i++) { const x = x0 + (x1 - x0) * i / N; xs.push(x); ys.push(dist.pdf(isSymmetric(dist) ? x : Math.max(x, 1e-9))); }
+  const ymax = Math.max(...ys.filter(isFinite)) * 1.06;
+  const sx = x => L + (x - x0) / (x1 - x0) * (W - L - R);
+  const sy = y => H - B - Math.min(y, ymax) / ymax * (H - B - T);
+  const area = (a, b, cls) => {
+    a = Math.max(a, x0); b = Math.min(b, x1); if (!(a < b)) return '';
+    let p = `M${sx(a).toFixed(1)},${sy(0).toFixed(1)}`;
+    const n = 120;
+    for (let i = 0; i <= n; i++) { const x = a + (b - a) * i / n; p += ` L${sx(x).toFixed(1)},${sy(dist.pdf(isSymmetric(dist) ? x : Math.max(x, 1e-9))).toFixed(1)}`; }
+    p += ` L${sx(b).toFixed(1)},${sy(0).toFixed(1)} Z`;
+    return `<path class="${cls}" d="${p}"/>`;
+  };
+  let curve = xs.map((x, i) => `${i ? 'L' : 'M'}${sx(x).toFixed(1)},${sy(ys[i]).toFixed(1)}`).join(' ');
+  let shade = '', crit = '';
+  if (tail) {
+    const cv = critVals(dist, sc.alpha, tail);
+    if (cv.left !== null) { shade += area(x0, cv.left, 'c-rej'); crit += critMark(cv.left); }
+    if (cv.right !== null) { shade += area(cv.right, x1, 'c-rej'); crit += critMark(cv.right); }
+  }
+  function critMark(v) {
+    const X = sx(clamp(v, x0, x1)).toFixed(1);
+    return `<line class="c-crit" x1="${X}" x2="${X}" y1="${T - 4}" y2="${H - B}"/><text class="c-critl" x="${X}" y="${H - B + 40}" text-anchor="middle">${fmt(v, 3)}</text>`;
+  }
+  let parea = '';
+  if (showP) {
+    const s = d.stat;
+    if (sc.alt === 'lt') parea = area(x0, s, 'c-p');
+    else if (sc.alt === 'gt') parea = area(s, x1, 'c-p');
+    else if (isSymmetric(dist)) parea = area(x0, -Math.abs(s), 'c-p') + area(Math.abs(s), x1, 'c-p');
+    else { const c = dist.cdf(s); parea = c < 0.5 ? area(x0, s, 'c-p') + area(dist.inv(1 - c), x1, 'c-p') : area(x0, dist.inv(1 - c), 'c-p') + area(s, x1, 'c-p'); }
+  }
+  const off = d.stat < x0 || d.stat > x1;
+  const SX = sx(clamp(d.stat, x0, x1));
+  const anchor = SX > W - 120 ? 'end' : SX < 120 ? 'start' : 'middle';
+  const lab = `${statSym(sc)} = ${fmt(d.stat, 3)}${off ? (d.stat > x1 ? ' →' : ' ←') : ''}`;
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Null distribution with test statistic ${esc(lab)}">
+    <defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="c-hbg" width="7" height="7"/><line class="c-hline" x1="0" y1="0" x2="0" y2="7"/></pattern></defs>
+    <path class="c-under" d="${curve} L${sx(x1)},${sy(0)} L${sx(x0)},${sy(0)} Z"/>
+    ${shade}${parea}
+    <path class="c-curve" d="${curve}"/>
+    <line class="c-axis" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/>
+    ${ticksSVG(x0, x1, sx, H - B, 8)}
+    ${crit}
+    <line class="c-stat" x1="${SX.toFixed(1)}" x2="${SX.toFixed(1)}" y1="${T - 10}" y2="${H - B}"/>
+    <text class="c-statl" x="${SX.toFixed(1)}" y="${T - 16}" text-anchor="${anchor}">${esc(lab)}</text>
+  </svg>`;
+}
+
+function sampleChart(sc, d) {
+  const W = 640, L = 20, R = 20, T = 30;
+  if (d.bars) {
+    const rowH = 56, H = T + d.bars.length * rowH + 34;
+    const ph = d.bars.map(b => b.x / b.n);
+    const hi = Math.min(1, Math.max(...ph, d.ref ? d.ref.x : 0) * 1.25 + 0.01);
+    const lo = 0;
+    const sx = x => L + (x - lo) / (hi - lo) * (W - L - R);
+    let out = '';
+    d.bars.forEach((b, i) => {
+      const y = T + i * rowH + 18, p = b.x / b.n;
+      out += `<text class="c-row" x="${L}" y="${y - 6}">${esc(b.label)}</text>`;
+      out += `<rect class="c-bar" x="${sx(0)}" y="${y}" width="${Math.max(1, sx(p) - sx(0)).toFixed(1)}" height="20"/>`;
+      const tx = sx(p) + 8, end = tx > W - 190;
+      out += `<text class="c-val" x="${end ? sx(p) - 8 : tx}" y="${y + 15}" text-anchor="${end ? 'end' : 'start'}">p̂ = ${fmt(p, 4)} (${b.x}/${b.n})</text>`;
+    });
+    if (d.ref) { const X = sx(d.ref.x); out += `<line class="c-ref" x1="${X}" x2="${X}" y1="${T - 12}" y2="${H - 34}"/><text class="c-refl" x="${X + 4}" y="${T - 16}">${esc(d.ref.label)}</text>`; }
+    return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Sample proportions">${out}<line class="c-axis" x1="${L}" x2="${W - R}" y1="${H - 34}" y2="${H - 34}"/>${ticksSVG(lo, hi, sx, H - 34, 6)}</svg>`;
+  }
+  const rowH = 70, H = T + d.rows.length * rowH + 36;
+  const all = d.rows.flatMap(r => r.values).concat(d.ref ? [d.ref.x] : []);
+  let mn = Math.min(...all), mx = Math.max(...all); const pad = (mx - mn || 1) * 0.08; mn -= pad; mx += pad;
+  const sx = x => L + (x - mn) / (mx - mn) * (W - L - R);
+  const multi = d.rows.length > 1, paired = !!d.pairs;
+  let out = '';
+  const dd = (sc.g.dec || 0) + 2;
+  d.rows.forEach((r, i) => {
+    const cy = T + i * rowH + 36, m = mean(r.values), s = sd(r.values);
+    out += `<text class="c-row" x="${L}" y="${cy - 26}">${esc(r.label)}</text>`;
+    out += `<rect class="c-band" x="${sx(m - s).toFixed(1)}" y="${cy - 16}" width="${(sx(m + s) - sx(m - s)).toFixed(1)}" height="32"/>`;
+    r.values.forEach((v, j) => { const jy = ((j * 37) % 11 - 5) * 2.4; out += `<circle class="c-dot" cx="${sx(v).toFixed(1)}" cy="${(cy + jy).toFixed(1)}" r="4"/>`; });
+    const sym = paired ? 'd̄' : multi ? (i ? 'x̄₂' : 'x̄₁') : 'x̄';
+    const X = sx(m), end = X > W - 150;
+    out += `<line class="c-mean" x1="${X.toFixed(1)}" x2="${X.toFixed(1)}" y1="${cy - 20}" y2="${cy + 20}"/>`;
+    out += `<text class="c-val" x="${(end ? X - 6 : X + 6).toFixed(1)}" y="${cy - 22}" text-anchor="${end ? 'end' : 'start'}">${sym} = ${fmt(m, dd)}</text>`;
+  });
+  if (d.ref) { const X = sx(d.ref.x); out += `<line class="c-ref" x1="${X}" x2="${X}" y1="${T - 12}" y2="${H - 36}"/><text class="c-refl" x="${X + 4}" y="${T - 16}">${esc(d.ref.label)}</text>`; }
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Sample data dot plot">${out}<line class="c-axis" x1="${L}" x2="${W - R}" y1="${H - 36}" y2="${H - 36}"/>${ticksSVG(mn, mx, sx, H - 36, 7)}</svg>`;
+}
+
+function rawData(sc, d) {
+  if (d.bars) return '';
+  const u = sc.unit ? ` (${esc(sc.unit)})` : '';
+  if (d.pairs) {
+    const p = d.pairs;
+    const rows = p.x.map((v, i) => `<tr><td>${i + 1}</td><td>${fmt(v, sc.g.dec)}</td><td>${fmt(p.y[i], sc.g.dec)}</td><td>${fmt(p.d[i], sc.g.dec)}</td></tr>`).join('');
+    return `<details class="raw"><summary>Raw data: ${p.x.length} pairs${u}</summary><div class="tscroll"><table class="rawt"><thead><tr><th>${esc(p.unitLabel)}</th><th>${esc(p.labels[0])}</th><th>${esc(p.labels[1])}</th><th>d</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
+  }
+  return `<details class="raw"><summary>Raw data${u}</summary>${d.rows.map(r => `<div class="rawg"><div class="rawl">${esc(r.label)} · n = ${r.values.length}</div><div class="rawv">${r.values.map(v => fmt(v, sc.g.dec)).join(', ')}</div></div>`).join('')}</details>`;
+}
+
+// ---------- templates ----------
+function header() {
+  const inGame = S.phase === 'play';
+  return `<header class="bar"><div class="bar-in">
+    <div class="brand"><span class="glyph" aria-hidden="true">H₀|H₁</span><span>Burden of Proof</span></div>
+    ${S.phase !== 'start' ? `<div class="meta">
+      <span class="chip">${esc(S.name)}</span>
+      ${inGame ? `<span class="chip">Request ${S.idx + 1} / 10</span><span class="chip ${S.freeHints ? 'hint-on' : ''}">Free hints left: ${S.freeHints} / 3</span>` : ''}
+      <span class="chip score">Score ${fmtPts(totalScore())} / 100</span>
+    </div>` : ''}
+  </div></header>`;
+}
+
+function heroCurve() {
+  const W = 520, H = 170, x0 = -4, x1 = 4, c = 1.645;
+  const sx = x => 10 + (x - x0) / (x1 - x0) * (W - 20), sy = y => H - 20 - y / 0.42 * (H - 34);
+  let p = '', a = `M${sx(c)},${sy(0)}`;
+  for (let i = 0; i <= 200; i++) { const x = x0 + 8 * i / 200; p += `${i ? 'L' : 'M'}${sx(x).toFixed(1)},${sy(normPdf(x)).toFixed(1)} `; if (x >= c) a += ` L${sx(x).toFixed(1)},${sy(normPdf(x)).toFixed(1)}`; }
+  a += ` L${sx(x1)},${sy(0)} Z`;
+  return `<svg viewBox="0 0 ${W} ${H}" class="hero-svg" aria-hidden="true"><path class="c-under" d="${p} L${sx(x1)},${sy(0)} L${sx(x0)},${sy(0)} Z"/><path class="c-rej" d="${a}"/><path class="c-curve" d="${p}"/><line class="c-axis" x1="10" x2="${W - 10}" y1="${sy(0)}" y2="${sy(0)}"/><line class="c-stat" x1="${sx(2.31)}" x2="${sx(2.31)}" y1="18" y2="${sy(0)}"/><text class="c-statl" x="${sx(2.31)}" y="13" text-anchor="middle">z = 2.310</text><text class="c-critl" x="${sx(c)}" y="${H - 4}" text-anchor="middle">1.645</text></svg>`;
+}
+
+function startView() {
+  return `<section class="start">
+    <div class="start-copy">
+      <p class="eyebrow">EGN 3443 · Hypothesis Testing Lab</p>
+      <h1>Burden of Proof</h1>
+      <p class="lede">Ten engineering test requests land on your desk. For each one, design the hypothesis test, run it on fresh sample data, read the evidence, and report what it means for the engineer who asked.</p>
+      ${heroCurve()}
+    </div>
+    <form class="start-card" id="startForm" novalidate>
+      <h2>Sign in to the lab</h2>
+      <label class="fld"><span>Your full name <em>(appears on your report)</em></span><input id="nameIn" type="text" autocomplete="name" value="${esc(S.name)}" required></label>
+      <label class="fld"><span>Course section <em>(optional)</em></span><input id="secIn" type="text" value="${esc(S.section)}"></label>
+      <p class="err" id="startErr" ${S.cur && S.cur.err ? '' : 'hidden'}>Enter your name to begin.</p>
+      <button class="btn primary" type="submit">Start the 10 requests</button>
+      <ol class="rules">
+        <li><b>Design the test · 4 pts.</b> Parameter, null value, direction of H₁, test statistic, and α.</li>
+        <li><b>Read the evidence · 3 pts.</b> The lab collects a random sample and computes the statistic and p-value. You shade the rejection region, decide, and interpret the p-value.</li>
+        <li><b>Report the conclusion · 3 pts.</b> Choose the conclusion stated in the words of the problem and the action it supports.</li>
+      </ol>
+      <p class="small">Every request draws new random data, so your decision depends on your own sample. The first three hints in a game are free; each hint after that costs 1 point from that part.</p>
+    </form>
+  </section>`;
+}
+
+function hintBtn(cur, k, locked) {
+  if (cur.hints[k] !== null) return '';
+  if (locked) return '';
+  return `<button class="btn ghost sm" data-act="hint" data-k="${k}" type="button">Hint · ${S.freeHints ? 'free' : '−1 pt'}</button>`;
+}
+function hintBox(sc, cur, k) {
+  if (cur.hints[k] === null) return '';
+  const txt = k === 1 ? HINTS[1][sc.type] : HINTS[k];
+  return `<div class="hintbox"><b>Hint${cur.hints[k] ? ' (−1 pt)' : ' (free)'}.</b> ${txt}</div>`;
+}
+function seg(name, opts, val, disabled) {
+  return `<div class="seg" role="radiogroup">${opts.map(o => `<label class="segopt"><input type="radio" name="${name}" value="${o.v}" ${String(val) === String(o.v) ? 'checked' : ''} ${disabled ? 'disabled' : ''}><span>${o.h}</span></label>`).join('')}</div>`;
+}
+function choiceList(name, opts, val, graded) {
+  return `<div class="choices">${opts.map(o => {
+    let cls = '';
+    if (graded) cls = o.ok ? 'right' : (val === o.id ? 'wrong' : '');
+    return `<label class="choice ${cls}"><input type="radio" name="${name}" value="${o.id}" ${val === o.id ? 'checked' : ''} ${graded ? 'disabled' : ''}><span>${o.t}</span></label>`;
+  }).join('')}</div>`;
+}
+function fbList(items) {
+  return `<ul class="fb">${items.map(i => `<li class="${i.ok ? 'ok' : 'no'}"><span class="mk" aria-hidden="true">${i.ok ? '✓' : '✗'}</span><span class="fk">${i.k}</span><span class="fp">${i.ok ? '+' + i.pts : '0'} / ${i.pts}</span>${i.note ? `<span class="fn">${i.note}</span>` : ''}</li>`).join('')}</ul>`;
+}
+function partHead(n, title, pts, cur, locked, earned) {
+  return `<div class="phead"><div><span class="pnum">Part ${n}</span><h3>${title}</h3></div><div class="pright">${earned !== undefined ? `<span class="earned">${fmtPts(earned)} / ${pts}</span>` : `<span class="ptag">${pts} pts</span>`}${hintBtn(cur, n, locked)}</div></div>`;
+}
+
+function part1(sc, cur) {
+  const a = cur.a1, g = cur.g1, locked = !!g;
+  const T = TYPES[sc.type];
+  let fb = '';
+  if (g) {
+    const canon = sc.type === 'chi1' ? 'sigma2' : T.param;
+    const items = g.items.map(i => ({ ...i }));
+    fb = `<div class="feedback">${fbList(items)}
+      <div class="key"><div class="keyl">Correct design</div>${hypHTML(canon, nullDisp(sc, canon), sc.alt)}
+      ${sc.type === 'chi1' ? `<div class="small">Equivalent: H₀: σ = ${sc.s0}, H₁: σ ${ALT_SYM[sc.alt]} ${sc.s0}</div>` : ''}
+      <div class="keym">${esc(T.name)} · ${ALT_WORD[sc.alt]} · α = ${sc.alpha}</div></div>
+      <ul class="why"><li>${T.why}</li><li>The engineer needs evidence that ${esc(sc.h1)}, so that claim is H₁ (${ALT_SYM[sc.alt]}). The null value is the claim, spec, or “no difference” value.</li><li>${sc.alphaNote ? sc.alphaNote : `The problem sets the significance level at α = ${sc.alpha}.`}</li></ul>
+      ${cur.hints[1] ? '<p class="small">Hint cost: −1 pt.</p>' : ''}
+    </div>`;
+  }
+  return `<section class="part ${locked ? 'done' : ''}" id="p1">
+    ${partHead(1, 'Design the test', 4, cur, locked, g ? partScore(g, cur, 1) : undefined)}
+    ${hintBox(sc, cur, 1)}
+    <div class="grid1">
+      <label class="fld"><span>Parameter of interest</span>
+        <select id="f-param" ${locked ? 'disabled' : ''}><option value="">Choose…</option>${PARAMS.map(p => `<option value="${p.v}" ${a.param === p.v ? 'selected' : ''}>${p.o}</option>`).join('')}</select></label>
+      <label class="fld"><span>Null value (H₀)</span><input id="f-null" type="text" inputmode="decimal" placeholder="e.g. 50" value="${esc(a.nullv)}" ${locked ? 'disabled' : ''}></label>
+      <div class="fld"><span>Direction of H₁</span>${seg('f-alt', [{ v: 'lt', h: '&lt;' }, { v: 'ne', h: '≠' }, { v: 'gt', h: '&gt;' }], a.alt, locked)}</div>
+      <label class="fld"><span>Test statistic</span>
+        <select id="f-stat" ${locked ? 'disabled' : ''}><option value="">Choose…</option>${STATS.map(p => `<option value="${p.v}" ${a.stat === p.v ? 'selected' : ''}>${p.o}</option>`).join('')}</select></label>
+      <div class="fld"><span>Significance level α</span>${seg('f-alpha', ALPHAS.map(x => ({ v: x, h: String(x) })), a.alpha, locked)}</div>
+      <div class="fld preview"><span>Your hypotheses</span><div id="hypPrev">${hypHTML(a.param, a.nullv, a.alt)}</div></div>
+    </div>
+    ${!locked ? `<p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="sub1" type="button">Lock in test design</button></div>` : fb}
+  </section>`;
+}
+
+function part2(sc, cur) {
+  if (cur.part < 2) return '';
+  const d = cur.data, g = cur.g2, locked = !!g;
+  if (!d) {
+    return `<section class="part" id="p2">${partHead(2, 'Read the evidence', 3, cur, true)}
+      <p>The lab will collect the sample described in the request and run the ${ALT_WORD[sc.alt]} test from the correct design above.</p>
+      <div class="actions"><button class="btn primary" data-act="run" type="button">Run the test</button></div></section>`;
+  }
+  const a = cur.a2;
+  const sumRows = d.summary.map(([k, v]) => `<div class="kv"><span>${k}</span><b>${v}</b></div>`).join('');
+  const dist = makeDist(...d.dist);
+  let fb = '';
+  if (g) {
+    fb = `<div class="feedback">${fbList(g.items)}
+      <ul class="why"><li>H₁ uses “${ALT_SYM[sc.alt]}”, so the rejection region is ${sc.alt === 'ne' ? 'split between both tails (α/2 in each)' : `the ${TAIL_OF[sc.alt]} tail`}. The hatched area on the chart is the p-value.</li>
+      <li>p-value = ${fmtP(d.p)} ${d.reject ? '&lt;' : '≥'} α = ${sc.alpha}, so the statistic ${d.reject ? 'falls in' : 'does not fall in'} the rejection region: <b>${d.reject ? 'reject H₀' : 'fail to reject H₀'}</b>.</li>
+      <li>A p-value is calculated assuming H₀ is true. It is not the probability that either hypothesis is true.</li></ul>
+      ${cur.hints[2] ? '<p class="small">Hint cost: −1 pt.</p>' : ''}</div>`;
+  }
+  return `<section class="part ${locked ? 'done' : ''}" id="p2">
+    ${partHead(2, 'Read the evidence', 3, cur, locked, g ? partScore(g, cur, 2) : undefined)}
+    ${hintBox(sc, cur, 2)}
+    <div class="figure"><div class="figl">Sample collected${sc.unit ? ` · ${esc(sc.unit)}` : ''}</div>${sampleChart(sc, d)}${d.bars ? '' : '<div class="legend"><span><i class="sw sw-dot"></i>observations</span><span><i class="sw sw-band"></i>mean ± 1 s</span>' + (d.ref ? '<span><i class="sw sw-ref"></i>null value</span>' : '') + '</div>'}${rawData(sc, d)}</div>
+    <div class="results">
+      <div class="summary">${sumRows}</div>
+      <div class="bignums"><div class="bn"><span>Test statistic</span><b>${statSym(sc)} = ${fmt(d.stat, 3)}</b></div><div class="bn"><span>p-value</span><b>${fmtP(d.p)}</b></div></div>
+    </div>
+    <div class="figure"><div class="figl">Null distribution · ${esc(dist.label)}</div>
+      ${nullChart(sc, d, a.tail, locked)}
+      <div class="legend"><span><i class="sw sw-rej"></i>rejection region${a.tail ? ` (α = ${sc.alpha})` : ' (choose below)'}</span><span><i class="sw sw-stat"></i>test statistic</span>${locked ? '<span><i class="sw sw-p"></i>p-value area</span>' : ''}</div>
+    </div>
+    <div class="q"><div class="ql"><b>2a.</b> Shade the rejection region for this test.</div>${seg('f-tail', [{ v: 'left', h: 'Left tail' }, { v: 'both', h: 'Both tails' }, { v: 'right', h: 'Right tail' }], a.tail, locked)}</div>
+    <div class="q"><div class="ql"><b>2b.</b> Decision at α = ${sc.alpha}</div>${seg('f-dec', [{ v: 'rej', h: 'Reject H₀' }, { v: 'fail', h: 'Fail to reject H₀' }], a.dec, locked)}</div>
+    <div class="q"><div class="ql"><b>2c.</b> Which statement correctly interprets p = ${fmtP(d.p)}?</div>${choiceList('f-pint', cur.p2opts, a.pint, locked)}</div>
+    ${!locked ? `<p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="sub2" type="button">Lock in reading</button></div>` : fb}
+  </section>`;
+}
+
+function part3(sc, cur) {
+  if (cur.part < 3) return '';
+  const a = cur.a3, g = cur.g3, locked = !!g, d = cur.data;
+  let fb = '';
+  if (g) {
+    const tot = partScore(cur.g1, cur, 1) + partScore(cur.g2, cur, 2) + partScore(g, cur, 3);
+    fb = `<div class="feedback">${fbList(g.items)}
+      <ul class="why"><li>The decision was <b>${d.reject ? 'reject H₀' : 'fail to reject H₀'}</b>, so the conclusion says there ${d.reject ? 'is' : 'is not'} sufficient evidence that ${esc(sc.h1)}.</li>
+      <li>${d.reject ? 'Rejecting H₀ supports the claim in H₁; it does not guarantee anything about every individual unit.' : 'Failing to reject H₀ does not prove H₀. The sample simply did not provide strong enough evidence for H₁.'}</li></ul>
+      ${cur.hints[3] ? '<p class="small">Hint cost: −1 pt.</p>' : ''}
+      <div class="tally"><span>Request ${S.idx + 1} total</span><b>${fmtPts(tot)} / 10</b></div>
+      <div class="actions"><button class="btn primary" data-act="next" type="button">${S.idx < 9 ? 'Next request' : 'See my score report'}</button></div></div>`;
+  }
+  return `<section class="part ${locked ? 'done' : ''}" id="p3">
+    ${partHead(3, 'Report the conclusion', 3, cur, locked, g ? partScore(g, cur, 3) : undefined)}
+    ${hintBox(sc, cur, 3)}
+    <div class="q"><div class="ql"><b>3a.</b> Which conclusion belongs in your report? <span class="ptag">2 pts</span></div>${choiceList('f-concl', cur.p3opts.concl, a.concl, locked)}</div>
+    <div class="q"><div class="ql"><b>3b.</b> What should the engineer do? <span class="ptag">1 pt</span></div>${choiceList('f-act', cur.p3opts.act, a.act, locked)}</div>
+    ${!locked ? `<p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="sub3" type="button">Submit conclusion</button></div>` : fb}
+  </section>`;
+}
+
+function gateView() {
+  const cur = S.cur, sc = scById(cur.id);
+  return `<div class="play">
+    <div class="progress" aria-hidden="true">${Array.from({ length: 10 }, (_, i) => `<i class="${i < S.idx ? 'done' : i === S.idx ? 'now' : ''}"></i>`).join('')}</div>
+    <section class="gate">
+      <p class="eyebrow">Request ${S.idx + 1} of 10 · ${esc(sc.field)}</p>
+      <h2>Next request is on your desk</h2>
+      <p>Want to review the terminology first? The cheat sheet covers parameters of interest, null values and directions, test statistics, and significance levels with tail types. It is optional, and the request opens as soon as you close it.</p>
+      <div class="actions">
+        <button class="btn primary" data-act="sheet-open" type="button">Review the cheat sheet</button>
+        <button class="btn ghost" data-act="begin" type="button">Skip and open the request</button>
+      </div>
+    </section>
+  </div>`;
+}
+
+function playView() {
+  const cur = S.cur, sc = scById(cur.id);
+  if (!cur.briefed) return gateView();
+  const reqNo = 'TR-' + hashCode(S.name + sc.id + S.startedAt).slice(0, 4);
+  return `<div class="play">
+    <div class="progress" aria-hidden="true">${Array.from({ length: 10 }, (_, i) => `<i class="${i < S.idx ? 'done' : i === S.idx ? 'now' : ''}"></i>`).join('')}</div>
+    <article class="request">
+      <div class="req-strip"><span>TEST REQUEST ${reqNo}</span><span>${esc(sc.field)}</span><span>${S.idx + 1} of 10</span></div>
+      <h2>${esc(sc.title)}</h2>
+      <p>${sc.text}</p>
+    </article>
+    ${part1(sc, cur)}${part2(sc, cur)}${part3(sc, cur)}
+  </div>`;
+}
+
+function reportView() {
+  const total = totalScore();
+  const code = hashCode(`${S.name}|${S.section}|${S.finishedAt}|${S.results.map(r => r.id + ':' + r.total).join(',')}|${total}`);
+  const when = new Date(S.finishedAt);
+  const standalone = (() => { try { return window.self === window.top; } catch (e) { return false; } })();
+  return `<section class="report">
+    <div class="rep-head">
+      <div><p class="eyebrow">Hypothesis Testing Lab · Score Report</p><h2 class="rep-name">${esc(S.name)}</h2>
+      <p class="rep-meta">${S.section ? esc(S.section) + ' · ' : ''}Completed ${when.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })} at ${when.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}</p></div>
+      <div class="rep-score"><b>${fmtPts(total)}</b><span>/ 100</span></div>
+    </div>
+    <div class="tscroll"><table class="rep">
+      <thead><tr><th>#</th><th>Request</th><th class="opt">Test</th><th class="opt">Decision</th><th class="n">Design<br>/4</th><th class="n">Evidence<br>/3</th><th class="n">Concl.<br>/3</th><th class="n opt">Hints</th><th class="n">Total /10</th></tr></thead>
+      <tbody>${S.results.map((r, i) => `<tr><td>${i + 1}</td><td>${esc(r.title)}</td><td class="opt">${esc(r.test)}</td><td class="opt">${r.reject ? 'Reject H₀' : 'Fail to reject'}</td><td class="n">${fmtPts(r.s1)}</td><td class="n">${fmtPts(r.s2)}</td><td class="n">${fmtPts(r.s3)}</td><td class="n opt">${r.hints}</td><td class="n"><b>${fmtPts(r.total)}</b></td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="8" class="fs">Final score</td><td class="n"><b>${fmtPts(total)} / 100</b></td></tr></tfoot>
+    </table></div>
+    <div class="rep-foot">
+      <p class="small sheetnote">Cheat sheet reviewed before ${S.results.filter(r => r.sheet).length} of 10 requests.</p>
+      <div class="code">Verification code <b>${code}</b></div>
+      <p class="small">Submit this report as your homework: take a screenshot of this page with your name, score, and verification code visible, then upload it to the assignment${standalone ? ', or print it to PDF' : ''}.</p>
+      <div class="actions">
+        ${standalone ? '<button class="btn primary" data-act="print" type="button">Print / Save as PDF</button>' : ''}
+        ${S.confirmReset ? '<span class="small">This clears the report above.</span><button class="btn danger" data-act="reset-yes" type="button">Yes, start over</button><button class="btn ghost" data-act="reset-no" type="button">Keep report</button>' : '<button class="btn ghost" data-act="reset" type="button">Start a new game</button>'}
+      </div>
+    </div>
+  </section>`;
+}
+
+// ---------- render ----------
+let scrollTarget = null;
+function render() {
+  const y = window.scrollY;
+  const app = document.getElementById('app');
+  const sheet = S.phase === 'play' && S.sheetOpen;
+  app.innerHTML = header() + `<main class="wrap" ${sheet ? 'inert' : ''}>${S.phase === 'start' ? startView() : S.phase === 'play' ? playView() : reportView()}</main>` + (sheet ? cheatSheet() : '');
+  document.documentElement.classList.toggle('locked', !!sheet);
+  if (sheet) { const c = document.getElementById('sheetClose'); if (c) c.focus({ preventScroll: true }); }
+  window.scrollTo(0, y);
+  if (scrollTarget) {
+    const el = document.getElementById(scrollTarget); scrollTarget = null;
+    if (el) { const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+  }
+}
+function updatePreview() {
+  const el = document.getElementById('hypPrev'); if (el) el.innerHTML = hypHTML(S.cur.a1.param, S.cur.a1.nullv, S.cur.a1.alt);
+}
+
+// ---------- actions ----------
+function startGame(name, section) {
+  S = { phase: 'play', name, section, order: pickScenarios(), idx: 0, freeHints: 3, results: [], cur: null, startedAt: Date.now(), finishedAt: null, confirmReset: false };
+  S.cur = newCur(S.order[0]);
+  window.scrollTo(0, 0); render();
+}
+function useHint(k) {
+  const cur = S.cur; if (cur.hints[k] !== null) return;
+  cur.hints[k] = S.freeHints > 0 ? 0 : 1; if (S.freeHints > 0) S.freeHints--; render();
+}
+function submit1() {
+  const cur = S.cur, a = cur.a1, sc = scById(cur.id);
+  if (!a.param || a.nullv === '' || !a.alt || !a.stat || !a.alpha) { cur.err = 'Complete all five parts of the design before locking it in.'; render(); return; }
+  if (!isFinite(parseFloat(String(a.nullv).replace(MINUS, '-')))) { cur.err = 'The null value must be a number, such as 50 or 0.03.'; render(); return; }
+  cur.err = ''; cur.g1 = gradePart1(sc, a); cur.part = 2; scrollTarget = 'p2'; render();
+}
+function runTest() {
+  const cur = S.cur, sc = scById(cur.id);
+  cur.data = generate(sc); cur.p2opts = buildP2Options(sc, cur.data); cur.p3opts = buildP3Options(sc, cur.data); render();
+}
+function submit2() {
+  const cur = S.cur, a = cur.a2, sc = scById(cur.id), d = cur.data;
+  if (!a.tail || !a.dec || !a.pint) { cur.err = 'Answer 2a, 2b, and 2c before locking in.'; render(); return; }
+  cur.err = '';
+  const items = [
+    { k: 'Rejection region', ok: a.tail === TAIL_OF[sc.alt], pts: 1 },
+    { k: 'Decision', ok: (a.dec === 'rej') === d.reject, pts: 1 },
+    { k: 'p-value interpretation', ok: cur.p2opts.find(o => o.id === a.pint).ok, pts: 1 },
+  ];
+  cur.g2 = { items, raw: items.reduce((s, i) => s + (i.ok ? i.pts : 0), 0), max: 3 };
+  cur.part = 3; scrollTarget = 'p3'; render();
+}
+function submit3() {
+  const cur = S.cur, a = cur.a3, sc = scById(cur.id);
+  if (!a.concl || !a.act) { cur.err = 'Choose a conclusion and an action.'; render(); return; }
+  cur.err = '';
+  const items = [
+    { k: 'Conclusion in context', ok: cur.p3opts.concl.find(o => o.id === a.concl).ok, pts: 2 },
+    { k: 'Recommended action', ok: cur.p3opts.act.find(o => o.id === a.act).ok, pts: 1 },
+  ];
+  cur.g3 = { items, raw: items.reduce((s, i) => s + (i.ok ? i.pts : 0), 0), max: 3 };
+  const s1 = partScore(cur.g1, cur, 1), s2 = partScore(cur.g2, cur, 2), s3 = partScore(cur.g3, cur, 3);
+  S.results.push({ id: sc.id, title: sc.title, test: TYPES[sc.type].name, reject: cur.data.reject, s1, s2, s3, hints: [1, 2, 3].filter(k => cur.hints[k] !== null).length, sheet: cur.sheet, total: s1 + s2 + s3 });
+  cur.part = 4; render();
+}
+function next() {
+  if (S.idx < 9) { S.idx++; S.cur = newCur(S.order[S.idx]); window.scrollTo(0, 0); render(); }
+  else { S.phase = 'report'; S.finishedAt = Date.now(); S.cur = null; window.scrollTo(0, 0); render(); }
+}
+
+function isStandalone() { try { return window.self === window.top; } catch (e) { return false; } }
+function closeSheet() {
+  if (!S.cur) return;
+  S.sheetOpen = false; S.cur.briefed = true; window.scrollTo(0, 0); render();
+}
+
+function tailMini(tail) {
+  const W = 200, H = 84, x0 = -3.6, x1 = 3.6;
+  const sx = x => 6 + (x - x0) / (x1 - x0) * (W - 12), sy = y => H - 16 - y / 0.42 * (H - 24);
+  const pts = []; for (let i = 0; i <= 90; i++) { const x = x0 + (x1 - x0) * i / 90; pts.push([x, normPdf(x)]); }
+  const curve = pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join(' ');
+  const area = (a, b) => { let d = `M${sx(a).toFixed(1)},${sy(0)}`; for (let i = 0; i <= 40; i++) { const x = a + (b - a) * i / 40; d += ` L${sx(x).toFixed(1)},${sy(normPdf(x)).toFixed(1)}`; } return `<path class="c-rej" d="${d} L${sx(b).toFixed(1)},${sy(0)} Z"/>`; };
+  let sh = '', lab = '';
+  if (tail === 'left') { sh = area(x0, -1.645); lab = `<text class="c-critl" x="${sx(-1.645)}" y="${H - 2}" text-anchor="middle">α</text>`; }
+  if (tail === 'right') { sh = area(1.645, x1); lab = `<text class="c-critl" x="${sx(1.645)}" y="${H - 2}" text-anchor="middle">α</text>`; }
+  if (tail === 'both') { sh = area(x0, -1.96) + area(1.96, x1); lab = `<text class="c-critl" x="${sx(-1.96)}" y="${H - 2}" text-anchor="middle">α/2</text><text class="c-critl" x="${sx(1.96)}" y="${H - 2}" text-anchor="middle">α/2</text>`; }
+  return `<svg viewBox="0 0 ${W} ${H}" class="mini" aria-hidden="true"><path class="c-under" d="${curve} L${sx(x1)},${sy(0)} L${sx(x0)},${sy(0)} Z"/>${sh}<path class="c-curve" d="${curve}"/><line class="c-axis" x1="6" x2="${W - 6}" y1="${sy(0)}" y2="${sy(0)}"/>${lab}</svg>`;
+}
+
+function cheatSheet() {
+  const zc = [0.10, 0.05, 0.025, 0.01].map(a => [a, normInv1(1 - a), normInv1(1 - a / 2)]);
+  return `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="eyebrow">Before request ${S.idx + 1} of 10</p><h2 id="sheetTitle">Hypothesis Testing Cheat Sheet</h2></div>
+      <div class="actions">${isStandalone() ? '<button class="btn ghost" data-act="sheet-print" type="button">Print cheat sheet</button>' : ''}<button class="btn primary" id="sheetClose" data-act="sheet-close" type="button">Close and start request</button></div>
+    </div>
+    <nav class="jumps" aria-label="Cheat sheet sections">
+      <button class="btn ghost sm" data-act="jump" data-to="cs-param" type="button">Parameter of interest</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-null" type="button">Null value &amp; direction</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-stat" type="button">Test statistics</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-alpha" type="button">Significance &amp; tails</button>
+    </nav>
+    <div class="sheet-body">
+
+    <section class="cs" id="cs-param">
+      <h3>Parameter of interest</h3>
+      <p>The population quantity the question is about. Ask two things: is it about the <b>average</b>, a <b>rate</b>, or the <b>spread</b>? And is it <b>one group</b>, <b>two independent groups</b>, or <b>the same units measured twice</b>?</p>
+      <div class="tscroll"><table class="cst">
+        <thead><tr><th>Symbol</th><th>Meaning</th><th>Use it when the problem…</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">μ</td><td>One population mean</td><td>measures one group and compares its average to a spec, rating, or claimed value</td></tr>
+          <tr><td class="sym">μ<sub>1</sub> − μ<sub>2</sub></td><td>Difference of two independent means</td><td>compares the averages of two separate groups of different units (new vs. standard process)</td></tr>
+          <tr><td class="sym">μ<sub>D</sub></td><td>Mean of paired differences</td><td>measures the <em>same</em> units twice: before/after, or two instruments on the same specimens</td></tr>
+          <tr><td class="sym">p</td><td>One population proportion</td><td>counts successes or defects out of n and compares the rate to a claimed or spec rate</td></tr>
+          <tr><td class="sym">p<sub>1</sub> − p<sub>2</sub></td><td>Difference of two proportions</td><td>compares the rates of two separate groups, each a count out of n</td></tr>
+          <tr><td class="sym">σ or σ<sup>2</sup></td><td>One standard deviation or variance</td><td>asks about variability, precision, or consistency of one process</td></tr>
+          <tr><td class="sym">σ<sub>1</sub><sup>2</sup> / σ<sub>2</sub><sup>2</sup></td><td>Ratio of two variances</td><td>compares the variability of two processes, machines, or labs</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="cs" id="cs-null">
+      <h3>Null value and direction</h3>
+      <div class="cs2">
+        <div>
+          <h4>H<sub>0</sub>, the null hypothesis</h4>
+          <p>Always contains the equality: <span class="mono">parameter = null value</span>. It is the “nothing new” position the data must argue against.</p>
+          <ul>
+            <li><b>One-group tests:</b> the null value is the spec, rated, claimed, or historical value (4000 psi, 8.0 h, 3%).</li>
+            <li><b>Differences</b> (μ<sub>1</sub> − μ<sub>2</sub>, μ<sub>D</sub>, p<sub>1</sub> − p<sub>2</sub>): “no difference” means a null value of <b>0</b>.</li>
+            <li><b>Variance ratio</b> σ<sub>1</sub><sup>2</sup>/σ<sub>2</sub><sup>2</sup>: equal variances means a null value of <b>1</b>.</li>
+            <li><b>σ vs. σ<sup>2</sup>:</b> match the null value to the parameter. σ = 0.5 is the same hypothesis as σ<sup>2</sup> = 0.25.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>H<sub>1</sub>, the alternative hypothesis</h4>
+          <p>Holds the claim the engineer needs <b>evidence for</b>. Its symbol sets the direction of the test.</p>
+          <div class="tscroll"><table class="cst">
+            <thead><tr><th>H<sub>1</sub></th><th>Clue words</th><th>Test</th></tr></thead>
+            <tbody>
+              <tr><td class="sym">&lt;</td><td>less than, below, reduces, lowers, shorter, under-strength</td><td>Left-tailed</td></tr>
+              <tr><td class="sym">&gt;</td><td>greater than, exceeds, more than, increases, improves</td><td>Right-tailed</td></tr>
+              <tr><td class="sym">≠</td><td>differs, has changed, shifted, in either direction</td><td>Two-tailed</td></tr>
+            </tbody>
+          </table></div>
+          <p class="note"><b>Watch the order of subtraction.</b> If d = After − Before and the retrofit should <em>reduce</em> deflection, then H<sub>1</sub>: μ<sub>D</sub> &lt; 0. If d = Old − New and the new layout should be faster, then H<sub>1</sub>: μ<sub>D</sub> &gt; 0.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs" id="cs-stat">
+      <h3>Test statistics</h3>
+      <div class="tscroll"><table class="cst">
+        <thead><tr><th>Statistic</th><th>Use when</th><th>Formula</th><th>Distribution if H<sub>0</sub> is true</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">z</td><td>One mean, σ <b>known</b> (given from long-run records)</td><td class="mono">z = (x̄ − μ₀) / (σ/√n)</td><td>Standard normal</td></tr>
+          <tr><td class="sym">t</td><td>One mean, σ <b>unknown</b></td><td class="mono">t = (x̄ − μ₀) / (s/√n)</td><td>t, n − 1 df</td></tr>
+          <tr><td class="sym">pooled t</td><td>Two independent means, equal variances assumed</td><td class="mono">t = (x̄₁ − x̄₂ − Δ₀) / (s<sub>p</sub>√(1/n₁ + 1/n₂))<br>s<sub>p</sub>² = [(n₁−1)s₁² + (n₂−1)s₂²] / (n₁+n₂−2)</td><td>t, n₁ + n₂ − 2 df</td></tr>
+          <tr><td class="sym">paired t</td><td>Same units measured twice</td><td class="mono">t = (d̄ − Δ₀) / (s<sub>d</sub>/√n)</td><td>t, n − 1 df (n = pairs)</td></tr>
+          <tr><td class="sym">z</td><td>One proportion</td><td class="mono">z = (p̂ − p₀) / √(p₀(1 − p₀)/n)</td><td>Standard normal</td></tr>
+          <tr><td class="sym">z</td><td>Two proportions</td><td class="mono">z = (p̂₁ − p̂₂) / √(p̂(1 − p̂)(1/n₁ + 1/n₂))<br>p̂ = (x₁ + x₂) / (n₁ + n₂)</td><td>Standard normal</td></tr>
+          <tr><td class="sym">χ²</td><td>One variance or standard deviation</td><td class="mono">χ² = (n − 1)s² / σ₀²</td><td>χ², n − 1 df</td></tr>
+          <tr><td class="sym">F</td><td>Ratio of two variances</td><td class="mono">F = s₁² / s₂²</td><td>F, n₁ − 1 and n₂ − 1 df</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="cs" id="cs-alpha">
+      <h3>Significance level and tails</h3>
+      <p><b>α</b> is the probability of a <b>Type I error</b>: rejecting H<sub>0</sub> when H<sub>0</sub> is actually true. Common choices are 0.01, 0.025, 0.05, and 0.10. Problems may state it directly (“use a 5% significance level”) or as a risk (“accept only a 1% chance of a false alarm” means α = 0.01).</p>
+      <div class="tails">
+        <figure>${tailMini('left')}<figcaption><b>Left-tailed</b> · H<sub>1</sub>: &lt;<br>All of α in the left tail. Reject H<sub>0</sub> if the statistic is below the lower critical value.</figcaption></figure>
+        <figure>${tailMini('both')}<figcaption><b>Two-tailed</b> · H<sub>1</sub>: ≠<br>α/2 in each tail. Reject H<sub>0</sub> if the statistic is beyond either critical value.</figcaption></figure>
+        <figure>${tailMini('right')}<figcaption><b>Right-tailed</b> · H<sub>1</sub>: &gt;<br>All of α in the right tail. Reject H<sub>0</sub> if the statistic is above the upper critical value.</figcaption></figure>
+      </div>
+      <div class="cs2">
+        <div>
+          <h4>Decision rule</h4>
+          <ul>
+            <li>Reject H<sub>0</sub> when the <b>p-value &lt; α</b>. This is the same as the statistic landing in the rejection region.</li>
+            <li>Otherwise, <b>fail to reject</b> H<sub>0</sub>. Never write “accept H<sub>0</sub>” or “the data prove H<sub>0</sub>”.</li>
+            <li>The p-value is the probability, <em>assuming H<sub>0</sub> is true</em>, of a test statistic at least as extreme as the one observed.</li>
+            <li>For χ² and F the curve is not symmetric, so a two-tailed test has two different critical values.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Standard normal critical values</h4>
+          <div class="tscroll"><table class="cst num">
+            <thead><tr><th>α</th><th>One-tailed z<sub>α</sub></th><th>Two-tailed z<sub>α/2</sub></th></tr></thead>
+            <tbody>${zc.map(r => `<tr><td>${r[0] === 0.1 ? "0.10" : r[0]}</td><td>${r[1].toFixed(3)}</td><td>±${r[2].toFixed(3)}</td></tr>`).join('')}</tbody>
+          </table></div>
+          <p class="small">Left-tailed tests use the negative value (for example −1.645 at α = 0.05).</p>
+        </div>
+      </div>
+    </section>
+    </div>
+    <div class="sheet-foot"><button class="btn primary" data-act="sheet-close" type="button">Close and start request ${S.idx + 1}</button></div>
+  </div></div>`;
+}
+function normInv1(p) { return bisect(normCdf, p, -40, 40); }
+
+function bind() {
+  const app = document.getElementById('app');
+  app.addEventListener('submit', e => {
+    if (e.target.id !== 'startForm') return;
+    e.preventDefault();
+    const name = document.getElementById('nameIn').value.trim(), sec = document.getElementById('secIn').value.trim();
+    if (!name) { document.getElementById('startErr').hidden = false; document.getElementById('nameIn').focus(); return; }
+    startGame(name, sec);
+  });
+  app.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const act = b.dataset.act;
+    if (act === 'hint') useHint(+b.dataset.k);
+    else if (act === 'sub1') submit1();
+    else if (act === 'run') runTest();
+    else if (act === 'sub2') submit2();
+    else if (act === 'sub3') submit3();
+    else if (act === 'next') next();
+    else if (act === 'print') window.print();
+    else if (act === 'sheet-open') { S.sheetOpen = true; S.cur.sheet = true; render(); const b = document.querySelector('.sheet-body'); if (b) b.scrollTop = 0; }
+    else if (act === 'sheet-close' || act === 'begin') closeSheet();
+    else if (act === 'sheet-print') window.print();
+    else if (act === 'jump') { const t = document.getElementById(b.dataset.to); if (t) t.scrollIntoView({ block: 'start' }); }
+    else if (act === 'reset') { S.confirmReset = true; render(); }
+    else if (act === 'reset-no') { S.confirmReset = false; render(); }
+    else if (act === 'reset-yes') { const n = S.name, s = S.section; S = { phase: 'start', name: n, section: s, order: [], idx: 0, freeHints: 3, results: [], cur: null, confirmReset: false }; window.scrollTo(0, 0); render(); }
+  });
+  const onField = e => {
+    const t = e.target; if (!S.cur) return; const cur = S.cur;
+    switch (t.id || t.name) {
+      case 'f-param': cur.a1.param = t.value; updatePreview(); break;
+      case 'f-null': cur.a1.nullv = t.value.trim(); updatePreview(); break;
+      case 'f-stat': cur.a1.stat = t.value; break;
+      case 'f-alt': cur.a1.alt = t.value; updatePreview(); break;
+      case 'f-alpha': cur.a1.alpha = t.value; break;
+      case 'f-tail': cur.a2.tail = t.value; render(); break;
+      case 'f-dec': cur.a2.dec = t.value; break;
+      case 'f-pint': cur.a2.pint = t.value; break;
+      case 'f-concl': cur.a3.concl = t.value; break;
+      case 'f-act': cur.a3.act = t.value; break;
+    }
+  };
+  app.addEventListener('change', onField);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheetOpen) closeSheet(); });
+  app.addEventListener('input', e => { if (e.target.id === 'f-null') onField(e); });
+}
+
+function boot(data) {
+  try { if (data && data.phase) S = data; } catch (e) { }
+  bind(); render();
+}
+try { window.claude?.hot?.snapshot?.(() => S); } catch (e) { }
+if (window.claude?.hot?.ready) window.claude.hot.ready(boot); else boot(window.claude?.hot?.data ?? {});
+</script>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

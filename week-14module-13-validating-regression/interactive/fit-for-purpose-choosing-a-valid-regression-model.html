@@ -1,0 +1,1258 @@
+﻿<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
+<div class="pm-injected-nav"><a href="../index.html">← Back to Module</a><span class="sep">|</span><span style="color:#555">Fit for Purpose: Choosing a Valid Regression Model</span></div>
+<div class="pm-injected-spacer"></div>
+<title>Fit for Purpose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout (Fit for Purpose): engineering lab notebook — graph-paper ground, one centered work column, each test request is a form card followed by three stacked work panels. */
+:root {
+  --bg: #e8edf1; --grid: #d8e0e7; --surface: #fbfcfd; --sunk: #eef2f5; --ink: #14202a; --muted: #55636f; --line: #c4ced7;
+  --accent: #1b5b8a; --accent-ink: #ffffff; --accent-soft: #dbe8f2;
+  --reject: #d2561d; --reject-fill: rgba(210, 86, 29, .30);
+  --ok: #2b7745; --ok-soft: #e0efe5; --no: #b0271f; --no-soft: #f7e2df;
+  --m1: #1b5b8a; --m2: #c4501a; --m3: #2f7d4a; --m4: #7a3fa0; --part: #9a6a00; --part-soft: #f6ecd2;
+  --f-display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --f-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1318; --grid: #16202a; --surface: #141d25; --sunk: #1a2530; --ink: #e1e8ee; --muted: #93a2af; --line: #2b3946;
+  --accent: #70b1e2; --accent-ink: #08131c; --accent-soft: #19304a;
+  --reject: #f08743; --reject-fill: rgba(240, 135, 67, .30);
+  --ok: #6cc38a; --ok-soft: #16301f; --no: #f1817a; --no-soft: #3a1c1a; --m1: #70b1e2; --m2: #f08743; --m3: #6cc38a; --m4: #c49be6; --part: #e2b44a; --part-soft: #3a2f12; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0d1318; --grid: #16202a; --surface: #141d25; --sunk: #1a2530; --ink: #e1e8ee; --muted: #93a2af; --line: #2b3946;
+  --accent: #70b1e2; --accent-ink: #08131c; --accent-soft: #19304a;
+  --reject: #f08743; --reject-fill: rgba(240, 135, 67, .30);
+  --ok: #6cc38a; --ok-soft: #16301f; --no: #f1817a; --no-soft: #3a1c1a; --m1: #70b1e2; --m2: #f08743; --m3: #6cc38a; --m4: #c49be6; --part: #e2b44a; --part-soft: #3a2f12; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background-color: var(--bg); color: var(--ink); font: 400 15px/1.55 var(--f-body);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 700; line-height: 1.05; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+sub, sup { font-size: .7em; line-height: 0; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); color: var(--bg); }
+.bar-in { max-width: 920px; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+.brand { display: flex; gap: 10px; align-items: center; font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; }
+.glyph { text-transform: none; font-family: var(--f-mono); font-size: 12px; font-weight: 600; border: 1.5px solid currentColor; padding: 1px 6px; border-radius: 3px; letter-spacing: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 12px/1 var(--f-mono); padding: 6px 9px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); white-space: nowrap; }
+.chip.score { background: var(--bg); color: var(--ink); border-color: var(--bg); font-weight: 600; }
+.chip.hint-on { border-color: var(--reject); }
+
+.wrap { max-width: 920px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; }
+.eyebrow { font: 600 12px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+.small { font-size: 13px; color: var(--muted); margin: 0; }
+.err { color: var(--no); font-weight: 500; margin: 0; }
+
+/* start */
+.start { display: grid; grid-template-columns: 1.15fr 1fr; gap: 28px; align-items: start; padding-top: 12px; }
+.start-copy { min-width: 0; }
+.start h1 { font-size: clamp(52px, 9vw, 92px); text-transform: uppercase; letter-spacing: .005em; }
+.lede { font-size: 17px; max-width: 34em; margin: 14px 0 18px; }
+.hero-svg { width: 100%; max-width: 520px; height: auto; display: block; }
+.start-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; display: grid; gap: 14px; min-width: 0; }
+.start-card h2 { font-size: 26px; text-transform: uppercase; }
+.rules { margin: 4px 0 0; padding-left: 20px; display: grid; gap: 8px; font-size: 14px; }
+.fld { display: grid; gap: 6px; min-width: 0; }
+.fld > span { font: 600 13px/1.2 var(--f-mono); letter-spacing: .02em; color: var(--muted); }
+.fld > span em { text-transform: none; letter-spacing: 0; font-weight: 400; font-style: normal; }
+input[type=text], select { width: 100%; padding: 10px 11px; border: 1px solid var(--line); border-radius: var(--r); background: var(--sunk); min-height: 42px; }
+input[type=text]:disabled, select:disabled { opacity: .75; }
+
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 10px 16px; border-radius: var(--r); cursor: pointer; font-weight: 600; min-height: 42px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; }
+.btn.ghost:hover { background: var(--sunk); }
+.btn.danger { background: var(--no); color: var(--surface); border-color: var(--no); }
+.btn.sm { padding: 5px 10px; min-height: 32px; font-size: 13px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* play */
+.play { display: grid; gap: 18px; }
+.progress { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+.progress i { height: 6px; background: var(--line); border-radius: 2px; }
+.progress i.done { background: var(--accent); }
+.progress i.now { background: var(--reject); }
+.request { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.req-strip { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; font: 500 12px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; padding: 9px 18px; background: var(--sunk); border-bottom: 1px dashed var(--line); color: var(--muted); }
+.request h2 { font-size: clamp(28px, 5vw, 38px); text-transform: uppercase; padding: 16px 18px 0; }
+.request p { margin: 10px 18px 18px; font-size: 16px; max-width: 46em; }
+
+.part { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 16px; scroll-margin-top: 70px; }
+.phead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: flex-end; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.pnum { font: 600 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.phead h3 { font-size: 26px; text-transform: uppercase; margin-top: 4px; }
+.pright { display: flex; gap: 10px; align-items: center; }
+.ptag { font: 500 12px/1 var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 8px; white-space: nowrap; }
+.earned { font: 600 18px/1 var(--f-mono); }
+.hintbox { background: var(--accent-soft); border-radius: var(--r); padding: 12px 14px; font-size: 14px; }
+
+.grid1 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
+.preview { grid-column: 1 / -1; }
+#hypPrev, .key { font-family: var(--f-mono); font-size: 17px; }
+#hypPrev { background: var(--sunk); border: 1px dashed var(--line); border-radius: var(--r); padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 4px 32px; }
+.hyp { white-space: nowrap; }
+.hl { color: var(--muted); }
+.q { color: var(--no); }
+.hyp .q { color: var(--muted); }
+
+.seg { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; width: fit-content; max-width: 100%; }
+.segopt { position: relative; }
+.segopt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.segopt span { display: block; padding: 9px 16px; min-width: 52px; text-align: center; font: 500 15px/1.3 var(--f-mono); background: var(--sunk); border-right: 1px solid var(--line); cursor: pointer; }
+.segopt:last-child span { border-right: 0; }
+.segopt input:checked + span { background: var(--accent); color: var(--accent-ink); }
+.segopt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: -3px; }
+.segopt input:disabled + span { cursor: default; }
+
+.choices { display: grid; gap: 8px; }
+.choice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--sunk); cursor: pointer; }
+.choice input { margin-top: 4px; accent-color: var(--accent); flex: none; }
+.choice span { min-width: 0; }
+.choice:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.choice.right { border-color: var(--ok); background: var(--ok-soft); box-shadow: none; }
+.choice.wrong { border-color: var(--no); background: var(--no-soft); box-shadow: none; }
+.q > .ql { color: var(--ink); margin-bottom: 8px; }
+div.q { color: inherit; }
+
+.feedback { display: grid; gap: 14px; border-top: 1px dashed var(--line); padding-top: 14px; }
+.fb { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.fb li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: baseline; padding: 7px 10px; border-radius: var(--r); }
+.fb li.ok { background: var(--ok-soft); }
+.fb li.no { background: var(--no-soft); }
+.fb .mk { font-weight: 700; }
+.fb li.ok .mk { color: var(--ok); }
+.fb li.no .mk { color: var(--no); }
+.fb .fp { font: 500 13px var(--f-mono); }
+.fb .fn { grid-column: 2 / -1; font-size: 13px; color: var(--muted); }
+.key { background: var(--sunk); border-left: 3px solid var(--ok); padding: 10px 14px; display: grid; gap: 2px; }
+.keyl, .keym { font: 600 12px/1.4 var(--f-mono); letter-spacing: .03em; color: var(--muted); }
+.keym { margin-top: 4px; }
+.why { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; max-width: 60em; }
+.tally { display: flex; justify-content: space-between; align-items: baseline; background: var(--ink); color: var(--bg); padding: 12px 16px; border-radius: var(--r); font-family: var(--f-mono); }
+.tally b { font-size: 22px; }
+
+.figure { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; background: var(--surface); min-width: 0; }
+.figl { font: 600 13px/1.2 var(--f-mono); letter-spacing: .02em; color: var(--muted); margin-bottom: 6px; }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+.sw { width: 14px; height: 10px; display: inline-block; border-radius: 2px; }
+.sw-dot { background: var(--accent); border-radius: 50%; width: 10px; }
+.sw-band { background: var(--accent-soft); }
+.sw-ref { border-top: 2px dashed var(--muted); height: 0; }
+.sw-rej { background: var(--reject-fill); border: 1px solid var(--reject); }
+.sw-stat { background: var(--accent); width: 3px; height: 14px; }
+.sw-p { background: repeating-linear-gradient(45deg, var(--accent) 0 2px, transparent 2px 5px); }
+
+.c-curve { fill: none; stroke: var(--ink); stroke-width: 2; }
+.c-under { fill: var(--sunk); }
+.c-rej { fill: var(--reject-fill); stroke: none; }
+.c-p { fill: url(#hatch); stroke: var(--accent); stroke-width: 1; }
+.c-hbg { fill: transparent; }
+.c-hline { stroke: var(--accent); stroke-width: 2.2; }
+.c-axis { stroke: var(--muted); stroke-width: 1; }
+.c-tick { fill: var(--muted); font: 12px var(--f-mono); }
+.c-crit { stroke: var(--reject); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.c-critl { fill: var(--reject); font: 600 13px var(--f-mono); }
+.c-stat { stroke: var(--accent); stroke-width: 3; }
+.c-statl { fill: var(--accent); font: 600 14px var(--f-mono); }
+.c-dot { fill: var(--accent); fill-opacity: .72; stroke: var(--surface); stroke-width: 1; }
+.c-band { fill: var(--accent-soft); }
+.c-mean { stroke: var(--ink); stroke-width: 2.5; }
+.c-val { fill: var(--ink); font: 500 12.5px var(--f-mono); }
+.c-row { fill: var(--muted); font: 600 12px var(--f-mono); letter-spacing: .04em; text-transform: uppercase; }
+.c-ref { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.c-refl { fill: var(--muted); font: 500 12px var(--f-mono); }
+.c-bar { fill: var(--accent); fill-opacity: .8; }
+
+.results { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; }
+.summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; align-content: start; }
+.kv { background: var(--sunk); border: 1px solid var(--line); border-radius: 4px; padding: 7px 10px; display: grid; gap: 2px; min-width: 0; }
+.kv span { font-size: 12px; color: var(--muted); }
+.kv b { font: 500 15px var(--f-mono); font-variant-numeric: tabular-nums; }
+.bignums { display: grid; gap: 10px; align-content: start; }
+.bn { background: var(--ink); color: var(--bg); border-radius: var(--r); padding: 10px 14px; display: grid; gap: 2px; }
+.bn span { font: 600 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.bn b { font: 600 22px var(--f-mono); font-variant-numeric: tabular-nums; }
+
+.raw { margin-top: 8px; font-size: 13px; }
+.raw summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+.rawg { margin-top: 8px; }
+.rawl { font: 600 12px var(--f-mono); color: var(--muted); }
+.rawv { font: 13px/1.6 var(--f-mono); word-break: break-word; user-select: all; }
+.tscroll { overflow-x: auto; }
+table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.rawt { margin-top: 8px; font: 13px var(--f-mono); }
+.rawt th, .rawt td { padding: 4px 12px; border-bottom: 1px solid var(--line); text-align: right; }
+
+/* report */
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; display: grid; gap: 20px; }
+.rep-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: flex-end; border-bottom: 2px solid var(--ink); padding-bottom: 16px; }
+.rep-name { font-size: clamp(34px, 6vw, 52px); text-transform: uppercase; }
+.rep-meta { margin: 6px 0 0; color: var(--muted); }
+.rep-score { font-family: var(--f-display); display: flex; align-items: baseline; gap: 6px; }
+.rep-score b { font-size: 84px; line-height: .9; color: var(--accent); }
+.rep-score span { font-size: 26px; font-weight: 600; color: var(--muted); }
+table.rep { width: 100%; font-size: 14px; min-width: 640px; }
+.rep th { font: 600 11px var(--f-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 8px; border-bottom: 1px solid var(--line); }
+.rep td { padding: 8px; border-bottom: 1px solid var(--line); }
+.rep .n { text-align: right; font-family: var(--f-mono); }
+.rep tfoot td { border-bottom: 0; font-weight: 600; padding-top: 12px; }
+.rep-foot { display: grid; gap: 12px; }
+.code { font-family: var(--f-mono); font-size: 14px; }
+.code b { font-size: 18px; letter-spacing: .12em; background: var(--sunk); padding: 3px 8px; border-radius: 4px; }
+
+
+/* gate + cheat sheet */
+.gate { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 22px; display: grid; gap: 12px; }
+.gate h2 { font-size: clamp(28px, 5vw, 38px); text-transform: uppercase; }
+.gate p { margin: 0; max-width: 46em; }
+html.locked, html.locked body { overflow: hidden; }
+.overlay { position: fixed; inset: 0; z-index: 20; background: color-mix(in srgb, var(--ink) 55%, transparent); display: flex; justify-content: center; align-items: stretch; padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px calc(env(safe-area-inset-bottom, 0px) + 16px); }
+.sheet { background: var(--surface); color: var(--ink); width: 100%; max-width: 980px; border-radius: var(--r); border: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.sheet-head { display: flex; flex-wrap: wrap; gap: 10px 16px; justify-content: space-between; align-items: flex-end; padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+.sheet-head h2 { font-size: clamp(26px, 4.5vw, 34px); text-transform: uppercase; }
+.jumps { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 20px; border-bottom: 1px dashed var(--line); background: var(--sunk); }
+.sheet-body { overflow-y: auto; padding: 4px 20px 20px; display: grid; gap: 8px; min-height: 0; flex: 1; }
+.sheet-foot { padding: 12px 20px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; }
+.cs { padding-top: 16px; display: grid; gap: 10px; scroll-margin-top: 8px; }
+.cs + .cs { border-top: 1px solid var(--line); }
+.cs h3 { font-size: 24px; text-transform: uppercase; color: var(--accent); }
+.cs h4 { font: 600 15px/1.3 var(--f-body); margin: 0 0 6px; }
+.cs p, .cs ul { margin: 0; font-size: 14.5px; max-width: 62em; }
+.cs ul { padding-left: 20px; display: grid; gap: 5px; }
+.cs2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
+.cs2 > div { min-width: 0; display: grid; gap: 8px; align-content: start; }
+.cst { width: 100%; font-size: 14px; }
+.cst th { font: 600 12px var(--f-mono); color: var(--muted); text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cst td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cst td.sym { font: 600 15px var(--f-mono); white-space: nowrap; color: var(--accent); }
+.cst.num td { font-family: var(--f-mono); }
+.mono { font-family: var(--f-mono); font-size: 13.5px; }
+td.mono { min-width: 140px; }
+.note { background: var(--accent-soft); border-radius: var(--r); padding: 10px 12px; }
+.tails { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tails figure { margin: 0; border: 1px solid var(--line); border-radius: var(--r); padding: 10px; background: var(--sunk); display: grid; gap: 6px; }
+.tails figcaption { font-size: 13px; }
+.mini { width: 100%; height: auto; display: block; }
+.sheetnote { margin-top: -4px; }
+@media (max-width: 760px) {
+  .cs2, .tails { grid-template-columns: 1fr; }
+  .overlay { padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px); }
+  .sheet { border-radius: 0; border: 0; }
+  .sheet-head, .jumps, .sheet-body, .sheet-foot { padding-left: 16px; padding-right: 16px; }
+  .sheet-head #sheetClose { display: none; }
+}
+
+/* regression game */
+.vars { display: flex; flex-wrap: wrap; gap: 4px 24px; font-family: var(--f-mono); font-size: 14px; color: var(--muted); }
+.request p.vars { margin-top: -6px; }
+.rawwrap { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 14px; align-items: start; }
+.dtable { max-height: 340px; overflow: auto; border: 1px solid var(--line); border-radius: var(--r); }
+.dtable .rawt { margin: 0; width: 100%; }
+.dtable th { position: sticky; top: 0; background: var(--sunk); }
+.togs { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.tog { position: relative; display: block; cursor: pointer; }
+.tog input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; z-index: 1; width: 100%; height: 100%; }
+.tog span { display: grid; gap: 2px; padding: 10px 12px 10px 38px; border: 1px solid var(--line); border-radius: var(--r); background: var(--sunk); position: relative; height: 100%; }
+.tog span::before { content: ''; position: absolute; left: 12px; top: 12px; width: 16px; height: 16px; border: 1.5px solid var(--muted); border-radius: 3px; background: var(--surface); }
+.tog input:checked + span { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.tog input:checked + span::before { background: var(--accent); border-color: var(--accent); box-shadow: inset 0 0 0 3px var(--surface); }
+.tog input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tog input:disabled + span { cursor: default; opacity: .8; }
+.tog b { font: 600 14px var(--f-mono); }
+.tog em { font-style: normal; font-size: 12.5px; color: var(--muted); }
+.views { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.views .figure { margin: 0; }
+.figure { margin: 0; }
+.missed { color: var(--reject); }
+.c-grid { stroke: var(--line); stroke-width: 1; opacity: .6; }
+.c-axl { fill: var(--muted); font: 500 12.5px var(--f-body); }
+.c-zero { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.c-refline { fill: none; stroke: var(--reject); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.c-fit { fill: none; stroke-width: 2.6; }
+.c-fit.m1 { stroke: var(--m1); } .c-fit.m2 { stroke: var(--m2); } .c-fit.m3 { stroke: var(--m3); } .c-fit.m4 { stroke: var(--m4); }
+.c-dot.d-m1 { fill: var(--m1); } .c-dot.d-m2 { fill: var(--m2); } .c-dot.d-m3 { fill: var(--m3); } .c-dot.d-m4 { fill: var(--m4); }
+.sw-refl { border-top: 2px dashed var(--reject); height: 0; }
+.sw.line { height: 0; border-top: 3px solid; width: 18px; border-radius: 0; }
+.sw.line.m1 { border-color: var(--m1); } .sw.line.m2 { border-color: var(--m2); } .sw.line.m3 { border-color: var(--m3); } .sw.line.m4 { border-color: var(--m4); }
+.key-sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: baseline; }
+.key-sw.m1 { background: var(--m1); } .key-sw.m2 { background: var(--m2); } .key-sw.m3 { background: var(--m3); } .key-sw.m4 { background: var(--m4); }
+table.stats { width: 100%; font-size: 14px; min-width: 720px; }
+.stats th { font: 600 12px var(--f-mono); color: var(--muted); text-align: left; padding: 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.stats td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.stats .n { text-align: right; font-family: var(--f-mono); white-space: nowrap; }
+.stats .eq, .eq { font-family: var(--f-mono); font-size: 13px; }
+.stats .scale { font-family: var(--f-mono); font-size: 13px; white-space: nowrap; }
+.stats td:first-child { white-space: nowrap; font-weight: 600; }
+table.tiers { min-width: 520px; }
+.pill { font: 600 11px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; padding: 4px 8px; border-radius: 99px; }
+.pill.best { background: var(--ok-soft); color: var(--ok); }
+.pill.good { background: var(--part-soft); color: var(--part); }
+.pill.poor { background: var(--no-soft); color: var(--no); }
+.elims { display: grid; gap: 8px; }
+.elim { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 280px) minmax(0, 1fr); gap: 10px; align-items: center; }
+.elabel { font-weight: 600; }
+.emark { font-size: 13px; }
+.emark.ok { color: var(--ok); } .emark.no { color: var(--no); }
+.fb li.part { background: var(--part-soft); }
+.fb li.part .mk { color: var(--part); }
+.choice.partial { border-color: var(--part); background: var(--part-soft); box-shadow: none; }
+.steps { margin: 0; padding-left: 22px; display: grid; gap: 6px; font-size: 14.5px; max-width: 62em; }
+.hero-svg .c-fit { stroke-width: 3; }
+@media (max-width: 760px) {
+  .rawwrap { grid-template-columns: 1fr; }
+  .dtable { max-height: 220px; }
+  .elim { grid-template-columns: 1fr; gap: 4px; }
+}
+
+.printnote { margin: 0; padding: 10px 20px; background: var(--part-soft); color: var(--ink); font-size: 14px; border-bottom: 1px solid var(--line); }
+.shapes { display: grid; gap: 6px; }
+.shape-head, .shape-row { display: grid; grid-template-columns: 170px repeat(4, minmax(0, 1fr)); gap: 8px; align-items: center; }
+.shape-head span { font: 600 12px var(--f-mono); color: var(--muted); text-align: center; }
+.shape-row { border-top: 1px solid var(--line); padding-top: 6px; }
+.shape-lab { display: grid; gap: 2px; font-size: 14px; }
+.shape-lab .mono { font-size: 12.5px; color: var(--muted); }
+.shape { margin: 0; background: var(--sunk); border: 1px solid var(--line); border-radius: 4px; padding: 4px; display: grid; gap: 2px; }
+.shape figcaption { font: 500 11.5px var(--f-mono); color: var(--muted); text-align: center; }
+.shape .c-fit { stroke-width: 2.4; }
+.c-asym { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+@media (max-width: 760px) {
+  .shape-head { display: none; }
+  .shape-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shape-lab { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .chart .c-tick { font-size: 18px; }
+  .chart .c-axl { font-size: 19px; }
+  .views .chart .c-tick { font-size: 15px; }
+  .views .chart .c-axl { font-size: 16px; }
+
+  table.rep { min-width: 0; font-size: 13px; }
+  .rep .opt { display: none; }
+  .report { padding: 16px; }
+  .rep th, .rep td { padding: 7px 4px; }
+}
+@media (max-width: 760px) {
+  .start { grid-template-columns: 1fr; }
+  .grid1, .results { grid-template-columns: 1fr; }
+  .segopt span { padding: 9px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+@media print {
+  html.locked, html.locked body { overflow: visible; }
+  html.locked .wrap, html.locked .bar, .jumps, .sheet-foot, .sheet-head .actions { display: none !important; }
+  .overlay { position: static; background: none; padding: 0; display: block; }
+  .sheet { border: 0; max-width: none; overflow: visible; display: block; }
+  .sheet-body { overflow: visible; padding: 0 4px; display: block; }
+  .sheet-head { padding: 0 4px 8px; }
+  .cs { break-inside: auto; } .cst tr, .tails figure, .cs2 > div { break-inside: avoid; }
+  .tscroll { overflow: visible; }
+  .cs h3, .cs h4 { break-after: avoid; }
+  .tails { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .shape-head { display: grid !important; } .shape-row { grid-template-columns: 150px repeat(4, minmax(0, 1fr)) !important; break-inside: avoid; } .shape-lab { grid-column: auto !important; } .printnote { display: none !important; }
+  .cs2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .sheet, .sheet-body { background: #fff; }
+  svg, .c-rej, .note { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  body { background: #fff; color: #000; }
+  .bar, .actions, .small { display: none !important; }
+  .report { border: 0; padding: 0; }
+}
+</style>
+<div id="app"></div>
+<script>
+// ===== LOGIC (no DOM) =====
+const MINUS = '−';
+function fmt(x, d = 3) {
+  if (!isFinite(x)) return '—';
+  const s = Math.abs(x).toFixed(d);
+  return (x < 0 && +s !== 0 ? MINUS : '') + s;
+}
+function fmtP(p) { return p < 0.0001 ? '< 0.0001' : p.toFixed(4); }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function randn() { let u = 0, v = 0; while (u === 0) u = Math.random(); while (v === 0) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+function unif(a, b) { return a + Math.random() * (b - a); }
+function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
+function round(x, d) { const m = Math.pow(10, d); return Math.round(x * m) / m; }
+function mean(a) { return a.reduce((s, v) => s + v, 0) / a.length; }
+function sd(a) { const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) * (v - m), 0) / (a.length - 1)); }
+
+// ---- distributions ----
+function erf(x) {
+  const z = Math.abs(x), t = 1 / (1 + 0.5 * z);
+  const r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 + t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 + t * (-0.82215223 + t * 0.17087277)))))))));
+  return x >= 0 ? 1 - r : r - 1;
+}
+function normCdf(x) { return 0.5 * (1 + erf(x / Math.SQRT2)); }
+function normPdf(x) { return Math.exp(-x * x / 2) / Math.sqrt(2 * Math.PI); }
+function lgamma(x) {
+  const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+  let y = x, tmp = x + 5.5; tmp -= (x + 0.5) * Math.log(tmp);
+  let ser = 1.000000000190015; for (let j = 0; j < 6; j++) ser += c[j] / ++y;
+  return -tmp + Math.log(2.5066282746310005 * ser / x);
+}
+function betacf(a, b, x) {
+  const FP = 1e-300; const qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap; if (Math.abs(d) < FP) d = FP; d = 1 / d; let h = d;
+  for (let m = 1; m <= 400; m++) {
+    const m2 = 2 * m;
+    let aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FP) d = FP; c = 1 + aa / c; if (Math.abs(c) < FP) c = FP; d = 1 / d; h *= d * c;
+    aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+    d = 1 + aa * d; if (Math.abs(d) < FP) d = FP; c = 1 + aa / c; if (Math.abs(c) < FP) c = FP; d = 1 / d;
+    const del = d * c; h *= del; if (Math.abs(del - 1) < 3e-15) break;
+  }
+  return h;
+}
+function ibeta(x, a, b) {
+  if (x <= 0) return 0; if (x >= 1) return 1;
+  const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b;
+}
+function gammaP(a, x) {
+  if (x <= 0) return 0;
+  const lg = -x + a * Math.log(x) - lgamma(a);
+  if (x < a + 1) {
+    let ap = a, sum = 1 / a, del = sum;
+    for (let n = 0; n < 1000; n++) { ap++; del *= x / ap; sum += del; if (Math.abs(del) < Math.abs(sum) * 1e-15) break; }
+    return sum * Math.exp(lg);
+  }
+  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d;
+  for (let i = 1; i < 1000; i++) {
+    const an = -i * (i - a); b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300;
+    c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300; d = 1 / d; const del = d * c; h *= del; if (Math.abs(del - 1) < 1e-15) break;
+  }
+  return 1 - Math.exp(lg) * h;
+}
+function tCdf(t, v) { const p = 0.5 * ibeta(v / (v + t * t), v / 2, 0.5); return t > 0 ? 1 - p : p; }
+function tPdf(t, v) { return Math.exp(lgamma((v + 1) / 2) - lgamma(v / 2) - 0.5 * Math.log(v * Math.PI) - (v + 1) / 2 * Math.log(1 + t * t / v)); }
+function chiCdf(x, k) { return gammaP(k / 2, x / 2); }
+function chiPdf(x, k) { return x <= 0 ? 0 : Math.exp((k / 2 - 1) * Math.log(x) - x / 2 - (k / 2) * Math.LN2 - lgamma(k / 2)); }
+function fCdf(x, a, b) { return x <= 0 ? 0 : ibeta(a * x / (a * x + b), a / 2, b / 2); }
+function fPdf(x, a, b) {
+  if (x <= 0) return 0;
+  return Math.exp(0.5 * (a * Math.log(a * x) + b * Math.log(b) - (a + b) * Math.log(a * x + b)) - Math.log(x) - (lgamma(a / 2) + lgamma(b / 2) - lgamma((a + b) / 2)));
+}
+function bisect(cdf, p, lo, hi) { for (let i = 0; i < 200; i++) { const m = (lo + hi) / 2; if (cdf(m) < p) lo = m; else hi = m; } return (lo + hi) / 2; }
+
+// ---- regression ----
+function fmtSig(v, d = 4) {
+  if (!isFinite(v)) return '—';
+  if (v === 0) return '0';
+  const a = Math.abs(v);
+  let s;
+  if (a >= 1e5 || a < 1e-3) { s = a.toExponential(d - 1).replace(/e\+?(-?)(\d+)/, (m, sg, e) => ` × 10${sup((sg ? '-' : '') + e)}`); }
+  else { const dec = Math.max(0, d - 1 - Math.floor(Math.log10(a))); s = a.toFixed(Math.min(dec, 6)); }
+  return (v < 0 ? MINUS : '') + s;
+}
+function sup(str) { const m = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻' }; return str.split('').map(c => m[c] || c).join(''); }
+function fmtPv(p) { return p < 0.0001 ? '< 0.0001' : p.toFixed(4); }
+
+const MODELS = {
+  lin: { name: 'Linear', short: 'Linear', form: 'y = b₀ + b₁x', fitOn: 'y vs x', scale: 'y', cols: x => [1, x], ty: y => y, back: v => v, terms: ['x'] },
+  quad: { name: 'Quadratic', short: 'Quadratic', form: 'y = b₀ + b₁x + b₂x²', fitOn: 'y vs x, x²', scale: 'y', cols: x => [1, x, x * x], ty: y => y, back: v => v, terms: ['x', 'x²'] },
+  log: { name: 'Logarithmic', short: 'Log', form: 'y = b₀ + b₁ ln x', fitOn: 'y vs ln x', scale: 'y', cols: x => [1, Math.log(x)], ty: y => y, back: v => v, terms: ['ln x'] },
+  pow: { name: 'Power', short: 'Power', form: 'y = a·xᵇ', fitOn: 'ln y vs ln x', scale: 'ln y', cols: x => [1, Math.log(x)], ty: y => Math.log(y), back: v => Math.exp(v), terms: ['ln x'] },
+  exp: { name: 'Exponential', short: 'Exponential', form: 'y = a·eᵇˣ', fitOn: 'ln y vs x', scale: 'ln y', cols: x => [1, x], ty: y => Math.log(y), back: v => Math.exp(v), terms: ['x'] },
+  rx: { name: 'Reciprocal of predictor', short: 'Recip. x', form: 'y = b₀ + b₁/x', fitOn: 'y vs 1/x', scale: 'y', cols: x => [1, 1 / x], ty: y => y, back: v => v, terms: ['1/x'] },
+  ry: { name: 'Reciprocal of response', short: 'Recip. y', form: 'y = 1 / (b₀ + b₁x)', fitOn: '1/y vs x', scale: '1/y', cols: x => [1, x], ty: y => 1 / y, back: v => (v > 0 ? 1 / v : NaN), terms: ['x'] },
+};
+const MODEL_KEYS = ['lin', 'quad', 'log', 'pow', 'exp', 'rx', 'ry'];
+
+const VIEWS = {
+  res_lin: { name: 'Residuals from a straight line', short: 'Residuals of y = b₀ + b₁x', for: ['lin', 'quad'], xl: 'x', yl: 'residual' },
+  y_lnx: { name: 'y vs ln x', short: 'y vs ln x', for: ['log'], xl: 'ln x', yl: 'y' },
+  lny_lnx: { name: 'ln y vs ln x', short: 'ln y vs ln x', for: ['pow'], xl: 'ln x', yl: 'ln y' },
+  lny_x: { name: 'ln y vs x', short: 'ln y vs x', for: ['exp'], xl: 'x', yl: 'ln y' },
+  y_invx: { name: 'y vs 1/x', short: 'y vs 1/x', for: ['rx'], xl: '1/x', yl: 'y' },
+  invy_x: { name: '1/y vs x', short: '1/y vs x', for: ['ry'], xl: 'x', yl: '1/y' },
+};
+const VIEW_KEYS = ['res_lin', 'y_lnx', 'lny_lnx', 'lny_x', 'y_invx', 'invy_x'];
+function viewFor(model) { return VIEW_KEYS.find(v => VIEWS[v].for.includes(model)); }
+function viewData(v, xs, ys) {
+  if (v === 'res_lin') { const f = ols(xs.map(x => [1, x]), ys); return { u: xs, w: f.resid }; }
+  if (v === 'y_lnx') return { u: xs.map(Math.log), w: ys };
+  if (v === 'lny_lnx') return { u: xs.map(Math.log), w: ys.map(Math.log) };
+  if (v === 'lny_x') return { u: xs, w: ys.map(Math.log) };
+  if (v === 'y_invx') return { u: xs.map(x => 1 / x), w: ys };
+  if (v === 'invy_x') return { u: xs, w: ys.map(y => 1 / y) };
+}
+
+function invert(A) {
+  const n = A.length, M = A.map((r, i) => r.concat(Array.from({ length: n }, (_, j) => (i === j ? 1 : 0))));
+  for (let c = 0; c < n; c++) {
+    let piv = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[piv][c])) piv = r;
+    [M[c], M[piv]] = [M[piv], M[c]];
+    const d = M[c][c]; if (Math.abs(d) < 1e-300) return null;
+    for (let j = 0; j < 2 * n; j++) M[c][j] /= d;
+    for (let r = 0; r < n; r++) if (r !== c) { const f = M[r][c]; for (let j = 0; j < 2 * n; j++) M[r][j] -= f * M[c][j]; }
+  }
+  return M.map(r => r.slice(n));
+}
+function ols(X, y) {
+  const n = X.length, p = X[0].length;
+  // center/scale columns for numerical stability
+  const mu = [], sc = [];
+  for (let j = 0; j < p; j++) { if (j === 0) { mu.push(0); sc.push(1); continue; } const col = X.map(r => r[j]); const m = mean(col); const s = Math.sqrt(col.reduce((a, v) => a + (v - m) ** 2, 0) / n) || 1; mu.push(m); sc.push(s); }
+  const Z = X.map(r => r.map((v, j) => (j === 0 ? 1 : (v - mu[j]) / sc[j])));
+  const ZtZ = Array.from({ length: p }, (_, i) => Array.from({ length: p }, (_, j) => Z.reduce((a, r) => a + r[i] * r[j], 0)));
+  const Zty = Array.from({ length: p }, (_, i) => Z.reduce((a, r, k) => a + r[i] * y[k], 0));
+  const inv = invert(ZtZ);
+  const g = inv.map(r => r.reduce((a, v, j) => a + v * Zty[j], 0));
+  const fitted = Z.map(r => r.reduce((a, v, j) => a + v * g[j], 0));
+  const resid = y.map((v, i) => v - fitted[i]);
+  const sse = resid.reduce((a, v) => a + v * v, 0), df = n - p, mse = sse / df;
+  const seG = inv.map((r, j) => Math.sqrt(mse * r[j]));
+  // slopes in original units
+  const b = g.slice(); let b0 = g[0];
+  for (let j = 1; j < p; j++) { b[j] = g[j] / sc[j]; b0 -= g[j] * mu[j] / sc[j]; }
+  b[0] = b0;
+  const tStat = g.map((v, j) => v / seG[j]);
+  const pv = tStat.map(t => 2 * (1 - tCdf(Math.abs(t), df)));
+  const ym = mean(y), sst = y.reduce((a, v) => a + (v - ym) ** 2, 0);
+  const R2 = 1 - sse / sst;
+  return { b, pv, sse, df, R2, adjR2: 1 - (1 - R2) * (n - 1) / df, fitted, resid };
+}
+function runsZ(res) {
+  const s = res.filter(v => v !== 0).map(v => v > 0);
+  const n1 = s.filter(Boolean).length, n2 = s.length - n1;
+  if (!n1 || !n2) return -9;
+  let runs = 1; for (let i = 1; i < s.length; i++) if (s[i] !== s[i - 1]) runs++;
+  const n = n1 + n2, E = 1 + 2 * n1 * n2 / n, V = 2 * n1 * n2 * (2 * n1 * n2 - n) / (n * n * (n - 1));
+  return (runs - E) / Math.sqrt(V);
+}
+function predict(key, b, x) { const m = MODELS[key]; return m.back(m.cols(x).reduce((a, v, j) => a + v * b[j], 0)); }
+
+function fitModel(key, xs, ys) {
+  const m = MODELS[key];
+  const f = ols(xs.map(m.cols), ys.map(m.ty));
+  const yhat = xs.map(x => predict(key, f.b, x));
+  const ok = yhat.every(isFinite);
+  const res = ys.map((y, i) => y - yhat[i]);
+  const sseO = ok ? res.reduce((a, v) => a + v * v, 0) : Infinity;
+  const p = f.b.length;
+  const s = Math.sqrt(sseO / (xs.length - p));
+  const slopeP = f.pv.slice(1);
+  const rz = ok ? runsZ(res) : -9;
+  const patterned = !ok || rz < -2.0;
+  const nonsig = slopeP.some(v => v > 0.05);
+  return { key, b: f.b, R2: f.R2, adjR2: f.adjR2, s, slopeP, res: ok ? res : ys.map(() => NaN), yhat, patterned, nonsig, runsZ: rz, valid: ok && !patterned && !nonsig, defined: ok };
+}
+function fitAll(xs, ys) { const o = {}; MODEL_KEYS.forEach(k => (o[k] = fitModel(k, xs, ys))); return o; }
+function bestOf(fits, keys) {
+  const list = keys.map(k => fits[k]);
+  const valid = list.filter(f => f.valid);
+  const pool = valid.length ? valid : list.filter(f => f.defined);
+  return (pool.length ? pool : list).reduce((a, f) => (f.s < a.s ? f : a)).key;
+}
+function tiers(fits) {
+  const best = bestOf(fits, MODEL_KEYS), sb = fits[best].s;
+  const t = {};
+  MODEL_KEYS.forEach(k => { t[k] = k === best ? 'best' : (fits[k].valid && fits[k].s <= 1.3 * sb ? 'good' : 'poor'); });
+  return { best, t };
+}
+function eqText(key, b) {
+  const c = v => fmtSig(v, 4);
+  const pm = v => (v < 0 ? ` ${MINUS} ${fmtSig(-v, 4)}` : ` + ${fmtSig(v, 4)}`);
+  switch (key) {
+    case 'lin': return `ŷ = ${c(b[0])}${pm(b[1])}x`;
+    case 'quad': return `ŷ = ${c(b[0])}${pm(b[1])}x${pm(b[2])}x²`;
+    case 'log': return `ŷ = ${c(b[0])}${pm(b[1])} ln x`;
+    case 'pow': return `ŷ = ${c(Math.exp(b[0]))} · x^${fmtSig(b[1], 4)}`;
+    case 'exp': return `ŷ = ${c(Math.exp(b[0]))} · e^(${fmtSig(b[1], 4)}x)`;
+    case 'rx': return `ŷ = ${c(b[0])}${pm(b[1])} / x`;
+    case 'ry': return `ŷ = 1 / (${c(b[0])}${pm(b[1])}x)`;
+  }
+}
+
+// ---- elimination grading ----
+const REASONS = [
+  { v: 'keep', o: 'Keep' },
+  { v: 'pattern', o: 'Eliminate: residual pattern' },
+  { v: 'nonsig', o: 'Eliminate: non-significant term' },
+  { v: 'larger_s', o: 'Eliminate: larger s' },
+  { v: 'lower_adj', o: 'Eliminate: lower adjusted R²' },
+];
+function reasonValid(fits, key, ref, reason) {
+  const f = fits[key], r = fits[ref];
+  if (reason === 'pattern') return f.patterned;
+  if (reason === 'nonsig') return f.nonsig;
+  if (reason === 'larger_s') return f.s > r.s;
+  if (reason === 'lower_adj') return MODELS[key].scale === MODELS[ref].scale && f.adjR2 < r.adjR2;
+  return false;
+}
+function validReasons(fits, key, ref) { return ['pattern', 'nonsig', 'larger_s', 'lower_adj'].filter(r => reasonValid(fits, key, ref, r)); }
+// ---- scenarios ----
+const SCENARIOS = [
+  { id: 'L1', model: 'lin', field: 'Mechanical · Instrumentation', title: 'Load Cell Calibration',
+    text: 'A technician calibrates a new load cell by hanging certified masses and recording the bridge output. She needs a calibration equation that converts output voltage back to load for the data-acquisition software.',
+    x: { name: 'Applied load', unit: 'kg', lo: 5, hi: 100, dec: 1 }, y: { name: 'Output', unit: 'mV', dec: 3 }, n: 14,
+    f: x => 0.12 + 0.052 * x, noise: { type: 'add', v: 0.07 } },
+  { id: 'L2', model: 'lin', field: 'Civil · Materials', title: 'Rod Thermal Expansion',
+    text: 'A 2 m aluminum rod is heated in a test chamber and its elongation is read with a dial gauge at several temperature rises. The design team wants an equation for elongation as a function of temperature rise.',
+    x: { name: 'Temperature rise', unit: '°C', lo: 10, hi: 120, dec: 0 }, y: { name: 'Elongation', unit: 'mm', dec: 3 }, n: 13,
+    f: x => 0.05 + 0.046 * x, noise: { type: 'add', v: 0.09 } },
+  { id: 'L3', model: 'lin', field: 'Electrical · Power', title: 'Transformer Winding Resistance',
+    text: 'Maintenance measures a transformer winding’s DC resistance at several oil temperatures. The utility wants a model that predicts resistance from oil temperature so field readings can be corrected.',
+    x: { name: 'Oil temperature', unit: '°C', lo: 15, hi: 95, dec: 0 }, y: { name: 'Resistance', unit: 'mΩ', dec: 2 }, n: 12,
+    f: x => 180 + 0.71 * x, noise: { type: 'add', v: 1.6 } },
+  { id: 'Q1', model: 'quad', field: 'Mechanical · Fluids', title: 'Pump Head Curve',
+    text: 'A centrifugal pump is run on a test loop at different flow rates while the total dynamic head is measured. The engineer needs a pump curve for a system-matching calculation.',
+    x: { name: 'Flow rate', unit: 'L/s', lo: 5, hi: 70, dec: 1 }, y: { name: 'Head', unit: 'm', dec: 2 }, n: 14,
+    f: x => 60 + 0.1 * x - 0.0105 * x * x, noise: { type: 'add', v: 0.9 } },
+  { id: 'Q2', model: 'quad', field: 'Transportation · Vehicles', title: 'Delivery Van Fuel Economy',
+    text: 'A fleet engineer measures steady-speed fuel economy for a delivery van on a test track. She wants a model of fuel economy versus speed to recommend an economical cruising speed.',
+    x: { name: 'Speed', unit: 'mph', lo: 25, hi: 85, dec: 0 }, y: { name: 'Fuel economy', unit: 'mpg', dec: 1 }, n: 13,
+    f: x => -8 + 1.3 * x - 0.012 * x * x, noise: { type: 'add', v: 0.9 } },
+  { id: 'Q3', model: 'quad', field: 'Chemical · Process', title: 'Reactor Yield vs Temperature',
+    text: 'A pilot reactor is run at several set-point temperatures and the product yield is measured for each batch. Process engineering needs a yield model to find the best operating temperature.',
+    x: { name: 'Temperature', unit: '°C', lo: 150, hi: 250, dec: 0 }, y: { name: 'Yield', unit: '%', dec: 1 }, n: 12,
+    f: x => -180 + 2.3 * x - 0.0058 * x * x, noise: { type: 'add', v: 1.3 } },
+  { id: 'G1', model: 'log', field: 'Civil · Concrete', title: 'Concrete Strength Gain',
+    text: 'Cylinders from one concrete mix are broken at different ages. The contractor wants a model of compressive strength versus age to decide when forms can be stripped.',
+    x: { name: 'Age', unit: 'days', lo: 1, hi: 56, dec: 0 }, y: { name: 'Strength', unit: 'psi', dec: 0 }, n: 14,
+    f: x => 1200 + 900 * Math.log(x), noise: { type: 'add', v: 110 } },
+  { id: 'G2', model: 'log', field: 'Geotechnical · Soils', title: 'Clay Layer Settlement',
+    text: 'Settlement plates over a clay layer beneath a new embankment are surveyed periodically. The geotechnical engineer wants a settlement-versus-time model to estimate settlement at the end of construction.',
+    x: { name: 'Time', unit: 'days', lo: 2, hi: 300, dec: 0 }, y: { name: 'Settlement', unit: 'mm', dec: 1 }, n: 14,
+    f: x => 5 + 8 * Math.log(x), noise: { type: 'add', v: 1.5 } },
+  { id: 'G3', model: 'log', field: 'Industrial · Manufacturing', title: 'Operator Throughput',
+    text: 'After a new assembly line starts up, an industrial engineer records daily throughput per operator. Management wants a model of throughput versus days of experience to plan staffing.',
+    x: { name: 'Days on line', unit: 'days', lo: 1, hi: 90, dec: 0 }, y: { name: 'Throughput', unit: 'units/h', dec: 1 }, n: 14,
+    f: x => 22 + 6.5 * Math.log(x), noise: { type: 'add', v: 1.4 } },
+  { id: 'P1', model: 'pow', field: 'Mechanical · Fluids', title: 'Pipe Friction Loss',
+    text: 'Water is pumped through a 30 m run of pipe at different mean velocities while the head loss is measured across the run. The designer needs a head-loss model for sizing.',
+    x: { name: 'Velocity', unit: 'm/s', lo: 0.4, hi: 4, dec: 2 }, y: { name: 'Head loss', unit: 'm', dec: 3 }, n: 14,
+    f: x => 0.8 * Math.pow(x, 1.85), noise: { type: 'mult', v: 0.05 } },
+  { id: 'P2', model: 'pow', field: 'Manufacturing · Machining', title: 'Cutting Tool Life',
+    text: 'Carbide inserts are run to a flank-wear limit at several cutting speeds. The shop wants a tool-life model to choose a cutting speed that balances tool cost and cycle time.',
+    x: { name: 'Cutting speed', unit: 'm/min', lo: 100, hi: 320, dec: 0 }, y: { name: 'Tool life', unit: 'min', dec: 2 }, n: 12,
+    f: x => 1.5e6 * Math.pow(x, -2.5), noise: { type: 'mult', v: 0.07 } },
+  { id: 'P3', model: 'pow', field: 'Water Resources · Hydraulics', title: 'Weir Discharge Rating',
+    text: 'A rectangular weir in a lab flume is calibrated by measuring the discharge at several heads over the crest. The lab needs a rating equation for discharge versus head.',
+    x: { name: 'Head over crest', unit: 'm', lo: 0.02, hi: 0.8, dec: 3 }, y: { name: 'Discharge', unit: 'm³/s', dec: 4 }, n: 13,
+    f: x => 1.84 * Math.pow(x, 1.5), noise: { type: 'mult', v: 0.03 } },
+  { id: 'E1', model: 'exp', field: 'Electrical · Circuits', title: 'Capacitor Discharge',
+    text: 'A charged capacitor bank is switched across a bleeder resistor and the terminal voltage is logged. The safety engineer needs a voltage-versus-time model to set a safe access delay.',
+    x: { name: 'Time', unit: 's', lo: 0.5, hi: 10, dec: 2 }, y: { name: 'Voltage', unit: 'V', dec: 3 }, n: 14,
+    f: x => 48 * Math.exp(-0.34 * x), noise: { type: 'mult', v: 0.04 } },
+  { id: 'E2', model: 'exp', field: 'Environmental · Bioprocess', title: 'Bioreactor Cell Growth',
+    text: 'Samples are drawn from a bioreactor during start-up and the cell density is measured. The process engineer wants a growth model to schedule the feed transition.',
+    x: { name: 'Time', unit: 'h', lo: 1, hi: 16, dec: 1 }, y: { name: 'Cell density', unit: '10⁶ cells/mL', dec: 2 }, n: 14,
+    f: x => 0.5 * Math.exp(0.27 * x), noise: { type: 'mult', v: 0.07 } },
+  { id: 'E3', model: 'exp', field: 'Mechanical · Pressure Systems', title: 'Pressure Leak-Down Test',
+    text: 'A sealed tank is pressurized and isolated for a leak-down test, and its gauge pressure is recorded over time. Quality control wants a pressure-versus-time model to compare against the acceptance curve.',
+    x: { name: 'Time', unit: 'min', lo: 1, hi: 30, dec: 1 }, y: { name: 'Pressure', unit: 'kPa', dec: 1 }, n: 14,
+    f: x => 250 * Math.exp(-0.075 * x), noise: { type: 'mult', v: 0.035 } },
+  { id: 'R1', model: 'rx', field: 'Industrial · Cost Engineering', title: 'Cost per Part vs Batch Size',
+    text: 'Cost accounting tracks the cost per machined part for production runs of different batch sizes. The planner wants a model of cost per part versus batch size.',
+    x: { name: 'Batch size', unit: 'parts', lo: 4, hi: 200, dec: 0 }, y: { name: 'Cost per part', unit: '$', dec: 2 }, n: 14,
+    f: x => 12 + 300 / x, noise: { type: 'add', v: 1.2 } },
+  { id: 'R2', model: 'rx', field: 'Electrical · Thermal', title: 'Heat Sink Thermal Resistance',
+    text: 'A heat sink is tested in a wind tunnel at several air velocities and its thermal resistance is measured. The electronics engineer needs a model of thermal resistance versus air velocity to size the fan.',
+    x: { name: 'Air velocity', unit: 'm/s', lo: 0.4, hi: 5, dec: 2 }, y: { name: 'Thermal resistance', unit: '°C/W', dec: 3 }, n: 14,
+    f: x => 0.45 + 0.9 / x, noise: { type: 'add', v: 0.05 } },
+  { id: 'R3', model: 'rx', field: 'Mechanical · Thermodynamics', title: 'Gas Cylinder Pressure',
+    text: 'A gas is compressed in an instrumented piston–cylinder at constant temperature and the gauge pressure is read at several volumes. The analyst wants a pressure-versus-volume model for the rig.',
+    x: { name: 'Volume', unit: 'L', lo: 4, hi: 60, dec: 1 }, y: { name: 'Gauge pressure', unit: 'kPa', dec: 1 }, n: 13,
+    f: x => 30 + 2400 / x, noise: { type: 'add', v: 6 } },
+  { id: 'Y1', model: 'ry', field: 'Chemical · Filtration', title: 'Filter Cake Flow Rate',
+    text: 'During a constant-pressure filtration run, the filtrate flow rate is measured as the filter cake builds up. The engineer needs a model of flow rate versus cake thickness.',
+    x: { name: 'Cake thickness', unit: 'mm', lo: 1, hi: 40, dec: 1 }, y: { name: 'Flow rate', unit: 'L/min', dec: 2 }, n: 14,
+    f: x => 1 / (0.02 + 0.015 * x), noise: { type: 'mult', v: 0.035 } },
+  { id: 'Y2', model: 'ry', field: 'Electrical · Circuits', title: 'Series Resistance Current',
+    text: 'A bench supply drives a circuit through a decade box, and the current is recorded as the added series resistance is stepped up. The student engineer wants a model of current versus added resistance.',
+    x: { name: 'Added resistance', unit: 'Ω', lo: 10, hi: 500, dec: 0 }, y: { name: 'Current', unit: 'mA', dec: 2 }, n: 14,
+    f: x => 1 / (0.012 + 0.00012 * x), noise: { type: 'mult', v: 0.03 } },
+  { id: 'Y3', model: 'ry', field: 'Building · Energy', title: 'Wall Insulation Heat Flux',
+    text: 'Test wall panels with different insulation thicknesses are placed in a guarded hot box at the same temperature difference, and the heat flux through each panel is measured. The designer needs a heat-flux model versus insulation thickness.',
+    x: { name: 'Insulation thickness', unit: 'mm', lo: 5, hi: 150, dec: 0 }, y: { name: 'Heat flux', unit: 'W/m²', dec: 1 }, n: 14,
+    f: x => 1 / (0.004 + 0.0006 * x), noise: { type: 'mult', v: 0.035 } },
+];
+
+function genXY(sc) {
+  const { lo, hi, dec } = sc.x, n = sc.n, xs = [];
+  for (let i = 0; i < n; i++) { const base = lo + (hi - lo) * i / (n - 1); const j = (i === 0 || i === n - 1) ? 0 : (Math.random() - 0.5) * (hi - lo) / (n - 1) * 0.6; xs.push(round(base + j, dec)); }
+  xs.sort((a, b) => a - b);
+  const ys = xs.map(x => { const m = sc.f(x); const v = sc.noise.type === 'add' ? m + sc.noise.v * randn() : m * Math.exp(sc.noise.v * randn()); return round(v, sc.y.dec); });
+  return { xs, ys };
+}
+function generate(sc) {
+  let out = null;
+  for (let k = 0; k < 80; k++) {
+    const { xs, ys } = genXY(sc);
+    if (ys.some(v => v <= 0)) continue;
+    const fits = fitAll(xs, ys), tr = tiers(fits);
+    out = { xs, ys, fits, best: tr.best, tier: tr.t, tries: k + 1 };
+    if (tr.best === sc.model) break;
+  }
+  return out;
+}
+function pickScenarios() {
+  const byM = {};
+  SCENARIOS.forEach(s => (byM[s.model] = byM[s.model] || []).push(s));
+  const chosen = Object.values(byM).map(l => l[Math.floor(Math.random() * l.length)]);
+  const rest = shuffle(SCENARIOS.filter(s => !chosen.includes(s)));
+  return shuffle(chosen.concat(rest.slice(0, 10 - chosen.length))).map(s => s.id);
+}
+function scById(id) { return SCENARIOS.find(s => s.id === id); }
+function hashCode(str) { let h = 0x811c9dc5; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).toUpperCase().padStart(8, '0'); }
+// ===== UI =====
+let S = { phase: 'start', name: '', section: '', order: [], idx: 0, freeHints: 3, results: [], cur: null, startedAt: null, finishedAt: null, confirmReset: false, sheetOpen: false };
+const SLOT = ['m1', 'm2', 'm3', 'm4'];
+const HINTS = {
+  1: 'Start with the raw scatter. Does it bend once, level off toward a limit, decay toward zero, or climb faster and faster? Each view straightens exactly one model family, and the residuals-from-a-line view shows whether a straight line leaves a curved pattern. Pick views for the families that match the shape. The view you want is one where the points fall on a straight line with no bend.',
+  2: 'Use s (in the units of y) to compare every model, because every s is computed on the same scale. Compare adjusted R² only between models fit to the same response: an R² from a ln y or 1/y fit describes the transformed values, not y. A curved or funnel-shaped residual plot, or a term with p &gt; 0.05, rules a model out even when its R² is high. Keep the valid model with the smallest s.',
+  3: 'Choose the model with no residual pattern, every term significant, and the smallest s in original units. A valid model whose s is close to the best one earns partial credit.',
+};
+
+function newCur(id) {
+  const sc = scById(id);
+  return { id, part: 1, data: generate(sc), a1: { views: [] }, g1: null, a2: { short: [], elim: {} }, fitted: false, g2: null, a3: { final: '' }, g3: null,
+    hints: { 1: null, 2: null, 3: null }, err: '', briefed: false, sheet: false };
+}
+function totalScore() { return S.results.reduce((s, r) => s + r.total, 0); }
+function fmtPts(x) { return (Math.round(x * 100) / 100).toString(); }
+function partScore(g, cur, k) { return Math.max(0, g.raw - (cur.hints[k] || 0)); }
+function isStandalone() { try { return window.self === window.top; } catch (e) { return false; } }
+function axLab(v) { return `${v.name}${v.unit ? ` (${v.unit})` : ''}`; }
+
+// ---------- charts ----------
+function niceStep(raw) { const p = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / p; return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * p; }
+function decFor(step) { return Math.max(0, -Math.floor(Math.log10(step) + 1e-9)); }
+function tickVals(lo, hi, count) { const st = niceStep((hi - lo) / count), out = []; for (let v = Math.ceil(lo / st) * st; v <= hi + st * 1e-6; v += st) out.push(+v.toFixed(12)); return { vals: out, dec: decFor(st) }; }
+function tickFmt(v, dec) { const a = Math.abs(v); if (a !== 0 && (a >= 1e5 || a < 1e-3)) return fmtSig(v, 2); return fmt(v, dec); }
+
+function scatterSVG(o) {
+  const W = o.W || 640, H = o.H || 300, L = o.L || 62, R = 16, T = 14, B = 46;
+  const xs = o.xs, ys = o.ys.filter(isFinite);
+  let x0 = Math.min(...xs), x1 = Math.max(...xs); const px = (x1 - x0 || 1) * 0.05; x0 -= px; x1 += px;
+  let yAll = ys.slice(); if (o.zero) yAll.push(0);
+  (o.curves || []).forEach(c => { for (let i = 0; i <= 40; i++) { const x = x0 + (x1 - x0) * i / 40; const v = c.fn(x); if (isFinite(v)) yAll.push(v); } });
+  const ylo0 = Math.min(...ys, o.zero ? 0 : Infinity), yhi0 = Math.max(...ys, o.zero ? 0 : -Infinity), span = (yhi0 - ylo0) || 1;
+  let y0 = Math.max(Math.min(...yAll), ylo0 - span * 0.35), y1 = Math.min(Math.max(...yAll), yhi0 + span * 0.35);
+  const py = (y1 - y0 || 1) * 0.06; y0 -= py; y1 += py;
+  const sx = x => L + (x - x0) / (x1 - x0) * (W - L - R), sy = y => H - B - (y - y0) / (y1 - y0) * (H - B - T);
+  let g = '';
+  const xt = tickVals(x0, x1, o.xticks || 7), yt = tickVals(y0, y1, o.yticks || 5);
+  yt.vals.forEach(v => { const Y = sy(v).toFixed(1); g += `<line class="c-grid" x1="${L}" x2="${W - R}" y1="${Y}" y2="${Y}"/><text class="c-tick" x="${L - 6}" y="${(+Y + 4).toFixed(1)}" text-anchor="end">${tickFmt(v, yt.dec)}</text>`; });
+  xt.vals.forEach(v => { const X = sx(v).toFixed(1); g += `<line class="c-axis" x1="${X}" x2="${X}" y1="${H - B}" y2="${H - B + 5}"/><text class="c-tick" x="${X}" y="${H - B + 18}" text-anchor="middle">${tickFmt(v, xt.dec)}</text>`; });
+  g += `<line class="c-axis" x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}"/><line class="c-axis" x1="${L}" x2="${L}" y1="${T}" y2="${H - B}"/>`;
+  g += `<text class="c-axl" x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle">${esc(o.xlab)}</text>`;
+  g += `<text class="c-axl" transform="translate(13 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle">${esc(o.ylab)}</text>`;
+  if (o.zero && y0 < 0 && y1 > 0) g += `<line class="c-zero" x1="${L}" x2="${W - R}" y1="${sy(0).toFixed(1)}" y2="${sy(0).toFixed(1)}"/>`;
+  let clip = `<clipPath id="${o.id}"><rect x="${L}" y="${T}" width="${W - L - R}" height="${H - B - T}"/></clipPath>`;
+  let curves = '';
+  (o.curves || []).forEach(c => {
+    let d = '', pen = false;
+    for (let i = 0; i <= 160; i++) { const x = x0 + (x1 - x0) * i / 160, v = c.fn(x); if (!isFinite(v)) { pen = false; continue; } d += `${pen ? 'L' : 'M'}${sx(x).toFixed(1)},${sy(clamp(v, y0 - (y1 - y0), y1 + (y1 - y0))).toFixed(1)} `; pen = true; }
+    curves += `<path class="${c.cls}" d="${d}"/>`;
+  });
+  const dots = xs.map((x, i) => isFinite(o.ys[i]) ? `<circle class="${o.dotCls || 'c-dot'}" cx="${sx(x).toFixed(1)}" cy="${sy(o.ys[i]).toFixed(1)}" r="${o.r || 4}"/>` : '').join('');
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="${esc(o.aria || 'scatter plot')}"><defs>${clip}</defs>${g}<g clip-path="url(#${o.id})">${curves}</g>${dots}</svg>`;
+}
+
+function rawChart(sc, d, curves) {
+  return scatterSVG({ id: 'clipRaw', xs: d.xs, ys: d.ys, xlab: axLab(sc.x), ylab: axLab(sc.y), curves, aria: 'Raw scatter plot of the paired observations' });
+}
+function viewChart(v, sc, d, i) {
+  const vd = viewData(v, d.xs, d.ys);
+  const isRes = v === 'res_lin';
+  const curves = [];
+  if (!isRes) { const f = ols(vd.u.map(u => [1, u]), vd.w); curves.push({ fn: u => f.b[0] + f.b[1] * u, cls: 'c-refline' }); }
+  const xl = VIEWS[v].xl.replace('x', sc.x.name.toLowerCase()), yl = VIEWS[v].yl.replace('y', sc.y.name.toLowerCase());
+  return scatterSVG({ id: 'clipV' + i, xs: vd.u, ys: vd.w, W: 360, H: 270, L: 60, xlab: isRes ? axLab(sc.x) : xl, ylab: isRes ? 'Residual (' + sc.y.unit + ')' : yl, curves, zero: isRes, xticks: 5, yticks: 5, aria: VIEWS[v].name });
+}
+function residChart(key, sc, d, i) {
+  const f = d.fits[key];
+  return scatterSVG({ id: 'clipR' + i, xs: d.xs, ys: f.res, W: 360, H: 240, L: 60, xlab: axLab(sc.x), ylab: 'Residual (' + sc.y.unit + ')', zero: true, dotCls: 'c-dot ' + 'd-' + SLOT[i], xticks: 5, yticks: 4, aria: 'Residuals for ' + MODELS[key].name });
+}
+
+function dataTable(sc, d) {
+  return `<div class="dtable"><table class="rawt"><thead><tr><th>#</th><th>x · ${esc(sc.x.unit)}</th><th>y · ${esc(sc.y.unit)}</th></tr></thead><tbody>${d.xs.map((x, i) => `<tr><td>${i + 1}</td><td>${fmt(x, sc.x.dec)}</td><td>${fmt(d.ys[i], sc.y.dec)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+// ---------- shared bits ----------
+function header() {
+  const inGame = S.phase === 'play';
+  return `<header class="bar"><div class="bar-in">
+    <div class="brand"><span class="glyph" aria-hidden="true">ŷ = f(x)</span><span>Fit for Purpose</span></div>
+    ${S.phase !== 'start' ? `<div class="meta">
+      <span class="chip">${esc(S.name)}</span>
+      ${inGame ? `<span class="chip">Data set ${S.idx + 1} / 10</span><span class="chip ${S.freeHints ? 'hint-on' : ''}">Free hints left: ${S.freeHints} / 3</span>` : ''}
+      <span class="chip score">Score ${fmtPts(totalScore())} / 100</span>
+    </div>` : ''}
+  </div></header>`;
+}
+function hintBtn(cur, k, locked) {
+  if (cur.hints[k] !== null || locked) return '';
+  return `<button class="btn ghost sm" data-act="hint" data-k="${k}" type="button">Hint · ${S.freeHints ? 'free' : '−1 pt'}</button>`;
+}
+function hintBox(cur, k) { return cur.hints[k] === null ? '' : `<div class="hintbox"><b>Hint${cur.hints[k] ? ' (−1 pt)' : ' (free)'}.</b> ${HINTS[k]}</div>`; }
+function partHead(n, title, pts, cur, locked, earned) {
+  return `<div class="phead"><div><span class="pnum">Part ${n}</span><h3>${title}</h3></div><div class="pright">${earned !== undefined ? `<span class="earned">${fmtPts(earned)} / ${pts}</span>` : `<span class="ptag">${pts} pts</span>`}${hintBtn(cur, n, locked)}</div></div>`;
+}
+function fbList(items) {
+  return `<ul class="fb">${items.map(i => `<li class="${i.ok === true ? 'ok' : i.ok === 'part' ? 'part' : 'no'}"><span class="mk" aria-hidden="true">${i.ok === true ? '✓' : i.ok === 'part' ? '◐' : '✗'}</span><span class="fk">${i.k}</span><span class="fp">${fmtPts(i.got)} / ${fmtPts(i.pts)}</span>${i.note ? `<span class="fn">${i.note}</span>` : ''}</li>`).join('')}</ul>`;
+}
+function progressBar() { return `<div class="progress" aria-hidden="true">${Array.from({ length: 10 }, (_, i) => `<i class="${i < S.idx ? 'done' : i === S.idx ? 'now' : ''}"></i>`).join('')}</div>`; }
+function tierWord(t) { return t === 'best' ? 'best' : t === 'good' ? 'good' : 'poor'; }
+function whyModel(d, k) {
+  const f = d.fits[k], parts = [];
+  if (!f.defined) parts.push('back-transformed curve is undefined over the data (1/y fit crosses zero)');
+  if (f.patterned && f.defined) parts.push('residual pattern');
+  if (f.nonsig) parts.push('non-significant term (p > 0.05)');
+  if (!parts.length) parts.push(`valid, s = ${fmtSig(f.s, 4)}`);
+  return parts.join('; ');
+}
+
+// ---------- start ----------
+function heroArt() {
+  const W = 520, H = 180, pts = [];
+  for (let i = 0; i < 14; i++) { const x = 0.4 + i * 0.36; const jit = [0.06, -0.08, 0.03, 0.1, -0.05, 0.02, -0.09, 0.07, -0.02, 0.05, -0.06, 0.04, -0.03, 0.01][i]; pts.push([x, 3.2 * Math.exp(-0.42 * x) + 0.6 + jit]); }
+  const sx = x => 20 + x / 5.4 * (W - 40), sy = y => H - 22 - y / 4 * (H - 40);
+  let lin = `M${sx(0.2)},${sy(3.0)} L${sx(5.3)},${sy(0.55)}`, cur = '';
+  for (let i = 0; i <= 80; i++) { const x = 0.2 + 5.1 * i / 80; cur += `${i ? 'L' : 'M'}${sx(x).toFixed(1)},${sy(3.2 * Math.exp(-0.42 * x) + 0.6).toFixed(1)} `; }
+  return `<svg viewBox="0 0 ${W} ${H}" class="hero-svg" aria-hidden="true"><line class="c-axis" x1="20" x2="${W - 20}" y1="${H - 22}" y2="${H - 22}"/><line class="c-axis" x1="20" x2="20" y1="10" y2="${H - 22}"/><path class="c-fit m2" d="${lin}"/><path class="c-fit m1" d="${cur}"/>${pts.map(p => `<circle class="c-dot" cx="${sx(p[0]).toFixed(1)}" cy="${sy(p[1]).toFixed(1)}" r="4.5"/>`).join('')}</svg>`;
+}
+function startView() {
+  return `<section class="start">
+    <div class="start-copy">
+      <p class="eyebrow">EGN 3443 · Regression Model Selection Lab</p>
+      <h1>Fit for Purpose</h1>
+      <p class="lede">Ten engineering data sets, each needing a model someone will actually use. Explore the data, shortlist candidate models, eliminate the weak ones with the right statistics, and commit to the best fit.</p>
+      ${heroArt()}
+    </div>
+    <form class="start-card" id="startForm" novalidate>
+      <h2>Sign in to the lab</h2>
+      <label class="fld"><span>Your full name <em>(appears on your report)</em></span><input id="nameIn" type="text" autocomplete="name" value="${esc(S.name)}" required></label>
+      <label class="fld"><span>Course section <em>(optional)</em></span><input id="secIn" type="text" value="${esc(S.section)}"></label>
+      <p class="err" id="startErr" hidden>Enter your name to begin.</p>
+      <button class="btn primary" type="submit">Start the 10 data sets</button>
+      <ol class="rules">
+        <li><b>Explore · 2 pts.</b> Study the raw scatter and generate up to three diagnostic views.</li>
+        <li><b>Shortlist and eliminate · 5 pts.</b> Fit up to four candidate models, then keep or eliminate each one with a statistical reason.</li>
+        <li><b>Final model · 3 pts.</b> Full credit for the best model, partial credit for a good one.</li>
+      </ol>
+      <p class="small">Models: linear, quadratic, logarithmic, power, exponential, reciprocal of x, reciprocal of y. Every data set is freshly randomized. The first three hints in a game are free; each hint after that costs 1 point from that part.</p>
+    </form>
+  </section>`;
+}
+
+// ---------- parts ----------
+function part1(sc, cur) {
+  const d = cur.data, g = cur.g1, locked = !!g, a = cur.a1;
+  const opts = VIEW_KEYS.map(v => `<label class="tog"><input type="checkbox" name="f-view" value="${v}" ${a.views.includes(v) ? 'checked' : ''} ${locked ? 'disabled' : ''}><span><b>${VIEWS[v].name}</b><em>${v === 'res_lin' ? 'shows curvature a line misses' : 'straight if the ' + MODELS[VIEWS[v].for[0]].name.toLowerCase() + ' model fits'}</em></span></label>`).join('');
+  let views = '', fb = '';
+  if (locked) {
+    const bv = viewFor(d.best), show = a.views.slice(); if (!show.includes(bv)) show.push(bv);
+    views = `<div class="views">${show.map((v, i) => `<figure class="figure"><div class="figl">${esc(VIEWS[v].name)}${a.views.includes(v) ? '' : ' · <span class="missed">view you missed</span>'}</div>${viewChart(v, sc, d, i)}</figure>`).join('')}</div>
+      <div class="legend"><span><i class="sw sw-dot"></i>transformed data</span><span><i class="sw sw-refl"></i>least-squares line on this view, for judging straightness</span></div>`;
+    fb = `<div class="feedback">${fbList(g.items)}<ul class="why"><li>${g.note}</li></ul>${cur.hints[1] ? '<p class="small">Hint cost: −1 pt.</p>' : ''}</div>`;
+  }
+  return `<section class="part ${locked ? 'done' : ''}" id="p1">
+    ${partHead(1, 'Explore the data', 2, cur, locked, g ? partScore(g, cur, 1) : undefined)}
+    ${hintBox(cur, 1)}
+    <div class="rawwrap"><figure class="figure"><div class="figl">Raw paired observations · n = ${d.xs.length}</div>${rawChart(sc, d, [])}</figure>${dataTable(sc, d)}</div>
+    <div class="q"><div class="ql"><b>1.</b> Which diagnostic views should the lab generate? Choose up to three.</div><div class="togs">${opts}</div></div>
+    ${!locked ? `<p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="sub1" type="button">Generate views</button></div>` : views + fb}
+  </section>`;
+}
+
+function statsTable(sc, d, keys, ref) {
+  return `<div class="tscroll"><table class="stats"><thead><tr><th>Model</th><th>Fit on</th><th>Fitted equation</th><th class="n">R²</th><th class="n">adj R²</th><th class="n">s (${esc(sc.y.unit)})</th><th class="n">Term p-values</th></tr></thead><tbody>${keys.map((k, i) => {
+    const f = d.fits[k], m = MODELS[k];
+    return `<tr><td><span class="key-sw ${SLOT[i]}"></span>${esc(m.name)}</td><td class="scale">${esc(m.fitOn)}</td><td class="eq">${eqText(k, f.b)}</td><td class="n">${f.R2.toFixed(4)}</td><td class="n">${f.adjR2.toFixed(4)}</td><td class="n">${f.defined ? fmtSig(f.s, 4) : 'undefined'}</td><td class="n pv">${m.terms.map((t, j) => `${t}: ${fmtPv(f.slopeP[j])}`).join('<br>')}</td></tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+function part2(sc, cur) {
+  if (cur.part < 2) return '';
+  const d = cur.data, g = cur.g2, locked = !!g, a = cur.a2;
+  const shortOpts = MODEL_KEYS.map(k => `<label class="tog"><input type="checkbox" name="f-short" value="${k}" ${a.short.includes(k) ? 'checked' : ''} ${cur.fitted ? 'disabled' : ''}><span><b>${MODELS[k].name}</b><em>${MODELS[k].form}</em></span></label>`).join('');
+  let body = `<div class="q"><div class="ql"><b>2a.</b> Shortlist the models to fit. Choose two to four.</div><div class="togs">${shortOpts}</div></div>`;
+  if (!cur.fitted) {
+    return `<section class="part" id="p2">${partHead(2, 'Shortlist and eliminate', 5, cur, false)}${hintBox(cur, 2)}${body}
+      <p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="fit" type="button">Fit shortlisted models</button></div></section>`;
+  }
+  const keys = a.short;
+  const curves = keys.map((k, i) => ({ fn: x => (x > 0 ? predict(k, d.fits[k].b, x) : NaN), cls: 'c-fit ' + SLOT[i] }));
+  body += `<figure class="figure"><div class="figl">Fitted curves on the raw data</div>${rawChart(sc, d, curves)}<div class="legend">${keys.map((k, i) => `<span><i class="sw line ${SLOT[i]}"></i>${esc(MODELS[k].name)}</span>`).join('')}</div></figure>`;
+  body += statsTable(sc, d, keys);
+  body += `<p class="small">s is computed from residuals in the original units of y for every model, so it can be compared across all of them. R² and adjusted R² are computed on the scale each model was fit on.</p>`;
+  body += `<div class="views">${keys.map((k, i) => `<figure class="figure"><div class="figl"><span class="key-sw ${SLOT[i]}"></span>Residuals · ${esc(MODELS[k].name)}</div>${residChart(k, sc, d, i)}</figure>`).join('')}</div>`;
+  const ref = locked ? bestOf(d.fits, keys) : null;
+  body += `<div class="q"><div class="ql"><b>2b.</b> Keep or eliminate each model, with your reason.</div><div class="elims">${keys.map((k, i) => {
+    const val = a.elim[k] || '';
+    let mark = '';
+    if (locked) { const it = g.elimItems.find(e => e.k === k); mark = `<span class="emark ${it.ok ? 'ok' : 'no'}">${it.ok ? '✓' : '✗'} ${it.ok ? 'correct' : 'should be: ' + it.should}</span>`; }
+    return `<div class="elim"><span class="elabel"><span class="key-sw ${SLOT[i]}"></span>${esc(MODELS[k].name)}</span><select data-elim="${k}" ${locked ? 'disabled' : ''}><option value="">Choose…</option>${REASONS.map(r => `<option value="${r.v}" ${val === r.v ? 'selected' : ''}>${r.o}</option>`).join('')}</select>${mark}</div>`;
+  }).join('')}</div></div>`;
+  let fb = '';
+  if (locked) {
+    fb = `<div class="feedback">${fbList(g.items)}<ul class="why">${g.notes.map(n => `<li>${n}</li>`).join('')}</ul>${cur.hints[2] ? '<p class="small">Hint cost: −1 pt.</p>' : ''}</div>`;
+  }
+  return `<section class="part ${locked ? 'done' : ''}" id="p2">${partHead(2, 'Shortlist and eliminate', 5, cur, locked, g ? partScore(g, cur, 2) : undefined)}${hintBox(cur, 2)}${body}
+    ${!locked ? `<p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="sub2" type="button">Lock in eliminations</button></div>` : fb}</section>`;
+}
+
+function part3(sc, cur) {
+  if (cur.part < 3) return '';
+  const d = cur.data, g = cur.g3, locked = !!g, a = cur.a3;
+  const kept = cur.a2.short.filter(k => cur.a2.elim[k] === 'keep');
+  const opts = kept.map(k => {
+    let cls = ''; if (locked) cls = k === d.best ? 'right' : (a.final === k ? (d.tier[k] === 'good' ? 'partial' : 'wrong') : '');
+    return `<label class="choice ${cls}"><input type="radio" name="f-final" value="${k}" ${a.final === k ? 'checked' : ''} ${locked ? 'disabled' : ''}><span><b>${esc(MODELS[k].name)}</b> <span class="eq">${eqText(k, d.fits[k].b)}</span></span></label>`;
+  }).join('');
+  let fb = '';
+  if (locked) {
+    const tot = partScore(cur.g1, cur, 1) + partScore(cur.g2, cur, 2) + partScore(g, cur, 3);
+    const bf = d.fits[d.best];
+    fb = `<div class="feedback">${fbList(g.items)}
+      <div class="key"><div class="keyl">Best model for this data set</div><div>${esc(MODELS[d.best].name)}: ${eqText(d.best, bf.b)}</div><div class="keym">s = ${fmtSig(bf.s, 4)} ${esc(sc.y.unit)} · adj R² = ${bf.adjR2.toFixed(4)} on ${esc(MODELS[d.best].fitOn)}</div></div>
+      <div class="tscroll"><table class="stats tiers"><thead><tr><th>Model</th><th>Rating</th><th class="n">s (${esc(sc.y.unit)})</th><th>Why</th></tr></thead><tbody>${MODEL_KEYS.slice().sort((x, y) => (d.fits[x].s || 1e300) - (d.fits[y].s || 1e300)).map(k => `<tr class="${d.tier[k]}"><td>${esc(MODELS[k].name)}</td><td><span class="pill ${d.tier[k]}">${tierWord(d.tier[k])}</span></td><td class="n">${d.fits[k].defined ? fmtSig(d.fits[k].s, 4) : '—'}</td><td>${whyModel(d, k)}</td></tr>`).join('')}</tbody></table></div>
+      <p class="small">Best = smallest s among models with no residual pattern and every term significant. Good = also valid, with s within 30% of the best.</p>
+      ${cur.hints[3] ? '<p class="small">Hint cost: −1 pt.</p>' : ''}
+      <div class="tally"><span>Data set ${S.idx + 1} total</span><b>${fmtPts(tot)} / 10</b></div>
+      <div class="actions"><button class="btn primary" data-act="next" type="button">${S.idx < 9 ? 'Next data set' : 'See my score report'}</button></div></div>`;
+  }
+  return `<section class="part ${locked ? 'done' : ''}" id="p3">${partHead(3, 'Final model', 3, cur, locked, g ? partScore(g, cur, 3) : undefined)}${hintBox(cur, 3)}
+    <div class="q"><div class="ql"><b>3.</b> Which model do you recommend to the engineer? Choose from the models you kept.</div><div class="choices">${opts}</div></div>
+    ${!locked ? `<p class="err" ${cur.err ? '' : 'hidden'}>${esc(cur.err)}</p><div class="actions"><button class="btn primary" data-act="sub3" type="button">Submit final model</button></div>` : fb}</section>`;
+}
+
+function gateView() {
+  const sc = scById(S.cur.id);
+  return `<div class="play">${progressBar()}
+    <section class="gate">
+      <p class="eyebrow">Data set ${S.idx + 1} of 10 · ${esc(sc.field)}</p>
+      <h2>Next data set is ready</h2>
+      <p>Want to review the terminology first? The cheat sheet covers the seven models and how to linearize them, the diagnostic views, the statistics used to compare fits, and the rules for eliminating models. It is optional, and the data set opens as soon as you close it.</p>
+      <div class="actions"><button class="btn primary" data-act="sheet-open" type="button">Review the cheat sheet</button><button class="btn ghost" data-act="begin" type="button">Skip and open the data set</button></div>
+    </section></div>`;
+}
+function playView() {
+  const cur = S.cur, sc = scById(cur.id);
+  if (!cur.briefed) return gateView();
+  const reqNo = 'DS-' + hashCode(S.name + sc.id + S.startedAt).slice(0, 4);
+  return `<div class="play">${progressBar()}
+    <article class="request">
+      <div class="req-strip"><span>DATA SET ${reqNo}</span><span>${esc(sc.field)}</span><span>${S.idx + 1} of 10</span></div>
+      <h2>${esc(sc.title)}</h2>
+      <p>${sc.text}</p>
+      <p class="vars"><span><b>x</b> = ${esc(axLab(sc.x))}</span><span><b>y</b> = ${esc(axLab(sc.y))}</span></p>
+    </article>
+    ${part1(sc, cur)}${part2(sc, cur)}${part3(sc, cur)}
+  </div>`;
+}
+
+function reportView() {
+  const total = totalScore();
+  const code = hashCode(`FFP|${S.name}|${S.section}|${S.finishedAt}|${S.results.map(r => r.id + ':' + r.total).join(',')}|${total}`);
+  const when = new Date(S.finishedAt);
+  const standalone = isStandalone();
+  return `<section class="report">
+    <div class="rep-head">
+      <div><p class="eyebrow">Regression Model Selection Lab · Score Report</p><h2 class="rep-name">${esc(S.name)}</h2>
+      <p class="rep-meta">${S.section ? esc(S.section) + ' · ' : ''}Completed ${when.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })} at ${when.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}</p></div>
+      <div class="rep-score"><b>${fmtPts(total)}</b><span>/ 100</span></div>
+    </div>
+    <div class="tscroll"><table class="rep">
+      <thead><tr><th>#</th><th>Data set</th><th class="opt">Best model</th><th class="opt">Your pick</th><th class="n">Explore<br>/2</th><th class="n">Models<br>/5</th><th class="n">Final<br>/3</th><th class="n opt">Hints</th><th class="n">Total<br>/10</th></tr></thead>
+      <tbody>${S.results.map((r, i) => `<tr><td>${i + 1}</td><td>${esc(r.title)}</td><td class="opt">${esc(r.best)}</td><td class="opt">${esc(r.pick)}</td><td class="n">${fmtPts(r.s1)}</td><td class="n">${fmtPts(r.s2)}</td><td class="n">${fmtPts(r.s3)}</td><td class="n opt">${r.hints}</td><td class="n"><b>${fmtPts(r.total)}</b></td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="8">Final score</td><td class="n"><b>${fmtPts(total)} / 100</b></td></tr></tfoot>
+    </table></div>
+    <div class="rep-foot">
+      <p class="small sheetnote">Cheat sheet reviewed before ${S.results.filter(r => r.sheet).length} of 10 data sets.</p>
+      <div class="code">Verification code <b>${code}</b></div>
+      <p class="small">Submit this report as your homework: take a screenshot of this page with your name, score, and verification code visible, then upload it to the assignment${standalone ? ', or print it to PDF' : ''}.</p>
+      <div class="actions">
+        ${standalone ? '<button class="btn primary" data-act="print" type="button">Print / Save as PDF</button>' : ''}
+        ${S.confirmReset ? '<span class="small">This clears the report above.</span><button class="btn danger" data-act="reset-yes" type="button">Yes, start over</button><button class="btn ghost" data-act="reset-no" type="button">Keep report</button>' : '<button class="btn ghost" data-act="reset" type="button">Start a new game</button>'}
+      </div>
+    </div>
+  </section>`;
+}
+
+// ---------- cheat sheet ----------
+function residMini(kind) {
+  const W = 200, H = 90, pts = [];
+  const jit = [0.3, -0.5, 0.8, -0.2, 0.6, -0.9, 0.1, 0.7, -0.6, 0.4, -0.3, 0.9, -0.7, 0.2, -0.4, 0.5];
+  for (let i = 0; i < 16; i++) { const u = i / 15; let r = jit[i] * 0.6; if (kind === 'curve') r = 2.2 * (u - 0.5) ** 2 * 4 - 1.1 + jit[i] * 0.25; if (kind === 'funnel') r = jit[i] * (0.15 + 1.6 * u); pts.push([u, r]); }
+  const sx = u => 10 + u * (W - 20), sy = r => H / 2 - r * (H / 2 - 10) / 1.4;
+  return `<svg viewBox="0 0 ${W} ${H}" class="mini" aria-hidden="true"><line class="c-zero" x1="6" x2="${W - 6}" y1="${H / 2}" y2="${H / 2}"/>${pts.map(p => `<circle class="c-dot" cx="${sx(p[0]).toFixed(1)}" cy="${sy(p[1]).toFixed(1)}" r="3.5"/>`).join('')}</svg>`;
+}
+const SHAPES = [
+  { k: 'lin', eq: 'y = a + bx', fn: (x, a, b) => a + b * x, x: [0, 4], A: 1, B: 0.6 },
+  { k: 'quad', eq: 'y = ax + bx²', fn: (x, a, b) => a * x + b * x * x, x: [0, 4], A: 2, B: 0.8 },
+  { k: 'log', eq: 'y = a + b ln x', fn: (x, a, b) => a + b * Math.log(x), x: [0.08, 4], A: 1.5, B: 1 },
+  { k: 'pow', eq: 'y = a·xᵇ', fn: (x, a, b) => a * Math.pow(x, b), x: [0.1, 4], A: 1, B: 1.6, Bn: 1, cap: 8 },
+  { k: 'exp', eq: 'y = a·eᵇˣ', fn: (x, a, b) => a * Math.exp(b * x), x: [0, 4], A: 1, B: 0.6 },
+  { k: 'rx', eq: 'y = a + b/x', fn: (x, a, b) => a + b / x, x: [0.15, 4], A: 1.5, B: 1, cap: 6 },
+  { k: 'ry', eq: 'y = 1 / (a + bx)', fn: (x, a, b) => 1 / (a + b * x), x: [0, 4], A: 1, B: 0.5, cap: 5, asym: (a, b) => -a / b },
+];
+function shapeMini(sh, sa, sb) {
+  const a = sa * sh.A, b = sb * (sb < 0 && sh.Bn ? sh.Bn : sh.B);
+  const W = 150, H = 104, P = 8, [x0, x1] = sh.x, N = 160, cap = sh.cap || 1e9;
+  const pts = []; for (let i = 0; i <= N; i++) { const x = x0 + (x1 - x0) * i / N; const y = sh.fn(x, a, b); pts.push([x, isFinite(y) && Math.abs(y) <= cap ? y : NaN]); }
+  const ys = pts.map(p => p[1]).filter(isFinite).concat([0]);
+  let y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = (y1 - y0 || 1) * 0.1; y0 -= pad; y1 += pad;
+  const sx = x => P + (x - Math.min(0, x0)) / (x1 - Math.min(0, x0)) * (W - 2 * P), sy = y => H - P - (y - y0) / (y1 - y0) * (H - 2 * P);
+  let d = '', pen = false, prev = null;
+  pts.forEach(p => { if (!isFinite(p[1]) || (prev !== null && Math.sign(p[1]) !== Math.sign(prev) && Math.abs(p[1] - prev) > (y1 - y0) * 0.5)) { pen = false; prev = isFinite(p[1]) ? p[1] : null; if (!isFinite(p[1])) return; } d += `${pen ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)} `; pen = true; prev = p[1]; });
+  let asym = '';
+  if (sh.asym) { const xa = sh.asym(a, b); if (xa > x0 && xa < x1) asym = `<line class="c-asym" x1="${sx(xa).toFixed(1)}" x2="${sx(xa).toFixed(1)}" y1="${P}" y2="${H - P}"/>`; }
+  if (sh.k === 'rx') { const X = sx(0); asym += `<line class="c-asym" x1="${P}" x2="${W - P}" y1="${sy(a).toFixed(1)}" y2="${sy(a).toFixed(1)}"/>`; }
+  const X0 = sx(0), Y0 = sy(0);
+  return `<figure class="shape"><svg viewBox="0 0 ${W} ${H}" class="mini" role="img" aria-label="${MODELS[sh.k].name} with a ${sa > 0 ? 'positive' : 'negative'} and b ${sb > 0 ? 'positive' : 'negative'}"><line class="c-axis" x1="${P}" x2="${W - P}" y1="${Y0.toFixed(1)}" y2="${Y0.toFixed(1)}"/><line class="c-axis" x1="${X0.toFixed(1)}" x2="${X0.toFixed(1)}" y1="${P}" y2="${H - P}"/>${asym}<path class="c-fit m1" d="${d}"/></svg><figcaption>a ${sa > 0 ? '+' : '−'}, b ${sb > 0 ? '+' : '−'}</figcaption></figure>`;
+}
+function shapeGallery() {
+  const combos = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
+  return `<div class="shapes"><div class="shape-head"><span></span>${combos.map(c => `<span>(${c[0] > 0 ? '+' : '−'}, ${c[1] > 0 ? '+' : '−'})</span>`).join('')}</div>${SHAPES.map(sh => `<div class="shape-row"><div class="shape-lab"><b>${MODELS[sh.k].name}</b><span class="mono">${sh.eq}</span></div>${combos.map(c => shapeMini(sh, c[0], c[1])).join('')}</div>`).join('')}</div>`;
+}
+function cheatSheet() {
+  return `<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><p class="eyebrow">Before data set ${S.idx + 1} of 10</p><h2 id="sheetTitle">Regression Model Selection Cheat Sheet</h2></div>
+      <div class="actions"><button class="btn ghost" data-act="sheet-print" type="button">Print cheat sheet</button><button class="btn primary" id="sheetClose" data-act="sheet-close" type="button">Close and start data set</button></div>
+    </div>
+    <p class="printnote" id="printNote" hidden>Printing is blocked inside the hosted viewer. Open the standalone copy of Fit for Purpose (the downloadable HTML file) in your browser and use Print cheat sheet there.</p>
+    <nav class="jumps" aria-label="Cheat sheet sections">
+      <button class="btn ghost sm" data-act="jump" data-to="cs-models" type="button">The seven models</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-shapes" type="button">Model shapes</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-explore" type="button">Exploring the data</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-stats" type="button">Comparison statistics</button>
+      <button class="btn ghost sm" data-act="jump" data-to="cs-rules" type="button">Elimination rules</button>
+    </nav>
+    <div class="sheet-body">
+    <section class="cs" id="cs-models">
+      <h3>The seven models</h3>
+      <p>Each model becomes a straight line (or, for the quadratic, a multiple regression) after the transformation shown. Least squares is run on the transformed values, then the result is converted back to y.</p>
+      <div class="tscroll"><table class="cst">
+        <thead><tr><th>Model</th><th>Equation</th><th>Fit by regressing</th><th>Shape clues in the raw scatter</th><th>Requires</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">Linear</td><td class="mono">y = b₀ + b₁x</td><td class="mono">y on x</td><td>Constant slope; points scatter evenly around a straight line.</td><td>—</td></tr>
+          <tr><td class="sym">Quadratic</td><td class="mono">y = b₀ + b₁x + b₂x²</td><td class="mono">y on x and x²</td><td>One bend: a peak, a valley, or a curve that steepens or flattens. The x² term must be significant.</td><td>—</td></tr>
+          <tr><td class="sym">Logarithmic</td><td class="mono">y = b₀ + b₁ ln x</td><td class="mono">y on ln x</td><td>Rises (or falls) quickly at small x, then keeps changing slowly with no upper limit.</td><td>x &gt; 0</td></tr>
+          <tr><td class="sym">Power</td><td class="mono">y = a·xᵇ</td><td class="mono">ln y on ln x<br>(intercept = ln a, slope = b)</td><td>Heads toward the origin. b &gt; 1 curves upward, 0 &lt; b &lt; 1 bends over, b &lt; 0 decays.</td><td>x &gt; 0, y &gt; 0</td></tr>
+          <tr><td class="sym">Exponential</td><td class="mono">y = a·eᵇˣ</td><td class="mono">ln y on x<br>(intercept = ln a, slope = b)</td><td>Same percentage change per unit of x: explosive growth, or decay that approaches zero.</td><td>y &gt; 0</td></tr>
+          <tr><td class="sym">Reciprocal of x</td><td class="mono">y = b₀ + b₁/x</td><td class="mono">y on 1/x</td><td>Drops steeply at small x, then levels off toward a nonzero limit b₀.</td><td>x ≠ 0</td></tr>
+          <tr><td class="sym">Reciprocal of y</td><td class="mono">y = 1 / (b₀ + b₁x)</td><td class="mono">1/y on x</td><td>Decays like flow through resistances in series: 1/y grows linearly with x.</td><td>y ≠ 0</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+    <section class="cs" id="cs-shapes">
+      <h3>Model shapes by the signs of a and b</h3>
+      <p>Each model written with two coefficients, a and b. The four panels show how the curve changes as each coefficient is positive or negative. Axes cross at zero; dashed lines mark asymptotes. For the quadratic, a is the x coefficient and b is the x² coefficient, with the intercept set to 0.</p>
+      ${shapeGallery()}
+      <p class="small">Models fit through ln y (power and exponential) need y &gt; 0, so they are only fit directly when a &gt; 0. With a &lt; 0 every y is negative, and the model is fit to −y instead.</p>
+    </section>
+    <section class="cs" id="cs-explore">
+      <h3>Exploring the data</h3>
+      <div class="cs2">
+        <div>
+          <h4>Raw scatter first</h4>
+          <ul>
+            <li>Is the trend straight or curved? Increasing or decreasing?</li>
+            <li>Does it level off toward a limit (reciprocal of x), approach zero (exponential, power, reciprocal of y), keep growing slowly (log), or bend once (quadratic)?</li>
+            <li>Check the signs: a model that needs ln y cannot be used if any y ≤ 0.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Diagnostic views</h4>
+          <div class="tscroll"><table class="cst">
+            <thead><tr><th>View</th><th>Straight line means</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">y vs ln x</td><td>Logarithmic</td></tr>
+              <tr><td class="mono">ln y vs ln x</td><td>Power</td></tr>
+              <tr><td class="mono">ln y vs x</td><td>Exponential</td></tr>
+              <tr><td class="mono">y vs 1/x</td><td>Reciprocal of x</td></tr>
+              <tr><td class="mono">1/y vs x</td><td>Reciprocal of y</td></tr>
+              <tr><td class="mono">Residuals from a line</td><td>Random scatter supports linear; a U or ∩ shape points to quadratic or a transformation</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+    </section>
+    <section class="cs" id="cs-stats">
+      <h3>Comparison statistics</h3>
+      <div class="tscroll"><table class="cst">
+        <thead><tr><th>Statistic</th><th>Formula</th><th>What it tells you</th><th>Compare across models?</th></tr></thead>
+        <tbody>
+          <tr><td class="sym">R²</td><td class="mono">1 − SSE/SST</td><td>Share of the variation in the <em>fitted response</em> explained by the model.</td><td>Only between models fit to the same response (y with y). Never compare a ln y or 1/y fit’s R² with a y fit’s R².</td></tr>
+          <tr><td class="sym">adj R²</td><td class="mono">1 − (1 − R²)(n − 1)/(n − p)</td><td>R² penalized for the number of parameters p, so an extra x² term has to earn its place.</td><td>Same restriction as R².</td></tr>
+          <tr><td class="sym">s</td><td class="mono">√( Σ(y − ŷ)² / (n − p) )</td><td>Typical prediction error in the units of y, after converting every model back to y.</td><td>Yes. Smaller is better.</td></tr>
+          <tr><td class="sym">p-value</td><td class="mono">t = b / SE(b)</td><td>Tests whether a term’s coefficient is zero. A term with p &gt; 0.05 is not contributing.</td><td>Checked within each model.</td></tr>
+        </tbody>
+      </table></div>
+      <h4>Residual plots</h4>
+      <div class="tails">
+        <figure>${residMini('random')}<figcaption><b>Random band</b><br>No pattern. The model form is adequate.</figcaption></figure>
+        <figure>${residMini('curve')}<figcaption><b>Curved (U or ∩)</b><br>The model misses curvature. Eliminate it.</figcaption></figure>
+        <figure>${residMini('funnel')}<figcaption><b>Funnel</b><br>Spread grows with x. A ln y model often fixes this.</figcaption></figure>
+      </div>
+    </section>
+    <section class="cs" id="cs-rules">
+      <h3>Elimination and selection rules</h3>
+      <ol class="steps">
+        <li><b>Residual pattern:</b> eliminate any model whose residuals show a curve or trend, even with a high R².</li>
+        <li><b>Non-significant term:</b> eliminate a model with any term p &gt; 0.05. A quadratic whose x² term is not significant should give way to the simpler model.</li>
+        <li><b>Larger s:</b> among the models still standing, eliminate those with a larger s than the best one.</li>
+        <li><b>Lower adjusted R²:</b> a valid reason only when both models were fit to the same response scale.</li>
+        <li><b>Select</b> the valid model with the smallest s. When two valid models have nearly the same s, the simpler or more physically sensible one is a defensible choice.</li>
+      </ol>
+    </section>
+    </div>
+    <div class="sheet-foot"><button class="btn primary" data-act="sheet-close" type="button">Close and start data set ${S.idx + 1}</button></div>
+  </div></div>`;
+}
+
+// ---------- render ----------
+let scrollTarget = null;
+function render() {
+  const y = window.scrollY;
+  const app = document.getElementById('app');
+  const sheet = S.phase === 'play' && S.sheetOpen;
+  app.innerHTML = header() + `<main class="wrap" ${sheet ? 'inert' : ''}>${S.phase === 'start' ? startView() : S.phase === 'play' ? playView() : reportView()}</main>` + (sheet ? cheatSheet() : '');
+  document.documentElement.classList.toggle('locked', !!sheet);
+  window.scrollTo(0, y);
+  if (sheet) { const c = document.getElementById('sheetClose'); if (c) c.focus({ preventScroll: true }); }
+  if (scrollTarget) {
+    const el = document.getElementById(scrollTarget); scrollTarget = null;
+    if (el) { const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+  }
+}
+
+// ---------- actions ----------
+function startGame(name, section) {
+  S = { phase: 'play', name, section, order: pickScenarios(), idx: 0, freeHints: 3, results: [], cur: null, startedAt: Date.now(), finishedAt: null, confirmReset: false, sheetOpen: false };
+  S.cur = newCur(S.order[0]); window.scrollTo(0, 0); render();
+}
+function useHint(k) { const cur = S.cur; if (cur.hints[k] !== null) return; cur.hints[k] = S.freeHints > 0 ? 0 : 1; if (S.freeHints > 0) S.freeHints--; render(); }
+function closeSheet() { if (!S.cur) return; S.sheetOpen = false; S.cur.briefed = true; window.scrollTo(0, 0); render(); }
+
+function submit1() {
+  const cur = S.cur, d = cur.data, v = cur.a1.views;
+  if (!v.length) { cur.err = 'Choose at least one view to generate.'; render(); return; }
+  cur.err = '';
+  const bv = viewFor(d.best);
+  const goodViews = MODEL_KEYS.filter(k => d.tier[k] === 'good').map(viewFor);
+  let got = 0, ok = false, note;
+  if (v.includes(bv)) { got = 2; ok = true; note = `The ${VIEWS[bv].name} view is the one that matters here: ${bv === 'res_lin' ? (d.best === 'lin' ? 'the residuals from a straight line scatter randomly, supporting the linear model' : 'the residuals from a straight line bend, pointing to the quadratic') : 'it straightens the data, pointing to the ' + MODELS[d.best].name.toLowerCase() + ' model'}.`; }
+  else if (v.some(x => goodViews.includes(x))) { got = 1; ok = 'part'; note = `Your views point to a good model, but the ${VIEWS[bv].name} view (shown above) points to the best one: ${MODELS[d.best].name.toLowerCase()}.`; }
+  else note = `None of your views support a strong model. The ${VIEWS[bv].name} view (shown above) points to the ${MODELS[d.best].name.toLowerCase()} model.`;
+  cur.g1 = { items: [{ k: 'Diagnostic views', ok, got, pts: 2 }], raw: got, note };
+  cur.part = 2; render();
+}
+function fitShort() {
+  const cur = S.cur, s = cur.a2.short;
+  if (s.length < 2 || s.length > 4) { cur.err = 'Shortlist between two and four models.'; render(); return; }
+  cur.err = ''; cur.a2.short = MODEL_KEYS.filter(k => s.includes(k)); cur.fitted = true; render();
+}
+function submit2() {
+  const cur = S.cur, d = cur.data, keys = cur.a2.short, e = cur.a2.elim;
+  if (keys.some(k => !e[k])) { cur.err = 'Choose Keep or an elimination reason for every model.'; render(); return; }
+  if (!keys.some(k => e[k] === 'keep')) { cur.err = 'Keep at least one model so you have something to recommend.'; render(); return; }
+  cur.err = '';
+  const inBest = keys.includes(d.best), poor = keys.filter(k => d.tier[k] === 'poor').length;
+  const sl = (inBest ? 1 : 0) + (poor <= 1 ? 0.5 : 0);
+  const ref = bestOf(d.fits, keys), per = 3.5 / keys.length;
+  const elimItems = keys.map(k => {
+    const call = e[k];
+    const vr = validReasons(d.fits, k, ref);
+    const ok = k === ref ? call === 'keep' : (call !== 'keep' && vr.includes(call));
+    const should = k === ref ? 'Keep' : 'Eliminate (' + vr.map(r => REASONS.find(x => x.v === r).o.replace('Eliminate: ', '')).join(', ') + ')';
+    return { k, ok, should };
+  });
+  const got = elimItems.filter(i => i.ok).length * per;
+  const notes = [];
+  notes.push(inBest ? `Your shortlist included the best model, ${MODELS[d.best].name.toLowerCase()}.` : `Your shortlist missed the best model, ${MODELS[d.best].name.toLowerCase()}.`);
+  if (poor > 1) notes.push(`${poor} of your shortlisted models were poor fits; aim for a shortlist that the views support.`);
+  notes.push(`Within your shortlist, the model to keep was <b>${MODELS[ref].name}</b> (${whyModel(d, ref)}). Eliminations are graded against it.`);
+  const cross = keys.filter(k => k !== ref && e[k] === 'lower_adj' && MODELS[k].scale !== MODELS[ref].scale);
+  if (cross.length) notes.push(`Adjusted R² cannot eliminate ${cross.map(k => MODELS[k].name).join(', ')}: it was fit on ${MODELS[cross[0]].scale}, while ${MODELS[ref].name} was fit on ${MODELS[ref].scale}. Compare s instead.`);
+  cur.g2 = { items: [
+    { k: 'Shortlist', ok: sl === 1.5 ? true : sl > 0 ? 'part' : false, got: sl, pts: 1.5, note: `${inBest ? '+1 best model included' : 'best model missing'} · ${poor <= 1 ? '+0.5 at most one poor model' : 'too many poor models'}` },
+    { k: 'Keep / eliminate decisions', ok: got >= 3.499 ? true : got > 0 ? 'part' : false, got: Math.round(got * 100) / 100, pts: 3.5, note: `${elimItems.filter(i => i.ok).length} of ${keys.length} correct` },
+  ], elimItems, notes, raw: sl + got };
+  cur.part = 3; scrollTarget = 'p3'; render();
+}
+function submit3() {
+  const cur = S.cur, d = cur.data, k = cur.a3.final, sc = scById(cur.id);
+  if (!k) { cur.err = 'Choose your final model.'; render(); return; }
+  cur.err = '';
+  const t = d.tier[k], got = t === 'best' ? 3 : t === 'good' ? 1.5 : 0;
+  cur.g3 = { items: [{ k: `Final model: ${MODELS[k].name}`, ok: t === 'best' ? true : t === 'good' ? 'part' : false, got, pts: 3, note: t === 'best' ? 'best model' : t === 'good' ? 'good, but not the best' : 'poor fit for these data' }], raw: got };
+  const s1 = partScore(cur.g1, cur, 1), s2 = partScore(cur.g2, cur, 2), s3 = partScore(cur.g3, cur, 3);
+  S.results.push({ id: sc.id, title: sc.title, best: MODELS[d.best].name, pick: MODELS[k].name, s1, s2, s3, hints: [1, 2, 3].filter(j => cur.hints[j] !== null).length, sheet: cur.sheet, total: s1 + s2 + s3 });
+  cur.part = 4; render();
+}
+function next() {
+  if (S.idx < 9) { S.idx++; S.cur = newCur(S.order[S.idx]); window.scrollTo(0, 0); render(); }
+  else { S.phase = 'report'; S.finishedAt = Date.now(); S.cur = null; window.scrollTo(0, 0); render(); }
+}
+
+function bind() {
+  const app = document.getElementById('app');
+  app.addEventListener('submit', e => {
+    if (e.target.id !== 'startForm') return; e.preventDefault();
+    const name = document.getElementById('nameIn').value.trim(), sec = document.getElementById('secIn').value.trim();
+    if (!name) { document.getElementById('startErr').hidden = false; document.getElementById('nameIn').focus(); return; }
+    startGame(name, sec);
+  });
+  app.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const act = b.dataset.act;
+    if (act === 'hint') useHint(+b.dataset.k);
+    else if (act === 'sub1') submit1();
+    else if (act === 'fit') fitShort();
+    else if (act === 'sub2') submit2();
+    else if (act === 'sub3') submit3();
+    else if (act === 'next') next();
+    else if (act === 'print') window.print();
+    else if (act === 'sheet-print') { if (isStandalone()) window.print(); else { try { window.print(); } catch (err) { } const n = document.getElementById('printNote'); if (n) n.hidden = false; } }
+    else if (act === 'sheet-open') { S.sheetOpen = true; S.cur.sheet = true; render(); }
+    else if (act === 'sheet-close' || act === 'begin') closeSheet();
+    else if (act === 'jump') { const t = document.getElementById(b.dataset.to); if (t) t.scrollIntoView({ block: 'start' }); }
+    else if (act === 'reset') { S.confirmReset = true; render(); }
+    else if (act === 'reset-no') { S.confirmReset = false; render(); }
+    else if (act === 'reset-yes') { const n = S.name, s = S.section; S = { phase: 'start', name: n, section: s, order: [], idx: 0, freeHints: 3, results: [], cur: null, confirmReset: false, sheetOpen: false }; window.scrollTo(0, 0); render(); }
+  });
+  app.addEventListener('change', e => {
+    const t = e.target; if (!S.cur) return; const cur = S.cur;
+    if (t.name === 'f-view') {
+      const set = new Set(cur.a1.views); t.checked ? set.add(t.value) : set.delete(t.value);
+      if (set.size > 3) { t.checked = false; set.delete(t.value); cur.err = 'You can generate at most three views.'; const er = t.closest('.part').querySelector('.err'); if (er) { er.textContent = cur.err; er.hidden = false; } }
+      cur.a1.views = VIEW_KEYS.filter(v => set.has(v));
+    } else if (t.name === 'f-short') {
+      const set = new Set(cur.a2.short); t.checked ? set.add(t.value) : set.delete(t.value);
+      if (set.size > 4) { t.checked = false; set.delete(t.value); const er = t.closest('.part').querySelector('.err'); if (er) { er.textContent = 'You can shortlist at most four models.'; er.hidden = false; } }
+      cur.a2.short = MODEL_KEYS.filter(k => set.has(k));
+    } else if (t.dataset.elim) { cur.a2.elim[t.dataset.elim] = t.value; }
+    else if (t.name === 'f-final') cur.a3.final = t.value;
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheetOpen) closeSheet(); });
+}
+function boot(data) { try { if (data && data.phase) S = data; } catch (e) { } bind(); render(); }
+try { window.claude?.hot?.snapshot?.(() => S); } catch (e) { }
+if (window.claude?.hot?.ready) window.claude.hot.ready(boot); else boot(window.claude?.hot?.data ?? {});
+</script>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>
