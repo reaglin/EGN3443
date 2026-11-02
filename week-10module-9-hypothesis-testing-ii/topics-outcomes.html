@@ -25,16 +25,25 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
+.tm-jump{margin:2px 0 8px;font-size:.92rem}
+.tm-jump a{color:#1a3c6e;font-weight:600}
+ul.tm li{margin:7px 0}
+ul.tm a{color:#1a3c6e;font-weight:600}
+.tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
+.tm-also{color:#555;font-size:.88rem}
+.tm-back{margin:0 0 4px;font-size:.88rem}
+.tm-back a{color:#1a3c6e}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 10/Module 9 - Hypothesis Testing II</a></div>
 <h1>Week 10/Module 9 - Hypothesis Testing II — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
 
 <h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">Two-Sample Hypothesis Tests</h3>
+<h3 id="topic-1">1. Two-Sample Hypothesis Tests</h3>
 <div class="summary">Introduces hypothesis testing procedures for comparing two independent groups, covering the logic, assumptions, and application of two-sample z-tests and t-tests.</div>
+<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
 <ul>
 <li><strong>Logic of Two-Sample Hypothesis Testing</strong> <span class="el-body">— Two-sample hypothesis tests are used to determine whether there is a statistically significant difference between the means (or proportions) of two independent groups.</span></li>
 <li><strong>Independence Assumption and Sampling</strong> <span class="el-body">— A fundamental requirement of two-sample tests is that the two groups must be independent of each other, meaning observations in one group do not influence or relate to observations in the other.</span></li>
@@ -43,8 +52,9 @@ li{margin:5px 0}
 <li><strong>Assumptions Underlying Two-Sample Tests</strong> <span class="el-body">— Both two-sample z-tests and t-tests rely on a set of statistical assumptions that must be evaluated before the results can be considered valid.</span></li>
 <li><strong>Interpreting Results and Making Decisions</strong> <span class="el-body">— After computing the test statistic, the result is compared to a critical value or evaluated using a p-value to determine whether to reject the null hypothesis.</span></li>
 </ul>
-<h3 id="topic-2">Paired Sample Comparisons</h3>
+<h3 id="topic-2">2. Paired Sample Comparisons</h3>
 <div class="summary">Explores methods for analyzing data collected from matched or repeated-measures designs, emphasizing how pairing reduces variability and strengthens inferential conclusions.</div>
+<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
 <ul>
 <li><strong>What Are Paired Sample Designs?</strong> <span class="el-body">— Paired sample designs involve collecting two related measurements from the same subject or from matched subjects, rather than from two independent groups.</span></li>
 <li><strong>Why Pairing Reduces Variability</strong> <span class="el-body">— The primary statistical advantage of pairing is that it removes between-subject variability from the error term, making the test more sensitive to true differences.</span></li>
@@ -54,8 +64,9 @@ li{margin:5px 0}
 <li><strong>Interpreting and Reporting Results</strong> <span class="el-body">— Proper interpretation of a paired-sample t-test includes reporting the test statistic, degrees of freedom, p-value, and a measure of effect size to convey practical significance.</span></li>
 <li><strong>When to Choose a Paired vs. Independent Design</strong> <span class="el-body">— Selecting the correct design and corresponding test depends on the research question, how data were collected, and the nature of the relationship between observations.</span></li>
 </ul>
-<h3 id="topic-3">Selecting the Appropriate Statistical Test</h3>
+<h3 id="topic-3">3. Selecting the Appropriate Statistical Test</h3>
 <div class="summary">Guides learners through a decision-making framework for choosing the correct hypothesis test based on data type, sample size, independence, and research context.</div>
+<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
 <ul>
 <li><strong>The Decision-Making Framework Overview</strong> <span class="el-body">— Selecting the correct statistical test requires a structured decision process rather than guesswork. A systematic framework helps researchers avoid errors that lead to invalid conclusions.</span></li>
 <li><strong>Identifying Data Type and Measurement Level</strong> <span class="el-body">— The scale of measurement of your outcome variable is the first and most critical factor in test selection. Tests designed for continuous data cannot be validly applied to categorical data, and vice versa.</span></li>
@@ -65,8 +76,9 @@ li{margin:5px 0}
 <li><strong>Aligning Test Choice with the Research Question</strong> <span class="el-body">— Beyond data characteristics, the specific inferential goal—testing differences, associations, or relationships—shapes which test is appropriate. A test that answers the wrong question produces irrelevant results even if technically applied correctly.</span></li>
 <li><strong>Practical Checklist for Final Test Selection</strong> <span class="el-body">— A concise checklist consolidates all decision criteria into a quick-reference tool that can be applied before any analysis begins. Running through each checkpoint reduces the risk of selecting an inappropriate test.</span></li>
 </ul>
-<h3 id="topic-4">Assumptions and Conditions for Validity</h3>
+<h3 id="topic-4">4. Assumptions and Conditions for Validity</h3>
 <div class="summary">Examines the underlying assumptions required for each inferential technique and discusses how to verify whether those conditions are met before drawing conclusions.</div>
+<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
 <ul>
 <li><strong>Why Assumptions Matter in Inferential Testing</strong> <span class="el-body">— Every inferential technique rests on a set of underlying assumptions; violating these can lead to invalid p-values, incorrect confidence intervals, and misleading conclusions.</span></li>
 <li><strong>Independence of Observations</strong> <span class="el-body">— Most parametric and many non-parametric tests require that observations be independent of one another, meaning the value of one data point does not influence another.</span></li>
@@ -76,8 +88,9 @@ li{margin:5px 0}
 <li><strong>Conditions Specific to Paired Comparisons</strong> <span class="el-body">— The paired t-test requires that the differences between paired observations follow an approximately normal distribution, rather than requiring normality of the original measurements themselves.</span></li>
 <li><strong>Using Non-Parametric Methods When Assumptions Fail</strong> <span class="el-body">— Non-parametric tests make fewer distributional assumptions and serve as valid alternatives when parametric conditions cannot be met.</span></li>
 </ul>
-<h3 id="topic-5">Introduction to Non-Parametric Methods</h3>
+<h3 id="topic-5">5. Introduction to Non-Parametric Methods</h3>
 <div class="summary">Introduces non-parametric alternatives to traditional hypothesis tests, explaining when and why they are used when parametric assumptions cannot be satisfied.</div>
+<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
 <ul>
 <li><strong>What Are Non-Parametric Methods?</strong> <span class="el-body">— Non-parametric methods are statistical tests that do not rely on assumptions about the underlying population distribution, such as normality.</span></li>
 <li><strong>When to Use Non-Parametric Tests</strong> <span class="el-body">— Non-parametric tests are used when the assumptions required by parametric tests — such as normality or homogeneity of variance — cannot be reasonably satisfied.</span></li>
@@ -86,8 +99,9 @@ li{margin:5px 0}
 <li><strong>Common Non-Parametric Alternatives to Parametric Tests</strong> <span class="el-body">— For most standard parametric tests, there exists a non-parametric equivalent that can be applied when the necessary assumptions are not met.</span></li>
 <li><strong>Selecting the Right Test: Parametric vs. Non-Parametric</strong> <span class="el-body">— Choosing between a parametric and non-parametric test requires careful consideration of the data type, sample size, and the degree to which distributional assumptions are satisfied.</span></li>
 </ul>
-<h3 id="topic-6">Interpreting and Communicating Results</h3>
+<h3 id="topic-6">6. Interpreting and Communicating Results</h3>
 <div class="summary">Focuses on accurately interpreting test statistics, p-values, and confidence intervals, and on communicating findings from hypothesis tests in a statistically sound and meaningful way.</div>
+<p class="tm-jump"><a href="#materials-topic-6">Materials for topic 6 (2)</a></p>
 <ul>
 <li><strong>Understanding the Test Statistic</strong> <span class="el-body">— A test statistic summarizes how far the observed sample data deviates from what would be expected under the null hypothesis, expressed in standardized units.</span></li>
 <li><strong>Interpreting P-Values Correctly</strong> <span class="el-body">— The p-value represents the probability of obtaining a test statistic at least as extreme as the one observed, assuming the null hypothesis is true.</span></li>
@@ -126,6 +140,44 @@ li{margin:5px 0}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
+<h2 id="materials">Materials for Each Topic</h2>
+<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
+<h3 id="materials-topic-1">1. Two-Sample Hypothesis Tests</h3>
+<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
+<ul class="tm">
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_interactive_topics_t1.html">Two-Sample Hypothesis Tests</a> <span class="tm-kind">Topic Detail · Web page</span></li>
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_t1_videos.html">Two-Sample Hypothesis Tests — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
+</ul>
+<h3 id="materials-topic-2">2. Paired Sample Comparisons</h3>
+<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
+<ul class="tm">
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_interactive_topics_t2.html">Paired Sample Comparisons</a> <span class="tm-kind">Topic Detail · Web page</span></li>
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_t2_videos.html">Paired Sample Comparisons — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
+</ul>
+<h3 id="materials-topic-3">3. Selecting the Appropriate Statistical Test</h3>
+<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
+<ul class="tm">
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_interactive_topics_t3.html">Selecting the Appropriate Statistical Test</a> <span class="tm-kind">Topic Detail · Web page</span></li>
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_t3_videos.html">Selecting the Appropriate Statistical Test — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
+</ul>
+<h3 id="materials-topic-4">4. Assumptions and Conditions for Validity</h3>
+<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
+<ul class="tm">
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_interactive_topics_t4.html">Assumptions and Conditions for Validity</a> <span class="tm-kind">Topic Detail · Web page</span></li>
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_t4_videos.html">Assumptions and Conditions for Validity — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
+</ul>
+<h3 id="materials-topic-5">5. Introduction to Non-Parametric Methods</h3>
+<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
+<ul class="tm">
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_interactive_topics_t5.html">Introduction to Non-Parametric Methods</a> <span class="tm-kind">Topic Detail · Web page</span></li>
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_t5_videos.html">Introduction to Non-Parametric Methods — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
+</ul>
+<h3 id="materials-topic-6">6. Interpreting and Communicating Results</h3>
+<p class="tm-back"><a href="#topic-6">↑ Back to topic 6</a></p>
+<ul class="tm">
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_interactive_topics_t6.html">Interpreting and Communicating Results</a> <span class="tm-kind">Topic Detail · Web page</span></li>
+<li><a href="content/Week_10_Module_9_-_Hypothesis_Testing_II_t6_videos.html">Interpreting and Communicating Results — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
+</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
