@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 5/Module 4 - Discrete Probability Distributions</a></div>
 <h1>Week 5/Module 4 - Discrete Probability Distributions — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Introduction to Discrete Probability Distributions</h3>
-<div class="summary">This topic establishes the foundational concepts of discrete probability distributions, explaining how probabilities are assigned to distinct, countable outcomes. Learners will understand the defining characteristics that differentiate discrete distributions from other types.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Introduction to Discrete Probability Distributions</h2>
+<h3>Description</h3>
+<p class="desc">This topic establishes the foundational concepts of discrete probability distributions, explaining how probabilities are assigned to distinct, countable outcomes. Learners will understand the defining characteristics that differentiate discrete distributions from other types.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is a Discrete Probability Distribution?</strong> <span class="el-body">— A discrete probability distribution describes how probabilities are assigned to each possible distinct, countable outcome of a random variable.</span></li>
 <li><strong>Discrete vs. Continuous Random Variables</strong> <span class="el-body">— Understanding the distinction between discrete and continuous random variables is essential for selecting the correct probability model.</span></li>
@@ -51,9 +55,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Probability Distribution Tables and Notation</strong> <span class="el-body">— Discrete probability distributions are commonly represented using tables, formulas, or graphs that pair each outcome with its probability.</span></li>
 <li><strong>Real-World Contexts for Discrete Distributions</strong> <span class="el-body">— Discrete probability distributions model a wide variety of real-world phenomena where outcomes are counted rather than measured.</span></li>
 </ul>
-<h3 id="topic-2">2. Probability Mass Functions and Distribution Properties</h3>
-<div class="summary">Learners explore the probability mass function (PMF) as the core tool for describing discrete distributions, along with essential properties such as non-negativity and the requirement that all probabilities sum to one. Key rules for constructing and validating a valid discrete probability distribution are covered.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t1.html">Introduction to Discrete Probability Distributions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces discrete probability distributions by explaining what a probability distribution is, why countable outcomes require discrete models, and how distributions form the foundation for quantifying uncertainty — learners read it to build conceptual grounding before studying specific distribution types.</div></li>
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t1_videos.html">Introduction to Discrete Probability Distributions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">An introductory reading that defines discrete random variables and probability distributions, explaining how listing every possible value with its probability extends earlier work on single-event probability, which learners use to frame the rest of the module with engineering examples such as die rolls and counts of defective parts.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Probability Mass Functions and Distribution Properties</h2>
+<h3>Description</h3>
+<p class="desc">Learners explore the probability mass function (PMF) as the core tool for describing discrete distributions, along with essential properties such as non-negativity and the requirement that all probabilities sum to one. Key rules for constructing and validating a valid discrete probability distribution are covered.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is a Probability Mass Function (PMF)?</strong> <span class="el-body">— A probability mass function (PMF) is the fundamental mathematical tool used to describe a discrete probability distribution by assigning a probability to each distinct outcome.</span></li>
 <li><strong>Non-Negativity Property</strong> <span class="el-body">— One of the essential properties of a valid PMF is non-negativity, which requires that every assigned probability must be greater than or equal to zero.</span></li>
@@ -62,9 +74,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Validating a Probability Distribution</strong> <span class="el-body">— Before applying a probability distribution to solve problems, learners must confirm that it satisfies the two core rules: non-negativity and the total sum equal to one.</span></li>
 <li><strong>Interpreting PMF Values in Context</strong> <span class="el-body">— Each PMF value carries a direct, interpretable meaning: it represents the likelihood that the random variable equals a specific outcome in a given scenario.</span></li>
 </ul>
-<h3 id="topic-3">3. Expected Value and Variance of Discrete Distributions</h3>
-<div class="summary">This topic covers the calculation and interpretation of expected value (mean) and variance for discrete random variables. Learners will understand what these measures reveal about the center and spread of a distribution in practical contexts.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t2.html">Probability Mass Functions and Distribution Properties</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains probability mass functions (PMFs), cumulative distribution functions (CDFs), and key properties such as non-negativity and summing to one, using examples like die rolls and coin flips — learners use it to understand the formal mathematical structure that all discrete distributions share.</div></li>
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t2_videos.html">Probability Mass Functions and Distribution Properties — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson on probability mass functions that covers how a PMF assigns probability to each value of a discrete random variable and the properties a valid distribution must satisfy (non-negative probabilities summing to one), with cumulative distribution ideas; learners use it to build and verify PMFs for counting scenarios like defective parts or packet drops.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Expected Value and Variance of Discrete Distributions</h2>
+<h3>Description</h3>
+<p class="desc">This topic covers the calculation and interpretation of expected value (mean) and variance for discrete random variables. Learners will understand what these measures reveal about the center and spread of a distribution in practical contexts.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Definition of Expected Value</strong> <span class="el-body">— The expected value (mean) of a discrete random variable is the weighted average of all possible outcomes, where each outcome is weighted by its probability of occurrence.</span></li>
 <li><strong>Interpreting Expected Value in Context</strong> <span class="el-body">— Interpreting the expected value means understanding what the computed mean tells us about the real-world scenario modeled by the distribution.</span></li>
@@ -73,9 +93,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Interpreting Variance and Standard Deviation</strong> <span class="el-body">— Variance and standard deviation reveal how much variability or uncertainty exists in the outcomes of a discrete random variable, supplementing the information provided by the expected value alone.</span></li>
 <li><strong>Practical Applications of Expected Value and Variance</strong> <span class="el-body">— Expected value and variance are foundational tools used across many fields to support decision-making under uncertainty.</span></li>
 </ul>
-<h3 id="topic-4">4. The Binomial Distribution</h3>
-<div class="summary">Learners examine the binomial distribution, its conditions, formula, and applications to scenarios involving a fixed number of independent trials with two possible outcomes. Probability calculations, expected values, and variances specific to the binomial setting are practiced.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t3.html">Expected Value and Variance of Discrete Distributions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers how to calculate and interpret expected value (mean) and variance for discrete random variables, including the formulas and their meaning as measures of center and spread — learners use it to summarize and compare distribution behavior quantitatively.</div></li>
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t3_videos.html">Expected Value and Variance of Discrete Distributions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on summarizing a distribution through expected value E(X) as the probability-weighted center and variance/standard deviation as the measure of spread, including the computational formulas; learners use it to calculate and interpret these summary measures for any discrete PMF.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. The Binomial Distribution</h2>
+<h3>Description</h3>
+<p class="desc">Learners examine the binomial distribution, its conditions, formula, and applications to scenarios involving a fixed number of independent trials with two possible outcomes. Probability calculations, expected values, and variances specific to the binomial setting are practiced.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Conditions for a Binomial Experiment</strong> <span class="el-body">— A binomial distribution applies only when a specific set of conditions is met by the experiment or process being studied.</span></li>
 <li><strong>The Binomial Probability Formula</strong> <span class="el-body">— The binomial formula calculates the probability of obtaining exactly k successes in n independent trials.</span></li>
@@ -84,9 +112,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Variance and Standard Deviation of the Binomial Distribution</strong> <span class="el-body">— The variance and standard deviation measure the spread of outcomes around the expected value in a binomial distribution.</span></li>
 <li><strong>Applying the Binomial Distribution to Real-World Scenarios</strong> <span class="el-body">— The binomial distribution is widely used to model real-world situations where outcomes are counted as successes or failures across a fixed number of trials.</span></li>
 </ul>
-<h3 id="topic-5">5. The Poisson Distribution</h3>
-<div class="summary">This topic introduces the Poisson distribution as a model for counting the number of events occurring within a fixed interval of time or space. Learners will apply the Poisson formula to real-world problems and interpret the rate parameter in context.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t4.html">The Binomial Distribution</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains the binomial distribution, its four required conditions (fixed trials, two outcomes, constant probability, independence), the PMF formula, and its mean and variance — learners use it to model and solve problems involving a fixed number of repeated binary-outcome experiments.</div></li>
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t4_videos.html">The Binomial Distribution — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A topic covering the binomial distribution — the four conditions of fixed independent trials with constant success probability, the binomial PMF, and its mean and variance — which learners apply to problems such as counting defective parts in a sample of 50 or successful packet transmissions.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. The Poisson Distribution</h2>
+<h3>Description</h3>
+<p class="desc">This topic introduces the Poisson distribution as a model for counting the number of events occurring within a fixed interval of time or space. Learners will apply the Poisson formula to real-world problems and interpret the rate parameter in context.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is the Poisson Distribution?</strong> <span class="el-body">— The Poisson distribution models the number of times an event occurs within a fixed interval of time, space, distance, or volume.</span></li>
 <li><strong>The Rate Parameter (λ)</strong> <span class="el-body">— The Greek letter lambda (λ) is the defining parameter of the Poisson distribution, representing the average number of events expected to occur in a given interval.</span></li>
@@ -95,9 +131,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Conditions for Using the Poisson Distribution</strong> <span class="el-body">— Before applying the Poisson distribution, it is important to verify that the situation satisfies the required assumptions.</span></li>
 <li><strong>Applying the Poisson Formula to Real-World Problems</strong> <span class="el-body">— Solving Poisson probability problems involves identifying λ from context, selecting the correct value of x, and substituting into the formula.</span></li>
 </ul>
-<h3 id="topic-6">6. Applying Discrete Distributions to Real-World Problems</h3>
-<div class="summary">Learners synthesize their knowledge by identifying the appropriate discrete distribution for a given scenario and executing full probability analyses. Practical exercises reinforce the ability to select, apply, and interpret distribution results across diverse fields.</div>
-<p class="tm-jump"><a href="#materials-topic-6">Materials for topic 6 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t5.html">The Poisson Distribution</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces the Poisson distribution, explaining how it models the count of events occurring in a fixed interval of time, area, or volume, along with its PMF, single parameter λ, and mean and variance — learners use it to analyze rare or randomly occurring events when the binomial model does not apply.</div></li>
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t5_videos.html">The Poisson Distribution — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson on the Poisson distribution for modeling counts of events over a fixed interval of time, length, area, or volume using the rate parameter lambda, including its PMF, mean and variance, and its use as an approximation to the binomial; learners apply it to cases like weld defects per meter or help-desk calls per hour.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-6">
+<h2 id="topic-6">6. Applying Discrete Distributions to Real-World Problems</h2>
+<h3>Description</h3>
+<p class="desc">Learners synthesize their knowledge by identifying the appropriate discrete distribution for a given scenario and executing full probability analyses. Practical exercises reinforce the ability to select, apply, and interpret distribution results across diverse fields.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Identifying the Right Distribution for a Scenario</strong> <span class="el-body">— The first step in any discrete probability problem is selecting the distribution that best matches the structure of the situation.</span></li>
 <li><strong>Setting Up the Problem Parameters</strong> <span class="el-body">— Once the appropriate distribution is identified, the next step is extracting and defining the numerical parameters needed to apply the distribution formula.</span></li>
@@ -107,6 +151,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Applying Distributions Across Diverse Fields</strong> <span class="el-body">— Discrete distributions appear across many professional domains, and recognizing their presence in varied contexts builds versatile analytical skills.</span></li>
 <li><strong>Common Pitfalls and Problem-Solving Strategies</strong> <span class="el-body">— Awareness of frequent errors and the use of systematic strategies significantly improve accuracy and confidence when solving applied discrete probability problems.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t6.html">Applying Discrete Distributions to Real-World Problems</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading demonstrates how to identify which discrete distribution (binomial, Poisson, or other) applies to real-world engineering and applied-science scenarios and walks through problem-solving strategies for each — learners and instructors use it to practice selecting the correct model and executing full solutions on practical problems.</div></li>
+<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t6_videos.html">Applying Discrete Distributions to Real-World Problems — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A synthesis topic that teaches learners to read an unlabeled real-world scenario and choose among the Bernoulli, binomial, geometric, negative binomial, hypergeometric, and Poisson models, then carry out and interpret the calculation — useful as practice in model selection before assessments.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -136,44 +188,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Introduction to Discrete Probability Distributions</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t1.html">Introduction to Discrete Probability Distributions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t1_videos.html">Introduction to Discrete Probability Distributions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Probability Mass Functions and Distribution Properties</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t2.html">Probability Mass Functions and Distribution Properties</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t2_videos.html">Probability Mass Functions and Distribution Properties — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Expected Value and Variance of Discrete Distributions</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t3.html">Expected Value and Variance of Discrete Distributions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t3_videos.html">Expected Value and Variance of Discrete Distributions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. The Binomial Distribution</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t4.html">The Binomial Distribution</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t4_videos.html">The Binomial Distribution — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. The Poisson Distribution</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t5.html">The Poisson Distribution</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t5_videos.html">The Poisson Distribution — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-6">6. Applying Discrete Distributions to Real-World Problems</h3>
-<p class="tm-back"><a href="#topic-6">↑ Back to topic 6</a></p>
-<ul class="tm">
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_interactive_topics_t6.html">Applying Discrete Distributions to Real-World Problems</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_5_Module_4_-_Discrete_Probability_Distributions_t6_videos.html">Applying Discrete Distributions to Real-World Problems — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 4/Module 3 Probability Concepts</a></div>
 <h1>Week 4/Module 3 Probability Concepts — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Introduction to Probability</h3>
-<div class="summary">This topic establishes the foundational language and concepts of probability, including definitions of likelihood, uncertainty, and the role probability plays in data analysis and decision-making.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Introduction to Probability</h2>
+<h3>Description</h3>
+<p class="desc">This topic establishes the foundational language and concepts of probability, including definitions of likelihood, uncertainty, and the role probability plays in data analysis and decision-making.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is Probability?</strong> <span class="el-body">— Probability is a numerical measure of the likelihood that a specific event will occur, expressed as a value between 0 and 1.</span></li>
 <li><strong>Uncertainty and Its Role in Probability</strong> <span class="el-body">— Uncertainty refers to situations where the outcome of an event cannot be known in advance with complete confidence, and probability provides a structured way to reason about such situations.</span></li>
@@ -52,9 +56,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Probability in Data Analysis and Decision-Making</strong> <span class="el-body">— Probability serves as a critical tool in data analysis, enabling analysts and decision-makers to evaluate risk, predict outcomes, and draw evidence-based conclusions.</span></li>
 <li><strong>Theoretical vs. Experimental Probability</strong> <span class="el-body">— Probability can be determined either through logical reasoning about equally likely outcomes (theoretical) or by observing the results of repeated trials (experimental).</span></li>
 </ul>
-<h3 id="topic-2">2. Sample Spaces and Events</h3>
-<div class="summary">Learners explore how to define and construct sample spaces and identify events within them, forming the structural basis for all probability calculations.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t1.html">Introduction to Probability</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces probability as a formal system for quantifying uncertainty, explaining its foundational concepts and relevance to engineering, data science, and everyday decision-making; learners use it to build conceptual grounding before tackling calculations.</div></li>
+<li><a href="content/Week_4_Module_3_Probability_Concepts_t1_videos.html">Introduction to Probability — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that introduces probability as the mathematical language of uncertainty, explaining the 0-to-1 scale and why engineers need a disciplined way to quantify variability in materials, sensors, failures, and measurements; learners use it as the conceptual entry point to the module.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Sample Spaces and Events</h2>
+<h3>Description</h3>
+<p class="desc">Learners explore how to define and construct sample spaces and identify events within them, forming the structural basis for all probability calculations.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Defining a Sample Space</strong> <span class="el-body">— A sample space is the complete set of all possible outcomes of a probability experiment.</span></li>
 <li><strong>Types of Sample Spaces</strong> <span class="el-body">— Sample spaces can be classified as finite, countably infinite, or continuous depending on the nature of the experiment.</span></li>
@@ -63,9 +75,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Relationships Between Events</strong> <span class="el-body">— Events within the same sample space can relate to one another through union, intersection, and complementation, which are fundamental to probability rules.</span></li>
 <li><strong>Equally Likely Outcomes and Their Importance</strong> <span class="el-body">— When all outcomes in a sample space are equally likely, the probability of any event can be calculated with a straightforward ratio.</span></li>
 </ul>
-<h3 id="topic-3">3. Theoretical vs. Experimental Probability</h3>
-<div class="summary">This topic distinguishes between theoretical probability derived from logical reasoning and experimental probability obtained through real-world trials and observation.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t2.html">Sample Spaces and Events</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading defines sample spaces and events as the mathematical foundation of probability, explaining how to identify all possible outcomes and structure them before assigning likelihoods; learners use it to set up problems correctly before applying any probability rules.</div></li>
+<li><a href="content/Week_4_Module_3_Probability_Concepts_t2_videos.html">Sample Spaces and Events — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson defining sample spaces (the complete list of possible outcomes of an experiment) and events (subsets of interest), with engineering examples such as defective parts and multiple-sensor failures; learners use it to set up problems correctly before computing any probability.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Theoretical vs. Experimental Probability</h2>
+<h3>Description</h3>
+<p class="desc">This topic distinguishes between theoretical probability derived from logical reasoning and experimental probability obtained through real-world trials and observation.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Defining Theoretical Probability</strong> <span class="el-body">— Theoretical probability is determined through logical reasoning and mathematical analysis, without conducting any experiments or trials.</span></li>
 <li><strong>Defining Experimental Probability</strong> <span class="el-body">— Experimental probability is derived from actual observations or trials conducted in the real world, reflecting what actually happens rather than what is expected.</span></li>
@@ -74,9 +94,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Practical Applications of Each Type</strong> <span class="el-body">— Both theoretical and experimental probability are used in data analysis and decision-making, each suited to different real-world scenarios.</span></li>
 <li><strong>Comparing Results and Identifying Discrepancies</strong> <span class="el-body">— Comparing theoretical and experimental probabilities allows analysts to assess whether a model is accurate or whether real-world conditions are introducing unexpected variation.</span></li>
 </ul>
-<h3 id="topic-4">4. Core Probability Rules</h3>
-<div class="summary">Learners study the fundamental rules governing probability, including the addition rule, multiplication rule, and complementary probability, to calculate outcomes accurately.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t3.html">Theoretical vs. Experimental Probability</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading contrasts theoretical probability (based on logical reasoning and equally likely outcomes) with experimental probability (based on observed data and relative frequency), helping learners understand when and how to apply each approach.</div></li>
+<li><a href="content/Week_4_Module_3_Probability_Concepts_t3_videos.html">Theoretical vs. Experimental Probability — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson contrasting theoretical probability, derived by counting equally likely favorable outcomes over total outcomes, with experimental or empirical probability estimated from observed trials; learners use it to decide which approach fits a given situation and to see how the two converge.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. Core Probability Rules</h2>
+<h3>Description</h3>
+<p class="desc">Learners study the fundamental rules governing probability, including the addition rule, multiplication rule, and complementary probability, to calculate outcomes accurately.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Complementary Probability</strong> <span class="el-body">— The complement of an event A is the probability that A does NOT occur, expressed as P(A&#39;) = 1 - P(A).</span></li>
 <li><strong>The Addition Rule for Mutually Exclusive Events</strong> <span class="el-body">— When two events cannot occur at the same time, they are mutually exclusive, and the probability of either occurring is the sum of their individual probabilities.</span></li>
@@ -85,9 +113,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>The General Multiplication Rule and Conditional Probability</strong> <span class="el-body">— When two events are dependent, the occurrence of one affects the probability of the other, requiring the use of conditional probability in the multiplication rule.</span></li>
 <li><strong>Applying the Rules Together in Multi-Step Problems</strong> <span class="el-body">— Real-world probability problems often require combining the addition rule, multiplication rule, and complementary probability in sequence to reach a solution.</span></li>
 </ul>
-<h3 id="topic-5">5. Interpreting and Applying Probability in Context</h3>
-<div class="summary">This topic focuses on translating probability calculations into meaningful interpretations within real-world scenarios, reinforcing practical application in data analysis and informed decision-making.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t4.html">Core Probability Rules</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers the core rules of probability—including addition, multiplication, and complement rules—explaining how to combine and calculate probabilities correctly; learners use it as a reference for solving multi-event probability problems.</div></li>
+<li><a href="content/Week_4_Module_3_Probability_Concepts_t4_videos.html">Core Probability Rules — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson covering the core operations for combining events — complementary probability, the addition rule for &#39;or&#39; situations including mutually exclusive cases, and multiplication for joint events; learners use it as the rulebook for computing probabilities of compound events.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Interpreting and Applying Probability in Context</h2>
+<h3>Description</h3>
+<p class="desc">This topic focuses on translating probability calculations into meaningful interpretations within real-world scenarios, reinforcing practical application in data analysis and informed decision-making.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Translating Probability Values into Plain Language</strong> <span class="el-body">— A probability value only becomes useful when it is expressed in terms that relate directly to the situation being analyzed.</span></li>
 <li><strong>Distinguishing Theoretical from Experimental Probability in Context</strong> <span class="el-body">— Understanding whether a probability is derived theoretically or from observed data is critical to interpreting it correctly in real-world applications.</span></li>
@@ -97,6 +133,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Using Sample Spaces to Ground Probability Interpretations</strong> <span class="el-body">— A clearly defined sample space ensures that probability calculations are grounded in all possible outcomes, preventing incomplete or misleading interpretations.</span></li>
 <li><strong>Communicating Probability Findings to Non-Technical Audiences</strong> <span class="el-body">— Effectively applying probability in context requires translating statistical findings into clear, accessible language for stakeholders who may not have a quantitative background.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t5.html">Interpreting and Applying Probability in Context</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading focuses on interpreting and communicating probability values in real-world contexts, moving beyond calculation to explain what a probability means and how to apply it in decision-making; learners and instructors use it to connect mathematical results to practical reasoning.</div></li>
+<li><a href="content/Week_4_Module_3_Probability_Concepts_t5_videos.html">Interpreting and Applying Probability in Context — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson on interpreting probability results in context, translating values like 0.03, 0.5, or 0.97 into plain-language statements of likelihood and decision-relevant meaning; learners use it to communicate and act on probability calculations rather than just produce numbers.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -126,38 +170,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Introduction to Probability</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t1.html">Introduction to Probability</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_4_Module_3_Probability_Concepts_t1_videos.html">Introduction to Probability — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Sample Spaces and Events</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t2.html">Sample Spaces and Events</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_4_Module_3_Probability_Concepts_t2_videos.html">Sample Spaces and Events — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Theoretical vs. Experimental Probability</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t3.html">Theoretical vs. Experimental Probability</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_4_Module_3_Probability_Concepts_t3_videos.html">Theoretical vs. Experimental Probability — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. Core Probability Rules</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t4.html">Core Probability Rules</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_4_Module_3_Probability_Concepts_t4_videos.html">Core Probability Rules — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Interpreting and Applying Probability in Context</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_4_Module_3_Probability_Concepts_printable_topics_t5.html">Interpreting and Applying Probability in Context</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_4_Module_3_Probability_Concepts_t5_videos.html">Interpreting and Applying Probability in Context — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

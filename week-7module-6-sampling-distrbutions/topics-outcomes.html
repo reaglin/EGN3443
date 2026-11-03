@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 7/Module 6 - Sampling Distrbutions</a></div>
 <h1>Week 7/Module 6 - Sampling Distrbutions — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Introduction to Sampling Distributions</h3>
-<div class="summary">This topic establishes the foundational concept of sampling distributions and explains why they are essential to statistical inference. Learners explore how sample statistics vary across repeated samples drawn from a population.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Introduction to Sampling Distributions</h2>
+<h3>Description</h3>
+<p class="desc">This topic establishes the foundational concept of sampling distributions and explains why they are essential to statistical inference. Learners explore how sample statistics vary across repeated samples drawn from a population.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is a Sampling Distribution?</strong> <span class="el-body">— A sampling distribution is the probability distribution of a given statistic computed from many repeated samples drawn from the same population.</span></li>
 <li><strong>Population Parameters vs. Sample Statistics</strong> <span class="el-body">— A population parameter is a fixed value describing a population, while a sample statistic is a value calculated from a sample that serves as an estimate of that parameter.</span></li>
@@ -51,9 +55,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Variability of Sample Statistics</strong> <span class="el-body">— Sample statistics naturally vary from sample to sample due to random chance in the selection process, a phenomenon called sampling variability or sampling error.</span></li>
 <li><strong>The Role of Sampling Distributions in Statistical Inference</strong> <span class="el-body">— Sampling distributions serve as the bridge between descriptive statistics (summarizing a sample) and inferential statistics (drawing conclusions about a population).</span></li>
 </ul>
-<h3 id="topic-2">2. Population Parameters vs. Sample Statistics</h3>
-<div class="summary">This topic distinguishes between population parameters and the sample statistics used to estimate them. Learners examine how and why these values differ and what that means for data analysis.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t1.html">Introduction to Sampling Distributions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces the concept of sampling distributions, explaining how they serve as the theoretical link between sample observations and conclusions about a population, laying the groundwork for tools like confidence intervals and hypothesis tests.</div></li>
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t1_videos.html">Introduction to Sampling Distributions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that introduces the concept of a sampling distribution by asking what happens when many samples are drawn from the same population, explaining why sample statistics vary from sample to sample and setting up the vocabulary learners need before studying the Central Limit Theorem.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Population Parameters vs. Sample Statistics</h2>
+<h3>Description</h3>
+<p class="desc">This topic distinguishes between population parameters and the sample statistics used to estimate them. Learners examine how and why these values differ and what that means for data analysis.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Defining Population Parameters</strong> <span class="el-body">— A population parameter is a fixed numerical value that describes a characteristic of an entire population.</span></li>
 <li><strong>Defining Sample Statistics</strong> <span class="el-body">— A sample statistic is a numerical value calculated from a subset of the population, used to estimate the corresponding population parameter.</span></li>
@@ -62,9 +74,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Sampling Error and Its Implications</strong> <span class="el-body">— Sampling error is the natural discrepancy between a sample statistic and the population parameter it estimates, arising from the randomness of sample selection.</span></li>
 <li><strong>Practical Implications for Data Analysis</strong> <span class="el-body">— Understanding the distinction between parameters and statistics is essential for correctly interpreting data analysis results and drawing valid conclusions.</span></li>
 </ul>
-<h3 id="topic-3">3. The Central Limit Theorem</h3>
-<div class="summary">This topic introduces the Central Limit Theorem and explains how it guarantees that sampling distributions of the mean approach normality under sufficient sample sizes. Learners explore the conditions and implications of this foundational theorem.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t2.html">Population Parameters vs. Sample Statistics</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading clarifies the distinction between population parameters (fixed, usually unknown values describing an entire group) and sample statistics (values calculated from a subset), explaining how statistics are used to estimate parameters and why that distinction matters in engineering and research contexts.</div></li>
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t2_videos.html">Population Parameters vs. Sample Statistics — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that distinguishes fixed population parameters (such as mu, sigma, and p) from the sample statistics that estimate them (x-bar, s, and p-hat), using engineering examples like bolt production and weld inspection so learners can correctly identify and notate each in a problem.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. The Central Limit Theorem</h2>
+<h3>Description</h3>
+<p class="desc">This topic introduces the Central Limit Theorem and explains how it guarantees that sampling distributions of the mean approach normality under sufficient sample sizes. Learners explore the conditions and implications of this foundational theorem.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is the Central Limit Theorem?</strong> <span class="el-body">— The Central Limit Theorem (CLT) is one of the most important results in statistics, stating that the sampling distribution of the sample mean will approach a normal distribution as sample size increases, regardless of the population&#39;s original shape.</span></li>
 <li><strong>The Role of Sample Size</strong> <span class="el-body">— Sample size is the critical factor that determines how quickly and completely the sampling distribution of the mean converges to normality.</span></li>
@@ -73,9 +93,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Conditions for Applying the CLT</strong> <span class="el-body">— While the CLT is broadly applicable, certain conditions should be met to ensure its validity in practice.</span></li>
 <li><strong>Implications for Statistical Inference</strong> <span class="el-body">— The Central Limit Theorem makes it possible to use normal distribution methods to draw conclusions about population parameters, even when little is known about the population&#39;s true distribution.</span></li>
 </ul>
-<h3 id="topic-4">4. The Effect of Sample Size on Variability</h3>
-<div class="summary">This topic investigates how increasing or decreasing sample size affects the spread and reliability of a sampling distribution. Learners connect sample size to standard error and the precision of statistical estimates.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t3.html">The Central Limit Theorem</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains the Central Limit Theorem, describing how the distribution of sample means approaches normality as sample size increases regardless of the population&#39;s original shape, and why this result makes probability calculations about sample means tractable in practice.</div></li>
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t3_videos.html">The Central Limit Theorem — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on the Central Limit Theorem explaining that the distribution of sample means approaches normality as sample size grows regardless of the population&#39;s shape, which learners use to justify applying normal-based probability calculations to sample means.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. The Effect of Sample Size on Variability</h2>
+<h3>Description</h3>
+<p class="desc">This topic investigates how increasing or decreasing sample size affects the spread and reliability of a sampling distribution. Learners connect sample size to standard error and the precision of statistical estimates.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is Standard Error?</strong> <span class="el-body">— Standard error (SE) is the measure of variability in a sampling distribution, representing how much sample means are expected to differ from the true population mean.</span></li>
 <li><strong>The Inverse Relationship Between Sample Size and Spread</strong> <span class="el-body">— As sample size increases, the spread of the sampling distribution narrows, meaning estimates become more consistent and reliable.</span></li>
@@ -84,9 +112,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Practical Trade-offs in Choosing Sample Size</strong> <span class="el-body">— While larger samples improve precision, researchers must balance statistical benefits against real-world constraints such as cost, time, and feasibility.</span></li>
 <li><strong>Connecting Sample Size to Statistical Inference</strong> <span class="el-body">— Understanding how sample size affects variability is essential for interpreting confidence intervals, hypothesis tests, and the overall reliability of statistical conclusions.</span></li>
 </ul>
-<h3 id="topic-5">5. Interpreting and Applying Sampling Distributions</h3>
-<div class="summary">This topic guides learners through interpreting sampling distributions in the context of real-world data analysis scenarios. Practical examples reinforce how sampling distributions support inference and decision-making.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t4.html">The Effect of Sample Size on Variability</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading examines how increasing sample size reduces the variability of sample statistics, covering the standard error concept and explaining why larger samples produce more precise and reliable estimates of population parameters.</div></li>
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t4_videos.html">The Effect of Sample Size on Variability — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on how sample size controls the spread of a sampling distribution, developing the standard error formula (sigma divided by the square root of n) and the square-root relationship so learners can predict how much precision is gained by collecting more data.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Interpreting and Applying Sampling Distributions</h2>
+<h3>Description</h3>
+<p class="desc">This topic guides learners through interpreting sampling distributions in the context of real-world data analysis scenarios. Practical examples reinforce how sampling distributions support inference and decision-making.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Reading a Sampling Distribution</strong> <span class="el-body">— Interpreting a sampling distribution requires understanding what the distribution represents: the range of possible values a sample statistic could take across many repeated samples.</span></li>
 <li><strong>Connecting Sampling Distributions to Statistical Inference</strong> <span class="el-body">— Sampling distributions are the backbone of statistical inference, enabling analysts to make probability-based conclusions about a population from a single sample.</span></li>
@@ -95,6 +131,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Real-World Scenario: Estimating a Population Mean</strong> <span class="el-body">— A common application of sampling distributions is estimating a population mean from survey or observational data, such as average customer satisfaction scores or employee productivity levels.</span></li>
 <li><strong>Recognizing Variability and Avoiding Misinterpretation</strong> <span class="el-body">— A critical practical skill is distinguishing natural sampling variability from meaningful differences, which prevents misguided conclusions in data analysis.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t5.html">Interpreting and Applying Sampling Distributions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers how to correctly interpret and apply sampling distributions in practice, distinguishing between distributions of individual values and distributions of statistics, and guiding learners through using sampling distributions to answer probability questions and make inferences about populations.</div></li>
+<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t5_videos.html">Interpreting and Applying Sampling Distributions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that pulls the module&#39;s results together, showing how to interpret a sampling distribution&#39;s mean and standard error and apply them to practical questions such as computing probabilities for sample means and judging whether an observed sample result is unusual.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -124,38 +168,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Introduction to Sampling Distributions</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t1.html">Introduction to Sampling Distributions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t1_videos.html">Introduction to Sampling Distributions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Population Parameters vs. Sample Statistics</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t2.html">Population Parameters vs. Sample Statistics</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t2_videos.html">Population Parameters vs. Sample Statistics — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. The Central Limit Theorem</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t3.html">The Central Limit Theorem</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t3_videos.html">The Central Limit Theorem — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. The Effect of Sample Size on Variability</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t4.html">The Effect of Sample Size on Variability</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t4_videos.html">The Effect of Sample Size on Variability — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Interpreting and Applying Sampling Distributions</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_interactive_topics_t5.html">Interpreting and Applying Sampling Distributions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_7_Module_6_-_Sampling_Distrbutions_t5_videos.html">Interpreting and Applying Sampling Distributions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 11/Module 10 - 2 Sample Hypothesis Testing</a></div>
 <h1>Week 11/Module 10 - 2 Sample Hypothesis Testing — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Foundations of Two-Sample Hypothesis Testing</h3>
-<div class="summary">Introduces the core concepts and purpose of two-sample hypothesis testing, explaining when and why comparing two groups is necessary. Covers the logical framework of null and alternative hypotheses in a two-sample context.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Foundations of Two-Sample Hypothesis Testing</h2>
+<h3>Description</h3>
+<p class="desc">Introduces the core concepts and purpose of two-sample hypothesis testing, explaining when and why comparing two groups is necessary. Covers the logical framework of null and alternative hypotheses in a two-sample context.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Why Two-Sample Testing?</strong> <span class="el-body">— Two-sample hypothesis testing is used when a researcher needs to compare a characteristic — such as a mean or proportion — across two distinct groups rather than evaluating a single group against a fixed value.</span></li>
 <li><strong>The Null Hypothesis in a Two-Sample Context</strong> <span class="el-body">— In two-sample hypothesis testing, the null hypothesis (H₀) asserts that there is no meaningful difference between the two groups being compared.</span></li>
@@ -52,9 +56,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Independent vs. Paired Groups</strong> <span class="el-body">— A foundational distinction in two-sample testing is whether the two groups are independent of each other or whether observations in one group are naturally paired with observations in the other.</span></li>
 <li><strong>Parameters Being Compared</strong> <span class="el-body">— Two-sample tests can be designed to compare different population parameters, most commonly means or proportions, depending on the type of data and the research question.</span></li>
 </ul>
-<h3 id="topic-2">2. Independent vs. Paired Samples</h3>
-<div class="summary">Distinguishes between independent and paired (dependent) sample designs, outlining the characteristics of each group type. Learners explore how the relationship between samples determines the appropriate testing approach.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t1.html">Foundations of Two-Sample Hypothesis Testing</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces the conceptual framework of two-sample hypothesis testing, explaining why comparative questions arise in engineering and science and how two-sample tests extend single-sample inference; learners use it to build foundational understanding before selecting and applying specific tests.</div></li>
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t1_videos.html">Foundations of Two-Sample Hypothesis Testing — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A foundational reading that extends one-sample inference to comparative engineering questions, introducing the logic of testing differences between two means, proportions, or variances and the hypothesis structures used to frame such comparisons.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Independent vs. Paired Samples</h2>
+<h3>Description</h3>
+<p class="desc">Distinguishes between independent and paired (dependent) sample designs, outlining the characteristics of each group type. Learners explore how the relationship between samples determines the appropriate testing approach.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Defining Independent Samples</strong> <span class="el-body">— Independent samples consist of two groups where the observations in one group have no relationship or connection to the observations in the other group.</span></li>
 <li><strong>Defining Paired (Dependent) Samples</strong> <span class="el-body">— Paired samples, also called dependent samples, occur when each observation in one group is meaningfully linked to a specific observation in the other group.</span></li>
@@ -62,9 +74,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>How the Relationship Between Samples Determines the Testing Approach</strong> <span class="el-body">— The nature of the relationship between the two samples directly governs which hypothesis test is appropriate to apply.</span></li>
 <li><strong>Real-World Design Examples</strong> <span class="el-body">— Applying the distinction between independent and paired samples to real-world scenarios helps reinforce when each design is appropriate.</span></li>
 </ul>
-<h3 id="topic-3">3. Assumptions and Conditions for Two-Sample Tests</h3>
-<div class="summary">Examines the statistical assumptions underlying two-sample tests, including normality, equal variances, and random sampling. Covers how to verify these conditions before selecting and applying a test.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t2.html">Independent vs. Paired Samples</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains the critical distinction between independent and paired samples, covering how each design is structured, how pairing affects variability and test selection, and when to use each approach; learners and instructors use it to ensure the correct test type is chosen before any analysis begins.</div></li>
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t2_videos.html">Independent vs. Paired Samples — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson distinguishing independent samples from paired (matched) designs, showing learners how study design determines which two-sample procedure and formula to apply before any calculation is attempted.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Assumptions and Conditions for Two-Sample Tests</h2>
+<h3>Description</h3>
+<p class="desc">Examines the statistical assumptions underlying two-sample tests, including normality, equal variances, and random sampling. Covers how to verify these conditions before selecting and applying a test.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Random Sampling Requirement</strong> <span class="el-body">— Two-sample hypothesis tests require that data in each group be collected through a random sampling process to ensure valid inference.</span></li>
 <li><strong>Normality Assumption</strong> <span class="el-body">— Many two-sample tests assume that the underlying population distributions are approximately normal, particularly when sample sizes are small.</span></li>
@@ -73,9 +93,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Independence of Observations Within Groups</strong> <span class="el-body">— Within each sample, individual observations must be independent of one another — one data point should not influence another within the same group.</span></li>
 <li><strong>Verifying Conditions Before Selecting a Test</strong> <span class="el-body">— Before applying any two-sample test, analysts must systematically verify which assumptions are met to select the most appropriate test statistic.</span></li>
 </ul>
-<h3 id="topic-4">4. Comparing Two Means</h3>
-<div class="summary">Focuses on hypothesis tests for the difference between two population means using t-tests for both independent and paired samples. Learners practice selecting the correct test statistic and interpreting results.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t3.html">Assumptions and Conditions for Two-Sample Tests</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading outlines the statistical assumptions underlying pooled two-sample t-tests, Welch&#39;s t-test, and non-parametric alternatives such as the Mann-Whitney U test, explaining how to check each condition and what violations mean for test validity; learners use it as a pre-analysis checklist before running two-sample tests.</div></li>
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t3_videos.html">Assumptions and Conditions for Two-Sample Tests — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on the assumptions underlying two-sample tests — random sampling, independence within and between groups, normality or sufficient sample size, and equal-variance considerations — so learners can verify conditions before trusting a p-value or confidence interval.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. Comparing Two Means</h2>
+<h3>Description</h3>
+<p class="desc">Focuses on hypothesis tests for the difference between two population means using t-tests for both independent and paired samples. Learners practice selecting the correct test statistic and interpreting results.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Introduction to Two-Sample Mean Comparisons</strong> <span class="el-body">— When researchers want to determine whether two population means differ, they use a two-sample hypothesis test for means. The choice of test depends on whether the samples are independent or paired.</span></li>
 <li><strong>Independent Samples t-Test</strong> <span class="el-body">— The independent samples t-test is used when two groups are drawn from separate, unrelated populations and there is no natural pairing between observations. This test compares the means of the two groups while accounting for variability within each group.</span></li>
@@ -84,9 +112,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Selecting the Correct Test: Independent vs. Paired</strong> <span class="el-body">— Choosing between the independent and paired t-test is a foundational decision that shapes the entire analysis. Selecting the wrong test can invalidate conclusions.</span></li>
 <li><strong>Interpreting Results and Making Decisions</strong> <span class="el-body">— After computing the test statistic, learners must compare it to the critical value or evaluate the p-value to reach a conclusion about the null hypothesis. Interpretation must always be placed in the real-world context of the problem.</span></li>
 </ul>
-<h3 id="topic-5">5. Comparing Two Proportions</h3>
-<div class="summary">Addresses hypothesis testing for the difference between two population proportions using the z-test framework. Covers the setup of hypotheses, calculation of the test statistic, and interpretation of p-values.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t4.html">Comparing Two Means</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers the procedures for comparing two population means using pooled and Welch&#39;s t-tests, including hypothesis formulation, test-statistic calculation, p-value interpretation, and confidence intervals for the difference in means; learners use it as a step-by-step procedural guide for mean-comparison problems.</div></li>
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t4_videos.html">Comparing Two Means — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A core lesson on comparing two population means, covering the pooled and Welch t-tests, paired t-tests, test statistics, and confidence intervals for the difference in means with engineering examples such as alloy strength and cycle time.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Comparing Two Proportions</h2>
+<h3>Description</h3>
+<p class="desc">Addresses hypothesis testing for the difference between two population proportions using the z-test framework. Covers the setup of hypotheses, calculation of the test statistic, and interpretation of p-values.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Setting Up Hypotheses for Two Proportions</strong> <span class="el-body">— Hypothesis testing for two proportions begins by defining the null and alternative hypotheses in terms of the difference between two population proportions, p₁ and p₂.</span></li>
 <li><strong>Assumptions and Conditions for the Two-Proportion Z-Test</strong> <span class="el-body">— Before applying the z-test to two proportions, several conditions must be verified to ensure the sampling distributions of the proportions are approximately normal.</span></li>
@@ -95,9 +131,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Determining and Interpreting the P-Value</strong> <span class="el-body">— The p-value for a two-proportion z-test represents the probability of observing a difference as extreme as the one calculated, assuming the null hypothesis is true.</span></li>
 <li><strong>Drawing Conclusions and Contextual Interpretation</strong> <span class="el-body">— After computing the p-value, the final step is to make a statistical decision and translate it into a meaningful conclusion within the context of the original problem.</span></li>
 </ul>
-<h3 id="topic-6">6. Interpreting Results and Making Data-Driven Decisions</h3>
-<div class="summary">Guides learners in drawing meaningful conclusions from two-sample test outcomes within real-world contexts. Emphasizes communicating findings clearly and using statistical evidence to support decision making.</div>
-<p class="tm-jump"><a href="#materials-topic-6">Materials for topic 6 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t5.html">Comparing Two Proportions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains the two-proportion z-test, covering how to set up hypotheses, calculate the pooled proportion and test statistic, interpret p-values, and construct confidence intervals for the difference between two population proportions; learners use it to analyze comparative rate or proportion problems.</div></li>
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t5_videos.html">Comparing Two Proportions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson on the two-proportion z-test, including the pooled proportion, test statistic, and confidence interval for the difference between two success rates such as defect or pass rates from competing processes.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-6">
+<h2 id="topic-6">6. Interpreting Results and Making Data-Driven Decisions</h2>
+<h3>Description</h3>
+<p class="desc">Guides learners in drawing meaningful conclusions from two-sample test outcomes within real-world contexts. Emphasizes communicating findings clearly and using statistical evidence to support decision making.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Connecting Statistical Results to Real-World Context</strong> <span class="el-body">— A statistically significant result only becomes meaningful when interpreted within the context of the original research question or business problem.</span></li>
 <li><strong>Interpreting the P-Value and Test Statistic</strong> <span class="el-body">— The p-value and test statistic together indicate whether observed differences between two groups are likely due to chance or reflect a true population difference.</span></li>
@@ -107,6 +151,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Making Data-Driven Decisions Based on Test Outcomes</strong> <span class="el-body">— The ultimate goal of two-sample hypothesis testing in applied settings is to support a decision — whether to adopt a new process, policy, product, or intervention.</span></li>
 <li><strong>Recognizing Limitations and Assumptions in Conclusions</strong> <span class="el-body">— Every two-sample test rests on assumptions, and conclusions must acknowledge where those assumptions may not fully hold in the data collected.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t6.html">Interpreting Results and Making Data-Driven Decisions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading focuses on translating hypothesis test outputs—p-values, test statistics, and confidence intervals—into clear, context-specific conclusions and data-driven decisions; learners use it to practice communicating statistical results meaningfully rather than stopping at numerical output.</div></li>
+<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t6_videos.html">Interpreting Results and Making Data-Driven Decisions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on translating test statistics, p-values, and confidence intervals into practical engineering and business decisions, including statistical versus practical significance and the limits of what the evidence supports.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -136,44 +188,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Foundations of Two-Sample Hypothesis Testing</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t1.html">Foundations of Two-Sample Hypothesis Testing</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t1_videos.html">Foundations of Two-Sample Hypothesis Testing — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Independent vs. Paired Samples</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t2.html">Independent vs. Paired Samples</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t2_videos.html">Independent vs. Paired Samples — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Assumptions and Conditions for Two-Sample Tests</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t3.html">Assumptions and Conditions for Two-Sample Tests</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t3_videos.html">Assumptions and Conditions for Two-Sample Tests — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. Comparing Two Means</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t4.html">Comparing Two Means</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t4_videos.html">Comparing Two Means — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Comparing Two Proportions</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t5.html">Comparing Two Proportions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t5_videos.html">Comparing Two Proportions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-6">6. Interpreting Results and Making Data-Driven Decisions</h3>
-<p class="tm-back"><a href="#topic-6">↑ Back to topic 6</a></p>
-<ul class="tm">
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_printable_topics_t6.html">Interpreting Results and Making Data-Driven Decisions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_11_Module_10_-_2_Sample_Hypothesis_Testing_t6_videos.html">Interpreting Results and Making Data-Driven Decisions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 9/Module 8 - Hypothesis Testing</a></div>
 <h1>Week 9/Module 8 - Hypothesis Testing — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Foundations of Hypothesis Testing</h3>
-<div class="summary">Introduces the core concepts and logic underlying hypothesis testing, including the purpose of statistical hypotheses and how they relate to real-world claims.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Foundations of Hypothesis Testing</h2>
+<h3>Description</h3>
+<p class="desc">Introduces the core concepts and logic underlying hypothesis testing, including the purpose of statistical hypotheses and how they relate to real-world claims.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is Hypothesis Testing?</strong> <span class="el-body">— Hypothesis testing is a formal statistical procedure used to evaluate claims or assumptions about a population based on sample data.</span></li>
 <li><strong>The Role of Statistical Hypotheses</strong> <span class="el-body">— A statistical hypothesis is a formal statement about a population parameter that can be tested using sample data.</span></li>
@@ -52,9 +56,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>The Logic of Evidence and Decision-Making</strong> <span class="el-body">— Hypothesis testing operates on the principle of indirect proof: we assume the null hypothesis is true and then assess how compatible the sample data are with that assumption.</span></li>
 <li><strong>Connecting Real-World Claims to Statistical Hypotheses</strong> <span class="el-body">— One of the most important skills in hypothesis testing is translating a practical question or claim into a properly structured pair of statistical hypotheses.</span></li>
 </ul>
-<h3 id="topic-2">2. Formulating Null and Alternative Hypotheses</h3>
-<div class="summary">Covers how to correctly define and distinguish between null and alternative hypotheses, including directional and non-directional hypothesis forms.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t1.html">Foundations of Hypothesis Testing</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that introduces hypothesis testing as a framework for using sample data to make decisions about populations, covering core concepts such as the logic of statistical inference, burden of proof, and the structured steps of a hypothesis test — intended as foundational background for learners beginning the topic.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t1_videos.html">Foundations of Hypothesis Testing — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A conceptual reading that introduces hypothesis testing as a formal decision procedure, reframing engineering questions as &quot;how surprising would this data be if the status quo were true?&quot; and setting up the vocabulary used throughout the week.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Formulating Null and Alternative Hypotheses</h2>
+<h3>Description</h3>
+<p class="desc">Covers how to correctly define and distinguish between null and alternative hypotheses, including directional and non-directional hypothesis forms.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>The Purpose of Hypothesis Formulation</strong> <span class="el-body">— Hypothesis formulation is the foundational step in hypothesis testing, providing a clear framework for evaluating statistical claims about a population.</span></li>
 <li><strong>The Null Hypothesis (H₀)</strong> <span class="el-body">— The null hypothesis represents the default assumption — typically a statement of no effect, no difference, or no relationship between variables.</span></li>
@@ -64,9 +76,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Choosing Between Directional and Non-Directional Forms</strong> <span class="el-body">— Selecting the correct hypothesis form requires careful consideration of the research question, theoretical background, and the consequences of testing in the wrong direction.</span></li>
 <li><strong>Common Errors in Hypothesis Formulation</strong> <span class="el-body">— Incorrectly stated hypotheses can invalidate an entire study, making it essential to verify that both H₀ and H₁ are mutually exclusive, exhaustive, and properly structured.</span></li>
 </ul>
-<h3 id="topic-3">3. Test Statistics and Sampling Distributions</h3>
-<div class="summary">Explains how to select and calculate appropriate test statistics for different scenarios, and how these relate to underlying sampling distributions.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t2.html">Formulating Null and Alternative Hypotheses</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that explains how to correctly formulate null and alternative hypotheses before collecting data, covering the roles of each hypothesis, directional versus non-directional tests, and common pitfalls in hypothesis specification — used by learners to practice translating research questions into formal statistical claims.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t2_videos.html">Formulating Null and Alternative Hypotheses — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson on translating engineering claims into competing statements about a population parameter, explaining why the null hypothesis always carries the equality and how to choose one- versus two-sided alternatives before any calculation begins.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Test Statistics and Sampling Distributions</h2>
+<h3>Description</h3>
+<p class="desc">Explains how to select and calculate appropriate test statistics for different scenarios, and how these relate to underlying sampling distributions.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is a Test Statistic?</strong> <span class="el-body">— A test statistic is a numerical value calculated from sample data that is used to decide whether to reject the null hypothesis.</span></li>
 <li><strong>Sampling Distributions and Their Role</strong> <span class="el-body">— A sampling distribution describes how a test statistic would behave across all possible random samples of the same size if the null hypothesis were true.</span></li>
@@ -76,9 +96,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Degrees of Freedom</strong> <span class="el-body">— Degrees of freedom (df) are a parameter that determines the exact shape of several sampling distributions, including the t, chi-square, and F distributions.</span></li>
 <li><strong>Connecting the Test Statistic to a P-Value</strong> <span class="el-body">— Once a test statistic is calculated, its position within the sampling distribution determines the p-value, which quantifies the probability of observing a result as extreme as the sample under the null hypothesis.</span></li>
 </ul>
-<h3 id="topic-4">4. P-Values and Significance Levels</h3>
-<div class="summary">Explores how to interpret p-values in context, set significance thresholds, and use these tools to make statistically grounded decisions.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t3.html">Test Statistics and Sampling Distributions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that explains what a test statistic is, how it compresses sample data into a single value, and how sampling distributions (such as z, t, and chi-square) are used to evaluate that value under the null hypothesis — used by learners to understand the mathematical bridge between raw data and a hypothesis test decision.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t3_videos.html">Test Statistics and Sampling Distributions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that defines the test statistic as a standardized measure of distance between the sample result and the null-predicted value, and shows which reference sampling distribution (standard normal, t with given degrees of freedom, etc.) applies to each situation.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. P-Values and Significance Levels</h2>
+<h3>Description</h3>
+<p class="desc">Explores how to interpret p-values in context, set significance thresholds, and use these tools to make statistically grounded decisions.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is a P-Value?</strong> <span class="el-body">— A p-value is the probability of observing a test statistic as extreme as, or more extreme than, the one calculated from sample data, assuming the null hypothesis is true.</span></li>
 <li><strong>Setting the Significance Level (α)</strong> <span class="el-body">— The significance level, denoted α, is a pre-defined threshold that researchers set before conducting a test to determine when results will be considered statistically significant.</span></li>
@@ -87,9 +115,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Common Misinterpretations of P-Values</strong> <span class="el-body">— P-values are among the most frequently misunderstood statistics; recognizing common errors in interpretation is essential for drawing sound conclusions.</span></li>
 <li><strong>Using P-Values to Make Statistically Grounded Decisions</strong> <span class="el-body">— Hypothesis testing with p-values provides a structured framework for making data-driven decisions while acknowledging the role of chance and uncertainty.</span></li>
 </ul>
-<h3 id="topic-5">5. Applying Common Hypothesis Tests</h3>
-<div class="summary">Guides learners through the practical application of widely used hypothesis tests to real-world data sets through examples and exercises.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t4.html">P-Values and Significance Levels</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that explains p-values and significance levels (α), how they interact to form a decision rule for rejecting or failing to reject the null hypothesis, and how to correctly interpret p-values — used by learners to understand and apply the core decision-making mechanism of hypothesis testing.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t4_videos.html">P-Values and Significance Levels — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson explaining the p-value as the probability of a result at least as extreme as the observed one when the null is true, and how to compare it to a pre-chosen significance level alpha to reach a reject / fail-to-reject decision.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Applying Common Hypothesis Tests</h2>
+<h3>Description</h3>
+<p class="desc">Guides learners through the practical application of widely used hypothesis tests to real-world data sets through examples and exercises.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>One-Sample t-Test in Practice</strong> <span class="el-body">— The one-sample t-test is used to determine whether a sample mean differs significantly from a known or hypothesized population mean.</span></li>
 <li><strong>Two-Sample t-Test for Comparing Groups</strong> <span class="el-body">— The two-sample t-test evaluates whether the means of two independent groups differ significantly from one another.</span></li>
@@ -99,9 +135,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Selecting the Right Test for Real-World Data</strong> <span class="el-body">— Choosing the appropriate hypothesis test depends on the data type, number of groups, sample size, and whether observations are independent or paired.</span></li>
 <li><strong>Interpreting and Communicating Test Results</strong> <span class="el-body">— Correctly interpreting test outcomes and communicating findings clearly is as important as performing the calculations themselves.</span></li>
 </ul>
-<h3 id="topic-6">6. Type I and Type II Errors</h3>
-<div class="summary">Examines the nature and consequences of errors in hypothesis testing, including how to identify, minimize, and communicate the risk of false conclusions.</div>
-<p class="tm-jump"><a href="#materials-topic-6">Materials for topic 6 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t5.html">Applying Common Hypothesis Tests</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that walks through the step-by-step application of the most commonly used hypothesis tests — including one-sample z and t tests, two-sample tests, and chi-square tests — providing worked examples so learners can see how to select and execute the appropriate test for a given engineering or research scenario.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t5_videos.html">Applying Common Hypothesis Tests — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A worked application page that puts the testing procedure into practice across common engineering data situations — one-sample, two-sample, and related comparisons — so learners can match a data scenario to the correct test and carry it through.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-6">
+<h2 id="topic-6">6. Type I and Type II Errors</h2>
+<h3>Description</h3>
+<p class="desc">Examines the nature and consequences of errors in hypothesis testing, including how to identify, minimize, and communicate the risk of false conclusions.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Defining Type I Error (False Positive)</strong> <span class="el-body">— A Type I error occurs when the null hypothesis is true but is incorrectly rejected, producing a false positive conclusion.</span></li>
 <li><strong>Defining Type II Error (False Negative)</strong> <span class="el-body">— A Type II error occurs when the null hypothesis is false but fails to be rejected, resulting in a missed detection or false negative.</span></li>
@@ -110,9 +154,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Consequences of Each Error Type in Practice</strong> <span class="el-body">— The real-world consequences of Type I and Type II errors vary widely depending on the field and the decision being made.</span></li>
 <li><strong>Communicating Error Risk in Statistical Findings</strong> <span class="el-body">— Clearly reporting the risk of both error types is essential for transparent and trustworthy communication of hypothesis test results.</span></li>
 </ul>
-<h3 id="topic-7">7. Interpreting and Communicating Results</h3>
-<div class="summary">Focuses on how to draw statistically sound conclusions and present hypothesis testing findings clearly, accurately, and with appropriate confidence.</div>
-<p class="tm-jump"><a href="#materials-topic-7">Materials for topic 7 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t6.html">Type I and Type II Errors</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that defines Type I errors (false positives) and Type II errors (false negatives), explains their relationship to α and statistical power, and discusses the consequences of each error type — used by learners to understand the trade-offs and risks inherent in any hypothesis testing decision.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t6_videos.html">Type I and Type II Errors — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading contrasting Type I (false positive, probability alpha) and Type II (false negative, probability beta) errors, used to help learners reason about the trade-off between the two and its connection to power and sample size.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-7">
+<h2 id="topic-7">7. Interpreting and Communicating Results</h2>
+<h3>Description</h3>
+<p class="desc">Focuses on how to draw statistically sound conclusions and present hypothesis testing findings clearly, accurately, and with appropriate confidence.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Drawing Statistically Sound Conclusions</strong> <span class="el-body">— After conducting a hypothesis test, the conclusion must be grounded in the statistical evidence rather than assumptions or desired outcomes.</span></li>
 <li><strong>Interpreting P-Values in Context</strong> <span class="el-body">— The p-value represents the probability of obtaining results at least as extreme as the observed data, assuming the null hypothesis is true.</span></li>
@@ -121,6 +173,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Acknowledging and Communicating Potential Errors</strong> <span class="el-body">— Every hypothesis test carries the risk of Type I and Type II errors, and honest communication of results acknowledges these limitations.</span></li>
 <li><strong>Presenting Results with Appropriate Confidence</strong> <span class="el-body">— Confidence intervals complement hypothesis test results by providing a range of plausible values for the parameter of interest, adding depth to the conclusion.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t7.html">Interpreting and Communicating Results</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">A reading that addresses how to accurately interpret hypothesis test results and communicate findings without overstating conclusions, covering common misinterpretations of p-values, the distinction between statistical and practical significance, and best practices for reporting results — used by learners and instructors to ensure correct understanding and professional communication of statistical analyses.</div></li>
+<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t7_videos.html">Interpreting and Communicating Results — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A closing lesson on correctly interpreting and writing up results, emphasizing what a p-value is not (e.g., the probability the null is true) and how to communicate conclusions in engineering reports, design reviews, and regulatory submissions.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -150,50 +210,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Foundations of Hypothesis Testing</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t1.html">Foundations of Hypothesis Testing</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t1_videos.html">Foundations of Hypothesis Testing — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Formulating Null and Alternative Hypotheses</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t2.html">Formulating Null and Alternative Hypotheses</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t2_videos.html">Formulating Null and Alternative Hypotheses — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Test Statistics and Sampling Distributions</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t3.html">Test Statistics and Sampling Distributions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t3_videos.html">Test Statistics and Sampling Distributions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. P-Values and Significance Levels</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t4.html">P-Values and Significance Levels</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t4_videos.html">P-Values and Significance Levels — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Applying Common Hypothesis Tests</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t5.html">Applying Common Hypothesis Tests</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t5_videos.html">Applying Common Hypothesis Tests — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-6">6. Type I and Type II Errors</h3>
-<p class="tm-back"><a href="#topic-6">↑ Back to topic 6</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t6.html">Type I and Type II Errors</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t6_videos.html">Type I and Type II Errors — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-7">7. Interpreting and Communicating Results</h3>
-<p class="tm-back"><a href="#topic-7">↑ Back to topic 7</a></p>
-<ul class="tm">
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_printable_topics_t7.html">Interpreting and Communicating Results</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_9_Module_8_-_Hypothesis_Testing_t7_videos.html">Interpreting and Communicating Results — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

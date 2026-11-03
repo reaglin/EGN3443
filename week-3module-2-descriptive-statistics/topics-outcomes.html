@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 3/Module 2 - Descriptive Statistics</a></div>
 <h1>Week 3/Module 2 - Descriptive Statistics — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Introduction to Descriptive Statistics</h3>
-<div class="summary">An overview of what descriptive statistics are and why they matter. This topic establishes the foundation for summarising and interpreting data effectively.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Introduction to Descriptive Statistics</h2>
+<h3>Description</h3>
+<p class="desc">An overview of what descriptive statistics are and why they matter. This topic establishes the foundation for summarising and interpreting data effectively.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Are Descriptive Statistics?</strong> <span class="el-body">— Descriptive statistics are numerical and graphical methods used to summarise, organise, and describe the main features of a dataset.</span></li>
 <li><strong>Why Descriptive Statistics Matter</strong> <span class="el-body">— Descriptive statistics provide the foundation for understanding and communicating patterns within data, making them essential in virtually every field that works with data.</span></li>
@@ -51,9 +55,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Summarising Data Meaningfully</strong> <span class="el-body">— Effective use of descriptive statistics means selecting the right measures to accurately represent the dataset and the question being asked.</span></li>
 <li><strong>Descriptive Statistics as a Starting Point</strong> <span class="el-body">— Descriptive statistics serve as the essential first step in any data analysis process, laying the groundwork for deeper investigation.</span></li>
 </ul>
-<h3 id="topic-2">2. Measures of Central Tendency</h3>
-<div class="summary">Exploration of the mean, median, and mode as tools for identifying the centre of a dataset. Learners examine when and how to apply each measure appropriately.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t1.html">Introduction to Descriptive Statistics</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces descriptive statistics as the practice of summarising, organising, and presenting data, giving real-world examples of its use and establishing the conceptual foundation for the measures covered later in the module.</div></li>
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t1_videos.html">Introduction to Descriptive Statistics — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">An opening reading that explains what descriptive statistics are and why engineers summarise raw measurement data into typical values, spread, and visual pictures, used to orient learners before they tackle specific summary measures.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Measures of Central Tendency</h2>
+<h3>Description</h3>
+<p class="desc">Exploration of the mean, median, and mode as tools for identifying the centre of a dataset. Learners examine when and how to apply each measure appropriately.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>The Mean: Arithmetic Average</strong> <span class="el-body">— The mean is calculated by summing all values in a dataset and dividing by the total number of observations. It is the most widely used measure of central tendency.</span></li>
 <li><strong>The Median: Middle Value</strong> <span class="el-body">— The median is the middle value of a dataset when all observations are arranged in ascending or descending order. For an even number of values, it is the average of the two middle values.</span></li>
@@ -61,9 +73,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Comparing Mean, Median, and Mode</strong> <span class="el-body">— Each measure of central tendency describes the centre of a dataset differently, and their relative positions can reveal important information about the shape of the distribution.</span></li>
 <li><strong>Choosing the Appropriate Measure</strong> <span class="el-body">— Selecting the right measure of central tendency depends on the type of data, the shape of its distribution, and the purpose of the analysis. There is no single universally correct choice.</span></li>
 </ul>
-<h3 id="topic-3">3. Measures of Variability</h3>
-<div class="summary">An examination of range, variance, and standard deviation to understand how spread out data values are. This topic helps learners quantify and interpret the dispersion within a dataset.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t2.html">Measures of Central Tendency</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains the three main measures of central tendency — mean, median, and mode — describing what each represents, how each is calculated, and when each is the most appropriate summary of a typical value in a dataset.</div></li>
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t2_videos.html">Measures of Central Tendency — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson page defining the mean, median, and mode as answers to the question &quot;what is a typical value?&quot;, which learners use to compute and compare each measure on engineering data such as test results, failure times, and sensor readings.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Measures of Variability</h2>
+<h3>Description</h3>
+<p class="desc">An examination of range, variance, and standard deviation to understand how spread out data values are. This topic helps learners quantify and interpret the dispersion within a dataset.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is Variability and Why Does It Matter?</strong> <span class="el-body">— Variability describes how spread out or dispersed data values are within a dataset. Understanding variability is essential because two datasets can share the same mean yet differ dramatically in how their values are distributed.</span></li>
 <li><strong>Range: The Simplest Measure of Spread</strong> <span class="el-body">— The range is calculated by subtracting the minimum value in a dataset from the maximum value, giving a quick indication of the total spread of the data.</span></li>
@@ -72,9 +92,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Comparing and Choosing the Right Measure of Variability</strong> <span class="el-body">— Selecting the appropriate measure of variability depends on the nature of the data, the presence of outliers, and the level of detail required for interpretation.</span></li>
 <li><strong>Interpreting Variability in Context</strong> <span class="el-body">— A measure of variability only becomes meaningful when interpreted alongside the mean and within the context of the data being analyzed.</span></li>
 </ul>
-<h3 id="topic-4">4. Data Distribution</h3>
-<div class="summary">An introduction to the shape and pattern of data distributions, including concepts such as skewness and symmetry. Learners develop the ability to recognise and describe how data is spread across a range of values.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t3.html">Measures of Variability</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers measures of variability — including range, variance, and standard deviation — explaining how each quantifies the spread of data around a central value and why spread matters even when two datasets share the same mean.</div></li>
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t3_videos.html">Measures of Variability — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on quantifying spread — range, variance, standard deviation, and related measures — that shows why datasets with identical means can behave very differently and helps learners judge whether a process or measurement system is acceptable.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. Data Distribution</h2>
+<h3>Description</h3>
+<p class="desc">An introduction to the shape and pattern of data distributions, including concepts such as skewness and symmetry. Learners develop the ability to recognise and describe how data is spread across a range of values.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What is a Data Distribution?</strong> <span class="el-body">— A data distribution describes how values in a dataset are spread or arranged across a range, showing where values tend to cluster and how frequently different values occur.</span></li>
 <li><strong>Symmetrical Distributions</strong> <span class="el-body">— A distribution is symmetrical when the left and right sides of the data pattern mirror each other around a central point.</span></li>
@@ -84,9 +112,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Describing the Spread of a Distribution</strong> <span class="el-body">— Beyond shape, a distribution is also characterised by how widely values are spread around the centre, which affects how much variability exists in the data.</span></li>
 <li><strong>Recognising and Describing Distributions in Practice</strong> <span class="el-body">— Learners should be able to look at a dataset or its visual representation and describe its shape, symmetry, and direction of skew in plain language.</span></li>
 </ul>
-<h3 id="topic-5">5. Selecting and Applying Appropriate Statistical Measures</h3>
-<div class="summary">Guidance on choosing the right descriptive statistics based on data type and analytical context. Learners practise applying these measures to real datasets to communicate meaningful insights clearly and accurately.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t4.html">Data Distribution</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading describes how data values form distributional patterns, covering concepts such as frequency distributions, histogram shapes, skewness, and symmetry so learners can recognise and interpret the overall structure of a dataset.</div></li>
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t4_videos.html">Data Distribution — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A topic page on the shape of data distributions, covering how values cluster or thin out, symmetry versus skew, and reading histograms or dot plots, so learners inspect data visually before computing summary numbers.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Selecting and Applying Appropriate Statistical Measures</h2>
+<h3>Description</h3>
+<p class="desc">Guidance on choosing the right descriptive statistics based on data type and analytical context. Learners practise applying these measures to real datasets to communicate meaningful insights clearly and accurately.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Understanding Data Types Before Selecting Measures</strong> <span class="el-body">— Choosing the right statistical measure begins with correctly identifying whether your data is nominal, ordinal, interval, or ratio. Each data type constrains which descriptive statistics are mathematically meaningful and interpretable.</span></li>
 <li><strong>Choosing the Right Measure of Central Tendency</strong> <span class="el-body">— The mean, median, and mode each summarise a dataset&#39;s centre differently, and the analytical context determines which is most appropriate. Selecting the wrong measure can mislead stakeholders and distort insights.</span></li>
@@ -95,6 +131,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Applying Statistical Measures to Real Datasets</strong> <span class="el-body">— Practising on real datasets reinforces understanding of when and how to apply descriptive statistics correctly. Working with authentic data exposes learners to the messiness and complexity absent from textbook examples.</span></li>
 <li><strong>Communicating Statistical Insights Clearly and Accurately</strong> <span class="el-body">— Computing the right statistics is only half the task; communicating findings in a way that is accurate, clear, and meaningful to the audience completes the analytical process. Poorly communicated statistics can mislead even when the calculations are correct.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t5.html">Selecting and Applying Appropriate Statistical Measures</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading guides learners and instructors on how to choose the correct descriptive statistics for a given dataset by matching measures of central tendency and variability to the appropriate level of measurement and data type to avoid misleading conclusions.</div></li>
+<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t5_videos.html">Selecting and Applying Appropriate Statistical Measures — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A decision-focused reading on matching the statistical measure to the data type and distribution, using examples like means on skewed cost data or modes on continuous readings to teach learners how to choose measures that will not mislead an audience.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -124,38 +168,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Introduction to Descriptive Statistics</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t1.html">Introduction to Descriptive Statistics</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t1_videos.html">Introduction to Descriptive Statistics — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Measures of Central Tendency</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t2.html">Measures of Central Tendency</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t2_videos.html">Measures of Central Tendency — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Measures of Variability</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t3.html">Measures of Variability</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t3_videos.html">Measures of Variability — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. Data Distribution</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t4.html">Data Distribution</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t4_videos.html">Data Distribution — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Selecting and Applying Appropriate Statistical Measures</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_printable_topics_t5.html">Selecting and Applying Appropriate Statistical Measures</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_3_Module_2_-_Descriptive_Statistics_t5_videos.html">Selecting and Applying Appropriate Statistical Measures — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

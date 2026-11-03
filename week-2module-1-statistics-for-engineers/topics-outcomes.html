@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 2/Module 1 - Statistics for Engineers</a></div>
 <h1>Week 2/Module 1 - Statistics for Engineers — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Introduction to Statistics in Engineering</h3>
-<div class="summary">Overview of why statistical thinking is essential for engineers and how data-driven decision-making improves technical outcomes. This topic establishes the foundational vocabulary and framework used throughout the module.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Introduction to Statistics in Engineering</h2>
+<h3>Description</h3>
+<p class="desc">Overview of why statistical thinking is essential for engineers and how data-driven decision-making improves technical outcomes. This topic establishes the foundational vocabulary and framework used throughout the module.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Why Statistics Matters in Engineering</strong> <span class="el-body">— Engineering decisions are rarely made with perfect information, making statistical thinking a critical tool for managing uncertainty and variability in technical work.</span></li>
 <li><strong>Data-Driven Decision-Making</strong> <span class="el-body">— Data-driven decision-making replaces intuition-based judgments with conclusions grounded in systematically collected and analyzed evidence.</span></li>
@@ -53,9 +57,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Understanding Data Variability</strong> <span class="el-body">— Variability is an inherent feature of all engineering data, and recognizing its sources is essential for accurate analysis and process improvement.</span></li>
 <li><strong>Statistical Thinking as an Engineering Mindset</strong> <span class="el-body">— Statistical thinking is more than a set of techniques — it is a disciplined approach to problem-solving that engineers apply throughout the design, testing, and quality assurance lifecycle.</span></li>
 </ul>
-<h3 id="topic-2">2. Descriptive Statistics</h3>
-<div class="summary">Exploration of measures of central tendency, spread, and shape used to summarize and describe datasets. Learners will apply these tools to characterize engineering data clearly and efficiently.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t1.html">Introduction to Statistics in Engineering</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces the role of statistics in engineering practice, explaining why statistical thinking is essential across engineering disciplines such as civil and mechanical engineering, and serves as a conceptual foundation for learners beginning the module.</div></li>
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t1_videos.html">Introduction to Statistics in Engineering — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">An opening reading that explains why engineering decisions are made under uncertainty — material batch variation, instrument error, process drift, and fluctuating loads — and frames statistics as the toolkit for describing variation and quantifying confidence, setting up the rest of the module.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Descriptive Statistics</h2>
+<h3>Description</h3>
+<p class="desc">Exploration of measures of central tendency, spread, and shape used to summarize and describe datasets. Learners will apply these tools to characterize engineering data clearly and efficiently.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Measures of Central Tendency</strong> <span class="el-body">— Measures of central tendency describe the center or typical value of a dataset, giving engineers a single representative figure for a collection of data points.</span></li>
 <li><strong>Measures of Spread (Variability)</strong> <span class="el-body">— Measures of spread quantify how much individual data points deviate from the center of the dataset, which is critical for understanding process consistency and quality in engineering.</span></li>
@@ -64,9 +76,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Percentiles and Quartiles</strong> <span class="el-body">— Percentiles and quartiles divide a dataset into equal parts, providing engineers with precise reference points for understanding data position and spread.</span></li>
 <li><strong>Applying Descriptive Statistics to Engineering Data</strong> <span class="el-body">— Engineering applications require selecting and interpreting the right descriptive statistics to draw meaningful conclusions about processes, materials, and system performance.</span></li>
 </ul>
-<h3 id="topic-3">3. Data Variability and Distribution Shape</h3>
-<div class="summary">Examination of how data varies within engineering contexts, including range, variance, standard deviation, and the visual interpretation of distribution shapes. Understanding variability is critical for assessing process consistency and product quality.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t2.html">Descriptive Statistics</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers descriptive statistics concepts including measures of center, spread, and distribution shape, giving learners the mathematical tools needed to summarize and interpret engineering datasets before conducting deeper analysis.</div></li>
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t2_videos.html">Descriptive Statistics — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on summarizing raw measurement data using measures of center (mean, median, mode), spread (range, variance, standard deviation, interquartile range), and distribution shape, which learners use to practice condensing test results into honest, concise summaries.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Data Variability and Distribution Shape</h2>
+<h3>Description</h3>
+<p class="desc">Examination of how data varies within engineering contexts, including range, variance, standard deviation, and the visual interpretation of distribution shapes. Understanding variability is critical for assessing process consistency and product quality.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Understanding Range as a Variability Measure</strong> <span class="el-body">— Range is the simplest measure of variability, calculated as the difference between the maximum and minimum values in a dataset.</span></li>
 <li><strong>Variance: Quantifying Spread Around the Mean</strong> <span class="el-body">— Variance measures the average squared deviation of each data point from the mean, providing a more comprehensive view of data spread than range.</span></li>
@@ -75,9 +95,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Visual Tools for Interpreting Distribution Shape</strong> <span class="el-body">— Histograms, box plots, and frequency polygons are essential visual tools that allow engineers to quickly assess the shape and spread of a dataset.</span></li>
 <li><strong>Variability and Its Role in Process Consistency and Quality</strong> <span class="el-body">— In engineering and manufacturing, minimizing unwanted variability is fundamental to ensuring product quality, meeting specifications, and maintaining reliable processes.</span></li>
 </ul>
-<h3 id="topic-4">4. Probability Distributions</h3>
-<div class="summary">Introduction to common probability distributions relevant to engineering, such as normal, binomial, and Poisson distributions. Learners will explore how these models represent real-world phenomena and support predictive analysis.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t3.html">Data Variability and Distribution Shape</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains data variability and distribution shape—including how spread, center, and visual form of data are analyzed—and is used by learners to understand how datasets behave in engineering and quality management contexts.</div></li>
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t3_videos.html">Data Variability and Distribution Shape — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that goes beyond averages to examine variability and distribution shape, using examples like two production lines with identical mean shaft diameters but very different consistency, to teach learners how to interpret spread, skewness, and outliers in process data.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. Probability Distributions</h2>
+<h3>Description</h3>
+<p class="desc">Introduction to common probability distributions relevant to engineering, such as normal, binomial, and Poisson distributions. Learners will explore how these models represent real-world phenomena and support predictive analysis.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is a Probability Distribution?</strong> <span class="el-body">— A probability distribution describes how the probabilities of outcomes are spread across the possible values of a random variable.</span></li>
 <li><strong>The Normal Distribution</strong> <span class="el-body">— The normal distribution is a continuous, bell-shaped distribution that is one of the most widely used models in engineering and statistics.</span></li>
@@ -86,9 +114,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Selecting the Right Distribution for Engineering Problems</strong> <span class="el-body">— Choosing an appropriate probability distribution is a critical step in building accurate predictive models for engineering analysis.</span></li>
 <li><strong>Using Distributions for Predictive Analysis in Engineering</strong> <span class="el-body">— Probability distributions are powerful tools for making data-driven predictions about future outcomes in engineering systems.</span></li>
 </ul>
-<h3 id="topic-5">5. Statistical Inference and Interpretation</h3>
-<div class="summary">Principles for drawing conclusions from data samples and interpreting statistical results with confidence. This topic bridges raw data analysis to actionable engineering insights.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t4.html">Probability Distributions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers probability distributions and their mathematical frameworks for modeling uncertainty in engineering scenarios such as manufacturing defects, dimensional variation, and network traffic, helping learners connect probability theory to real engineering decisions.</div></li>
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t4_videos.html">Probability Distributions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading introducing probability distributions as mathematical models of how likely a random variable&#39;s values are, with engineering applications such as out-of-tolerance shaft diameters and defect counts in a lot, enabling learners to make predictions about data not yet collected.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Statistical Inference and Interpretation</h2>
+<h3>Description</h3>
+<p class="desc">Principles for drawing conclusions from data samples and interpreting statistical results with confidence. This topic bridges raw data analysis to actionable engineering insights.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Fundamentals of Statistical Inference</strong> <span class="el-body">— Statistical inference is the process of drawing conclusions about a population based on data collected from a sample. Engineers rely on inference to make decisions without measuring every component or outcome in a system.</span></li>
 <li><strong>Point Estimates and Confidence Intervals</strong> <span class="el-body">— A point estimate provides a single best-guess value for a population parameter, while a confidence interval gives a range within which the true parameter is likely to fall. Confidence intervals are critical in engineering for quantifying uncertainty in measurements and predictions.</span></li>
@@ -97,9 +133,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Sampling Strategies and Their Impact on Inference</strong> <span class="el-body">— The validity of statistical inference depends heavily on how samples are collected. Poor sampling strategies introduce bias and can lead engineers to draw incorrect conclusions from data.</span></li>
 <li><strong>Connecting Inference to Engineering Decision-Making</strong> <span class="el-body">— The ultimate goal of statistical inference in engineering is to support better, evidence-based decisions about design, manufacturing, and quality control. Properly interpreted statistical results reduce reliance on intuition and minimize costly errors.</span></li>
 </ul>
-<h3 id="topic-6">6. Applications in Engineering Analysis and Quality Control</h3>
-<div class="summary">Practical application of statistical methods to engineering problem-solving, process monitoring, and quality assurance. Learners will connect module concepts to real-world scenarios encountered in technical environments.</div>
-<p class="tm-jump"><a href="#materials-topic-6">Materials for topic 6 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t5.html">Statistical Inference and Interpretation</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers statistical inference concepts—drawing conclusions about populations from samples—including methods engineers use when it is impractical to measure entire populations, serving as a guide for learners interpreting sample-based engineering data.</div></li>
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t5_videos.html">Statistical Inference and Interpretation — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading covering statistical inference — point estimates, confidence intervals, sampling, and the interpretation of results — showing learners how to draw defensible conclusions about a population or process from a limited sample.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-6">
+<h2 id="topic-6">6. Applications in Engineering Analysis and Quality Control</h2>
+<h3>Description</h3>
+<p class="desc">Practical application of statistical methods to engineering problem-solving, process monitoring, and quality assurance. Learners will connect module concepts to real-world scenarios encountered in technical environments.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Statistical Process Control (SPC) in Manufacturing</strong> <span class="el-body">— Statistical Process Control uses statistical methods to monitor and control manufacturing processes, ensuring they operate at their full potential.</span></li>
 <li><strong>Descriptive Statistics for Engineering Data Interpretation</strong> <span class="el-body">— Descriptive statistics summarize large datasets into meaningful measures, allowing engineers to quickly characterize the performance and behavior of systems or processes.</span></li>
@@ -108,6 +152,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Data-Driven Decision Making in Engineering Problem-Solving</strong> <span class="el-body">— Applying statistical analysis to engineering challenges enables objective, evidence-based decisions rather than relying solely on intuition or experience.</span></li>
 <li><strong>Variability Management and Tolerance Analysis</strong> <span class="el-body">— Managing variability in engineering systems is critical to ensuring that assemblies and products function correctly across their intended range of operating conditions.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t6.html">Applications in Engineering Analysis and Quality Control</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers applied statistical methods in engineering analysis and quality control, showing learners how to interpret real-world manufacturing and process data using statistical tools to support engineering decision-making and quality assurance.</div></li>
+<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t6_videos.html">Applications in Engineering Analysis and Quality Control — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A capstone reading that applies descriptive measures, distributions, and inference to real engineering decisions such as judging process stability, accepting or rejecting lots, and predicting component life, including quality control techniques.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -137,44 +189,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Introduction to Statistics in Engineering</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t1.html">Introduction to Statistics in Engineering</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t1_videos.html">Introduction to Statistics in Engineering — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Descriptive Statistics</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t2.html">Descriptive Statistics</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t2_videos.html">Descriptive Statistics — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Data Variability and Distribution Shape</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t3.html">Data Variability and Distribution Shape</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t3_videos.html">Data Variability and Distribution Shape — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. Probability Distributions</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t4.html">Probability Distributions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t4_videos.html">Probability Distributions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Statistical Inference and Interpretation</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t5.html">Statistical Inference and Interpretation</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t5_videos.html">Statistical Inference and Interpretation — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-6">6. Applications in Engineering Analysis and Quality Control</h3>
-<p class="tm-back"><a href="#topic-6">↑ Back to topic 6</a></p>
-<ul class="tm">
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_interactive_topics_t6.html">Applications in Engineering Analysis and Quality Control</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_2_Module_1_-_Statistics_for_Engineers_t6_videos.html">Applications in Engineering Analysis and Quality Control — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>

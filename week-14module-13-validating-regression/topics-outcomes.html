@@ -25,25 +25,29 @@ li{margin:5px 0}
 .co{margin:7px 0}
 .co .code{font-weight:600;color:#1a3c6e;margin-right:6px}
 .empty{color:#595959}
-.tm-jump{margin:2px 0 8px;font-size:.92rem}
-.tm-jump a{color:#1a3c6e;font-weight:600}
+.topic{border:1px solid #e2e2e2;border-radius:8px;padding:4px 18px 10px;margin:16px 0}
+.topic h2{margin-top:12px}
+.topic h3{font-size:1rem;margin:14px 0 4px;color:#333}
+.topic .desc{margin:4px 0 6px}
 ul.tm li{margin:7px 0}
 ul.tm a{color:#1a3c6e;font-weight:600}
 .tm-kind{display:inline-block;background:#eef2f8;color:#1a3c6e;border-radius:3px;padding:1px 8px;margin-left:6px;font-size:.82rem}
 .tm-also{color:#555;font-size:.88rem}
-.tm-back{margin:0 0 4px;font-size:.88rem}
-.tm-back a{color:#1a3c6e}
+.tm-desc{color:#555;font-size:.92rem;margin-top:2px}
+.tm-back a,.empty a{color:#1a3c6e;font-weight:600}
 </style>
 </head>
 <body>
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Week 14/Module 13 - Validating Regression</a></div>
 <h1>Week 14/Module 13 - Validating Regression — Topics &amp; Learning Outcomes</h1>
-<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a><a href="#materials">📚 Materials for Each Topic</a></div>
+<div class="toc"><a href="#topics">📋 Module Topics</a><a href="#outcomes">🎯 Student Learning Outcomes</a></div>
 
-<h2 id="topics">Module Topics</h2>
-<h3 id="topic-1">1. Foundations of Regression Validation</h3>
-<div class="summary">Introduces the purpose and importance of validating regression models, establishing why validation is essential for ensuring reliability and generalizability of model outputs.</div>
-<p class="tm-jump"><a href="#materials-topic-1">Materials for topic 1 (2)</a></p>
+<div id="topics">
+<section class="topic" aria-labelledby="topic-1">
+<h2 id="topic-1">1. Foundations of Regression Validation</h2>
+<h3>Description</h3>
+<p class="desc">Introduces the purpose and importance of validating regression models, establishing why validation is essential for ensuring reliability and generalizability of model outputs.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Is Regression Validation?</strong> <span class="el-body">— Regression validation is the systematic process of evaluating whether a regression model accurately represents the underlying data patterns and can reliably generalize to new, unseen data.</span></li>
 <li><strong>Why Validation Is Essential</strong> <span class="el-body">— Skipping validation risks deploying models that produce misleading predictions, leading to poor decisions in applied settings.</span></li>
@@ -52,9 +56,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>The Role of Residual Analysis in Validation</strong> <span class="el-body">— Residual analysis examines the differences between observed and predicted values to reveal patterns that indicate model misfit or assumption violations.</span></li>
 <li><strong>Validation as a Cycle of Model Refinement</strong> <span class="el-body">— Validation is not a one-time check but an iterative process that informs ongoing model improvement and refinement.</span></li>
 </ul>
-<h3 id="topic-2">2. Assessing Regression Model Assumptions</h3>
-<div class="summary">Covers the core statistical assumptions underlying regression models, including linearity, homoscedasticity, and independence, and explains how violations of these assumptions affect model integrity.</div>
-<p class="tm-jump"><a href="#materials-topic-2">Materials for topic 2 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t1.html">Foundations of Regression Validation</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading introduces regression validation as a structured process for assessing whether a regression model is genuinely trustworthy beyond surface-level metrics like R-squared, and learners use it to understand why and how model checking is necessary before drawing conclusions.</div></li>
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_t1_videos.html">Foundations of Regression Validation — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">An introductory reading that frames regression validation as the second half of model building, explaining why engineers must check least-squares assumptions, assess how well a model fits the sample, and judge whether it will generalize to new data — used as the conceptual starting point for the module.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-2">
+<h2 id="topic-2">2. Assessing Regression Model Assumptions</h2>
+<h3>Description</h3>
+<p class="desc">Covers the core statistical assumptions underlying regression models, including linearity, homoscedasticity, and independence, and explains how violations of these assumptions affect model integrity.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Linearity Assumption</strong> <span class="el-body">— The linearity assumption requires that the relationship between the predictor variables and the outcome variable is linear, meaning changes in predictors produce proportional changes in the response.</span></li>
 <li><strong>Homoscedasticity Assumption</strong> <span class="el-body">— Homoscedasticity means that the variance of the residuals remains constant across all levels of the independent variables, ensuring that prediction errors are equally spread throughout the model&#39;s range.</span></li>
@@ -63,9 +75,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Consequences of Assumption Violations on Model Integrity</strong> <span class="el-body">— When regression assumptions are violated, the model&#39;s parameter estimates, standard errors, and inferential conclusions can all be compromised, undermining the model&#39;s reliability and generalizability.</span></li>
 <li><strong>Diagnosing Assumptions Through Residual Analysis</strong> <span class="el-body">— Residual analysis is the primary diagnostic toolkit for evaluating whether regression assumptions are met, using patterns in the residuals to signal specific types of violations.</span></li>
 </ul>
-<h3 id="topic-3">3. Residual Analysis</h3>
-<div class="summary">Examines how to compute, interpret, and visualize residuals to detect patterns or anomalies that indicate potential model weaknesses or assumption violations.</div>
-<p class="tm-jump"><a href="#materials-topic-3">Materials for topic 3 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t2.html">Assessing Regression Model Assumptions</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains the core assumptions underlying ordinary least squares linear regression (such as linearity, independence, homoscedasticity, and normality of errors) and how learners and instructors can identify when those assumptions are met or violated.</div></li>
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_t2_videos.html">Assessing Regression Model Assumptions — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading that catalogues the core assumptions underlying least-squares estimation (linearity of the mean response, constant error variance, independence, and normality of errors) and explains how violations undermine standard errors, t-tests, the F-test, and prediction intervals, so learners know what to check before trusting a model.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-3">
+<h2 id="topic-3">3. Residual Analysis</h2>
+<h3>Description</h3>
+<p class="desc">Examines how to compute, interpret, and visualize residuals to detect patterns or anomalies that indicate potential model weaknesses or assumption violations.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>What Are Residuals?</strong> <span class="el-body">— A residual is the difference between an observed value and the value predicted by the regression model for that same data point.</span></li>
 <li><strong>Computing Residuals</strong> <span class="el-body">— Residuals are calculated for every observation in the dataset by subtracting each predicted value from its corresponding observed value.</span></li>
@@ -75,9 +95,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Identifying Outliers and Influential Points via Residuals</strong> <span class="el-body">— Unusually large residuals flag potential outliers—observations that the model fits poorly—which may indicate data errors or genuinely anomalous cases.</span></li>
 <li><strong>Normality of Residuals</strong> <span class="el-body">— Many inferential procedures in regression assume that residuals are approximately normally distributed, an assumption that can be checked visually and statistically.</span></li>
 </ul>
-<h3 id="topic-4">4. Cross-Validation Techniques</h3>
-<div class="summary">Explores cross-validation methods used to assess how well a regression model generalizes to independent datasets, reducing the risk of overfitting and improving predictive confidence.</div>
-<p class="tm-jump"><a href="#materials-topic-4">Materials for topic 4 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t3.html">Residual Analysis</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers residual analysis as a diagnostic tool for evaluating whether a fitted regression model is correct, teaching learners how to examine patterns in residuals to detect assumption violations and model misspecification.</div></li>
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_t3_videos.html">Residual Analysis — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A lesson defining residuals as observed minus predicted values and showing how to read individual residuals and residual plots to detect curvature, non-constant variance, and other signs that the chosen model form is wrong; learners use it to practice diagnostic plotting and interpretation.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-4">
+<h2 id="topic-4">4. Cross-Validation Techniques</h2>
+<h3>Description</h3>
+<p class="desc">Explores cross-validation methods used to assess how well a regression model generalizes to independent datasets, reducing the risk of overfitting and improving predictive confidence.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Why Cross-Validation Is Needed</strong> <span class="el-body">— Cross-validation addresses the fundamental problem of overfitting, where a model performs well on training data but fails to generalize to new, unseen data.</span></li>
 <li><strong>Holdout Method (Train/Test Split)</strong> <span class="el-body">— The holdout method is the simplest form of cross-validation, dividing the available data into a training set used to build the model and a test set used to evaluate its performance.</span></li>
@@ -86,9 +114,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Interpreting Cross-Validation Results</strong> <span class="el-body">— The output of cross-validation is a set of performance metrics computed across multiple test sets, which together provide an overall assessment of model generalizability.</span></li>
 <li><strong>Cross-Validation and Model Refinement</strong> <span class="el-body">— Cross-validation is not only an evaluation tool but also a guide for model refinement, helping analysts identify when to simplify, adjust, or reconsider their regression model.</span></li>
 </ul>
-<h3 id="topic-5">5. Identifying and Diagnosing Model Weaknesses</h3>
-<div class="summary">Guides learners through systematic approaches to detecting common regression problems such as multicollinearity, outliers, and influential observations that can compromise model validity.</div>
-<p class="tm-jump"><a href="#materials-topic-5">Materials for topic 5 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t4.html">Cross-Validation Techniques</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading explains cross-validation techniques—including holdout sets and k-fold cross-validation—and how learners use them to assess a model&#39;s ability to generalize to new data rather than just fitting the training sample.</div></li>
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_t4_videos.html">Cross-Validation Techniques — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A reading on cross-validation that explains why training-data statistics like R-squared and residual standard error are optimistically biased and introduces holdout and k-fold style resampling methods for estimating out-of-sample prediction accuracy.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-5">
+<h2 id="topic-5">5. Identifying and Diagnosing Model Weaknesses</h2>
+<h3>Description</h3>
+<p class="desc">Guides learners through systematic approaches to detecting common regression problems such as multicollinearity, outliers, and influential observations that can compromise model validity.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Understanding Multicollinearity</strong> <span class="el-body">— Multicollinearity occurs when two or more predictor variables in a regression model are highly correlated with each other, making it difficult to isolate the individual effect of each predictor.</span></li>
 <li><strong>Detecting Outliers in Regression</strong> <span class="el-body">— Outliers are data points whose response values deviate substantially from what the model predicts, and they can distort regression estimates if left unaddressed.</span></li>
@@ -97,9 +133,17 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Interpreting Diagnostic Plots</strong> <span class="el-body">— Diagnostic plots translate numerical regression output into visual summaries that make model weaknesses easier to recognize and communicate.</span></li>
 <li><strong>Consequences of Ignoring Model Weaknesses</strong> <span class="el-body">— Failing to diagnose and address regression problems can lead to biased coefficients, invalid inference, and poor predictive performance in practice.</span></li>
 </ul>
-<h3 id="topic-6">6. Model Refinement and Decision-Making</h3>
-<div class="summary">Addresses strategies for refining regression models based on validation findings and equips learners to make informed decisions about model selection, adjustment, and practical application.</div>
-<p class="tm-jump"><a href="#materials-topic-6">Materials for topic 6 (2)</a></p>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t5.html">Identifying and Diagnosing Model Weaknesses</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers three major categories of structural regression model weaknesses—such as multicollinearity, influential observations, and heteroscedasticity—and teaches learners how to identify and diagnose these problems before they corrupt model estimates.</div></li>
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_t5_videos.html">Identifying and Diagnosing Model Weaknesses — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A diagnostic-focused lesson on spotting unstable or misleading models, covering unusual observations such as outliers, high-leverage and influential points, and redundant or collinear predictors that can hide behind a high R-squared; used as a systematic checklist for evaluating model trustworthiness.</div></li>
+</ul>
+</section>
+<section class="topic" aria-labelledby="topic-6">
+<h2 id="topic-6">6. Model Refinement and Decision-Making</h2>
+<h3>Description</h3>
+<p class="desc">Addresses strategies for refining regression models based on validation findings and equips learners to make informed decisions about model selection, adjustment, and practical application.</p>
+<h3>Subtopics</h3>
 <ul>
 <li><strong>Interpreting Validation Results to Guide Refinement</strong> <span class="el-body">— Validation findings such as poor residual patterns, high cross-validation error, or violated assumptions serve as diagnostic signals that direct specific model improvements.</span></li>
 <li><strong>Variable Selection and Model Simplification</strong> <span class="el-body">— Refining a regression model often involves removing redundant or non-contributing predictors to improve interpretability and generalizability.</span></li>
@@ -109,6 +153,14 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 <li><strong>Deciding When a Model Is Sufficient for Application</strong> <span class="el-body">— Knowing when to stop refining and commit to a model for practical use is a critical judgment call that balances the costs of further iteration against the risks of premature deployment.</span></li>
 <li><strong>Iterative Refinement as a Workflow</strong> <span class="el-body">— Model refinement is rarely a single step; it is best understood as a structured, iterative cycle of diagnose, adjust, validate, and re-evaluate.</span></li>
 </ul>
+<h3>Supporting Materials</h3>
+<ul class="tm">
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t6.html">Model Refinement and Decision-Making</a> <span class="tm-kind">Topic Detail · Web page</span><div class="tm-desc">This reading covers the process of iteratively refining a regression model for trustworthiness and generalizability, guiding learners and instructors through balancing statistical fit with practical performance to support sound decision-making.</div></li>
+<li><a href="content/Week_14_Module_13_-_Validating_Regression_t6_videos.html">Model Refinement and Decision-Making — Videos</a> <span class="tm-kind">Topics and Embedded Video · Web page</span><div class="tm-desc">A capstone reading on what to do after diagnostics reveal a problem, covering remedies such as adding transformations or polynomial terms for curvature, addressing non-constant variance, handling collinear predictors and influential points, and deciding among competing models.</div></li>
+</ul>
+</section>
+</div>
+<p class="tm-back"><a href="index.html">← Back to the module page</a></p>
 <h2 id="outcomes">Student Learning Outcomes</h2>
 <p class="prefix">By the end of this module, students will be able to:</p>
 <div class="mo">
@@ -138,44 +190,6 @@ ul.tm a{color:#1a3c6e;font-weight:600}
 </div>
 <h3>Course Outcomes (reference)</h3>
 <p class="empty">No course outcomes have been defined.</p>
-<h2 id="materials">Materials for Each Topic</h2>
-<p class="prefix">What has been made for each topic. Materials that cover the whole module are listed on the module page.</p>
-<h3 id="materials-topic-1">1. Foundations of Regression Validation</h3>
-<p class="tm-back"><a href="#topic-1">↑ Back to topic 1</a></p>
-<ul class="tm">
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t1.html">Foundations of Regression Validation</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_t1_videos.html">Foundations of Regression Validation — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-2">2. Assessing Regression Model Assumptions</h3>
-<p class="tm-back"><a href="#topic-2">↑ Back to topic 2</a></p>
-<ul class="tm">
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t2.html">Assessing Regression Model Assumptions</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_t2_videos.html">Assessing Regression Model Assumptions — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-3">3. Residual Analysis</h3>
-<p class="tm-back"><a href="#topic-3">↑ Back to topic 3</a></p>
-<ul class="tm">
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t3.html">Residual Analysis</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_t3_videos.html">Residual Analysis — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-4">4. Cross-Validation Techniques</h3>
-<p class="tm-back"><a href="#topic-4">↑ Back to topic 4</a></p>
-<ul class="tm">
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t4.html">Cross-Validation Techniques</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_t4_videos.html">Cross-Validation Techniques — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-5">5. Identifying and Diagnosing Model Weaknesses</h3>
-<p class="tm-back"><a href="#topic-5">↑ Back to topic 5</a></p>
-<ul class="tm">
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t5.html">Identifying and Diagnosing Model Weaknesses</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_t5_videos.html">Identifying and Diagnosing Model Weaknesses — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
-<h3 id="materials-topic-6">6. Model Refinement and Decision-Making</h3>
-<p class="tm-back"><a href="#topic-6">↑ Back to topic 6</a></p>
-<ul class="tm">
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_interactive_topics_t6.html">Model Refinement and Decision-Making</a> <span class="tm-kind">Topic Detail · Web page</span></li>
-<li><a href="content/Week_14_Module_13_-_Validating_Regression_t6_videos.html">Model Refinement and Decision-Making — Videos</a> <span class="tm-kind">Topic Videos · Web page</span></li>
-</ul>
 
 <footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
 </body>
